@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assista Agora — 100% Gratuito</title>
+
+  <!-- Utmify Pixel Google -->
+  <script>
+    window.googlePixelId = "6a079de24b406979824cd6ac";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+
+  <!-- Bloqueia indexação — pré-venda não deve ranquear no Google -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #f5f6f8;
+      color: #1a1a1a;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    /* ── LOGO / MARCA ── */
+    .brand {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    /* ── BLOCO PRINCIPAL ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e4e6eb;
+      border-radius: 12px;
+      padding: 48px 36px;
+      max-width: 560px;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Pílula de urgência */
+    .badge {
+      display: inline-block;
+      background: #ff3b3b;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+    }
+
+    /* Headline */
+    .headline {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 800;
+      line-height: 1.25;
+      color: #111111;
+      margin-bottom: 12px;
+    }
+
+    .headline span {
+      color: #d97706; /* destaque âmbar (legível em fundo claro) */
+    }
+
+    /* Sub-headline */
+    .subheadline {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    /* ── TIMER ── */
+    .timer-wrap {
+      margin-bottom: 32px;
+    }
+
+    .timer-label {
+      font-size: 12px;
+      color: #666;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .timer {
+      font-size: clamp(32px, 8vw, 52px);
+      font-weight: 900;
+      color: #ff3b3b;
+      letter-spacing: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── BOTÃO CTA ── */
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #27ae60, #1e8449);
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      text-decoration: none;
+      padding: 18px 40px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 4px 24px rgba(39, 174, 96, 0.35);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 32px rgba(39, 174, 96, 0.5);
+    }
+
+    .cta-btn:active { transform: translateY(0); }
+
+    /* Micro-copy abaixo do botão */
+    .cta-micro {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 32px;
+    }
+
+    /* ── DIVISOR ── */
+    .divider {
+      border: none;
+      border-top: 1px solid #e4e6eb;
+      margin: 8px 0 24px;
+    }
+
+    /* ── SEGUNDO CTA (texto) ── */
+    .cta-text-link {
+      display: block;
+      font-size: 14px;
+      color: #b45309;
+      text-decoration: underline;
+      margin-bottom: 8px;
+    }
+
+    /* ── DISCLAIMERS ── */
+    .disclaimer {
+      font-size: 11px;
+      color: #888;
+      line-height: 1.6;
+      margin-top: 40px;
+      max-width: 560px;
+    }
+
+    /* ── PULSAÇÃO DO BOTÃO (chama atenção) ── */
+    @keyframes pulse {
+      0%   { box-shadow: 0 4px 24px rgba(39,174,96,0.35); }
+      50%  { box-shadow: 0 4px 40px rgba(39,174,96,0.7); }
+      100% { box-shadow: 0 4px 24px rgba(39,174,96,0.35); }
+    }
+    .cta-btn { animation: pulse 2s infinite; }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      .card { padding: 36px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MARCA / NOME DO SITE -->
+  <div class="brand"><!-- NOME DA MARCA --></div>
+
+  <!-- CARD PRINCIPAL -->
+  <div class="card">
+
+    <!-- PÍLULA DE URGÊNCIA -->
+    <div class="badge">&#9888; Vagas Limitadas</div>
+
+    <!-- HEADLINE -->
+    <h1 class="headline">
+      CLIQUE PARA <span>ASSISTIR AO VÍDEO</span>
+    </h1>
+
+    <!-- SUB-HEADLINE -->
+    <p class="subheadline">
+      <!-- INSIRA AQUI O BENEFÍCIO PRINCIPAL — ex: "Descubra o método que está ajudando milhares de brasileiros a..." -->
+      Assista agora e descubra o método que está transformando a vida de milhares de pessoas no Brasil.
+    </p>
+
+    <!-- TIMER REGRESSIVO -->
+    <div class="timer-wrap">
+      <p class="timer-label">Sua vaga acaba em:</p>
+      <div class="timer" id="timer">10:00</div>
+    </div>
+
+    <!-- CTA PRINCIPAL -->
+    <a
+      class="cta-btn"
+      id="cta-main"
+      href="frontyt.html"
+    >
+      ▶&nbsp;&nbsp;Clique Aqui Para Assistir ao Vídeo
+    </a>
+
+    <p class="cta-micro">100% GRATUITO — Sem cadastro necessário</p>
+
+    <hr class="divider" />
+
+    <!-- SEGUNDO CTA (reforço) -->
+    <a
+      class="cta-text-link"
+      id="cta-secondary"
+      href="frontyt.html"
+    >
+      Clique aqui para assistir ao vídeo gratuito agora &rarr;
+    </a>
+
+  </div><!-- /card -->
+
+  <!-- DISCLAIMER LEGAL -->
+  <p class="disclaimer">
+    Copyright &copy; <span id="year"></span>. Todos os direitos reservados.<br><br>
+    Este site não faz parte do site do YouTube nem da Google Inc.
+    Além disso, este site <strong>NÃO</strong> é endossado pelo Google de nenhuma forma.
+    YouTube é uma marca registrada da Google, Inc.<br><br>
+    <!-- ADICIONE AVISO DE RESULTADOS NÃO GARANTIDOS SE FOR PRODUTO DE SAÚDE:
+    "Os resultados podem variar. As informações contidas neste vídeo não substituem
+    o aconselhamento médico profissional. Consulte um médico antes de iniciar
+    qualquer suplementação ou programa de saúde."
+    -->
+  </p>
+
+  <script>
+    // ── ANO AUTOMÁTICO NO COPYRIGHT ──
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── REPASSA UTMs E TOKEN DE AFILIADO PARA O FRONTYT ──
+    (function forwardUTMs() {
+      const params = new URLSearchParams(window.location.search);
+      const keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','tftk'];
+      const links = document.querySelectorAll('#cta-main, #cta-secondary');
+      links.forEach(link => {
+        try {
+          const url = new URL(link.href, window.location.href);
+          keys.forEach(k => { if (params.has(k)) url.searchParams.set(k, params.get(k)); });
+          link.href = url.toString();
+        } catch (_) {}
+      });
+    })();
+
+    // ── TIMER REGRESSIVO ──
+    // Duração em segundos (padrão: 10 minutos)
+    // Para mudar: altere TIMER_DURATION_SECONDS
+    const TIMER_DURATION_SECONDS = 10 * 60;
+
+    // Persistência via sessionStorage — reinicia apenas quando o usuário abre
+    // uma nova sessão (fecha e reabre o navegador)
+    const STORAGE_KEY = 'presell_timer_end';
+
+    function getEndTime() {
+      const stored = sessionStorage.getItem(STORAGE_KEY);
+      if (stored) return parseInt(stored, 10);
+      const end = Date.now() + TIMER_DURATION_SECONDS * 1000;
+      sessionStorage.setItem(STORAGE_KEY, end);
+      return end;
+    }
+
+    const endTime = getEndTime();
+    const timerEl = document.getElementById('timer');
+    const ctaMain = document.getElementById('cta-main');
+    const ctaSecondary = document.getElementById('cta-secondary');
+
+    function updateTimer() {
+      const remaining = Math.max(0, Math.floor((endTime - Date.now()) / 1000));
+      const m = String(Math.floor(remaining / 60)).padStart(2, '0');
+      const s = String(remaining % 60).padStart(2, '0');
+      timerEl.textContent = `${m}:${s}`;
+
+      if (remaining === 0) {
+        // Quando o timer zera: redireciona automaticamente para a VSL
+        // ou exibe mensagem de encerramento — descomente a opção desejada:
+
+        // OPÇÃO A — Redirecionar automaticamente:
+        // window.location.href = ctaMain.href;
+
+        // OPÇÃO B — Travar a página e exibir mensagem:
+        timerEl.textContent = '00:00';
+        timerEl.style.color = '#999';
+        ctaMain.style.pointerEvents = 'none';
+        ctaMain.style.opacity = '0.4';
+        ctaMain.textContent = 'Vagas Encerradas';
+        ctaSecondary.style.display = 'none';
+      }
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+
+</body>
+</html>
