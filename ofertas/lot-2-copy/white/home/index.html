@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X-Loto — Organize seus jogos e confira resultados da loteria</title>
+<meta name="description" content="App para organizar bolões, gerar combinações de números e conferir resultados oficiais das loterias. Ferramenta de organização e entretenimento. Não prevê nem garante resultados. +18.">
+<!--
+  ============================================================================
+  PÁGINA DE OFERTA — FERRAMENTA/APP DE LOTERIA
+  Construída em conformidade com as políticas do Google Ads:
+   - SEM promessa de ganho, previsão ou "método para ganhar" (Deturpação / Get-rich-quick)
+   - SEM reportagem falsa, depoimento de prêmio ou endosso de figura pública (Personificação)
+   - Posicionamento de UTILIDADE + ENTRETENIMENTO
+   - Aviso 18+, jogo responsável e resultado aleatório em destaque
+   - Aviso de não-afiliação a operador oficial
+  Páginas legais: termos.html e privacidade.html (mesma pasta). Dados da empresa
+  e contato (contato@packapps.com.br) já preenchidos no rodapé.
+  ============================================================================
+-->
+<style>
+  :root{
+    --azul:#0a3d91; --azul2:#1559c9; --verde:#0f9d58; --cinza:#5f6b7a;
+    --bg:#f5f7fb; --card:#ffffff; --txt:#1a2230; --borda:#e4e9f2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;color:var(--txt);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  a{color:var(--azul2);text-decoration:none}
+  img{max-width:100%}
+
+  /* Barra de aviso topo */
+  .topbar{background:#11233f;color:#cfe0ff;font-size:13px;text-align:center;padding:8px 12px}
+  .topbar strong{color:#fff}
+
+  /* Header */
+  header{background:#fff;border-bottom:1px solid var(--borda)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .logo{font-weight:800;font-size:20px;color:var(--azul);letter-spacing:.5px}
+  .logo span{color:var(--verde)}
+  .nav a.btn{font-size:14px}
+
+  /* Botões */
+  .btn{display:inline-block;background:var(--verde);color:#fff;font-weight:700;
+    padding:14px 28px;border-radius:10px;border:0;cursor:pointer;font-size:16px;transition:.15s}
+  .btn:hover{filter:brightness(1.07);transform:translateY(-1px)}
+  .btn.azul{background:var(--azul2)}
+  .btn.ghost{background:transparent;color:var(--azul2);border:2px solid var(--azul2);padding:12px 26px}
+
+  /* Hero */
+  .hero{padding:56px 0 48px;background:linear-gradient(160deg,#0a3d91 0%,#1559c9 100%);color:#fff}
+  .hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .hero h1{font-size:38px;line-height:1.15;margin-bottom:16px;font-weight:800}
+  .hero p.sub{font-size:18px;opacity:.95;margin-bottom:26px}
+  .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero .micro{font-size:13px;opacity:.85;margin-top:14px}
+  .mock{background:#fff;border-radius:18px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+  .mock h4{color:var(--azul);font-size:14px;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+  .balls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .ball{width:42px;height:42px;border-radius:50%;background:var(--azul);color:#fff;display:flex;
+    align-items:center;justify-content:center;font-weight:700;font-size:16px}
+  .mock .line{display:flex;justify-content:space-between;font-size:13px;color:var(--cinza);padding:6px 0;border-top:1px solid var(--borda)}
+
+  /* Seções */
+  section.block{padding:56px 0}
+  h2{font-size:28px;text-align:center;margin-bottom:8px;color:var(--azul)}
+  .lead{text-align:center;color:var(--cinza);max-width:620px;margin:0 auto 36px}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--card);border:1px solid var(--borda);border-radius:14px;padding:24px}
+  .card .ico{font-size:30px;margin-bottom:10px}
+  .card h3{font-size:18px;margin-bottom:6px}
+  .card p{font-size:14.5px;color:var(--cinza)}
+
+  /* Passos */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:step}
+  .step{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:24px;position:relative}
+  .step::before{counter-increment:step;content:counter(step);position:absolute;top:-16px;left:24px;
+    width:34px;height:34px;background:var(--verde);color:#fff;border-radius:50%;display:flex;
+    align-items:center;justify-content:center;font-weight:800}
+  .step h3{margin:6px 0;font-size:17px}
+  .step p{font-size:14.5px;color:var(--cinza)}
+
+  /* Faixa CTA */
+  .ctaband{background:#0a3d91;color:#fff;text-align:center;padding:48px 20px;border-radius:18px;margin:0 0 8px}
+  .ctaband h2{color:#fff}
+  .ctaband p{opacity:.9;margin-bottom:22px}
+
+  /* FAQ */
+  details{background:#fff;border:1px solid var(--borda);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+  details summary{font-weight:700;cursor:pointer;font-size:16px;list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";float:right;color:var(--verde);font-weight:800}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:10px;color:var(--cinza);font-size:15px}
+
+  /* Bloco de responsabilidade */
+  .responsavel{background:#fff4e5;border:1px solid #ffd9a8;border-radius:14px;padding:24px;margin-top:30px}
+  .responsavel h3{color:#9a5b00;font-size:17px;margin-bottom:8px}
+  .responsavel p{font-size:14px;color:#6b4a17}
+
+  /* Footer */
+  footer{background:#11233f;color:#aab8d0;font-size:13.5px;padding:40px 0 60px;margin-top:48px}
+  footer h4{color:#fff;font-size:15px;margin-bottom:10px}
+  footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px;margin-bottom:26px}
+  footer a{color:#cfe0ff;display:block;margin-bottom:6px}
+  footer .disc{border-top:1px solid #28395a;padding-top:18px;font-size:12.5px;line-height:1.7;color:#8ea0c0}
+
+  @media(max-width:840px){
+    .hero .grid{grid-template-columns:1fr}
+    .cards,.steps{grid-template-columns:1fr}
+    footer .cols{grid-template-columns:1fr}
+    .hero h1{font-size:30px}
+  }
+</style>
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+</head>
+<body>
+
+<!-- Aviso permanente exigível para conteúdo de loteria -->
+<div class="topbar">
+  ⚠️ Conteúdo para maiores de <strong>18 anos</strong>. Loterias são jogos de azar de resultado <strong>aleatório</strong>. Este app é uma ferramenta de organização e entretenimento — <strong>não prevê nem garante resultados</strong>.
+</div>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">X-Loto<span>.</span></div>
+    <a href="#baixar" class="btn azul" style="padding:10px 20px">Baixar o app</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap grid">
+    <div>
+      <h1>Organize seus jogos da loteria em um só lugar.</h1>
+      <p class="sub">Gere combinações, monte e gerencie bolões com amigos e confira os resultados oficiais sem complicação. Tudo numa ferramenta simples — feita para facilitar e divertir, não para prometer prêmios.</p>
+      <div class="cta-row">
+        <a href="#baixar" class="btn">Baixar grátis</a>
+        <a href="#como" class="btn ghost">Ver como funciona</a>
+      </div>
+      <p class="micro">Disponível para Android • Gratuito (mantido por anúncios) • Sem promessa de ganhos</p>
+    </div>
+    <div class="mock" aria-hidden="true">
+      <h4>Gerador de combinações (aleatório)</h4>
+      <div class="balls">
+        <div class="ball">04</div><div class="ball">17</div><div class="ball">23</div>
+        <div class="ball">38</div><div class="ball">42</div><div class="ball">55</div>
+      </div>
+      <div class="line"><span>Conferir com resultado oficial</span><span>✓</span></div>
+      <div class="line"><span>Salvar no meu bolão</span><span>✓</span></div>
+      <div class="line"><span>Lembrete do próximo sorteio</span><span>✓</span></div>
+      <p style="font-size:12px;color:var(--cinza);margin-top:12px">Combinações são geradas de forma aleatória, apenas para organização. Não aumentam a chance de ganhar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RECURSOS -->
+<section class="block">
+  <div class="wrap">
+    <h2>O que o X-Loto faz por você</h2>
+    <p class="lead">Funções de utilidade para quem já gosta de jogar — com transparência total sobre o que a ferramenta é e o que ela não é.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="ico">🎲</div>
+        <h3>Gerador de combinações aleatórias</h3>
+        <p>Crie jogos aleatórios na hora, quando faltar inspiração. É sorteio interno, só para facilitar — não influencia o resultado oficial nem aumenta suas chances.</p>
+      </div>
+      <div class="card">
+        <div class="ico">✅</div>
+        <h3>Conferidor de resultados</h3>
+        <p>Confira seus jogos comparando com os resultados oficiais publicados. Chega de anotar em papel e perder a conferência.</p>
+      </div>
+      <div class="card">
+        <div class="ico">👥</div>
+        <h3>Organizador de bolões</h3>
+        <p>Monte grupos, registre quem participou e divida cotas de forma clara. Transparência para o seu grupo de amigos ou trabalho.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🔔</div>
+        <h3>Lembretes de sorteio</h3>
+        <p>Receba um aviso antes do horário-limite para não esquecer de registrar seus jogos.</p>
+      </div>
+      <div class="card">
+        <div class="ico">📊</div>
+        <h3>Histórico pessoal</h3>
+        <p>Acompanhe seus jogos salvos e quanto você já gastou — uma forma de jogar com consciência e controle.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🔒</div>
+        <h3>Privacidade</h3>
+        <p>Seus dados de jogos ficam no seu dispositivo/conta. Veja como tratamos suas informações na nossa Política de Privacidade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="block" id="como" style="background:#fff;border-top:1px solid var(--borda);border-bottom:1px solid var(--borda)">
+  <div class="wrap">
+    <h2>Como funciona</h2>
+    <p class="lead">Três passos simples. Sem cadastro complicado, sem promessas mágicas.</p>
+    <div class="steps">
+      <div class="step">
+        <h3>Baixe e abra</h3>
+        <p>Instale o app e escolha as loterias que você costuma jogar.</p>
+      </div>
+      <div class="step">
+        <h3>Monte ou gere seus jogos</h3>
+        <p>Digite seus números ou use o gerador aleatório. Organize sozinho ou em bolão.</p>
+      </div>
+      <div class="step">
+        <h3>Confira e acompanhe</h3>
+        <p>Após o sorteio oficial, confira tudo de uma vez e mantenha seu histórico organizado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAIXA CTA -->
+<section class="block" id="baixar">
+  <div class="wrap">
+    <div class="ctaband">
+      <h2>Pronto para organizar seus jogos?</h2>
+      <p>Baixe o X-Loto e tenha seus jogos, bolões e conferências num lugar só.</p>
+      <a href="https://play.google.com/store/apps/details?id=com.packapps.xloto" class="btn">Baixar no Google Play</a>
+      <p style="margin-top:16px;font-size:13px;opacity:.85">Maiores de 18 anos. O app não vende bilhetes de loteria nem garante prêmios.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block" style="background:#fff;border-top:1px solid var(--borda)">
+  <div class="wrap" style="max-width:760px">
+    <h2>Perguntas frequentes</h2>
+    <p class="lead">Transparência primeiro.</p>
+
+    <details open>
+      <summary>O app ajuda a ganhar na loteria?</summary>
+      <p>Não. A loteria é um jogo de azar e o resultado é totalmente aleatório. Nenhum app, método ou número "quente" aumenta a sua chance de ganhar. O X-Loto é uma ferramenta de <strong>organização e entretenimento</strong>: ele ajuda a gerar combinações, montar bolões e conferir resultados — nada além disso.</p>
+    </details>
+
+    <details>
+      <summary>O gerador de números aumenta minhas chances?</summary>
+      <p>Não. O gerador apenas sorteia combinações de forma aleatória para te poupar tempo. Qualquer combinação tem exatamente a mesma probabilidade que qualquer outra.</p>
+    </details>
+
+    <details>
+      <summary>O app é oficial / ligado à Caixa?</summary>
+      <p>Não. O X-Loto é um aplicativo independente e <strong>não tem vínculo com a Caixa Econômica Federal nem com nenhum operador oficial de loterias</strong>. Os resultados exibidos têm como base as informações públicas divulgadas no site oficial da Caixa (loterias.caixa.gov.br). Para apostar, use sempre os canais oficiais.</p>
+    </details>
+
+    <details>
+      <summary>Posso comprar bilhetes pelo app?</summary>
+      <p>Não. O X-Loto é uma ferramenta de organização e <strong>não realiza apostas nem vende bilhetes</strong>. As apostas devem ser feitas exclusivamente pelos canais oficiais da Caixa.</p>
+    </details>
+
+    <details>
+      <summary>Quanto custa?</summary>
+      <p>O X-Loto é <strong>gratuito para baixar e usar</strong>. Ele é mantido por anúncios exibidos dentro do app — não há assinatura nem cobrança obrigatória.</p>
+    </details>
+
+    <details>
+      <summary>E se eu sentir que estou jogando demais?</summary>
+      <p>Jogue sempre por diversão e dentro do seu orçamento. Se o jogo deixou de ser diversão, procure ajuda — veja o bloco "Jogo responsável" abaixo.</p>
+    </details>
+  </div>
+</section>
+
+<!-- JOGO RESPONSÁVEL -->
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <div class="responsavel">
+      <h3>🛟 Jogo responsável</h3>
+      <p>
+        As loterias são uma forma de entretenimento para maiores de 18 anos e envolvem risco financeiro. Defina um limite de gastos e nunca aposte dinheiro de que precisa. O jogo pode causar dependência.
+        Se você ou alguém próximo precisa de apoio, procure ajuda: <strong>Jogadores Anônimos Brasil</strong> (jogadoresanonimos.com.br) ou <strong>CVV — Centro de Valorização da Vida (ligue 188)</strong>, atendimento gratuito e sigiloso 24h.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>X-Loto</h4>
+        <p style="color:#8ea0c0;max-width:340px">Ferramenta de organização e entretenimento para quem joga na loteria. Não prevê, não influencia e não garante resultados.</p>
+      </div>
+      <div>
+        <h4>Produto</h4>
+        <a href="#como">Como funciona</a>
+        <a href="#baixar">Baixar o app</a>
+        <a href="mailto:contato@packapps.com.br">Suporte / Contato</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="disc">
+      <p><strong>Aviso importante:</strong> Conteúdo destinado a maiores de 18 anos. As loterias são jogos de azar e seus resultados são aleatórios e independentes — nenhuma ferramenta, estratégia ou combinação aumenta a probabilidade de ganhar. O X-Loto é um aplicativo de organização e entretenimento; <strong>não vende bilhetes, não realiza apostas e não garante prêmios ou retorno financeiro</strong>. Este site e o aplicativo são independentes e não possuem vínculo, patrocínio ou endosso da Caixa Econômica Federal ou de qualquer operador oficial de loterias. Jogue com responsabilidade.</p>
+      <p style="margin-top:10px">© 2026 Packapps AI — Mr. Coder Tecnologias Ltda — CNPJ 33.376.085/0001-66 — São Paulo/SP. Todos os direitos reservados. App: <a href="https://play.google.com/store/apps/details?id=com.packapps.xloto">X-Loto no Google Play</a>.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
