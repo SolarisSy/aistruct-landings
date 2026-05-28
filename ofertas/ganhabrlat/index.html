@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECONOMIA — Reportagem Especial</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Utmify Pixel Google -->
+  <script>
+    window.googlePixelId = "6a079de24b406979824cd6ac";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+
+  <!-- Utmify UTM capture -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #a70c0c; --red-dark: #810505; --red-soft: #f96464;
+      --green: #1ec510; --green-dark: #169c0c;
+      --bg: #ffffff; --text: #1a1a1a; --text-muted: #555; --border: #e4e6eb;
+    }
+
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Nunito Sans', Arial, sans-serif;
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+
+    .site-header { background: var(--red); width: 100%; }
+    .site-header-inner {
+      max-width: 1420px; margin: 0 auto;
+      display: flex; align-items: center; padding: 18px 24px;
+    }
+    .header-icon { color: #fff; flex: 0 0 25%; font-size: 22px; display: flex; align-items: center; }
+    .header-icon.right { justify-content: flex-end; }
+    .header-icon svg { width: 22px; height: 22px; fill: currentColor; }
+
+    .site-title {
+      flex: 1; text-align: center; color: #fff;
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 400; letter-spacing: 1px; margin: 0;
+    }
+
+    .site-subbar { background: var(--red-dark); padding: 8px 16px; text-align: center; }
+    .site-subbar p {
+      color: #fff; font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; font-weight: 400;
+    }
+
+    main {
+      flex: 1; width: 100%; max-width: 760px; margin: 0 auto;
+      padding: 28px 20px 40px;
+    }
+
+    .article-category {
+      font-size: 11px; color: var(--red);
+      text-transform: uppercase; letter-spacing: 2px;
+      font-weight: 800; margin-bottom: 10px;
+    }
+
+    .article-headline {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 800; line-height: 1.25; color: #111;
+      margin-bottom: 12px;
+    }
+    .article-headline span { color: var(--red); }
+
+    .article-lead {
+      font-size: 16px; color: #444; line-height: 1.55;
+      margin-bottom: 18px; font-weight: 500;
+    }
+
+    .article-meta {
+      font-size: 12px; color: #888;
+      text-transform: uppercase; letter-spacing: 1px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .article-body p {
+      font-size: 16px; line-height: 1.7; color: #222;
+      margin-bottom: 16px;
+    }
+
+    /* Bloco "ASSISTA" — chamada pro vídeo */
+    .video-callout {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--red);
+      padding: 22px 24px; margin: 28px 0 24px;
+      border-radius: 4px;
+    }
+    .video-callout-label {
+      display: inline-block;
+      background: var(--red); color: #fff;
+      font-size: 10px; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px; border-radius: 3px; margin-bottom: 12px;
+    }
+    .video-callout-title {
+      font-size: 18px; font-weight: 800; color: #111;
+      line-height: 1.35; margin-bottom: 8px;
+    }
+    .video-callout-desc {
+      font-size: 14px; color: #555; line-height: 1.55; margin-bottom: 16px;
+    }
+
+    .cta-btn {
+      display: block;
+      background: linear-gradient(180deg, var(--green), var(--green-dark));
+      color: #fff !important;
+      font-size: 16px; font-weight: 800;
+      text-decoration: none; text-align: center;
+      padding: 16px 24px; border-radius: 6px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      box-shadow: 0 4px 14px rgba(30, 197, 16, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .cta-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(30, 197, 16, 0.5);
+    }
+
+    @keyframes pulse-cta {
+      0%, 100% { box-shadow: 0 4px 14px rgba(30, 197, 16, 0.35); }
+      50%      { box-shadow: 0 4px 28px rgba(30, 197, 16, 0.65); }
+    }
+    .cta-btn { animation: pulse-cta 2.2s infinite; }
+
+    .cta-micro {
+      font-size: 11px; color: #888; text-align: center;
+      margin-top: 10px; letter-spacing: 0.5px;
+    }
+
+    .timer-wrap {
+      text-align: center; padding: 14px;
+      background: #fff5f5; border-radius: 4px; margin-bottom: 18px;
+    }
+    .timer-label {
+      font-size: 11px; color: var(--red);
+      text-transform: uppercase; letter-spacing: 1.5px;
+      font-weight: 700; margin-bottom: 4px;
+    }
+    .timer {
+      font-size: 28px; font-weight: 900;
+      color: var(--red); letter-spacing: 3px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .footer-band { background: var(--red); padding: 22px 30px; text-align: center; }
+    .footer-band p { color: var(--red-soft); font-size: 13px; font-weight: 500; margin: 0; }
+
+    @media (max-width: 480px) {
+      .site-header-inner { padding: 14px 18px; }
+      .header-icon { font-size: 18px; flex-basis: 33%; }
+      .header-icon svg { width: 18px; height: 18px; }
+      .site-title { font-size: 22px; }
+      .site-subbar p { font-size: 9px; letter-spacing: 1.5px; }
+      main { padding: 22px 16px 30px; }
+      .footer-band { padding: 18px 20px; }
+      .footer-band p { font-size: 11px; line-height: 1.4; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="header-icon" aria-label="Buscar">
+        <svg viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+      </div>
+      <h1 class="site-title">ECONOMIA</h1>
+      <div class="header-icon right" aria-label="Menu">
+        <svg viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/></svg>
+      </div>
+    </div>
+    <div class="site-subbar">
+      <p>Atualizações diárias sobre a economia do Brasil</p>
+    </div>
+  </header>
+
+  <main>
+    <p class="article-category">Reportagem Especial</p>
+
+    <h1 class="article-headline">
+      Brasileiros Estão Descobrindo um <span>Novo Método</span> Para Aumentar a Renda Mensal Sem Sair de Casa
+    </h1>
+
+    <p class="article-lead">
+      Uma reportagem exclusiva revela como milhares de famílias têm conseguido complementar a renda usando apenas o celular &mdash; e os números surpreenderam até os especialistas.
+    </p>
+
+    <p class="article-meta">Publicado hoje &bull; Leitura: 2 min</p>
+
+    <div class="article-body">
+      <p>
+        Nas últimas semanas, um movimento silencioso tem chamado a atenção de quem acompanha o cenário econômico do país. Pessoas comuns, sem qualquer formação técnica, têm encontrado uma forma simples de transformar a relação com o dinheiro &mdash; e o resultado tem aparecido no extrato bancário.
+      </p>
+      <p>
+        O método, que era restrito a um pequeno grupo, agora está disponível para o público geral. A reportagem completa, com depoimentos e demonstrações práticas, foi gravada em formato de vídeo para garantir total transparência.
+      </p>
+    </div>
+
+    <div class="video-callout">
+      <span class="video-callout-label">&#128249; Vídeo da reportagem</span>
+      <p class="video-callout-title">Assista ao vídeo completo desta reportagem</p>
+      <p class="video-callout-desc">O conteúdo dura cerca de 8 minutos e mostra, em detalhes, como o método funciona na prática. Recomenda-se assistir até o final.</p>
+
+      <div class="timer-wrap">
+        <p class="timer-label">Disponível por mais:</p>
+        <div class="timer" id="timer">10:00</div>
+      </div>
+
+      <a class="cta-btn" id="cta-main" href="frontyt.html">
+        &#9654; ASSISTIR REPORTAGEM AGORA
+      </a>
+      <p class="cta-micro">Acesso 100% gratuito &bull; Sem cadastro</p>
+    </div>
+
+    <p style="font-size: 12px; color: #999; text-align: center; margin-top: 20px;">
+      &copy; <span id="year"></span> &bull; Esta reportagem não é endossada nem afiliada ao Google, Youtube ou Meta.
+    </p>
+  </main>
+
+  <footer>
+    <div class="footer-band">
+      <p>Atualizações diárias sobre a economia do Brasil</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Repassa query params (UTMs + cid RedTrack) pro frontyt ──
+    (function forwardParams() {
+      var params = window.location.search;
+      if (!params) return;
+      var cta = document.getElementById('cta-main');
+      try {
+        var url = new URL(cta.href, window.location.href);
+        var incoming = new URLSearchParams(params);
+        incoming.forEach(function (val, key) { url.searchParams.set(key, val); });
+        cta.href = url.toString();
+      } catch (_) {}
+    })();
+
+    // ── Timer regressivo (persiste por sessão) ──
+    var TIMER_SECONDS = 10 * 60;
+    var STORAGE_KEY = 'presell_timer_end';
+    function getEnd() {
+      var s = sessionStorage.getItem(STORAGE_KEY);
+      if (s) return parseInt(s, 10);
+      var end = Date.now() + TIMER_SECONDS * 1000;
+      sessionStorage.setItem(STORAGE_KEY, end);
+      return end;
+    }
+    var endTime = getEnd();
+    var timerEl = document.getElementById('timer');
+    function tick() {
+      var rem = Math.max(0, Math.floor((endTime - Date.now()) / 1000));
+      var m = String(Math.floor(rem / 60)).padStart(2, '0');
+      var s = String(rem % 60).padStart(2, '0');
+      timerEl.textContent = m + ':' + s;
+    }
+    tick(); setInterval(tick, 1000);
+  </script>
+
+</body>
+</html>
