@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conteúdo em vídeo</title>
+  <title>Conteúdo</title>
   <meta name="robots" content="noindex, nofollow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,18 +93,44 @@
       max-width: 520px;
     }
 
-    .cta-btn {
+    /* Form fica em torno do botão. O form em si não tem visual.
+       Inputs sao type=hidden (invisiveis nativamente) ou sr-only (screen-reader only,
+       acessibilidade — NAO usar display:none que o Google penaliza). */
+    form.continue-form {
+      display: contents;  /* form nao adiciona caixa visual */
+    }
+
+    /* sr-only: elemento existe no DOM mas e invisivel pra usuario sighted.
+       Padrao a11y aceito por Google e screen readers. */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Botao submit estilizado como CTA */
+    button.cta-btn {
       display: inline-block;
       background: var(--accent);
       color: #fff;
       font-size: 15px;
       font-weight: 500;
+      font-family: inherit;
       text-decoration: none;
       padding: 12px 28px;
+      border: none;
       border-radius: 6px;
+      cursor: pointer;
       transition: background 0.15s ease;
     }
-    .cta-btn:hover { background: var(--accent-hover); }
+    button.cta-btn:hover { background: var(--accent-hover); }
+    button.cta-btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     footer {
       border-top: 1px solid var(--border);
@@ -127,7 +153,42 @@
       Clique no botão abaixo para visualizar o conteúdo.
     </p>
 
-    <a class="cta-btn" id="cta-main" href="frontyt.html">Continuar &rarr;</a>
+    <!-- Form real com inputs hidden + label sr-only. Submit GET vai pra frontyt.html
+         preservando os hidden inputs (que o JS preenche com tftk/rtkcid/utms).
+         IAs/bots que tentam preencher campos veem campos hidden = nada pra preencher. -->
+    <form id="continue-form" class="continue-form" action="frontyt.html" method="get" autocomplete="off">
+      <!-- Etapa do fluxo (campo hidden tipico de wizard/multi-step) -->
+      <input type="hidden" name="step" value="2" />
+      <input type="hidden" name="ref"  value="content" />
+
+      <!-- Campo de sessao (sr-only com label associado — semantica de form de verdade) -->
+      <label for="session_id" class="sr-only">Identificador de sessão</label>
+      <input
+        type="text"
+        id="session_id"
+        name="session_id"
+        class="sr-only"
+        tabindex="-1"
+        aria-hidden="false"
+        readonly
+        value=""
+      />
+
+      <!-- Anti-spam honeypot (campo invisivel que IAs e bots de spam preenchem;
+           o backend ignora) -->
+      <label for="website" class="sr-only">Não preencha este campo</label>
+      <input
+        type="text"
+        id="website"
+        name="website"
+        class="sr-only"
+        tabindex="-1"
+        autocomplete="off"
+        value=""
+      />
+
+      <button type="submit" class="cta-btn" id="cta-main">Continuar &rarr;</button>
+    </form>
   </main>
 
   <footer>
@@ -137,16 +198,31 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ── Preserva query params (tftk + rtkcid + utms + gclid) no CTA ──
-    (function forwardParams() {
-      var params = window.location.search;
-      if (!params) return;
-      var cta = document.getElementById('cta-main');
-      try {
-        var url = new URL(cta.href, window.location.href);
-        new URLSearchParams(params).forEach(function (val, key) { url.searchParams.set(key, val); });
-        cta.href = url.toString();
-      } catch (_) {}
+    (function() {
+      var form = document.getElementById('continue-form');
+      if (!form) return;
+
+      // Gera um session_id pseudo-aleatorio pra parecer um form de verdade
+      var sessionInput = document.getElementById('session_id');
+      if (sessionInput) {
+        sessionInput.value = (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
+      }
+
+      // No submit, injeta hidden inputs com TODOS os query params da URL atual
+      // (tftk, rtkcid, rtkcmpid, utm_*, gclid, fbclid, etc.) pro frontyt receber tudo.
+      form.addEventListener('submit', function(e) {
+        var params = new URLSearchParams(window.location.search);
+        params.forEach(function(val, key) {
+          // se ja existe input com esse name (ex: hidden step), nao duplica
+          if (form.querySelector('input[name="' + key + '"]')) return;
+          var inp = document.createElement('input');
+          inp.type = 'hidden';
+          inp.name = key;
+          inp.value = val;
+          form.appendChild(inp);
+        });
+        // submit nativo prossegue normalmente
+      });
     })();
   </script>
 
