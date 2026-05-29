@@ -132,7 +132,10 @@
     button.cta-btn:hover { background: var(--accent-hover); }
     button.cta-btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    /* Preview de vídeo (clicável — dispara submit do form) */
+    /* Preview de vídeo (clicável — dispara submit do form).
+       Visual: player de vídeo PAUSADO estilo YouTube — fundo preto liso, ZERO
+       conteúdo revelado, apenas botão de play vermelho central + barra fake de
+       controles na base. */
     button.video-preview {
       position: relative;
       display: block;
@@ -141,99 +144,111 @@
       aspect-ratio: 16 / 9;
       margin: 0 auto;
       border: 0;
-      border-radius: 12px;
+      border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
       padding: 0;
-      box-shadow: 0 6px 28px rgba(15, 23, 42, 0.18);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
       transition: transform 0.18s ease, box-shadow 0.18s ease;
-      background:
-        linear-gradient(135deg, #1f2937 0%, #111827 60%, #0b1220 100%);
+      /* Cor de fundo padrão do YouTube quando pausado / sem thumbnail */
+      background: #0f0f0f;
       font-family: inherit;
     }
     button.video-preview:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 38px rgba(15, 23, 42, 0.28);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.32);
     }
     button.video-preview:focus {
       outline: 3px solid var(--accent);
       outline-offset: 3px;
     }
 
-    /* Poster (thumbnail) opcional — se a imagem nao carrega, fica o gradient de fallback */
-    button.video-preview .poster {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0.85;
-    }
-
-    /* Overlay escuro pra dar contraste com o icone de play */
-    button.video-preview::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.45) 100%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Botao circular de play no centro */
+    /* Botão central de play — vermelho YouTube com triângulo branco */
     button.video-preview .play-icon {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 78px;
-      height: 78px;
-      background: rgba(255, 255, 255, 0.96);
-      border-radius: 50%;
+      width: 68px;
+      height: 48px;
+      background: rgba(33, 33, 33, 0.85);
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
       pointer-events: none;
       z-index: 2;
-      transition: transform 0.18s ease, background 0.18s ease;
+      transition: background 0.18s ease;
     }
     button.video-preview:hover .play-icon {
-      transform: translate(-50%, -50%) scale(1.06);
-      background: #ffffff;
+      background: #ff0000;  /* vermelho oficial YouTube no hover */
     }
     button.video-preview .play-icon svg {
-      width: 30px;
-      height: 30px;
-      fill: #111827;
-      margin-left: 5px; /* compensa o triangulo do play pra ficar opticamente centrado */
+      width: 28px;
+      height: 28px;
+      fill: #ffffff;
+      margin-left: 3px;
     }
 
-    /* Label discreta no topo do preview (estilo "duracao", "AO VIVO", etc.) */
-    button.video-preview .badge {
+    /* Barra fake de controles (estilo player pausado) — só visual decorativo */
+    button.video-preview .player-bar {
       position: absolute;
-      top: 14px;
-      left: 14px;
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      font-size: 11px;
-      letter-spacing: 0.4px;
-      padding: 4px 9px;
-      border-radius: 4px;
-      z-index: 2;
+      left: 0; right: 0; bottom: 0;
+      height: 38px;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
       pointer-events: none;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+    }
+    /* Linha de progresso fina no topo da barra (vermelha YouTube, vazia) */
+    button.video-preview .progress {
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.18);
+      position: relative;
+    }
+    button.video-preview .progress::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0;          /* 0% — player pausado no início */
+      background: #ff0000;
+    }
+    /* Time + icones fake no rodapé da barra */
+    button.video-preview .player-controls {
+      width: 100%;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+    }
+    button.video-preview .player-controls .time {
+      letter-spacing: 0.3px;
+    }
+    button.video-preview .player-controls .spacer { flex: 1; }
+    button.video-preview .player-controls .ctrl-icon {
+      width: 14px;
+      height: 14px;
+      opacity: 0.95;
+      fill: currentColor;
     }
 
     @media (max-width: 480px) {
       button.video-preview .play-icon {
-        width: 62px;
-        height: 62px;
+        width: 56px;
+        height: 40px;
       }
       button.video-preview .play-icon svg {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
       }
+      button.video-preview .player-bar { height: 32px; }
+      button.video-preview .player-controls { padding: 4px 8px; font-size: 10px; }
     }
 
     footer {
@@ -329,22 +344,30 @@
         value=""
       />
 
-      <!-- Preview de vídeo clicável: visual de player com poster + play overlay.
-           Quando clica, dispara submit do form (que injeta tftk+rtkcid+utms como
-           hidden inputs e navega pra frontyt.html). Mantém TODO o tracking. -->
+      <!-- Preview de vídeo clicável estilo YouTube pausado.
+           Fundo preto liso (zero thumbnail revelando conteúdo) + play vermelho central
+           + barra fake de controles. Click -> submit do form -> tftk+rtkcid+utms
+           preservados como hidden inputs -> frontyt.html. -->
       <button type="submit" class="video-preview" id="cta-main" aria-label="Reproduzir vídeo">
-        <img
-          class="poster"
-          src="https://cdn.converteai.net/9dfc9d7c-755b-43bf-80b8-658e261ab44b/69e1ade098c215d1693d6c1b/poster.jpg"
-          alt="Pré-visualização do vídeo"
-          loading="lazy"
-          onerror="this.style.display='none';"
-        />
-        <span class="badge">Vídeo</span>
+
+        <!-- Botão central de play -->
         <span class="play-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 5v14l11-7z"/>
           </svg>
+        </span>
+
+        <!-- Barra de controles fake (visual de player pausado) -->
+        <span class="player-bar" aria-hidden="true">
+          <span class="progress"></span>
+          <span class="player-controls">
+            <span class="time">0:00 / 0:00</span>
+            <span class="spacer"></span>
+            <!-- ícones decorativos: volume, configurações, fullscreen -->
+            <svg class="ctrl-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.74 2.5-2.27 2.5-4.02z"/></svg>
+            <svg class="ctrl-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.14 12.94c.04-.31.06-.62.06-.94 0-.32-.02-.63-.06-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.6-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 13.86 2h-3.72a.49.49 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.55-1.62.94l-2.39-.96a.49.49 0 0 0-.6.22L2.75 8.48c-.12.21-.07.48.12.61l2.03 1.58c-.04.31-.06.62-.06.94 0 .32.02.63.06.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.14.24.43.34.6.22l2.39-.96c.5.39 1.03.7 1.62.94l.36 2.54c.04.24.25.42.5.42h3.72a.49.49 0 0 0 .5-.42l.36-2.54c.59-.24 1.13-.55 1.62-.94l2.39.96c.22.08.45 0 .6-.22l1.92-3.32c.12-.21.07-.48-.12-.61l-2.03-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"/></svg>
+            <svg class="ctrl-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+          </span>
         </span>
       </button>
     </form>
