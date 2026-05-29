@@ -33,7 +33,7 @@ log = logging.getLogger("bridge")
 
 KIRVANO_SECRET   = os.environ.get("KIRVANO_SECRET", "").strip() or None
 CLICKID_FIELD    = os.environ.get("CLICKID_FIELD", "sub15").strip()
-REDTRACK_POSTBACK = os.environ.get("REDTRACK_POSTBACK", "https://api.redtrack.io/postback").rstrip("/")
+REDTRACK_POSTBACK = os.environ.get("REDTRACK_POSTBACK", "https://ohjzb.ttrk.io/postback").rstrip("/")
 
 app = FastAPI(title="Kirvano -> RedTrack Bridge", version="1.0.0")
 
@@ -138,12 +138,13 @@ async def postback(request: Request,
     amount = _extract_amount(payload) or 0.0
 
     # Dispara GET pro RedTrack
-    params = {"cid": clickid, "payout": f"{amount:.2f}", "status": "approved"}
+    # Param name OBRIGATORIO: 'clickid' (nao 'cid'); endpoint no tracking domain.
+    params = {"clickid": clickid, "sum": f"{amount:.2f}", "status": "approved"}
     try:
         async with httpx.AsyncClient(timeout=15) as c:
             r = await c.get(REDTRACK_POSTBACK, params=params)
-        log.info("redtrack postback: clickid=%s payout=%s -> %s",
-                 clickid, params["payout"], r.status_code)
+        log.info("redtrack postback: clickid=%s sum=%s -> %s",
+                 clickid, params["sum"], r.status_code)
         return {"ok": True, "clickid": clickid, "payout": amount,
                 "redtrack_status": r.status_code,
                 "redtrack_body": r.text[:200]}
