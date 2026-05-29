@@ -114,7 +114,7 @@
       border: 0;
     }
 
-    /* Botao submit estilizado como CTA */
+    /* Botao submit estilizado como CTA (legado, pode permanecer pra fallback) */
     button.cta-btn {
       display: inline-block;
       background: var(--accent);
@@ -131,6 +131,110 @@
     }
     button.cta-btn:hover { background: var(--accent-hover); }
     button.cta-btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* Preview de vídeo (clicável — dispara submit do form) */
+    button.video-preview {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 560px;
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+      border: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      padding: 0;
+      box-shadow: 0 6px 28px rgba(15, 23, 42, 0.18);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      background:
+        linear-gradient(135deg, #1f2937 0%, #111827 60%, #0b1220 100%);
+      font-family: inherit;
+    }
+    button.video-preview:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 38px rgba(15, 23, 42, 0.28);
+    }
+    button.video-preview:focus {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* Poster (thumbnail) opcional — se a imagem nao carrega, fica o gradient de fallback */
+    button.video-preview .poster {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+
+    /* Overlay escuro pra dar contraste com o icone de play */
+    button.video-preview::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.45) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Botao circular de play no centro */
+    button.video-preview .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 78px;
+      height: 78px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+      z-index: 2;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+    button.video-preview:hover .play-icon {
+      transform: translate(-50%, -50%) scale(1.06);
+      background: #ffffff;
+    }
+    button.video-preview .play-icon svg {
+      width: 30px;
+      height: 30px;
+      fill: #111827;
+      margin-left: 5px; /* compensa o triangulo do play pra ficar opticamente centrado */
+    }
+
+    /* Label discreta no topo do preview (estilo "duracao", "AO VIVO", etc.) */
+    button.video-preview .badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: 0.4px;
+      padding: 4px 9px;
+      border-radius: 4px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    @media (max-width: 480px) {
+      button.video-preview .play-icon {
+        width: 62px;
+        height: 62px;
+      }
+      button.video-preview .play-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
 
     footer {
       border-top: 1px solid var(--border);
@@ -186,9 +290,9 @@
   </div>
 
   <main>
-    <h1>Acessar conteúdo em vídeo</h1>
+    <h1>Vídeo disponível</h1>
     <p class="lead">
-      Clique no botão abaixo para visualizar o conteúdo.
+      Clique no vídeo abaixo para reproduzir.
     </p>
 
     <!-- Form real com inputs hidden + label sr-only. Submit GET vai pra frontyt.html
@@ -225,7 +329,24 @@
         value=""
       />
 
-      <button type="submit" class="cta-btn" id="cta-main">Continuar &rarr;</button>
+      <!-- Preview de vídeo clicável: visual de player com poster + play overlay.
+           Quando clica, dispara submit do form (que injeta tftk+rtkcid+utms como
+           hidden inputs e navega pra frontyt.html). Mantém TODO o tracking. -->
+      <button type="submit" class="video-preview" id="cta-main" aria-label="Reproduzir vídeo">
+        <img
+          class="poster"
+          src="https://cdn.converteai.net/9dfc9d7c-755b-43bf-80b8-658e261ab44b/6a18c5665f4238b9b9c8156b/poster.jpg"
+          alt="Pré-visualização do vídeo"
+          loading="lazy"
+          onerror="this.style.display='none';"
+        />
+        <span class="badge">Vídeo</span>
+        <span class="play-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </span>
+      </button>
     </form>
   </main>
 
