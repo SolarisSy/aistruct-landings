@@ -29,8 +29,7 @@
     defer
   ></script>
 
-  <!-- RedTrack LP View tracking -->
-  <script type="text/javascript" src="https://ohjzb.ttrk.io/trackcl.js"></script>
+  
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -434,6 +433,14 @@
       });
     })();
   </script>
+
+  
+  <!-- RedTrack Universal script /click support (no-redirect, Google Ads compliant).
+       OBRIGATÓRIO no FIM do <body>. Gera clickid em cookie 1st-party (.ganhabr.lat),
+       registra o clique lendo cmpid da URL. CTA de checkout (no player vTurb) =
+       https://trk.ganhabr.lat/click — o cookie viaja same-site automático. -->
+  <script src="https://trk.ganhabr.lat/unilpclick.js?attribution=lastpaid&cookiedomain=ganhabr.lat&cookieduration=30&defaultcampaignid=6a18c7f28dcdad10abc5510e&regviewonce=false"></script>
+  
 
 </body>
 </html>
