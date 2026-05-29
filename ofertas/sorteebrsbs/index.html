@@ -134,11 +134,49 @@
 
     footer {
       border-top: 1px solid var(--border);
-      padding: 16px 20px;
+      padding: 28px 20px 32px;
       text-align: center;
       font-size: 11px;
+      line-height: 1.55;
       color: var(--text-muted);
     }
+    footer .brand-line {
+      font-size: 12px;
+      color: var(--text);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    footer .rights {
+      margin-bottom: 14px;
+      font-size: 11px;
+    }
+    footer .links {
+      margin-bottom: 22px;
+      font-size: 12px;
+    }
+    footer .links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--text-muted);
+      transition: color 0.15s;
+    }
+    footer .links a:hover { color: var(--accent); border-color: var(--accent); }
+    footer .links .sep {
+      display: inline-block;
+      margin: 0 8px;
+      color: #d1d5db;
+    }
+    footer .disclaimer {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 10.5px;
+      line-height: 1.65;
+      text-align: justify;
+      color: #9ca3af;
+    }
+    footer .disclaimer p { margin-bottom: 10px; }
+    footer .disclaimer p:last-child { margin-bottom: 0; }
+    footer .disclaimer strong { color: var(--text-muted); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -192,7 +230,34 @@
   </main>
 
   <footer>
-    &copy; <span id="year"></span>
+    <div class="brand-line">Copyright <span id="year"></span> — Economia &reg;</div>
+    <div class="rights">Todos os direitos reservados</div>
+    <div class="links">
+      <a href="termos.html">Termos de Uso</a>
+      <span class="sep">&middot;</span>
+      <a href="privacidade.html">Privacidade</a>
+    </div>
+
+    <div class="disclaimer">
+      <p>
+        <strong>Aviso Legal:</strong> Este site não faz parte do site do Google&trade; ou da rede de sites como Youtube&trade; ou qualquer empresa pertencente ao Google&trade; ou Youtube&trade;. Adicionalmente, este site <strong>NÃO</strong> é endossado pelo Google&trade; ou Youtube&trade; Inc. de nenhuma forma. Google&trade; é marca registrada de suas respectivas empresas.
+      </p>
+      <p>
+        <strong>Conformidade ANVISA:</strong> As informações deste site não foram avaliadas pela Agência Nacional de Vigilância Sanitária (ANVISA) ou por qualquer outro órgão médico. Não pretendemos diagnosticar, tratar, curar ou prevenir qualquer doença ou enfermidade. As informações são compartilhadas apenas para fins educativos. Você deve sempre consultar seu médico antes de agir com base em qualquer conteúdo deste site, especialmente se estiver grávida, amamentando, tomando medicamentos ou tiver alguma condição médica.
+      </p>
+      <p>
+        <strong>Divulgação de Marketing:</strong> Este site é um marketplace. Como tal, você deve saber que o proprietário tem uma conexão monetária com o produto e serviços anunciados no site. O proprietário recebe pagamento sempre que um lead qualificado é encaminhado, mas isso é o limite da relação.
+      </p>
+      <p>
+        <strong>Divulgação Publicitária:</strong> Este site e os produtos &amp; serviços referidos são marketplaces publicitários. Este site é um anúncio e não uma publicação jornalística. Quaisquer fotografias de pessoas utilizadas são de modelos. O proprietário deste site e os produtos e serviços referidos apenas fornecem um serviço onde consumidores podem obter e comparar informações.
+      </p>
+      <p>
+        <strong>Aviso sobre Depoimentos:</strong> Alguns nomes e informações pessoais de identificação neste site foram alterados para proteger a privacidade dos indivíduos. Nenhum resultado individual deve ser considerado típico. Resultados variam de pessoa para pessoa.
+      </p>
+      <p>
+        <strong>Conformidade LGPD:</strong> Este site coleta e processa dados pessoais em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Para mais informações sobre o tratamento de seus dados, consulte nossa <a href="privacidade.html" style="color: inherit; border-bottom: 1px dotted;">Política de Privacidade</a> ou entre em contato pelo e-mail <a href="mailto:contato@economia.online" style="color: inherit; border-bottom: 1px dotted;">contato@economia.online</a>.
+      </p>
+    </div>
   </footer>
 
   <script>
