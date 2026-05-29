@@ -249,16 +249,15 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ── Repassa query params (UTMs + cid RedTrack) + injeta vTurb token (tftk) pro frontyt ──
+    // ── Repassa query params pro frontyt (tftk vem do RedTrack landing URL,
+    //    rtkcid/rtkcmpid do RedTrack, utm_*/gclid da origem). Nada hardcoded aqui. ──
     (function forwardParams() {
+      var params = window.location.search;
+      if (!params) return;
       var cta = document.getElementById('cta-main');
       try {
         var url = new URL(cta.href, window.location.href);
-        // tftk OBRIGATORIO: sem isso o player vTurb nao carrega (filter_rules_token ativo)
-        url.searchParams.set('tftk', "1e3d66a5-1");
-        // Preserva params de entrada (rtkcid do RedTrack, utm_*, gclid, etc)
-        var incoming = new URLSearchParams(window.location.search);
-        incoming.forEach(function (val, key) { url.searchParams.set(key, val); });
+        new URLSearchParams(params).forEach(function (val, key) { url.searchParams.set(key, val); });
         cta.href = url.toString();
       } catch (_) {}
     })();
