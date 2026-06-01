@@ -172,9 +172,85 @@
 
   
   <!-- RedTrack Universal script /click (no-redirect). FIM do <body>.
-       O CTA do player vTurb aponta pra https://trk.ganhabr.lat/click — o cookie do
-       clickid (setado na presell, domain .ganhabr.lat) viaja same-site automático. -->
+       Registra o clique (lê cmpid+gclid da URL) e guarda o clickid em
+       sessionStorage.rtkclickid + cookie rtkclickid-store (domain .ganhabr.lat). -->
   <script src="https://trk.ganhabr.lat/unilpclick.js?attribution=lastpaid&cookiedomain=ganhabr.lat&cookieduration=30&defaultcampaignid=6a18c7f28dcdad10abc5510e&regviewonce=false"></script>
+
+  <!-- GLUE: injeta o clickid no CTA do player vTurb (Shadow DOM).
+       PROBLEMA: o setHref do unilpclick.js só alcança <a> do light-DOM; o CTA do
+       vTurb vive no Shadow DOM, então /click ia "pelado" -> 400 -> nunca chega na
+       Kirvano (0 conversões). O cookie redhash do RedTrack tbm não persiste (XHR
+       cross-origin sem credenciais + Allow-Origin:*). O clickid, porém, FICA
+       disponível em sessionStorage.rtkclickid / cookie rtkclickid-store.
+       SOLUÇÃO: carimbar ?clickid=<id> em todo <a> que aponta pra trk.ganhabr.lat/click,
+       varrendo recursivamente os Shadow DOMs. O vTurb preserva params já presentes no
+       href (injectTrackingParams só ADICIONA), então o clickid sobrevive. -->
+  <script>
+  (function () {
+    var TRK = "https://trk.ganhabr.lat/click";
+    function getCid() {
+      try { var s = sessionStorage.getItem('rtkclickid'); if (s) return s; } catch (e) {}
+      var m = document.cookie.match(/(?:^|;\s*)rtkclickid-store=([^;]+)/);
+      if (m && m[1] && m[1] !== 'undefined') return decodeURIComponent(m[1]);
+      try {
+        var p = new URLSearchParams(location.search);
+        return p.get('rtkcid') || p.get('clickid') || null;
+      } catch (e) { return null; }
+    }
+    function withCid(url) {
+      try {
+        if (typeof url !== 'string' || url.indexOf(TRK) !== 0) return url;
+        if (/[?&]clickid=/.test(url)) return url;
+        var cid = getCid();
+        if (!cid) return url;
+        return url + (url.indexOf('?') > -1 ? '&' : '?') + 'clickid=' + encodeURIComponent(cid);
+      } catch (e) { return url; }
+    }
+    // varre light-DOM + todos os shadowRoots, carimbando os <a> do /click
+    function walk(root) {
+      try {
+        var as = root.querySelectorAll ? root.querySelectorAll('a[href]') : [];
+        for (var i = 0; i < as.length; i++) {
+          var nu = withCid(as[i].href);
+          if (nu !== as[i].href) as[i].href = nu;
+        }
+        var all = root.querySelectorAll ? root.querySelectorAll('*') : [];
+        for (var j = 0; j < all.length; j++) {
+          if (all[j].shadowRoot) walk(all[j].shadowRoot);
+        }
+      } catch (e) {}
+    }
+    function sweep() { walk(document); }
+    // 1) varredura contínua (o CTA só renderiza depois do vídeo)
+    setInterval(sweep, 600);
+    // 2) reage a mudanças no DOM
+    try { new MutationObserver(sweep).observe(document.documentElement, {childList: true, subtree: true}); } catch (e) {}
+    // 3) garante no momento do clique (composedPath atravessa Shadow DOM)
+    function onInteract(ev) {
+      try {
+        var path = ev.composedPath ? ev.composedPath() : [];
+        for (var i = 0; i < path.length; i++) {
+          var el = path[i];
+          if (el && el.tagName === 'A' && el.href) {
+            var nu = withCid(el.href);
+            if (nu !== el.href) el.href = nu;
+          }
+        }
+      } catch (e) {}
+    }
+    document.addEventListener('pointerdown', onInteract, true);
+    document.addEventListener('click', onInteract, true);
+    // 4) fallback: se o player navegar via JS
+    var _open = window.open;
+    window.open = function (u, n, f) { return _open.call(window, withCid(u), n, f); };
+    try {
+      var _a = window.location.assign.bind(window.location);
+      window.location.assign = function (u) { return _a(withCid(u)); };
+      var _r = window.location.replace.bind(window.location);
+      window.location.replace = function (u) { return _r(withCid(u)); };
+    } catch (e) {}
+  })();
+  </script>
   
 
 </body>
