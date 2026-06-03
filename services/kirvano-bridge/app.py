@@ -2,8 +2,9 @@
 Kirvano -> RedTrack bridge.
 
 Recebe POST JSON da Kirvano (webhook Compra Aprovada) e dispara GET pro
-RedTrack postback. Atribuicao via macro `sub15={clickid}` injetado na
-offer URL do RedTrack (que vira ?sub15=<rtkcid> no checkout Kirvano).
+RedTrack postback. Atribuicao via macro `src={clickid}` injetado na offer
+URL do RedTrack (que vira ?src=<rtkcid> no checkout -> Kirvano poe em utm.src).
+Valor da venda = `total_price` (NAO o bloco fiscal — ver _extract_amount).
 
 POST /postback         <- Kirvano cola aqui
 GET  /healthz          <- liveness
@@ -14,7 +15,7 @@ GET  /debug/recent?n=  <- ultimos N webhooks recebidos (payload + desfecho)
 Env:
   REDTRACK_API_KEY     - nao usado (postback do RedTrack e publico)
   KIRVANO_SECRET       - opcional; se setado, exige header X-Kirvano-Token = esse valor
-  CLICKID_FIELD        - default "sub15" (campo nos custom_fields da Kirvano)
+  CLICKID_FIELD        - default "src" (a Kirvano poe o ?src= da offer URL em utm.src)
   REDTRACK_POSTBACK    - default https://ohjzb.ttrk.io/postback (NAO api.redtrack.io -> 404)
   LOG_LEVEL            - default INFO
 """
@@ -40,7 +41,7 @@ KIRVANO_SECRET   = os.environ.get("KIRVANO_SECRET", "").strip() or None
 CLICKID_FIELD    = os.environ.get("CLICKID_FIELD", "src").strip()
 REDTRACK_POSTBACK = os.environ.get("REDTRACK_POSTBACK", "https://ohjzb.ttrk.io/postback").rstrip("/")
 
-app = FastAPI(title="Kirvano -> RedTrack Bridge", version="1.2.0")
+app = FastAPI(title="Kirvano -> RedTrack Bridge", version="1.3.0")
 
 # rtkcid do RedTrack = ObjectId de 24 hex. Usado pra aceitar SO o trafego do
 # fluxo Google/RedTrack e ignorar vendas de outras fontes (ex: Facebook de
@@ -115,24 +116,50 @@ def _extract_clickid(payload: dict) -> str | None:
     return None
 
 
-def _extract_amount(payload: dict) -> float | None:
-    """Acha o valor da compra (em reais).
+def _parse_brl(s: Any) -> float | None:
+    """Parseia valor monetario BR: 'R$ 197,00' / '1.234,56' -> float em reais."""
+    if s is None:
+        return None
+    if isinstance(s, (int, float)):
+        return float(s)
+    t = re.sub(r"[^\d,.-]", "", str(s))  # tira 'R$', espacos,
+    if not t:
+        return None
+    if "," in t:                          # formato BR: '.' = milhar, ',' = decimal
+        t = t.replace(".", "").replace(",", ".")
+    try:
+        return float(t)
+    except ValueError:
+        return None
 
-    Kirvano padroniza enviando float em reais (ex: 97.00). Se vier int sem
-    decimais, assume centavos e divide por 100.
+
+def _extract_amount(payload: dict) -> float | None:
+    """Valor REAL da compra, em reais.
+
+    Fonte canonica = `total_price` no topo do webhook (ex: 'R$ 197,00') = o
+    valor efetivamente cobrado NAQUELA transacao (produto principal OU upsell).
+
+    ⚠️ NUNCA usar busca recursiva (_walk_find): o payload da Kirvano tem um bloco
+    `fiscal` (valor de nota fiscal / imposto / total financiado em 12x) que NAO e
+    o valor da venda. A versao antiga pegava esse campo e inflava o postback
+    (R$197 -> R$1224.99); causa do "RedTrack marca 10k com 2.4k real" (2026-06-03).
     """
-    for k in ("amount", "total", "total_value", "value", "price", "checkout_total", "net_amount"):
-        v = _walk_find(payload, k)
-        if v is None:
-            continue
-        try:
-            if isinstance(v, int):
-                # Kirvano sometimes sends total in centavos (int)
-                return v / 100.0 if v > 100 else float(v)
-            fv = float(str(v).replace(",", "."))
-            return fv
-        except (ValueError, TypeError):
-            continue
+    # 1) total_price (string BRL) — canonico, sempre presente
+    v = _parse_brl(payload.get("total_price"))
+    if v is not None:
+        return v
+    # 2) transaction.values.total (centavos int) — formato da API interna
+    tx = payload.get("transaction")
+    if isinstance(tx, dict):
+        tot = (tx.get("values") or {}).get("total")
+        if isinstance(tot, (int, float)):
+            return tot / 100.0
+    # 3) preco do produto principal (ignora order bump)
+    for prod in (payload.get("products") or []):
+        if isinstance(prod, dict) and not prod.get("is_order_bump"):
+            pv = _parse_brl(prod.get("price"))
+            if pv is not None:
+                return pv
     return None
 
 
@@ -140,10 +167,11 @@ def _extract_amount(payload: dict) -> float | None:
 def root():
     return {
         "service": "kirvano-redtrack-bridge",
-        "version": "1.2.0",
+        "version": "1.3.0",
         "secret_required": KIRVANO_SECRET is not None,
         "clickid_field": CLICKID_FIELD,
         "clickid_validation": "24-hex rtkcid only (ignora trafego nao-Google, ex: FB)",
+        "amount_source": "total_price (BRL) — NAO usa bloco fiscal",
         "redtrack_postback": REDTRACK_POSTBACK,
     }
 
