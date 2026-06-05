@@ -199,7 +199,7 @@ async def create_pix(body: PixIn):
         "description": GATEWAY_DESC,                    # ← gateway/extrato vê "Taxa Correios"
         "externalRef": (body.src or "").strip(),      # ← clickid viaja aqui; webhook devolve
         "payer": payer,
-        "items": [{"quantity": 1, "name": GATEWAY_DESC, "price": amount, "type": "PHYSICAL"}],
+        "items": [{"quantity": 1, "name": GATEWAY_DESC, "price": amount, "type": "DIGITAL"}],
     }
     if SELF_BASE_URL:
         payload["notificationUrl"] = f"{SELF_BASE_URL}/webhook"
