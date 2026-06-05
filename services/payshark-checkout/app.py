@@ -124,6 +124,14 @@ def banner():
     return JSONResponse({"error": "no banner"}, status_code=404)
 
 
+@app.get("/icone.png")
+def icone():
+    p = Path(__file__).resolve().parent / "icone.png"
+    if p.exists():
+        return FileResponse(str(p), media_type="image/png")
+    return JSONResponse({"error": "no icone"}, status_code=404)
+
+
 @app.get("/api/config")
 def api_config(offer: str | None = None):
     price = OFFER_PRICES.get(offer or "", PRICE_CENTAVOS)
