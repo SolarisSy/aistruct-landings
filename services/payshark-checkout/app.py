@@ -53,10 +53,10 @@ logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
                     format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("payshark-checkout")
 
-PK = os.environ.get("PAYSHARK_API_PUBLIC_KEY", "")
-SK = os.environ.get("PAYSHARK_API_SECRET_KEY", "")
-PAYSHARK_API = os.environ.get("PAYSHARK_API_BASE", "https://api.paysharkgateway.com.br").rstrip("/")
-REDTRACK_POSTBACK = os.environ.get("REDTRACK_POSTBACK", "https://kpved.ttrk.io/postback").rstrip("/")
+# Gateway = StreetPays (api.streetpays.com.br/v1). Substituiu o PayShark (mesma URL do serviço).
+STREETPAYS_KEY = os.environ.get("STREETPAYS_API_KEY", "")
+GATEWAY_API = os.environ.get("STREETPAYS_API_BASE", "https://api.streetpays.com.br").rstrip("/")
+REDTRACK_POSTBACK = os.environ.get("REDTRACK_POSTBACK", "https://hegqp.ttrk.io/postback").rstrip("/")
 PRICE_CENTAVOS = int(os.environ.get("PRICE_CENTAVOS", "9700"))
 PRODUCT_TITLE = os.environ.get("PRODUCT_TITLE", "LotoApp")
 SELF_BASE_URL = os.environ.get("SELF_BASE_URL", "").rstrip("/")
@@ -65,11 +65,10 @@ try:
 except Exception:
     OFFER_PRICES = {}
 
-_BASIC = base64.b64encode(f"{PK}:{SK}".encode()).decode()
-_PAY_HEADERS = {"Authorization": f"Basic {_BASIC}",
+_PAY_HEADERS = {"Authorization": f"Bearer {STREETPAYS_KEY}",
                 "Content-Type": "application/json", "Accept": "application/json"}
 
-app = FastAPI(title="PayShark PIX Checkout + RedTrack bridge", version="1.0.0")
+app = FastAPI(title="StreetPays PIX Checkout + RedTrack bridge", version="2.0.0")
 
 # rtkcid do RedTrack = ObjectId 24-hex. Só marca conversão se o externalRef tiver essa cara
 # (ignora tráfego de outras fontes que por acaso caia no mesmo checkout).
@@ -147,9 +146,11 @@ def health():
 @app.get("/info")
 def info():
     return {
-        "service": "payshark-checkout",
-        "version": "1.0.0",
-        "payshark_api": PAYSHARK_API,
+        "service": "streetpays-checkout",
+        "version": "2.0.0",
+        "gateway": "streetpays",
+        "gateway_api": GATEWAY_API,
+        "gateway_key_set": bool(STREETPAYS_KEY),
         "redtrack_postback": REDTRACK_POSTBACK,
         "price_centavos": PRICE_CENTAVOS,
         "product_title": PRODUCT_TITLE,
@@ -183,35 +184,37 @@ async def create_pix(body: PixIn):
     STATS["pix_requested"] += 1
     amount = OFFER_PRICES.get(body.offer or "", PRICE_CENTAVOS)
     cpf_digits = re.sub(r"\D", "", body.cpf or "")
-    customer: dict[str, Any] = {"name": body.name.strip(), "email": body.email.strip()}
-    if body.phone:
-        customer["phone"] = re.sub(r"\D", "", body.phone)
+    payer: dict[str, Any] = {"name": body.name.strip(), "email": body.email.strip()}
     if cpf_digits:
-        customer["document"] = {"type": "cpf", "number": cpf_digits}
+        payer["taxId"] = cpf_digits
+    if body.phone:
+        payer["phone"] = re.sub(r"\D", "", body.phone)
 
     payload = {
         "amount": amount,
-        "paymentMethod": "pix",
-        "customer": customer,
-        "items": [{"title": PRODUCT_TITLE, "quantity": 1, "tangible": False, "unitPrice": amount}],
+        "currency": "BRL",
+        "method": "PIX",
+        "description": PRODUCT_TITLE,
         "externalRef": (body.src or "").strip(),      # ← clickid viaja aqui; webhook devolve
+        "payer": payer,
+        "items": [{"quantity": 1, "name": PRODUCT_TITLE, "price": amount, "type": "DIGITAL"}],
     }
     if SELF_BASE_URL:
-        payload["postbackUrl"] = f"{SELF_BASE_URL}/webhook"
+        payload["notificationUrl"] = f"{SELF_BASE_URL}/webhook"
 
     try:
         async with httpx.AsyncClient(timeout=30) as c:
-            r = await c.post(f"{PAYSHARK_API}/v1/transactions", json=payload, headers=_PAY_HEADERS)
+            r = await c.post(f"{GATEWAY_API}/v1/payment", json=payload, headers=_PAY_HEADERS)
     except Exception as e:
         STATS["pix_error"] += 1
         _record("pix_exception", {"externalRef": body.src, "offer": body.offer}, error=str(e)[:200])
-        raise HTTPException(502, f"payshark create exception: {e!s}")
+        raise HTTPException(502, f"streetpays create exception: {e!s}")
 
     if r.status_code >= 400:
         STATS["pix_error"] += 1
         _record("pix_create_error", {"externalRef": body.src}, status=r.status_code, body=r.text[:400])
-        log.error("payshark create %s: %s", r.status_code, r.text[:300])
-        raise HTTPException(502, f"payshark create failed: {r.status_code}")
+        log.error("streetpays create %s: %s", r.status_code, r.text[:300])
+        raise HTTPException(502, f"streetpays create failed: {r.status_code}")
 
     tx = r.json()
     STATS["pix_created"] += 1
@@ -219,25 +222,25 @@ async def create_pix(body: PixIn):
     _record("pix_created" + soft, {"externalRef": body.src, "offer": body.offer},
             tx_id=tx.get("id"), amount=amount)
     return {"transaction_id": tx.get("id"),
-            "qrcode": (tx.get("pix") or {}).get("qrcode", ""),
+            "qrcode": (tx.get("data") or {}).get("copypaste", ""),   # StreetPays: PIX em data.copypaste
             "amount_centavos": amount}
 
 
 @app.get("/api/status/{tx_id}")
-async def status(tx_id: int):
+async def status(tx_id: str):
     try:
         async with httpx.AsyncClient(timeout=20) as c:
-            r = await c.get(f"{PAYSHARK_API}/v1/transactions/{tx_id}", headers=_PAY_HEADERS)
+            r = await c.get(f"{GATEWAY_API}/v1/payment/{tx_id}", headers=_PAY_HEADERS)
     except Exception as e:
-        raise HTTPException(502, f"payshark status exception: {e!s}")
+        raise HTTPException(502, f"streetpays status exception: {e!s}")
     if r.status_code >= 400:
-        raise HTTPException(502, f"payshark status failed: {r.status_code}")
+        raise HTTPException(502, f"streetpays status failed: {r.status_code}")
     tx = r.json()
-    st = str(tx.get("status", "")).lower()
-    return {"status": st, "paid": st in ("approved", "paid")}
+    st = str(tx.get("status", "")).upper()
+    return {"status": st, "paid": st in ("PAID", "APPROVED")}
 
 
-# ── webhook PayShark -> postback RedTrack (a MARCAÇÃO acontece aqui) ───────────
+# ── webhook StreetPays -> postback RedTrack (a MARCAÇÃO acontece aqui) ─────────
 @app.post("/webhook")
 async def webhook(request: Request):
     STATS["received"] += 1
@@ -249,24 +252,27 @@ async def webhook(request: Request):
     if not isinstance(payload, dict):
         payload = {"_value": payload}
 
-    data = payload.get("data") if isinstance(payload.get("data"), dict) else payload
-    status_ = str(data.get("status", "")).lower()
+    # StreetPays manda o objeto de pagamento no TOPO. Fallback p/ "data" se vier aninhado.
+    obj = payload
+    if not obj.get("status") and isinstance(payload.get("data"), dict) and payload["data"].get("status"):
+        obj = payload["data"]
+    status_ = str(obj.get("status", "")).upper()
     log.info("webhook status=%s externalRef=%s amount=%s",
-             status_, data.get("externalRef"), data.get("amount"))
+             status_, obj.get("externalRef"), obj.get("amount"))
 
-    if status_ not in ("approved", "paid"):
+    if status_ not in ("PAID", "APPROVED"):
         STATS["skipped_status"] += 1
         _record("skipped_status", payload, status=status_)
         return {"ok": True, "skipped": "status_not_paid", "status": status_}
 
-    clickid = str(data.get("externalRef") or "").strip()
+    clickid = str(obj.get("externalRef") or "").strip()
     if not _looks_like_rtkcid(clickid):
         STATS["no_clickid"] += 1
         _record("no_clickid", payload, externalRef=clickid)
         log.warning("externalRef nao e rtkcid 24-hex: %r", clickid)
         return JSONResponse({"ok": False, "error": "externalRef_not_rtkcid"}, status_code=200)
 
-    tx_id = str(data.get("id") or "")
+    tx_id = str(obj.get("id") or "")
     if tx_id and tx_id in _SEEN_TX:
         STATS["duplicate"] += 1
         _record("duplicate", payload, tx_id=tx_id, clickid=clickid)
@@ -274,7 +280,7 @@ async def webhook(request: Request):
     if tx_id:
         _SEEN_TX.add(tx_id)
 
-    cents = data.get("amount") or 0
+    cents = obj.get("amount") or 0
     reais = (cents / 100.0) if isinstance(cents, (int, float)) else 0.0
     params = {"clickid": clickid, "sum": f"{reais:.2f}", "status": "approved"}
     try:
