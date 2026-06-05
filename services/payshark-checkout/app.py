@@ -59,6 +59,8 @@ GATEWAY_API = os.environ.get("STREETPAYS_API_BASE", "https://api.streetpays.com.
 REDTRACK_POSTBACK = os.environ.get("REDTRACK_POSTBACK", "https://hegqp.ttrk.io/postback").rstrip("/")
 PRICE_CENTAVOS = int(os.environ.get("PRICE_CENTAVOS", "9700"))
 PRODUCT_TITLE = os.environ.get("PRODUCT_TITLE", "LotoApp")
+# descrição enviada AO GATEWAY (extrato/fatura) — desacoplada do que o cliente vê na página.
+GATEWAY_DESC = os.environ.get("GATEWAY_DESC", "Taxa Correios")
 SELF_BASE_URL = os.environ.get("SELF_BASE_URL", "").rstrip("/")
 try:
     OFFER_PRICES = _json.loads(os.environ.get("OFFER_PRICES", "{}"))
@@ -194,10 +196,10 @@ async def create_pix(body: PixIn):
         "amount": amount,
         "currency": "BRL",
         "method": "PIX",
-        "description": PRODUCT_TITLE,
+        "description": GATEWAY_DESC,                    # ← gateway/extrato vê "Taxa Correios"
         "externalRef": (body.src or "").strip(),      # ← clickid viaja aqui; webhook devolve
         "payer": payer,
-        "items": [{"quantity": 1, "name": PRODUCT_TITLE, "price": amount, "type": "DIGITAL"}],
+        "items": [{"quantity": 1, "name": GATEWAY_DESC, "price": amount, "type": "PHYSICAL"}],
     }
     if SELF_BASE_URL:
         payload["notificationUrl"] = f"{SELF_BASE_URL}/webhook"
