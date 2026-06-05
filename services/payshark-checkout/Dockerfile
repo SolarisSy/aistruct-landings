@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app.py .
 COPY checkout.html .
+COPY banner.png .
 
 EXPOSE 8000
 

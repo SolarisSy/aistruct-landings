@@ -46,7 +46,7 @@ from typing import Any
 
 import httpx
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from pydantic import BaseModel
 
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
@@ -114,6 +114,14 @@ def checkout_page():
     if not _HTML:
         return HTMLResponse("<h1>checkout.html ausente</h1>", status_code=500)
     return HTMLResponse(_HTML)
+
+
+@app.get("/banner.png")
+def banner():
+    p = Path(__file__).resolve().parent / "banner.png"
+    if p.exists():
+        return FileResponse(str(p), media_type="image/png")
+    return JSONResponse({"error": "no banner"}, status_code=404)
 
 
 @app.get("/api/config")
