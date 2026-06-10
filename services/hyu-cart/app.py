@@ -1,37 +1,48 @@
 """
-HYU (hyuoficial.com) -> Paggins SDK bridge: carrinho real multi-item.
+HYU (hyuoficial.com) -> Paggins SDK bridge + CAPTURA DE LEADS (paliativo).
 
-O site e estatico (nginx); a sk_live da Paggins nao pode ir pro browser.
-Este servico recebe o carrinho, valida contra o catalogo SERVER-SIDE
-(preco nunca vem do cliente) e cria a checkout session na Paggins
-(POST /v1/sdk/checkout-sessions, header Idempotency-Key obrigatorio),
-devolvendo a checkoutUrl hospedada.
+O site e estatico (nginx); este servico:
+  1. cria checkout sessions na Paggins (fora de uso ate a Paggins habilitar
+     frete nas sessions SDK — cartao nao processa sem isso, provado 10/06)
+  2. captura LEADS de compra (paliativo enquanto a adquirente nao processa):
+     o "Finalizar compra" do site abre um form e POSTa aqui; tudo fica em
+     SQLite num volume da VPS, visivel/exportavel em /leads (Basic auth).
 
-POST /checkout         <- site: {items:[{flavor,tier,qty}], meta:{utm_*...}}
-                          -> {checkoutUrl, sessionId, totalAmount}
+POST /checkout         <- carrinho -> checkout session Paggins (em espera)
+POST /lead             <- site: {name, phone, email, items, meta} -> grava na VPS
+GET  /leads            <- painel HTML (Basic auth: qualquer usuario + LEADS_PASSWORD)
+GET  /leads.csv        <- export CSV (mesma auth)
 GET  /healthz          <- liveness
 GET  /                 <- info
 GET  /debug/stats      <- contadores
-GET  /debug/recent?n=  <- ultimas N sessoes criadas (sem dados sensiveis)
 
 Env:
-  PAGGINS_API_KEY  - obrigatorio (sk_live_...) — setar no Easypanel, NUNCA no git
+  PAGGINS_API_KEY  - sk_live_... — setar no Easypanel, NUNCA no git
   PAGGINS_API_URL  - default https://api.paggins.com
-  SITE_BASE        - default https://hyuoficial.com (success/cancel/imagens)
+  SITE_BASE        - default https://hyuoficial.com
+  LEADS_PASSWORD   - senha do /leads (obrigatoria pro painel; NUNCA no git)
+  LEADS_DB         - default /data/leads.db (volume) com fallback ./leads.db
   LOG_LEVEL        - default INFO
 """
 from __future__ import annotations
 
+import base64
+import csv
+import io
+import json
 import logging
 import os
+import re
+import sqlite3
 import uuid
 from collections import deque
 from datetime import datetime, timezone
 from typing import Any
 
 import httpx
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse, StreamingResponse
 
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
                     format="%(asctime)s %(levelname)s %(message)s")
@@ -40,6 +51,10 @@ log = logging.getLogger("hyu-cart")
 PAGGINS_API_KEY = os.environ.get("PAGGINS_API_KEY", "").strip()
 PAGGINS_API_URL = os.environ.get("PAGGINS_API_URL", "https://api.paggins.com").rstrip("/")
 SITE_BASE = os.environ.get("SITE_BASE", "https://hyuoficial.com").rstrip("/")
+LEADS_PASSWORD = os.environ.get("LEADS_PASSWORD", "").strip()
+LEADS_DB = os.environ.get("LEADS_DB", "/data/leads.db")
+if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
+    LEADS_DB = "./leads.db"  # dev local sem volume
 
 app = FastAPI(title="HYU cart -> Paggins bridge", version="1.0.0")
 app.add_middleware(
@@ -92,7 +107,19 @@ META_KEYS = ("utm_source", "utm_medium", "utm_campaign", "utm_term",
              "utm_content", "gclid", "fbclid", "ref", "src")
 
 RECENT: deque = deque(maxlen=80)
-STATS = {"received": 0, "created": 0, "bad_request": 0, "paggins_error": 0}
+STATS = {"received": 0, "created": 0, "bad_request": 0, "paggins_error": 0,
+         "leads_received": 0, "leads_saved": 0, "leads_bad": 0}
+
+# ── leads: SQLite no volume da VPS ───────────────────────────────────
+def _db() -> sqlite3.Connection:
+    conn = sqlite3.connect(LEADS_DB)
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS leads ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, name TEXT, email TEXT, "
+        "phone TEXT, pedido TEXT, total_cents INTEGER, items TEXT, meta TEXT, "
+        "ip TEXT, ua TEXT)"
+    )
+    return conn
 
 
 def _build_items(raw_items: Any) -> list[dict[str, Any]]:
@@ -221,3 +248,194 @@ async def debug_stats():
 @app.get("/debug/recent")
 async def debug_recent(n: int = 20):
     return list(RECENT)[-max(1, min(n, 80)):]
+
+
+# ═══════════════════ LEADS (paliativo sem adquirente) ═══════════════════
+
+_PHONE_RE = re.compile(r"^\d{10,13}$")
+_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
+def _pedido_str(items: list[dict[str, Any]]) -> tuple[str, int]:
+    """(descricao legivel, total em centavos) a partir das linhas validadas."""
+    parts, total = [], 0
+    for it in items:
+        f, t = FLAVORS[it["flavor"]], TIERS[it["tier"]]
+        qty = int(it.get("qty", 1))
+        label = f"{t['label'].split(' (')[0]} · {f['name'].replace('HYU Soda Protein ', '').replace('HYU Energy Protein ', '')}"
+        parts.append(f"{qty}x {label}" if qty > 1 else label)
+        total += t["cents"] * qty
+    return " + ".join(parts), total
+
+
+@app.post("/lead")
+async def create_lead(request: Request):
+    STATS["leads_received"] += 1
+    try:
+        p = await request.json()
+    except Exception:
+        STATS["leads_bad"] += 1
+        raise HTTPException(400, "JSON invalido")
+
+    name = str(p.get("name", "")).strip()[:120]
+    email = str(p.get("email", "")).strip()[:160].lower()
+    phone = re.sub(r"\D", "", str(p.get("phone", "")))[:13]
+    if len(name) < 3:
+        STATS["leads_bad"] += 1
+        raise HTTPException(400, "nome invalido")
+    if not _EMAIL_RE.match(email):
+        STATS["leads_bad"] += 1
+        raise HTTPException(400, "e-mail invalido")
+    if not _PHONE_RE.match(phone):
+        STATS["leads_bad"] += 1
+        raise HTTPException(400, "whatsapp invalido (DDD + numero)")
+
+    raw_items = p.get("items")
+    if not isinstance(raw_items, list) or not raw_items or len(raw_items) > 10:
+        STATS["leads_bad"] += 1
+        raise HTTPException(400, "pedido vazio")
+    items = []
+    for it in raw_items:
+        if not isinstance(it, dict) or it.get("flavor") not in FLAVORS or it.get("tier") not in TIERS:
+            STATS["leads_bad"] += 1
+            raise HTTPException(400, "item desconhecido")
+        try:
+            qty = max(1, min(int(it.get("qty", 1)), 20))
+        except (TypeError, ValueError):
+            qty = 1
+        items.append({"flavor": it["flavor"], "tier": it["tier"], "qty": qty})
+
+    pedido, total = _pedido_str(items)
+    meta = _build_metadata(p.get("meta"))
+    if isinstance(p.get("meta"), dict) and p["meta"].get("page"):
+        meta["page"] = str(p["meta"]["page"])[:300]
+    ip = (request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+          or (request.client.host if request.client else ""))
+    ua = request.headers.get("user-agent", "")[:200]
+    ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+    conn = _db()
+    try:
+        conn.execute(
+            "INSERT INTO leads (ts, name, email, phone, pedido, total_cents, items, meta, ip, ua) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?)",
+            (ts, name, email, phone, pedido, total,
+             json.dumps(items, ensure_ascii=False), json.dumps(meta, ensure_ascii=False), ip, ua),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+    STATS["leads_saved"] += 1
+    log.info("lead salvo: %s | %s | %s | R$ %.2f", name, phone, pedido, total / 100)
+    return {"ok": True}
+
+
+def _leads_auth(request: Request) -> Response | None:
+    """Basic auth: QUALQUER usuario + senha LEADS_PASSWORD. None = autorizado."""
+    if not LEADS_PASSWORD:
+        return Response("painel desativado (LEADS_PASSWORD nao configurada)", status_code=503)
+    auth = request.headers.get("authorization", "")
+    if auth.startswith("Basic "):
+        try:
+            dec = base64.b64decode(auth[6:]).decode("utf-8", "replace")
+        except Exception:
+            dec = ""
+        if dec.split(":", 1)[-1] == LEADS_PASSWORD:
+            return None
+    return Response("autentique-se", status_code=401,
+                    headers={"WWW-Authenticate": 'Basic realm="HYU leads"'})
+
+
+def _fetch_leads() -> list[dict[str, Any]]:
+    conn = _db()
+    try:
+        rows = conn.execute(
+            "SELECT id, ts, name, email, phone, pedido, total_cents, meta, ip FROM leads ORDER BY id DESC"
+        ).fetchall()
+    finally:
+        conn.close()
+    out = []
+    for r in rows:
+        meta = json.loads(r[7] or "{}")
+        out.append({"id": r[0], "ts": r[1], "name": r[2], "email": r[3], "phone": r[4],
+                    "pedido": r[5], "total": r[6], "meta": meta, "ip": r[8]})
+    return out
+
+
+def _brl(cents: int) -> str:
+    return f"R$ {cents / 100:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def _esc(s: str) -> str:
+    return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            .replace('"', "&quot;").replace("'", "&#39;"))
+
+
+@app.get("/leads", response_class=HTMLResponse)
+async def leads_panel(request: Request):
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    leads = _fetch_leads()
+    total_geral = sum(l["total"] for l in leads)
+    rows = []
+    for l in leads:
+        utm = " ".join(f"{k.replace('utm_', '')}={_esc(v)}" for k, v in l["meta"].items()
+                       if k.startswith("utm_") or k in ("gclid", "src")) or "—"
+        rows.append(
+            f"<tr><td>{l['id']}</td>"
+            f"<td data-ts='{l['ts']}'></td>"
+            f"<td><strong>{_esc(l['name'])}</strong></td>"
+            f"<td><a href='https://wa.me/55{l['phone']}' target='_blank'>{l['phone']}</a></td>"
+            f"<td><a href='mailto:{_esc(l['email'])}'>{_esc(l['email'])}</a></td>"
+            f"<td>{_esc(l['pedido'])}</td>"
+            f"<td class='r'>{_brl(l['total'])}</td>"
+            f"<td class='muted'>{utm}</td></tr>"
+        )
+    html = f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>Leads HYU ({len(leads)})</title>
+<style>
+ body{{font:14px/1.5 system-ui,sans-serif;margin:0;background:#f5f6f8;color:#16191f}}
+ header{{display:flex;align-items:center;gap:1rem;padding:.9rem 1.2rem;background:#16191f;color:#fff;position:sticky;top:0}}
+ h1{{font-size:1rem;margin:0}} .pill{{background:#A8CC30;color:#16191f;font-weight:800;border-radius:999px;padding:.1rem .6rem}}
+ .grow{{flex:1}} a.btn{{background:#fff;color:#16191f;font-weight:700;text-decoration:none;border-radius:8px;padding:.35rem .8rem}}
+ main{{padding:1rem 1.2rem;overflow-x:auto}}
+ table{{border-collapse:collapse;width:100%;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}}
+ th,td{{padding:.55rem .7rem;border-bottom:1px solid #eceef1;text-align:left;vertical-align:top;font-size:.85rem}}
+ th{{background:#fafbfc;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#667}}
+ tr:hover td{{background:#fcfde8}} .r{{text-align:right;white-space:nowrap;font-weight:700}}
+ .muted{{color:#889;font-size:.75rem}} .total{{margin:.8rem 0;color:#445}}
+</style></head><body>
+<header><h1>📋 Leads HYU</h1><span class="pill">{len(leads)}</span><span class="grow"></span>
+<a class="btn" href="/leads.csv">⬇ Exportar CSV</a></header>
+<main><p class="total">Valor somado dos pedidos: <strong>{_brl(total_geral)}</strong></p>
+<table><thead><tr><th>#</th><th>Quando</th><th>Nome</th><th>WhatsApp</th><th>E-mail</th>
+<th>Pedido</th><th>Total</th><th>Origem</th></tr></thead>
+<tbody>{''.join(rows) or '<tr><td colspan=8 style="text-align:center;padding:2rem;color:#889">Nenhum lead ainda — eles aparecem aqui na hora.</td></tr>'}</tbody></table></main>
+<script>document.querySelectorAll('[data-ts]').forEach(td=>{{
+ td.textContent=new Date(td.dataset.ts).toLocaleString('pt-BR',{{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}});
+}});</script></body></html>"""
+    return HTMLResponse(html)
+
+
+@app.get("/leads.csv")
+async def leads_csv(request: Request):
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    leads = _fetch_leads()
+    buf = io.StringIO()
+    buf.write("﻿")  # BOM pro Excel BR abrir certo
+    w = csv.writer(buf, delimiter=";")
+    w.writerow(["id", "data_hora_utc", "nome", "whatsapp", "email", "pedido",
+                "total_reais", "utm_source", "utm_medium", "utm_campaign", "gclid", "pagina", "ip"])
+    for l in leads:
+        m = l["meta"]
+        w.writerow([l["id"], l["ts"], l["name"], l["phone"], l["email"], l["pedido"],
+                    f"{l['total'] / 100:.2f}".replace(".", ","),
+                    m.get("utm_source", ""), m.get("utm_medium", ""), m.get("utm_campaign", ""),
+                    m.get("gclid", ""), m.get("page", ""), l["ip"]])
+    buf.seek(0)
+    return StreamingResponse(iter([buf.getvalue()]), media_type="text/csv; charset=utf-8",
+                             headers={"Content-Disposition": "attachment; filename=leads-hyu.csv"})
