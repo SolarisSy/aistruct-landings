@@ -1,0 +1,1 @@
+import{f as o,m as c}from"./motion.mQvYQ7Ln.js";document.querySelectorAll("[data-final-can]").forEach((e,a)=>o(e,{y:8+a%3*4,rot:a%2?2:-2,dur:3+a%4*.4}));const t=document.querySelector(".final [data-magnetic]");t&&c(t);
