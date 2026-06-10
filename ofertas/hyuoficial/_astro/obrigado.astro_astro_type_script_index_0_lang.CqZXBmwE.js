@@ -1,1 +1,0 @@
-import{j as t}from"./cart.qFtz7XFK.js";t();const a=new URLSearchParams(location.search).get("session_id"),e=document.querySelector("[data-thanks-ref]");a&&e&&(e.textContent=`Referência do pedido: ${a.replace(/^cs_/,"").slice(0,12)}`,e.hidden=!1);
