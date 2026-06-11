@@ -1,1 +1,0 @@
-import{f as o,m as a}from"./motion.mQvYQ7Ln.js";import{a as e}from"./buy.C1_5i0v5.js";e();o(document.querySelector("[data-pdp-stage]"),{y:12,rot:1.6});const t=document.querySelector(".pdp__buy [data-magnetic]");t&&a(t);
