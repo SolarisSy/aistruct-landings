@@ -1,1 +1,0 @@
-import{o as n,c as s}from"./cart.CyOYAzi0.js";const c=document.querySelector(".header"),o=()=>c?.classList.toggle("is-scrolled",window.scrollY>60);window.addEventListener("scroll",o,{passive:!0});o();const e=document.querySelector("[data-cart-badge]"),r=()=>{if(!e)return;const t=s();e.textContent=String(t),e.hidden=t===0};n(r);r();
