@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23217346'/%3E%3Cpath d='M7 7l10 10M17 7L7 17' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>Finalizar matrícula — Loterias para aprender Excel</title>
+<style>
+  :root{
+    --xl:#217346; --xl-dark:#185c37; --xl-bright:#33c481; --gold:#f6c623; --gold-d:#c99a08;
+    --ink:#10241a; --bg:#eef2ee; --txt:#16201a; --mut:#69756d; --line:#dfe6e0;
+    --green:#0aa53f; --green2:#078733; --red:#e23636;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;
+    background-image:linear-gradient(#e3eae4 1px,transparent 1px),linear-gradient(90deg,#e3eae4 1px,transparent 1px);
+    background-size:30px 30px;background-position:-1px -1px}
+  .wrap{max-width:480px;margin:0 auto;background:var(--bg)}
+  .pad{padding:0 14px 56px}
+  svg{display:block}
+  .ic{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+  /* barra de urgência */
+  .urgency{background:var(--ink);color:#e7efe9;display:flex;align-items:center;gap:9px;justify-content:center;
+    padding:9px 12px;font-size:12.5px;text-align:center}
+  .urgency .ic{stroke:var(--gold);width:15px;height:15px}
+  .urgency b{color:var(--gold);font-variant-numeric:tabular-nums;background:#000;border:1px solid #283a30;
+    border-radius:6px;padding:3px 8px;font-weight:800;letter-spacing:.5px}
+
+  /* HERO (substitui o banner) — tema Excel + loteria */
+  .hero{background:linear-gradient(160deg,var(--xl-dark),var(--xl) 60%,#1c6a40);color:#fff;overflow:hidden;position:relative}
+  .hero::after{content:"";position:absolute;inset:0;opacity:.10;pointer-events:none;
+    background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+    background-size:26px 26px}
+  .fbar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(0,0,0,.22);
+    border-bottom:1px solid rgba(255,255,255,.10);position:relative;z-index:1;font-size:12.5px}
+  .fbar .fx{font-style:italic;font-weight:800;color:#cdeede;background:rgba(255,255,255,.12);
+    border-radius:5px;padding:2px 8px;letter-spacing:.5px}
+  .fbar .cell{font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;color:#eafff3;opacity:.95;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fbar .cell b{color:var(--gold)}
+  .hero-body{position:relative;z-index:1;padding:18px 16px 20px}
+  .balls{display:flex;align-items:center;gap:7px;margin-bottom:13px}
+  .ball{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:900;font-size:14px;color:#5a4500;background:radial-gradient(circle at 32% 28%,#ffe680,var(--gold) 62%,var(--gold-d));
+    box-shadow:0 3px 7px rgba(0,0,0,.28),inset 0 -2px 3px rgba(0,0,0,.18);flex:0 0 auto}
+  .arrow{color:#bfe9cf;margin:0 1px}
+  .cellbox{display:flex;gap:3px}
+  .cellbox i{width:30px;height:34px;border-radius:5px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.30);
+    display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800;font-size:13px;color:#eafff3;
+    font-family:ui-monospace,Menlo,Consolas,monospace}
+  .hero h1{margin:0;font-size:21px;line-height:1.22;font-weight:800;letter-spacing:.2px}
+  .hero h1 .lt{color:var(--gold)}
+  .hero h1 .xl{color:#c6ffdd}
+  .hero-sub{margin:9px 0 0;font-size:13px;color:#d4ecde;max-width:30em}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+  .tag2{font-size:11px;font-weight:800;letter-spacing:.3px;background:rgba(255,255,255,.13);
+    border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:5px 10px;color:#eafff3}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:14px;
+    box-shadow:0 1px 3px rgba(15,35,25,.05)}
+
+  /* selos */
+  .seals{display:flex;gap:8px;margin-top:14px}
+  .seal{flex:1;display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:9px 8px;font-size:11px;font-weight:700;color:#48544c;line-height:1.15}
+  .seal .ic{width:18px;height:18px;stroke:var(--xl)}
+
+  /* produto */
+  .prod{display:flex;align-items:center;gap:12px}
+  .prod-ic{width:56px;height:56px;border-radius:12px;border:1.5px solid var(--xl-bright);flex:0 0 auto;
+    background:linear-gradient(150deg,#eafff2,#d6f5e3);display:flex;align-items:center;justify-content:center}
+  .prod-ic svg{width:32px;height:32px}
+  .prod-info{flex:1;min-width:0}
+  .prod-name{font-weight:800;font-size:15px;line-height:1.25}
+  .prod-sub{font-size:12px;color:var(--mut);margin-top:2px}
+  .prod-price{font-size:23px;font-weight:900;color:var(--xl);white-space:nowrap}
+  .prod-price small{display:block;font-size:10.5px;color:var(--mut);font-weight:700;text-align:right;margin-bottom:-2px}
+  .scarcity{display:flex;align-items:center;gap:6px;color:var(--red);font-size:12px;font-weight:700;
+    margin-top:12px;background:#fdecec;border-radius:8px;padding:7px 10px}
+  .scarcity .dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  /* o que recebe */
+  .includes{margin-top:14px;border-top:1px solid var(--line);padding-top:13px}
+  .includes h4{margin:0 0 9px;font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;font-weight:800}
+  .includes li{display:flex;align-items:center;gap:9px;font-size:13.5px;margin:7px 0;font-weight:600}
+  .includes .ic{width:17px;height:17px;stroke:var(--xl)}
+  .includes ul{list-style:none;margin:0;padding:0}
+
+  label{display:block;font-size:12.5px;color:#36433b;margin:13px 0 5px;font-weight:700}
+  input{width:100%;padding:13px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:16px;outline:none;background:#fbfdfb}
+  input:focus{border-color:var(--xl-bright);background:#fff;box-shadow:0 0 0 3px rgba(51,196,129,.16)}
+  .err{color:var(--red);font-size:12.5px;margin-top:8px;display:none;font-weight:600}
+
+  .pixbar{display:flex;align-items:center;gap:11px;margin-top:16px;border:1.5px solid var(--xl-bright);background:#effaf2;
+    border-radius:11px;padding:12px}
+  .pixbar .tag{font-weight:900;color:#fff;background:var(--xl);border-radius:6px;padding:4px 9px;font-size:12px;letter-spacing:.5px;flex:0 0 auto}
+  .pixbar b{font-size:13.5px;display:block} .pixbar small{color:var(--mut);font-size:11.5px;font-weight:600}
+
+  button.cta{width:100%;margin-top:16px;padding:16px;border:0;border-radius:12px;
+    background:linear-gradient(180deg,#27a85a,var(--xl-dark));color:#fff;font-size:17px;font-weight:900;
+    cursor:pointer;letter-spacing:.4px;display:flex;align-items:center;justify-content:center;gap:9px;
+    box-shadow:0 8px 20px rgba(24,92,55,.30);transition:.12s}
+  button.cta:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(24,92,55,.38)}
+  button.cta:disabled{opacity:.6;transform:none;cursor:default}
+  button.cta .ic{stroke:#fff;width:19px;height:19px}
+
+  .secure{display:flex;align-items:center;justify-content:center;gap:7px;color:var(--mut);font-size:11.5px;
+    margin-top:13px;font-weight:600}
+  .secure .ic{width:14px;height:14px;stroke:var(--mut)}
+
+  .hidden{display:none}
+  /* pix result */
+  #qrbox{display:flex;justify-content:center;margin:8px 0 12px}
+  #qrbox img,#qrbox canvas{width:228px;height:228px;border:1px solid var(--line);border-radius:12px;padding:9px;background:#fff}
+  .pix-title{text-align:center;font-weight:800;font-size:16px;margin-bottom:2px}
+  .pix-amt{text-align:center;color:var(--xl);font-weight:900;font-size:18px;margin-bottom:10px}
+  .copybox{display:flex;gap:8px;margin-top:6px}
+  .copybox input{font-size:12px;color:var(--mut)}
+  .copybox button{padding:0 17px;border:0;border-radius:10px;background:var(--ink);color:#fff;font-weight:800;cursor:pointer;white-space:nowrap}
+  .steps{font-size:13px;color:#414e46;margin:13px 2px 0;padding-left:18px}
+  .steps li{margin:5px 0}
+  .status{display:flex;align-items:center;gap:10px;justify-content:center;margin-top:15px;color:var(--xl);font-size:14px;font-weight:700}
+  .spin{width:18px;height:18px;border:3px solid var(--line);border-top-color:var(--xl-bright);border-radius:50%;animation:s .8s linear infinite}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .ok{text-align:center}
+  .ok .chkwrap{width:66px;height:66px;border-radius:50%;background:#effaf2;border:2px solid var(--xl-bright);
+    display:flex;align-items:center;justify-content:center;margin:4px auto 10px}
+  .ok .chkwrap .ic{width:34px;height:34px;stroke:var(--xl);stroke-width:2.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="urgency">
+    <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    <span>Lote promocional encerra em</span> <b id="timer">14:59</b>
+  </div>
+
+  <!-- HERO no tema (sem banner) -->
+  <header class="hero">
+    <div class="fbar">
+      <span class="fx">fx</span>
+      <span class="cell">=APRENDER(<b>"EXCEL"</b>; jogando."LOTERIA")</span>
+    </div>
+    <div class="hero-body">
+      <div class="balls">
+        <span class="ball">07</span><span class="ball">13</span><span class="ball">21</span>
+        <svg class="ic arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        <span class="cellbox"><i>A1</i><i>B1</i><i>=</i></span>
+      </div>
+      <h1>Utilizando as <span class="lt">LOTERIAS</span> para aprender <span class="xl">EXCEL</span></h1>
+      <p class="hero-sub">O curso prático que transforma os números que você já joga em planilhas, fórmulas e gráficos — você aprende Excel de verdade montando seu próprio sistema da sorte.</p>
+      <div class="tags">
+        <span class="tag2">📊 Do zero ao avançado</span>
+        <span class="tag2">🎯 100% prático</span>
+        <span class="tag2">♾️ Acesso vitalício</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="pad">
+    <!-- selos -->
+    <div class="seals">
+      <div class="seal"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.5 7.7 8 9.5 4.5-1.8 8-4.5 8-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg>Compra<br>segura</div>
+      <div class="seal"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Pagamento<br>protegido</div>
+      <div class="seal"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.5 7.7 8 9.5 4.5-1.8 8-4.5 8-9.5V6z"/></svg>Garantia<br>7 dias</div>
+    </div>
+
+    <!-- FORM -->
+    <div class="card" id="formCard">
+      <div class="prod">
+        <div class="prod-ic">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" fill="#217346"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18" stroke="#bff0d3" stroke-width="1.1"/><path d="M8.4 7.8 12 12m0 0 3.6 4.2M12 12l3.6-4.2M12 12l-3.6 4.2" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Loterias para aprender Excel</div>
+          <div class="prod-sub">Curso completo + planilhas prontas</div>
+        </div>
+        <div class="prod-price"><small>à vista no Pix</small><span id="prodPrice">R$ 97,00</span></div>
+      </div>
+      <div class="scarcity"><span class="dot"></span>Últimas <span id="vagas">7</span> vagas neste valor promocional</div>
+
+      <div class="includes">
+        <h4>O que você recebe</h4>
+        <ul>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Acesso vitalício ao curso completo</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Planilhas prontas para baixar e usar</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Fórmulas, tabelas dinâmicas e gráficos passo a passo</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Aulas usando jogos reais de loteria como exercício</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Garantia incondicional de 7 dias</li>
+        </ul>
+      </div>
+
+      <form id="form" autocomplete="on" novalidate>
+        <label>E-mail</label>
+        <input id="email" type="email" placeholder="Insira seu e-mail" autocomplete="email" required>
+        <label>Confirme seu e-mail</label>
+        <input id="email2" type="email" placeholder="Insira novamente seu e-mail" autocomplete="email" required>
+        <label>Nome completo</label>
+        <input id="name" placeholder="Insira seu nome completo" autocomplete="name" required>
+        <label>CPF</label>
+        <input id="cpf" inputmode="numeric" placeholder="000.000.000-00" required>
+        <label>Celular (com DDD)</label>
+        <input id="phone" inputmode="numeric" placeholder="(00) 00000-0000">
+
+        <div class="pixbar">
+          <span class="tag">PIX</span>
+          <div><b>Pagamento via Pix</b><small>Aprovação imediata e acesso liberado na hora</small></div>
+        </div>
+
+        <div class="err" id="formErr"></div>
+        <button class="cta" id="genBtn" type="submit">
+          QUERO ME MATRICULAR
+          <svg class="ic" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </button>
+        <div class="secure">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          Pagamento criptografado · seus dados estão protegidos
+        </div>
+      </form>
+    </div>
+
+    <!-- PIX -->
+    <div class="card hidden" id="pixCard">
+      <div class="pix-title">Escaneie ou copie para pagar</div>
+      <div class="pix-amt">R$ 97,00 via Pix</div>
+      <div id="qrbox"></div>
+      <label>Pix copia e cola</label>
+      <div class="copybox">
+        <input id="emv" readonly>
+        <button id="copyBtn" type="button">Copiar</button>
+      </div>
+      <ol class="steps">
+        <li>Abra o app do seu banco em <b>Pix &rsaquo; Copia e cola</b> (ou escaneie o QR).</li>
+        <li>Confira o valor e confirme o pagamento.</li>
+        <li>O acesso é liberado automaticamente — não feche esta página.</li>
+      </ol>
+      <div class="status"><span class="spin"></span><span>Aguardando confirmação do pagamento…</span></div>
+    </div>
+
+    <!-- SUCESSO -->
+    <div class="card hidden ok" id="okCard">
+      <div class="chkwrap"><svg class="ic" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg></div>
+      <div style="font-size:21px;font-weight:900;color:var(--xl)">Matrícula confirmada!</div>
+      <div class="secure" style="justify-content:center;margin-top:8px;color:#414e46">Seu acesso ao curso foi liberado. Confira seu e-mail.</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+  var qs=new URLSearchParams(location.search);
+  var SRC=(qs.get('src')||qs.get('clickid')||qs.get('rtkcid')||'').trim();
+  var OFFER=qs.get('offer')||'';
+  var $=function(id){return document.getElementById(id);};
+
+  var t=14*60+59;
+  setInterval(function(){if(t>0)t--;var m=Math.floor(t/60),s=t%60;
+    $('timer').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;},1000);
+
+  function mCPF(v){v=v.replace(/\D/g,'').slice(0,11);
+    return v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');}
+  function mPhone(v){v=v.replace(/\D/g,'').slice(0,11);
+    if(v.length<=10)return v.replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{4})(\d)/,'$1-$2');
+    return v.replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d)/,'$1-$2');}
+  $('cpf').addEventListener('input',function(){this.value=mCPF(this.value);});
+  $('phone').addEventListener('input',function(){this.value=mPhone(this.value);});
+
+  fetch('/api/config?offer='+encodeURIComponent(OFFER)).then(function(r){return r.json();}).then(function(c){
+    if(c.price_brl){$('prodPrice').textContent='R$ '+c.price_brl;
+      var amt=$('pixCard').querySelector('.pix-amt');if(amt)amt.textContent='R$ '+c.price_brl+' via Pix';}
+  }).catch(function(){});
+
+  function cpfOk(cpf){cpf=cpf.replace(/\D/g,'');if(cpf.length!==11||/^(\d)\1+$/.test(cpf))return false;
+    var s=0,r;for(var i=0;i<9;i++)s+=parseInt(cpf[i])*(10-i);r=(s*10)%11;if(r===10)r=0;if(r!==parseInt(cpf[9]))return false;
+    s=0;for(i=0;i<10;i++)s+=parseInt(cpf[i])*(11-i);r=(s*10)%11;if(r===10)r=0;return r===parseInt(cpf[10]);}
+
+  var poll=null;
+  $('form').addEventListener('submit',async function(e){
+    e.preventDefault();var err=$('formErr');err.style.display='none';
+    function bad(m){err.textContent=m;err.style.display='block';return false;}
+    var email=$('email').value.trim(),email2=$('email2').value.trim(),
+        name=$('name').value.trim(),cpf=$('cpf').value,phone=$('phone').value;
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return bad('E-mail inválido.');
+    if(email!==email2)return bad('Os e-mails não conferem.');
+    if(name.length<3)return bad('Informe seu nome completo.');
+    if(!cpfOk(cpf))return bad('CPF inválido.');
+    var btn=$('genBtn');btn.disabled=true;btn.textContent='Gerando Pix…';
+    try{
+      var res=await fetch('/api/pix',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name:name,email:email,cpf:cpf,phone:phone,src:SRC,offer:OFFER})});
+      if(!res.ok)throw 0;var d=await res.json();if(!d.qrcode)throw 0;
+      showPix(d.qrcode,d.transaction_id);
+    }catch(ex){btn.disabled=false;btn.textContent='QUERO ME MATRICULAR';bad('Não foi possível gerar o Pix. Tente novamente.');}
+  });
+
+  function showPix(emv,txid){
+    $('formCard').classList.add('hidden');
+    var pc=$('pixCard');pc.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});
+    $('emv').value=emv;
+    try{new QRCode($('qrbox'),{text:emv,width:228,height:228,correctLevel:QRCode.CorrectLevel.M});}
+    catch(e){$('qrbox').innerHTML='<div class="secure">Use o copia-e-cola abaixo.</div>';}
+    $('copyBtn').addEventListener('click',function(){$('emv').select();
+      try{navigator.clipboard.writeText(emv);}catch(e){document.execCommand('copy');}
+      this.textContent='Copiado!';var b=this;setTimeout(function(){b.textContent='Copiar';},1800);});
+    if(txid)startPoll(txid);
+  }
+  function startPoll(txid){var n=0;poll=setInterval(async function(){
+    if(++n>300){clearInterval(poll);return;}
+    try{var s=await(await fetch('/api/status/'+txid)).json();
+      if(s.paid){clearInterval(poll);$('pixCard').classList.add('hidden');
+        var ok=$('okCard');ok.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+    }catch(e){}},3000);}
+})();
+</script>
+</body>
+</html>
