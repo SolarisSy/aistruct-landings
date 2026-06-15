@@ -2,13 +2,14 @@
 HYU (hyuoficial.com) -> Paggins SDK bridge + CAPTURA DE LEADS (paliativo).
 
 O site e estatico (nginx); este servico:
-  1. cria checkout sessions na Paggins (fora de uso ate a Paggins habilitar
-     frete nas sessions SDK — cartao nao processa sem isso, provado 10/06)
-  2. captura LEADS de compra (paliativo enquanto a adquirente nao processa):
-     o "Finalizar compra" do site abre um form e POSTa aqui; tudo fica em
-     SQLite num volume da VPS, visivel/exportavel em /leads (Basic auth).
+  1. cria checkout sessions na Paggins (SDK) p/ o carrinho multi-item (sabores + combos).
+     Fisico+frete confirmado funcionando 15/06 (scripts/paggins_gate.py; frete GRATIS auto).
+  2. confirma pagamento: GET /session (status) + POST /webhook/paggins (eventos -> tabela orders).
+  3. captura LEADS (paliativo p/ carrinho abandonado): form -> SQLite no volume da VPS.
 
-POST /checkout         <- carrinho -> checkout session Paggins (em espera)
+POST /checkout         <- carrinho {items:[{flavor,tier,qty}|{combo,qty}], meta} -> session
+GET  /session/{id}     <- status do pedido (pro obrigado)
+POST /webhook/paggins  <- eventos Paggins (assinatura HMAC) -> marca orders pagos
 POST /lead             <- site: {name, phone, email, items, meta} -> grava na VPS
 GET  /leads            <- painel HTML (Basic auth: qualquer usuario + LEADS_PASSWORD)
 GET  /leads.csv        <- export CSV (mesma auth)
@@ -20,6 +21,7 @@ Env:
   PAGGINS_API_KEY  - sk_live_... — setar no Easypanel, NUNCA no git
   PAGGINS_API_URL  - default https://api.paggins.com
   SITE_BASE        - default https://hyuoficial.com
+  PAGGINS_WEBHOOK_SECRET - segredo p/ verificar x-paggins-signature do webhook; NUNCA no git
   LEADS_PASSWORD   - senha do /leads (obrigatoria pro painel; NUNCA no git)
   LEADS_DB         - default /data/leads.db (volume) com fallback ./leads.db
   LOG_LEVEL        - default INFO
@@ -28,6 +30,8 @@ from __future__ import annotations
 
 import base64
 import csv
+import hashlib
+import hmac
 import io
 import json
 import logging
@@ -52,6 +56,7 @@ PAGGINS_API_KEY = os.environ.get("PAGGINS_API_KEY", "").strip()
 PAGGINS_API_URL = os.environ.get("PAGGINS_API_URL", "https://api.paggins.com").rstrip("/")
 SITE_BASE = os.environ.get("SITE_BASE", "https://hyuoficial.com").rstrip("/")
 LEADS_PASSWORD = os.environ.get("LEADS_PASSWORD", "").strip()
+PAGGINS_WEBHOOK_SECRET = os.environ.get("PAGGINS_WEBHOOK_SECRET", "").strip()
 LEADS_DB = os.environ.get("LEADS_DB", "/data/leads.db")
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
@@ -100,6 +105,17 @@ PRODUCT_IDS: dict[tuple[str, str], str] = {
     ("maca-vermelha", "kit6"):    "6595de07-23c2-44b7-bf99-d2f00919be96",
     ("maca-vermelha", "kit12"):   "d8d1b025-bb9f-4b80-92c0-76845a01453c",
 }
+# combos = produtos Paggins proprios (1 productId cada). Assinaturas NAO entram (links fixos).
+COMBOS: dict[str, dict[str, Any]] = {
+    "kit-energy": {"productId": "5287a35b-9a4c-4307-a929-599ab5e2791d", "cents": 6690,
+                   "name": "HYU Kit Energy (6 latas)", "sku": "KITENERGY", "img": "kit-energy"},
+    "kit-soda":   {"productId": "62ed2805-089e-454f-afa0-f28f6dfa6abc", "cents": 6690,
+                   "name": "HYU Kit Soda (6 latas)", "sku": "KITSODA", "img": "kit-soda"},
+    "super-kit":  {"productId": "972ac99f-2800-4db9-88af-d34246cbd3ed", "cents": 11990,
+                   "name": "HYU Super Kit (12 latas)", "sku": "SUPERKIT", "img": "super-kit"},
+    "kit24":      {"productId": "35818f74-5267-46d6-98f7-c19badd7cea7", "cents": 21990,
+                   "name": "HYU Kit 24 (24 latas)", "sku": "KIT24", "img": "super-kit"},
+}
 
 MAX_LINES = 10      # combinacoes distintas por pedido
 MAX_QTY = 20        # kits por linha
@@ -108,7 +124,8 @@ META_KEYS = ("utm_source", "utm_medium", "utm_campaign", "utm_term",
 
 RECENT: deque = deque(maxlen=80)
 STATS = {"received": 0, "created": 0, "bad_request": 0, "paggins_error": 0,
-         "leads_received": 0, "leads_saved": 0, "leads_bad": 0}
+         "leads_received": 0, "leads_saved": 0, "leads_bad": 0,
+         "webhook_received": 0, "webhook_paid": 0, "webhook_bad_sig": 0}
 
 # ── leads: SQLite no volume da VPS ───────────────────────────────────
 def _db() -> sqlite3.Connection:
@@ -119,6 +136,11 @@ def _db() -> sqlite3.Connection:
         "phone TEXT, pedido TEXT, total_cents INTEGER, items TEXT, meta TEXT, "
         "ip TEXT, ua TEXT)"
     )
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS orders ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, session_id TEXT, order_id TEXT, "
+        "event TEXT, status TEXT, amount_cents INTEGER, verified INTEGER, payload TEXT)"
+    )
     return conn
 
 
@@ -126,35 +148,48 @@ def _build_items(raw_items: Any) -> list[dict[str, Any]]:
     """Valida o carrinho e monta os items da Paggins com preco do catalogo."""
     if not isinstance(raw_items, list) or not raw_items:
         raise HTTPException(400, "items vazio")
-    merged: dict[tuple[str, str], int] = {}
+    merged: dict[tuple, int] = {}
     for it in raw_items:
         if not isinstance(it, dict):
             raise HTTPException(400, "item invalido")
-        flavor, tier = it.get("flavor"), it.get("tier")
-        if flavor not in FLAVORS or tier not in TIERS:
-            raise HTTPException(400, f"combinacao desconhecida: {flavor}/{tier}")
         try:
             qty = int(it.get("qty", 1))
         except (TypeError, ValueError):
             raise HTTPException(400, "qty invalida")
         if not 1 <= qty <= MAX_QTY:
             raise HTTPException(400, f"qty fora de 1..{MAX_QTY}")
-        merged[(flavor, tier)] = min(merged.get((flavor, tier), 0) + qty, MAX_QTY)
+        combo = it.get("combo")
+        if combo is not None:
+            if combo not in COMBOS:
+                raise HTTPException(400, f"combo desconhecido: {combo}")
+            key: tuple = ("combo", combo)
+        else:
+            flavor, tier = it.get("flavor"), it.get("tier")
+            if flavor not in FLAVORS or tier not in TIERS:
+                raise HTTPException(400, f"combinacao desconhecida: {flavor}/{tier}")
+            key = ("flavor", flavor, tier)
+        merged[key] = min(merged.get(key, 0) + qty, MAX_QTY)
     if len(merged) > MAX_LINES:
         raise HTTPException(400, f"mais de {MAX_LINES} combinacoes")
     items = []
-    for (flavor, tier), qty in merged.items():
-        f, t = FLAVORS[flavor], TIERS[tier]
-        items.append({
-            "productId": PRODUCT_IDS[(flavor, tier)],
-            "name": f"{f['name']} — {t['label']}",
-            "type": "physical",
-            "unitAmount": t["cents"],
-            "quantity": qty,
-            "sku": f"HYU-{f['sku']}-{t['sku']}",
-            "description": f["desc"],
-            "imageUrl": f"{SITE_BASE}/img/kits/{flavor}.webp",
-        })
+    for key, qty in merged.items():
+        if key[0] == "combo":
+            c = COMBOS[key[1]]
+            items.append({
+                "productId": c["productId"], "name": c["name"], "type": "physical",
+                "unitAmount": c["cents"], "quantity": qty, "sku": f"HYU-{c['sku']}",
+                "imageUrl": f"{SITE_BASE}/img/kits/{c['img']}.webp",
+            })
+        else:
+            _, flavor, tier = key
+            f, t = FLAVORS[flavor], TIERS[tier]
+            items.append({
+                "productId": PRODUCT_IDS[(flavor, tier)],
+                "name": f"{f['name']} — {t['label']}", "type": "physical",
+                "unitAmount": t["cents"], "quantity": qty,
+                "sku": f"HYU-{f['sku']}-{t['sku']}", "description": f["desc"],
+                "imageUrl": f"{SITE_BASE}/img/kits/{flavor}.webp",
+            })
     return items
 
 
@@ -227,6 +262,88 @@ async def create_checkout(request: Request):
         log.warning("tentativa %d falhou (%s)", attempt, last_err)
     STATS["paggins_error"] += 1
     raise HTTPException(502, "checkout indisponivel")
+
+
+@app.get("/session/{session_id}")
+async def get_session(session_id: str):
+    """Confirma o status do pedido (usado pelo obrigado.astro)."""
+    if not re.match(r"^cs_[A-Za-z0-9]+$", session_id):
+        raise HTTPException(400, "session_id invalido")
+    headers = {"Authorization": f"Bearer {PAGGINS_API_KEY}"}
+    try:
+        async with httpx.AsyncClient(timeout=20) as c:
+            r = await c.get(
+                f"{PAGGINS_API_URL}/v1/sdk/checkout-sessions/{session_id}?countryCode=BR",
+                headers=headers)
+    except httpx.HTTPError as e:
+        raise HTTPException(502, f"paggins indisponivel: {str(e)[:80]}")
+    if r.status_code == 404:
+        raise HTTPException(404, "sessao nao encontrada")
+    if r.status_code != 200:
+        raise HTTPException(502, f"paggins {r.status_code}")
+    s = r.json()
+    pay = s.get("payment") or {}
+    return {"id": s.get("id"), "status": s.get("status"),
+            "paymentStatus": pay.get("status"), "totalAmount": s.get("totalAmount"),
+            "currency": s.get("currency")}
+
+
+def _webhook_verified(raw: bytes, sig: str) -> bool:
+    """Confere a assinatura HMAC-SHA256 tentando variações de chave/payload
+    (com/sem prefixo whsec_, raw vs JSON compacto) — o esquema exato é confirmado
+    no 1º webhook real."""
+    if not (PAGGINS_WEBHOOK_SECRET and sig):
+        return False
+    keys = {PAGGINS_WEBHOOK_SECRET}
+    if "_" in PAGGINS_WEBHOOK_SECRET:
+        keys.add(PAGGINS_WEBHOOK_SECRET.split("_", 1)[1])
+    bodies = {raw}
+    try:
+        bodies.add(json.dumps(json.loads(raw), separators=(",", ":")).encode())
+    except Exception:
+        pass
+    for k in keys:
+        for b in bodies:
+            if hmac.compare_digest(hmac.new(k.encode(), b, hashlib.sha256).hexdigest(), sig):
+                return True
+    return False
+
+
+@app.post("/webhook/paggins")
+async def paggins_webhook(request: Request):
+    """Recebe eventos da Paggins e marca pedidos pagos. Verifica a assinatura HMAC
+    mas NÃO descarta em mismatch — registra `verified` e processa mesmo assim, pra
+    não perder pedido caso o esquema de assinatura difira (apertar após o 1º real)."""
+    raw = await request.body()
+    STATS["webhook_received"] += 1
+    verified = _webhook_verified(raw, request.headers.get("x-paggins-signature", ""))
+    if not verified:
+        STATS["webhook_bad_sig"] += 1
+    try:
+        ev = json.loads(raw or b"{}")
+    except Exception:
+        raise HTTPException(400, "JSON invalido")
+    event = ev.get("event") or ev.get("type") or ""
+    sid = ev.get("sessionId") or ev.get("session_id") or ""
+    PAID = {"checkout.session.completed", "payment.succeeded", "order.fulfilled"}
+    if event in PAID:
+        pay = ev.get("payment") or {}
+        order_id = ev.get("orderId") or ev.get("externalOrderId") or ""
+        ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        conn = _db()
+        try:
+            conn.execute(
+                "INSERT INTO orders (ts, session_id, order_id, event, status, amount_cents, verified, payload) "
+                "VALUES (?,?,?,?,?,?,?,?)",
+                (ts, sid, order_id, event, "paid", pay.get("amount"), int(verified),
+                 json.dumps(ev, ensure_ascii=False)[:4000]))
+            conn.commit()
+        finally:
+            conn.close()
+        STATS["webhook_paid"] += 1
+        log.info("webhook PAGO(verified=%s): %s session=%s order=%s amount=%s",
+                 verified, event, sid, order_id, pay.get("amount"))
+    return {"received": True}
 
 
 @app.get("/healthz")
