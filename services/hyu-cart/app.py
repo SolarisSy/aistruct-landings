@@ -76,7 +76,8 @@ app.add_middleware(
 )
 
 # ── catalogo server-side (fonte da verdade de preco/nome) ───────────────
-# productId = UUID do produto correspondente na Paggins (mesmo do checkout fixo).
+# productId = UUID do produto na Paggins. ⚠️ os PREÇOS (cents) DEVEM casar com o
+# front (src/data/products.ts: prices/combos). Hoje: kit6=6990 kit12=11990 kit24=21990 sub=9990.
 FLAVORS: dict[str, dict[str, str]] = {
     "hot-lemon":       {"name": "HYU Soda Protein Hot Lemon", "sku": "HOTLEMON",
                         "desc": "15g de proteína · 3g de fibras · zero açúcar · 269ml"},
@@ -90,7 +91,7 @@ FLAVORS: dict[str, dict[str, str]] = {
                         "desc": "15g de proteína · 85mg de cafeína natural · zero açúcar · 269ml"},
 }
 TIERS: dict[str, dict[str, Any]] = {
-    "kit6":  {"label": "Kit 6 (6 latas)",   "cents": 6690,  "sku": "K6"},
+    "kit6":  {"label": "Kit 6 (6 latas)",   "cents": 6990,  "sku": "K6"},
     "kit12": {"label": "Kit 12 (12 latas)", "cents": 11990, "sku": "K12"},
 }
 PRODUCT_IDS: dict[tuple[str, str], str] = {
@@ -107,9 +108,9 @@ PRODUCT_IDS: dict[tuple[str, str], str] = {
 }
 # combos = produtos Paggins proprios (1 productId cada). Assinaturas NAO entram (links fixos).
 COMBOS: dict[str, dict[str, Any]] = {
-    "kit-energy": {"productId": "5287a35b-9a4c-4307-a929-599ab5e2791d", "cents": 6690,
+    "kit-energy": {"productId": "5287a35b-9a4c-4307-a929-599ab5e2791d", "cents": 6990,
                    "name": "HYU Kit Energy (6 latas)", "sku": "KITENERGY", "img": "kit-energy"},
-    "kit-soda":   {"productId": "62ed2805-089e-454f-afa0-f28f6dfa6abc", "cents": 6690,
+    "kit-soda":   {"productId": "62ed2805-089e-454f-afa0-f28f6dfa6abc", "cents": 6990,
                    "name": "HYU Kit Soda (6 latas)", "sku": "KITSODA", "img": "kit-soda"},
     "super-kit":  {"productId": "972ac99f-2800-4db9-88af-d34246cbd3ed", "cents": 11990,
                    "name": "HYU Super Kit (12 latas)", "sku": "SUPERKIT", "img": "super-kit"},
