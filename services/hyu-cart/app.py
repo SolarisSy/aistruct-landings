@@ -175,21 +175,23 @@ def _build_items(raw_items: Any) -> list[dict[str, Any]]:
     for key, qty in merged.items():
         if key[0] == "combo":
             c = COMBOS[key[1]]
-            items.append({
+            base = {
                 "productId": c["productId"], "name": c["name"], "type": "physical",
-                "unitAmount": c["cents"], "quantity": qty, "sku": f"HYU-{c['sku']}",
+                "unitAmount": c["cents"], "quantity": 1, "sku": f"HYU-{c['sku']}",
                 "imageUrl": f"{SITE_BASE}/img/kits/{c['img']}.webp",
-            })
+            }
         else:
             _, flavor, tier = key
             f, t = FLAVORS[flavor], TIERS[tier]
-            items.append({
+            base = {
                 "productId": PRODUCT_IDS[(flavor, tier)],
                 "name": f"{f['name']} — {t['label']}", "type": "physical",
-                "unitAmount": t["cents"], "quantity": qty,
+                "unitAmount": t["cents"], "quantity": 1,
                 "sku": f"HYU-{f['sku']}-{t['sku']}", "description": f["desc"],
                 "imageUrl": f"{SITE_BASE}/img/kits/{flavor}.webp",
-            })
+            }
+        # ⚠️ SDK Paggins exige quantity=1 por item → duplica a entrada `qty` vezes
+        items.extend(dict(base) for _ in range(qty))
     return items
 
 
