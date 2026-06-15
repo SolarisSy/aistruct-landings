@@ -55,6 +55,11 @@ log = logging.getLogger("hyu-cart")
 PAGGINS_API_KEY = os.environ.get("PAGGINS_API_KEY", "").strip()
 PAGGINS_API_URL = os.environ.get("PAGGINS_API_URL", "https://api.paggins.com").rstrip("/")
 SITE_BASE = os.environ.get("SITE_BASE", "https://hyuoficial.com").rstrip("/")
+# domínios do HYU (CORS + success/cancel por origem) — hyudrinks.com é o principal
+HYU_ORIGINS = [
+    "https://hyudrinks.com", "https://www.hyudrinks.com",
+    "https://hyuoficial.com", "https://www.hyuoficial.com",
+]
 LEADS_PASSWORD = os.environ.get("LEADS_PASSWORD", "").strip()
 PAGGINS_WEBHOOK_SECRET = os.environ.get("PAGGINS_WEBHOOK_SECRET", "").strip()
 LEADS_DB = os.environ.get("LEADS_DB", "/data/leads.db")
@@ -64,9 +69,7 @@ if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
 app = FastAPI(title="HYU cart -> Paggins bridge", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://hyuoficial.com",
-        "https://www.hyuoficial.com",
+    allow_origins=HYU_ORIGINS + [
         "https://hyuoficial.tiectu.easypanel.host",
         "http://localhost:4321", "http://localhost:4322", "http://localhost:4323",
         "http://127.0.0.1:4321", "http://127.0.0.1:4322", "http://127.0.0.1:4323",
@@ -218,12 +221,14 @@ async def create_checkout(request: Request):
         raise
 
     order_id = f"hyu-{uuid.uuid4().hex[:12]}"
+    origin = str(payload.get("origin") or "").rstrip("/")
+    base = origin if origin in HYU_ORIGINS else SITE_BASE  # volta pro domínio de origem
     body = {
         "currency": "BRL",
         "items": items,
         "requireShippingInfo": True,
-        "successUrl": f"{SITE_BASE}/obrigado/?session_id={{CHECKOUT_SESSION_ID}}",
-        "cancelUrl": f"{SITE_BASE}/?checkout=cancelado",
+        "successUrl": f"{base}/obrigado/?session_id={{CHECKOUT_SESSION_ID}}",
+        "cancelUrl": f"{base}/?checkout=cancelado",
         "externalOrderId": order_id,
     }
     metadata = _build_metadata(payload.get("meta"))
