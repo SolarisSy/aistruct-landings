@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/icone.png">
+<title>Oferta Especial — LotoApp VIP</title>
+<style>
+  :root{--gold:#f6c623;--ink:#0b0b0e;--ink2:#15151a;--bg:#eef0f3;--txt:#15191f;
+    --mut:#6c757e;--line:#e1e5ec;--green:#0aa53f;--green2:#078733;--red:#e23636;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:480px;margin:0 auto}
+  .pad{padding:0 14px 56px}
+  .urgency{background:var(--ink);color:#e9eaee;display:flex;align-items:center;gap:9px;justify-content:center;
+    padding:9px 12px;font-size:12.5px;text-align:center}
+  .urgency b{color:var(--gold);font-variant-numeric:tabular-nums;background:#000;border:1px solid #2c2c33;
+    border-radius:6px;padding:3px 8px;font-weight:800;letter-spacing:.5px}
+  .banner{width:100%;display:block;background:var(--ink)}
+  .banner img{width:100%;display:block}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:14px;
+    box-shadow:0 1px 3px rgba(15,25,35,.05)}
+  .badge-new{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:900;
+    padding:3px 9px;border-radius:20px;letter-spacing:.4px;margin-bottom:8px;text-transform:uppercase}
+  .offer-title{font-size:22px;font-weight:900;line-height:1.2;margin:4px 0 6px}
+  .offer-sub{font-size:14px;color:var(--mut);margin-bottom:14px}
+  .price-block{display:flex;align-items:baseline;gap:8px;margin:12px 0}
+  .price-old{font-size:14px;color:var(--mut);text-decoration:line-through}
+  .price-new{font-size:32px;font-weight:900;color:var(--green2)}
+  .price-desc{font-size:12px;color:var(--mut)}
+  .includes{border-top:1px solid var(--line);padding-top:13px;margin-top:13px}
+  .includes h4{margin:0 0 9px;font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;font-weight:800}
+  .includes li{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;margin:8px 0;font-weight:600}
+  .includes ul{list-style:none;margin:0;padding:0}
+  .chk{width:18px;height:18px;stroke:var(--green2);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto;margin-top:1px}
+  button.cta-yes{width:100%;margin-top:18px;padding:17px;border:0;border-radius:12px;
+    background:linear-gradient(180deg,#f6c623,#d4a800);color:var(--ink);font-size:17px;font-weight:900;
+    cursor:pointer;letter-spacing:.4px;display:flex;align-items:center;justify-content:center;gap:9px;
+    box-shadow:0 8px 20px rgba(246,198,35,.35);transition:.12s}
+  button.cta-yes:hover{transform:translateY(-1px)}
+  button.cta-yes:disabled{opacity:.6;transform:none;cursor:default}
+  .skip{display:block;text-align:center;margin-top:14px;color:var(--mut);font-size:13px;text-decoration:underline;cursor:pointer}
+  .skip:hover{color:#333}
+  .secure{display:flex;align-items:center;justify-content:center;gap:7px;color:var(--mut);font-size:11.5px;
+    margin-top:13px;font-weight:600}
+  .hidden{display:none}
+  #qrbox{display:flex;justify-content:center;margin:8px 0 12px}
+  #qrbox img,#qrbox canvas{width:228px;height:228px;border:1px solid var(--line);border-radius:12px;padding:9px;background:#fff}
+  .pix-title{text-align:center;font-weight:800;font-size:16px;margin-bottom:2px}
+  .pix-amt{text-align:center;color:var(--green2);font-weight:900;font-size:18px;margin-bottom:10px}
+  .copybox{display:flex;gap:8px;margin-top:6px}
+  .copybox input{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:12px;color:var(--mut);background:#fbfcfd;outline:none}
+  .copybox button{padding:0 17px;border:0;border-radius:10px;background:var(--ink);color:#fff;font-weight:800;cursor:pointer;white-space:nowrap}
+  .steps{font-size:13px;color:#46505a;margin:13px 2px 0;padding-left:18px}
+  .steps li{margin:5px 0}
+  .status{display:flex;align-items:center;gap:10px;justify-content:center;margin-top:15px;color:var(--green2);font-size:14px;font-weight:700}
+  .spin{width:18px;height:18px;border:3px solid var(--line);border-top-color:var(--green);border-radius:50%;animation:s .8s linear infinite}
+  @keyframes s{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="urgency">⚡ Oferta exclusiva para quem acabou de comprar — <b id="timer">09:59</b> restantes</div>
+  <div class="banner"><img src="/banner.png" alt="LotoApp VIP"></div>
+
+  <div class="pad">
+    <!-- OFERTA -->
+    <div class="card" id="offerCard">
+      <span class="badge-new">Oferta única</span>
+      <div class="offer-title" id="up1Title">Desbloqueie o LotoApp VIP</div>
+      <div class="offer-sub">Acesse a análise avançada reservada para membros VIP — disponível só agora.</div>
+
+      <div class="price-block">
+        <span class="price-old">R$ 97,00</span>
+        <span class="price-new" id="up1Price">R$ 47,00</span>
+        <span class="price-desc">pagamento único · PIX</span>
+      </div>
+
+      <div class="includes">
+        <h4>Você recebe agora</h4>
+        <ul>
+          <li><svg class="chk" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Análise VIP de todos os concursos com IA avançada</li>
+          <li><svg class="chk" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Alertas em tempo real dos jogos mais quentes</li>
+          <li><svg class="chk" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Acesso ao grupo VIP de membros premium</li>
+          <li><svg class="chk" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Suporte prioritário 24/7</li>
+          <li><svg class="chk" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></svg>Garantia incondicional de 180 dias</li>
+        </ul>
+      </div>
+
+      <button class="cta-yes" id="yesBtn" type="button">
+        ✅ SIM! QUERO O VIP AGORA →
+      </button>
+      <div class="secure">🔒 Pagamento criptografado · aprovação imediata</div>
+      <a class="skip" id="skipBtn">Não, obrigado. Dispenso os benefícios VIP.</a>
+    </div>
+
+    <!-- PIX pós-aceite -->
+    <div class="card hidden" id="pixCard">
+      <div class="pix-title">Escaneie ou copie para pagar</div>
+      <div class="pix-amt" id="pixAmt">R$ 47,00 via Pix</div>
+      <div id="qrbox"></div>
+      <label style="display:block;font-size:12.5px;font-weight:700;margin:10px 0 5px">Pix copia e cola</label>
+      <div class="copybox">
+        <input id="emv" readonly>
+        <button id="copyBtn" type="button">Copiar</button>
+      </div>
+      <ol class="steps">
+        <li>Abra o app do seu banco em <b>Pix › Copia e cola</b> (ou escaneie o QR).</li>
+        <li>Confirme o valor e finalize o pagamento.</li>
+        <li>Seu acesso VIP é liberado automaticamente.</li>
+      </ol>
+      <div class="status"><span class="spin"></span><span>Aguardando confirmação…</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+  var qs=new URLSearchParams(location.search);
+  var SRC=qs.get('src')||'';
+  var PTX=qs.get('ptx')||'';
+  function b64d(s){try{return decodeURIComponent(escape(atob(s||'')));}catch(e){return '';}}
+  var NAME=b64d(qs.get('n')),EMAIL=b64d(qs.get('e')),CPF=b64d(qs.get('c')),PHONE=b64d(qs.get('ph'));
+  function passParams(){return '?src='+encodeURIComponent(SRC)+'&ptx='+encodeURIComponent(PTX)
+    +'&n='+encodeURIComponent(qs.get('n')||'')+'&e='+encodeURIComponent(qs.get('e')||'')
+    +'&c='+encodeURIComponent(qs.get('c')||'')+'&ph='+encodeURIComponent(qs.get('ph')||'');}
+  function $id(id){return document.getElementById(id);}
+
+  // timer
+  var t=9*60+59;
+  setInterval(function(){if(t>0)t--;var m=Math.floor(t/60),s=t%60;
+    $id('timer').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;},1000);
+
+  // carrega preço/título do server
+  fetch('/api/upsell-config').then(function(r){return r.json();}).then(function(cfg){
+    if(cfg.upsell1){
+      $id('up1Title').textContent='Desbloqueie o '+cfg.upsell1.title;
+      $id('up1Price').textContent='R$ '+cfg.upsell1.price_brl;
+      $id('pixAmt').textContent='R$ '+cfg.upsell1.price_brl+' via Pix';
+    }
+  }).catch(function(){});
+
+  $id('skipBtn').addEventListener('click',function(){
+    window.location.href='/upsell2'+passParams();
+  });
+
+  var poll=null;
+  $id('yesBtn').addEventListener('click',async function(){
+    var btn=this;btn.disabled=true;btn.textContent='Gerando Pix…';
+    try{
+      var res=await fetch('/api/pix',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name:NAME||'Cliente',email:EMAIL||'cliente@lotoapp.com',
+          cpf:CPF,phone:PHONE,src:SRC,offer:'upsell1'})});
+      if(!res.ok)throw 0;var d=await res.json();if(!d.qrcode)throw 0;
+      $id('offerCard').classList.add('hidden');
+      showPix(d.qrcode,d.transaction_id);
+    }catch(ex){btn.disabled=false;btn.textContent='✅ SIM! QUERO O VIP AGORA →';}
+  });
+
+  function showPix(emv,txid){
+    var pc=$id('pixCard');pc.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});
+    $id('emv').value=emv;
+    try{new QRCode($id('qrbox'),{text:emv,width:228,height:228,correctLevel:QRCode.CorrectLevel.M});}
+    catch(e){$id('qrbox').innerHTML='<div>Use o copia-e-cola.</div>';}
+    $id('copyBtn').addEventListener('click',function(){
+      try{navigator.clipboard.writeText(emv);}catch(e){$id('emv').select();document.execCommand('copy');}
+      this.textContent='Copiado!';var b=this;setTimeout(function(){b.textContent='Copiar';},1800);});
+    if(txid)startPoll(txid);
+  }
+
+  function startPoll(txid){var n=0;poll=setInterval(async function(){
+    if(++n>300){clearInterval(poll);return;}
+    try{var s=await(await fetch('/api/status/'+txid)).json();
+      if(s.paid){clearInterval(poll);window.location.href='/upsell2'+passParams();}
+    }catch(e){}},3000);}
+})();
+</script>
+</body>
+</html>

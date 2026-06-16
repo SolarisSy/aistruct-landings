@@ -224,7 +224,10 @@
     var s=0,r;for(var i=0;i<9;i++)s+=parseInt(cpf[i])*(10-i);r=(s*10)%11;if(r===10)r=0;if(r!==parseInt(cpf[9]))return false;
     s=0;for(i=0;i<10;i++)s+=parseInt(cpf[i])*(11-i);r=(s*10)%11;if(r===10)r=0;return r===parseInt(cpf[10]);}
 
+  function b64e(s){try{return btoa(unescape(encodeURIComponent(s||'')));}catch(e){return '';}}
+
   var poll=null;
+  var _name='',_email='',_cpf='',_phone='';
   $('form').addEventListener('submit',async function(e){
     e.preventDefault();var err=$('formErr');err.style.display='none';
     function bad(m){err.textContent=m;err.style.display='block';return false;}
@@ -234,6 +237,7 @@
     if(email!==email2)return bad('Os e-mails não conferem.');
     if(name.length<3)return bad('Informe seu nome completo.');
     if(!cpfOk(cpf))return bad('CPF inválido.');
+    _name=name;_email=email;_cpf=cpf;_phone=phone;
     var btn=$('genBtn');btn.disabled=true;btn.textContent='Gerando Pix…';
     try{
       var res=await fetch('/api/pix',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -257,8 +261,10 @@
   function startPoll(txid){var n=0;poll=setInterval(async function(){
     if(++n>300){clearInterval(poll);return;}
     try{var s=await(await fetch('/api/status/'+txid)).json();
-      if(s.paid){clearInterval(poll);$('pixCard').classList.add('hidden');
-        var ok=$('okCard');ok.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+      if(s.paid){clearInterval(poll);
+        // redireciona para upsell1 passando dados do comprador via URL (sem formulário nos upsells)
+        var p=new URLSearchParams({src:SRC,ptx:txid,n:b64e(_name),e:b64e(_email),c:b64e(_cpf),ph:b64e(_phone)});
+        window.location.href='/upsell1?'+p.toString();}
     }catch(e){}},3000);}
 })();
 </script>

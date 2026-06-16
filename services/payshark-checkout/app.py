@@ -68,6 +68,17 @@ try:
 except Exception:
     OFFER_PRICES = {}
 
+# ── Upsell prices / titles ─────────────────────────────────────────────────────
+UPSELL1_PRICE = int(os.environ.get("UPSELL1_PRICE", "4700"))   # R$47
+UPSELL2_PRICE = int(os.environ.get("UPSELL2_PRICE", "2700"))   # R$27
+UPSELL1_TITLE = os.environ.get("UPSELL1_TITLE", "LotoApp VIP")
+UPSELL2_TITLE = os.environ.get("UPSELL2_TITLE", "LotoApp Regional")
+# injeta upsells no mapa de preços (sobreposição por env OFFER_PRICES se quiser)
+if "upsell1" not in OFFER_PRICES:
+    OFFER_PRICES["upsell1"] = UPSELL1_PRICE
+if "upsell2" not in OFFER_PRICES:
+    OFFER_PRICES["upsell2"] = UPSELL2_PRICE
+
 # ── Enhanced Conversions for Leads (Google Ads via Google Sheet) ───────────────
 # Liga so quando EC_SHEET_WEBHOOK_URL setado (URL do Apps Script /exec que grava na
 # Sheet). Manda email/telefone HASHEADO (SHA-256); o Google Ads auto-importa e casa
@@ -88,11 +99,22 @@ app = FastAPI(title="StreetPays PIX Checkout + RedTrack bridge", version="2.0.0"
 # (ignora tráfego de outras fontes que por acaso caia no mesmo checkout).
 _RTKCID_RE = re.compile(r"^[0-9a-fA-F]{24}$")
 
-# checkout.html carregado uma vez
-_HTML = ""
-_html_path = Path(__file__).resolve().parent / "checkout.html"
-if _html_path.exists():
-    _HTML = _html_path.read_text(encoding="utf-8")
+# páginas HTML carregadas uma vez no startup
+def _load_html(name: str) -> str:
+    p = Path(__file__).resolve().parent / name
+    return p.read_text(encoding="utf-8") if p.exists() else ""
+
+_HTML        = _load_html("checkout.html")
+_UPSELL1_HTML = _load_html("upsell1.html")
+_UPSELL2_HTML = _load_html("upsell2.html")
+_OBRIGADO_HTML = _load_html("obrigado.html")
+
+# ── detecção de pagamento instantânea ─────────────────────────────────────────
+# Webhook popula _PAID_TX quando chega PAID/APPROVED. /api/status consulta aqui
+# primeiro (O(1), sem chamar StreetPays) → latência máx = intervalo de poll (3s).
+_PAID_TX: set[str] = set()
+# rastreia tipo de transação para stats de upsell
+_UPSELL_TX: dict[str, str] = {}  # tx_id -> "upsell1" | "upsell2"
 
 # ── observabilidade em memória (zera no restart; suficiente p/ QA) ─────────────
 RECENT: deque = deque(maxlen=80)
@@ -101,6 +123,8 @@ STATS = {
     "received": 0, "skipped_status": 0, "no_clickid": 0,
     "forwarded": 0, "attributed": 0, "rt_error": 0, "duplicate": 0,
     "ec_sent": 0, "ec_skipped_no_email": 0, "ec_error": 0, "ec_disabled": 0,
+    "upsell1_started": 0, "upsell1_paid": 0,
+    "upsell2_started": 0, "upsell2_paid": 0,
 }
 _SEEN_TX: set[str] = set()   # dedupe de webhooks por transaction id
 
@@ -228,11 +252,37 @@ def icone():
     return JSONResponse({"error": "no icone"}, status_code=404)
 
 
+@app.get("/upsell1", response_class=HTMLResponse)
+def upsell1_page():
+    return HTMLResponse(_UPSELL1_HTML or "<h1>upsell1.html ausente</h1>",
+                        status_code=200 if _UPSELL1_HTML else 500)
+
+@app.get("/upsell2", response_class=HTMLResponse)
+def upsell2_page():
+    return HTMLResponse(_UPSELL2_HTML or "<h1>upsell2.html ausente</h1>",
+                        status_code=200 if _UPSELL2_HTML else 500)
+
+@app.get("/obrigado", response_class=HTMLResponse)
+def obrigado_page():
+    return HTMLResponse(_OBRIGADO_HTML or "<h1>obrigado.html ausente</h1>",
+                        status_code=200 if _OBRIGADO_HTML else 500)
+
 @app.get("/api/config")
 def api_config(offer: str | None = None):
     price = OFFER_PRICES.get(offer or "", PRICE_CENTAVOS)
     return {"title": PRODUCT_TITLE, "price_centavos": price,
             "price_brl": f"{price/100:.2f}".replace(".", ",")}
+
+@app.get("/api/upsell-config")
+def api_upsell_config():
+    return {
+        "upsell1": {"title": UPSELL1_TITLE,
+                    "price_centavos": UPSELL1_PRICE,
+                    "price_brl": f"{UPSELL1_PRICE/100:.2f}".replace(".", ",")},
+        "upsell2": {"title": UPSELL2_TITLE,
+                    "price_centavos": UPSELL2_PRICE,
+                    "price_brl": f"{UPSELL2_PRICE/100:.2f}".replace(".", ",")},
+    }
 
 
 @app.get("/healthz")
@@ -318,22 +368,32 @@ async def create_pix(body: PixIn):
 
     tx = r.json()
     STATS["pix_created"] += 1
+    offer_key = body.offer or ""
     soft = "" if _looks_like_rtkcid(body.src) else " (src nao-rtkcid)"
-    _record("pix_created" + soft, {"externalRef": body.src, "offer": body.offer},
+    _record("pix_created" + soft, {"externalRef": body.src, "offer": offer_key},
             tx_id=tx.get("id"), amount=amount)
     if tx.get("id"):                              # guarda payer p/ Enhanced Conversions no webhook
-        _PAYER_BY_TX[str(tx.get("id"))] = {"email": body.email.strip(),
-                                           "phone": body.phone, "name": body.name.strip()}
-        if len(_PAYER_BY_TX) > 5000:             # cap p/ nao crescer infinito
+        tid = str(tx.get("id"))
+        _PAYER_BY_TX[tid] = {"email": body.email.strip(),
+                             "phone": body.phone, "name": body.name.strip()}
+        if len(_PAYER_BY_TX) > 5000:
             for k in list(_PAYER_BY_TX)[:1000]:
                 _PAYER_BY_TX.pop(k, None)
+        # rastreia tipo upsell para stats
+        if offer_key in ("upsell1", "upsell2"):
+            _UPSELL_TX[tid] = offer_key
+            STATS[f"{offer_key}_started"] += 1
     return {"transaction_id": tx.get("id"),
-            "qrcode": (tx.get("data") or {}).get("copypaste", ""),   # StreetPays: PIX em data.copypaste
+            "qrcode": (tx.get("data") or {}).get("copypaste", ""),
             "amount_centavos": amount}
 
 
 @app.get("/api/status/{tx_id}")
 async def status(tx_id: str):
+    # verificação instantânea via webhook (O(1)) — sem chamar StreetPays
+    if tx_id in _PAID_TX:
+        return {"status": "PAID", "paid": True}
+    # fallback: consulta StreetPays (cobre caso de restart onde _PAID_TX foi zerado)
     try:
         async with httpx.AsyncClient(timeout=20) as c:
             r = await c.get(f"{GATEWAY_API}/v1/payment/{tx_id}", headers=_PAY_HEADERS)
@@ -343,7 +403,10 @@ async def status(tx_id: str):
         raise HTTPException(502, f"streetpays status failed: {r.status_code}")
     tx = r.json()
     st = str(tx.get("status", "")).upper()
-    return {"status": st, "paid": st in ("PAID", "APPROVED")}
+    paid = st in ("PAID", "APPROVED")
+    if paid:
+        _PAID_TX.add(tx_id)   # atualiza cache para próximos polls
+    return {"status": st, "paid": paid}
 
 
 # ── webhook StreetPays -> postback RedTrack (a MARCAÇÃO acontece aqui) ─────────
@@ -371,6 +434,15 @@ async def webhook(request: Request):
         _record("skipped_status", payload, status=status_)
         return {"ok": True, "skipped": "status_not_paid", "status": status_}
 
+    tx_id = str(obj.get("id") or "")
+    # marca pagamento IMEDIATAMENTE para que /api/status retorne paid=True no próximo poll
+    if tx_id:
+        _PAID_TX.add(tx_id)
+        # contabiliza stats de upsell
+        upsell_type = _UPSELL_TX.get(tx_id)
+        if upsell_type:
+            STATS[f"{upsell_type}_paid"] += 1
+
     clickid = str(obj.get("externalRef") or "").strip()
     if not _looks_like_rtkcid(clickid):
         STATS["no_clickid"] += 1
@@ -378,7 +450,6 @@ async def webhook(request: Request):
         log.warning("externalRef nao e rtkcid 24-hex: %r", clickid)
         return JSONResponse({"ok": False, "error": "externalRef_not_rtkcid"}, status_code=200)
 
-    tx_id = str(obj.get("id") or "")
     if tx_id and tx_id in _SEEN_TX:
         STATS["duplicate"] += 1
         _record("duplicate", payload, tx_id=tx_id, clickid=clickid)
