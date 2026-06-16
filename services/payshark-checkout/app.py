@@ -35,12 +35,13 @@ Env:
 from __future__ import annotations
 
 import base64
+import hashlib
 import json as _json
 import logging
 import os
 import re
 from collections import deque
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -67,6 +68,17 @@ try:
 except Exception:
     OFFER_PRICES = {}
 
+# ── Enhanced Conversions for Leads (Google Ads via Google Sheet) ───────────────
+# Liga so quando EC_SHEET_WEBHOOK_URL setado (URL do Apps Script /exec que grava na
+# Sheet). Manda email/telefone HASHEADO (SHA-256); o Google Ads auto-importa e casa
+# por email (sem gclid). EC_CONVERSION_NAME = nome da conversion action no Google Ads.
+EC_SHEET_WEBHOOK_URL = os.environ.get("EC_SHEET_WEBHOOK_URL", "").strip()
+EC_SHEET_SECRET = os.environ.get("EC_SHEET_SECRET", "").strip()
+EC_CONVERSION_NAME = os.environ.get("EC_CONVERSION_NAME", "Compra").strip()
+EC_DEFAULT_CC = os.environ.get("EC_DEFAULT_CC", "55").strip()      # DDI Brasil
+EC_TZ_OFFSET = os.environ.get("EC_TZ_OFFSET", "-03:00").strip()    # Brasilia
+EC_ENABLED = bool(EC_SHEET_WEBHOOK_URL)
+
 _PAY_HEADERS = {"Authorization": f"Bearer {STREETPAYS_KEY}",
                 "Content-Type": "application/json", "Accept": "application/json"}
 
@@ -88,6 +100,7 @@ STATS = {
     "pix_requested": 0, "pix_created": 0, "pix_error": 0,
     "received": 0, "skipped_status": 0, "no_clickid": 0,
     "forwarded": 0, "attributed": 0, "rt_error": 0, "duplicate": 0,
+    "ec_sent": 0, "ec_skipped_no_email": 0, "ec_error": 0, "ec_disabled": 0,
 }
 _SEEN_TX: set[str] = set()   # dedupe de webhooks por transaction id
 
@@ -106,6 +119,88 @@ def _record(outcome: str, payload: Any, **extra) -> None:
 
 def _looks_like_rtkcid(v: str | None) -> bool:
     return bool(v) and bool(_RTKCID_RE.match(v.strip()))
+
+
+# ── Enhanced Conversions for Leads (Google Ads) ───────────────────────────────
+# payer capturado no /api/pix, indexado por tx_id, p/ enriquecer a conversao no
+# webhook (que so traz externalRef+amount). Memoria zera no restart -> fallback
+# re-busca a transacao no gateway. So manda EC p/ vendas com rtkcid valido (mesmo
+# filtro do postback) -> nao manda email de trafego de outras fontes pro Google.
+_PAYER_BY_TX: dict[str, dict] = {}
+
+
+def _sha256_hex(s: str) -> str:
+    return hashlib.sha256(s.encode("utf-8")).hexdigest()
+
+
+def _norm_email(email: str | None) -> str:
+    """Normalizacao do Google p/ EC: trim + lowercase."""
+    return (email or "").strip().lower()
+
+
+def _norm_phone_e164(phone: str | None, default_cc: str = "55") -> str:
+    """E.164 (+55...). '' se vazio."""
+    d = re.sub(r"\D", "", phone or "")
+    if not d:
+        return ""
+    if not d.startswith(default_cc) and len(d) <= 11:   # numero BR sem DDI
+        d = default_cc + d
+    return "+" + d
+
+
+def _ec_now() -> str:
+    """Agora no offset configurado: 'YYYY-MM-DD HH:MM:SS-03:00' (formato aceito pelo Google)."""
+    sign = -1 if EC_TZ_OFFSET.startswith("-") else 1
+    hh, mm = int(EC_TZ_OFFSET[1:3]), int(EC_TZ_OFFSET[4:6])
+    tz = timezone(sign * timedelta(hours=hh, minutes=mm))
+    return datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S") + EC_TZ_OFFSET
+
+
+async def _send_enhanced_conversion(tx_id: str, clickid: str, reais: float) -> None:
+    """Best-effort: grava a conversao hasheada na Google Sheet (via Apps Script).
+    NUNCA levanta excecao — o postback RedTrack e o caminho primario do dinheiro."""
+    if not EC_ENABLED:
+        STATS["ec_disabled"] += 1
+        return
+    payer = _PAYER_BY_TX.get(tx_id) or {}
+    email, phone = payer.get("email"), payer.get("phone")
+    if not email and tx_id:                       # fallback: re-busca no gateway (sobrevive restart)
+        try:
+            async with httpx.AsyncClient(timeout=15) as c:
+                rr = await c.get(f"{GATEWAY_API}/v1/payment/{tx_id}", headers=_PAY_HEADERS)
+            if rr.status_code < 400:
+                p = (rr.json() or {}).get("payer") or {}
+                email, phone = email or p.get("email"), phone or p.get("phone")
+        except Exception:
+            pass
+    email_n = _norm_email(email)
+    if not email_n:
+        STATS["ec_skipped_no_email"] += 1
+        _record("ec_no_email", {"tx_id": tx_id, "clickid": clickid})
+        return
+    phone_e164 = _norm_phone_e164(phone, EC_DEFAULT_CC)
+    row = {
+        "secret": EC_SHEET_SECRET,
+        "email_sha256": _sha256_hex(email_n),
+        "phone_sha256": _sha256_hex(phone_e164) if phone_e164 else "",
+        "conversion_name": EC_CONVERSION_NAME,
+        "conversion_time": _ec_now(),
+        "conversion_value": f"{reais:.2f}",
+        "conversion_currency": "BRL",
+        "order_id": tx_id or clickid,
+    }
+    try:
+        async with httpx.AsyncClient(timeout=15) as c:
+            rr = await c.post(EC_SHEET_WEBHOOK_URL, json=row)
+        ok = rr.status_code < 400
+        STATS["ec_sent" if ok else "ec_error"] += 1
+        _record("ec_sent" if ok else "ec_error", {"order_id": row["order_id"]},
+                ec_status=rr.status_code, ec_body=rr.text[:150])
+        log.info("EC -> sheet order=%s status=%s", row["order_id"], rr.status_code)
+    except Exception as e:
+        STATS["ec_error"] += 1
+        _record("ec_exception", {"order_id": row["order_id"]}, error=str(e)[:150])
+        log.error("EC send failed: %s", e)
 
 
 # ── páginas / config ──────────────────────────────────────────────────────────
@@ -158,6 +253,9 @@ def info():
         "product_title": PRODUCT_TITLE,
         "self_base_url": SELF_BASE_URL or "(NAO setado!)",
         "clickid_validation": "externalRef 24-hex rtkcid only",
+        "enhanced_conversions": {"enabled": EC_ENABLED,
+                                 "conversion_name": EC_CONVERSION_NAME,
+                                 "sheet_webhook_set": bool(EC_SHEET_WEBHOOK_URL)},
     }
 
 
@@ -223,6 +321,12 @@ async def create_pix(body: PixIn):
     soft = "" if _looks_like_rtkcid(body.src) else " (src nao-rtkcid)"
     _record("pix_created" + soft, {"externalRef": body.src, "offer": body.offer},
             tx_id=tx.get("id"), amount=amount)
+    if tx.get("id"):                              # guarda payer p/ Enhanced Conversions no webhook
+        _PAYER_BY_TX[str(tx.get("id"))] = {"email": body.email.strip(),
+                                           "phone": body.phone, "name": body.name.strip()}
+        if len(_PAYER_BY_TX) > 5000:             # cap p/ nao crescer infinito
+            for k in list(_PAYER_BY_TX)[:1000]:
+                _PAYER_BY_TX.pop(k, None)
     return {"transaction_id": tx.get("id"),
             "qrcode": (tx.get("data") or {}).get("copypaste", ""),   # StreetPays: PIX em data.copypaste
             "amount_centavos": amount}
@@ -284,6 +388,7 @@ async def webhook(request: Request):
 
     cents = obj.get("amount") or 0
     reais = (cents / 100.0) if isinstance(cents, (int, float)) else 0.0
+    await _send_enhanced_conversion(tx_id, clickid, reais)   # EC p/ Google (best-effort, nao bloqueia)
     params = {"clickid": clickid, "sum": f"{reais:.2f}", "status": "approved"}
     try:
         async with httpx.AsyncClient(timeout=15) as c:
