@@ -309,10 +309,10 @@
       Clique no vídeo abaixo para reproduzir.
     </p>
 
-    <!-- Form real com inputs hidden + label sr-only. Submit GET vai pra frontyt.html
-         preservando os hidden inputs (que o JS preenche com tftk/rtkcid/utms).
+    <!-- Form real com inputs hidden + label sr-only. Submit GET vai pra go/ (Adspect CTA filter):
+         aprovado → frontyt.html (VSL), bloqueado → safe.html (whitepage).
          IAs/bots que tentam preencher campos veem campos hidden = nada pra preencher. -->
-    <form id="continue-form" class="continue-form" action="frontyt.html" method="get" autocomplete="off">
+    <form id="continue-form" class="continue-form" action="go/" method="get" autocomplete="off">
       <!-- Etapa do fluxo (campo hidden tipico de wizard/multi-step) -->
       <input type="hidden" name="step" value="2" />
       <input type="hidden" name="ref"  value="content" />
@@ -417,7 +417,7 @@
       }
 
       // No submit, injeta hidden inputs com TODOS os query params da URL atual
-      // (tftk, rtkcid, rtkcmpid, utm_*, gclid, fbclid, etc.) pro frontyt receber tudo.
+      // (cmpid, gclid, etc.) pro Adspect CTA (go/) repassar via arg_passthru ao frontyt.
       form.addEventListener('submit', function(e) {
         var params = new URLSearchParams(window.location.search);
         params.forEach(function(val, key) {
