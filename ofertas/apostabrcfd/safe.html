@@ -3,82 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aposta BR — Educação Financeira</title>
-  <meta name="description" content="Dicas práticas de educação financeira, planejamento e economia doméstica.">
+  <title>Aposta BR — App de Loteria</title>
+  <meta name="description" content="Monte e organize seus jogos da loteria. Assista ao vídeo e baixe o app gratuito na Google Play.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: #f9fafb; color: #111827; line-height: 1.7; }
-    header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 14px 24px; }
-    header .logo { font-weight: 700; font-size: 1.15rem; color: #1d4ed8; }
-    header nav { display: inline-block; margin-left: 32px; }
-    header nav a { margin-right: 20px; color: #4b5563; text-decoration: none; font-size: .9rem; }
-    header nav a:hover { color: #1d4ed8; }
-    .container { max-width: 780px; margin: 40px auto; padding: 0 20px; }
-    .article-header { margin-bottom: 28px; }
-    .article-header .category { color: #1d4ed8; font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
-    h1 { font-size: 1.9rem; font-weight: 700; color: #111827; margin: 10px 0 12px; line-height: 1.25; }
-    .meta { font-size: .85rem; color: #6b7280; }
-    .article-body p { margin-bottom: 16px; color: #374151; }
-    .article-body h2 { font-size: 1.2rem; font-weight: 700; color: #111827; margin: 28px 0 10px; }
-    .article-body ul { margin: 12px 0 16px 22px; color: #374151; }
-    .article-body ul li { margin-bottom: 6px; }
-    .highlight { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 4px; margin: 24px 0; color: #1e40af; font-size: .95rem; }
-    footer { margin-top: 60px; border-top: 1px solid #e5e7eb; padding: 20px 24px; text-align: center; font-size: .8rem; color: #9ca3af; }
-    footer a { color: #9ca3af; text-decoration: none; margin: 0 8px; }
+    body { font-family: 'Inter', sans-serif; background: #f6f8fb; color: #111827; line-height: 1.6; }
+    header { background:#fff; border-bottom:1px solid #e5e7eb; padding:14px 24px; }
+    header .logo { font-weight:800; font-size:1.15rem; color:#1d4ed8; }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+    .hero { text-align:center; padding: 40px 0 22px; }
+    .hero h1 { font-size: 1.8rem; font-weight: 800; line-height: 1.25; margin-bottom: 12px; }
+    .hero p { color:#4b5563; font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
+    .video { position: relative; width: 100%; aspect-ratio: 16/9; margin: 26px 0; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.12); background:#000; }
+    .video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+    .cta-wrap { text-align:center; margin: 6px 0 36px; }
+    .cta { display:inline-flex; align-items:center; gap:12px; background:#0f9d58; color:#fff; text-decoration:none; font-weight:700; font-size:1.12rem; padding:16px 32px; border-radius:12px; box-shadow:0 6px 18px rgba(15,157,88,.35); transition:transform .12s, box-shadow .12s; }
+    .cta:hover { transform: translateY(-2px); box-shadow:0 10px 24px rgba(15,157,88,.45); }
+    .cta svg { width:26px; height:26px; flex:0 0 26px; }
+    .cta .t { text-align:left; line-height:1.15; }
+    .cta .t small { display:block; font-weight:500; font-size:.72rem; opacity:.92; }
+    .card { background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:24px; margin-bottom: 40px; }
+    .card h2 { font-size:1.1rem; margin-bottom:12px; }
+    .card ul { list-style:none; }
+    .card li { padding:8px 0 8px 28px; position:relative; color:#374151; }
+    .card li::before { content:"✓"; position:absolute; left:0; color:#0f9d58; font-weight:800; }
+    .card .disc { margin-top:14px; color:#6b7280; font-size:.85rem; }
+    footer { border-top:1px solid #e5e7eb; padding:22px 24px; text-align:center; font-size:.8rem; color:#9ca3af; }
+    footer a { color:#9ca3af; text-decoration:none; margin:0 8px; }
+    @media (max-width:480px){ .hero h1{font-size:1.45rem;} }
   </style>
 </head>
 <body>
-  <header>
-    <span class="logo">Aposta BR</span>
-    <nav>
-      <a href="/">Início</a>
-      <a href="#">Economia</a>
-      <a href="#">Finanças</a>
-      <a href="#">Contato</a>
-    </nav>
-  </header>
+  <header><span class="logo">Aposta BR</span></header>
 
-  <div class="container">
-    <article>
-      <div class="article-header">
-        <span class="category">Educação Financeira</span>
-        <h1>Como organizar suas finanças e construir reservas com disciplina</h1>
-        <div class="meta">Por equipe editorial &nbsp;·&nbsp; Atualizado em junho de 2025 &nbsp;·&nbsp; 5 min de leitura</div>
-      </div>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Monte seus jogos da loteria com mais organização</h1>
+      <p>Assista ao vídeo e baixe o aplicativo gratuito direto na Google Play.</p>
+    </div>
 
-      <div class="article-body">
-        <p>Manter as finanças organizadas é uma das habilidades mais valiosas que qualquer pessoa pode desenvolver. Com pequenas mudanças de hábito, é possível criar uma reserva de emergência sólida e planejar objetivos maiores no médio e longo prazo.</p>
+    <div class="video">
+      <iframe src="https://www.youtube-nocookie.com/embed/TSnTnzJtinw?rel=0"
+              title="Aposta BR"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
 
-        <h2>1. Anote todos os gastos</h2>
-        <p>O primeiro passo é saber exatamente para onde vai o seu dinheiro. Use uma planilha simples ou um aplicativo de controle financeiro para registrar cada saída, por menor que seja. Em poucos dias, você terá um panorama claro dos seus hábitos de consumo.</p>
+    <div class="cta-wrap">
+      <a class="cta" href="https://play.google.com/store/apps/details?id=com.acertane.lotonum" rel="noopener">
+        <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M48 59.5v393a4.33 4.33 0 0 0 7.37 3.07L260 256 55.37 56.42A4.33 4.33 0 0 0 48 59.5zM345.8 174 89.22 32.64l-.16-.09c-4.42-2.4-8.62 3.58-5 7.06l201.13 192.32zM84.08 472.4c-3.64 3.48.56 9.46 5 7.06l.16-.09L345.8 338l-60.61-57.95zM449.38 231.81l-71.65-39.46L310.36 256l67.37 63.65 71.65-39.46c19.49-10.77 19.49-38.21 0-48.38z"/></svg>
+        <span class="t">Baixar grátis<small>na Google Play</small></span>
+      </a>
+    </div>
 
-        <div class="highlight">
-          Dica: separe os gastos em categorias — alimentação, transporte, lazer, moradia — e identifique onde há margem para corte.
-        </div>
-
-        <h2>2. Crie um orçamento mensal realista</h2>
-        <p>Com o mapeamento de gastos em mãos, monte um orçamento. Uma regra prática é a divisão 50-30-20: 50% do rendimento para necessidades básicas, 30% para desejos e 20% para poupança ou quitação de dívidas.</p>
-
-        <h2>3. Priorize a reserva de emergência</h2>
-        <p>Antes de pensar em investimentos ou grandes compras, construa uma reserva que cubra de três a seis meses de despesas. Ela protege você de imprevistos como perda de emprego, problemas de saúde ou consertos urgentes.</p>
-
-        <ul>
-          <li>Mantenha a reserva em aplicações de alta liquidez</li>
-          <li>Não misture com o dinheiro do dia a dia</li>
-          <li>Reponha imediatamente após qualquer uso</li>
-        </ul>
-
-        <h2>4. Elimine dívidas com juros altos</h2>
-        <p>Cartão de crédito rotativo e cheque especial têm taxas que podem superar 300% ao ano. Quitar essas dívidas é o investimento com melhor retorno que existe. Se necessário, negocie diretamente com a instituição financeira — na maioria dos casos é possível obter descontos significativos.</p>
-
-        <h2>5. Automatize sua poupança</h2>
-        <p>Programe uma transferência automática no dia do pagamento para uma conta de poupança ou investimento. Ao tirar o dinheiro "da circulação" antes de qualquer gasto, a disciplina se torna natural e o hábito se consolida com o tempo.</p>
-
-        <p>Controle financeiro não exige grandes sacrifícios — exige consistência. Comece com mudanças pequenas e vá ajustando conforme os resultados aparecerem.</p>
-      </div>
-    </article>
+    <div class="card">
+      <h2>Sobre o aplicativo</h2>
+      <ul>
+        <li>Gere e organize combinações de números de forma rápida</li>
+        <li>Acompanhe seus jogos favoritos em um só lugar</li>
+        <li>Gratuito e disponível na Google Play</li>
+      </ul>
+      <p class="disc">Aplicativo de organização e geração de números para conferência pessoal. Jogue com responsabilidade — nenhum resultado é garantido.</p>
+    </div>
   </div>
 
   <footer>
@@ -86,6 +74,5 @@
     <a href="/privacidade.html">Política de Privacidade</a>
     <a href="/termos.html">Termos de Uso</a>
   </footer>
-  <script>document.querySelectorAll('.article-header .meta').forEach(function(el){var d=new Date();el.textContent=el.textContent.replace(/junho de 2025/,d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}));})</script>
 </body>
 </html>
