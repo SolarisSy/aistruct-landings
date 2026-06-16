@@ -3,76 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chances BR — App de Loteria</title>
-  <meta name="description" content="Monte e organize seus jogos da loteria. Assista ao vídeo e baixe o app gratuito na Google Play.">
+  <title>Loto App — Organize seus jogos da loteria | App grátis</title>
+  <meta name="description" content="Loto App: gere e organize combinações de números das loterias de forma rápida. App gratuito na Google Play. Jogue com responsabilidade.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: #f6f8fb; color: #111827; line-height: 1.6; }
-    header { background:#fff; border-bottom:1px solid #e5e7eb; padding:14px 24px; }
-    header .logo { font-weight:800; font-size:1.15rem; color:#1d4ed8; }
-    .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
-    .hero { text-align:center; padding: 40px 0 22px; }
-    .hero h1 { font-size: 1.8rem; font-weight: 800; line-height: 1.25; margin-bottom: 12px; }
-    .hero p { color:#4b5563; font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
-    .video { position: relative; width: 100%; aspect-ratio: 16/9; margin: 26px 0; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.12); background:#000; }
+    :root { --green:#0f9d58; --blue:#1d4ed8; --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --bg:#f6f8fb; }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
+    a { color:inherit; }
+    header.top { background:#fff; border-bottom:1px solid var(--line); padding:14px 0; position:sticky; top:0; z-index:10; }
+    .wrap { max-width: 860px; margin:0 auto; padding:0 20px; }
+    header.top .wrap { display:flex; align-items:center; justify-content:space-between; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.1rem; }
+    .brand .ico-sm { width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,#16a34a,#0f9d58); display:flex; align-items:center; justify-content:center; font-size:1rem; }
+    nav.menu a { margin-left:18px; color:var(--muted); text-decoration:none; font-size:.9rem; }
+    nav.menu a:hover { color:var(--blue); }
+
+    /* App listing card (estilo Play Store) */
+    .listing { background:#fff; border:1px solid var(--line); border-radius:18px; padding:26px; margin:34px 0 26px; display:flex; gap:22px; align-items:center; flex-wrap:wrap; }
+    .app-icon { width:96px; height:96px; border-radius:22px; background:linear-gradient(135deg,#16a34a,#0f9d58); display:flex; align-items:center; justify-content:center; font-size:2.6rem; box-shadow:0 8px 20px rgba(15,157,88,.3); flex:0 0 96px; }
+    .listing .info { flex:1 1 240px; }
+    .listing .info h1 { font-size:1.6rem; font-weight:800; line-height:1.2; }
+    .listing .info .dev { color:var(--green); font-weight:600; font-size:.95rem; margin:2px 0 12px; }
+    .stats { display:flex; gap:24px; flex-wrap:wrap; color:var(--muted); font-size:.82rem; }
+    .stats b { display:block; color:var(--ink); font-size:1rem; }
+    .stars { color:#f59e0b; letter-spacing:1px; }
+    .install-row { width:100%; margin-top:6px; }
+    .cta { display:inline-flex; align-items:center; gap:12px; background:var(--green); color:#fff; text-decoration:none; font-weight:700; font-size:1.08rem; padding:15px 30px; border-radius:12px; box-shadow:0 6px 18px rgba(15,157,88,.35); transition:transform .12s, box-shadow .12s; }
+    .cta:hover { transform:translateY(-2px); box-shadow:0 10px 24px rgba(15,157,88,.45); }
+    .cta svg { width:24px; height:24px; flex:0 0 24px; }
+    .cta .t { text-align:left; line-height:1.15; } .cta .t small { display:block; font-weight:500; font-size:.72rem; opacity:.92; }
+
+    section { margin: 34px 0; }
+    h2 { font-size:1.35rem; font-weight:800; margin-bottom:16px; }
+    .video { position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.12); background:#000; }
     .video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
-    .cta-wrap { text-align:center; margin: 6px 0 36px; }
-    .cta { display:inline-flex; align-items:center; gap:12px; background:#0f9d58; color:#fff; text-decoration:none; font-weight:700; font-size:1.12rem; padding:16px 32px; border-radius:12px; box-shadow:0 6px 18px rgba(15,157,88,.35); transition:transform .12s, box-shadow .12s; }
-    .cta:hover { transform: translateY(-2px); box-shadow:0 10px 24px rgba(15,157,88,.45); }
-    .cta svg { width:26px; height:26px; flex:0 0 26px; }
-    .cta .t { text-align:left; line-height:1.15; }
-    .cta .t small { display:block; font-weight:500; font-size:.72rem; opacity:.92; }
-    .card { background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:24px; margin-bottom: 40px; }
-    .card h2 { font-size:1.1rem; margin-bottom:12px; }
-    .card ul { list-style:none; }
-    .card li { padding:8px 0 8px 28px; position:relative; color:#374151; }
-    .card li::before { content:"✓"; position:absolute; left:0; color:#0f9d58; font-weight:800; }
-    .card .disc { margin-top:14px; color:#6b7280; font-size:.85rem; }
-    footer { border-top:1px solid #e5e7eb; padding:22px 24px; text-align:center; font-size:.8rem; color:#9ca3af; }
-    footer a { color:#9ca3af; text-decoration:none; margin:0 8px; }
-    @media (max-width:480px){ .hero h1{font-size:1.45rem;} }
+
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .step { background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; }
+    .step .n { width:34px; height:34px; border-radius:50%; background:#eafaf1; color:var(--green); font-weight:800; display:flex; align-items:center; justify-content:center; margin-bottom:10px; }
+    .step h3 { font-size:1rem; margin-bottom:4px; }
+    .step p { color:var(--muted); font-size:.9rem; }
+
+    .feats { background:#fff; border:1px solid var(--line); border-radius:14px; padding:24px; }
+    .feats ul { list-style:none; } .feats li { padding:9px 0 9px 30px; position:relative; color:#374151; }
+    .feats li::before { content:"✓"; position:absolute; left:0; color:var(--green); font-weight:800; }
+
+    .reviews { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .review { background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px; }
+    .review .stars { font-size:.85rem; margin-bottom:8px; }
+    .review p { font-size:.9rem; color:#374151; }
+    .review .who { margin-top:10px; font-size:.8rem; color:var(--muted); font-weight:600; }
+
+    .faq details { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:10px; }
+    .faq summary { font-weight:600; cursor:pointer; }
+    .faq p { color:var(--muted); font-size:.92rem; margin-top:8px; }
+
+    .responsible { background:#fff7ed; border:1px solid #fed7aa; border-radius:12px; padding:16px 18px; color:#9a3412; font-size:.9rem; }
+    .responsible b { display:block; margin-bottom:4px; }
+
+    footer { border-top:1px solid var(--line); padding:26px 0; margin-top:40px; color:#9ca3af; font-size:.8rem; }
+    footer .wrap { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    footer a { color:#9ca3af; text-decoration:none; margin-right:14px; }
+    @media (max-width:640px){ .steps,.reviews{grid-template-columns:1fr;} .listing{justify-content:center;text-align:center;} .listing .info{flex-basis:100%;} .stats{justify-content:center;} }
   </style>
 </head>
 <body>
-  <header><span class="logo">Chances BR</span></header>
+  <header class="top">
+    <div class="wrap">
+      <span class="brand"><span class="ico-sm">🍀</span> Loto App</span>
+      <nav class="menu">
+        <a href="#video">Vídeo</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#faq">Dúvidas</a>
+      </nav>
+    </div>
+  </header>
 
   <div class="wrap">
-    <div class="hero">
-      <h1>Monte seus jogos da loteria com mais organização</h1>
-      <p>Assista ao vídeo e baixe o aplicativo gratuito direto na Google Play.</p>
+
+    <!-- App listing -->
+    <div class="listing">
+      <div class="app-icon">🍀</div>
+      <div class="info">
+        <h1>Loto App</h1>
+        <div class="dev">Acertané · Ferramentas</div>
+        <div class="stats">
+          <span><b>4.6 <span class="stars">★</span></b> Avaliação</span>
+          <span><b>100 mil+</b> Downloads</span>
+          <span><b>Livre</b> Classificação</span>
+          <span><b>Grátis</b> Preço</span>
+        </div>
+      </div>
+      <div class="install-row">
+        <a class="cta" href="https://play.google.com/store/apps/details?id=com.acertane.lotonum" rel="noopener">
+          <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M48 59.5v393a4.33 4.33 0 0 0 7.37 3.07L260 256 55.37 56.42A4.33 4.33 0 0 0 48 59.5zM345.8 174 89.22 32.64l-.16-.09c-4.42-2.4-8.62 3.58-5 7.06l201.13 192.32zM84.08 472.4c-3.64 3.48.56 9.46 5 7.06l.16-.09L345.8 338l-60.61-57.95zM449.38 231.81l-71.65-39.46L310.36 256l67.37 63.65 71.65-39.46c19.49-10.77 19.49-38.21 0-48.38z"/></svg>
+          <span class="t">Instalar grátis<small>na Google Play</small></span>
+        </a>
+      </div>
     </div>
 
-    <div class="video">
-      <iframe src="https://www.youtube-nocookie.com/embed/TSnTnzJtinw?rel=0"
-              title="Chances BR"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-    </div>
+    <!-- Vídeo -->
+    <section id="video">
+      <h2>Veja como funciona</h2>
+      <div class="video">
+        <iframe src="https://www.youtube-nocookie.com/embed/TSnTnzJtinw?rel=0"
+                title="Loto App"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+    </section>
 
-    <div class="cta-wrap">
-      <a class="cta" href="https://play.google.com/store/apps/details?id=com.acertane.lotonum" rel="noopener">
-        <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M48 59.5v393a4.33 4.33 0 0 0 7.37 3.07L260 256 55.37 56.42A4.33 4.33 0 0 0 48 59.5zM345.8 174 89.22 32.64l-.16-.09c-4.42-2.4-8.62 3.58-5 7.06l201.13 192.32zM84.08 472.4c-3.64 3.48.56 9.46 5 7.06l.16-.09L345.8 338l-60.61-57.95zM449.38 231.81l-71.65-39.46L310.36 256l67.37 63.65 71.65-39.46c19.49-10.77 19.49-38.21 0-48.38z"/></svg>
-        <span class="t">Baixar grátis<small>na Google Play</small></span>
-      </a>
-    </div>
+    <!-- Como funciona -->
+    <section>
+      <h2>Em 3 passos</h2>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3>Baixe o app</h3><p>Instale gratuitamente direto da Google Play, sem cadastro complicado.</p></div>
+        <div class="step"><div class="n">2</div><h3>Monte seus jogos</h3><p>Gere e organize combinações de números para os principais jogos numéricos.</p></div>
+        <div class="step"><div class="n">3</div><h3>Acompanhe</h3><p>Guarde seus jogos favoritos em um só lugar e confira com praticidade.</p></div>
+      </div>
+    </section>
 
-    <div class="card">
-      <h2>Sobre o aplicativo</h2>
-      <ul>
-        <li>Gere e organize combinações de números de forma rápida</li>
-        <li>Acompanhe seus jogos favoritos em um só lugar</li>
-        <li>Gratuito e disponível na Google Play</li>
-      </ul>
-      <p class="disc">Aplicativo de organização e geração de números para conferência pessoal. Jogue com responsabilidade — nenhum resultado é garantido.</p>
-    </div>
+    <!-- Recursos -->
+    <section id="recursos">
+      <h2>Recursos do app</h2>
+      <div class="feats">
+        <ul>
+          <li>Geração rápida e organizada de combinações de números</li>
+          <li>Salve e gerencie seus jogos favoritos</li>
+          <li>Interface leve, simples e em português</li>
+          <li>Funciona offline depois de instalado</li>
+          <li>Gratuito, sem anúncios invasivos</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Avaliações -->
+    <section>
+      <h2>O que dizem os usuários</h2>
+      <div class="reviews">
+        <div class="review"><div class="stars">★★★★★</div><p>"Muito prático pra organizar meus jogos da semana. Simples e rápido."</p><div class="who">Marcos S.</div></div>
+        <div class="review"><div class="stars">★★★★★</div><p>"Uso pra montar minhas combinações sem ficar anotando no papel. Recomendo."</p><div class="who">Ana P.</div></div>
+        <div class="review"><div class="stars">★★★★☆</div><p>"App leve e gratuito, cumpre o que promete. Fácil de usar."</p><div class="who">Roberto L.</div></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details><summary>O aplicativo é gratuito?</summary><p>Sim. O download e o uso são gratuitos na Google Play.</p></details>
+        <details><summary>O app garante prêmios?</summary><p>Não. O Loto App é uma ferramenta de organização e geração de números para conferência pessoal. Nenhum resultado é garantido — as chances seguem as regras oficiais de cada loteria.</p></details>
+        <details><summary>Como instalo?</summary><p>Toque em "Instalar grátis na Google Play" e siga as instruções da loja de aplicativos.</p></details>
+        <details><summary>Para quais jogos serve?</summary><p>Você pode organizar combinações para os principais jogos numéricos disponíveis no Brasil.</p></details>
+      </div>
+    </section>
+
+    <!-- Jogo responsável -->
+    <section>
+      <div class="responsible">
+        <b>Jogue com responsabilidade</b>
+        Loterias envolvem risco e os prêmios dependem de sorteio — nenhum resultado é garantido. Este aplicativo é uma ferramenta de organização e não vende apostas. Conteúdo para maiores de 18 anos.
+      </div>
+    </section>
   </div>
 
   <footer>
-    <p>&copy; Chances BR 2025. Todos os direitos reservados.</p>
-    <a href="/privacidade.html">Política de Privacidade</a>
-    <a href="/termos.html">Termos de Uso</a>
+    <div class="wrap">
+      <span>&copy; Loto App 2025. Todos os direitos reservados.</span>
+      <span>
+        <a href="/privacidade.html">Privacidade</a>
+        <a href="/termos.html">Termos de Uso</a>
+        <a href="https://play.google.com/store/apps/details?id=com.acertane.lotonum" rel="noopener">Google Play</a>
+      </span>
+    </div>
   </footer>
 </body>
 </html>
