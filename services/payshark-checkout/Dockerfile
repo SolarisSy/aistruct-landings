@@ -7,6 +7,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app.py .
 COPY checkout.html .
+COPY upsell1.html .
+COPY upsell2.html .
+COPY obrigado.html .
 COPY banner.png .
 COPY icone.png .
 
