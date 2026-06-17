@@ -3,192 +3,172 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EconomiZe — Controle financeiro pessoal | Grátis</title>
-  <meta name="description" content="EconomiZe: organize suas despesas, receitas e metas financeiras de forma simples e gratuita. App para Android.">
+  <title>ECONOMIA — Atualizações Diárias</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Fonte usada no header -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Utmify Pixel Google -->
+  <script>
+    window.googlePixelId = "6a079de24b406979824cd6ac";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+
+  <!-- Utmify UTM capture -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
+
+  <!-- Vturb SmartPlayer v4 — WHITE VSL (conteúdo limpo, sem CTA) -->
+  <script src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" id="vturb-smartplayer-js" fetchpriority="high"></script>
+  <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/9dfc9d7c-755b-43bf-80b8-658e261ab44b/players/677d8b6252d6daeadb8f973e/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
+
+  <!-- Scripts da página -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      var viewersEl = document.getElementById('viewers');
+      if (!viewersEl) return;
+      var viewers = 1247;
+      setInterval(function () {
+        viewers += Math.floor(Math.random() * 7) - 3;
+        viewers = Math.max(800, viewers);
+        viewersEl.textContent = viewers.toLocaleString('pt-BR');
+      }, 4000);
+    });
+  </script>
+
   <style>
+    vturb-smartplayer template, vturb-smartplayer pre,
+    vturb-anchor-button > style, vturb-anchor-button > template, vturb-anchor-button > pre,
+    vturb-call-action > style, vturb-call-action > template, vturb-call-action > pre,
+    vturb-player > style, vturb-player > template, vturb-player > pre,
+    vturb-headline > template, vturb-bezel > template, vturb-resume > template,
+    vturb-controls > template, vturb-fakebar > template, vturb-thumbsniper > template,
+    vturb-context-menu > template, vturb-license > template, vturb-smallplay > template,
+    vturb-bigplay > template, vturb-minihook > template, vturb-smartautoplay > template { display: none !important; }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --blue:#1d4ed8; --blue-lt:#dbeafe; --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --bg:#f6f8fb; }
-    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
-    a { color:inherit; }
-    header.top { background:#fff; border-bottom:1px solid var(--line); padding:14px 0; position:sticky; top:0; z-index:10; }
-    .wrap { max-width: 860px; margin:0 auto; padding:0 20px; }
-    header.top .wrap { display:flex; align-items:center; justify-content:space-between; }
-    .brand { display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.1rem; }
-    .brand .ico-sm { width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,#1d4ed8,#3b82f6); display:flex; align-items:center; justify-content:center; font-size:1rem; }
-    nav.menu a { margin-left:18px; color:var(--muted); text-decoration:none; font-size:.9rem; }
-    nav.menu a:hover { color:var(--blue); }
 
-    .listing { background:#fff; border:1px solid var(--line); border-radius:18px; padding:26px; margin:34px 0 26px; display:flex; gap:22px; align-items:center; flex-wrap:wrap; }
-    .app-icon { width:96px; height:96px; border-radius:22px; background:linear-gradient(135deg,#1d4ed8,#3b82f6); display:flex; align-items:center; justify-content:center; font-size:2.6rem; box-shadow:0 8px 20px rgba(29,78,216,.3); flex:0 0 96px; }
-    .listing .info { flex:1 1 240px; }
-    .listing .info h1 { font-size:1.6rem; font-weight:800; line-height:1.2; }
-    .listing .info .dev { color:var(--blue); font-weight:600; font-size:.95rem; margin:2px 0 12px; }
-    .stats { display:flex; gap:24px; flex-wrap:wrap; color:var(--muted); font-size:.82rem; }
-    .stats b { display:block; color:var(--ink); font-size:1rem; }
-    .stars { color:#f59e0b; letter-spacing:1px; }
-    .install-row { width:100%; margin-top:6px; }
-    .cta { display:inline-flex; align-items:center; gap:12px; background:var(--blue); color:#fff; text-decoration:none; font-weight:700; font-size:1.08rem; padding:15px 30px; border-radius:12px; box-shadow:0 6px 18px rgba(29,78,216,.35); transition:transform .12s, box-shadow .12s; }
-    .cta:hover { transform:translateY(-2px); box-shadow:0 10px 24px rgba(29,78,216,.45); }
-    .cta svg { width:24px; height:24px; flex:0 0 24px; }
-    .cta .t { text-align:left; line-height:1.15; } .cta .t small { display:block; font-weight:500; font-size:.72rem; opacity:.92; }
+    :root {
+      --red: #a70c0c; --red-dark: #810505; --red-soft: #f96464;
+      --bg: #ffffff; --text: #1a1a1a; --border: #e4e6eb;
+    }
 
-    section { margin: 34px 0; }
-    h2 { font-size:1.35rem; font-weight:800; margin-bottom:16px; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Nunito Sans', Arial, sans-serif;
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
 
-    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .step { background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; }
-    .step .n { width:34px; height:34px; border-radius:50%; background:var(--blue-lt); color:var(--blue); font-weight:800; display:flex; align-items:center; justify-content:center; margin-bottom:10px; }
-    .step h3 { font-size:1rem; margin-bottom:4px; }
-    .step p { color:var(--muted); font-size:.9rem; }
+    .site-header { background: var(--red); width: 100%; }
+    .site-header-inner {
+      max-width: 1420px; margin: 0 auto;
+      display: flex; align-items: center; padding: 18px 24px;
+    }
+    .header-icon { color: #fff; flex: 0 0 25%; font-size: 22px; display: flex; align-items: center; }
+    .header-icon.right { justify-content: flex-end; }
+    .header-icon svg { width: 22px; height: 22px; fill: currentColor; }
 
-    .feats { background:#fff; border:1px solid var(--line); border-radius:14px; padding:24px; }
-    .feats ul { list-style:none; } .feats li { padding:9px 0 9px 30px; position:relative; color:#374151; }
-    .feats li::before { content:"✓"; position:absolute; left:0; color:var(--blue); font-weight:800; }
+    .site-title {
+      flex: 1; text-align: center; color: #fff;
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 400; letter-spacing: 1px; margin: 0;
+    }
 
-    .reviews { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .review { background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px; }
-    .review .stars { font-size:.85rem; margin-bottom:8px; }
-    .review p { font-size:.9rem; color:#374151; }
-    .review .who { margin-top:10px; font-size:.8rem; color:var(--muted); font-weight:600; }
+    .site-subbar { background: var(--red-dark); padding: 8px 16px; text-align: center; }
+    .site-subbar p {
+      color: #fff; font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; font-weight: 400;
+    }
 
-    .faq details { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:10px; }
-    .faq summary { font-weight:600; cursor:pointer; }
-    .faq p { color:var(--muted); font-size:.92rem; margin-top:8px; }
+    main {
+      flex: 1; width: 100%; max-width: 900px; margin: 0 auto;
+      padding: 28px 16px 40px; display: flex; flex-direction: column; align-items: center;
+    }
 
-    footer { border-top:1px solid var(--line); padding:26px 0; margin-top:40px; color:#9ca3af; font-size:.8rem; }
-    footer .wrap { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
-    footer a { color:#9ca3af; text-decoration:none; margin-right:14px; }
-    @media (max-width:640px){ .steps,.reviews{grid-template-columns:1fr;} .listing{justify-content:center;text-align:center;} .listing .info{flex-basis:100%;} .stats{justify-content:center;} }
+    .article-headline {
+      font-size: clamp(20px, 3.5vw, 28px);
+      font-weight: 800; line-height: 1.3; color: #111;
+      text-align: center; max-width: 760px; margin-bottom: 8px;
+    }
+    .article-meta {
+      font-size: 12px; color: #888;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px;
+    }
+
+    .video-section { width: 100%; max-width: 760px; margin-bottom: 18px; }
+    .live-bar {
+      display: flex; align-items: center; gap: 8px;
+      background: #fafafa; border: 1px solid var(--border); border-bottom: none;
+      border-radius: 6px 6px 0 0; padding: 8px 16px;
+      font-size: 12px; color: #555;
+    }
+    .live-dot {
+      width: 8px; height: 8px; background: var(--red);
+      border-radius: 50%; animation: blink 1.2s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+    .live-viewers { margin-left: auto; color: #777; }
+
+    .vturb-outer {
+      width: 100%; background: #000;
+      border: 1px solid var(--border); border-top: none;
+      border-radius: 0 0 6px 6px; overflow: hidden;
+    }
+    .vturb-outer vturb-smartplayer { width: 100%; display: block; }
+
+    .footer-band { background: var(--red); padding: 22px 30px; text-align: center; }
+    .footer-band p { color: var(--red-soft); font-size: 14px; font-weight: 500; margin: 0; }
+
+    @media (max-width: 480px) {
+      .site-header-inner { padding: 14px 18px; }
+      .header-icon { font-size: 18px; flex-basis: 33%; }
+      .header-icon svg { width: 18px; height: 18px; }
+      .site-title { font-size: 22px; }
+      .site-subbar p { font-size: 9px; letter-spacing: 1.5px; }
+      main { padding: 20px 12px 30px; }
+      .footer-band { padding: 18px 20px; }
+      .footer-band p { font-size: 10px; line-height: 1.4; }
+    }
   </style>
 </head>
 <body>
-  <header class="top">
-    <div class="wrap">
-      <span class="brand"><span class="ico-sm">📊</span> EconomiZe</span>
-      <nav class="menu">
-        <a href="#recursos">Recursos</a>
-        <a href="#faq">Dúvidas</a>
-      </nav>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <h1 class="site-title">ECONOMIA</h1>
     </div>
   </header>
 
-  <div class="wrap">
+  <main>
 
-    <!-- App listing -->
-    <div class="listing">
-      <div class="app-icon">📊</div>
-      <div class="info">
-        <h1>EconomiZe</h1>
-        <div class="dev">Finanças Tech · Finanças Pessoais</div>
-        <div class="stats">
-          <span><b>4.6 <span class="stars">★</span></b> Avaliação</span>
-          <span><b>100 mil+</b> Downloads</span>
-          <span><b>Livre</b> Classificação</span>
-          <span><b>Grátis</b> Preço</span>
-        </div>
-      </div>
-      <div class="install-row">
-        <a class="cta" href="https://play.google.com/store/search?q=controle+de+gastos+pessoal&c=apps" rel="noopener">
-          <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M48 59.5v393a4.33 4.33 0 0 0 7.37 3.07L260 256 55.37 56.42A4.33 4.33 0 0 0 48 59.5zM345.8 174 89.22 32.64l-.16-.09c-4.42-2.4-8.62 3.58-5 7.06l201.13 192.32zM84.08 472.4c-3.64 3.48.56 9.46 5 7.06l.16-.09L345.8 338l-60.61-57.95zM449.38 231.81l-71.65-39.46L310.36 256l67.37 63.65 71.65-39.46c19.49-10.77 19.49-38.21 0-48.38z"/></svg>
-          <span class="t">Instalar grátis<small>na Google Play</small></span>
-        </a>
+    <div class="video-section">
+      <div class="vturb-outer">
+        <vturb-smartplayer id="vid-677d8b6252d6daeadb8f973e" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
       </div>
     </div>
 
-    <!-- Como funciona -->
-    <section>
-      <h2>Em 3 passos</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="n">1</div>
-          <h3>Baixe o app</h3>
-          <p>Instale gratuitamente direto da Google Play, sem cadastro complicado.</p>
-        </div>
-        <div class="step">
-          <div class="n">2</div>
-          <h3>Registre suas finanças</h3>
-          <p>Adicione receitas e despesas, categorize seus gastos por tipo.</p>
-        </div>
-        <div class="step">
-          <div class="n">3</div>
-          <h3>Acompanhe seu saldo</h3>
-          <p>Visualize relatórios, controle o orçamento e alcance suas metas de economia.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Recursos -->
-    <section id="recursos">
-      <h2>Recursos do app</h2>
-      <div class="feats">
-        <ul>
-          <li>Registre receitas e despesas com facilidade</li>
-          <li>Categorize gastos: alimentação, transporte, lazer e muito mais</li>
-          <li>Defina metas de poupança e controle seu orçamento mensal</li>
-          <li>Funciona offline depois de instalado</li>
-          <li>Gratuito, sem anúncios invasivos</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Avaliações -->
-    <section>
-      <h2>O que dizem os usuários</h2>
-      <div class="reviews">
-        <div class="review">
-          <div class="stars">★★★★★</div>
-          <p>"Finalmente consigo ver pra onde vai meu dinheiro. App simples e muito útil."</p>
-          <div class="who">Marcos S.</div>
-        </div>
-        <div class="review">
-          <div class="stars">★★★★★</div>
-          <p>"Uso todo mês pra registrar gastos. Me ajudou a economizar bastante."</p>
-          <div class="who">Ana P.</div>
-        </div>
-        <div class="review">
-          <div class="stars">★★★★☆</div>
-          <p>"App leve e gratuito, prático e intuitivo. Cumpre o que promete."</p>
-          <div class="who">Roberto L.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <h2>Perguntas frequentes</h2>
-      <div class="faq">
-        <details>
-          <summary>O aplicativo é gratuito?</summary>
-          <p>Sim. O download e o uso básico são completamente gratuitos na Google Play.</p>
-        </details>
-        <details>
-          <summary>Meus dados ficam seguros?</summary>
-          <p>Sim. Suas informações ficam armazenadas no próprio dispositivo, sem envio para servidores externos.</p>
-        </details>
-        <details>
-          <summary>Como instalo?</summary>
-          <p>Toque em "Instalar grátis na Google Play" e siga as instruções da loja de aplicativos.</p>
-        </details>
-        <details>
-          <summary>Para quais tipos de controle serve?</summary>
-          <p>Despesas domésticas, orçamento pessoal, controle de gastos diários e metas de economia.</p>
-        </details>
-      </div>
-    </section>
-
-  </div>
+  </main>
 
   <footer>
-    <div class="wrap">
-      <span>&copy; EconomiZe 2025. Todos os direitos reservados.</span>
-      <span>
-        <a href="/privacidade.html">Privacidade</a>
-        <a href="/termos.html">Termos de Uso</a>
-        <a href="https://play.google.com/store/search?q=controle+de+gastos+pessoal&c=apps" rel="noopener">Google Play</a>
-      </span>
+    <div class="footer-band">
+      <p>&copy; <span id="year"></span></p>
     </div>
   </footer>
+
 </body>
 </html>
