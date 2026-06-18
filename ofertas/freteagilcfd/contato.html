@@ -1,406 +1,227 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <link rel="canonical" href="https://freteagil.cfd/contato.html"/>
-  <title>Contato — GuiaFrete</title>
-  <meta name="description" content="Entre em contato com a equipe do GuiaFrete. Sugestões de conteúdo, correções ou dúvidas editoriais."/>
-  <style>
-  .cf input,.cf textarea,.cf select{width:100%;border:1px solid #ccc;border-radius:6px;
-    padding:.6rem .9rem;font-size:.95rem;font-family:'Roboto',sans-serif;color:#333;margin-top:.3rem}
-  .cf textarea{height:130px;resize:vertical}
-  .cf .field{margin-bottom:1rem}
-  .cf label{font-weight:500;color:#333;font-size:.9rem}
-  .cf .sbtn{background:var(--primary2);color:#fff;border:none;padding:.7rem 1.8rem;
-    border-radius:6px;font-size:1rem;cursor:pointer;font-weight:600;margin-top:.5rem}
-  </style>
-  
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<link rel="canonical" href="https://freteagil.cfd/contato.html"/>
+<title>Contato e Suporte — RastreIA</title>
+<meta name="description" content="Entre em contato com o suporte da RastreIA. Respondemos em até 24h úteis via e-mail ou formulário."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MPPF5ZKQ');</script>
 <style>
-:root {
-  --primary:   #1e4d35;
-  --primary2:  #2d6a4f;
-  --accent:    #e07c2d;
-  --accent-lt: #fdebd0;
-  --bg:        #f4f7f4;
-  --border:    #c3dac9;
-  --card:      #ffffff;
-  --text:      #222;
-  --muted:     #666;
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2563eb;--blue-dk:#1d4ed8;--blue-lt:#eff6ff;--blue-mid:#dbeafe;
+  --dark:#0f172a;--body:#475569;--muted:#94a3b8;
+  --border:#e2e8f0;--bg:#f8fafc;--white:#fff;
+  --radius:12px;--radius-sm:8px;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --shadow-md:0 4px 12px rgba(0,0,0,.1),0 16px 40px rgba(0,0,0,.08);
+}
 html{font-size:16px;scroll-behavior:smooth}
-body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);line-height:1.75}
-a{color:var(--primary2);text-decoration:none}a:hover{text-decoration:underline}
-img{max-width:100%;display:block}
-/* Header */
-.site-header{background:var(--primary);color:#fff;padding:0 1rem;border-bottom:4px solid var(--accent)}
-.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;
-  justify-content:space-between;min-height:62px;flex-wrap:wrap;gap:.5rem}
-.site-logo{display:flex;align-items:center;gap:.65rem;font-family:'Roboto Slab',serif;
-  font-size:1.3rem;font-weight:700;color:#fff}
-.logo-icon{width:36px;height:36px;background:var(--accent);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.logo-icon svg{width:22px;height:22px;fill:var(--primary)}
-.site-nav{display:flex;gap:1.3rem;flex-wrap:wrap}
-.site-nav a{color:#cde8d8;font-size:.88rem}
-.site-nav a:hover{color:#fff;text-decoration:none}
-/* Breadcrumb */
-.breadcrumb{background:#e6f0e9;border-bottom:1px solid var(--border);padding:.45rem 1rem;font-size:.82rem;color:#555}
-.breadcrumb-inner{max-width:1100px;margin:0 auto}
-.breadcrumb a{color:var(--primary2)}
-/* Layout */
-.container{max-width:1100px;margin:2rem auto;padding:0 1rem;display:grid;grid-template-columns:1fr 300px;gap:2rem}
-@media(max-width:780px){.container{grid-template-columns:1fr}.sidebar{order:2}}
-/* Article */
-.article-card{background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-/* HERO: foto real em vez de ícone */
-.article-hero{height:240px;overflow:hidden;position:relative;background:#c8dfc8}
-.article-hero img{width:100%;height:100%;object-fit:cover;display:block}
-.article-hero-tag{position:absolute;top:1rem;left:1rem;background:var(--accent);
-  color:#fff;font-size:.74rem;font-weight:700;padding:.25rem .8rem;border-radius:20px;
-  text-transform:uppercase;letter-spacing:.04em;box-shadow:0 2px 6px rgba(0,0,0,.2)}
-/* Meta + autor */
-.article-body{padding:1.8rem}
-.article-meta{font-size:.8rem;color:var(--muted);margin-bottom:.6rem}
-.article-meta span{margin-right:1rem}
-/* Contador de leituras */
-.read-count{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;
-  color:var(--primary2);font-weight:500}
-/* Author */
-.author-line{display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem;
-  padding:.7rem;background:#f0f7f2;border-radius:6px;font-size:.88rem}
-.author-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border)}
-.author-name{font-weight:600;color:var(--primary)}
-.author-role{color:var(--muted);font-size:.79rem}
-/* Article body */
-.article-title{font-family:'Roboto Slab',serif;font-size:1.5rem;font-weight:700;
-  color:var(--primary);line-height:1.35;margin-bottom:.9rem}
-.article-lead{font-size:1.03rem;color:#555;border-left:3px solid var(--accent);
-  padding-left:1rem;margin-bottom:1.5rem}
-.article-body h2{font-family:'Roboto Slab',serif;font-size:1.17rem;color:var(--primary);
-  margin:1.8rem 0 .6rem;padding-bottom:.3rem;border-bottom:2px solid #dceee1}
-.article-body p{margin-bottom:1rem;color:#444}
-.tip-box{background:var(--accent-lt);border:1px solid #f0c090;border-left:4px solid var(--accent);
-  border-radius:6px;padding:1rem 1.2rem;margin:1.2rem 0;font-size:.95rem}
-.tip-box strong{color:#7a3e00}
-/* Steps */
-.steps{counter-reset:step;margin:1.2rem 0}
-.steps li{counter-increment:step;list-style:none;display:flex;gap:.9rem;margin-bottom:.9rem;align-items:flex-start}
-.steps li::before{content:counter(step);flex-shrink:0;width:30px;height:30px;
-  background:var(--primary2);color:#fff;border-radius:50%;display:flex;
-  align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
-.steps li div{padding-top:.3rem}
-/* Table */
-.data-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
-.data-table th{background:var(--primary);color:#fff;padding:.6rem .9rem;text-align:left;font-weight:500}
-.data-table td{padding:.55rem .9rem;border-bottom:1px solid #e0eee4}
-.data-table tr:nth-child(even) td{background:#f0f7f2}
-/* Tags — agora são links */
-.tags{display:flex;flex-wrap:wrap;gap:.4rem}
-.tag{background:#ddf0e4;color:var(--primary);font-size:.78rem;
-  padding:.25rem .65rem;border-radius:20px;font-weight:500;display:inline-block}
-a.tag:hover{background:var(--primary);color:#fff;text-decoration:none}
-/* Mock screenshot Correios */
-.tracking-mock{border:1px solid #ccc;border-radius:8px;overflow:hidden;margin:1.2rem 0;font-size:.88rem}
-.tracking-mock .mock-bar{background:#f4f4f4;padding:.4rem .8rem;border-bottom:1px solid #ddd;
-  color:#777;font-size:.78rem;font-family:monospace;display:flex;align-items:center;gap:.5rem}
-.mock-bar::before{content:"●";color:#ff5f57;font-size:.9rem}
-.mock-bar::after{content:"●";color:#28c840;font-size:.9rem}
-.tracking-mock .mock-body{padding:1rem;background:#fff}
-.mock-code{font-family:monospace;font-weight:700;font-size:1rem;color:var(--primary);margin-bottom:.8rem}
-.mock-event{display:flex;gap:.8rem;padding:.5rem 0;border-bottom:1px solid #f0f0f0;font-size:.84rem}
-.mock-event:last-child{border-bottom:none}
-.mock-dot{width:10px;height:10px;border-radius:50%;background:var(--primary2);flex-shrink:0;margin-top:.3rem}
-.mock-dot.active{background:var(--accent)}
-.mock-time{color:var(--muted);min-width:110px}
-/* YouTube link estilizado */
-.yt-link{display:flex;align-items:center;gap:.9rem;background:#000;color:#fff;
-  border-radius:8px;overflow:hidden;text-decoration:none;margin:1.2rem 0}
-.yt-thumb{width:120px;height:68px;background:#1a1a1a;display:flex;align-items:center;
-  justify-content:center;flex-shrink:0;font-size:2rem}
-.yt-info{padding:.5rem .8rem}
-.yt-title{font-size:.9rem;font-weight:500;margin-bottom:.2rem}
-.yt-meta{font-size:.76rem;color:#aaa}
-/* Comentários */
-.comments-section{margin-top:2rem;padding-top:1.5rem;border-top:2px solid #dceee1}
-.comments-title{font-family:'Roboto Slab',serif;font-size:1rem;color:var(--primary);font-weight:700;margin-bottom:1rem}
-.comment{display:flex;gap:.8rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f0f0f0}
-.comment:last-child{border-bottom:none}
-.comment-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border)}
-.comment-body{}
-.comment-meta{font-size:.78rem;color:var(--muted);margin-bottom:.2rem}
-.comment-name{font-weight:600;color:#333}
-.comment-text{font-size:.88rem;color:#444;line-height:1.6}
-.comment-likes{font-size:.76rem;color:var(--primary2);margin-top:.3rem;cursor:pointer}
-/* Sidebar */
-.sidebar{display:flex;flex-direction:column;gap:1.5rem}
-.widget{background:var(--card);border-radius:8px;padding:1.2rem;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.widget-title{font-family:'Roboto Slab',serif;font-size:1rem;color:var(--primary);
-  font-weight:700;margin-bottom:.9rem;padding-bottom:.4rem;border-bottom:2px solid var(--accent)}
-.related-list{list-style:none}
-.related-list li{padding:.5rem 0;border-bottom:1px solid #f0f0f0;font-size:.88rem}
-.related-list li:last-child{border-bottom:none}
-.related-list a{color:#333;font-weight:500}
-.related-list a:hover{color:var(--primary2);text-decoration:none}
-.related-list .cat{font-size:.74rem;color:var(--muted);display:block;margin-top:.1rem}
-.related-list .read-time{font-size:.72rem;color:var(--muted);float:right}
-/* Search */
-.search-form{display:flex;border:1px solid #bbb;border-radius:6px;overflow:hidden}
-.search-form input{flex:1;border:none;padding:.55rem .8rem;font-size:.9rem;
-  outline:none;font-family:'Roboto',sans-serif}
-.search-form button{background:var(--primary);border:none;padding:0 .9rem;cursor:pointer}
-.search-form button svg{width:16px;height:16px;fill:#fff;display:block}
-/* CEP tool */
-.cep-tool{margin-top:.8rem}
-.cep-tool input{width:100%;border:1px solid #ccc;border-radius:6px;padding:.55rem .8rem;
-  font-size:.9rem;font-family:'Roboto',sans-serif;outline:none;margin-bottom:.5rem}
-.cep-tool button{background:var(--primary2);color:#fff;border:none;padding:.45rem 1rem;
-  border-radius:5px;cursor:pointer;font-size:.85rem;font-weight:500;width:100%}
-.cep-result{margin-top:.6rem;font-size:.85rem;color:#333;background:#f0f7f2;
-  padding:.6rem .8rem;border-radius:5px;min-height:2rem;display:none}
-/* Contact */
-.contact-item{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;font-size:.88rem}
-.contact-icon{width:36px;height:36px;border-radius:8px;background:#e6f0e9;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.contact-icon svg{width:18px;height:18px;fill:var(--primary2)}
-.contact-label{font-weight:500;color:#333}
-.contact-sub{font-size:.79rem;color:var(--muted)}
-/* Footer */
-.site-footer{background:var(--primary);color:#a8d4b8;padding:2rem 1rem 1rem;margin-top:3rem}
-.footer-inner{max-width:1100px;margin:0 auto}
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1.5rem;margin-bottom:1.5rem}
-.footer-col h4{color:#fff;font-size:.95rem;margin-bottom:.7rem}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--body);background:var(--white);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1120px;margin:0 auto;padding:0 1.25rem}
+.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 1.25rem}
+.logo{display:flex;align-items:center;gap:.55rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--dark);letter-spacing:-.02em}
+.logo:hover{text-decoration:none;color:var(--dark)}
+.logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dk) 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:18px;height:18px;fill:#fff}
+.logo span.ia{color:var(--blue)}
+.site-nav{display:flex;align-items:center;gap:1.6rem}
+.site-nav a{font-size:.875rem;font-weight:500;color:var(--body);text-decoration:none}
+.site-nav a:hover{color:var(--dark)}
+.site-nav a.active{color:var(--blue);font-weight:600}
+.btn-header{display:inline-flex;align-items:center;gap:.4rem;background:var(--blue);color:#fff;font-size:.875rem;font-weight:600;padding:.5rem 1.1rem;border-radius:8px;border:none;cursor:pointer;transition:background .15s;text-decoration:none}
+.btn-header:hover{background:var(--blue-dk);text-decoration:none;color:#fff}
+@media(max-width:640px){.site-nav{display:none}}
+.page-hero{padding:3.5rem 1.25rem 2.5rem;background:linear-gradient(160deg,#f0f6ff 0%,#fafafa 70%,var(--white) 100%);border-bottom:1px solid var(--border)}
+.badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--blue-mid);color:var(--blue-dk);font-size:.8rem;font-weight:600;padding:.3rem .9rem;border-radius:99px;margin-bottom:1rem}
+.page-hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--dark);letter-spacing:-.03em;max-width:600px}
+.page-hero p{font-size:1rem;color:var(--body);max-width:520px;margin-top:.8rem;line-height:1.7}
+.contact-wrap{max-width:1000px;margin:0 auto;padding:3.5rem 1.25rem 4.5rem;display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start}
+@media(max-width:720px){.contact-wrap{grid-template-columns:1fr}}
+.info-col h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:800;color:var(--dark);margin-bottom:1.4rem}
+.info-item{display:flex;gap:.9rem;align-items:flex-start;margin-bottom:1.4rem}
+.info-icon{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--blue-lt);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.info-icon svg{width:20px;height:20px;fill:var(--blue)}
+.info-item h4{font-size:.9rem;font-weight:700;color:var(--dark);margin-bottom:.15rem}
+.info-item p,.info-item a{font-size:.87rem;color:var(--body)}
+.faq-links{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.faq-links h3{font-size:.85rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.9rem}
+.faq-links ul{list-style:none}
+.faq-links ul li{margin-bottom:.5rem}
+.faq-links ul li a{font-size:.87rem;color:var(--blue);display:flex;align-items:center;gap:.4rem}
+.faq-links ul li a::before{content:'→';font-size:.8rem}
+.contact-form{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);padding:2rem}
+.form-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:1.5rem}
+.field{margin-bottom:1.1rem}
+.field label{display:block;font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:.35rem}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.65rem .9rem;font-size:.92rem;font-family:'Inter',system-ui,sans-serif;color:var(--dark);background:var(--white);transition:border-color .15s;outline:none;-webkit-appearance:none}
+.field textarea{height:130px;resize:vertical;line-height:1.5}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.5rem}
+.btn-submit{width:100%;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:.8rem;font-size:1rem;font-weight:600;cursor:pointer;transition:background .15s;margin-top:.3rem;font-family:'Inter',system-ui,sans-serif}
+.btn-submit:hover{background:var(--blue-dk)}
+.btn-submit:disabled{opacity:.6;cursor:default}
+#form-success{display:none;text-align:center;padding:1.5rem 0}
+#form-success h3{font-size:1.1rem;font-weight:700;color:var(--dark);margin:.7rem 0 .4rem}
+#form-success p{font-size:.88rem;color:var(--body)}
+.cancel-note{margin-top:1rem;padding:.9rem 1rem;background:#fef9ec;border:1px solid #fde68a;border-radius:var(--radius-sm);font-size:.82rem;color:#92400e;line-height:1.55}
+.site-footer{background:var(--dark);color:#64748b;padding:2.5rem 1.25rem 1.5rem}
+.footer-inner{max-width:1120px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;padding-bottom:2rem;border-bottom:1px solid #1e293b}
+@media(max-width:700px){.footer-grid{grid-template-columns:1fr 1fr}}
+.flogo{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+.flogo-mark{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dk) 100%);display:flex;align-items:center;justify-content:center}
+.flogo-mark svg{width:14px;height:14px;fill:#fff}
+.flogo-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:800;color:#e2e8f0}
+.flogo-text span{color:#60a5fa}
+.footer-brand p{font-size:.83rem;line-height:1.65;color:#475569}
+.footer-col h4{font-size:.8rem;font-weight:600;color:#94a3b8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.8rem}
 .footer-col ul{list-style:none}
 .footer-col ul li{margin-bottom:.4rem}
-.footer-col ul a{color:#a8d4b8;font-size:.84rem}
-.footer-col ul a:hover{color:#fff;text-decoration:none}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:1rem;
-  font-size:.79rem;text-align:center;color:#7bb898}
-/* Cookie banner */
-#cookie-banner{position:fixed;bottom:0;left:0;right:0;background:rgba(25,55,35,.97);
-  color:#e0f5e9;padding:.9rem 1.2rem;display:flex;align-items:center;
-  justify-content:space-between;flex-wrap:wrap;gap:.7rem;z-index:999;font-size:.85rem}
-#cookie-banner a{color:#95d5b2}
-#cookie-accept{background:var(--accent);color:#fff;border:none;padding:.45rem 1rem;
-  border-radius:5px;cursor:pointer;font-size:.84rem;font-weight:600}
+.footer-col a{font-size:.85rem;color:#475569}
+.footer-col a:hover{color:#94a3b8;text-decoration:none}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;padding-top:1.2rem;font-size:.78rem;color:#334155}
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MPPF5ZKQ');</script>
-
 </head>
 <body>
-<header class="site-header"><div class="header-inner">
-  <a href="/guia-rastreamento.html" class="site-logo">
-    <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>GuiaFrete
-  </a>
-  <nav class="site-nav">
-    <a href="/guia-rastreamento.html">Início</a>
-    <a href="/rastreamento-correios.html">Rastreamento</a>
-    <a href="/pac-vs-sedex.html">Modalidades</a>
-    <a href="/reclamacao-correios.html">Reclamações</a>
-    <a href="/sobre.html">Sobre</a>
-    <a href="/contato.html">Contato</a>
-  </nav>
-</div></header>
-<div class="breadcrumb"><div class="breadcrumb-inner">
-    <a href="/guia-rastreamento.html">Início</a>
-     › <a href="/contato.html">Contato</a>
-  </div></div>
-<div class="container">
-<main>
-<div class="article-card"><div class="article-body">
-  <h1 class="article-title">Fale com o GuiaFrete</h1>
-  <p class="article-lead">Erro em algum artigo? Sugestão de pauta? Ou quer dar um feedback? Preencha abaixo — respondemos em até 2 dias úteis.</p>
-  <form class="cf" onsubmit="sendForm(event)">
-    <div class="field"><label>Nome *</label><input type="text" required placeholder="Seu nome"/></div>
-    <div class="field"><label>E-mail *</label><input type="email" required placeholder="seuemail@exemplo.com"/></div>
-    <div class="field"><label>Assunto</label>
-      <select><option>Correção de conteúdo</option><option>Sugestão de pauta</option>
-      <option>Parceria</option><option>Outro</option></select>
-    </div>
-    <div class="field"><label>Mensagem *</label><textarea required placeholder="Descreva sua mensagem..."></textarea></div>
-    <button type="submit" class="sbtn">Enviar mensagem</button>
-  </form>
-  <p id="form-ok" style="display:none;color:#1a6e40;margin-top:1rem;font-weight:500">
-    ✅ Mensagem enviada! Responderemos em até 2 dias úteis.</p>
-  <script>function sendForm(e){e.preventDefault();document.getElementById('form-ok').style.display='block';e.target.style.display='none';}</script>
-  <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #dceee1">
-    <strong style="color:var(--primary)">Contatos de utilidade pública</strong>
-    <ul style="margin:.7rem 0 0 1.5rem;color:#444;font-size:.92rem">
-      <li><strong>Correios:</strong> 3003-0100 (capitais) / 0800-725-0100</li>
-      <li><strong>Procon:</strong> 151</li>
-      <li><strong>Consumidor.gov:</strong> <a href="https://consumidor.gov.br" target="_blank" rel="noopener">consumidor.gov.br</a></li>
-    </ul>
-  </div>
-</div></div>
-</main>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPPF5ZKQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<aside class="sidebar">
-  <div class="widget">
-    <div class="widget-title">🔍 Buscar</div>
-    <form class="search-form" action="https://www.google.com/search" method="get" target="_blank">
-      <input type="hidden" name="sitesearch" value="freteagil.cfd" />
-      <input type="text" name="q" placeholder="Buscar artigos..." />
-      <button type="submit"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/rastreia.html" class="logo">
+      <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+      Rastre<span class="ia">IA</span>
+    </a>
+    <nav class="site-nav">
+      <a href="/rastreia.html#funcionalidades">Funcionalidades</a>
+      <a href="/rastreia.html#precos">Preços</a>
+      <a href="/sobre.html">Sobre</a>
+      <a href="/contato.html" class="active">Contato</a>
+    </nav>
+    <a href="/rastreia.html" class="btn-header">Rastrear grátis</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Suporte</div>
+    <h1>Como podemos ajudar?</h1>
+    <p>Nossa equipe responde em até 24 horas em dias úteis. Para cancelamentos, basta enviar e-mail com o assunto "Cancelamento".</p>
+  </div>
+</section>
+
+<div class="contact-wrap">
+  <div class="info-col">
+    <h2>Informações de contato</h2>
+    <div class="info-item">
+      <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+      <div>
+        <h4>E-mail de suporte</h4>
+        <a href="mailto:suporte@freteagil.cfd">suporte@freteagil.cfd</a>
+        <p>Resposta em até 24h úteis</p>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
+      <div>
+        <h4>Horário de atendimento</h4>
+        <p>Segunda a sexta, 9h–18h (Brasília)</p>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div>
+      <div>
+        <h4>Empresa</h4>
+        <p>MFR Soluções Digitais LTDA<br/>CNPJ 59.080.649/0001-02</p>
+      </div>
+    </div>
+    <div class="faq-links">
+      <h3>Respostas rápidas</h3>
+      <ul>
+        <li><a href="/rastreia.html#faq">Por que meu rastreio não atualiza?</a></li>
+        <li><a href="/termos.html">Como cancelo minha assinatura?</a></li>
+        <li><a href="/privacidade.html">Política de privacidade (LGPD)</a></li>
+        <li><a href="/rastreia.html#precos">Diferença entre Pro e Business</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <form class="contact-form" id="contact-form" novalidate>
+      <div class="form-title">Envie uma mensagem</div>
+      <div id="form-success">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style="margin:0 auto .7rem"><circle cx="12" cy="12" r="12" fill="#eff6ff"/><path d="M7 12.5l3.5 3.5 6.5-6.5" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Mensagem enviada!</h3>
+        <p>Respondemos em até 24 horas úteis. Fique de olho na sua caixa de entrada.</p>
+      </div>
+      <div id="form-fields">
+        <div class="field"><label for="cf-name">Nome completo</label><input type="text" id="cf-name" placeholder="Seu nome" required/></div>
+        <div class="field"><label for="cf-email">E-mail</label><input type="email" id="cf-email" placeholder="seuemail@exemplo.com" required/></div>
+        <div class="field">
+          <label for="cf-subject">Assunto</label>
+          <select id="cf-subject" required>
+            <option value="">Selecione o assunto</option>
+            <option value="suporte">Suporte técnico</option>
+            <option value="planos">Dúvida sobre planos</option>
+            <option value="pagamento">Pagamento / cobrança</option>
+            <option value="cancelamento">Cancelamento de assinatura</option>
+            <option value="privacidade">Privacidade / LGPD</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="field"><label for="cf-msg">Mensagem</label><textarea id="cf-msg" placeholder="Descreva sua dúvida ou problema..." required></textarea></div>
+        <div id="cf-errmsg" style="display:none;color:#ef4444;font-size:.83rem;margin-bottom:.7rem"></div>
+        <button type="submit" class="btn-submit" id="cf-btn">Enviar mensagem</button>
+        <div class="cancel-note"><strong>Para cancelar:</strong> envie e-mail para <a href="mailto:suporte@freteagil.cfd">suporte@freteagil.cfd</a> com assunto "Cancelamento" e o e-mail da compra. Processamos em até 1 dia útil.</div>
+      </div>
     </form>
   </div>
-
-  <div class="widget">
-    <div class="widget-title">📮 Consultar CEP</div>
-    <div class="cep-tool">
-      <input type="text" id="cep-input" maxlength="9" placeholder="Ex: 01310-100" oninput="fmtCep(this)"/>
-      <button onclick="buscarCep()">Consultar endereço</button>
-      <div class="cep-result" id="cep-result"></div>
-    </div>
-    <script>
-    function fmtCep(el){
-      var v=el.value.replace(/\D/g,'');
-      if(v.length>5) v=v.slice(0,5)+'-'+v.slice(5,8);
-      el.value=v;
-    }
-    function buscarCep(){
-      var cep=document.getElementById('cep-input').value.replace(/\D/g,'');
-      var el=document.getElementById('cep-result');
-      if(cep.length!==8){el.textContent='CEP inválido.';el.style.display='block';return;}
-      el.textContent='Consultando...';el.style.display='block';
-      fetch('https://viacep.com.br/ws/'+cep+'/json/')
-        .then(r=>r.json())
-        .then(d=>{
-          if(d.erro){el.textContent='CEP não encontrado.';}
-          else{el.innerHTML='<strong>'+d.logradouro+'</strong><br>'+
-            d.bairro+' — '+d.localidade+'/'+d.uf;}
-        }).catch(()=>{el.textContent='Erro na consulta. Tente novamente.';});
-    }
-    </script>
-  </div>
-
-  <div class="widget">
-    <div class="widget-title">📰 Artigos Populares</div>
-    <ul class="related-list">
-      <li>
-        <span class="read-time">5 min</span>
-        <a href="/guia-rastreamento.html">Encomenda atrasada? Veja o que fazer</a>
-        <span class="cat">Rastreamento</span>
-      </li>
-      <li>
-        <span class="read-time">4 min</span>
-        <a href="/rastreamento-correios.html">Como rastrear pelo app dos Correios</a>
-        <span class="cat">Tutorial</span>
-      </li>
-      <li>
-        <span class="read-time">4 min</span>
-        <a href="/pac-vs-sedex.html">PAC ou SEDEX: qual escolher?</a>
-        <span class="cat">Comparativo</span>
-      </li>
-      <li>
-        <span class="read-time">5 min</span>
-        <a href="/reclamacao-correios.html">Como reclamar nos Correios</a>
-        <span class="cat">Direitos</span>
-      </li>
-      <li>
-        <span class="read-time">4 min</span>
-        <a href="/direitos-entrega.html">Seus direitos no CDC (compras online)</a>
-        <span class="cat">Direitos</span>
-      </li>
-    </ul>
-  </div>
-
-  <div class="widget">
-    <div class="widget-title">📞 Contatos Úteis</div>
-    <div class="contact-item">
-      <div class="contact-icon">
-        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-      </div>
-      <div><div class="contact-label">Correios</div><div class="contact-sub">3003-0100 (capitais)</div></div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      </div>
-      <div><div class="contact-label">Procon</div><div class="contact-sub">151 (gratuito)</div></div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-icon">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </div>
-      <div><div class="contact-label">Consumidor.gov</div><div class="contact-sub">consumidor.gov.br</div></div>
-    </div>
-  </div>
-
-  <div class="widget">
-    <div class="widget-title">🏷️ Temas</div>
-    <div class="tags">
-      <a href="/rastreamento-correios.html" class="tag">Rastreamento</a>
-      <a href="/pac-vs-sedex.html" class="tag">PAC</a>
-      <a href="/pac-vs-sedex.html" class="tag">SEDEX</a>
-      <a href="/reclamacao-correios.html" class="tag">Reclamação</a>
-      <a href="/direitos-entrega.html" class="tag">CDC</a>
-      <a href="/direitos-entrega.html" class="tag">Direitos</a>
-      <a href="/guia-rastreamento.html" class="tag">Atraso</a>
-    </div>
-  </div>
-</aside>
 </div>
 
-<footer class="site-footer"><div class="footer-inner">
-  <div class="footer-grid">
-    <div class="footer-col">
-      <h4>GuiaFrete</h4>
-      <ul>
-        <li><a href="/sobre.html">Sobre nós</a></li>
-        <li><a href="/contato.html">Contato</a></li>
-        <li><a href="/privacidade.html">Privacidade</a></li>
-      </ul>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="flogo"><div class="flogo-mark"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg></div><span class="flogo-text">Rastre<span>IA</span></span></div>
+        <p>Rastreamento inteligente de encomendas para consumidores e lojistas brasileiros.</p>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/rastreia.html#funcionalidades">Funcionalidades</a></li><li><a href="/rastreia.html#precos">Preços</a></li><li><a href="/sobre.html">Sobre nós</a></li><li><a href="/contato.html">Contato</a></li></ul></div>
+      <div class="footer-col"><h4>Transportadoras</h4><ul><li><a href="/rastreamento-correios.html">Correios</a></li><li><a href="#">Jadlog</a></li><li><a href="#">Shopee Envios</a></li><li><a href="#">Mercado Envios</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="/privacidade.html">Privacidade (LGPD)</a></li><li><a href="/termos.html">Termos de Uso</a></li><li><a href="/contato.html">Suporte</a></li></ul></div>
     </div>
-    <div class="footer-col">
-      <h4>Rastreamento</h4>
-      <ul>
-        <li><a href="/rastreamento-correios.html">Como rastrear pelo app</a></li>
-        <li><a href="/pac-vs-sedex.html">PAC vs SEDEX</a></li>
-        <li><a href="/guia-rastreamento.html">Encomenda atrasada</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Seus Direitos</h4>
-      <ul>
-        <li><a href="/reclamacao-correios.html">Reclamar nos Correios</a></li>
-        <li><a href="/direitos-entrega.html">CDC e compras online</a></li>
-        <li><a href="/contato.html">Fale conosco</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="/privacidade.html">Política de Privacidade</a></li>
-        <li><a href="/privacidade.html">Cookies</a></li>
-        <li><a href="/sobre.html">Quem somos</a></li>
-      </ul>
+    <div class="footer-bottom">
+      <span>&copy; <span class="ft-year"></span> MFR Soluções Digitais LTDA &middot; CNPJ 59.080.649/0001-02 &middot; Não somos afiliados aos Correios (ECT).</span>
+      <span>LGPD compliant &middot; TLS 1.3</span>
     </div>
   </div>
-  <div class="footer-bottom">
-    &copy; <span id="footer-year"></span> GuiaFrete — Portal independente sobre logística e
-    entregas no Brasil. Não somos afiliados aos Correios (ECT) nem a qualquer transportadora.
-  </div>
-</div></footer>
-<div id="cookie-banner" style="display:none">
-  <span>Usamos cookies para melhorar sua experiência. <a href="/privacidade.html">Saiba mais</a>.</span>
-  <button id="cookie-accept">Aceitar</button>
-</div>
+</footer>
 <script>
-document.getElementById('footer-year').textContent=new Date().getFullYear();
-if(!localStorage.getItem('ck_ok')){
-  document.getElementById('cookie-banner').style.display='flex';
-  document.getElementById('cookie-accept').onclick=function(){
-    localStorage.setItem('ck_ok','1');
-    document.getElementById('cookie-banner').style.display='none';
-  };
-}
+document.querySelectorAll('.ft-year').forEach(e=>e.textContent=new Date().getFullYear());
+document.getElementById('contact-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  const n=document.getElementById('cf-name').value.trim();
+  const em=document.getElementById('cf-email').value.trim();
+  const s=document.getElementById('cf-subject').value;
+  const m=document.getElementById('cf-msg').value.trim();
+  const err=document.getElementById('cf-errmsg');
+  if(!n||!em||!s||!m){err.textContent='Preencha todos os campos.';err.style.display='block';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){err.textContent='E-mail inválido.';err.style.display='block';return;}
+  err.style.display='none';
+  const btn=document.getElementById('cf-btn');btn.disabled=true;btn.textContent='Enviando...';
+  const body=encodeURIComponent(`Nome: ${n}\nAssunto: ${s}\n\n${m}`);
+  window.location.href=`mailto:suporte@freteagil.cfd?subject=${encodeURIComponent(s)}&body=${body}`;
+  setTimeout(()=>{
+    document.getElementById('form-fields').style.display='none';
+    document.getElementById('form-success').style.display='block';
+  },800);
+});
 </script>
 </body>
 </html>

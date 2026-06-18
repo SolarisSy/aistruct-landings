@@ -280,8 +280,8 @@ function startPoll() {
         if (d.paid) {
           clearInterval(pollTimer);
           clearInterval(countdown);
-          document.getElementById('pix-area').style.display    = 'none';
-          document.getElementById('success-area').style.display = 'block';
+          const plan = new URLSearchParams(location.search).get('plan') || 'pro';
+          window.location.href = '/obrigado.html?plan=' + encodeURIComponent(plan);
         }
       })
       .catch(() => {});

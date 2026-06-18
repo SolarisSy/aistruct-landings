@@ -1,401 +1,206 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <link rel="canonical" href="https://freteagil.cfd/privacidade.html"/>
-  <title>Política de Privacidade — GuiaFrete</title>
-  <meta name="description" content="Política de privacidade do GuiaFrete em conformidade com a LGPD. Veja quais dados coletamos, como usamos e seus direitos."/>
-  
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<link rel="canonical" href="https://freteagil.cfd/privacidade.html"/>
+<title>Política de Privacidade — RastreIA</title>
+<meta name="description" content="Política de privacidade da RastreIA em conformidade com a LGPD (Lei 13.709/2018). Saiba quais dados coletamos, como usamos e seus direitos."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MPPF5ZKQ');</script>
 <style>
-:root {
-  --primary:   #1e4d35;
-  --primary2:  #2d6a4f;
-  --accent:    #e07c2d;
-  --accent-lt: #fdebd0;
-  --bg:        #f4f7f4;
-  --border:    #c3dac9;
-  --card:      #ffffff;
-  --text:      #222;
-  --muted:     #666;
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2563eb;--blue-dk:#1d4ed8;--blue-lt:#eff6ff;--blue-mid:#dbeafe;
+  --dark:#0f172a;--body:#475569;--muted:#94a3b8;
+  --border:#e2e8f0;--bg:#f8fafc;--white:#fff;
+  --radius:12px;--radius-sm:8px;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+}
 html{font-size:16px;scroll-behavior:smooth}
-body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);line-height:1.75}
-a{color:var(--primary2);text-decoration:none}a:hover{text-decoration:underline}
-img{max-width:100%;display:block}
-/* Header */
-.site-header{background:var(--primary);color:#fff;padding:0 1rem;border-bottom:4px solid var(--accent)}
-.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;
-  justify-content:space-between;min-height:62px;flex-wrap:wrap;gap:.5rem}
-.site-logo{display:flex;align-items:center;gap:.65rem;font-family:'Roboto Slab',serif;
-  font-size:1.3rem;font-weight:700;color:#fff}
-.logo-icon{width:36px;height:36px;background:var(--accent);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.logo-icon svg{width:22px;height:22px;fill:var(--primary)}
-.site-nav{display:flex;gap:1.3rem;flex-wrap:wrap}
-.site-nav a{color:#cde8d8;font-size:.88rem}
-.site-nav a:hover{color:#fff;text-decoration:none}
-/* Breadcrumb */
-.breadcrumb{background:#e6f0e9;border-bottom:1px solid var(--border);padding:.45rem 1rem;font-size:.82rem;color:#555}
-.breadcrumb-inner{max-width:1100px;margin:0 auto}
-.breadcrumb a{color:var(--primary2)}
-/* Layout */
-.container{max-width:1100px;margin:2rem auto;padding:0 1rem;display:grid;grid-template-columns:1fr 300px;gap:2rem}
-@media(max-width:780px){.container{grid-template-columns:1fr}.sidebar{order:2}}
-/* Article */
-.article-card{background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-/* HERO: foto real em vez de ícone */
-.article-hero{height:240px;overflow:hidden;position:relative;background:#c8dfc8}
-.article-hero img{width:100%;height:100%;object-fit:cover;display:block}
-.article-hero-tag{position:absolute;top:1rem;left:1rem;background:var(--accent);
-  color:#fff;font-size:.74rem;font-weight:700;padding:.25rem .8rem;border-radius:20px;
-  text-transform:uppercase;letter-spacing:.04em;box-shadow:0 2px 6px rgba(0,0,0,.2)}
-/* Meta + autor */
-.article-body{padding:1.8rem}
-.article-meta{font-size:.8rem;color:var(--muted);margin-bottom:.6rem}
-.article-meta span{margin-right:1rem}
-/* Contador de leituras */
-.read-count{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;
-  color:var(--primary2);font-weight:500}
-/* Author */
-.author-line{display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem;
-  padding:.7rem;background:#f0f7f2;border-radius:6px;font-size:.88rem}
-.author-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border)}
-.author-name{font-weight:600;color:var(--primary)}
-.author-role{color:var(--muted);font-size:.79rem}
-/* Article body */
-.article-title{font-family:'Roboto Slab',serif;font-size:1.5rem;font-weight:700;
-  color:var(--primary);line-height:1.35;margin-bottom:.9rem}
-.article-lead{font-size:1.03rem;color:#555;border-left:3px solid var(--accent);
-  padding-left:1rem;margin-bottom:1.5rem}
-.article-body h2{font-family:'Roboto Slab',serif;font-size:1.17rem;color:var(--primary);
-  margin:1.8rem 0 .6rem;padding-bottom:.3rem;border-bottom:2px solid #dceee1}
-.article-body p{margin-bottom:1rem;color:#444}
-.tip-box{background:var(--accent-lt);border:1px solid #f0c090;border-left:4px solid var(--accent);
-  border-radius:6px;padding:1rem 1.2rem;margin:1.2rem 0;font-size:.95rem}
-.tip-box strong{color:#7a3e00}
-/* Steps */
-.steps{counter-reset:step;margin:1.2rem 0}
-.steps li{counter-increment:step;list-style:none;display:flex;gap:.9rem;margin-bottom:.9rem;align-items:flex-start}
-.steps li::before{content:counter(step);flex-shrink:0;width:30px;height:30px;
-  background:var(--primary2);color:#fff;border-radius:50%;display:flex;
-  align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
-.steps li div{padding-top:.3rem}
-/* Table */
-.data-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
-.data-table th{background:var(--primary);color:#fff;padding:.6rem .9rem;text-align:left;font-weight:500}
-.data-table td{padding:.55rem .9rem;border-bottom:1px solid #e0eee4}
-.data-table tr:nth-child(even) td{background:#f0f7f2}
-/* Tags — agora são links */
-.tags{display:flex;flex-wrap:wrap;gap:.4rem}
-.tag{background:#ddf0e4;color:var(--primary);font-size:.78rem;
-  padding:.25rem .65rem;border-radius:20px;font-weight:500;display:inline-block}
-a.tag:hover{background:var(--primary);color:#fff;text-decoration:none}
-/* Mock screenshot Correios */
-.tracking-mock{border:1px solid #ccc;border-radius:8px;overflow:hidden;margin:1.2rem 0;font-size:.88rem}
-.tracking-mock .mock-bar{background:#f4f4f4;padding:.4rem .8rem;border-bottom:1px solid #ddd;
-  color:#777;font-size:.78rem;font-family:monospace;display:flex;align-items:center;gap:.5rem}
-.mock-bar::before{content:"●";color:#ff5f57;font-size:.9rem}
-.mock-bar::after{content:"●";color:#28c840;font-size:.9rem}
-.tracking-mock .mock-body{padding:1rem;background:#fff}
-.mock-code{font-family:monospace;font-weight:700;font-size:1rem;color:var(--primary);margin-bottom:.8rem}
-.mock-event{display:flex;gap:.8rem;padding:.5rem 0;border-bottom:1px solid #f0f0f0;font-size:.84rem}
-.mock-event:last-child{border-bottom:none}
-.mock-dot{width:10px;height:10px;border-radius:50%;background:var(--primary2);flex-shrink:0;margin-top:.3rem}
-.mock-dot.active{background:var(--accent)}
-.mock-time{color:var(--muted);min-width:110px}
-/* YouTube link estilizado */
-.yt-link{display:flex;align-items:center;gap:.9rem;background:#000;color:#fff;
-  border-radius:8px;overflow:hidden;text-decoration:none;margin:1.2rem 0}
-.yt-thumb{width:120px;height:68px;background:#1a1a1a;display:flex;align-items:center;
-  justify-content:center;flex-shrink:0;font-size:2rem}
-.yt-info{padding:.5rem .8rem}
-.yt-title{font-size:.9rem;font-weight:500;margin-bottom:.2rem}
-.yt-meta{font-size:.76rem;color:#aaa}
-/* Comentários */
-.comments-section{margin-top:2rem;padding-top:1.5rem;border-top:2px solid #dceee1}
-.comments-title{font-family:'Roboto Slab',serif;font-size:1rem;color:var(--primary);font-weight:700;margin-bottom:1rem}
-.comment{display:flex;gap:.8rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f0f0f0}
-.comment:last-child{border-bottom:none}
-.comment-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border)}
-.comment-body{}
-.comment-meta{font-size:.78rem;color:var(--muted);margin-bottom:.2rem}
-.comment-name{font-weight:600;color:#333}
-.comment-text{font-size:.88rem;color:#444;line-height:1.6}
-.comment-likes{font-size:.76rem;color:var(--primary2);margin-top:.3rem;cursor:pointer}
-/* Sidebar */
-.sidebar{display:flex;flex-direction:column;gap:1.5rem}
-.widget{background:var(--card);border-radius:8px;padding:1.2rem;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.widget-title{font-family:'Roboto Slab',serif;font-size:1rem;color:var(--primary);
-  font-weight:700;margin-bottom:.9rem;padding-bottom:.4rem;border-bottom:2px solid var(--accent)}
-.related-list{list-style:none}
-.related-list li{padding:.5rem 0;border-bottom:1px solid #f0f0f0;font-size:.88rem}
-.related-list li:last-child{border-bottom:none}
-.related-list a{color:#333;font-weight:500}
-.related-list a:hover{color:var(--primary2);text-decoration:none}
-.related-list .cat{font-size:.74rem;color:var(--muted);display:block;margin-top:.1rem}
-.related-list .read-time{font-size:.72rem;color:var(--muted);float:right}
-/* Search */
-.search-form{display:flex;border:1px solid #bbb;border-radius:6px;overflow:hidden}
-.search-form input{flex:1;border:none;padding:.55rem .8rem;font-size:.9rem;
-  outline:none;font-family:'Roboto',sans-serif}
-.search-form button{background:var(--primary);border:none;padding:0 .9rem;cursor:pointer}
-.search-form button svg{width:16px;height:16px;fill:#fff;display:block}
-/* CEP tool */
-.cep-tool{margin-top:.8rem}
-.cep-tool input{width:100%;border:1px solid #ccc;border-radius:6px;padding:.55rem .8rem;
-  font-size:.9rem;font-family:'Roboto',sans-serif;outline:none;margin-bottom:.5rem}
-.cep-tool button{background:var(--primary2);color:#fff;border:none;padding:.45rem 1rem;
-  border-radius:5px;cursor:pointer;font-size:.85rem;font-weight:500;width:100%}
-.cep-result{margin-top:.6rem;font-size:.85rem;color:#333;background:#f0f7f2;
-  padding:.6rem .8rem;border-radius:5px;min-height:2rem;display:none}
-/* Contact */
-.contact-item{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;font-size:.88rem}
-.contact-icon{width:36px;height:36px;border-radius:8px;background:#e6f0e9;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.contact-icon svg{width:18px;height:18px;fill:var(--primary2)}
-.contact-label{font-weight:500;color:#333}
-.contact-sub{font-size:.79rem;color:var(--muted)}
-/* Footer */
-.site-footer{background:var(--primary);color:#a8d4b8;padding:2rem 1rem 1rem;margin-top:3rem}
-.footer-inner{max-width:1100px;margin:0 auto}
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1.5rem;margin-bottom:1.5rem}
-.footer-col h4{color:#fff;font-size:.95rem;margin-bottom:.7rem}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--body);background:var(--white);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1120px;margin:0 auto;padding:0 1.25rem}
+.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 1.25rem}
+.logo{display:flex;align-items:center;gap:.55rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--dark);letter-spacing:-.02em}
+.logo:hover{text-decoration:none;color:var(--dark)}
+.logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dk) 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:18px;height:18px;fill:#fff}
+.logo span.ia{color:var(--blue)}
+.site-nav{display:flex;align-items:center;gap:1.6rem}
+.site-nav a{font-size:.875rem;font-weight:500;color:var(--body);text-decoration:none}
+.site-nav a:hover{color:var(--dark)}
+.btn-header{display:inline-flex;align-items:center;gap:.4rem;background:var(--blue);color:#fff;font-size:.875rem;font-weight:600;padding:.5rem 1.1rem;border-radius:8px;border:none;cursor:pointer;transition:background .15s;text-decoration:none}
+.btn-header:hover{background:var(--blue-dk);text-decoration:none;color:#fff}
+@media(max-width:640px){.site-nav{display:none}}
+.page-hero{padding:3.5rem 1.25rem 2.5rem;background:linear-gradient(160deg,#f0f6ff 0%,#fafafa 70%,var(--white) 100%);border-bottom:1px solid var(--border)}
+.badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--blue-mid);color:var(--blue-dk);font-size:.8rem;font-weight:600;padding:.3rem .9rem;border-radius:99px;margin-bottom:1rem}
+.page-hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--dark);letter-spacing:-.03em;max-width:600px}
+.page-hero .meta{font-size:.82rem;color:var(--muted);margin-top:.8rem}
+.content-wrap{max-width:800px;margin:0 auto;padding:3rem 1.25rem 4rem}
+.content-wrap h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:700;color:var(--dark);margin:2.2rem 0 .7rem;padding-bottom:.4rem;border-bottom:2px solid var(--blue-lt)}
+.content-wrap h2:first-child{margin-top:0}
+.content-wrap p{margin-bottom:1rem;font-size:.95rem;line-height:1.75}
+.content-wrap ul{margin:.5rem 0 1rem 1.2rem}
+.content-wrap ul li{margin-bottom:.4rem;font-size:.93rem;line-height:1.65}
+.content-wrap table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.88rem}
+.content-wrap th{background:var(--bg);color:var(--dark);font-weight:600;padding:.6rem .8rem;text-align:left;border:1px solid var(--border)}
+.content-wrap td{padding:.55rem .8rem;border:1px solid var(--border);color:var(--body);vertical-align:top}
+.rights-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+@media(max-width:600px){.rights-grid{grid-template-columns:1fr}}
+.right-card{background:var(--blue-lt);border-radius:var(--radius-sm);padding:1rem 1.1rem}
+.right-card strong{display:block;color:var(--dark);font-size:.88rem;margin-bottom:.25rem}
+.right-card span{font-size:.83rem;color:var(--body)}
+.site-footer{background:var(--dark);color:#64748b;padding:2.5rem 1.25rem 1.5rem}
+.footer-inner{max-width:1120px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;padding-bottom:2rem;border-bottom:1px solid #1e293b}
+@media(max-width:700px){.footer-grid{grid-template-columns:1fr 1fr}}
+.flogo{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+.flogo-mark{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dk) 100%);display:flex;align-items:center;justify-content:center}
+.flogo-mark svg{width:14px;height:14px;fill:#fff}
+.flogo-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:800;color:#e2e8f0}
+.flogo-text span{color:#60a5fa}
+.footer-brand p{font-size:.83rem;line-height:1.65;color:#475569}
+.footer-col h4{font-size:.8rem;font-weight:600;color:#94a3b8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.8rem}
 .footer-col ul{list-style:none}
 .footer-col ul li{margin-bottom:.4rem}
-.footer-col ul a{color:#a8d4b8;font-size:.84rem}
-.footer-col ul a:hover{color:#fff;text-decoration:none}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:1rem;
-  font-size:.79rem;text-align:center;color:#7bb898}
-/* Cookie banner */
-#cookie-banner{position:fixed;bottom:0;left:0;right:0;background:rgba(25,55,35,.97);
-  color:#e0f5e9;padding:.9rem 1.2rem;display:flex;align-items:center;
-  justify-content:space-between;flex-wrap:wrap;gap:.7rem;z-index:999;font-size:.85rem}
-#cookie-banner a{color:#95d5b2}
-#cookie-accept{background:var(--accent);color:#fff;border:none;padding:.45rem 1rem;
-  border-radius:5px;cursor:pointer;font-size:.84rem;font-weight:600}
+.footer-col a{font-size:.85rem;color:#475569}
+.footer-col a:hover{color:#94a3b8;text-decoration:none}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;padding-top:1.2rem;font-size:.78rem;color:#334155}
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MPPF5ZKQ');</script>
-
 </head>
 <body>
-<header class="site-header"><div class="header-inner">
-  <a href="/guia-rastreamento.html" class="site-logo">
-    <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>GuiaFrete
-  </a>
-  <nav class="site-nav">
-    <a href="/guia-rastreamento.html">Início</a>
-    <a href="/rastreamento-correios.html">Rastreamento</a>
-    <a href="/pac-vs-sedex.html">Modalidades</a>
-    <a href="/reclamacao-correios.html">Reclamações</a>
-    <a href="/sobre.html">Sobre</a>
-    <a href="/contato.html">Contato</a>
-  </nav>
-</div></header>
-<div class="breadcrumb"><div class="breadcrumb-inner">
-    <a href="/guia-rastreamento.html">Início</a>
-     › <a href="/privacidade.html">Privacidade</a>
-  </div></div>
-<div class="container">
-<main>
-<div class="article-card"><div class="article-body">
-  <h1 class="article-title">Política de Privacidade</h1>
-  <div class="article-meta"><span id="pp-date"></span></div>
-  <script>var m=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'],d=new Date();
-  document.getElementById('pp-date').textContent='Atualizada em '+d.getDate()+'/'+m[d.getMonth()]+'/'+d.getFullYear();</script>
-  <p class="article-lead">Esta política descreve como o GuiaFrete coleta e utiliza informações dos visitantes de freteagil.cfd, em conformidade com a LGPD (Lei 13.709/2018).</p>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPPF5ZKQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <h2>1. Dados coletados</h2>
-  <p><strong>Navegação (automáticos):</strong> endereço IP anonimizado, tipo de dispositivo e navegador, páginas acessadas, tempo de visita. Coletados via Google Analytics para melhoria do conteúdo.</p>
-  <p><strong>Formulário de contato:</strong> nome e e-mail fornecidos voluntariamente, usados exclusivamente para responder sua mensagem.</p>
-  <p><strong>Cookies:</strong> cookies estritamente necessários (funcionamento) e de análise (Google Analytics). Você pode recusar os de análise sem prejuízo ao acesso ao site.</p>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/rastreia.html" class="logo">
+      <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+      Rastre<span class="ia">IA</span>
+    </a>
+    <nav class="site-nav">
+      <a href="/rastreia.html#funcionalidades">Funcionalidades</a>
+      <a href="/rastreia.html#precos">Preços</a>
+      <a href="/sobre.html">Sobre</a>
+      <a href="/contato.html">Contato</a>
+    </nav>
+    <a href="/rastreia.html" class="btn-header">Rastrear grátis</a>
+  </div>
+</header>
 
-  <h2>2. Como usamos</h2>
-  <ul style="margin:0 0 1rem 1.5rem;color:#444">
-    <li>Melhorar a qualidade e relevância dos artigos</li>
-    <li>Identificar e corrigir problemas técnicos</li>
-    <li>Responder mensagens enviadas pelo formulário de contato</li>
+<section class="page-hero">
+  <div class="container">
+    <div class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> LGPD</div>
+    <h1>Política de Privacidade</h1>
+    <p class="meta">Última atualização: junho de 2026 &middot; Versão 1.0</p>
+  </div>
+</section>
+
+<div class="content-wrap">
+
+  <h2>1. Identificação da Controladora</h2>
+  <p>A operação da plataforma RastreIA é realizada por:</p>
+  <ul>
+    <li><strong>Razão social:</strong> MFR Soluções Digitais LTDA</li>
+    <li><strong>CNPJ:</strong> 59.080.649/0001-02</li>
+    <li><strong>E-mail (DPO):</strong> <a href="mailto:privacidade@freteagil.cfd">privacidade@freteagil.cfd</a></li>
+    <li><strong>Site:</strong> https://freteagil.cfd</li>
   </ul>
-  <p>Não vendemos, alugamos nem compartilhamos dados com terceiros para fins comerciais.</p>
 
-  <h2>3. Cookies de terceiros</h2>
-  <p>Utilizamos Google Tag Manager e Google Analytics. Para recusar o rastreamento do GA, instale o <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out</a>.</p>
+  <h2>2. Dados que coletamos</h2>
+  <p>Coletamos apenas os dados estritamente necessários para prestação do serviço:</p>
+  <table>
+    <tr><th>Dado</th><th>Finalidade</th><th>Base legal (LGPD)</th></tr>
+    <tr><td>Nome completo</td><td>Identificação e suporte</td><td>Art. 7º, V (execução de contrato)</td></tr>
+    <tr><td>CPF</td><td>Processamento do pagamento PIX</td><td>Art. 7º, V (execução de contrato)</td></tr>
+    <tr><td>E-mail</td><td>Confirmação, alertas e suporte</td><td>Art. 7º, V (execução de contrato)</td></tr>
+    <tr><td>Telefone (WhatsApp)</td><td>Alertas de status (Planos Pro e Business)</td><td>Art. 7º, I (consentimento)</td></tr>
+    <tr><td>Códigos de rastreio</td><td>Consulta às APIs das transportadoras</td><td>Art. 7º, V (execução de contrato)</td></tr>
+    <tr><td>IP e User-Agent</td><td>Segurança e analytics</td><td>Art. 7º, IX (legítimo interesse)</td></tr>
+    <tr><td>Cookies de sessão e analytics</td><td>Funcionamento do site</td><td>Art. 7º, I (consentimento via banner)</td></tr>
+  </table>
 
-  <h2>4. Seus direitos (LGPD)</h2>
-  <p>Acesso, correção e exclusão de dados mediante solicitação via <a href="/contato.html">formulário de contato</a>.</p>
+  <h2>3. Como usamos seus dados</h2>
+  <ul>
+    <li>Processar pagamentos e emitir documentos fiscais</li>
+    <li>Consultar status de encomendas nas transportadoras</li>
+    <li>Enviar notificações de atualização de status por e-mail e/ou WhatsApp</li>
+    <li>Prestar suporte ao cliente</li>
+    <li>Detectar e prevenir fraudes e uso abusivo</li>
+    <li>Cumprir obrigações legais e regulatórias</li>
+  </ul>
 
-  <h2>5. Retenção</h2>
-  <p>Dados de análise retidos por 14 meses (configuração padrão Google Analytics). Logs de servidor: 30 dias.</p>
-</div></div>
-</main>
+  <h2>4. Compartilhamento de dados</h2>
+  <p>Não vendemos seus dados. Compartilhamos apenas nas seguintes situações:</p>
+  <ul>
+    <li><strong>Zippify (PSP):</strong> CPF, nome, e-mail e telefone para geração do PIX e antifraude.</li>
+    <li><strong>Google Analytics (via GTM):</strong> dados de navegação anonimizados. Você pode optar por não participar via configurações do navegador.</li>
+    <li><strong>Autoridades competentes:</strong> quando exigido por lei ou ordem judicial.</li>
+  </ul>
 
-<aside class="sidebar">
-  <div class="widget">
-    <div class="widget-title">🔍 Buscar</div>
-    <form class="search-form" action="https://www.google.com/search" method="get" target="_blank">
-      <input type="hidden" name="sitesearch" value="freteagil.cfd" />
-      <input type="text" name="q" placeholder="Buscar artigos..." />
-      <button type="submit"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
-    </form>
+  <h2>5. Retenção de dados</h2>
+  <table>
+    <tr><th>Tipo de dado</th><th>Prazo</th></tr>
+    <tr><td>Dados de pagamento e financeiros</td><td>5 anos (art. 195 CTN)</td></tr>
+    <tr><td>E-mail e telefone (usuários ativos)</td><td>Enquanto a assinatura estiver ativa + 90 dias</td></tr>
+    <tr><td>Logs de acesso (IP)</td><td>6 meses (Marco Civil da Internet, art. 15)</td></tr>
+    <tr><td>Códigos de rastreio consultados</td><td>Não armazenamos — consulta em tempo real</td></tr>
+    <tr><td>Cookies de analytics</td><td>13 meses</td></tr>
+  </table>
+
+  <h2>6. Seus direitos (LGPD — Art. 18)</h2>
+  <div class="rights-grid">
+    <div class="right-card"><strong>Acesso</strong><span>Solicitar confirmação e receber cópia dos seus dados.</span></div>
+    <div class="right-card"><strong>Correção</strong><span>Corrigir dados incompletos ou desatualizados.</span></div>
+    <div class="right-card"><strong>Exclusão</strong><span>Solicitar eliminação de dados tratados com base em consentimento.</span></div>
+    <div class="right-card"><strong>Portabilidade</strong><span>Receber seus dados em formato estruturado.</span></div>
+    <div class="right-card"><strong>Revogação</strong><span>Retirar consentimento a qualquer momento.</span></div>
+    <div class="right-card"><strong>Oposição</strong><span>Opor-se a tratamentos por legítimo interesse.</span></div>
   </div>
+  <p>Envie solicitações para <a href="mailto:privacidade@freteagil.cfd">privacidade@freteagil.cfd</a> — respondemos em até 15 dias úteis.</p>
 
-  <div class="widget">
-    <div class="widget-title">📮 Consultar CEP</div>
-    <div class="cep-tool">
-      <input type="text" id="cep-input" maxlength="9" placeholder="Ex: 01310-100" oninput="fmtCep(this)"/>
-      <button onclick="buscarCep()">Consultar endereço</button>
-      <div class="cep-result" id="cep-result"></div>
-    </div>
-    <script>
-    function fmtCep(el){
-      var v=el.value.replace(/\D/g,'');
-      if(v.length>5) v=v.slice(0,5)+'-'+v.slice(5,8);
-      el.value=v;
-    }
-    function buscarCep(){
-      var cep=document.getElementById('cep-input').value.replace(/\D/g,'');
-      var el=document.getElementById('cep-result');
-      if(cep.length!==8){el.textContent='CEP inválido.';el.style.display='block';return;}
-      el.textContent='Consultando...';el.style.display='block';
-      fetch('https://viacep.com.br/ws/'+cep+'/json/')
-        .then(r=>r.json())
-        .then(d=>{
-          if(d.erro){el.textContent='CEP não encontrado.';}
-          else{el.innerHTML='<strong>'+d.logradouro+'</strong><br>'+
-            d.bairro+' — '+d.localidade+'/'+d.uf;}
-        }).catch(()=>{el.textContent='Erro na consulta. Tente novamente.';});
-    }
-    </script>
-  </div>
+  <h2>7. Cookies</h2>
+  <p>Utilizamos cookies essenciais (sessão, segurança) e cookies de analytics (Google Analytics via GTM). Você pode gerenciar cookies nas configurações do seu navegador a qualquer momento.</p>
 
-  <div class="widget">
-    <div class="widget-title">📰 Artigos Populares</div>
-    <ul class="related-list">
-      <li>
-        <span class="read-time">5 min</span>
-        <a href="/guia-rastreamento.html">Encomenda atrasada? Veja o que fazer</a>
-        <span class="cat">Rastreamento</span>
-      </li>
-      <li>
-        <span class="read-time">4 min</span>
-        <a href="/rastreamento-correios.html">Como rastrear pelo app dos Correios</a>
-        <span class="cat">Tutorial</span>
-      </li>
-      <li>
-        <span class="read-time">4 min</span>
-        <a href="/pac-vs-sedex.html">PAC ou SEDEX: qual escolher?</a>
-        <span class="cat">Comparativo</span>
-      </li>
-      <li>
-        <span class="read-time">5 min</span>
-        <a href="/reclamacao-correios.html">Como reclamar nos Correios</a>
-        <span class="cat">Direitos</span>
-      </li>
-      <li>
-        <span class="read-time">4 min</span>
-        <a href="/direitos-entrega.html">Seus direitos no CDC (compras online)</a>
-        <span class="cat">Direitos</span>
-      </li>
-    </ul>
-  </div>
+  <h2>8. Segurança</h2>
+  <p>Comunicação criptografada via TLS 1.3, acesso restrito por função, monitoramento de acessos e logs de auditoria.</p>
 
-  <div class="widget">
-    <div class="widget-title">📞 Contatos Úteis</div>
-    <div class="contact-item">
-      <div class="contact-icon">
-        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-      </div>
-      <div><div class="contact-label">Correios</div><div class="contact-sub">3003-0100 (capitais)</div></div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      </div>
-      <div><div class="contact-label">Procon</div><div class="contact-sub">151 (gratuito)</div></div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-icon">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </div>
-      <div><div class="contact-label">Consumidor.gov</div><div class="contact-sub">consumidor.gov.br</div></div>
-    </div>
-  </div>
+  <h2>9. Transferência internacional</h2>
+  <p>Prestadores como o Google Analytics processam dados fora do Brasil. Garantimos que transferências ocorrem com salvaguardas adequadas, conforme Art. 33 da LGPD.</p>
 
-  <div class="widget">
-    <div class="widget-title">🏷️ Temas</div>
-    <div class="tags">
-      <a href="/rastreamento-correios.html" class="tag">Rastreamento</a>
-      <a href="/pac-vs-sedex.html" class="tag">PAC</a>
-      <a href="/pac-vs-sedex.html" class="tag">SEDEX</a>
-      <a href="/reclamacao-correios.html" class="tag">Reclamação</a>
-      <a href="/direitos-entrega.html" class="tag">CDC</a>
-      <a href="/direitos-entrega.html" class="tag">Direitos</a>
-      <a href="/guia-rastreamento.html" class="tag">Atraso</a>
-    </div>
-  </div>
-</aside>
+  <h2>10. Contato e DPO</h2>
+  <ul>
+    <li>E-mail: <a href="mailto:privacidade@freteagil.cfd">privacidade@freteagil.cfd</a></li>
+    <li>Formulário: <a href="/contato.html">freteagil.cfd/contato.html</a></li>
+    <li>ANPD: <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">gov.br/anpd</a></li>
+  </ul>
+
+  <h2>11. Alterações</h2>
+  <p>Alterações substanciais serão comunicadas por e-mail com antecedência mínima de 15 dias. A data de última atualização está sempre no topo desta página.</p>
+
 </div>
 
-<footer class="site-footer"><div class="footer-inner">
-  <div class="footer-grid">
-    <div class="footer-col">
-      <h4>GuiaFrete</h4>
-      <ul>
-        <li><a href="/sobre.html">Sobre nós</a></li>
-        <li><a href="/contato.html">Contato</a></li>
-        <li><a href="/privacidade.html">Privacidade</a></li>
-      </ul>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="flogo"><div class="flogo-mark"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg></div><span class="flogo-text">Rastre<span>IA</span></span></div>
+        <p>Rastreamento inteligente de encomendas para consumidores e lojistas brasileiros.</p>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/rastreia.html#funcionalidades">Funcionalidades</a></li><li><a href="/rastreia.html#precos">Preços</a></li><li><a href="/sobre.html">Sobre nós</a></li><li><a href="/contato.html">Contato</a></li></ul></div>
+      <div class="footer-col"><h4>Transportadoras</h4><ul><li><a href="/rastreamento-correios.html">Correios</a></li><li><a href="#">Jadlog</a></li><li><a href="#">Shopee Envios</a></li><li><a href="#">Mercado Envios</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="/privacidade.html">Privacidade (LGPD)</a></li><li><a href="/termos.html">Termos de Uso</a></li><li><a href="/contato.html">Suporte</a></li></ul></div>
     </div>
-    <div class="footer-col">
-      <h4>Rastreamento</h4>
-      <ul>
-        <li><a href="/rastreamento-correios.html">Como rastrear pelo app</a></li>
-        <li><a href="/pac-vs-sedex.html">PAC vs SEDEX</a></li>
-        <li><a href="/guia-rastreamento.html">Encomenda atrasada</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Seus Direitos</h4>
-      <ul>
-        <li><a href="/reclamacao-correios.html">Reclamar nos Correios</a></li>
-        <li><a href="/direitos-entrega.html">CDC e compras online</a></li>
-        <li><a href="/contato.html">Fale conosco</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="/privacidade.html">Política de Privacidade</a></li>
-        <li><a href="/privacidade.html">Cookies</a></li>
-        <li><a href="/sobre.html">Quem somos</a></li>
-      </ul>
+    <div class="footer-bottom">
+      <span>&copy; <span class="ft-year"></span> MFR Soluções Digitais LTDA &middot; CNPJ 59.080.649/0001-02 &middot; Não somos afiliados aos Correios (ECT).</span>
+      <span>LGPD compliant &middot; TLS 1.3</span>
     </div>
   </div>
-  <div class="footer-bottom">
-    &copy; <span id="footer-year"></span> GuiaFrete — Portal independente sobre logística e
-    entregas no Brasil. Não somos afiliados aos Correios (ECT) nem a qualquer transportadora.
-  </div>
-</div></footer>
-<div id="cookie-banner" style="display:none">
-  <span>Usamos cookies para melhorar sua experiência. <a href="/privacidade.html">Saiba mais</a>.</span>
-  <button id="cookie-accept">Aceitar</button>
-</div>
-<script>
-document.getElementById('footer-year').textContent=new Date().getFullYear();
-if(!localStorage.getItem('ck_ok')){
-  document.getElementById('cookie-banner').style.display='flex';
-  document.getElementById('cookie-accept').onclick=function(){
-    localStorage.setItem('ck_ok','1');
-    document.getElementById('cookie-banner').style.display='none';
-  };
-}
-</script>
+</footer>
+<script>document.querySelectorAll('.ft-year').forEach(e=>e.textContent=new Date().getFullYear())</script>
 </body>
 </html>
