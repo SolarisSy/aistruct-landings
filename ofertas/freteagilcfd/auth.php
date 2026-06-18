@@ -1,18 +1,14 @@
 <?php
-// ── RastreIA Auth API — session + SQLite ─────────────────────────────
+// ── RastreIA Auth API — token-based (CDN-safe, sem cookies) ──────────
+// Bunny CDN na frente strip Set-Cookie; usamos token no body + localStorage
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Credentials: true');
+header('Cache-Control: no-store, no-cache, private');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 
-ini_set('session.save_path', '/tmp/sessions');
-ini_set('session.cookie_httponly', '1');
-ini_set('session.cookie_samesite', 'Lax');
-ini_set('session.gc_maxlifetime', '604800');
-session_start();
-
 define('DB_PATH', '/var/data/rastreia.sqlite');
+define('TOKEN_TTL', 7 * 24 * 3600); // 7 days
 
 function db(): PDO {
     static $pdo;
@@ -32,6 +28,12 @@ function db(): PDO {
             created_at TEXT NOT NULL DEFAULT (datetime('now')),
             email_alerts INTEGER NOT NULL DEFAULT 1,
             whatsapp TEXT
+        );
+        CREATE TABLE IF NOT EXISTS sessions (
+            token TEXT PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            expires TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         );
         CREATE TABLE IF NOT EXISTS codes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,9 +56,33 @@ function fail(string $msg, int $status = 400): void {
     echo json_encode(['ok' => false, 'error' => $msg]);
     exit;
 }
+
+function make_token(): string { return bin2hex(random_bytes(32)); }
+
+function get_token(): ?string {
+    $h = $_SERVER['HTTP_X_AUTH_TOKEN'] ?? '';
+    if (!$h) {
+        // Also accept Authorization: Bearer <token>
+        $auth = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        if (str_starts_with($auth, 'Bearer ')) $h = substr($auth, 7);
+    }
+    return $h ?: null;
+}
+
 function auth(): array {
-    if (!isset($_SESSION['uid'])) fail('Não autenticado.', 401);
-    return ['id' => (int)$_SESSION['uid'], 'email' => $_SESSION['email'], 'plan' => $_SESSION['plan']];
+    $token = get_token();
+    if (!$token) fail('Token ausente.', 401);
+
+    $db = db();
+    // Clean expired sessions
+    $db->exec("DELETE FROM sessions WHERE expires < datetime('now')");
+
+    $st = $db->prepare("SELECT s.user_id, s.expires, u.email, u.plan, u.email_alerts, u.whatsapp FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token = ?");
+    $st->execute([$token]);
+    $row = $st->fetch();
+    if (!$row) fail('Sessão inválida ou expirada. Faça login novamente.', 401);
+
+    return $row;
 }
 
 $action = $_GET['action'] ?? 'check';
@@ -64,12 +90,8 @@ $b      = json_decode(file_get_contents('php://input'), true) ?? [];
 
 // ── CHECK ─────────────────────────────────────────────────────────────
 if ($action === 'check') {
-    if (!isset($_SESSION['uid'])) fail('Não autenticado.', 401);
-    $st = db()->prepare("SELECT plan, email_alerts, whatsapp FROM users WHERE id = ?");
-    $st->execute([(int)$_SESSION['uid']]);
-    $row = $st->fetch() ?: [];
-    if ($row) $_SESSION['plan'] = $row['plan'];
-    ok(['user' => ['id' => (int)$_SESSION['uid'], 'email' => $_SESSION['email'], 'plan' => $row['plan'] ?? $_SESSION['plan'], 'email_alerts' => $row['email_alerts'] ?? 1, 'whatsapp' => $row['whatsapp'] ?? null]]);
+    $u = auth();
+    ok(['user' => ['id' => (int)$u['user_id'], 'email' => $u['email'], 'plan' => $u['plan'], 'email_alerts' => (int)$u['email_alerts'], 'whatsapp' => $u['whatsapp']]]);
 }
 
 // ── REGISTER ─────────────────────────────────────────────────────────
@@ -79,32 +101,31 @@ if ($action === 'register') {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail('E-mail inválido.');
     if (strlen($pass) < 6) fail('Senha deve ter pelo menos 6 caracteres.');
 
-    // Check existing account with plan (from checkout)
-    $st = db()->prepare("SELECT id, plan FROM users WHERE email = ?");
+    $db = db();
+    $st = $db->prepare("SELECT id, plan FROM users WHERE email = ?");
     $st->execute([$email]);
     $existing = $st->fetch();
 
     $hash = password_hash($pass, PASSWORD_BCRYPT);
-
     if ($existing) {
-        // Update password for existing (post-checkout) account
-        db()->prepare("UPDATE users SET password_hash = ? WHERE id = ?")->execute([$hash, $existing['id']]);
+        $db->prepare("UPDATE users SET password_hash = ? WHERE id = ?")->execute([$hash, $existing['id']]);
         $id   = (int)$existing['id'];
         $plan = $existing['plan'];
     } else {
         try {
-            db()->prepare("INSERT INTO users (email, password_hash) VALUES (?, ?)")->execute([$email, $hash]);
-            $id   = (int)db()->lastInsertId();
+            $db->prepare("INSERT INTO users (email, password_hash) VALUES (?, ?)")->execute([$email, $hash]);
+            $id   = (int)$db->lastInsertId();
             $plan = 'free';
         } catch (PDOException $e) {
             fail('Este e-mail já está em uso. Tente fazer login.');
         }
     }
 
-    $_SESSION['uid']   = $id;
-    $_SESSION['email'] = $email;
-    $_SESSION['plan']  = $plan;
-    ok(['user' => ['id' => $id, 'email' => $email, 'plan' => $plan]]);
+    $token   = make_token();
+    $expires = date('Y-m-d H:i:s', time() + TOKEN_TTL);
+    $db->prepare("INSERT INTO sessions (token, user_id, expires) VALUES (?, ?, ?)")->execute([$token, $id, $expires]);
+
+    ok(['token' => $token, 'user' => ['id' => $id, 'email' => $email, 'plan' => $plan]]);
 }
 
 // ── LOGIN ─────────────────────────────────────────────────────────────
@@ -113,60 +134,55 @@ if ($action === 'login') {
     $pass  = $b['password'] ?? '';
     if (!$email || !$pass) fail('Preencha e-mail e senha.');
 
-    $st = db()->prepare("SELECT id, password_hash, plan FROM users WHERE email = ?");
+    $db = db();
+    $st = $db->prepare("SELECT id, password_hash, plan FROM users WHERE email = ?");
     $st->execute([$email]);
     $row = $st->fetch();
-
     if (!$row || !password_verify($pass, $row['password_hash'])) fail('E-mail ou senha incorretos.');
 
-    $_SESSION['uid']   = (int)$row['id'];
-    $_SESSION['email'] = $email;
-    $_SESSION['plan']  = $row['plan'];
-    ok(['user' => ['id' => (int)$row['id'], 'email' => $email, 'plan' => $row['plan']]]);
+    $token   = make_token();
+    $expires = date('Y-m-d H:i:s', time() + TOKEN_TTL);
+    $db->prepare("INSERT INTO sessions (token, user_id, expires) VALUES (?, ?, ?)")->execute([$token, (int)$row['id'], $expires]);
+
+    ok(['token' => $token, 'user' => ['id' => (int)$row['id'], 'email' => $email, 'plan' => $row['plan']]]);
 }
 
 // ── LOGOUT ────────────────────────────────────────────────────────────
 if ($action === 'logout') {
-    session_destroy();
+    $token = get_token();
+    if ($token) db()->prepare("DELETE FROM sessions WHERE token = ?")->execute([$token]);
     ok(['message' => 'Sessão encerrada.']);
 }
 
 // ── UPGRADE ──────────────────────────────────────────────────────────
-// Activates plan for an email — called from obrigado.html after payment
 if ($action === 'upgrade') {
-    $email = strtolower(trim($b['email'] ?? $_SESSION['email'] ?? ''));
+    $email = strtolower(trim($b['email'] ?? ''));
     $plan  = in_array($b['plan'] ?? '', ['pro', 'business']) ? $b['plan'] : 'pro';
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail('E-mail inválido.');
 
-    $st = db()->prepare("SELECT id FROM users WHERE email = ?");
+    $db = db();
+    $st = $db->prepare("SELECT id FROM users WHERE email = ?");
     $st->execute([$email]);
     $row = $st->fetch();
 
     if ($row) {
-        db()->prepare("UPDATE users SET plan = ?, plan_activated_at = datetime('now') WHERE id = ?")->execute([$plan, $row['id']]);
-        $id = (int)$row['id'];
+        $db->prepare("UPDATE users SET plan = ?, plan_activated_at = datetime('now') WHERE id = ?")->execute([$plan, (int)$row['id']]);
     } else {
-        // Pre-create account — user will set password when they register
         $tmp = password_hash(bin2hex(random_bytes(16)), PASSWORD_BCRYPT);
-        db()->prepare("INSERT OR IGNORE INTO users (email, password_hash, plan, plan_activated_at) VALUES (?, ?, ?, datetime('now'))")->execute([$email, $tmp, $plan]);
-        $id = (int)db()->lastInsertId();
+        $db->prepare("INSERT OR IGNORE INTO users (email, password_hash, plan, plan_activated_at) VALUES (?, ?, ?, datetime('now'))")->execute([$email, $tmp, $plan]);
     }
-
-    if (isset($_SESSION['email']) && $_SESSION['email'] === $email) {
-        $_SESSION['plan'] = $plan;
-    }
-    ok(['message' => "Plano {$plan} ativado para {$email}.", 'plan' => $plan, 'user_id' => $id]);
+    ok(['message' => "Plano {$plan} ativado.", 'plan' => $plan]);
 }
 
 // ── SAVE CODE ─────────────────────────────────────────────────────────
 if ($action === 'save_code') {
-    $u     = auth();
-    $code  = strtoupper(preg_replace('/[^A-Z0-9]/i', '', $b['code'] ?? ''));
-    $label = substr(trim($b['label'] ?? ''), 0, 80);
-    if (strlen($code) !== 13 || !preg_match('/^[A-Z]{2}\d{9}[A-Z]{2}$/', $code)) fail('Código inválido.');
+    $u    = auth();
+    $code = strtoupper(preg_replace('/[^A-Z0-9]/i', '', $b['code'] ?? ''));
+    $lbl  = substr(trim($b['label'] ?? ''), 0, 80);
+    if (!preg_match('/^[A-Z]{2}\d{9}[A-Z]{2}$/', $code)) fail('Código inválido.');
 
     try {
-        db()->prepare("INSERT OR IGNORE INTO codes (user_id, code, label) VALUES (?, ?, ?)")->execute([$u['id'], $code, $label ?: null]);
+        db()->prepare("INSERT OR IGNORE INTO codes (user_id, code, label) VALUES (?, ?, ?)")->execute([(int)$u['user_id'], $code, $lbl ?: null]);
     } catch (PDOException $e) { fail('Erro ao salvar.'); }
     ok(['message' => 'Código salvo.', 'code' => $code]);
 }
@@ -176,7 +192,7 @@ if ($action === 'delete_code') {
     $u  = auth();
     $id = (int)($b['id'] ?? 0);
     if (!$id) fail('ID inválido.');
-    db()->prepare("DELETE FROM codes WHERE id = ? AND user_id = ?")->execute([$id, $u['id']]);
+    db()->prepare("DELETE FROM codes WHERE id = ? AND user_id = ?")->execute([$id, (int)$u['user_id']]);
     ok(['message' => 'Removido.']);
 }
 
@@ -184,7 +200,7 @@ if ($action === 'delete_code') {
 if ($action === 'get_codes') {
     $u  = auth();
     $st = db()->prepare("SELECT id, code, label, last_status, last_updated, added_at FROM codes WHERE user_id = ? ORDER BY added_at DESC");
-    $st->execute([$u['id']]);
+    $st->execute([(int)$u['user_id']]);
     ok(['codes' => $st->fetchAll()]);
 }
 
@@ -193,8 +209,8 @@ if ($action === 'update_prefs') {
     $u  = auth();
     $ea = isset($b['email_alerts']) ? (int)(bool)$b['email_alerts'] : null;
     $wa = isset($b['whatsapp']) ? preg_replace('/\D/', '', $b['whatsapp']) : null;
-    if ($ea !== null) db()->prepare("UPDATE users SET email_alerts = ? WHERE id = ?")->execute([$ea, $u['id']]);
-    if ($wa !== null) db()->prepare("UPDATE users SET whatsapp = ? WHERE id = ?")->execute([$wa ?: null, $u['id']]);
+    if ($ea !== null) db()->prepare("UPDATE users SET email_alerts = ? WHERE id = ?")->execute([$ea, (int)$u['user_id']]);
+    if ($wa !== null) db()->prepare("UPDATE users SET whatsapp = ? WHERE id = ?")->execute([$wa ?: null, (int)$u['user_id']]);
     ok(['message' => 'Preferências salvas.']);
 }
 
@@ -206,11 +222,11 @@ if ($action === 'change_password') {
     if (strlen($new) < 6) fail('Nova senha deve ter pelo menos 6 caracteres.');
 
     $st = db()->prepare("SELECT password_hash FROM users WHERE id = ?");
-    $st->execute([$u['id']]);
+    $st->execute([(int)$u['user_id']]);
     $row = $st->fetch();
     if (!$row || !password_verify($cur, $row['password_hash'])) fail('Senha atual incorreta.');
 
-    db()->prepare("UPDATE users SET password_hash = ? WHERE id = ?")->execute([password_hash($new, PASSWORD_BCRYPT), $u['id']]);
+    db()->prepare("UPDATE users SET password_hash = ? WHERE id = ?")->execute([password_hash($new, PASSWORD_BCRYPT), (int)$u['user_id']]);
     ok(['message' => 'Senha alterada.']);
 }
 

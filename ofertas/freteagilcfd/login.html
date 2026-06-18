@@ -186,10 +186,13 @@ input.error{border-color:var(--red)}
 document.getElementById('ft-yr').textContent = new Date().getFullYear();
 
 // Redirect if already logged in
-fetch('/auth.php?action=check', {credentials:'include'})
-  .then(r => r.json())
-  .then(d => { if (d.ok) window.location.replace('/app.html'); })
-  .catch(() => {});
+var _tok = localStorage.getItem('rastreia_token');
+if (_tok) {
+  fetch('/auth.php?action=check', {headers:{'X-Auth-Token': _tok}})
+    .then(r => r.json())
+    .then(d => { if (d.ok) window.location.replace('/app.html'); })
+    .catch(() => {});
+}
 
 // Read plan hint from URL (?plan=pro&email=...)
 var params = new URLSearchParams(location.search);
@@ -240,12 +243,13 @@ document.getElementById('login-form').addEventListener('submit', async function(
   setLoading(btn, true);
   try {
     var r = await fetch('/auth.php?action=login', {
-      method:'POST', credentials:'include',
+      method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({email, password: pass})
     });
     var d = await r.json();
     if (!d.ok) { showErr(errEl, d.error); return; }
+    localStorage.setItem('rastreia_token', d.token);
     window.location.replace('/app.html');
   } catch(ex) { showErr(errEl, 'Erro de conexão. Tente novamente.'); }
   finally { setLoading(btn, false); }
@@ -264,18 +268,19 @@ document.getElementById('register-form').addEventListener('submit', async functi
   setLoading(btn, true);
   try {
     var r = await fetch('/auth.php?action=register', {
-      method:'POST', credentials:'include',
+      method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({email, password: pass})
     });
     var d = await r.json();
     if (!d.ok) { showErr(errEl, d.error); return; }
+    localStorage.setItem('rastreia_token', d.token);
 
     // If plan was passed in URL, activate it
     if (planParam) {
       await fetch('/auth.php?action=upgrade', {
-        method:'POST', credentials:'include',
-        headers:{'Content-Type':'application/json'},
+        method:'POST',
+        headers:{'Content-Type':'application/json', 'X-Auth-Token': d.token},
         body: JSON.stringify({email, plan: planParam})
       });
     }

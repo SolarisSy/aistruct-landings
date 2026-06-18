@@ -357,10 +357,27 @@ var user = null;
 var codes = [];
 var lastCode = '';
 var lastData = null;
+var TOKEN = localStorage.getItem('rastreia_token') || '';
+
+function authFetch(url, opts) {
+  opts = opts || {};
+  opts.headers = opts.headers || {};
+  if (TOKEN) opts.headers['X-Auth-Token'] = TOKEN;
+  return fetch(url, opts);
+}
 
 // ── Boot ───────────────────────────────────────────────────────────────
-fetch('/auth.php?action=check', {credentials:'include'})
-  .then(r => r.json())
+if (!TOKEN) { window.location.replace('/login.html'); }
+
+authFetch('/auth.php?action=check')
+  .then(function(r){
+    if (r.status === 401) {
+      localStorage.removeItem('rastreia_token');
+      window.location.replace('/login.html');
+      throw new Error('unauth');
+    }
+    return r.json();
+  })
   .then(function(d){
     if (!d.ok) { window.location.replace('/login.html'); return; }
     user = d.user;
@@ -368,7 +385,7 @@ fetch('/auth.php?action=check', {credentials:'include'})
     loadCodes();
     document.getElementById('page-loading').style.display = 'none';
   })
-  .catch(function(){ window.location.replace('/login.html'); });
+  .catch(function(e){ if (e.message !== 'unauth') window.location.replace('/login.html'); });
 
 function initUI() {
   // Header
@@ -414,8 +431,11 @@ function updatePlanCard() {
 
 // ── Logout ──────────────────────────────────────────────────────────────
 document.getElementById('btn-logout').addEventListener('click', function(){
-  fetch('/auth.php?action=logout', {credentials:'include'})
-    .finally(function(){ window.location.replace('/login.html'); });
+  authFetch('/auth.php?action=logout')
+    .finally(function(){
+      localStorage.removeItem('rastreia_token');
+      window.location.replace('/login.html');
+    });
 });
 
 // ── Tracker ─────────────────────────────────────────────────────────────
@@ -482,8 +502,8 @@ function renderResult(code, d) {
 document.getElementById('btn-save-code').addEventListener('click', async function(){
   if (!lastCode) return;
   this.disabled = true;
-  var r = await fetch('/auth.php?action=save_code', {
-    method:'POST', credentials:'include',
+  var r = await authFetch('/auth.php?action=save_code', {
+    method:'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({code: lastCode})
   });
@@ -494,7 +514,7 @@ document.getElementById('btn-save-code').addEventListener('click', async functio
 
 // ── Load & render codes ─────────────────────────────────────────────────
 async function loadCodes() {
-  var r = await fetch('/auth.php?action=get_codes', {credentials:'include'});
+  var r = await authFetch('/auth.php?action=get_codes');
   var d = await r.json();
   if (!d.ok) return;
   codes = d.codes || [];
@@ -524,8 +544,8 @@ function renderCodes() {
   el.querySelectorAll('.btn-del').forEach(function(btn){
     btn.addEventListener('click', async function(){
       var id = parseInt(this.dataset.id);
-      await fetch('/auth.php?action=delete_code', {
-        method:'POST', credentials:'include',
+      await authFetch('/auth.php?action=delete_code', {
+        method:'POST',
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify({id})
       });
@@ -549,8 +569,8 @@ function renderCodes() {
 document.getElementById('save-prefs-btn').addEventListener('click', async function(){
   var ea = document.getElementById('toggle-email').checked;
   var wa = document.getElementById('wa-input').value.trim();
-  var r = await fetch('/auth.php?action=update_prefs', {
-    method:'POST', credentials:'include',
+  var r = await authFetch('/auth.php?action=update_prefs', {
+    method:'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({email_alerts: ea, whatsapp: wa})
   });
@@ -569,8 +589,8 @@ document.getElementById('change-pass-btn').addEventListener('click', async funct
   errEl.style.display = 'none';
   okEl.style.display  = 'none';
   if (!cur || !nw) { errEl.textContent = 'Preencha ambos os campos.'; errEl.style.display='block'; return; }
-  var r = await fetch('/auth.php?action=change_password', {
-    method:'POST', credentials:'include',
+  var r = await authFetch('/auth.php?action=change_password', {
+    method:'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({current: cur, new: nw})
   });

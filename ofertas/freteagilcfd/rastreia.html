@@ -1103,14 +1103,17 @@ img{display:block;max-width:100%}
   }
 
   // ── Check session → update header ─────────────────────────
-  fetch('/auth.php?action=check', {credentials:'include'})
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      if (d.ok) {
-        var btnEntrar = document.getElementById('btn-entrar');
-        if (btnEntrar) { btnEntrar.textContent = 'Minha conta'; btnEntrar.href = '/app.html'; }
-      }
-    }).catch(function(){});
+  var _tok = localStorage.getItem('rastreia_token');
+  if (_tok) {
+    fetch('/auth.php?action=check', {headers:{'X-Auth-Token': _tok}})
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d.ok) {
+          var btnEntrar = document.getElementById('btn-entrar');
+          if (btnEntrar) { btnEntrar.textContent = 'Minha conta'; btnEntrar.href = '/app.html'; }
+        }
+      }).catch(function(){});
+  }
 
   // ── FAQ accordion ─────────────────────────────────────────
   document.querySelectorAll('.faq-q').forEach(function(btn) {
