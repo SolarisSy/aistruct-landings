@@ -32,7 +32,7 @@ if (!in_array($status, ['paid', 'approved', 'completed', 'confirmed'], true)) {
 
 try {
     $db = new PDO('sqlite:' . $DB_PATH, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-    $st = $db->prepare("SELECT rtkcid, amount, postback_sent FROM tracking WHERE zip_hash = ?");
+    $st = $db->prepare("SELECT rtkcid, amount, step, postback_sent FROM tracking WHERE zip_hash = ?");
     $st->execute([$hash]);
     $row = $st->fetch(PDO::FETCH_ASSOC);
 } catch (\Throwable $e) {
@@ -50,6 +50,16 @@ if (!$row) {
 
 if ((int)$row['postback_sent'] > 0) {
     echo json_encode(['ok' => true, 'skipped' => 'already_sent']);
+    exit;
+}
+
+// Upsells share the same clickid — re-posting would overwrite the main conversion value
+// (postback_mode=update). Only attribute the main (frontend) conversion to RedTrack.
+$step = (string)($row['step'] ?? 'frontend');
+if ($step !== 'frontend') {
+    // Mark as sent so retries don't re-evaluate
+    $db->prepare("UPDATE tracking SET postback_sent = 1 WHERE zip_hash = ?")->execute([$hash]);
+    echo json_encode(['ok' => true, 'skipped' => 'upsell_no_reattribute:' . $step]);
     exit;
 }
 

@@ -13,6 +13,8 @@ RUN rm -f /var/www/html/Dockerfile /var/www/html/nginx-php.conf /var/www/html/.d
     && mkdir -p /var/data && chmod 777 /var/data \
     && mkdir -p /tmp/sessions && chmod 777 /tmp/sessions
 
+VOLUME ["/var/data"]
+
 EXPOSE 80
 
 CMD ["sh", "-c", "php-fpm -D && nginx -g 'daemon off;'"]
