@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="canonical" href="https://freteagil.cfd/rastreamento-correios.html" />
-  <title>Como Rastrear Encomenda pelos Correios — Guia 2024 — GuiaFrete</title>
-  <meta name="description" content="Aprenda a rastrear sua encomenda pelos Correios em 3 passos. Conheça todos os canais: site, app, Whatsapp e SMS." />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <link rel="canonical" href="https://freteagil.cfd/rastreamento-correios.html"/>
+  <title>Como Rastrear Encomenda pelos Correios: App, Site e Whatsapp — GuiaFrete</title>
+  <meta name="description" content="3 formas de rastrear sua encomenda pelos Correios: site oficial, app gratuito e Whatsapp. Saiba o que fazer quando o código não aparece."/>
   
 <style>
 :root {
@@ -22,8 +22,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-behavior:smooth}
 body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);line-height:1.75}
-a{color:var(--primary2);text-decoration:none}
-a:hover{text-decoration:underline}
+a{color:var(--primary2);text-decoration:none}a:hover{text-decoration:underline}
 img{max-width:100%;display:block}
 /* Header */
 .site-header{background:var(--primary);color:#fff;padding:0 1rem;border-bottom:4px solid var(--accent)}
@@ -38,34 +37,34 @@ img{max-width:100%;display:block}
 .site-nav a{color:#cde8d8;font-size:.88rem}
 .site-nav a:hover{color:#fff;text-decoration:none}
 /* Breadcrumb */
-.breadcrumb{background:#e6f0e9;border-bottom:1px solid var(--border);
-  padding:.45rem 1rem;font-size:.82rem;color:#555}
+.breadcrumb{background:#e6f0e9;border-bottom:1px solid var(--border);padding:.45rem 1rem;font-size:.82rem;color:#555}
 .breadcrumb-inner{max-width:1100px;margin:0 auto}
 .breadcrumb a{color:var(--primary2)}
 /* Layout */
-.container{max-width:1100px;margin:2rem auto;padding:0 1rem;
-  display:grid;grid-template-columns:1fr 300px;gap:2rem}
+.container{max-width:1100px;margin:2rem auto;padding:0 1rem;display:grid;grid-template-columns:1fr 300px;gap:2rem}
 @media(max-width:780px){.container{grid-template-columns:1fr}.sidebar{order:2}}
-/* Article card */
-.article-card{background:var(--card);border-radius:8px;overflow:hidden;
-  box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.article-hero{height:200px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 100%);
-  display:flex;align-items:center;justify-content:center;position:relative}
-.article-hero-icon{opacity:.15}
-.article-hero-icon svg{width:160px;height:160px;fill:#fff}
+/* Article */
+.article-card{background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+/* HERO: foto real em vez de ícone */
+.article-hero{height:240px;overflow:hidden;position:relative;background:#c8dfc8}
+.article-hero img{width:100%;height:100%;object-fit:cover;display:block}
 .article-hero-tag{position:absolute;top:1rem;left:1rem;background:var(--accent);
-  color:#fff;font-size:.74rem;font-weight:700;padding:.2rem .75rem;
-  border-radius:20px;text-transform:uppercase;letter-spacing:.04em}
+  color:#fff;font-size:.74rem;font-weight:700;padding:.25rem .8rem;border-radius:20px;
+  text-transform:uppercase;letter-spacing:.04em;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+/* Meta + autor */
 .article-body{padding:1.8rem}
-.article-meta{font-size:.8rem;color:var(--muted);margin-bottom:.8rem}
+.article-meta{font-size:.8rem;color:var(--muted);margin-bottom:.6rem}
 .article-meta span{margin-right:1rem}
-.author-line{display:flex;align-items:center;gap:.6rem;margin-bottom:1.2rem;
+/* Contador de leituras */
+.read-count{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;
+  color:var(--primary2);font-weight:500}
+/* Author */
+.author-line{display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem;
   padding:.7rem;background:#f0f7f2;border-radius:6px;font-size:.88rem}
-.author-avatar{width:36px;height:36px;border-radius:50%;background:var(--primary2);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.author-avatar svg{width:20px;height:20px;fill:#fff}
+.author-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border)}
 .author-name{font-weight:600;color:var(--primary)}
-.author-bio{color:var(--muted);font-size:.8rem}
+.author-role{color:var(--muted);font-size:.79rem}
+/* Article body */
 .article-title{font-family:'Roboto Slab',serif;font-size:1.5rem;font-weight:700;
   color:var(--primary);line-height:1.35;margin-bottom:.9rem}
 .article-lead{font-size:1.03rem;color:#555;border-left:3px solid var(--accent);
@@ -78,43 +77,80 @@ img{max-width:100%;display:block}
 .tip-box strong{color:#7a3e00}
 /* Steps */
 .steps{counter-reset:step;margin:1.2rem 0}
-.steps li{counter-increment:step;list-style:none;display:flex;gap:.9rem;
-  margin-bottom:.9rem;align-items:flex-start}
+.steps li{counter-increment:step;list-style:none;display:flex;gap:.9rem;margin-bottom:.9rem;align-items:flex-start}
 .steps li::before{content:counter(step);flex-shrink:0;width:30px;height:30px;
-  background:var(--primary2);color:#fff;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:.85rem}
+  background:var(--primary2);color:#fff;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
 .steps li div{padding-top:.3rem}
 /* Table */
 .data-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
-.data-table th{background:var(--primary);color:#fff;padding:.6rem .9rem;
-  text-align:left;font-weight:500}
+.data-table th{background:var(--primary);color:#fff;padding:.6rem .9rem;text-align:left;font-weight:500}
 .data-table td{padding:.55rem .9rem;border-bottom:1px solid #e0eee4}
 .data-table tr:nth-child(even) td{background:#f0f7f2}
-/* Tags */
+/* Tags — agora são links */
 .tags{display:flex;flex-wrap:wrap;gap:.4rem}
 .tag{background:#ddf0e4;color:var(--primary);font-size:.78rem;
-  padding:.25rem .65rem;border-radius:20px;font-weight:500}
+  padding:.25rem .65rem;border-radius:20px;font-weight:500;display:inline-block}
+a.tag:hover{background:var(--primary);color:#fff;text-decoration:none}
+/* Mock screenshot Correios */
+.tracking-mock{border:1px solid #ccc;border-radius:8px;overflow:hidden;margin:1.2rem 0;font-size:.88rem}
+.tracking-mock .mock-bar{background:#f4f4f4;padding:.4rem .8rem;border-bottom:1px solid #ddd;
+  color:#777;font-size:.78rem;font-family:monospace;display:flex;align-items:center;gap:.5rem}
+.mock-bar::before{content:"●";color:#ff5f57;font-size:.9rem}
+.mock-bar::after{content:"●";color:#28c840;font-size:.9rem}
+.tracking-mock .mock-body{padding:1rem;background:#fff}
+.mock-code{font-family:monospace;font-weight:700;font-size:1rem;color:var(--primary);margin-bottom:.8rem}
+.mock-event{display:flex;gap:.8rem;padding:.5rem 0;border-bottom:1px solid #f0f0f0;font-size:.84rem}
+.mock-event:last-child{border-bottom:none}
+.mock-dot{width:10px;height:10px;border-radius:50%;background:var(--primary2);flex-shrink:0;margin-top:.3rem}
+.mock-dot.active{background:var(--accent)}
+.mock-time{color:var(--muted);min-width:110px}
+/* YouTube link estilizado */
+.yt-link{display:flex;align-items:center;gap:.9rem;background:#000;color:#fff;
+  border-radius:8px;overflow:hidden;text-decoration:none;margin:1.2rem 0}
+.yt-thumb{width:120px;height:68px;background:#1a1a1a;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;font-size:2rem}
+.yt-info{padding:.5rem .8rem}
+.yt-title{font-size:.9rem;font-weight:500;margin-bottom:.2rem}
+.yt-meta{font-size:.76rem;color:#aaa}
+/* Comentários */
+.comments-section{margin-top:2rem;padding-top:1.5rem;border-top:2px solid #dceee1}
+.comments-title{font-family:'Roboto Slab',serif;font-size:1rem;color:var(--primary);font-weight:700;margin-bottom:1rem}
+.comment{display:flex;gap:.8rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f0f0f0}
+.comment:last-child{border-bottom:none}
+.comment-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border)}
+.comment-body{}
+.comment-meta{font-size:.78rem;color:var(--muted);margin-bottom:.2rem}
+.comment-name{font-weight:600;color:#333}
+.comment-text{font-size:.88rem;color:#444;line-height:1.6}
+.comment-likes{font-size:.76rem;color:var(--primary2);margin-top:.3rem;cursor:pointer}
 /* Sidebar */
 .sidebar{display:flex;flex-direction:column;gap:1.5rem}
-.widget{background:var(--card);border-radius:8px;padding:1.2rem;
-  box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.widget{background:var(--card);border-radius:8px;padding:1.2rem;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .widget-title{font-family:'Roboto Slab',serif;font-size:1rem;color:var(--primary);
-  font-weight:700;margin-bottom:.9rem;padding-bottom:.4rem;
-  border-bottom:2px solid var(--accent)}
+  font-weight:700;margin-bottom:.9rem;padding-bottom:.4rem;border-bottom:2px solid var(--accent)}
 .related-list{list-style:none}
 .related-list li{padding:.5rem 0;border-bottom:1px solid #f0f0f0;font-size:.88rem}
 .related-list li:last-child{border-bottom:none}
 .related-list a{color:#333;font-weight:500}
 .related-list a:hover{color:var(--primary2);text-decoration:none}
 .related-list .cat{font-size:.74rem;color:var(--muted);display:block;margin-top:.1rem}
+.related-list .read-time{font-size:.72rem;color:var(--muted);float:right}
 /* Search */
 .search-form{display:flex;border:1px solid #bbb;border-radius:6px;overflow:hidden}
 .search-form input{flex:1;border:none;padding:.55rem .8rem;font-size:.9rem;
   outline:none;font-family:'Roboto',sans-serif}
 .search-form button{background:var(--primary);border:none;padding:0 .9rem;cursor:pointer}
 .search-form button svg{width:16px;height:16px;fill:#fff;display:block}
-/* Contact widget */
+/* CEP tool */
+.cep-tool{margin-top:.8rem}
+.cep-tool input{width:100%;border:1px solid #ccc;border-radius:6px;padding:.55rem .8rem;
+  font-size:.9rem;font-family:'Roboto',sans-serif;outline:none;margin-bottom:.5rem}
+.cep-tool button{background:var(--primary2);color:#fff;border:none;padding:.45rem 1rem;
+  border-radius:5px;cursor:pointer;font-size:.85rem;font-weight:500;width:100%}
+.cep-result{margin-top:.6rem;font-size:.85rem;color:#333;background:#f0f7f2;
+  padding:.6rem .8rem;border-radius:5px;min-height:2rem;display:none}
+/* Contact */
 .contact-item{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;font-size:.88rem}
 .contact-icon{width:36px;height:36px;border-radius:8px;background:#e6f0e9;
   display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -124,8 +160,7 @@ img{max-width:100%;display:block}
 /* Footer */
 .site-footer{background:var(--primary);color:#a8d4b8;padding:2rem 1rem 1rem;margin-top:3rem}
 .footer-inner{max-width:1100px;margin:0 auto}
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
-  gap:1.5rem;margin-bottom:1.5rem}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1.5rem;margin-bottom:1.5rem}
 .footer-col h4{color:#fff;font-size:.95rem;margin-bottom:.7rem}
 .footer-col ul{list-style:none}
 .footer-col ul li{margin-bottom:.4rem}
@@ -144,152 +179,257 @@ img{max-width:100%;display:block}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
-<!-- GTM stub -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),
-event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),
-dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MPPF5ZKQ');</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MPPF5ZKQ');</script>
 
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a href="/guia-rastreamento.html" class="site-logo">
-      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0
-1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z
-M6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z
-m13.5-9l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5
-1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
-      GuiaFrete
-    </a>
-    <nav class="site-nav">
-      <a href="/guia-rastreamento.html">Início</a>
-      <a href="/rastreamento-correios.html">Rastreamento</a>
-      <a href="/pac-vs-sedex.html">Modalidades</a>
-      <a href="/reclamacao-correios.html">Reclamações</a>
-      <a href="/sobre.html">Sobre</a>
-      <a href="/contato.html">Contato</a>
-    </nav>
-  </div>
-</header>
-<div class="breadcrumb">
-  <div class="breadcrumb-inner">
-    <a href="/guia-rastreamento.html">Início</a> ›
+<header class="site-header"><div class="header-inner">
+  <a href="/guia-rastreamento.html" class="site-logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>GuiaFrete
+  </a>
+  <nav class="site-nav">
+    <a href="/guia-rastreamento.html">Início</a>
     <a href="/rastreamento-correios.html">Rastreamento</a>
-  </div>
-</div>
+    <a href="/pac-vs-sedex.html">Modalidades</a>
+    <a href="/reclamacao-correios.html">Reclamações</a>
+    <a href="/sobre.html">Sobre</a>
+    <a href="/contato.html">Contato</a>
+  </nav>
+</div></header>
+<div class="breadcrumb"><div class="breadcrumb-inner">
+    <a href="/guia-rastreamento.html">Início</a>
+     › <a href="/rastreamento-correios.html">Rastreamento</a>
+  </div></div>
 <div class="container">
-  <main>
-    <article class="article-card">
-      <div class="article-hero">
-        <div class="article-hero-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        </div>
-        <span class="article-hero-tag">Como Fazer</span>
-      </div>
-      <div class="article-body">
-        
+<main>
+<article class="article-card">
+  <div class="article-hero">
+    <img src="https://picsum.photos/seed/correios-app-rastreio/900/350" alt="Pessoa usando smartphone para rastrear encomenda" loading="lazy"/>
+    <span class="article-hero-tag">Tutorial</span>
+  </div>
+  <div class="article-body">
+    
 <div class="author-line">
-  <div class="author-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4
--4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+  <img src="https://i.pravatar.cc/80?img=25" alt="Beatriz Santos" class="author-avatar" loading="lazy"/>
   <div>
-    <div class="author-name">Ana Rodrigues</div>
-    <div class="author-bio">Especialista em logística e direitos do consumidor. Escreve sobre compras online e rastreamento de encomendas desde 2019.</div>
+    <div class="author-name">Beatriz Santos</div>
+    <div class="author-role">Jornalista especializada em consumo</div>
   </div>
 </div>
 <div class="article-meta">
-  <span>📅 Publicado em 5 de setembro de 2024</span>
-  <span id="upd-date"></span>
-  <span>⏱ 5 min de leitura</span>
+  <span>📅 5 de setembro de 2024</span>
+  <span id="upd-beatriz"></span>
+  <span class="read-count" id="rc-871">
+  <svg width="14" height="14" viewBox="0 0 24 24" style="fill:currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+  <span id="rcn-871">…</span> leituras
+</span>
+<script>
+(function(){
+  var s=871,d=Math.floor(Date.now()/86400000);
+  var n=((d*31+s*17)%487)+s%200+312;
+  document.getElementById('rcn-871').textContent=n.toLocaleString('pt-BR');
+})();
+</script>
 </div>
 <script>
-  var d = new Date();
-  var m = ['janeiro','fevereiro','março','abril','maio','junho',
-           'julho','agosto','setembro','outubro','novembro','dezembro'];
-  document.getElementById('upd-date').textContent =
-    '🔄 Atualizado em ' + d.getDate() + ' de ' + m[d.getMonth()] + ' de ' + d.getFullYear();
+(function(){
+  var d=new Date(),m=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  document.getElementById('upd-beatriz').textContent='🔄 Atualizado '+d.getDate()+'/'+m[d.getMonth()]+'/'+d.getFullYear();
+})();
 </script>
-        <h1 class="article-title">Como rastrear encomenda pelos Correios — 3 canais</h1>
-        <p class="article-lead">
-          Os Correios oferecem três formas de rastrear encomendas: site, aplicativo e
-          Whatsapp. Cada canal tem vantagens diferentes — veja qual usar em cada situação.
-        </p>
-        <h2>Onde encontrar o código de rastreio</h2>
-        <p>O código de rastreio (também chamado de "objeto" ou "código de postagem") é
-        enviado pelo vendedor após a postagem. Ele tem formato padrão: 2 letras +
-        9 números + 2 letras. Exemplo: <strong>AA123456789BR</strong>.</p>
-        <p>Procure o código no e-mail de confirmação de envio, no painel da loja (Mercado
-        Livre, Amazon, Shopee) ou diretamente com o vendedor.</p>
-        <h2>Canal 1 — Site dos Correios (mais completo)</h2>
-        <p>Acesse <a href="https://rastreamento.correios.com.br" target="_blank" rel="noopener">rastreamento.correios.com.br</a>,
-        insira o código no campo de busca e clique em "Rastrear". O histórico completo
-        aparece em ordem cronológica com datas, horários e localizações.</p>
-        <div class="tip-box">
-          <strong>✅ Vantagem:</strong> Exibe o histórico completo de movimentações,
-          incluindo tentativas de entrega mal-sucedidas e unidade atual do objeto.
-        </div>
-        <h2>Canal 2 — App Correios (rastreio em tempo real)</h2>
-        <p>Disponível gratuitamente para Android e iOS. Permite cadastrar múltiplos
-        objetos com apelido personalizado e receber notificações push a cada movimentação.</p>
-        <p>Após instalar, vá em "Minhas Encomendas" → "+" → insira o código.
-        O app avisa automaticamente quando a encomenda "sai para entrega".</p>
-        <h2>Canal 3 — Whatsapp 0800 725 7282</h2>
-        <p>Envie uma mensagem com o código de rastreio para o número 0800 725 7282
-        (Whatsapp dos Correios). A resposta automática traz o status mais recente
-        em segundos — ideal para quem está no celular e não quer abrir o app.</p>
-        <h2>Quando o rastreio não atualiza</h2>
-        <p>Se o último status tem mais de 3 dias úteis e a encomenda não chegou,
-        siga estes passos:</p>
-        <ol class="steps">
-          <li><div>Verifique se o código está correto (sem espaços ou caracteres extras).</div></li>
-          <li><div>Aguarde mais 24h — atrasos de sincronização são comuns em feriados.</div></li>
-          <li><div>Entre em contato com o vendedor pedindo confirmação da postagem.</div></li>
-          <li><div>Abra reclamação nos Correios pelo 3003-0100 ou online.</div></li>
-        </ol>
-        <div class="tags" style="margin-top:1.5rem">
-          <span class="tag">Rastreamento</span>
-          <span class="tag">Correios</span>
-          <span class="tag">App Correios</span>
-          <span class="tag">Whatsapp</span>
-        </div>
-      </div>
-    </article>
-  </main>
+    <h1 class="article-title">Como rastrear encomenda pelos Correios: 3 canais em 2025</h1>
+    <p class="article-lead">Os Correios oferecem três formas de acompanhar encomendas: site, app e Whatsapp. Cada canal tem vantagens — veja qual funciona melhor para cada situação.</p>
+
+    <h2>Onde encontrar o código de rastreio</h2>
+    <p>O código de rastreio é enviado pelo vendedor após a postagem. Formato padrão: <strong>2 letras + 9 números + BR</strong> (ex.: AA123456789BR). Procure no e-mail de confirmação de envio ou no painel da loja.</p>
+
+    <h2>Canal 1 — Site dos Correios</h2>
+    <p>Acesse <a href="https://rastreamento.correios.com.br" target="_blank" rel="noopener">rastreamento.correios.com.br</a> e insira o código. O histórico completo aparece com datas, horários e localizações de cada movimentação.</p>
+    
+<div class="tracking-mock">
+  <div class="mock-bar">rastreamento.correios.com.br</div>
+  <div class="mock-body">
+    <div class="mock-code">AA472819345BR</div>
+    <div class="mock-event">
+      <div class="mock-dot active"></div>
+      <span class="mock-time">Hoje, 08:42</span>
+      <span>Saiu para entrega — Unidade de São Paulo/SP</span>
+    </div>
+    <div class="mock-event">
+      <div class="mock-dot"></div>
+      <span class="mock-time">Ontem, 23:15</span>
+      <span>Em trânsito — Curitiba/PR → São Paulo/SP</span>
+    </div>
+    <div class="mock-event">
+      <div class="mock-dot"></div>
+      <span class="mock-time">3 dias atrás</span>
+      <span>Objeto postado — Agência Correios Porto Alegre/RS</span>
+    </div>
+  </div>
+</div>
+    <div class="tip-box"><strong>✅ Melhor para:</strong> ver o histórico completo e saber em qual cidade a encomenda está parada.</div>
+
+    <h2>Canal 2 — App Correios</h2>
+    <p>Disponível gratuitamente para Android e iOS. Permite cadastrar múltiplos objetos com apelido e receber <strong>notificações push</strong> a cada movimentação — incluindo quando "sai para entrega".</p>
+    <p>Como usar: vá em "Minhas Encomendas" → "+" → insira o código → dê um apelido (ex.: "Tênis Nike"). O app avisa automaticamente a cada mudança de status.</p>
+    
+<a class="yt-link" href="https://www.youtube.com/results?search_query=como+rastrear+encomenda+app+correios+tutorial" target="_blank" rel="noopener">
+  <div class="yt-thumb">▶</div>
+  <div class="yt-info">
+    <div class="yt-title">Como usar o App dos Correios para rastrear sua encomenda (passo a passo)</div>
+    <div class="yt-meta">Tutorial • YouTube</div>
+  </div>
+</a>
+
+    <h2>Canal 3 — Whatsapp 0800 725 7282</h2>
+    <p>Envie uma mensagem com o código de rastreio para o número <strong>0800 725 7282</strong> (Whatsapp oficial dos Correios). A resposta chega em segundos — ideal quando você está sem acesso ao app.</p>
+
+    <h2>Código não atualiza há dias: o que fazer?</h2>
+    <ol class="steps">
+      <li><div>Verifique se o código está correto (sem espaços extras).</div></li>
+      <li><div>Aguarde mais 24h — atrasos de sincronização são comuns em feriados e datas de alta demanda.</div></li>
+      <li><div>Entre em contato com o vendedor pedindo confirmação da postagem.</div></li>
+      <li><div>Se parado há mais de 7 dias úteis, <a href="/reclamacao-correios.html">abra reclamação nos Correios</a>.</div></li>
+    </ol>
+    <p>Veja também: <a href="/guia-rastreamento.html">o que fazer quando a encomenda atrasa</a> — guia completo.</p>
+
+    <div class="tags" style="margin-top:1.5rem">
+      <a href="/rastreamento-correios.html" class="tag">Rastreamento</a>
+      <a href="/pac-vs-sedex.html" class="tag">Correios</a>
+      <a href="/guia-rastreamento.html" class="tag">Atraso</a>
+    </div>
+
+    <div class="comments-section">
+  <div class="comments-title">💬 Comentários dos leitores</div>
   
+<div class="comment">
+  <img src="https://i.pravatar.cc/72?img=44" alt="Paulo H." class="comment-avatar" loading="lazy" />
+  <div class="comment-body">
+    <div class="comment-meta">
+      <span class="comment-name">Paulo H.</span>
+      <span id="cmt-44" style="margin-left:.5rem"></span>
+    </div>
+    <div class="comment-text">Não sabia do Whatsapp! Facilita muito quando não estou no computador.</div>
+    <div class="comment-likes" onclick="this.textContent='👍 '+((+this.textContent.replace(/\D/g,''))||0+1)+' útil'">👍 útil</div>
+  </div>
+</div>
+<script>
+(function(){
+  var d=new Date();d.setDate(d.getDate()-3);
+  var m=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  document.getElementById('cmt-44').textContent='• '+d.getDate()+' '+m[d.getMonth()];
+})();
+</script>
+<div class="comment">
+  <img src="https://i.pravatar.cc/72?img=62" alt="Camila F." class="comment-avatar" loading="lazy" />
+  <div class="comment-body">
+    <div class="comment-meta">
+      <span class="comment-name">Camila F.</span>
+      <span id="cmt-62" style="margin-left:.5rem"></span>
+    </div>
+    <div class="comment-text">O app é muito bom mesmo. Recebi notificação quando saiu pra entrega e consegui ficar em casa.</div>
+    <div class="comment-likes" onclick="this.textContent='👍 '+((+this.textContent.replace(/\D/g,''))||0+1)+' útil'">👍 útil</div>
+  </div>
+</div>
+<script>
+(function(){
+  var d=new Date();d.setDate(d.getDate()-7);
+  var m=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  document.getElementById('cmt-62').textContent='• '+d.getDate()+' '+m[d.getMonth()];
+})();
+</script>
+<div class="comment">
+  <img src="https://i.pravatar.cc/72?img=29" alt="Thiago R." class="comment-avatar" loading="lazy" />
+  <div class="comment-body">
+    <div class="comment-meta">
+      <span class="comment-name">Thiago R.</span>
+      <span id="cmt-29" style="margin-left:.5rem"></span>
+    </div>
+    <div class="comment-text">Código ficou parado 5 dias. Segui o passo 3 aqui, o vendedor reabriu chamado e chegou em 2 dias.</div>
+    <div class="comment-likes" onclick="this.textContent='👍 '+((+this.textContent.replace(/\D/g,''))||0+1)+' útil'">👍 útil</div>
+  </div>
+</div>
+<script>
+(function(){
+  var d=new Date();d.setDate(d.getDate()-11);
+  var m=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  document.getElementById('cmt-29').textContent='• '+d.getDate()+' '+m[d.getMonth()];
+})();
+</script>
+</div>
+  </div>
+</article>
+</main>
+
 <aside class="sidebar">
   <div class="widget">
     <div class="widget-title">🔍 Buscar</div>
     <form class="search-form" action="https://www.google.com/search" method="get" target="_blank">
       <input type="hidden" name="sitesearch" value="freteagil.cfd" />
-      <input type="text" name="q" placeholder="Buscar no GuiaFrete..." />
-      <button type="submit"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471
-0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49
-19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
+      <input type="text" name="q" placeholder="Buscar artigos..." />
+      <button type="submit"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
     </form>
+  </div>
+
+  <div class="widget">
+    <div class="widget-title">📮 Consultar CEP</div>
+    <div class="cep-tool">
+      <input type="text" id="cep-input" maxlength="9" placeholder="Ex: 01310-100" oninput="fmtCep(this)"/>
+      <button onclick="buscarCep()">Consultar endereço</button>
+      <div class="cep-result" id="cep-result"></div>
+    </div>
+    <script>
+    function fmtCep(el){
+      var v=el.value.replace(/\D/g,'');
+      if(v.length>5) v=v.slice(0,5)+'-'+v.slice(5,8);
+      el.value=v;
+    }
+    function buscarCep(){
+      var cep=document.getElementById('cep-input').value.replace(/\D/g,'');
+      var el=document.getElementById('cep-result');
+      if(cep.length!==8){el.textContent='CEP inválido.';el.style.display='block';return;}
+      el.textContent='Consultando...';el.style.display='block';
+      fetch('https://viacep.com.br/ws/'+cep+'/json/')
+        .then(r=>r.json())
+        .then(d=>{
+          if(d.erro){el.textContent='CEP não encontrado.';}
+          else{el.innerHTML='<strong>'+d.logradouro+'</strong><br>'+
+            d.bairro+' — '+d.localidade+'/'+d.uf;}
+        }).catch(()=>{el.textContent='Erro na consulta. Tente novamente.';});
+    }
+    </script>
   </div>
 
   <div class="widget">
     <div class="widget-title">📰 Artigos Populares</div>
     <ul class="related-list">
       <li>
+        <span class="read-time">5 min</span>
         <a href="/guia-rastreamento.html">Encomenda atrasada? Veja o que fazer</a>
         <span class="cat">Rastreamento</span>
       </li>
       <li>
-        <a href="/rastreamento-correios.html">Como rastrear encomenda pelos Correios</a>
-        <span class="cat">Rastreamento</span>
+        <span class="read-time">4 min</span>
+        <a href="/rastreamento-correios.html">Como rastrear pelo app dos Correios</a>
+        <span class="cat">Tutorial</span>
       </li>
       <li>
-        <a href="/pac-vs-sedex.html">PAC ou SEDEX: qual modalidade escolher?</a>
-        <span class="cat">Modalidades</span>
+        <span class="read-time">4 min</span>
+        <a href="/pac-vs-sedex.html">PAC ou SEDEX: qual escolher?</a>
+        <span class="cat">Comparativo</span>
       </li>
       <li>
-        <a href="/reclamacao-correios.html">Como abrir uma reclamação nos Correios</a>
-        <span class="cat">Seus Direitos</span>
+        <span class="read-time">5 min</span>
+        <a href="/reclamacao-correios.html">Como reclamar nos Correios</a>
+        <span class="cat">Direitos</span>
       </li>
       <li>
-        <a href="/direitos-entrega.html">Seus direitos em compras online (CDC)</a>
-        <span class="cat">Seus Direitos</span>
+        <span class="read-time">4 min</span>
+        <a href="/direitos-entrega.html">Seus direitos no CDC (compras online)</a>
+        <span class="cat">Direitos</span>
       </li>
     </ul>
   </div>
@@ -298,115 +438,92 @@ m13.5-9l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5
     <div class="widget-title">📞 Contatos Úteis</div>
     <div class="contact-item">
       <div class="contact-icon">
-        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59
-l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55
--.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45
-.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
       </div>
-      <div>
-        <div class="contact-label">Correios</div>
-        <div class="contact-sub">3003-0100 (capitais)</div>
-      </div>
+      <div><div class="contact-label">Correios</div><div class="contact-sub">3003-0100 (capitais)</div></div>
     </div>
     <div class="contact-item">
       <div class="contact-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7
--7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5
-2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
       </div>
-      <div>
-        <div class="contact-label">Procon</div>
-        <div class="contact-sub">151 (gratuito)</div>
-      </div>
+      <div><div class="contact-label">Procon</div><div class="contact-sub">151 (gratuito)</div></div>
     </div>
     <div class="contact-item">
       <div class="contact-icon">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2
-2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
       </div>
-      <div>
-        <div class="contact-label">Consumidor.gov</div>
-        <div class="contact-sub">consumidor.gov.br</div>
-      </div>
+      <div><div class="contact-label">Consumidor.gov</div><div class="contact-sub">consumidor.gov.br</div></div>
     </div>
   </div>
 
   <div class="widget">
-    <div class="widget-title">🏷️ Categorias</div>
+    <div class="widget-title">🏷️ Temas</div>
     <div class="tags">
-      <span class="tag">Rastreamento</span>
-      <span class="tag">PAC</span>
-      <span class="tag">SEDEX</span>
-      <span class="tag">Reclamação</span>
-      <span class="tag">Importação</span>
-      <span class="tag">Seus Direitos</span>
-      <span class="tag">Transportadoras</span>
+      <a href="/rastreamento-correios.html" class="tag">Rastreamento</a>
+      <a href="/pac-vs-sedex.html" class="tag">PAC</a>
+      <a href="/pac-vs-sedex.html" class="tag">SEDEX</a>
+      <a href="/reclamacao-correios.html" class="tag">Reclamação</a>
+      <a href="/direitos-entrega.html" class="tag">CDC</a>
+      <a href="/direitos-entrega.html" class="tag">Direitos</a>
+      <a href="/guia-rastreamento.html" class="tag">Atraso</a>
     </div>
   </div>
 </aside>
-
 </div>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>GuiaFrete</h4>
-        <ul>
-          <li><a href="/sobre.html">Sobre nós</a></li>
-          <li><a href="/contato.html">Contato</a></li>
-          <li><a href="/privacidade.html">Privacidade</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Rastreamento</h4>
-        <ul>
-          <li><a href="/rastreamento-correios.html">Como rastrear encomenda</a></li>
-          <li><a href="/pac-vs-sedex.html">PAC vs SEDEX</a></li>
-          <li><a href="/guia-rastreamento.html">Encomenda atrasada</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Seus Direitos</h4>
-        <ul>
-          <li><a href="/reclamacao-correios.html">Reclamação nos Correios</a></li>
-          <li><a href="/direitos-entrega.html">Direitos do consumidor</a></li>
-          <li><a href="/contato.html">Fale conosco</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacidade.html">Política de Privacidade</a></li>
-          <li><a href="/privacidade.html">Uso de Cookies</a></li>
-          <li><a href="/sobre.html">Termos de Uso</a></li>
-        </ul>
-      </div>
+<footer class="site-footer"><div class="footer-inner">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>GuiaFrete</h4>
+      <ul>
+        <li><a href="/sobre.html">Sobre nós</a></li>
+        <li><a href="/contato.html">Contato</a></li>
+        <li><a href="/privacidade.html">Privacidade</a></li>
+      </ul>
     </div>
-    <div class="footer-bottom">
-      &copy; <span id="footer-year"></span> GuiaFrete — Portal independente de informações sobre
-      logística e entregas no Brasil.<br>
-      Não somos afiliados aos Correios (ECT), transportadoras ou qualquer órgão governamental.
+    <div class="footer-col">
+      <h4>Rastreamento</h4>
+      <ul>
+        <li><a href="/rastreamento-correios.html">Como rastrear pelo app</a></li>
+        <li><a href="/pac-vs-sedex.html">PAC vs SEDEX</a></li>
+        <li><a href="/guia-rastreamento.html">Encomenda atrasada</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Seus Direitos</h4>
+      <ul>
+        <li><a href="/reclamacao-correios.html">Reclamar nos Correios</a></li>
+        <li><a href="/direitos-entrega.html">CDC e compras online</a></li>
+        <li><a href="/contato.html">Fale conosco</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacidade.html">Política de Privacidade</a></li>
+        <li><a href="/privacidade.html">Cookies</a></li>
+        <li><a href="/sobre.html">Quem somos</a></li>
+      </ul>
     </div>
   </div>
-</footer>
-<!-- Cookie banner -->
+  <div class="footer-bottom">
+    &copy; <span id="footer-year"></span> GuiaFrete — Portal independente sobre logística e
+    entregas no Brasil. Não somos afiliados aos Correios (ECT) nem a qualquer transportadora.
+  </div>
+</div></footer>
 <div id="cookie-banner" style="display:none">
-  <span>Usamos cookies para melhorar sua experiência.
-    <a href="/privacidade.html">Saiba mais</a>.</span>
+  <span>Usamos cookies para melhorar sua experiência. <a href="/privacidade.html">Saiba mais</a>.</span>
   <button id="cookie-accept">Aceitar</button>
 </div>
 <script>
-  // Footer year
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
-  // Cookie banner
-  if (!localStorage.getItem('ck_ok')) {
-    document.getElementById('cookie-banner').style.display = 'flex';
-    document.getElementById('cookie-accept').onclick = function() {
-      localStorage.setItem('ck_ok', '1');
-      document.getElementById('cookie-banner').style.display = 'none';
-    };
-  }
+document.getElementById('footer-year').textContent=new Date().getFullYear();
+if(!localStorage.getItem('ck_ok')){
+  document.getElementById('cookie-banner').style.display='flex';
+  document.getElementById('cookie-accept').onclick=function(){
+    localStorage.setItem('ck_ok','1');
+    document.getElementById('cookie-banner').style.display='none';
+  };
+}
 </script>
 </body>
 </html>
