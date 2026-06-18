@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Entrar — RastreIA</title>
+<meta name="robots" content="noindex"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MPPF5ZKQ');</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2563eb;--blue-dk:#1d4ed8;--blue-lt:#eff6ff;--blue-mid:#dbeafe;
+  --green:#10b981;--green-lt:#ecfdf5;
+  --dark:#0f172a;--body:#475569;--muted:#94a3b8;
+  --border:#e2e8f0;--bg:#f8fafc;--white:#fff;--red:#ef4444;
+  --radius:12px;--radius-sm:8px;
+  --shadow-md:0 4px 12px rgba(0,0,0,.1),0 16px 40px rgba(0,0,0,.08);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--body);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Header */
+.site-header{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 1.25rem}
+.logo{display:flex;align-items:center;gap:.55rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--dark);letter-spacing:-.02em}
+.logo:hover{text-decoration:none;color:var(--dark)}
+.logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--blue),var(--blue-dk));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:18px;height:18px;fill:#fff}
+.logo span.ia{color:var(--blue)}
+
+/* Main */
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:2.5rem 1.25rem}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);max-width:420px;width:100%;padding:2.5rem 2rem}
+
+/* Tabs */
+.tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:1.8rem;gap:0}
+.tab-btn{flex:1;padding:.7rem;font-size:.9rem;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s;font-family:'Inter',sans-serif}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* Logo inside card */
+.card-logo{text-align:center;margin-bottom:1.5rem}
+.card-logo .logo{justify-content:center;font-size:1.35rem}
+.card-logo p{font-size:.88rem;color:var(--muted);margin-top:.3rem}
+
+/* Form */
+.form-group{margin-bottom:1.1rem}
+label{display:block;font-size:.83rem;font-weight:600;color:var(--dark);margin-bottom:.4rem}
+input[type=email],input[type=password],input[type=text]{
+  width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:.7rem .9rem;font-size:.93rem;font-family:'Inter',sans-serif;
+  color:var(--dark);transition:border-color .15s;outline:none;
+}
+input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+input.error{border-color:var(--red)}
+.error-box{
+  background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;
+  font-size:.83rem;padding:.6rem .8rem;border-radius:6px;margin-bottom:1rem;
+  display:none;
+}
+.error-box.show{display:block}
+.success-box{
+  background:var(--green-lt);border:1px solid #bbf7d0;color:#166534;
+  font-size:.83rem;padding:.6rem .8rem;border-radius:6px;margin-bottom:1rem;
+  display:none;
+}
+.success-box.show{display:block}
+.btn-primary{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:.5rem;
+  background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);
+  padding:.78rem;font-size:.95rem;font-weight:600;cursor:pointer;
+  transition:background .15s;font-family:'Inter',sans-serif;
+}
+.btn-primary:hover{background:var(--blue-dk)}
+.btn-primary:disabled{opacity:.6;cursor:wait}
+.spinner{
+  width:16px;height:16px;border:2px solid rgba(255,255,255,.4);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;
+}
+.btn-primary.loading .spinner{display:block}
+.btn-primary.loading span{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.form-footer{text-align:center;margin-top:1.2rem;font-size:.83rem;color:var(--muted)}
+.form-footer a{font-weight:600}
+.divider{border:none;border-top:1px solid var(--border);margin:1.2rem 0}
+.plan-badge{
+  display:inline-block;background:var(--blue-mid);color:var(--blue-dk);
+  font-size:.75rem;font-weight:700;padding:.2rem .7rem;border-radius:99px;
+  margin-bottom:.6rem;
+}
+
+/* Footer */
+.site-footer{background:var(--dark);padding:1rem 1.25rem;text-align:center;font-size:.75rem;color:#334155}
+.site-footer a{color:#475569}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPPF5ZKQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/rastreia.html" class="logo">
+      <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg></div>
+      Rastre<span class="ia">IA</span>
+    </a>
+    <a href="/rastreia.html" style="font-size:.85rem;color:var(--muted)">← Voltar ao início</a>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <div class="card-logo">
+      <div class="logo">
+        <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg></div>
+        Rastre<span class="ia">IA</span>
+      </div>
+      <p>Acesse sua conta ou crie uma nova</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="login">Entrar</button>
+      <button class="tab-btn" data-tab="register">Criar conta</button>
+    </div>
+
+    <!-- ── LOGIN ── -->
+    <div class="tab-panel active" id="tab-login">
+      <div class="error-box" id="login-err"></div>
+      <form id="login-form" autocomplete="on" novalidate>
+        <div class="form-group">
+          <label for="login-email">E-mail</label>
+          <input type="email" id="login-email" placeholder="seu@email.com.br" autocomplete="email" required/>
+        </div>
+        <div class="form-group">
+          <label for="login-pass">Senha</label>
+          <input type="password" id="login-pass" placeholder="••••••" autocomplete="current-password" required/>
+        </div>
+        <button type="submit" class="btn-primary" id="login-btn">
+          <div class="spinner"></div>
+          <span>Entrar na conta</span>
+        </button>
+      </form>
+      <p class="form-footer">Não tem conta? <a href="#" class="switch-tab" data-to="register">Criar agora — é grátis</a></p>
+    </div>
+
+    <!-- ── REGISTER ── -->
+    <div class="tab-panel" id="tab-register">
+      <div id="plan-hint" style="display:none;margin-bottom:1rem;text-align:center">
+        <div class="plan-badge" id="plan-hint-text"></div>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.3rem">Crie sua conta e o plano será ativado automaticamente.</p>
+      </div>
+      <div class="error-box" id="register-err"></div>
+      <div class="success-box" id="register-ok"></div>
+      <form id="register-form" autocomplete="on" novalidate>
+        <div class="form-group">
+          <label for="reg-email">E-mail</label>
+          <input type="email" id="reg-email" placeholder="seu@email.com.br" autocomplete="email" required/>
+        </div>
+        <div class="form-group">
+          <label for="reg-pass">Senha</label>
+          <input type="password" id="reg-pass" placeholder="mínimo 6 caracteres" autocomplete="new-password" required/>
+        </div>
+        <button type="submit" class="btn-primary" id="reg-btn">
+          <div class="spinner"></div>
+          <span>Criar conta grátis</span>
+        </button>
+      </form>
+      <p class="form-footer">Já tem conta? <a href="#" class="switch-tab" data-to="login">Entrar</a></p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  &copy; <span id="ft-yr"></span> MFR Soluções Digitais LTDA &middot; CNPJ 59.080.649/0001-02 &middot;
+  <a href="/privacidade.html">Privacidade</a> &middot; <a href="/termos.html">Termos</a>
+</footer>
+
+<script>
+(function(){
+'use strict';
+document.getElementById('ft-yr').textContent = new Date().getFullYear();
+
+// Redirect if already logged in
+fetch('/auth.php?action=check', {credentials:'include'})
+  .then(r => r.json())
+  .then(d => { if (d.ok) window.location.replace('/app.html'); })
+  .catch(() => {});
+
+// Read plan hint from URL (?plan=pro&email=...)
+var params = new URLSearchParams(location.search);
+var planParam  = params.get('plan');
+var emailParam = params.get('email');
+if (planParam && (planParam === 'pro' || planParam === 'business')) {
+  var hints = {pro:'Plano Pro — R$ 9,90/mês', business:'Plano Business — R$ 29,90/mês'};
+  document.getElementById('plan-hint').style.display = 'block';
+  document.getElementById('plan-hint-text').textContent = hints[planParam] || '';
+  // Switch to register tab automatically
+  switchTab('register');
+}
+if (emailParam) {
+  document.getElementById('reg-email').value = decodeURIComponent(emailParam);
+}
+
+// Tab switching
+function switchTab(to) {
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab === to); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.toggle('active', p.id === 'tab-' + to); });
+}
+document.querySelectorAll('.tab-btn').forEach(function(b){
+  b.addEventListener('click', function(){ switchTab(b.dataset.tab); });
+});
+document.querySelectorAll('.switch-tab').forEach(function(a){
+  a.addEventListener('click', function(e){ e.preventDefault(); switchTab(a.dataset.to); });
+});
+
+function setLoading(btn, on) {
+  btn.disabled = on;
+  btn.classList.toggle('loading', on);
+}
+function showErr(el, msg) {
+  el.textContent = msg;
+  el.classList.add('show');
+}
+function hideErr(el) { el.classList.remove('show'); }
+
+// ── LOGIN ──
+document.getElementById('login-form').addEventListener('submit', async function(e){
+  e.preventDefault();
+  var errEl = document.getElementById('login-err');
+  hideErr(errEl);
+  var email = document.getElementById('login-email').value.trim();
+  var pass  = document.getElementById('login-pass').value;
+  if (!email || !pass) { showErr(errEl, 'Preencha todos os campos.'); return; }
+  var btn = document.getElementById('login-btn');
+  setLoading(btn, true);
+  try {
+    var r = await fetch('/auth.php?action=login', {
+      method:'POST', credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email, password: pass})
+    });
+    var d = await r.json();
+    if (!d.ok) { showErr(errEl, d.error); return; }
+    window.location.replace('/app.html');
+  } catch(ex) { showErr(errEl, 'Erro de conexão. Tente novamente.'); }
+  finally { setLoading(btn, false); }
+});
+
+// ── REGISTER ──
+document.getElementById('register-form').addEventListener('submit', async function(e){
+  e.preventDefault();
+  var errEl = document.getElementById('register-err');
+  var okEl  = document.getElementById('register-ok');
+  hideErr(errEl); okEl.classList.remove('show');
+  var email = document.getElementById('reg-email').value.trim();
+  var pass  = document.getElementById('reg-pass').value;
+  if (!email || !pass) { showErr(errEl, 'Preencha todos os campos.'); return; }
+  var btn = document.getElementById('reg-btn');
+  setLoading(btn, true);
+  try {
+    var r = await fetch('/auth.php?action=register', {
+      method:'POST', credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email, password: pass})
+    });
+    var d = await r.json();
+    if (!d.ok) { showErr(errEl, d.error); return; }
+
+    // If plan was passed in URL, activate it
+    if (planParam) {
+      await fetch('/auth.php?action=upgrade', {
+        method:'POST', credentials:'include',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({email, plan: planParam})
+      });
+    }
+    window.location.replace('/app.html');
+  } catch(ex) { showErr(errEl, 'Erro de conexão. Tente novamente.'); }
+  finally { setLoading(btn, false); }
+});
+
+})();
+</script>
+</body>
+</html>

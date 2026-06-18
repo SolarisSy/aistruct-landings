@@ -101,9 +101,9 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 
       </li>
     </ul>
 
-    <a href="/rastreia.html" class="btn-primary">
+    <a href="/app.html" class="btn-primary" id="btn-acesso">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>
-      Ir para rastreamento
+      Acessar minha conta
     </a>
     <a href="/contato.html" class="btn-secondary">Falar com suporte</a>
 
@@ -116,12 +116,49 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 
 </footer>
 
 <script>
-document.querySelectorAll('.ft-year').forEach(e=>e.textContent=new Date().getFullYear());
-// Lê ?plan= da URL para personalizar o badge
-const p = new URLSearchParams(location.search).get('plan') || 'pro';
-const labels = {pro:'Plano Pro — R$ 9,90/mês', business:'Plano Business — R$ 29,90/mês'};
-const el = document.getElementById('plan-label');
-if(el && labels[p]) el.textContent = labels[p];
+document.querySelectorAll('.ft-year').forEach(function(e){ e.textContent = new Date().getFullYear(); });
+
+// Lê ?plan= e ?email= da URL
+var params = new URLSearchParams(location.search);
+var plan  = params.get('plan')  || 'pro';
+var email = params.get('email') || '';
+var labels = {pro:'Plano Pro — R$ 9,90/mês', business:'Plano Business — R$ 29,90/mês'};
+var planEl = document.getElementById('plan-label');
+if (planEl && labels[plan]) planEl.textContent = labels[plan];
+
+// Ativa o plano na conta (se o e-mail vier da URL ou sessão ativa)
+(function(){
+  function activatePlan(emailToUse) {
+    if (!emailToUse) return;
+    fetch('/auth.php?action=upgrade', {
+      method:'POST', credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email: emailToUse, plan: plan})
+    }).then(function(r){ return r.json(); }).then(function(d){
+      if (d.ok) {
+        // Update button to go to account (plan now active)
+        var btn = document.getElementById('btn-acesso');
+        if (btn) { btn.href = '/app.html'; }
+      }
+    }).catch(function(){});
+  }
+
+  // Try to get email from session first, then URL param
+  fetch('/auth.php?action=check', {credentials:'include'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.ok && d.user && d.user.email) {
+        activatePlan(d.user.email);
+      } else if (email) {
+        activatePlan(email);
+        // Also update the "access account" button to go to login (plan pre-created)
+        var btn = document.getElementById('btn-acesso');
+        if (btn) btn.href = '/login.html?plan=' + encodeURIComponent(plan) + '&email=' + encodeURIComponent(email);
+      }
+    }).catch(function(){
+      if (email) activatePlan(email);
+    });
+})();
 </script>
 </body>
 </html>
