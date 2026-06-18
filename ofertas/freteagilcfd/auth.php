@@ -46,6 +46,14 @@ function db(): PDO {
             UNIQUE(user_id, code),
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         );
+        CREATE TABLE IF NOT EXISTS tracking (
+            zip_hash TEXT PRIMARY KEY,
+            rtkcid TEXT NOT NULL,
+            amount INTEGER NOT NULL DEFAULT 0,
+            step TEXT NOT NULL DEFAULT 'frontend',
+            postback_sent INTEGER NOT NULL DEFAULT 0,
+            created_at TEXT NOT NULL DEFAULT (datetime('now'))
+        );
     ");
     return $pdo;
 }

@@ -272,6 +272,8 @@
         </div>
     </footer>
 
+    <!-- rtkcid: propaga o click ID do RedTrack para o link de pagamento -->
+    <script>(function(){var r=new URLSearchParams(location.search).get('rtkcid')||'';if(!r)return;try{sessionStorage.setItem('_rtk',r);}catch(e){}function patch(){var as=document.querySelectorAll('a[href*="pagamento"],a.btn-pagar,a.link-pagamento');for(var i=0;i<as.length;i++){var h=as[i].getAttribute('href')||'';if(h&&!h.includes('rtkcid=')&&h.charAt(0)!=='#')as[i].setAttribute('href',h+(h.includes('?')?'&':'?')+'rtkcid='+encodeURIComponent(r));}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',patch);}else{patch();}var obs=new MutationObserver(function(ms){ms.forEach(function(m){if(m.type==='attributes'&&m.target.nodeName==='A'){var h=m.target.getAttribute('href')||'';if(h.includes('pagamento')&&!h.includes('rtkcid='))m.target.setAttribute('href',h+(h.includes('?')?'&':'?')+'rtkcid='+encodeURIComponent(r));return;}m.addedNodes.forEach(function(n){if(n.nodeType!==1)return;var as=n.querySelectorAll?n.querySelectorAll('a[href*="pagamento"],a.btn-pagar'):[];if(n.nodeName==='A'&&(n.getAttribute('href')||'').includes('pagamento'))as=[n];for(var i=0;i<as.length;i++){var h=as[i].getAttribute('href')||'';if(h&&!h.includes('rtkcid='))as[i].setAttribute('href',h+(h.includes('?')?'&':'?')+'rtkcid='+encodeURIComponent(r));}});});});obs.observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href']});})();</script>
     <!-- JavaScript Principal -->
     <script src="assets/js/app.min.js?v=2.2.3" defer></script></body>
 </html>

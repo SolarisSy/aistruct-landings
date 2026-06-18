@@ -438,6 +438,8 @@
             </div>
         </div>
     </footer>
+    <!-- rtkcid: intercepta POST /api/pix.php para incluir o click ID do RedTrack -->
+    <script>(function(){var r=new URLSearchParams(location.search).get('rtkcid')||'';try{if(!r)r=sessionStorage.getItem('_rtk')||'';}catch(e){}if(!r)return;try{sessionStorage.setItem('_rtk',r);}catch(e){}var F=window.fetch;window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api/pix')!==-1){o=o||{};try{var b=JSON.parse(o.body||'{}');b.rtkcid=r;o.body=JSON.stringify(b);}catch(e){}}return F.apply(this,arguments);};})();</script>
     <!-- QR Code Generator (local, sem API externa) -->
     <script src="assets/vendor/qrcode.min.js" defer></script>
     <script src="assets/js/pix-common.min.js?v=1.2.2" defer></script>
