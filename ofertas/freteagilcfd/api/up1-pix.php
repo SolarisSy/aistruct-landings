@@ -24,7 +24,7 @@ $amount = (int)($cfg['up1_cents'] ?? 2795);
 $fmt    = $cfg['up1_fmt']    ?? 'R$ 27,95';
 
 $customer = ['name' => $nome ?: 'Prezado', 'document' => $cpf, 'email' => $email, 'phone' => $fone];
-$resp = zip_create_pix($amount, 'ZIPPIFY_OFFER_HASH_UP1', 'ZIPPIFY_PRODUCT_HASH_UP1', $customer);
+$resp = zip_create_pix($amount, 'ZIPPIFY_OFFER_HASH_UP1', 'ZIPPIFY_PRODUCT_HASH_UP1', $customer, $cfg['up1_nome'] ?? 'Proteção de Rastreio');
 
 if (!$resp || empty($resp['hash'])) {
     error_log('[up1-pix.php] Zippify error: ' . json_encode($resp));

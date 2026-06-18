@@ -36,7 +36,7 @@ function _zip_get(string $tx_id): ?array {
     return $body ? json_decode($body, true) : null;
 }
 
-function zip_create_pix(int $amount_cents, string $offer_hash_env_key, string $product_hash_env_key, array $customer): ?array {
+function zip_create_pix(int $amount_cents, string $offer_hash_env_key, string $product_hash_env_key, array $customer, string $title = 'Produto'): ?array {
     $offer_hash   = getenv($offer_hash_env_key);
     $product_hash = getenv($product_hash_env_key);
     if (!$offer_hash || !$product_hash) return null;
@@ -53,10 +53,12 @@ function zip_create_pix(int $amount_cents, string $offer_hash_env_key, string $p
         ],
         'cart' => [[
             'product_hash'   => $product_hash,
+            'title'          => $title,
             'price'          => $amount_cents,
             'quantity'       => 1,
             'operation_type' => 1,
             'tangible'       => false,
+            'cover'          => null,
         ]],
         'installments' => 1,
     ]);
