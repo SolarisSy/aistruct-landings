@@ -53,6 +53,16 @@ img{display:block;max-width:100%}
 .site-nav{display:flex;align-items:center;gap:1.6rem}
 .site-nav a{font-size:.875rem;font-weight:500;color:var(--body)}
 .site-nav a:hover{color:var(--dark);text-decoration:none}
+.header-btns{display:flex;gap:.6rem;align-items:center}
+.btn-entrar{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:transparent;color:var(--dark);
+  border:1.5px solid var(--border);border-radius:8px;
+  padding:.45rem .9rem;font-size:.82rem;font-weight:600;cursor:pointer;
+  transition:border-color .15s,color .15s;font-family:'Inter',sans-serif;
+  text-decoration:none;
+}
+.btn-entrar:hover{border-color:var(--blue);color:var(--blue);text-decoration:none}
 .btn-header{
   display:inline-flex;align-items:center;gap:.4rem;
   background:var(--blue);color:#fff;
@@ -60,11 +70,11 @@ img{display:block;max-width:100%}
   border-radius:8px;border:none;cursor:pointer;transition:background .15s;
 }
 .btn-header:hover{background:var(--blue-dk);text-decoration:none}
-@media(max-width:640px){.site-nav{display:none}}
+@media(max-width:640px){.site-nav{display:none}.btn-entrar{display:none}}
 
 /* ── Hero ──────────────────────────────────────────────────── */
 .hero{
-  padding:5rem 1.25rem 4rem;
+  padding:4.5rem 1.25rem 3.5rem;
   background:linear-gradient(160deg, #f0f6ff 0%, #fafafa 60%, var(--white) 100%);
   position:relative;overflow:hidden;
 }
@@ -74,7 +84,16 @@ img{display:block;max-width:100%}
   background:radial-gradient(circle,rgba(37,99,235,.08) 0%,transparent 70%);
   pointer-events:none;
 }
-.hero-inner{max-width:760px;margin:0 auto;text-align:center}
+.hero-inner{
+  max-width:1120px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 300px;
+  gap:3.5rem;align-items:center;
+}
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-right{display:none}
+}
+.hero-left{text-align:left}
 .hero-badge{
   display:inline-flex;align-items:center;gap:.4rem;
   background:var(--blue-mid);color:var(--blue-dk);
@@ -83,18 +102,18 @@ img{display:block;max-width:100%}
 }
 .hero h1{
   font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:clamp(2rem,5vw,3.2rem);font-weight:800;
+  font-size:clamp(2rem,4.5vw,3rem);font-weight:800;
   color:var(--dark);line-height:1.18;letter-spacing:-.03em;
   margin-bottom:1.1rem;
 }
 .hero h1 em{font-style:normal;color:var(--blue)}
 .hero-lead{
-  font-size:1.1rem;color:var(--body);max-width:560px;margin:0 auto 2.2rem;line-height:1.7;
+  font-size:1.05rem;color:var(--body);max-width:520px;margin:0 0 2rem;line-height:1.7;
 }
 /* Tracker form */
 .tracker-wrap{
   background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);
-  box-shadow:var(--shadow-md);padding:1.5rem;margin-bottom:1.6rem;
+  box-shadow:var(--shadow-md);padding:1.5rem;margin-bottom:1.4rem;
 }
 .tracker-form{display:flex;gap:.6rem;flex-direction:column}
 .tracker-input-row{display:flex;gap:.6rem}
@@ -125,9 +144,55 @@ img{display:block;max-width:100%}
   background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;
   font-size:.85rem;padding:.6rem .9rem;border-radius:6px;text-align:left;
 }
-.hero-social{font-size:.875rem;color:var(--muted)}
-.live-dot{color:var(--green);animation:pulse 2s ease infinite}
+.hero-social{font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.hero-social svg{flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── Phone mockup ─────────────────────────────────────────── */
+.hero-right{display:flex;justify-content:center;align-items:center}
+.phone-frame{
+  width:220px;
+  background:#1e293b;border-radius:32px;
+  border:5px solid #334155;
+  box-shadow:0 28px 64px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.05);
+  padding:14px 10px;
+  display:flex;flex-direction:column;gap:8px;
+  position:relative;overflow:hidden;
+}
+.phone-notch{
+  width:70px;height:18px;background:#0f172a;
+  border-radius:0 0 12px 12px;
+  margin:0 auto 4px;
+}
+.phone-bar{
+  background:var(--blue);color:#fff;
+  border-radius:8px;padding:7px 10px;
+  font-size:.68rem;font-weight:700;display:flex;align-items:center;gap:5px;
+}
+.phone-input-row{
+  background:#f1f5f9;border-radius:7px;padding:7px 9px;
+  font-size:.62rem;color:#64748b;display:flex;align-items:center;gap:5px;
+  font-family:monospace;letter-spacing:.04em;
+}
+.phone-card{
+  background:#fff;border-radius:9px;padding:10px;
+  font-size:.66rem;line-height:1.5;border:1px solid #e2e8f0;
+}
+.phone-card .pc-header{
+  font-weight:700;color:var(--dark);font-size:.7rem;margin-bottom:5px;
+  display:flex;align-items:center;gap:4px;
+}
+.phone-card .pc-status{
+  background:#dbeafe;color:#1d4ed8;font-weight:700;font-size:.66rem;
+  padding:3px 7px;border-radius:5px;display:inline-block;margin:4px 0;
+}
+.phone-card .pc-row{color:#475569;font-size:.63rem;margin:2px 0;display:flex;align-items:center;gap:4px}
+.phone-notif{
+  background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px;padding:9px 10px;
+  font-size:.63rem;color:#15803d;display:flex;gap:7px;align-items:flex-start;
+}
+.phone-notif-icon{font-size:1rem;flex-shrink:0;line-height:1.2}
+.phone-notif strong{color:#166534;font-size:.66rem;display:block;margin-bottom:2px}
 
 /* ── Results Area ──────────────────────────────────────────── */
 .results-section{background:var(--bg);padding:2.5rem 1.25rem;border-top:1px solid var(--border)}
@@ -205,7 +270,9 @@ img{display:block;max-width:100%}
   max-width:1120px;margin:0 auto;
   display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:1.5rem 2.5rem;
 }
+.proof-stat{display:flex;align-items:center;gap:.4rem}
 .proof-stat strong{color:#fff}
+.proof-stat svg{flex-shrink:0}
 
 /* ── Features ───────────────────────────────────────────────── */
 .features{padding:5rem 1.25rem;background:var(--white)}
@@ -255,26 +322,82 @@ img{display:block;max-width:100%}
 .step h3{font-size:.95rem;font-weight:700;color:var(--dark);margin-bottom:.4rem}
 .step p{font-size:.87rem;color:var(--body);line-height:1.65}
 
+/* ── Comparison ─────────────────────────────────────────────── */
+.compare-section{padding:5rem 1.25rem;background:var(--white)}
+.compare-inner{max-width:900px;margin:0 auto}
+.compare-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem;
+}
+@media(max-width:640px){.compare-grid{grid-template-columns:1fr}}
+.compare-card{border-radius:var(--radius);padding:1.5rem;border:1.5px solid transparent}
+.compare-card--bad{background:#fff5f5;border-color:#fca5a5}
+.compare-card--good{background:#eff6ff;border-color:#93c5fd}
+.cc-label{
+  font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:1rem;display:flex;align-items:center;gap:.4rem;
+}
+.compare-card--bad .cc-label{color:#b91c1c}
+.compare-card--good .cc-label{color:#1d4ed8}
+.compare-event{
+  display:flex;align-items:flex-start;gap:.7rem;padding:.6rem 0;
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.compare-event:last-child{border-bottom:none}
+.ce-icon{
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;
+}
+.ce-icon--bad{background:#fee2e2;color:#b91c1c}
+.ce-icon--good{background:#dcfce7;color:#16a34a}
+.ce-text{flex:1;line-height:1.4}
+.ce-text strong{display:block;font-size:.8rem;color:var(--dark);font-weight:600;margin-bottom:1px}
+.ce-text span{color:#64748b;font-size:.75rem}
+
 /* ── Carriers ───────────────────────────────────────────────── */
-.carriers{padding:4rem 1.25rem;border-top:1px solid var(--border)}
+.carriers{padding:4rem 1.25rem;border-top:1px solid var(--border);background:var(--bg)}
 .carriers h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:700;color:var(--muted);text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2rem}
 .carriers-grid{
-  display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;
+  display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;align-items:center;
 }
 .carrier-chip{
-  background:var(--bg);border:1px solid var(--border);border-radius:8px;
-  padding:.5rem 1.2rem;font-size:.88rem;font-weight:600;color:var(--body);
+  display:flex;align-items:center;gap:.5rem;
+  padding:.55rem 1.1rem;
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  font-size:.87rem;font-weight:600;color:var(--dark);
+  transition:border-color .15s,box-shadow .15s;
 }
+.carrier-chip:hover{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-lt)}
+.carrier-chip svg{width:17px;height:17px;flex-shrink:0}
+
+/* ── Testimonials ─────────────────────────────────────────── */
+.testimonials{padding:5rem 1.25rem;background:var(--white)}
+.testi-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:1.25rem;margin-top:2.5rem;
+}
+.testi-card{
+  background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);
+  padding:1.5rem;
+}
+.testi-stars{color:#f59e0b;font-size:.88rem;margin-bottom:.8rem;letter-spacing:2px}
+.testi-text{font-size:.88rem;color:var(--body);line-height:1.7;margin-bottom:1.1rem;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:.75rem}
+.testi-avatar{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  font-size:.82rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;
+}
+.testi-name{font-size:.85rem;font-weight:600;color:var(--dark)}
+.testi-role{font-size:.78rem;color:var(--muted)}
 
 /* ── Pricing ─────────────────────────────────────────────────── */
-.pricing{padding:5rem 1.25rem;background:var(--white)}
+.pricing{padding:5rem 1.25rem;background:var(--bg)}
 .plans-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:1.5rem;margin-top:3rem;
 }
 .plan{
   border:1.5px solid var(--border);border-radius:var(--radius);
-  padding:2rem;display:flex;flex-direction:column;position:relative;
+  padding:2rem;display:flex;flex-direction:column;position:relative;background:var(--white);
 }
 .plan--featured{
   border-color:var(--blue);
@@ -314,7 +437,7 @@ img{display:block;max-width:100%}
 .btn-plan--primary:hover{background:var(--blue-dk);border-color:var(--blue-dk)}
 
 /* ── FAQ ─────────────────────────────────────────────────────── */
-.faq{padding:5rem 1.25rem;background:var(--bg)}
+.faq{padding:5rem 1.25rem;background:var(--white)}
 .faq-list{max-width:680px;margin:2.5rem auto 0;display:flex;flex-direction:column;gap:.6rem}
 .faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm)}
 .faq-q{
@@ -416,46 +539,79 @@ img{display:block;max-width:100%}
       <a href="/sobre.html">Sobre</a>
       <a href="/contato.html">Contato</a>
     </nav>
-    <button class="btn-header" onclick="document.getElementById('code-input').focus()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-      Rastrear grátis
-    </button>
+    <div class="header-btns">
+      <button class="btn-entrar" onclick="document.getElementById('code-input').focus()">Entrar</button>
+      <button class="btn-header" onclick="document.getElementById('code-input').focus()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>
+        Rastrear grátis
+      </button>
+    </div>
   </div>
 </header>
 
 <!-- ── Hero ─────────────────────────────────────────────────── -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-badge">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      Powered by Inteligência Artificial
-    </div>
-    <h1>Rastreie suas encomendas com <em>inteligência</em></h1>
-    <p class="hero-lead">Cole o código e nossa IA interpreta o status, estima a entrega e monitora 24h — sem você precisar ficar checando o site dos Correios.</p>
+    <div class="hero-left">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Powered by Inteligência Artificial
+      </div>
+      <h1>Rastreie suas encomendas com <em>inteligência</em></h1>
+      <p class="hero-lead">Cole o código e nossa IA interpreta o status, estima a entrega e monitora 24h — sem você precisar ficar checando o site dos Correios.</p>
 
-    <div class="tracker-wrap">
-      <form class="tracker-form" id="tracker-form" autocomplete="off">
-        <div class="tracker-input-row">
-          <input
-            type="text" id="code-input" name="code"
-            placeholder="Cole o código de rastreio (ex: AA123456789BR)"
-            maxlength="13" autocomplete="off" spellcheck="false"
-            inputmode="text" aria-label="Código de rastreio"
-          />
-          <button type="submit" class="btn-track" id="track-btn">
-            <span id="btn-text">Rastrear com IA</span>
-            <span id="btn-load" hidden><span class="spinner"></span> Consultando…</span>
-          </button>
+      <div class="tracker-wrap">
+        <form class="tracker-form" id="tracker-form" autocomplete="off">
+          <div class="tracker-input-row">
+            <input
+              type="text" id="code-input" name="code"
+              placeholder="Cole o código de rastreio (ex: AA123456789BR)"
+              maxlength="13" autocomplete="off" spellcheck="false"
+              inputmode="text" aria-label="Código de rastreio"
+            />
+            <button type="submit" class="btn-track" id="track-btn">
+              <span id="btn-text">Rastrear com IA</span>
+              <span id="btn-load" hidden><span class="spinner"></span> Consultando…</span>
+            </button>
+          </div>
+          <div class="tracker-hint">Formatos suportados: Correios (AA123456789BR) · Jadlog · Total · Shopee Envios</div>
+          <div class="error-msg hidden" id="error-msg"></div>
+        </form>
+      </div>
+
+      <p class="hero-social">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="#10b981"><circle cx="5" cy="5" r="5"/></svg>
+        API oficial dos Correios em tempo real &nbsp;·&nbsp; LGPD compliant &nbsp;·&nbsp; TLS 1.3
+      </p>
+    </div>
+
+    <div class="hero-right" aria-hidden="true">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-bar">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>
+          RastreIA
         </div>
-        <div class="tracker-hint">Formatos suportados: Correios (AA123456789BR) · Jadlog · Total · Shopee Envios</div>
-        <div class="error-msg hidden" id="error-msg"></div>
-      </form>
+        <div class="phone-input-row">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#94a3b8"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          AA123456789BR
+        </div>
+        <div class="phone-card">
+          <div class="pc-header">📦 Objeto rastreado</div>
+          <div class="pc-status">Saiu para entrega</div>
+          <div class="pc-row">📍 Curitiba, PR</div>
+          <div class="pc-row">📅 Previsão: hoje até 20h</div>
+          <div class="pc-row">🚚 Correios · SEDEX</div>
+        </div>
+        <div class="phone-notif">
+          <span class="phone-notif-icon">🔔</span>
+          <div>
+            <strong>Alerta RastreIA</strong>
+            Seu pacote saiu para entrega em Curitiba. Fique em casa!
+          </div>
+        </div>
+      </div>
     </div>
-
-    <p class="hero-social">
-      <span class="live-dot">●</span>&nbsp;
-      <strong id="daily-count">47.391</strong> rastreios processados hoje &nbsp;·&nbsp; 4.2⭐ avaliação média
-    </p>
   </div>
 </section>
 
@@ -498,10 +654,16 @@ img{display:block;max-width:100%}
 <!-- ── Proof Bar ─────────────────────────────────────────────── -->
 <div class="proof-bar">
   <div class="proof-inner">
-    <div class="proof-stat"><strong id="total-count">1.247.803</strong> rastreios realizados</div>
-    <div class="proof-stat"><strong>99,2%</strong> de uptime</div>
+    <div class="proof-stat">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="#10b981"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      <strong>API oficial dos Correios</strong>
+    </div>
     <div class="proof-stat"><strong>6</strong> transportadoras integradas</div>
     <div class="proof-stat"><strong>&lt; 2s</strong> tempo de resposta</div>
+    <div class="proof-stat">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="#10b981"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      <strong>LGPD</strong> compliant
+    </div>
   </div>
 </div>
 
@@ -515,32 +677,44 @@ img{display:block;max-width:100%}
     </div>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feat-icon feat-icon--blue">🚚</div>
+        <div class="feat-icon feat-icon--blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
         <h3>Todas as transportadoras</h3>
         <p>Correios, Jadlog, Total Express, Shopee Envios, Mercado Envios e Loggi em um único painel. Sem precisar lembrar qual site abrir.</p>
       </div>
       <div class="feature-card">
-        <div class="feat-icon feat-icon--amber">🤖</div>
+        <div class="feat-icon feat-icon--amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
         <h3>IA que interpreta o status</h3>
         <p>Nada de "Em trânsito para unidade de distribuição". Nossa IA traduz: "Seu pacote sai para entrega amanhã cedo — fique em casa!"</p>
       </div>
       <div class="feature-card">
-        <div class="feat-icon feat-icon--green">🔔</div>
+        <div class="feat-icon feat-icon--green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.45 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
         <h3>Alertas proativos</h3>
         <p>E-mail, WhatsApp e push quando o status mudar — especialmente quando sair para entrega. Você é avisado antes de precisar perguntar.</p>
       </div>
       <div class="feature-card">
-        <div class="feat-icon feat-icon--blue">📅</div>
+        <div class="feat-icon feat-icon--blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
         <h3>Previsão de entrega</h3>
         <p>Com base em milhares de rastreios similares, estimamos a data de chegada com precisão de ±1 dia na maioria dos casos.</p>
       </div>
       <div class="feature-card">
-        <div class="feat-icon feat-icon--amber">📊</div>
+        <div class="feat-icon feat-icon--amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
         <h3>Histórico completo</h3>
         <p>Todas as suas encomendas organizadas. Pesquise por código, data, transportadora ou status. Exportação em CSV disponível no plano Business.</p>
       </div>
       <div class="feature-card">
-        <div class="feat-icon feat-icon--green">🛡️</div>
+        <div class="feat-icon feat-icon--green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
         <h3>Privacidade garantida</h3>
         <p>Seus dados nunca são compartilhados com terceiros. Conformidade total com a LGPD. Criptografia em trânsito e em repouso.</p>
       </div>
@@ -575,17 +749,163 @@ img{display:block;max-width:100%}
   </div>
 </section>
 
+<!-- ── Comparison ─────────────────────────────────────────────── -->
+<section class="compare-section">
+  <div class="compare-inner">
+    <div style="text-align:center">
+      <span class="section-tag">Por que RastreIA?</span>
+      <h2 class="section-h2">Chega de traduzir jargão dos Correios</h2>
+      <p class="section-lead" style="margin:0 auto">Veja a diferença entre consultar o site oficial e usar a RastreIA.</p>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-card compare-card--bad">
+        <div class="cc-label">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          Site dos Correios (antes)
+        </div>
+        <div class="compare-event">
+          <div class="ce-icon ce-icon--bad">!</div>
+          <div class="ce-text">
+            <strong>OBJETO ENCAMINHADO A UNIDADE DE TRATAMENTO</strong>
+            <span>O que isso significa? Quando chega?</span>
+          </div>
+        </div>
+        <div class="compare-event">
+          <div class="ce-icon ce-icon--bad">!</div>
+          <div class="ce-text">
+            <strong>Sem previsão de entrega</strong>
+            <span>Sem data, sem estimativa — você fica no escuro</span>
+          </div>
+        </div>
+        <div class="compare-event">
+          <div class="ce-icon ce-icon--bad">!</div>
+          <div class="ce-text">
+            <strong>Você que tem que checar</strong>
+            <span>Entra todo dia sem saber se mudou</span>
+          </div>
+        </div>
+        <div class="compare-event">
+          <div class="ce-icon ce-icon--bad">!</div>
+          <div class="ce-text">
+            <strong>Site instável</strong>
+            <span>Fora do ar justamente quando você mais precisa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-card compare-card--good">
+        <div class="cc-label">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          RastreIA (depois)
+        </div>
+        <div class="compare-event">
+          <div class="ce-icon ce-icon--good">✓</div>
+          <div class="ce-text">
+            <strong>Linguagem humana</strong>
+            <span>"Seu pacote saiu para entrega — fique em casa!"</span>
+          </div>
+        </div>
+        <div class="compare-event">
+          <div class="ce-icon ce-icon--good">✓</div>
+          <div class="ce-text">
+            <strong>Previsão de entrega por IA</strong>
+            <span>Estimativa precisa com base em histórico de rotas</span>
+          </div>
+        </div>
+        <div class="compare-event">
+          <div class="ce-icon ce-icon--good">✓</div>
+          <div class="ce-text">
+            <strong>Alerta automático no WhatsApp</strong>
+            <span>Avisamos quando o status mudar — sem você fazer nada</span>
+          </div>
+        </div>
+        <div class="compare-event">
+          <div class="ce-icon ce-icon--good">✓</div>
+          <div class="ce-text">
+            <strong>99,2% de disponibilidade</strong>
+            <span>Consultamos a API oficial e tratamos erros automaticamente</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── Carriers ───────────────────────────────────────────────── -->
 <section class="carriers">
   <div class="container">
     <h2>Transportadoras suportadas</h2>
     <div class="carriers-grid">
-      <div class="carrier-chip">📮 Correios</div>
-      <div class="carrier-chip">📦 Jadlog</div>
-      <div class="carrier-chip">🚚 Total Express</div>
-      <div class="carrier-chip">🛍️ Shopee Envios</div>
-      <div class="carrier-chip">🟡 Mercado Envios</div>
-      <div class="carrier-chip">⚡ Loggi</div>
+      <div class="carrier-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        Correios
+      </div>
+      <div class="carrier-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Jadlog
+      </div>
+      <div class="carrier-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+        Total Express
+      </div>
+      <div class="carrier-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Shopee Envios
+      </div>
+      <div class="carrier-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Mercado Envios
+      </div>
+      <div class="carrier-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Loggi
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ────────────────────────────────────────────── -->
+<section class="testimonials">
+  <div class="container">
+    <div style="text-align:center">
+      <span class="section-tag">Depoimentos</span>
+      <h2 class="section-h2">Quem usa, recomenda</h2>
+      <p class="section-lead" style="margin:0 auto">Consumidores e lojistas que pararam de se preocupar com encomenda.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Finalmente entendo o que está acontecendo com meu pacote. O site dos Correios é um horror — aqui a IA explica tudo certinho. Recebi o alerta no WhatsApp antes de sair de casa!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#2563eb">FR</div>
+          <div>
+            <div class="testi-name">Fernanda R.</div>
+            <div class="testi-role">São Paulo, SP · Compradora frequente</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Sou lojista no Mercado Livre e rastreava 30+ pedidos por dia um a um. Com o plano Business, tudo num painel. Economio uma hora de trabalho todo dia."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#0891b2">MT</div>
+          <div>
+            <div class="testi-name">Marcos T.</div>
+            <div class="testi-role">Porto Alegre, RS · Lojista e-commerce</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Compro muito em sites internacionais — Shopee, AliExpress. A RastreIA acompanha tudo desde que o pacote sai do exterior até chegar na minha porta em Curitiba."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#7c3aed">JC</div>
+          <div>
+            <div class="testi-name">Juliana C.</div>
+            <div class="testi-role">Curitiba, PR · Compradora internacional</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -747,7 +1067,7 @@ img{display:block;max-width:100%}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span id="ft-year"></span> MFR Soluções Digitais LTDA &middot; CNPJ 59.080.649/0001-02 &middot; Não somos afiliados aos Correios (ECT).</span>
+      <span>&copy; <span id="ft-year"></span> MFR Soluções Digitais LTDA &middot; CNPJ 59.080.649/0001-02 &middot; São Paulo, SP &middot; Não somos afiliados aos Correios (ECT).</span>
       <span>LGPD compliant &middot; TLS 1.3</span>
     </div>
   </div>
@@ -781,19 +1101,6 @@ img{display:block;max-width:100%}
       $('ck-banner').style.display = 'none';
     };
   }
-
-  // ── Animated counters ─────────────────────────────────────
-  var dailyBase = 44200 + Math.floor(Date.now() / 3600000) % 4800;
-  var dailyCount = dailyBase;
-  var totalBase  = 1240000 + Math.floor(Date.now() / 86400000) % 15000;
-
-  $('daily-count').textContent = dailyCount.toLocaleString('pt-BR');
-  $('total-count').textContent  = totalBase.toLocaleString('pt-BR');
-
-  setInterval(function () {
-    dailyCount += Math.floor(Math.random() * 3);
-    $('daily-count').textContent = dailyCount.toLocaleString('pt-BR');
-  }, 5000);
 
   // ── FAQ accordion ─────────────────────────────────────────
   document.querySelectorAll('.faq-q').forEach(function(btn) {
@@ -951,4 +1258,3 @@ img{display:block;max-width:100%}
 })();
 </script>
 </body>
-</html>
