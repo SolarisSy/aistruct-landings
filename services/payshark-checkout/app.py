@@ -40,6 +40,7 @@ import json as _json
 import logging
 import os
 import re
+import time
 from collections import deque
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -93,7 +94,7 @@ EC_ENABLED = bool(EC_SHEET_WEBHOOK_URL)
 _PAY_HEADERS = {"Authorization": f"Bearer {STREETPAYS_KEY}",
                 "Content-Type": "application/json", "Accept": "application/json"}
 
-app = FastAPI(title="StreetPays PIX Checkout + RedTrack bridge", version="2.0.0")
+app = FastAPI(title="StreetPays PIX Checkout + RedTrack bridge", version="2.1.0")
 
 # rtkcid do RedTrack = ObjectId 24-hex. Só marca conversão se o externalRef tiver essa cara
 # (ignora tráfego de outras fontes que por acaso caia no mesmo checkout).
@@ -126,7 +127,8 @@ STATS = {
     "upsell1_started": 0, "upsell1_paid": 0,
     "upsell2_started": 0, "upsell2_paid": 0,
 }
-_SEEN_TX: set[str] = set()   # dedupe de webhooks por transaction id
+_SEEN_TX: dict[str, float] = {}   # dedupe de webhooks por tx id -> ts (TTL p/ nao vazar memoria)
+DEDUP_TTL = 86400  # 24h — cobre a janela de retry (at-least-once) do gateway
 
 
 def _now() -> str:
@@ -294,7 +296,7 @@ def health():
 def info():
     return {
         "service": "streetpays-checkout",
-        "version": "2.0.0",
+        "version": "2.1.0",
         "gateway": "streetpays",
         "gateway_api": GATEWAY_API,
         "gateway_key_set": bool(STREETPAYS_KEY),
@@ -438,10 +440,29 @@ async def webhook(request: Request):
     # marca pagamento IMEDIATAMENTE para que /api/status retorne paid=True no próximo poll
     if tx_id:
         _PAID_TX.add(tx_id)
-        # contabiliza stats de upsell
-        upsell_type = _UPSELL_TX.get(tx_id)
-        if upsell_type:
-            STATS[f"{upsell_type}_paid"] += 1
+
+    # Dedup por transaction id, com TTL p/ nao vazar memoria. Protege contra retry
+    # do gateway (at-least-once) re-disparando stats/postback p/ a MESMA transacao.
+    global _SEEN_TX
+    now_ts = time.time()
+    _SEEN_TX = {k: ts for k, ts in _SEEN_TX.items() if now_ts - ts < DEDUP_TTL}
+    if tx_id and tx_id in _SEEN_TX:
+        STATS["duplicate"] += 1
+        _record("duplicate", payload, tx_id=tx_id)
+        return {"ok": True, "duplicate": tx_id}
+    if tx_id:
+        _SEEN_TX[tx_id] = now_ts
+
+    # Upsell: contabiliza e PARA — NAO re-atribui no RedTrack nem manda EC. A conversao
+    # de aquisicao ja foi marcada na venda principal (MESMO rtkcid). Re-postar no mesmo
+    # clickid duplicaria (postback_mode=all) ou sobrescreveria (=update), e mandaria uma
+    # 2a/3a "Compra" pro Google via Enhanced Conversions. A receita do upsell fica nos
+    # STATS (upsellN_paid) + painel do gateway — nao se perde, so nao polui a atribuicao.
+    upsell_type = _UPSELL_TX.get(tx_id)
+    if upsell_type:
+        STATS[f"{upsell_type}_paid"] += 1
+        _record("upsell_paid_no_reattrib", payload, tx_id=tx_id, upsell=upsell_type)
+        return {"ok": True, "upsell": upsell_type, "skipped": "no_reattribution"}
 
     clickid = str(obj.get("externalRef") or "").strip()
     if not _looks_like_rtkcid(clickid):
@@ -449,13 +470,6 @@ async def webhook(request: Request):
         _record("no_clickid", payload, externalRef=clickid)
         log.warning("externalRef nao e rtkcid 24-hex: %r", clickid)
         return JSONResponse({"ok": False, "error": "externalRef_not_rtkcid"}, status_code=200)
-
-    if tx_id and tx_id in _SEEN_TX:
-        STATS["duplicate"] += 1
-        _record("duplicate", payload, tx_id=tx_id, clickid=clickid)
-        return {"ok": True, "duplicate": tx_id}
-    if tx_id:
-        _SEEN_TX.add(tx_id)
 
     cents = obj.get("amount") or 0
     reais = (cents / 100.0) if isinstance(cents, (int, float)) else 0.0
