@@ -24,6 +24,7 @@ from __future__ import annotations
 import logging
 import os
 import re
+import time
 from collections import deque
 from datetime import datetime, timezone
 from typing import Any
@@ -41,7 +42,7 @@ KIRVANO_SECRET   = os.environ.get("KIRVANO_SECRET", "").strip() or None
 CLICKID_FIELD    = os.environ.get("CLICKID_FIELD", "src").strip()
 REDTRACK_POSTBACK = os.environ.get("REDTRACK_POSTBACK", "https://ohjzb.ttrk.io/postback").rstrip("/")
 
-app = FastAPI(title="Kirvano -> RedTrack Bridge", version="1.3.0")
+app = FastAPI(title="Kirvano -> RedTrack Bridge", version="1.4.0")
 
 # rtkcid do RedTrack = ObjectId de 24 hex. Usado pra aceitar SO o trafego do
 # fluxo Google/RedTrack e ignorar vendas de outras fontes (ex: Facebook de
@@ -53,11 +54,18 @@ RECENT: deque = deque(maxlen=80)
 STATS = {
     "received": 0,       # POSTs recebidos no /postback
     "skipped_event": 0,  # evento != aprovado
+    "skipped_dedup": 0,  # order_id já processado (retry/duplicate da Kirvano)
     "no_clickid": 0,     # sub15/clickid ausente no payload
     "forwarded": 0,      # postback disparado pro RedTrack
     "attributed": 0,     # RedTrack respondeu 200 (status:1 OK)
     "rt_error": 0,       # RedTrack respondeu != 200 ou exception
 }
+
+# Deduplicação de webhooks: guarda order_ids já processados por DEDUP_TTL segundos.
+# Resolve o loop retry da Kirvano (envia N vezes em timeout) sem precisar de Redis.
+# Zera no restart — janela de risco é o restart coincidir com retry dentro do TTL.
+_seen_orders: dict[str, float] = {}
+DEDUP_TTL = 86400  # 24h; cobre janela de retry da Kirvano
 
 
 def _now() -> str:
@@ -167,7 +175,7 @@ def _extract_amount(payload: dict) -> float | None:
 def root():
     return {
         "service": "kirvano-redtrack-bridge",
-        "version": "1.3.0",
+        "version": "1.4.0",
         "secret_required": KIRVANO_SECRET is not None,
         "clickid_field": CLICKID_FIELD,
         "clickid_validation": "24-hex rtkcid only (ignora trafego nao-Google, ex: FB)",
@@ -222,13 +230,33 @@ async def postback(request: Request,
     log.info("payload received (ct=%s): %s", ctype, str(payload)[:800])
 
     event = (payload.get("event") or payload.get("type") or "").lower()
-    # Aceita variacoes do nome do evento aprovado
+    # Aceita variacoes do nome do evento aprovado.
+    # IMPORTANTE: event vazio ("") também é rejeitado — whitelist, não blacklist.
     is_approved = any(k in event for k in ("approved", "aprovad", "purchase_paid", "sale_paid"))
-    if event and not is_approved:
+    if not is_approved:
         STATS["skipped_event"] += 1
         _record("skipped_event", payload, content_type=ctype, event=event)
-        log.info("ignored event=%s (only approved purchases trigger postback)", event)
+        log.info("ignored event=%r (only approved purchases trigger postback)", event)
         return {"ok": True, "skipped": "event_not_approved", "event": event}
+
+    # Deduplicação por order_id — protege contra retries da Kirvano (at-least-once delivery).
+    # Kirvano não documenta o limite de retries; sem este guard cada retry vira conversão extra.
+    now = time.time()
+    global _seen_orders
+    _seen_orders = {k: v for k, v in _seen_orders.items() if now - v < DEDUP_TTL}
+    order_id = (
+        payload.get("order_id")
+        or payload.get("transaction_id")
+        or (payload.get("transaction") or {}).get("id")
+        or payload.get("id")
+    )
+    if order_id:
+        if order_id in _seen_orders:
+            STATS["skipped_dedup"] += 1
+            _record("skipped_dedup", payload, content_type=ctype, event=event, order_id=order_id)
+            log.info("duplicate order_id=%s skipped (kirvano retry?)", order_id)
+            return {"ok": True, "skipped": "duplicate_order", "order_id": order_id}
+        _seen_orders[order_id] = now
 
     clickid = _extract_clickid(payload)
     if not clickid:
