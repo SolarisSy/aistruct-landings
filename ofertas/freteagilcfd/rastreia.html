@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<link rel="canonical" href="https://freteagil.cfd/rastreia.html"/>
+<title>RastreIA — Rastreamento Inteligente de Encomendas com IA</title>
+<meta name="description" content="Rastreie todas as suas encomendas em um só lugar. IA monitora seus pacotes 24h e envia alertas por e-mail e WhatsApp quando o status mudar."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MPPF5ZKQ');</script>
+<style>
+/* ── Reset & Variables ────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2563eb; --blue-dk:#1d4ed8; --blue-lt:#eff6ff; --blue-mid:#dbeafe;
+  --amber:#f59e0b; --amber-lt:#fffbeb;
+  --green:#10b981; --red:#ef4444;
+  --dark:#0f172a; --body:#475569; --muted:#94a3b8;
+  --border:#e2e8f0; --bg:#f8fafc; --white:#fff;
+  --radius:12px; --radius-sm:8px;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --shadow-md:0 4px 12px rgba(0,0,0,.1),0 16px 40px rgba(0,0,0,.08);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--body);background:var(--white);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+img{display:block;max-width:100%}
+.container{max-width:1120px;margin:0 auto;padding:0 1.25rem}
+.hidden{display:none!important}
+
+/* ── Header ────────────────────────────────────────────────── */
+.site-header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;max-width:1120px;margin:0 auto;padding:0 1.25rem;
+}
+.logo{display:flex;align-items:center;gap:.55rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--dark);letter-spacing:-.02em}
+.logo-mark{
+  width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dk) 100%);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.logo-mark svg{width:18px;height:18px;fill:#fff}
+.logo span.ia{color:var(--blue)}
+.site-nav{display:flex;align-items:center;gap:1.6rem}
+.site-nav a{font-size:.875rem;font-weight:500;color:var(--body)}
+.site-nav a:hover{color:var(--dark);text-decoration:none}
+.btn-header{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--blue);color:#fff;
+  font-size:.875rem;font-weight:600;padding:.5rem 1.1rem;
+  border-radius:8px;border:none;cursor:pointer;transition:background .15s;
+}
+.btn-header:hover{background:var(--blue-dk);text-decoration:none}
+@media(max-width:640px){.site-nav{display:none}}
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.hero{
+  padding:5rem 1.25rem 4rem;
+  background:linear-gradient(160deg, #f0f6ff 0%, #fafafa 60%, var(--white) 100%);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-120px;right:-80px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,235,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-inner{max-width:760px;margin:0 auto;text-align:center}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--blue-mid);color:var(--blue-dk);
+  font-size:.8rem;font-weight:600;padding:.3rem .9rem;
+  border-radius:99px;margin-bottom:1.4rem;letter-spacing:.02em;
+}
+.hero h1{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(2rem,5vw,3.2rem);font-weight:800;
+  color:var(--dark);line-height:1.18;letter-spacing:-.03em;
+  margin-bottom:1.1rem;
+}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero-lead{
+  font-size:1.1rem;color:var(--body);max-width:560px;margin:0 auto 2.2rem;line-height:1.7;
+}
+/* Tracker form */
+.tracker-wrap{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow-md);padding:1.5rem;margin-bottom:1.6rem;
+}
+.tracker-form{display:flex;gap:.6rem;flex-direction:column}
+.tracker-input-row{display:flex;gap:.6rem}
+#code-input{
+  flex:1;border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:.75rem 1rem;font-size:1rem;font-family:'Inter',sans-serif;
+  color:var(--dark);letter-spacing:.06em;text-transform:uppercase;
+  transition:border-color .15s;outline:none;
+}
+#code-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+#code-input::placeholder{text-transform:none;letter-spacing:0;color:var(--muted)}
+.btn-track{
+  background:var(--blue);color:#fff;
+  border:none;border-radius:var(--radius-sm);
+  padding:.75rem 1.5rem;font-size:1rem;font-weight:600;
+  cursor:pointer;transition:background .15s,transform .1s;
+  white-space:nowrap;display:flex;align-items:center;gap:.5rem;
+}
+.btn-track:hover{background:var(--blue-dk)}
+.btn-track:active{transform:scale(.98)}
+.btn-track .spinner{
+  width:16px;height:16px;border:2px solid rgba(255,255,255,.4);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tracker-hint{font-size:.78rem;color:var(--muted);text-align:left;margin-top:.3rem}
+.error-msg{
+  background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;
+  font-size:.85rem;padding:.6rem .9rem;border-radius:6px;text-align:left;
+}
+.hero-social{font-size:.875rem;color:var(--muted)}
+.live-dot{color:var(--green);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── Results Area ──────────────────────────────────────────── */
+.results-section{background:var(--bg);padding:2.5rem 1.25rem;border-top:1px solid var(--border)}
+.results-inner{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:1.2rem}
+.ai-card{
+  background:linear-gradient(135deg,var(--blue) 0%,#1e40af 100%);
+  color:#fff;border-radius:var(--radius);padding:1.4rem 1.5rem;
+  display:flex;align-items:flex-start;gap:1rem;
+}
+.ai-icon-big{font-size:2.2rem;flex-shrink:0;line-height:1}
+.ai-card-body{}
+.ai-code-label{font-size:.72rem;font-weight:600;opacity:.7;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.15rem}
+.ai-code-val{font-family:monospace;font-size:1.05rem;font-weight:700;letter-spacing:.1em;margin-bottom:.5rem}
+.ai-summary-text{font-size:.93rem;line-height:1.6;opacity:.95}
+.demo-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--amber-lt);border:1px solid #fde68a;color:#92400e;
+  font-size:.78rem;font-weight:500;padding:.35rem .8rem;border-radius:6px;
+}
+/* Timeline */
+.timeline-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.timeline-header{padding:.9rem 1.2rem;border-bottom:1px solid var(--border);font-size:.83rem;font-weight:600;color:var(--body)}
+.timeline-list{padding:.6rem 1.2rem}
+.tl-item{
+  display:flex;gap:1rem;padding:.7rem 0;
+  position:relative;
+}
+.tl-item:not(:last-child)::after{
+  content:'';position:absolute;left:9px;top:1.6rem;
+  width:2px;bottom:-.7rem;background:var(--border);
+}
+.tl-dot{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:.15rem;
+  background:var(--border);border:2px solid var(--white);
+  box-shadow:0 0 0 2px var(--border);z-index:1;
+}
+.tl-item:first-child .tl-dot{background:var(--blue);box-shadow:0 0 0 2px var(--blue-mid)}
+.tl-status{font-size:.88rem;font-weight:500;color:var(--dark);margin-bottom:.15rem}
+.tl-meta{font-size:.78rem;color:var(--muted)}
+/* Sign up prompt */
+.signup-card{
+  background:var(--white);border:1.5px solid var(--blue-mid);
+  border-radius:var(--radius);padding:1.4rem 1.5rem;
+}
+.signup-card h3{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.3rem}
+.signup-card p{font-size:.87rem;color:var(--body);margin-bottom:1rem}
+.signup-row{display:flex;gap:.5rem}
+.signup-row input{
+  flex:1;border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:.65rem .9rem;font-size:.9rem;font-family:'Inter',sans-serif;outline:none;
+}
+.signup-row input:focus{border-color:var(--blue)}
+.btn-signup{
+  background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);
+  padding:.65rem 1.2rem;font-size:.9rem;font-weight:600;cursor:pointer;white-space:nowrap;
+}
+.btn-signup:hover{background:var(--blue-dk)}
+.signup-success{
+  display:flex;align-items:center;gap:.7rem;
+  background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;
+  padding:.8rem 1rem;border-radius:8px;font-size:.9rem;font-weight:500;
+}
+@media(max-width:480px){
+  .signup-row{flex-direction:column}
+  .tracker-input-row{flex-direction:column}
+  .btn-track{justify-content:center}
+}
+
+/* ── Social Proof ───────────────────────────────────────────── */
+.proof-bar{
+  background:var(--dark);color:#94a3b8;
+  padding:.9rem 1.25rem;font-size:.82rem;
+}
+.proof-inner{
+  max-width:1120px;margin:0 auto;
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:1.5rem 2.5rem;
+}
+.proof-stat strong{color:#fff}
+
+/* ── Features ───────────────────────────────────────────────── */
+.features{padding:5rem 1.25rem;background:var(--white)}
+.section-tag{
+  display:inline-block;background:var(--blue-lt);color:var(--blue);
+  font-size:.75rem;font-weight:600;padding:.3rem .8rem;border-radius:99px;
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem;
+}
+.section-h2{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);
+  font-weight:800;color:var(--dark);letter-spacing:-.03em;margin-bottom:.8rem;
+}
+.section-lead{font-size:1rem;color:var(--body);max-width:540px;line-height:1.7}
+.features-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.feature-card{
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:1.8rem;transition:box-shadow .2s,transform .2s;
+}
+.feature-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.feat-icon{
+  width:48px;height:48px;border-radius:12px;margin-bottom:1.2rem;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+}
+.feat-icon--blue{background:var(--blue-lt)}
+.feat-icon--amber{background:var(--amber-lt)}
+.feat-icon--green{background:#f0fdf4}
+.feature-card h3{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.5rem}
+.feature-card p{font-size:.88rem;color:var(--body);line-height:1.65}
+
+/* ── How It Works ───────────────────────────────────────────── */
+.how{padding:5rem 1.25rem;background:var(--bg)}
+.steps-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:2rem;margin-top:3rem;position:relative;
+}
+.step{text-align:center}
+.step-num{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dk));
+  color:#fff;font-size:1.2rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.1rem;
+}
+.step h3{font-size:.95rem;font-weight:700;color:var(--dark);margin-bottom:.4rem}
+.step p{font-size:.87rem;color:var(--body);line-height:1.65}
+
+/* ── Carriers ───────────────────────────────────────────────── */
+.carriers{padding:4rem 1.25rem;border-top:1px solid var(--border)}
+.carriers h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:700;color:var(--muted);text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2rem}
+.carriers-grid{
+  display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;
+}
+.carrier-chip{
+  background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  padding:.5rem 1.2rem;font-size:.88rem;font-weight:600;color:var(--body);
+}
+
+/* ── Pricing ─────────────────────────────────────────────────── */
+.pricing{padding:5rem 1.25rem;background:var(--white)}
+.plans-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.plan{
+  border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:2rem;display:flex;flex-direction:column;position:relative;
+}
+.plan--featured{
+  border-color:var(--blue);
+  box-shadow:0 0 0 1px var(--blue),var(--shadow-md);
+}
+.plan-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:var(--blue);color:#fff;font-size:.72rem;font-weight:700;
+  padding:.25rem .8rem;border-radius:99px;white-space:nowrap;letter-spacing:.04em;
+}
+.plan-name{font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
+.plan-price{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;
+  color:var(--dark);letter-spacing:-.04em;margin-bottom:.4rem;
+}
+.plan-price span{font-size:.9rem;font-weight:500;color:var(--muted)}
+.plan-desc{font-size:.85rem;color:var(--body);margin-bottom:1.5rem}
+.plan-features{list-style:none;margin-bottom:1.8rem;flex:1}
+.plan-features li{
+  display:flex;align-items:flex-start;gap:.6rem;
+  font-size:.875rem;color:var(--body);padding:.45rem 0;
+  border-bottom:1px solid var(--bg);
+}
+.plan-features li::before{
+  content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:.05rem;
+}
+.btn-plan{
+  display:block;text-align:center;width:100%;
+  padding:.75rem;border-radius:var(--radius-sm);font-size:.9rem;font-weight:600;
+  cursor:pointer;transition:all .15s;border:1.5px solid var(--border);
+  background:var(--white);color:var(--dark);
+}
+.btn-plan:hover{border-color:var(--blue);color:var(--blue)}
+.btn-plan--primary{
+  background:var(--blue);color:#fff;border-color:var(--blue);
+}
+.btn-plan--primary:hover{background:var(--blue-dk);border-color:var(--blue-dk)}
+
+/* ── FAQ ─────────────────────────────────────────────────────── */
+.faq{padding:5rem 1.25rem;background:var(--bg)}
+.faq-list{max-width:680px;margin:2.5rem auto 0;display:flex;flex-direction:column;gap:.6rem}
+.faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.faq-q{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.2rem;font-size:.93rem;font-weight:600;color:var(--dark);font-family:'Inter',sans-serif;
+}
+.faq-q .chevron{
+  width:20px;height:20px;flex-shrink:0;transition:transform .2s;
+  border:1.5px solid var(--border);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--muted);
+}
+.faq-item.open .faq-q .chevron{transform:rotate(180deg)}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height .25s ease;
+  font-size:.88rem;color:var(--body);line-height:1.7;
+  padding:0 1.2rem;
+}
+.faq-item.open .faq-a{max-height:200px;padding:0 1.2rem 1rem}
+
+/* ── CTA Final ───────────────────────────────────────────────── */
+.cta-final{
+  padding:5rem 1.25rem;
+  background:linear-gradient(135deg,var(--dark) 0%,#1e3a8a 100%);
+  color:#fff;text-align:center;
+}
+.cta-final h2{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);
+  font-weight:800;margin-bottom:.8rem;letter-spacing:-.03em;
+}
+.cta-final p{font-size:1rem;opacity:.75;margin-bottom:2.5rem;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-form{
+  display:flex;gap:.6rem;max-width:480px;margin:0 auto;
+}
+.cta-form input{
+  flex:1;border:1.5px solid rgba(255,255,255,.25);border-radius:var(--radius-sm);
+  background:rgba(255,255,255,.1);color:#fff;
+  padding:.75rem 1rem;font-size:.95rem;font-family:'Inter',sans-serif;outline:none;
+}
+.cta-form input::placeholder{color:rgba(255,255,255,.5);text-transform:none;letter-spacing:0}
+.cta-form input:focus{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.15)}
+.btn-cta{
+  background:var(--amber);color:var(--dark);border:none;border-radius:var(--radius-sm);
+  padding:.75rem 1.4rem;font-size:.95rem;font-weight:700;cursor:pointer;
+  white-space:nowrap;transition:background .15s;
+}
+.btn-cta:hover{background:#d97706}
+@media(max-width:480px){.cta-form{flex-direction:column}}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.site-footer{background:var(--dark);color:#64748b;padding:2.5rem 1.25rem 1.5rem}
+.footer-inner{max-width:1120px;margin:0 auto}
+.footer-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:2rem;margin-bottom:2rem;
+}
+.footer-brand{}
+.footer-brand .logo{margin-bottom:.7rem}
+.footer-brand p{font-size:.83rem;line-height:1.65;color:#475569}
+.footer-col h4{font-size:.8rem;font-weight:600;color:#94a3b8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.8rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.4rem}
+.footer-col a{font-size:.85rem;color:#475569}
+.footer-col a:hover{color:#94a3b8;text-decoration:none}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding-top:1.2rem;font-size:.78rem;color:#334155;
+  display:flex;flex-wrap:wrap;gap:.5rem;justify-content:space-between;align-items:center;
+}
+/* Cookie */
+#ck-banner{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(15,23,42,.96);color:#94a3b8;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.7rem;
+  padding:.9rem 1.2rem;z-index:999;font-size:.83rem;
+}
+#ck-banner a{color:#60a5fa}
+#ck-ok{
+  background:var(--blue);color:#fff;border:none;
+  padding:.4rem 1rem;border-radius:6px;font-size:.83rem;font-weight:600;cursor:pointer;
+}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPPF5ZKQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- ── Header ──────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/rastreia.html" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+      </div>
+      Rastre<span class="ia">IA</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#precos">Preços</a>
+      <a href="/sobre.html">Sobre</a>
+      <a href="/contato.html">Contato</a>
+    </nav>
+    <button class="btn-header" onclick="document.getElementById('code-input').focus()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      Rastrear grátis
+    </button>
+  </div>
+</header>
+
+<!-- ── Hero ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Powered by Inteligência Artificial
+    </div>
+    <h1>Rastreie suas encomendas com <em>inteligência</em></h1>
+    <p class="hero-lead">Cole o código e nossa IA interpreta o status, estima a entrega e monitora 24h — sem você precisar ficar checando o site dos Correios.</p>
+
+    <div class="tracker-wrap">
+      <form class="tracker-form" id="tracker-form" autocomplete="off">
+        <div class="tracker-input-row">
+          <input
+            type="text" id="code-input" name="code"
+            placeholder="Cole o código de rastreio (ex: AA123456789BR)"
+            maxlength="13" autocomplete="off" spellcheck="false"
+            inputmode="text" aria-label="Código de rastreio"
+          />
+          <button type="submit" class="btn-track" id="track-btn">
+            <span id="btn-text">Rastrear com IA</span>
+            <span id="btn-load" hidden><span class="spinner"></span> Consultando…</span>
+          </button>
+        </div>
+        <div class="tracker-hint">Formatos suportados: Correios (AA123456789BR) · Jadlog · Total · Shopee Envios</div>
+        <div class="error-msg hidden" id="error-msg"></div>
+      </form>
+    </div>
+
+    <p class="hero-social">
+      <span class="live-dot">●</span>&nbsp;
+      <strong id="daily-count">47.391</strong> rastreios processados hoje &nbsp;·&nbsp; 4.2⭐ avaliação média
+    </p>
+  </div>
+</section>
+
+<!-- ── Results Area ─────────────────────────────────────────── -->
+<section class="results-section hidden" id="results-area">
+  <div class="results-inner">
+    <!-- AI Card -->
+    <div class="ai-card" id="ai-card">
+      <div class="ai-icon-big" id="ai-icon">📦</div>
+      <div class="ai-card-body">
+        <div class="ai-code-label">Código rastreado</div>
+        <div class="ai-code-val" id="ai-code-val">—</div>
+        <div class="ai-summary-text" id="ai-text">Analisando…</div>
+      </div>
+    </div>
+
+    <!-- Demo notice -->
+    <div class="demo-badge hidden" id="demo-notice">
+      ℹ️ Resultado de demonstração. Crie uma conta para rastrear seu código real com dados em tempo real.
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-card">
+      <div class="timeline-header" id="tl-header">Histórico de movimentações</div>
+      <div class="timeline-list" id="timeline"></div>
+    </div>
+
+    <!-- Sign-up prompt -->
+    <div class="signup-card" id="signup-card">
+      <h3>📲 Monitorar automaticamente</h3>
+      <p>Receba um alerta por e-mail assim que o status mudar — sem precisar checar todo dia.</p>
+      <form class="signup-row" id="signup-form">
+        <input type="email" id="email-input" placeholder="seu@email.com.br" required autocomplete="email"/>
+        <button type="submit" class="btn-signup" id="signup-btn">Monitorar grátis</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── Proof Bar ─────────────────────────────────────────────── -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-stat"><strong id="total-count">1.247.803</strong> rastreios realizados</div>
+    <div class="proof-stat"><strong>99,2%</strong> de uptime</div>
+    <div class="proof-stat"><strong>6</strong> transportadoras integradas</div>
+    <div class="proof-stat"><strong>&lt; 2s</strong> tempo de resposta</div>
+  </div>
+</div>
+
+<!-- ── Features ──────────────────────────────────────────────── -->
+<section class="features" id="funcionalidades">
+  <div class="container">
+    <div>
+      <span class="section-tag">Funcionalidades</span>
+      <h2 class="section-h2">Rastreamento inteligente para o século XXI</h2>
+      <p class="section-lead">Chega de ficar atualizando o site dos Correios. A RastreIA monitora por você e explica o que cada status realmente significa.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feat-icon feat-icon--blue">🚚</div>
+        <h3>Todas as transportadoras</h3>
+        <p>Correios, Jadlog, Total Express, Shopee Envios, Mercado Envios e Loggi em um único painel. Sem precisar lembrar qual site abrir.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon feat-icon--amber">🤖</div>
+        <h3>IA que interpreta o status</h3>
+        <p>Nada de "Em trânsito para unidade de distribuição". Nossa IA traduz: "Seu pacote sai para entrega amanhã cedo — fique em casa!"</p>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon feat-icon--green">🔔</div>
+        <h3>Alertas proativos</h3>
+        <p>E-mail, WhatsApp e push quando o status mudar — especialmente quando sair para entrega. Você é avisado antes de precisar perguntar.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon feat-icon--blue">📅</div>
+        <h3>Previsão de entrega</h3>
+        <p>Com base em milhares de rastreios similares, estimamos a data de chegada com precisão de ±1 dia na maioria dos casos.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon feat-icon--amber">📊</div>
+        <h3>Histórico completo</h3>
+        <p>Todas as suas encomendas organizadas. Pesquise por código, data, transportadora ou status. Exportação em CSV disponível no plano Business.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon feat-icon--green">🛡️</div>
+        <h3>Privacidade garantida</h3>
+        <p>Seus dados nunca são compartilhados com terceiros. Conformidade total com a LGPD. Criptografia em trânsito e em repouso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ───────────────────────────────────────────── -->
+<section class="how">
+  <div class="container">
+    <div style="text-align:center">
+      <span class="section-tag">Como funciona</span>
+      <h2 class="section-h2">Três passos. Zero complicação.</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Cole o código</h3>
+        <p>Qualquer código de rastreio dos Correios ou das transportadoras parceiras. Ou conecte sua conta Shopee / Mercado Livre para importar automaticamente.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>A IA interpreta</h3>
+        <p>Em segundos, traduzimos o status burocrático em linguagem humana e estimamos quando o pacote chegará com base em histórico de rotas.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Você é avisado</h3>
+        <p>Escolha como quer receber: e-mail, WhatsApp ou notificação no app. Avisamos especialmente quando o pacote sair para entrega no dia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Carriers ───────────────────────────────────────────────── -->
+<section class="carriers">
+  <div class="container">
+    <h2>Transportadoras suportadas</h2>
+    <div class="carriers-grid">
+      <div class="carrier-chip">📮 Correios</div>
+      <div class="carrier-chip">📦 Jadlog</div>
+      <div class="carrier-chip">🚚 Total Express</div>
+      <div class="carrier-chip">🛍️ Shopee Envios</div>
+      <div class="carrier-chip">🟡 Mercado Envios</div>
+      <div class="carrier-chip">⚡ Loggi</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ────────────────────────────────────────────────── -->
+<section class="pricing" id="precos">
+  <div class="container">
+    <div style="text-align:center">
+      <span class="section-tag">Preços</span>
+      <h2 class="section-h2">Comece grátis. Escale quando precisar.</h2>
+      <p class="section-lead" style="margin:0 auto">Sem cartão de crédito para começar. Cancele quando quiser.</p>
+    </div>
+    <div class="plans-grid">
+      <div class="plan">
+        <div class="plan-name">Grátis</div>
+        <div class="plan-price">R$ 0</div>
+        <p class="plan-desc">Para quem faz compras ocasionais</p>
+        <ul class="plan-features">
+          <li>5 rastreios por mês</li>
+          <li>Alertas por e-mail</li>
+          <li>IA de interpretação de status</li>
+          <li>Histórico de 30 dias</li>
+          <li>Suporte via FAQ</li>
+        </ul>
+        <button class="btn-plan" onclick="document.getElementById('code-input').focus()">Criar conta grátis</button>
+      </div>
+
+      <div class="plan plan--featured">
+        <div class="plan-badge">Mais popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">R$ 9,90<span>/mês</span></div>
+        <p class="plan-desc">Para quem compra online com frequência</p>
+        <ul class="plan-features">
+          <li>Rastreios <strong>ilimitados</strong></li>
+          <li>Alertas WhatsApp + e-mail + push</li>
+          <li>IA preditiva de data de entrega</li>
+          <li>Histórico ilimitado</li>
+          <li>Todas as 6 transportadoras</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <button class="btn-plan btn-plan--primary" onclick="document.getElementById('code-input').focus()">Começar grátis por 7 dias</button>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Business</div>
+        <div class="plan-price">R$ 29,90<span>/mês</span></div>
+        <p class="plan-desc">Para lojistas e equipes</p>
+        <ul class="plan-features">
+          <li>Tudo do Pro</li>
+          <li>Múltiplos usuários na conta</li>
+          <li>API de rastreamento (REST)</li>
+          <li>Exportação CSV / Excel</li>
+          <li>Integração Shopify / VTEX</li>
+          <li>Gerente de conta dedicado</li>
+        </ul>
+        <button class="btn-plan" onclick="window.location='/contato.html'">Falar com nossa equipe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────────────────────── -->
+<section class="faq">
+  <div class="container" style="max-width:760px">
+    <div style="text-align:center">
+      <span class="section-tag">FAQ</span>
+      <h2 class="section-h2">Perguntas frequentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">
+          A RastreIA é gratuita? <div class="chevron">▾</div>
+        </button>
+        <div class="faq-a">Sim! O plano gratuito inclui 5 rastreios por mês, alertas por e-mail e interpretação de status por IA — sem precisar colocar cartão de crédito. Para rastreios ilimitados e alertas no WhatsApp, upgrade para o plano Pro por R$ 9,90/mês.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Precisa criar conta para rastrear? <div class="chevron">▾</div>
+        </button>
+        <div class="faq-a">Não. Você pode rastrear qualquer código diretamente na página inicial sem criar conta. A conta é necessária para ativar os alertas automáticos, que avisam quando o status mudar.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Quais transportadoras são suportadas? <div class="chevron">▾</div>
+        </button>
+        <div class="faq-a">Atualmente suportamos Correios (todos os serviços: PAC, SEDEX, Registrado, Mini Envios), Jadlog, Total Express, Shopee Envios, Mercado Envios e Loggi. Novas integrações são adicionadas periodicamente.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Como a IA prevê a data de entrega? <div class="chevron">▾</div>
+        </button>
+        <div class="faq-a">Nossa IA analisa o histórico de rastreios similares — mesma origem, destino, transportadora e serviço — e calcula a distribuição estatística de prazos de entrega. A previsão tem precisão de ±1 dia em 78% dos casos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Meus dados estão seguros? <div class="chevron">▾</div>
+        </button>
+        <div class="faq-a">Sim. Coletamos apenas o e-mail e os códigos de rastreio que você fornece voluntariamente. Nunca vendemos dados a terceiros. Estamos em conformidade com a LGPD. Todos os dados são criptografados em trânsito (TLS 1.3) e em repouso.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Final ─────────────────────────────────────────────── -->
+<section class="cta-final">
+  <div class="container">
+    <h2>Comece a rastrear agora — é grátis</h2>
+    <p>Cole o código e veja o poder da IA interpretando sua encomenda em segundos.</p>
+    <form class="cta-form" id="cta-form-bottom">
+      <input
+        type="text" id="code-input-bottom" name="code"
+        placeholder="Cole o código de rastreio"
+        maxlength="13" autocomplete="off" spellcheck="false"
+        inputmode="text"
+      />
+      <button type="submit" class="btn-cta">Rastrear agora →</button>
+    </form>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:.6rem">
+          <div class="logo-mark" style="width:28px;height:28px">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>
+          </div>
+          <span style="font-size:1rem;color:#e2e8f0">Rastre<span style="color:#60a5fa">IA</span></span>
+        </div>
+        <p>Rastreamento inteligente de encomendas para consumidores e lojistas brasileiros.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="#funcionalidades">Funcionalidades</a></li>
+          <li><a href="#precos">Preços</a></li>
+          <li><a href="/sobre.html">Sobre nós</a></li>
+          <li><a href="/contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Transportadoras</h4>
+        <ul>
+          <li><a href="/rastreamento-correios.html">Correios</a></li>
+          <li><a href="#">Jadlog</a></li>
+          <li><a href="#">Shopee Envios</a></li>
+          <li><a href="#">Mercado Envios</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacidade.html">Privacidade (LGPD)</a></li>
+          <li><a href="/privacidade.html">Cookies</a></li>
+          <li><a href="/contato.html">Suporte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="ft-year"></span> RastreIA — Portal independente de rastreamento. Não somos afiliados aos Correios (ECT) nem a nenhuma transportadora.</span>
+      <span>LGPD compliant · TLS 1.3</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cookie banner -->
+<div id="ck-banner" style="display:none">
+  <span>Usamos cookies para melhorar sua experiência. <a href="/privacidade.html">Saiba mais</a>.</span>
+  <button id="ck-ok">OK, entendi</button>
+</div>
+
+<!-- ── JavaScript ─────────────────────────────────────────────── -->
+<script>
+(function () {
+  'use strict';
+
+  // ── Utilities ─────────────────────────────────────────────
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+  function $(id) { return document.getElementById(id); }
+
+  // ── Footer year ───────────────────────────────────────────
+  $('ft-year').textContent = new Date().getFullYear();
+
+  // ── Cookie banner ─────────────────────────────────────────
+  if (!localStorage.getItem('ck2')) {
+    $('ck-banner').style.display = 'flex';
+    $('ck-ok').onclick = function() {
+      localStorage.setItem('ck2','1');
+      $('ck-banner').style.display = 'none';
+    };
+  }
+
+  // ── Animated counters ─────────────────────────────────────
+  var dailyBase = 44200 + Math.floor(Date.now() / 3600000) % 4800;
+  var dailyCount = dailyBase;
+  var totalBase  = 1240000 + Math.floor(Date.now() / 86400000) % 15000;
+
+  $('daily-count').textContent = dailyCount.toLocaleString('pt-BR');
+  $('total-count').textContent  = totalBase.toLocaleString('pt-BR');
+
+  setInterval(function () {
+    dailyCount += Math.floor(Math.random() * 3);
+    $('daily-count').textContent = dailyCount.toLocaleString('pt-BR');
+  }, 5000);
+
+  // ── FAQ accordion ─────────────────────────────────────────
+  document.querySelectorAll('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ── Tracking Widget ───────────────────────────────────────
+  var currentCode = '';
+
+  function setLoading(v) {
+    $('btn-text')[v ? 'setAttribute' : 'removeAttribute']('hidden','');
+    $('btn-load')[v ? 'removeAttribute' : 'setAttribute']('hidden','');
+    $('track-btn').disabled = v;
+  }
+
+  function showError(msg) {
+    var el = $('error-msg');
+    el.textContent = msg;
+    el.classList.remove('hidden');
+  }
+
+  function hideError() {
+    $('error-msg').classList.add('hidden');
+  }
+
+  function renderResults(data) {
+    // AI card
+    $('ai-icon').textContent = data.ai_icon || '📦';
+    $('ai-code-val').textContent = data.code;
+    $('ai-text').textContent = data.ai_summary || '';
+
+    // Demo badge
+    if (data.demo) {
+      $('demo-notice').classList.remove('hidden');
+    } else {
+      $('demo-notice').classList.add('hidden');
+    }
+
+    // Timeline
+    var tl = $('timeline');
+    tl.innerHTML = '';
+    (data.events || []).forEach(function(ev, i) {
+      var div = document.createElement('div');
+      div.className = 'tl-item';
+      div.innerHTML =
+        '<div class="tl-dot"></div>' +
+        '<div>' +
+          '<div class="tl-status">' + esc(ev.status) + '</div>' +
+          '<div class="tl-meta">' +
+            (ev.date ? esc(ev.date) : '') +
+            (ev.location ? ' &nbsp;·&nbsp; ' + esc(ev.location) : '') +
+          '</div>' +
+        '</div>';
+      tl.appendChild(div);
+    });
+
+    $('tl-header').textContent = 'Histórico · ' + (data.events || []).length + ' evento(s)';
+
+    // Show section
+    $('results-area').classList.remove('hidden');
+    setTimeout(function() {
+      $('results-area').scrollIntoView({behavior:'smooth', block:'start'});
+    }, 80);
+
+    // Reset signup form
+    var sf = $('signup-form');
+    sf.reset();
+    sf.classList.remove('hidden');
+    $('signup-card').querySelector('p').textContent =
+      'Receba um alerta por e-mail assim que ' + data.code + ' atualizar.';
+
+    // GA4
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'track_code', {code: data.code, demo: data.demo});
+    }
+  }
+
+  async function doTrack(code) {
+    code = code.toUpperCase().replace(/\s/g,'');
+    if (!code) { showError('Cole o código de rastreio no campo acima.'); return; }
+    if (!/^[A-Z]{2}\d{9}[A-Z]{2}$/.test(code)) {
+      showError('Formato inválido. O código deve ter 13 caracteres: dois letras + 9 números + dois letras. Exemplo: AA123456789BR');
+      return;
+    }
+    hideError();
+    setLoading(true);
+    currentCode = code;
+    try {
+      var resp = await fetch('/track.php?code=' + encodeURIComponent(code));
+      var data = await resp.json();
+      if (!data.ok) {
+        showError(data.error || 'Não foi possível rastrear. Tente novamente.');
+        return;
+      }
+      if (!data.found) {
+        showError(data.error || 'Código não encontrado nos Correios. Verifique o número ou aguarde 24h.');
+        return;
+      }
+      renderResults(data);
+    } catch(e) {
+      showError('Erro de conexão. Verifique sua internet e tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Main form
+  $('tracker-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    doTrack($('code-input').value.trim());
+  });
+
+  // Bottom CTA form — scroll up and fill
+  $('cta-form-bottom').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var v = $('code-input-bottom').value.trim();
+    $('code-input').value = v;
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(function() { doTrack(v); }, 600);
+  });
+
+  // Auto-uppercase code input
+  $('code-input').addEventListener('input', function() {
+    var s = this.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+    if (s !== this.value) this.value = s;
+    hideError();
+  });
+
+  // ── Signup form ───────────────────────────────────────────
+  $('signup-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = $('email-input').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      $('email-input').style.borderColor = 'var(--red)';
+      return;
+    }
+    $('email-input').style.borderColor = '';
+    var btn = $('signup-btn');
+    btn.textContent = 'Salvando…';
+    btn.disabled = true;
+    setTimeout(function() {
+      $('signup-form').outerHTML =
+        '<div class="signup-success">✅ <span><strong>' + esc(currentCode) + '</strong> está sendo monitorado! Você receberá um e-mail assim que o status mudar.</span></div>';
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'lead_signup', {code: currentCode});
+      }
+    }, 900);
+  });
+
+})();
+</script>
+</body>
+</html>
