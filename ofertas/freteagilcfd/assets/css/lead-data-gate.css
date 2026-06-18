@@ -1,0 +1,194 @@
+.ldg-open {
+    overflow: hidden;
+}
+
+.ldg-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.68);
+    backdrop-filter: blur(2px);
+}
+
+.ldg-overlay.active {
+    display: flex;
+}
+
+.ldg-modal {
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.25);
+}
+
+.ldg-title {
+    margin: 0 0 6px;
+    font-size: 1.3rem;
+    color: #111111;
+}
+
+.ldg-subtitle {
+    margin: 0 0 16px;
+    font-size: 0.95rem;
+    color: #525252;
+}
+
+.ldg-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ldg-section-title {
+    margin-top: 4px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #222222;
+}
+
+.ldg-required-asterisk {
+    color: #d93025;
+    font-weight: 800;
+}
+
+.ldg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.ldg-grid-cep-cidade-uf {
+    grid-template-columns: 126px minmax(0, 1fr) 84px;
+}
+
+.ldg-grid-cidade-uf {
+    grid-template-columns: minmax(0, 1fr) 92px;
+}
+
+.ldg-grid-logradouro-numero {
+    grid-template-columns: minmax(0, 1fr) 120px;
+}
+
+.ldg-grid-bairro-complemento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ldg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ldg-field label {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #1f1f1f;
+}
+
+.ldg-field label[for="ldg-email"],
+.ldg-field label[for="ldg-telefone"],
+.ldg-field label[for="ldg-cep"],
+.ldg-field label[for="ldg-cidade"],
+.ldg-field label[for="ldg-uf"],
+.ldg-field label[for="ldg-logradouro"],
+.ldg-field label[for="ldg-numero"],
+.ldg-field label[for="ldg-bairro"],
+.ldg-field label[for="ldg-complemento"] {
+    color: #334155;
+}
+
+.ldg-field input {
+    width: 100%;
+    border: 1px solid #d6d6d6;
+    border-radius: 9px;
+    padding: 11px 12px;
+    font-size: 1rem;
+    color: #1f1f1f;
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ldg-field input:focus {
+    outline: none;
+    border-color: #2d6cdf;
+}
+
+.ldg-field input.ldg-input-error {
+    border-color: #d93025;
+}
+
+.ldg-error {
+    min-height: 14px;
+    font-size: 0.78rem;
+    color: #d93025;
+}
+
+.ldg-hint {
+    margin: -4px 0 2px;
+    font-size: 0.8rem;
+    color: #5f6368;
+}
+
+.ldg-hint.success {
+    color: #14833b;
+}
+
+.ldg-hint.warning {
+    color: #b44b00;
+}
+
+.ldg-submit {
+    margin-top: 6px;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 15px;
+    background: #0a66ff;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.ldg-submit:hover {
+    opacity: 0.93;
+}
+
+@media (max-width: 640px) {
+    .ldg-overlay {
+        padding: 12px;
+    }
+
+    .ldg-modal {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .ldg-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ldg-grid-cep-cidade-uf {
+        grid-template-columns: 110px minmax(0, 1fr) 70px;
+    }
+
+    .ldg-grid-cidade-uf {
+        grid-template-columns: minmax(0, 1fr) 84px;
+    }
+
+    .ldg-grid-logradouro-numero {
+        grid-template-columns: minmax(0, 1fr) 104px;
+    }
+
+    .ldg-grid-bairro-complemento {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

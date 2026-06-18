@@ -1,0 +1,161 @@
+.checkout-etapas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 1rem 1rem 0.75rem;
+    border-bottom: 1px solid #dce5ed;
+    background: #f8fafc;
+}
+
+.checkout-etapa-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    opacity: 0.65;
+    transition: all 0.2s ease;
+}
+
+.checkout-etapa-item.active {
+    opacity: 1;
+    background: #eef6ff;
+    border-color: #bfdbfe;
+}
+
+.checkout-etapa-item.done {
+    opacity: 1;
+}
+
+.checkout-etapa-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #b6c5d1;
+    color: #506579;
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.checkout-etapa-item.active .checkout-etapa-badge {
+    border-color: #004169;
+    background: #004169;
+    color: #ffffff;
+}
+
+.checkout-etapa-item.done .checkout-etapa-badge {
+    border-color: #0f8a3f;
+    background: #0f8a3f;
+    color: #ffffff;
+}
+
+.checkout-etapa-texto {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.checkout-etapa-texto strong {
+    font-size: 0.76rem;
+    color: #1e293b;
+}
+
+.checkout-etapa-texto span {
+    font-size: 0.68rem;
+    color: #64748b;
+}
+
+.checkout-etapa-separador {
+    color: #94a3b8;
+    font-size: 0.72rem;
+}
+
+.checkout-step1-card {
+    display: none;
+    padding: 1.1rem;
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
+}
+
+.checkout-step1-card .ldg-title {
+    margin: 0 0 0.35rem;
+    color: #004169;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.checkout-step1-card .ldg-subtitle {
+    margin: 0 0 0.9rem;
+    color: #5b6673;
+    font-size: 0.85rem;
+}
+
+.checkout-step1-card .ldg-form {
+    gap: 0.8rem;
+}
+
+.checkout-step1-card .ldg-section-title {
+    margin-top: 0.2rem;
+    color: #1f2a37;
+}
+
+.checkout-step1-card .ldg-field input {
+    border: 2px solid #dbe3ea;
+    border-radius: 10px;
+    padding: 0.78rem 0.85rem;
+}
+
+.checkout-step1-card .ldg-field input:focus {
+    border-color: #0071ad;
+}
+
+.checkout-step1-card .ldg-submit {
+    margin-top: 0.35rem;
+    border-radius: 10px;
+    padding: 0.92rem 0.95rem;
+    background: linear-gradient(135deg, #004169 0%, #0060a0 100%);
+    font-size: 0.92rem;
+}
+
+.checkout-step1-card .ldg-hint:empty,
+.checkout-step1-card .ldg-error:empty {
+    display: none;
+}
+
+.checkout-step2 {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .checkout-etapas {
+        padding: 0.85rem 0.65rem 0.7rem;
+        gap: 0.4rem;
+    }
+
+    .checkout-etapa-item {
+        flex: 1;
+        justify-content: center;
+        padding: 0.42rem 0.32rem;
+        gap: 0.35rem;
+    }
+
+    .checkout-etapa-texto strong,
+    .checkout-etapa-texto span {
+        display: none;
+    }
+
+    .checkout-etapa-separador {
+        display: none;
+    }
+
+    .checkout-step1-card {
+        padding: 0.95rem;
+    }
+}

