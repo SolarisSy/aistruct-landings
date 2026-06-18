@@ -36,8 +36,8 @@ function _zip_get(string $tx_id): ?array {
     return $body ? json_decode($body, true) : null;
 }
 
-function zip_create_pix(int $amount_cents, string $product_hash_env_key, array $customer): ?array {
-    $offer_hash   = getenv('ZIPPIFY_OFFER_HASH');
+function zip_create_pix(int $amount_cents, string $offer_hash_env_key, string $product_hash_env_key, array $customer): ?array {
+    $offer_hash   = getenv($offer_hash_env_key);
     $product_hash = getenv($product_hash_env_key);
     if (!$offer_hash || !$product_hash) return null;
 
@@ -100,11 +100,11 @@ function read_body(): array {
 }
 
 function build_pix_response(array $zip_resp, int $amount_cents, string $amount_fmt, array $customer): array {
-    $d = $zip_resp['data'] ?? [];
+    // Zippify response: {hash, pix: {pix_qr_code}, payment_status, ...} — sem wrapper data
     return [
-        'transaction_hash' => (string)($d['id'] ?? ''),
-        'pix_code'         => $d['pix']['pix_qr_code'] ?? '',
-        'pix_qrcode'       => $d['pix']['pix_qr_code'] ?? '',
+        'transaction_hash' => (string)($zip_resp['hash'] ?? ''),
+        'pix_code'         => $zip_resp['pix']['pix_qr_code'] ?? '',
+        'pix_qrcode'       => $zip_resp['pix']['pix_qr_code'] ?? '',
         'amount'           => $amount_cents,
         'amount_formatted' => $amount_fmt,
         'expires_at'       => time() + 3600,

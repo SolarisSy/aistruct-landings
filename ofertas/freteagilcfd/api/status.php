@@ -13,8 +13,8 @@ if (!$resp) {
     json_err('Erro ao consultar status', 500);
 }
 
-$d      = $resp['data'] ?? [];
-$status = (string)($d['status'] ?? 'pending');
+// Zippify: status direto em payment_status (string), sem wrapper data
+$status = (string)($resp['payment_status'] ?? 'pending');
 $paid   = is_paid_status($status);
 
 json_ok([
@@ -22,6 +22,6 @@ json_ok([
     'status'           => $paid ? 'paid' : $status,
     'transaction_hash' => $hash,
     'hash'             => $hash,
-    'pix_code'         => $d['pix']['pix_qr_code'] ?? '',
+    'pix_code'         => $resp['pix']['pix_qr_code'] ?? '',
     'amount_formatted' => '',
 ]);

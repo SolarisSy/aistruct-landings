@@ -28,9 +28,9 @@ $amount = (int)($cfg['taxa_cents'] ?? 6798);
 $fmt    = $cfg['taxa_fmt']   ?? 'R$ 67,98';
 
 $customer = ['name' => $nome ?: 'Prezado', 'document' => $cpf, 'email' => $email, 'phone' => $fone];
-$resp = zip_create_pix($amount, 'ZIPPIFY_PRODUCT_HASH_FRONTEND', $customer);
+$resp = zip_create_pix($amount, 'ZIPPIFY_OFFER_HASH_FRONTEND', 'ZIPPIFY_PRODUCT_HASH_FRONTEND', $customer);
 
-if (!$resp || empty($resp['data']['id'])) {
+if (!$resp || empty($resp['hash'])) {
     error_log('[pix.php] Zippify error: ' . json_encode($resp));
     json_err('Erro ao gerar PIX. Tente novamente.', 500);
 }
