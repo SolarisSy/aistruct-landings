@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — RastreIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--teal:#2ec4b6;--teal-dark:#20a89b;--bg:#0d1117;--surface:#161b22;--surface2:#1c2430;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--red:#f85149;--green:#3fb950}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+
+/* ── HEADER ── */
+.hdr{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.logo{font-size:1.15rem;font-weight:700;color:var(--teal);letter-spacing:-.3px}
+.logo span{color:var(--text)}
+.lock{color:var(--muted);font-size:.8rem;display:flex;align-items:center;gap:4px;margin-left:auto}
+.lock svg{opacity:.6}
+
+/* ── LAYOUT ── */
+.main{flex:1;display:flex;align-items:flex-start;justify-content:center;gap:24px;padding:32px 16px;max-width:960px;margin:0 auto;width:100%}
+@media(max-width:700px){.main{flex-direction:column-reverse;padding:20px 12px}}
+
+/* ── PLAN CARD ── */
+.plan-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;width:300px;flex-shrink:0}
+@media(max-width:700px){.plan-card{width:100%}}
+.plan-badge{display:inline-block;background:rgba(46,196,182,.15);color:var(--teal);font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.plan-name{font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.plan-price{font-size:2rem;font-weight:700;color:var(--teal);margin:8px 0}
+.plan-price span{font-size:.9rem;font-weight:400;color:var(--muted)}
+.plan-divider{border:none;border-top:1px solid var(--border);margin:16px 0}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:10px}
+.plan-features li{display:flex;align-items:center;gap:8px;font-size:.87rem;color:var(--muted)}
+.plan-features li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0}
+
+/* ── FORM CARD ── */
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;flex:1;max-width:560px}
+.form-title{font-size:1.1rem;font-weight:600;margin-bottom:20px}
+
+.field{margin-bottom:16px}
+label{display:block;font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:6px}
+input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:.93rem;font-family:inherit;outline:none;transition:border-color .2s}
+input:focus{border-color:var(--teal)}
+input::placeholder{color:#4a5568}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.row{grid-template-columns:1fr}}
+
+.btn-pay{width:100%;background:var(--teal);color:#fff;border:none;border-radius:8px;padding:14px;font-size:1rem;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;transition:background .2s}
+.btn-pay:hover{background:var(--teal-dark)}
+.btn-pay:disabled{opacity:.6;cursor:not-allowed}
+
+.errmsg{background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);color:var(--red);border-radius:8px;padding:10px 14px;font-size:.85rem;margin-top:12px;display:none}
+
+/* ── PIX AREA ── */
+.pix-area{display:none;text-align:center}
+.pix-label{font-size:.82rem;color:var(--muted);margin-bottom:12px}
+.qr-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:12px;display:inline-block;padding:16px;margin-bottom:16px}
+.qr-wrap img{display:block;width:200px;height:200px;image-rendering:pixelated}
+.pix-code-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;word-break:break-all;font-size:.73rem;color:var(--muted);text-align:left;margin-bottom:12px;max-height:72px;overflow:hidden}
+.btn-copy{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 20px;font-size:.87rem;font-weight:500;font-family:inherit;cursor:pointer;width:100%;margin-bottom:16px;transition:border-color .2s}
+.btn-copy:hover{border-color:var(--teal)}
+.btn-copy.copied{border-color:var(--teal);color:var(--teal)}
+.wait-badge{display:flex;align-items:center;gap:8px;justify-content:center;font-size:.85rem;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.timer{font-variant-numeric:tabular-nums;font-weight:500;color:var(--text)}
+
+/* ── SUCCESS ── */
+.success-area{display:none;text-align:center;padding:16px 0}
+.check-circle{width:64px;height:64px;background:rgba(63,185,80,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem}
+.success-title{font-size:1.2rem;font-weight:700;color:var(--green);margin-bottom:8px}
+.success-desc{font-size:.87rem;color:var(--muted);margin-bottom:20px}
+.btn-ok{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:12px 28px;font-size:.93rem;font-weight:600;font-family:inherit;cursor:pointer}
+
+/* ── SECURITY ROW ── */
+.secure-row{display:flex;align-items:center;justify-content:center;gap:20px;padding:16px;color:var(--muted);font-size:.75rem;flex-wrap:wrap}
+.secure-row span{display:flex;align-items:center;gap:5px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="logo">Rastre<span>IA</span></div>
+  <div class="lock">
+    <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M10 6H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1Z" stroke="currentColor" stroke-width="1.4"/><path d="M4 6V4a2 2 0 1 1 4 0v2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    Checkout seguro
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- PLAN SUMMARY -->
+  <aside class="plan-card" id="plan-card">
+    <div class="plan-badge" id="plan-badge">Pro</div>
+    <div class="plan-name" id="plan-name">RastreIA Pro</div>
+    <div class="plan-price" id="plan-price">R$ 9,90<span>/mês</span></div>
+    <hr class="plan-divider">
+    <ul class="plan-features" id="plan-features">
+      <li>Rastreios ilimitados</li>
+      <li>Alertas WhatsApp + e-mail + push</li>
+      <li>IA preditiva de data de entrega</li>
+      <li>Histórico ilimitado</li>
+      <li>Todas as transportadoras</li>
+      <li>Suporte prioritário</li>
+    </ul>
+  </aside>
+
+  <!-- CHECKOUT FORM -->
+  <section class="form-card">
+    <div id="form-view">
+      <h2 class="form-title">Seus dados para pagamento</h2>
+
+      <div class="field">
+        <label>Nome completo</label>
+        <input type="text" id="f-name" placeholder="Ex: Maria Oliveira" autocomplete="name">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>CPF</label>
+          <input type="text" id="f-cpf" placeholder="000.000.000-00" maxlength="14" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label>WhatsApp</label>
+          <input type="tel" id="f-phone" placeholder="(11) 99999-9999" maxlength="15">
+        </div>
+      </div>
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" id="f-email" placeholder="seu@email.com" autocomplete="email">
+      </div>
+
+      <button class="btn-pay" id="btn-pay" onclick="submitForm()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9h18M7 15h2m4 0h2M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="white" stroke-width="1.7" stroke-linecap="round"/></svg>
+        Gerar PIX
+      </button>
+      <div class="errmsg" id="errmsg"></div>
+    </div>
+
+    <!-- PIX QR CODE -->
+    <div class="pix-area" id="pix-area">
+      <p class="pix-label">Escaneie o QR code ou copie o código PIX</p>
+      <div class="qr-wrap"><img id="qr-img" src="" alt="QR Code PIX"></div>
+      <div class="pix-code-box" id="pix-text"></div>
+      <button class="btn-copy" id="btn-copy" onclick="copyPix()">Copiar código PIX</button>
+      <div class="wait-badge">
+        <div class="dot"></div>
+        Aguardando pagamento&nbsp;·&nbsp;<span class="timer" id="timer">15:00</span>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-area" id="success-area">
+      <div class="check-circle">✓</div>
+      <div class="success-title">Pagamento confirmado!</div>
+      <p class="success-desc">Acesse seu painel para começar a rastrear suas encomendas com IA.</p>
+      <button class="btn-ok" onclick="window.location='/'">Ir para o RastreIA →</button>
+    </div>
+  </section>
+</div>
+
+<div class="secure-row">
+  <span>🔒 SSL 256 bits</span>
+  <span>🏦 PIX via Banco Central</span>
+  <span>✅ Dados protegidos pela LGPD</span>
+</div>
+
+<script>
+const PLANS = {
+  pro: {
+    badge:'Pro', name:'RastreIA Pro', price:'R$ 9,90', label:'RastreIA Pro — 1 mês',
+    features:['Rastreios ilimitados','Alertas WhatsApp + e-mail + push','IA preditiva de data de entrega','Histórico ilimitado','Todas as transportadoras','Suporte prioritário']
+  },
+  business: {
+    badge:'Business', name:'RastreIA Business', price:'R$ 29,90', label:'RastreIA Business — 1 mês',
+    features:['Tudo do Pro','Múltiplos usuários','API de rastreamento REST','Exportação CSV / Excel','Integração Shopify / VTEX','Gerente de conta dedicado']
+  }
+};
+
+const params = new URLSearchParams(location.search);
+const plan   = PLANS[params.get('plan')] ? params.get('plan') : 'pro';
+const P      = PLANS[plan];
+
+document.getElementById('plan-badge').textContent  = P.badge;
+document.getElementById('plan-name').textContent   = P.name;
+document.getElementById('plan-price').innerHTML    = P.price + '<span>/mês</span>';
+document.getElementById('plan-features').innerHTML = P.features.map(f => `<li>${f}</li>`).join('');
+
+// CPF mask
+document.getElementById('f-cpf').addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'').slice(0,11);
+  if (v.length > 9)      v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4');
+  else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d+)/,'$1.$2.$3');
+  else if (v.length > 3) v = v.replace(/(\d{3})(\d+)/,'$1.$2');
+  e.target.value = v;
+});
+
+// Phone mask
+document.getElementById('f-phone').addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'').slice(0,11);
+  if (v.length > 10)     v = v.replace(/(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');
+  else if (v.length > 6) v = v.replace(/(\d{2})(\d{4,5})(\d*)/,'($1) $2-$3');
+  else if (v.length > 2) v = v.replace(/(\d{2})(\d+)/,'($1) $2');
+  e.target.value = v;
+});
+
+let pixHash = null, pollTimer = null, countdown = null, secs = 900;
+
+function submitForm() {
+  const name  = document.getElementById('f-name').value.trim();
+  const cpf   = document.getElementById('f-cpf').value.replace(/\D/g,'');
+  const email = document.getElementById('f-email').value.trim();
+  const phone = document.getElementById('f-phone').value.replace(/\D/g,'');
+
+  if (!name || cpf.length !== 11 || !email.includes('@') || phone.length < 10) {
+    showErr('Preencha todos os campos corretamente.');
+    return;
+  }
+
+  const btn = document.getElementById('btn-pay');
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="animation:spin .8s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="white" stroke-width="2" stroke-linecap="round"/></svg> Gerando PIX...';
+
+  fetch('checkout.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({plan, name, cpf, email, phone})
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (d.ok && d.hash) {
+      pixHash = d.hash;
+      if (d.qr_img) document.getElementById('qr-img').src = d.qr_img;
+      document.getElementById('pix-text').textContent = d.qr_code || '';
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('pix-area').style.display  = 'block';
+      startCountdown();
+      startPoll();
+    } else {
+      showErr(d.error || 'Erro ao gerar PIX. Tente novamente.');
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9h18M7 15h2m4 0h2M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="white" stroke-width="1.7" stroke-linecap="round"/></svg> Gerar PIX';
+    }
+  })
+  .catch(() => {
+    showErr('Erro de conexão. Tente novamente.');
+    btn.disabled = false;
+    btn.innerHTML = 'Gerar PIX';
+  });
+}
+
+function copyPix() {
+  const code = document.getElementById('pix-text').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    const b = document.getElementById('btn-copy');
+    b.textContent = '✓ Código copiado!';
+    b.classList.add('copied');
+    setTimeout(() => { b.textContent = 'Copiar código PIX'; b.classList.remove('copied'); }, 2500);
+  });
+}
+
+function startCountdown() {
+  const el = document.getElementById('timer');
+  countdown = setInterval(() => {
+    secs--;
+    const m = Math.floor(secs / 60).toString().padStart(2,'0');
+    const s = (secs % 60).toString().padStart(2,'0');
+    el.textContent = m + ':' + s;
+    if (secs <= 0) { clearInterval(countdown); el.textContent = 'Expirado'; }
+  }, 1000);
+}
+
+function startPoll() {
+  pollTimer = setInterval(() => {
+    if (!pixHash) return;
+    fetch(`checkout.php?action=status&hash=${pixHash}`)
+      .then(r => r.json())
+      .then(d => {
+        if (d.paid) {
+          clearInterval(pollTimer);
+          clearInterval(countdown);
+          document.getElementById('pix-area').style.display    = 'none';
+          document.getElementById('success-area').style.display = 'block';
+        }
+      })
+      .catch(() => {});
+  }, 4000);
+}
+
+function showErr(msg) {
+  const el = document.getElementById('errmsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+</script>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+</body>
+</html>
