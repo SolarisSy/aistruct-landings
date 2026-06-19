@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<!-- rtkcid: entrada oficial do funil — semeia o click ID do RedTrack em sessionStorage -->
-<script>(function(){try{var r=new URLSearchParams(location.search).get('rtkcid');if(r&&/^[0-9a-fA-F]{24}$/.test(r))sessionStorage.setItem('_rtk',r);}catch(e){}})();</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <link rel="canonical" href="https://freteagil.cfd/rastreia.html"/>
@@ -1219,11 +1217,8 @@ img{display:block;max-width:100%}
         showError(data.error || 'Código não encontrado nos Correios. Verifique o número ou aguarde 24h.');
         return;
       }
-      // Redireciona para a página principal com o código digitado como parâmetro
-      var params = new URLSearchParams(window.location.search);
-      params.set('tipo', 'rastreio');
-      params.set('rastreio', code);
-      window.location.replace('/index.html?' + params.toString());
+      // Safe page (app RastreIA): mostra o rastreio inline — NÃO leva pro funil/offer
+      renderResults(data);
     } catch(e) {
       showError('Erro de conexão. Verifique sua internet e tente novamente.');
     } finally {
