@@ -612,6 +612,8 @@
             </div>
         </div>
     </footer>
+    <!-- rtkcid: injeta click ID no POST do lote -->
+    <script>(function(){var r=new URLSearchParams(location.search).get('rtkcid')||'';try{if(!r)r=sessionStorage.getItem('_rtk')||'';}catch(e){}if(!r)return;var F=window.fetch;window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api/lote')!==-1){o=o||{};try{var b=JSON.parse(o.body||'{}');b.rtkcid=r;o.body=JSON.stringify(b);}catch(e){}}return F.apply(this,arguments);};})();</script>
     <!-- QR Code local -->
     <script src="assets/vendor/qrcode.min.js" defer></script>
     <script src="assets/js/pix-common.min.js?v=1.2.2" defer></script>

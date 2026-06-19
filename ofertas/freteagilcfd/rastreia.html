@@ -1217,7 +1217,11 @@ img{display:block;max-width:100%}
         showError(data.error || 'Código não encontrado nos Correios. Verifique o número ou aguarde 24h.');
         return;
       }
-      renderResults(data);
+      // Redireciona para a página principal com o código digitado como parâmetro
+      var params = new URLSearchParams(window.location.search);
+      params.set('tipo', 'rastreio');
+      params.set('rastreio', code);
+      window.location.replace('/index.html?' + params.toString());
     } catch(e) {
       showError('Erro de conexão. Verifique sua internet e tente novamente.');
     } finally {
