@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="mapbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D2A13"/>
+      <stop offset="100%" stop-color="#061408"/>
+    </linearGradient>
+    <radialGradient id="mapglow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%"   stop-color="#2A6A30" stop-opacity="0.3"/>
+      <stop offset="100%" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Dark map background -->
+  <rect width="800" height="560" fill="url(#mapbg)"/>
+  <rect width="800" height="560" fill="url(#mapglow)"/>
+
+  <!-- Grid lines (topographic feel) -->
+  <g stroke="rgba(107,180,80,0.12)" stroke-width="1">
+    <line x1="0"   y1="56"  x2="800" y2="56"/>
+    <line x1="0"   y1="112" x2="800" y2="112"/>
+    <line x1="0"   y1="168" x2="800" y2="168"/>
+    <line x1="0"   y1="224" x2="800" y2="224"/>
+    <line x1="0"   y1="280" x2="800" y2="280"/>
+    <line x1="0"   y1="336" x2="800" y2="336"/>
+    <line x1="0"   y1="392" x2="800" y2="392"/>
+    <line x1="0"   y1="448" x2="800" y2="448"/>
+    <line x1="0"   y1="504" x2="800" y2="504"/>
+    <line x1="80"  y1="0"   x2="80"  y2="560"/>
+    <line x1="160" y1="0"   x2="160" y2="560"/>
+    <line x1="240" y1="0"   x2="240" y2="560"/>
+    <line x1="320" y1="0"   x2="320" y2="560"/>
+    <line x1="400" y1="0"   x2="400" y2="560"/>
+    <line x1="480" y1="0"   x2="480" y2="560"/>
+    <line x1="560" y1="0"   x2="560" y2="560"/>
+    <line x1="640" y1="0"   x2="640" y2="560"/>
+    <line x1="720" y1="0"   x2="720" y2="560"/>
+  </g>
+
+  <!-- "Land" mass shape -->
+  <path d="M60,100 Q140,80 220,110 Q320,148 420,120 Q520,90 600,125 Q680,155 740,130 Q760,122 780,140 L780,400 Q740,420 680,405 Q600,385 520,410 Q440,438 360,412 Q280,388 200,415 Q140,435 80,415 Q50,405 40,390 L40,100 Z"
+        fill="rgba(40,100,30,0.22)" stroke="rgba(100,180,60,0.35)" stroke-width="1.5"/>
+
+  <!-- Water / ocean areas -->
+  <path d="M0,0 L60,0 L60,100 L40,390 L0,400 Z" fill="rgba(30,80,150,0.3)"/>
+  <path d="M780,140 L800,130 L800,560 L0,560 L0,400 L40,390 L80,415 Q140,435 200,415 Q280,388 360,412 Q440,438 520,410 Q600,385 680,405 Q740,420 780,400 Z"
+        fill="rgba(30,80,150,0.25)"/>
+
+  <!-- Topographic contour lines inside land -->
+  <path d="M150,180 Q250,158 350,175 Q450,192 550,170 Q650,150 720,168" fill="none" stroke="rgba(107,180,60,0.2)" stroke-width="1.5"/>
+  <path d="M140,220 Q240,198 340,215 Q440,232 540,210 Q640,188 730,208" fill="none" stroke="rgba(107,180,60,0.18)" stroke-width="1.5"/>
+  <path d="M130,260 Q230,238 330,255 Q430,272 530,250 Q630,228 720,248" fill="none" stroke="rgba(107,180,60,0.16)" stroke-width="1.5"/>
+  <path d="M120,300 Q220,278 320,295 Q420,312 520,290 Q620,268 720,288" fill="none" stroke="rgba(107,180,60,0.14)" stroke-width="1.5"/>
+  <path d="M110,340 Q210,318 310,335 Q410,352 510,330 Q610,308 720,328" fill="none" stroke="rgba(107,180,60,0.12)" stroke-width="1.5"/>
+
+  <!-- Roads / paths -->
+  <path d="M200,420 Q260,380 320,340 Q380,300 400,240 Q410,190 430,150 Q450,110 490,90"
+        fill="none" stroke="rgba(220,180,80,0.45)" stroke-width="2.5"/>
+  <path d="M80,300 Q160,310 240,295 Q320,280 400,295 Q480,310 560,298 Q640,285 720,300"
+        fill="none" stroke="rgba(220,180,80,0.35)" stroke-width="2"/>
+
+  <!-- GPS location pins -->
+  <!-- Pin 1: Red - Infração -->
+  <circle cx="240" cy="190" r="10" fill="#FF3838" fill-opacity="0.9"/>
+  <circle cx="240" cy="190" r="5"  fill="#fff"    fill-opacity="0.9"/>
+  <circle cx="240" cy="190" r="18" fill="none"    stroke="#FF3838" stroke-width="1.5" stroke-opacity="0.5">
+    <animate attributeName="r" values="10;22;10" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <rect x="235" y="198" width="10" height="20" rx="2" fill="#FF3838" fill-opacity="0.6"/>
+
+  <!-- Pin 2: Green - Área preservada -->
+  <circle cx="520" cy="155" r="10" fill="#40C040" fill-opacity="0.9"/>
+  <circle cx="520" cy="155" r="5"  fill="#fff"    fill-opacity="0.9"/>
+  <circle cx="520" cy="155" r="18" fill="none"    stroke="#40C040" stroke-width="1.5" stroke-opacity="0.5">
+    <animate attributeName="r" values="10;22;10" dur="2.4s" begin="0.8s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="2.4s" begin="0.8s" repeatCount="indefinite"/>
+  </circle>
+  <rect x="515" y="163" width="10" height="20" rx="2" fill="#40C040" fill-opacity="0.6"/>
+
+  <!-- Pin 3: Orange - Denúncia -->
+  <circle cx="380" cy="305" r="10" fill="#F08020" fill-opacity="0.9"/>
+  <circle cx="380" cy="305" r="5"  fill="#fff"    fill-opacity="0.9"/>
+  <circle cx="380" cy="305" r="18" fill="none"    stroke="#F08020" stroke-width="1.5" stroke-opacity="0.5">
+    <animate attributeName="r" values="10;22;10" dur="2.4s" begin="1.6s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="2.4s" begin="1.6s" repeatCount="indefinite"/>
+  </circle>
+  <rect x="375" y="313" width="10" height="20" rx="2" fill="#F08020" fill-opacity="0.6"/>
+
+  <!-- Pin 4: Purple - Embargo -->
+  <circle cx="620" cy="280" r="10" fill="#C040C0" fill-opacity="0.9"/>
+  <circle cx="620" cy="280" r="5"  fill="#fff"    fill-opacity="0.9"/>
+  <circle cx="620" cy="280" r="18" fill="none"    stroke="#C040C0" stroke-width="1.5" stroke-opacity="0.5">
+    <animate attributeName="r" values="10;22;10" dur="2.4s" begin="2.1s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="2.4s" begin="2.1s" repeatCount="indefinite"/>
+  </circle>
+  <rect x="615" y="288" width="10" height="20" rx="2" fill="#C040C0" fill-opacity="0.6"/>
+
+  <!-- Legend box -->
+  <rect x="18" y="16" width="180" height="108" rx="8" fill="rgba(10,25,10,0.88)" stroke="rgba(107,180,60,0.3)" stroke-width="1"/>
+  <text x="28" y="35" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" font-weight="bold" letter-spacing="1">LEGENDA</text>
+  <circle cx="32" cy="54" r="5" fill="#FF3838"/>
+  <text x="43" y="58" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Auto de Infração</text>
+  <circle cx="32" cy="74" r="5" fill="#40C040"/>
+  <text x="43" y="78" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Área Preservada</text>
+  <circle cx="32" cy="94" r="5" fill="#F08020"/>
+  <text x="43" y="98" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Denúncia Ambiental</text>
+  <circle cx="32" cy="114" r="5" fill="#C040C0"/>
+  <text x="43" y="118" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">Obra Embargada</text>
+</svg>

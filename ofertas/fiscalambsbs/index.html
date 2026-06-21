@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FiscalAmb Pro — Fiscalização Ambiental Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --olive:        #6B7C35;
+      --olive-dark:   #4A5620;
+      --olive-light:  #8FB840;
+      --forest:       #1B4A25;
+      --forest-dark:  #0D2A13;
+      --gold:         #D4A84A;
+      --white:        #FFFFFF;
+      --off-white:    #F7F8F2;
+      --text-dark:    #1A2209;
+      --text-mid:     #3D4A1E;
+      --gray:         #E8EDE0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+
+    /* ── UTILS ──────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      background: #EEF2E0;
+      color: var(--olive);
+      padding: .35rem 1rem;
+      border-radius: 50px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .badge.light {
+      background: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.85);
+      border: 1px solid rgba(255,255,255,.2);
+    }
+    .badge.dark {
+      background: rgba(107,124,53,.25);
+      color: #C8D88A;
+      border: 1px solid rgba(143,184,64,.4);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .95rem 2.2rem;
+      border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s, background .25s, border-color .25s;
+    }
+    .btn-green {
+      background: var(--olive);
+      color: #fff;
+    }
+    .btn-green:hover {
+      background: var(--olive-light);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px rgba(107,124,53,.4);
+    }
+    .btn-outline {
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.35);
+    }
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,.8);
+      background: rgba(255,255,255,.08);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--olive-dark);
+    }
+    .section-sub {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #777;
+      max-width: 580px;
+    }
+
+    /* ── REVEAL ANIMATIONS ──────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+    .d4 { transition-delay: .4s; }
+    .d5 { transition-delay: .5s; }
+
+    /* ── NAV ────────────────────────────────────── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 5rem;
+      transition: background .4s, box-shadow .4s, padding .4s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 2px 30px rgba(0,0,0,.08);
+      padding: .8rem 5rem;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 36px; height: 36px;
+      background: var(--olive);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-family: 'Montserrat', sans-serif;
+      font-weight: 900; font-size: 1rem;
+    }
+    .nav-logo-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #fff;
+      transition: color .4s;
+    }
+    nav.scrolled .nav-logo-name { color: var(--text-dark); }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.8);
+      transition: color .3s;
+    }
+    nav.scrolled .nav-links a { color: var(--text-mid); }
+    .nav-links a:hover { color: var(--olive-light); }
+
+    .nav-cta {
+      background: var(--olive) !important;
+      color: #fff !important;
+      padding: .55rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 700;
+      transition: background .3s, transform .2s !important;
+    }
+    .nav-cta:hover {
+      background: var(--olive-dark) !important;
+      transform: translateY(-2px);
+    }
+
+    /* ── HERO ───────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #071A09 0%, #0D2A13 25%, #1B4A25 55%, #3A5618 100%);
+    }
+    /* Image layer loaded by JS — sits on top of gradient, blended */
+    .hero-img-layer {
+      position: absolute; inset: 0;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNDQwIDgxMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJza3kiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzA3MUEwOSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iIzBEMkExMyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjgwJSIgc3RvcC1jb2xvcj0iIzFCNEEyNSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyQTVDMTgiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9InN1biIgY3g9IjcyJSIgY3k9IjM4JSIgcj0iMjglIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0Q0QTg0QSIgc3RvcC1vcGFjaXR5PSIwLjIyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNjAlIiBzdG9wLWNvbG9yPSIjOEI2QjIwIiBzdG9wLW9wYWNpdHk9IjAuMDgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9Imdsb3ciIGN4PSI1MCUiIGN5PSIxMDAlIiByPSI2MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjM0E2QjFBIiBzdG9wLW9wYWNpdHk9IjAuMzUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxNDQwIiBoZWlnaHQ9IjgxMCIgZmlsbD0idXJsKCNza3kpIi8+CiAgPHJlY3Qgd2lkdGg9IjE0NDAiIGhlaWdodD0iODEwIiBmaWxsPSJ1cmwoI3N1bikiLz4KICA8cmVjdCB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI4MTAiIGZpbGw9InVybCgjZ2xvdykiLz4KICA8cG9seWdvbiBwb2ludHM9IjEwMzYsMCAxMTAwLDAgOTAwLDgxMCA4MzYsODEwIiBmaWxsPSJyZ2JhKDIxMiwxNjgsNzQsMC4wNCkiLz4KICA8cG9seWdvbiBwb2ludHM9Ijk4MCwwIDEwMTAsMCA4MTAsODEwIDc4MCw4MTAiIGZpbGw9InJnYmEoMjEyLDE2OCw3NCwwLjAzKSIvPgogIDxwYXRoIGQ9Ik0wLDUyMCBRMTIwLDM0MCAyNDAsNDIwIFEzNjAsMzQwIDQ4MCwyODAgUTYwMCwyMDAgNzIwLDMyMCBRODQwLDIwMCA5NjAsMzAwIFExMDgwLDIyMCAxMjAwLDM0MCBRMTM0MCwyNjAgMTQ0MCwzODAgTDE0NDAsODEwIEwwLDgxMCBaIiBmaWxsPSIjMEQyQTEzIiBvcGFjaXR5PSIwLjkiLz4KICA8cGF0aCBkPSJNMCw2MDAgUTE4MCw0NjAgMzIwLDU0MCBRNDYwLDQ0MCA1NjAsNDgwIFE3MDAsMzgwIDg0MCw1MDAgUTk4MCw0MDAgMTEwMCw0ODAgUTEyNjAsNDAwIDE0NDAsNTAwIEwxNDQwLDgxMCBMMCw4MTAgWiIgZmlsbD0iIzE2MkUxMCIgb3BhY2l0eT0iMC45NSIvPgogIDxwYXRoIGQ9Ik0wLDcwMCBRODAsNjUwIDE2MCw2ODAgUTI4MCw2MjAgNDAwLDY2MCBRNTIwLDYwMCA2NDAsNjUwIFE3NjAsNTkwIDg4MCw2NDAgUTEwMDAsNTgwIDExMjAsNjMwIFExMjQwLDU3MCAxMzYwLDYyMCBRMTQwMCw2MTAgMTQ0MCw2MjUgTDE0NDAsODEwIEwwLDgxMCBaIiBmaWxsPSIjMUI0QTI1Ii8+CiAgPHJlY3QgeT0iNzYwIiB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzBEMkExMyIvPgogIDxnIGZpbGw9IiMwQTFFMEMiPgogICAgPHBvbHlnb24gcG9pbnRzPSI2MCw3MDAgODAsNTgwIDEwMCw3MDAiLz4KICAgIDxwb2x5Z29uIHBvaW50cz0iMTQwLDcyMCAxNjUsNTkwIDE5MCw3MjAiLz4KICAgIDxwb2x5Z29uIHBvaW50cz0iMTI2MCw3MTAgMTI4MCw1NzUgMTMwMCw3MTAiLz4KICAgIDxwb2x5Z29uIHBvaW50cz0iMTM0MCw3MDAgMTM2MCw1OTAgMTM4MCw3MDAiLz4KICAgIDxwb2x5Z29uIHBvaW50cz0iNzAwLDcyMCA3MjUsNTc1IDc1MCw3MjAiLz4KICAgIDxwb2x5Z29uIHBvaW50cz0iNzYwLDcxMCA3ODAsNjAwIDgwMCw3MTAiLz4KICA8L2c+Cjwvc3ZnPg==');
+      background-size: cover; background-position: center;
+      background-repeat: no-repeat;
+      opacity: .45;
+      mix-blend-mode: luminosity;
+    }
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      animation: blobFloat 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .blob1 { width: 650px; height: 650px; background: rgba(107,124,53,.28); top: -140px; right: -120px; }
+    .blob2 { width: 420px; height: 420px; background: rgba(27,74,37,.38); bottom: -80px; left: -60px; animation-delay: -3s; }
+    .blob3 { width: 280px; height: 280px; background: rgba(212,168,74,.12); top: 42%; left: 45%; animation-delay: -6s; }
+
+    @keyframes blobFloat {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%  { transform: translate(28px,-18px) scale(1.04); }
+      66%  { transform: translate(-18px,14px) scale(.96); }
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(107,124,53,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(107,124,53,.07) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5rem;
+      max-width: 1350px; margin: 0 auto; width: 100%;
+      padding-top: 6rem;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px;
+      background: var(--olive-light);
+      border-radius: 50%;
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.4; transform:scale(1.6); }
+    }
+
+    .hero-title {
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: -.02em;
+      margin: 1.6rem 0 1.8rem;
+      color: #fff;
+    }
+    .hero-title .t1 { display: block; color: rgba(255,255,255,.95); }
+    .hero-title .t2 { display: block; color: var(--olive-light); }
+    .hero-title .t3 {
+      display: block;
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      font-weight: 600;
+      color: rgba(255,255,255,.6);
+      letter-spacing: -.01em;
+      margin-top: .3rem;
+    }
+    .hero-desc {
+      color: rgba(255,255,255,.65);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      max-width: 530px;
+      margin-bottom: 2.8rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .hero-foot {
+      position: absolute; bottom: 3rem;
+      left: 5rem; right: 5rem; z-index: 2;
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .hero-stats { display: flex; gap: 3rem; }
+    .hero-stat {
+      border-left: 2px solid rgba(143,184,64,.45);
+      padding-left: 1.2rem;
+    }
+    .hero-stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.7rem; font-weight: 900;
+      color: var(--olive-light);
+    }
+    .hero-stat-lbl {
+      font-size: .75rem;
+      color: rgba(255,255,255,.5);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .scroll-hint {
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      color: rgba(255,255,255,.4);
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px; height: 52px;
+      background: linear-gradient(to bottom, var(--olive-light), transparent);
+      animation: scrollLine 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%   { transform:scaleY(0); transform-origin:top; }
+      50%  { transform:scaleY(1); transform-origin:top; }
+      100% { transform:scaleY(0); transform-origin:bottom; }
+    }
+
+    /* ── SOBRE ──────────────────────────────────── */
+    .sobre-wrap {
+      padding: 8rem 5rem;
+      max-width: 1350px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .sobre-features { margin-top: 2rem; display: flex; flex-direction: column; gap: .8rem; }
+    .sf-row {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: .9rem 1rem; border-radius: 14px;
+      transition: background .3s;
+    }
+    .sf-row:hover { background: var(--gray); }
+    .sf-icon {
+      width: 42px; height: 42px; min-width: 42px;
+      background: var(--olive);
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; color: #fff;
+    }
+    .sf-text h4 { font-size: .92rem; font-weight: 700; margin-bottom: .2rem; }
+    .sf-text p  { font-size: .83rem; color: #777; line-height: 1.55; }
+
+    .sobre-visual { position: relative; padding-bottom: 3rem; padding-right: 3rem; }
+    .sv-card {
+      background: var(--forest);
+      border-radius: 26px;
+      padding: 3rem;
+      color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .sv-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: rgba(143,184,64,.18);
+      border-radius: 50%; filter: blur(50px);
+    }
+    .sv-big { font-family:'Montserrat',sans-serif; font-size:3rem; font-weight:900; color:var(--olive-light); }
+    .sv-lbl { font-size:.88rem; color:rgba(255,255,255,.6); margin-top:.3rem; }
+    .sv-hr  { border:none; border-top:1px solid rgba(255,255,255,.12); margin:1.6rem 0; }
+
+    .sv-float {
+      position: absolute;
+      bottom: 0; right: 0;
+      background: #fff;
+      border-radius: 20px;
+      padding: 1.4rem 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.14);
+      min-width: 210px;
+    }
+    .sv-float-num {
+      font-family:'Montserrat',sans-serif;
+      font-size: 2rem; font-weight: 900; color: var(--olive);
+    }
+    .sv-float-lbl { font-size:.78rem; color:#999; }
+    .sv-float-tag { font-size:.72rem; color:var(--olive-light); font-weight:700; margin-top:.4rem; }
+
+    /* ── MÓDULOS ────────────────────────────────── */
+    #modulos {
+      background: var(--off-white);
+      padding: 7rem 5rem;
+    }
+    .mod-header { text-align:center; margin-bottom:3.5rem; }
+    .mod-header .section-sub { margin:.9rem auto 0; }
+
+    .mod-grid {
+      max-width: 1350px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1.8rem;
+    }
+    .mod-card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 2.4rem;
+      border: 1px solid rgba(107,124,53,.1);
+      position: relative; overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .mod-card::after {
+      content: '';
+      position: absolute; top:0; left:0; right:0; height:4px;
+      background: linear-gradient(90deg, var(--olive), var(--olive-light));
+      transform: scaleX(0);
+      transition: transform .35s;
+    }
+    .mod-card:hover { transform:translateY(-9px); box-shadow:0 32px 64px rgba(0,0,0,.1); }
+    .mod-card:hover::after { transform:scaleX(1); }
+
+    .mod-icon {
+      width:56px; height:56px; border-radius:15px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.55rem; margin-bottom:1.4rem;
+    }
+    .ico-a { background:#EEF5E0; }
+    .ico-b { background:#E0EDE7; }
+    .ico-c { background:#E8F0ED; }
+
+    .mod-card h3 { font-size:1.25rem; font-weight:800; margin-bottom:.7rem; }
+    .mod-card > p { font-size:.87rem; color:#777; line-height:1.6; margin-bottom:1.4rem; }
+    .mod-list { list-style:none; display:flex; flex-direction:column; gap:.45rem; }
+    .mod-list li {
+      font-size:.83rem; color:var(--text-mid);
+      display:flex; align-items:center; gap:.5rem;
+    }
+    .mod-list li::before { content:'✓'; color:var(--olive); font-weight:800; }
+
+    /* ── APP MOBILE ─────────────────────────────── */
+    .app-wrap {
+      padding: 8rem 5rem;
+      max-width: 1350px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: center;
+    }
+    .app-steps { display:flex; flex-direction:column; gap:1.6rem; margin-top:2.4rem; }
+    .app-step { display:flex; align-items:flex-start; gap:1rem; }
+    .step-num {
+      width:34px; height:34px; min-width:34px;
+      background:var(--olive); border-radius:50%;
+      color:#fff; font-family:'Montserrat',sans-serif;
+      font-weight:800; font-size:.82rem;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .app-step h4 { font-size:.95rem; font-weight:700; margin-bottom:.18rem; }
+    .app-step p  { font-size:.83rem; color:#777; line-height:1.55; }
+
+    /* Tablet mockup */
+    .tab-scene {
+      position:relative;
+      display:flex; align-items:center; justify-content:center;
+      padding: 2.5rem;
+    }
+    .tab-device {
+      width: 310px; height: 440px;
+      background: #181824;
+      border-radius: 28px;
+      border: 7px solid #252535;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.04),
+        0 40px 80px rgba(0,0,0,.35);
+      position:relative; overflow:hidden;
+    }
+    .tab-screen {
+      position:absolute; inset:0;
+      background: linear-gradient(160deg,#122A16,#223615,#3A4A1A);
+      display:flex; flex-direction:column; padding:1rem;
+    }
+    .tab-top {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:.9rem;
+    }
+    .tab-top-title {
+      font-family:'Montserrat',sans-serif; font-weight:800;
+      font-size:.7rem; color:#fff;
+    }
+    .tab-top-time { font-size:.6rem; color:rgba(255,255,255,.5); }
+
+    .tab-map {
+      flex:1; background:rgba(0,0,0,.3);
+      border-radius:12px; position:relative; overflow:hidden;
+      margin-bottom:.8rem;
+    }
+    .tab-map-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(143,184,64,.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(143,184,64,.14) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    .mpin {
+      position:absolute;
+      width:11px; height:11px; border-radius:50%;
+      border:2px solid #fff;
+    }
+    .mpin::after {
+      content:''; position:absolute;
+      inset:-7px; border-radius:50%; border:1px solid currentColor;
+      animation:pinRipple 2s ease-out infinite;
+    }
+    @keyframes pinRipple {
+      0%   { transform:scale(.5); opacity:1; }
+      100% { transform:scale(2.2); opacity:0; }
+    }
+    .mpin-r { background:#FF6B35; color:#FF6B35; top:32%; left:38%; }
+    .mpin-g { background:var(--olive-light); color:var(--olive-light); top:55%; left:62%; animation-delay:.7s; }
+    .mpin-y { background:#E8A040; color:#E8A040; top:70%; left:28%; animation-delay:1.4s; }
+
+    .tab-actions {
+      display:grid; grid-template-columns:1fr 1fr; gap:.5rem;
+    }
+    .tab-action {
+      background:rgba(255,255,255,.09);
+      border-radius:9px; padding:.55rem .7rem;
+      display:flex; align-items:center; gap:.45rem;
+    }
+    .tab-act-ico {
+      width:22px; height:22px; border-radius:6px;
+      background:var(--olive);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.65rem; color:#fff;
+    }
+    .tab-act-lbl { font-size:.62rem; color:rgba(255,255,255,.8); font-weight:600; }
+
+    .tab-badge {
+      position:absolute;
+      background:#fff; border-radius:14px;
+      padding:.65rem 1rem;
+      box-shadow:0 10px 28px rgba(0,0,0,.14);
+      font-family:'Montserrat',sans-serif; font-weight:800;
+      font-size:.78rem; color:var(--text-dark);
+    }
+    .tbadge1 { top:24px; right:-10px; display:flex; align-items:center; gap:.45rem; }
+    .tbadge1 .bdot { width:7px;height:7px;border-radius:50%;background:#22C55E; }
+    .tbadge2 { bottom:32px; left:-10px; min-width:130px; }
+    .tbadge2 .bnum { font-size:1.3rem; color:var(--olive); }
+    .tbadge2 .bsub { font-size:.65rem; color:#999; font-weight:500; margin-top:.1rem; }
+
+    /* ── GEO ────────────────────────────────────── */
+    #geo {
+      background: var(--forest-dark);
+      padding: 8rem 5rem;
+    }
+    .geo-inner {
+      max-width:1350px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:5rem; align-items:center;
+    }
+    .geo-map-box {
+      background: rgba(27,74,37,.25);
+      border:1px solid rgba(143,184,64,.18);
+      border-radius:24px; height:400px;
+      position:relative; overflow:hidden;
+    }
+    .geo-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(143,184,64,.1) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(143,184,64,.1) 1px,transparent 1px);
+      background-size:44px 44px;
+    }
+    .gpin {
+      position:absolute;
+      display:flex; flex-direction:column; align-items:center;
+    }
+    .gpin-dot {
+      width:13px; height:13px; border-radius:50%;
+      border:2px solid rgba(255,255,255,.7);
+      position:relative;
+    }
+    .gpin-dot::after {
+      content:''; position:absolute;
+      inset:-9px; border-radius:50%; border:1px solid currentColor;
+      animation:geoRipple 2.5s ease-out infinite;
+    }
+    @keyframes geoRipple {
+      0%   { transform:scale(.5);opacity:1; }
+      100% { transform:scale(2.5);opacity:0; }
+    }
+    .gp1 { top:28%;left:33%; } .gp1 .gpin-dot { background:#FF6B35;color:#FF6B35; }
+    .gp2 { top:52%;left:58%; animation-delay:.6s; } .gp2 .gpin-dot { background:var(--olive-light);color:var(--olive-light); }
+    .gp3 { top:68%;left:42%; animation-delay:1.2s; } .gp3 .gpin-dot { background:#E8A040;color:#E8A040; }
+    .gp4 { top:38%;left:70%; animation-delay:1.8s; } .gp4 .gpin-dot { background:#E55; color:#E55; }
+
+    .gpin-lbl {
+      background:rgba(0,0,0,.72); color:#fff;
+      font-size:.62rem; padding:.18rem .5rem;
+      border-radius:5px; margin-top:4px; white-space:nowrap;
+      font-weight:600;
+    }
+
+    .geo-text .section-title { color:#fff; }
+    .geo-text .section-sub { color:rgba(255,255,255,.55); margin-top:.9rem; }
+
+    .geo-feats {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:1rem; margin-top:2.5rem;
+    }
+    .gfeat {
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(143,184,64,.18);
+      border-radius:16px; padding:1.4rem;
+      transition:background .3s;
+    }
+    .gfeat:hover { background:rgba(255,255,255,.08); }
+    .gfeat-ico { font-size:1.4rem; margin-bottom:.6rem; }
+    .gfeat h4 { font-size:.9rem; font-weight:700; color:#fff; margin-bottom:.25rem; }
+    .gfeat p  { font-size:.78rem; color:rgba(255,255,255,.45); line-height:1.5; }
+
+    /* ── STATS ──────────────────────────────────── */
+    #stats {
+      background: linear-gradient(135deg, var(--olive-dark), var(--olive));
+      padding: 5.5rem 5rem;
+    }
+    .stats-row {
+      max-width:1350px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:1rem;
+    }
+    .stat-box { text-align:center; padding:2rem 1rem; }
+    .stat-num {
+      font-family:'Montserrat',sans-serif;
+      font-size:3.4rem; font-weight:900; color:#fff; line-height:1;
+    }
+    .stat-suf { font-size:2.2rem; color:rgba(255,255,255,.65); }
+    .stat-lbl {
+      font-size:.8rem; color:rgba(255,255,255,.7);
+      text-transform:uppercase; letter-spacing:.06em;
+      margin-top:.55rem;
+    }
+
+    /* ── COMO FUNCIONA ──────────────────────────── */
+    .cf-wrap {
+      padding:8rem 5rem;
+      max-width:1350px; margin:0 auto;
+    }
+    .cf-header { text-align:center; margin-bottom:4rem; }
+    .cf-header .section-sub { margin:.9rem auto 0; }
+
+    .cf-steps {
+      display:grid; grid-template-columns:repeat(5,1fr);
+      gap:0; position:relative;
+    }
+    .cf-steps::before {
+      content:'';
+      position:absolute; top:27px; left:9%; right:9%;
+      height:2px;
+      background:linear-gradient(90deg,var(--olive),var(--olive-light));
+    }
+    .cf-step {
+      display:flex; flex-direction:column; align-items:center;
+      text-align:center; padding:0 .8rem;
+    }
+    .cf-num {
+      width:54px; height:54px; border-radius:50%;
+      background:var(--olive); color:#fff;
+      font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.15rem;
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:1.4rem; position:relative; z-index:1;
+      box-shadow:0 0 0 6px rgba(107,124,53,.15);
+      transition:transform .3s, box-shadow .3s;
+    }
+    .cf-step:hover .cf-num {
+      transform:scale(1.15);
+      box-shadow:0 0 0 10px rgba(107,124,53,.2);
+    }
+    .cf-step h4 { font-size:.92rem; font-weight:700; margin-bottom:.4rem; }
+    .cf-step p  { font-size:.78rem; color:#888; line-height:1.55; }
+
+    /* ── DASHBOARD ──────────────────────────────── */
+    #dashboard {
+      background:var(--off-white);
+      padding:8rem 5rem;
+    }
+    .db-inner { max-width:1350px; margin:0 auto; }
+    .db-header { text-align:center; margin-bottom:3.5rem; }
+    .db-header .section-sub { margin:.9rem auto 0; }
+
+    .db-frame {
+      background:var(--forest-dark);
+      border-radius:24px;
+      padding:2rem 2.2rem;
+      box-shadow:0 40px 80px rgba(0,0,0,.22);
+    }
+    .db-titlebar { display:flex; gap:.5rem; margin-bottom:1.5rem; }
+    .db-dot { width:10px;height:10px;border-radius:50%; }
+    .db-dot-r{background:#FF5F57;} .db-dot-y{background:#FEBC2E;} .db-dot-g{background:#28C840;}
+
+    .db-kpis {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:1rem; margin-bottom:1rem;
+    }
+    .kpi {
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:14px; padding:1.2rem;
+    }
+    .kpi-lbl { font-size:.68rem; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.5rem; }
+    .kpi-num { font-family:'Montserrat',sans-serif; font-size:1.9rem; font-weight:900; color:var(--olive-light); }
+    .kpi-ch  { font-size:.68rem; color:#4CAF50; margin-top:.3rem; }
+    .kpi-ch.warn { color:#E8A040; }
+
+    .db-charts { display:grid; grid-template-columns:2fr 1fr; gap:1rem; }
+    .db-chart {
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:14px; padding:1.3rem;
+    }
+    .dc-title { font-size:.7rem; font-weight:700; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.05em; margin-bottom:1rem; }
+
+    .bar-chart { display:flex; align-items:flex-end; gap:.45rem; height:100px; }
+    .bar {
+      flex:1; border-radius:4px 4px 0 0;
+      background:var(--olive);
+      transition:background .3s;
+    }
+    .bar:hover { background:var(--olive-light); }
+
+    .donut {
+      width:96px; height:96px; border-radius:50%;
+      background:conic-gradient(
+        var(--olive)   0deg 202deg,
+        #E85555       202deg 268deg,
+        #E8A040       268deg 318deg,
+        rgba(255,255,255,.08) 318deg 360deg
+      );
+      margin:0 auto; position:relative;
+    }
+    .donut::after {
+      content:'72%';
+      position:absolute; inset:24%;
+      background:rgba(10,20,8,.92); border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Montserrat',sans-serif; font-weight:800;
+      color:var(--olive-light); font-size:.78rem;
+    }
+
+    /* ── INTEGRAÇÕES ────────────────────────────── */
+    #integracoes { padding:6rem 5rem; }
+    .int-inner { max-width:1350px; margin:0 auto; }
+    .int-header { text-align:center; margin-bottom:3rem; }
+    .int-header .section-sub { margin:.9rem auto 0; }
+
+    .int-grid {
+      display:grid; grid-template-columns:repeat(6,1fr);
+      gap:1.4rem;
+    }
+    .int-card {
+      background:var(--off-white);
+      border-radius:18px; padding:1.6rem 1rem;
+      text-align:center; border:1px solid transparent;
+      transition:all .3s; cursor:default;
+    }
+    .int-card:hover {
+      background:#fff;
+      border-color:var(--olive);
+      transform:translateY(-5px);
+      box-shadow:0 14px 32px rgba(107,124,53,.14);
+    }
+    .int-ico { font-size:1.9rem; margin-bottom:.6rem; }
+    .int-name { font-size:.78rem; font-weight:700; color:var(--text-mid); }
+
+    /* ── EQUIPAMENTOS ───────────────────────────── */
+    #equipamentos {
+      background:var(--off-white);
+      padding:8rem 5rem;
+    }
+    .eq-inner {
+      max-width:1350px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:5rem; align-items:center;
+    }
+    .eq-spec { margin-top:2rem; display:flex; flex-direction:column; }
+    .eq-row {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:.95rem 0; border-bottom:1px solid var(--gray);
+    }
+    .eq-row:last-child { border-bottom:none; }
+    .eq-row-k {
+      font-size:.88rem; color:#777;
+      display:flex; align-items:center; gap:.7rem;
+    }
+    .eq-row-k span { color:var(--olive); font-size:1rem; }
+    .eq-row-v { font-size:.88rem; font-weight:700; color:var(--text-dark); }
+
+    .eq-visual { display:flex; justify-content:center; align-items:center; }
+    .eq-tab {
+      width:260px; height:360px;
+      background:linear-gradient(160deg,#222235,#181825);
+      border-radius:24px; border:6px solid #2E2E44;
+      box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 50px 100px rgba(0,0,0,.32);
+      position:relative; overflow:hidden;
+    }
+    .eq-screen {
+      position:absolute; inset:8px;
+      background:linear-gradient(135deg,#122A16,#3B4C18);
+      border-radius:16px;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:1.1rem;
+    }
+    .eq-logo {
+      width:52px; height:52px; border-radius:14px;
+      background:rgba(143,184,64,.18);
+      border:1px solid rgba(143,184,64,.38);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.5rem;
+    }
+    .eq-label { text-align:center; }
+    .eq-label-title { font-family:'Montserrat',sans-serif; font-weight:800; color:#fff; font-size:.88rem; }
+    .eq-label-sub   { font-size:.68rem; color:rgba(255,255,255,.45); margin-top:.15rem; }
+    .eq-bar { width:78%; height:6px; background:rgba(255,255,255,.1); border-radius:3px; overflow:hidden; }
+    .eq-bar-fill {
+      height:100%;
+      background:linear-gradient(90deg,var(--olive),var(--olive-light));
+      border-radius:3px;
+      animation:barAnim 3s ease-in-out infinite;
+    }
+    @keyframes barAnim {
+      0%,100% { width:62%; }
+      50%      { width:88%; }
+    }
+
+    /* ── CTA ────────────────────────────────────── */
+    #cta {
+      background:linear-gradient(135deg,var(--forest-dark),var(--forest));
+      padding:8rem 5rem;
+      text-align:center; position:relative; overflow:hidden;
+    }
+    #cta::before {
+      content:''; position:absolute;
+      top:-120px; left:50%; transform:translateX(-50%);
+      width:640px; height:640px;
+      background:radial-gradient(circle,rgba(143,184,64,.14),transparent 68%);
+    }
+    #cta .section-title { color:#fff; position:relative; z-index:1; }
+    .cta-sub {
+      color:rgba(255,255,255,.6); font-size:1.05rem;
+      max-width:480px; margin:1.2rem auto 3rem;
+      line-height:1.8; position:relative; z-index:1;
+    }
+    .cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; position:relative; z-index:1; }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    footer {
+      background:#060F03;
+      padding:4.5rem 5rem 2rem;
+      color:rgba(255,255,255,.45);
+    }
+    .ft-inner { max-width:1350px; margin:0 auto; }
+    .ft-top {
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:3rem; padding-bottom:3rem;
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .ft-brand-name { font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.25rem; color:#fff; margin-bottom:.9rem; }
+    .ft-brand-desc { font-size:.84rem; line-height:1.75; max-width:270px; }
+    .ft-col-title { font-family:'Montserrat',sans-serif; font-weight:700; font-size:.78rem; color:#fff; text-transform:uppercase; letter-spacing:.09em; margin-bottom:1.1rem; }
+    .ft-links { list-style:none; display:flex; flex-direction:column; gap:.65rem; }
+    .ft-links a { text-decoration:none; font-size:.84rem; color:rgba(255,255,255,.45); transition:color .3s; }
+    .ft-links a:hover { color:var(--olive-light); }
+    .ft-bottom { display:flex; justify-content:space-between; align-items:center; padding-top:2rem; font-size:.78rem; }
+    .ft-bottom-brand { font-family:'Montserrat',sans-serif; font-weight:800; color:#fff; }
+
+    /* ── REAL PHOTOS (injetadas pelo gallery.js) ── */
+
+    /* Frame que envolve a foto real no lugar do mockup CSS */
+    .rp-frame {
+      position: relative;
+      border-radius: 24px; overflow: hidden;
+      box-shadow:
+        0 40px 80px rgba(0,0,0,.22),
+        0 0 0 1px rgba(107,124,53,.15);
+      max-width: 520px;
+      width: 100%;
+    }
+    .rp-img {
+      width: 100%; height: auto;
+      display: block;
+      transition: opacity .5s, transform .5s;
+    }
+    .rp-frame:hover .rp-img { transform: scale(1.03); }
+
+    /* Badges flutuantes sobre a foto */
+    .rp-badge {
+      position: absolute;
+      background: #fff;
+      border-radius: 14px;
+      padding: .65rem 1.1rem;
+      box-shadow: 0 10px 28px rgba(0,0,0,.14);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: .8rem;
+      color: var(--text-dark);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .rp-badge-top { top: 18px; right: 18px; }
+    .rp-dot { width: 8px; height: 8px; border-radius: 50%; background: #22C55E;
+      box-shadow: 0 0 0 3px rgba(34,197,94,.2); animation: dotPulse 2s infinite; }
+    .rp-badge-bot { bottom: 18px; left: 18px; flex-direction: column; align-items: flex-start; gap: .1rem; }
+    .rp-badge-num { font-size: 1.3rem; color: var(--olive); line-height: 1; }
+    .rp-badge-sub { font-size: .65rem; color: #999; font-weight: 500; }
+
+    /* Fallback: se imagem não carregou, mostra o dispositivo CSS original */
+    .rp-fallback { display: none !important; }
+
+    /* Geo section — fotos ao lado do mapa */
+    .geo-real-photo {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,.3);
+      margin-top: 1.5rem;
+      max-height: 260px;
+      position: relative;
+    }
+    .geo-rp-img { width: 100%; height: 260px; object-fit: cover; display: block; }
+    .geo-rp-badge {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(10,30,15,.85));
+      color: #A8D878; font-size: .75rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .6rem 1rem;
+    }
+
+    /* Dashboard — foto real abaixo do painel CSS */
+    .db-real-photo {
+      position: relative;
+      border-radius: 20px; overflow: hidden;
+      margin-top: 1.5rem;
+      box-shadow: 0 30px 60px rgba(0,0,0,.25);
+    }
+    .db-real-photo .rp-img { max-height: 380px; object-fit: cover; width: 100%; }
+    .db-photo-badge {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,25,8,.92), transparent);
+      color: rgba(255,255,255,.9);
+      padding: 2rem 1.5rem .9rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: .88rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+
+    /* "Como Funciona" — foto de assinatura abaixo dos passos */
+    .cf-real-photo {
+      position: relative;
+      border-radius: 22px; overflow: hidden;
+      margin-top: 3rem;
+      box-shadow: 0 24px 60px rgba(0,0,0,.14);
+    }
+    .cf-real-photo .rp-img { width: 100%; max-height: 360px; object-fit: cover; object-position: center 30%; }
+    .cf-photo-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,25,8,.9), transparent);
+      padding: 2.5rem 2rem .9rem;
+      color: rgba(255,255,255,.9);
+    }
+    .cf-photo-caption strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: .95rem; margin-bottom: .3rem;
+      color: var(--olive-light);
+    }
+    .cf-photo-caption { font-size: .82rem; line-height: 1.55; }
+
+    /* ── GALERIA ────────────────────────────────── */
+    #galeria {
+      padding: 7rem 5rem;
+      background: var(--white);
+    }
+    .gal-inner { max-width: 1350px; margin: 0 auto; }
+    .gal-header { text-align: center; margin-bottom: 2.5rem; }
+    .gal-header .section-sub { margin: .9rem auto 0; }
+
+    /* Filter buttons */
+    .gallery-filters {
+      display: flex; gap: .7rem; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 2.5rem;
+    }
+    .gf-btn {
+      padding: .52rem 1.3rem;
+      border-radius: 50px;
+      border: 1.5px solid var(--gray);
+      background: transparent;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .82rem; font-weight: 700;
+      color: var(--text-mid); cursor: pointer;
+      transition: all .25s;
+    }
+    .gf-btn:hover { border-color: var(--olive); color: var(--olive); }
+    .gf-btn.active {
+      background: var(--olive); color: #fff;
+      border-color: var(--olive);
+    }
+
+    /* Gallery grid */
+    #gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+    }
+    .g-card {
+      border-radius: 20px; overflow: hidden;
+      background: var(--off-white);
+      border: 1px solid var(--gray);
+      transition: transform .3s, box-shadow .3s;
+      cursor: pointer;
+    }
+    .g-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,.12);
+    }
+    .g-img-wrap {
+      position: relative; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    @keyframes imgFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .g-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s;
+      animation: imgFadeIn .5s ease both;
+    }
+    .g-card:hover .g-img { transform: scale(1.06); }
+
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,25,8,.75), transparent 55%);
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding: 1rem 1.1rem;
+      opacity: 0; transition: opacity .3s;
+    }
+    .g-card:hover .g-overlay { opacity: 1; }
+
+    .g-tag {
+      font-size: .7rem; font-weight: 700;
+      background: var(--olive); color: #fff;
+      padding: .28rem .75rem; border-radius: 50px;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .g-zoom {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.4);
+      color: #fff; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background .25s;
+    }
+    .g-zoom:hover { background: rgba(255,255,255,.35); }
+
+    .g-info { padding: 1.1rem 1.2rem 1.4rem; }
+    .g-title { font-size: .95rem; font-weight: 800; margin-bottom: .3rem; color: var(--text-dark); }
+    .g-desc  { font-size: .8rem; color: #888; line-height: 1.55; }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s;
+    }
+    #lightbox.open { opacity: 1; pointer-events: all; }
+
+    .lb-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(4,12,4,.92);
+      backdrop-filter: blur(8px);
+    }
+    .lb-panel {
+      position: relative; z-index: 1;
+      width: min(88vw, 860px);
+      background: #0D1F0A;
+      border-radius: 20px;
+      border: 1px solid rgba(107,180,60,.2);
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,.6);
+      transform: scale(.96);
+      transition: transform .35s;
+    }
+    #lightbox.open .lb-panel { transform: scale(1); }
+
+    .lb-close {
+      position: absolute; top: 1rem; right: 1rem; z-index: 2;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      color: #fff; font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .25s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,.22); }
+
+    .lb-prev, .lb-next {
+      position: absolute; top: 50%; z-index: 2;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      color: #fff; font-size: 1.6rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transform: translateY(-50%);
+      transition: background .25s;
+    }
+    .lb-prev { left: 1rem; }
+    .lb-next { right: 1rem; }
+    .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,.22); }
+
+    .lb-img-wrap {
+      width: 100%; aspect-ratio: 16/9; background: #050F04; overflow: hidden;
+    }
+    .lb-img {
+      width: 100%; height: 100%; object-fit: contain;
+      transition: opacity .3s;
+    }
+    .lb-caption {
+      padding: 1.2rem 3.5rem;
+      display: flex; flex-direction: column; gap: .3rem;
+    }
+    .lb-tag {
+      font-size: .7rem; font-weight: 700; color: var(--olive-light);
+      text-transform: uppercase; letter-spacing: .08em;
+    }
+    .lb-title { font-family: 'Montserrat',sans-serif; font-weight: 800; color: #fff; font-size: 1rem; }
+    .lb-desc  { font-size: .82rem; color: rgba(255,255,255,.5); line-height: 1.6; }
+    .lb-counter {
+      position: absolute; bottom: 1rem; right: 1rem;
+      font-size: .72rem; color: rgba(255,255,255,.35);
+      font-family: 'Montserrat',sans-serif; font-weight: 700;
+    }
+
+    @media(max-width:760px){
+      #gallery-grid { grid-template-columns:1fr 1fr; }
+      .lb-caption { padding:1rem 2.5rem; }
+    }
+    @media(max-width:520px){
+      #gallery-grid { grid-template-columns:1fr; }
+    }
+
+    /* ── HAMBURGER / MOBILE NAV ─────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; gap: 5px;
+      background: transparent; border: none;
+      width: 40px; height: 40px; padding: 7px;
+      cursor: pointer; border-radius: 8px;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform .3s, opacity .3s, background .4s;
+      transform-origin: center;
+    }
+    nav.scrolled .nav-hamburger span { background: var(--text-dark); }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-mobile-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 990;
+      background: rgba(5,18,6,.97);
+      backdrop-filter: blur(18px);
+      flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2rem;
+      pointer-events: none;
+      opacity: 0; transition: opacity .35s;
+    }
+    .nav-mobile-overlay.open { opacity: 1; pointer-events: all; }
+    .nav-mobile-overlay a {
+      text-decoration: none; color: rgba(255,255,255,.8);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.3rem; font-weight: 700;
+      transition: color .2s;
+    }
+    .nav-mobile-overlay a:hover { color: var(--olive-light); }
+    .nav-mobile-overlay .mob-cta {
+      margin-top: .5rem;
+      background: var(--olive); color: #fff !important;
+      padding: .85rem 2.5rem; border-radius: 50px;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────── */
+    @media(max-width:1100px){
+      nav { padding-left:2.5rem; padding-right:2.5rem; }
+      nav.scrolled { padding-left:2.5rem; padding-right:2.5rem; }
+      #modulos,#geo,#integracoes,#equipamentos,#stats,#dashboard,#cta,footer
+      { padding-left:2.5rem; padding-right:2.5rem; }
+      .sobre-wrap,.app-wrap,.cf-wrap { padding-left:2.5rem; padding-right:2.5rem; }
+      #galeria { padding-left:2.5rem; padding-right:2.5rem; }
+      .mod-grid { grid-template-columns:1fr 1fr; }
+      .stats-row { grid-template-columns:1fr 1fr; }
+      .int-grid { grid-template-columns:repeat(3,1fr); }
+      .ft-top { grid-template-columns:1fr 1fr; }
+      .cf-steps { grid-template-columns:1fr 1fr; }
+      .cf-steps::before { display:none; }
+      .geo-inner,.sobre-wrap,.app-wrap,.eq-inner { grid-template-columns:1fr; }
+      .db-kpis { grid-template-columns:1fr 1fr; }
+      .db-charts { grid-template-columns:1fr; }
+      .hero-foot { display:none; }
+    }
+
+    @media(max-width:768px){
+      /* Nav */
+      nav { padding-left:1.4rem !important; padding-right:1.4rem !important; }
+      nav.scrolled { padding-left:1.4rem !important; padding-right:1.4rem !important; }
+      .nav-links { display:none !important; }
+      .nav-hamburger { display:flex; }
+      .nav-mobile-overlay { display:flex; }
+
+      /* Section padding */
+      #modulos { padding-left:1.4rem; padding-right:1.4rem; padding-top:4.5rem; padding-bottom:4.5rem; }
+      #geo { padding-left:1.4rem; padding-right:1.4rem; padding-top:5rem; padding-bottom:5rem; }
+      #integracoes { padding-left:1.4rem; padding-right:1.4rem; padding-top:4rem; padding-bottom:4rem; }
+      #equipamentos { padding-left:1.4rem; padding-right:1.4rem; padding-top:5rem; padding-bottom:5rem; }
+      #stats { padding-left:1.4rem; padding-right:1.4rem; padding-top:4rem; padding-bottom:4rem; }
+      #dashboard { padding-left:1.4rem; padding-right:1.4rem; padding-top:5rem; padding-bottom:5rem; }
+      #cta { padding-left:1.4rem; padding-right:1.4rem; padding-top:5rem; padding-bottom:5rem; }
+      footer { padding-left:1.4rem; padding-right:1.4rem; }
+      .sobre-wrap,.app-wrap { padding:5rem 1.4rem; }
+      .cf-wrap { padding:5rem 1.4rem; }
+      #galeria { padding:5rem 1.4rem; }
+
+      /* Hero */
+      .hero-content { padding-left:1.4rem; padding-right:1.4rem; padding-top:7rem; }
+      .hero-ctas { flex-direction:column; align-items:stretch; }
+      .hero-ctas .btn { justify-content:center; }
+
+      /* Grids */
+      .mod-grid { grid-template-columns:1fr; }
+      .stats-row { grid-template-columns:1fr 1fr; }
+      .int-grid { grid-template-columns:repeat(2,1fr); }
+      .geo-feats { grid-template-columns:1fr; }
+      .ft-top { grid-template-columns:1fr; }
+      .ft-bottom { flex-direction:column; gap:.7rem; text-align:center; }
+      .cf-steps { grid-template-columns:1fr; }
+      .db-kpis { grid-template-columns:1fr 1fr; }
+      .db-charts { grid-template-columns:1fr; }
+      .eq-inner { grid-template-columns:1fr; }
+
+      /* Sobre floater */
+      .sobre-visual { padding-bottom:7rem; padding-right:0; }
+      .sv-float { min-width:160px; padding:1rem 1.4rem; right:0; }
+
+      /* Gallery */
+      .lb-prev { left:.5rem; }
+      .lb-next { right:.5rem; }
+    }
+
+    @media(max-width:480px){
+      .stats-row { grid-template-columns:1fr 1fr; }
+      .db-kpis { grid-template-columns:1fr; }
+      .int-grid { grid-template-columns:1fr 1fr; }
+      #gallery-grid { grid-template-columns:1fr; }
+      .lb-caption { padding:.8rem 1.2rem; }
+      .lb-panel { border-radius:14px; }
+      .geo-feats { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ NAV ════════════════════ -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">F</div>
+    <span class="nav-logo-name">FiscalAmb Pro</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sistema</a></li>
+    <li><a href="#modulos">Módulos</a></li>
+    <li><a href="#app">App Mobile</a></li>
+    <li><a href="#geo">Georreferenciamento</a></li>
+    <li><a href="#equipamentos">Equipamentos</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#cta" class="nav-cta">Solicitar Demo</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile nav overlay -->
+<div class="nav-mobile-overlay" id="navOverlay">
+  <a href="#sobre"        class="mob-link">Sistema</a>
+  <a href="#modulos"      class="mob-link">Módulos</a>
+  <a href="#app"          class="mob-link">App Mobile</a>
+  <a href="#geo"          class="mob-link">Georreferenciamento</a>
+  <a href="#equipamentos" class="mob-link">Equipamentos</a>
+  <a href="#galeria"      class="mob-link">Galeria</a>
+  <a href="#cta"          class="mob-link mob-cta">Solicitar Demo</a>
+</div>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img-layer" id="heroImgLayer"></div>
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+  <div class="hero-blob blob3"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="badge dark"><div class="hero-badge-dot"></div>Sistema Municipal de Fiscalização</div>
+    <h1 class="hero-title">
+      <span class="t1">FISCALIZAÇÃO</span>
+      <span class="t2">AMBIENTAL</span>
+      <span class="t3">Digital. Inteligente. Em Tempo Real.</span>
+    </h1>
+    <p class="hero-desc">
+      Modernize obras, posturas e meio ambiente com plataforma integrada,
+      app mobile para tablet e georreferenciamento completo.
+      Zero papel, rastreabilidade total.
+    </p>
+    <div class="hero-ctas">
+      <a href="#cta" class="btn btn-green">▶ Ver Demonstração</a>
+      <a href="#modulos" class="btn btn-outline">Conhecer os Módulos →</a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-lbl">Digital · sem papel</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Online + Offline</div>
+        <div class="hero-stat-lbl">Sincronização automática</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">LGPD</div>
+        <div class="hero-stat-lbl">Em conformidade</div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Rolar</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ SOBRE ════════════════════ -->
+<section id="sobre">
+  <div class="sobre-wrap">
+    <div class="reveal">
+      <div class="badge">Sobre o Sistema</div>
+      <h2 class="section-title" style="margin-top:1.2rem">O que é o<br>FiscalAmb Pro?</h2>
+      <p class="section-sub" style="margin-top:1rem">
+        Plataforma integrada que digitaliza todos os processos de fiscalização municipal
+        — obras, posturas e meio ambiente — com rastreabilidade total e transparência.
+      </p>
+      <div class="sobre-features">
+        <div class="sf-row">
+          <div class="sf-icon">📋</div>
+          <div class="sf-text">
+            <h4>Eliminação total do papel</h4>
+            <p>Formulários, autos e notificações 100% digitais, assinados eletronicamente com validade jurídica.</p>
+          </div>
+        </div>
+        <div class="sf-row">
+          <div class="sf-icon">⚡</div>
+          <div class="sf-text">
+            <h4>Produtividade em campo</h4>
+            <p>O fiscal opera com tablet, registra in loco e emite documentos sem retornar à sede.</p>
+          </div>
+        </div>
+        <div class="sf-row">
+          <div class="sf-icon">🔒</div>
+          <div class="sf-text">
+            <h4>Segurança jurídica</h4>
+            <p>Rastreabilidade completa com assinatura ICP-Brasil, GPS e carimbo de data/hora.</p>
+          </div>
+        </div>
+        <div class="sf-row">
+          <div class="sf-icon">📊</div>
+          <div class="sf-text">
+            <h4>Gestão em tempo real</h4>
+            <p>Painel executivo com indicadores ao vivo para a gestão municipal acompanhar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sobre-visual reveal d2">
+      <div class="sv-card">
+        <div class="sv-big">3×</div>
+        <div class="sv-lbl">mais fiscalizações por fiscal ao dia</div>
+        <hr class="sv-hr">
+        <div class="sv-big">70%</div>
+        <div class="sv-lbl">redução no tempo de emissão de documentos</div>
+        <hr class="sv-hr">
+        <p style="color:rgba(255,255,255,.4);font-size:.82rem">
+          Resultados médios em municípios que adotaram o sistema
+        </p>
+      </div>
+      <div class="sv-float">
+        <div class="sv-float-num">∞</div>
+        <div class="sv-float-lbl">Histórico digitalizado</div>
+        <div class="sv-float-tag">✓ Acesso instantâneo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ MÓDULOS ════════════════════ -->
+<section id="modulos">
+  <div class="mod-header reveal">
+    <div class="badge">Módulos</div>
+    <h2 class="section-title" style="margin-top:1rem">Plataforma Completa</h2>
+    <p class="section-sub">
+      Três módulos integrados cobrindo todos os aspectos da fiscalização municipal,
+      do campo ao painel de gestão.
+    </p>
+  </div>
+  <div class="mod-grid">
+    <div class="mod-card reveal d1">
+      <div class="mod-icon ico-a">🏛️</div>
+      <h3>Gestão Administrativa</h3>
+      <p>Controle centralizado de fiscais, processos administrativos, contribuintes e indicadores de desempenho.</p>
+      <ul class="mod-list">
+        <li>Cadastro de fiscais e perfis de acesso</li>
+        <li>Controle de processos administrativos</li>
+        <li>Cadastro de contribuintes e empresas</li>
+        <li>Painel de indicadores gerenciais</li>
+        <li>Relatórios de produtividade</li>
+        <li>Controle de prazos e reincidências</li>
+      </ul>
+    </div>
+    <div class="mod-card reveal d2">
+      <div class="mod-icon ico-b">🏗️</div>
+      <h3>Fiscalização de Obras</h3>
+      <p>Registro completo de vistorias, notificações, embargos e controle de prazos com histórico fotográfico.</p>
+      <ul class="mod-list">
+        <li>Registro de vistorias em campo</li>
+        <li>Emissão de autos de infração</li>
+        <li>Emissão de embargos e interdições</li>
+        <li>Controle de prazos e reincidências</li>
+        <li>Registro fotográfico vinculado à vistoria</li>
+        <li>Histórico completo de fiscalizações</li>
+      </ul>
+    </div>
+    <div class="mod-card reveal d3">
+      <div class="mod-icon ico-c">🌿</div>
+      <h3>Fiscalização Ambiental</h3>
+      <p>Denúncias, supressão vegetal, descarte irregular e multas ambientais com georreferenciamento completo.</p>
+      <ul class="mod-list">
+        <li>Registro de denúncias ambientais</li>
+        <li>Fiscalização de áreas de preservação</li>
+        <li>Controle de supressão vegetal</li>
+        <li>Controle de descarte irregular</li>
+        <li>Emissão de notificações e multas</li>
+        <li>Georreferenciamento das ocorrências</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ APP MOBILE ════════════════════ -->
+<section id="app">
+  <div class="app-wrap">
+    <div class="reveal">
+      <div class="badge">App Mobile</div>
+      <h2 class="section-title" style="margin-top:1.1rem">Fiscalização Completa<br>no Tablet</h2>
+      <p class="section-sub" style="margin-top:1rem">
+        O fiscal leva tudo o que precisa na palma da mão. Funciona mesmo sem internet
+        e sincroniza automaticamente ao reconectar.
+      </p>
+      <div class="app-steps">
+        <div class="app-step">
+          <div class="step-num">1</div>
+          <div>
+            <h4>Online &amp; Offline</h4>
+            <p>Continue fiscalizando sem sinal. Dados sincronizam automaticamente ao reconectar.</p>
+          </div>
+        </div>
+        <div class="app-step">
+          <div class="step-num">2</div>
+          <div>
+            <h4>Fotos, Vídeos &amp; GPS</h4>
+            <p>Capture evidências com localização exata automaticamente vinculada à vistoria.</p>
+          </div>
+        </div>
+        <div class="app-step">
+          <div class="step-num">3</div>
+          <div>
+            <h4>Assinatura Digital &amp; QR Code</h4>
+            <p>Coleta assinatura do notificado e lê QR Codes de imóveis e empresas.</p>
+          </div>
+        </div>
+        <div class="app-step">
+          <div class="step-num">4</div>
+          <div>
+            <h4>PDF &amp; Impressão Bluetooth</h4>
+            <p>Emite documentos em PDF e imprime via impressora portátil Bluetooth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-scene reveal d2">
+      <div class="tab-device">
+        <div class="tab-screen">
+          <div class="tab-top">
+            <span class="tab-top-title">FiscalAmb Pro</span>
+            <span class="tab-top-time">14:32 ● GPS ●</span>
+          </div>
+          <div class="tab-map">
+            <div class="tab-map-grid"></div>
+            <div class="mpin mpin-r"></div>
+            <div class="mpin mpin-g"></div>
+            <div class="mpin mpin-y"></div>
+          </div>
+          <div class="tab-actions">
+            <div class="tab-action">
+              <div class="tab-act-ico">📷</div>
+              <span class="tab-act-lbl">Fotografar</span>
+            </div>
+            <div class="tab-action">
+              <div class="tab-act-ico">✍️</div>
+              <span class="tab-act-lbl">Assinar</span>
+            </div>
+            <div class="tab-action">
+              <div class="tab-act-ico">📍</div>
+              <span class="tab-act-lbl">Localizar</span>
+            </div>
+            <div class="tab-action">
+              <div class="tab-act-ico">📄</div>
+              <span class="tab-act-lbl">Emitir PDF</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-badge tbadge1">
+        <div class="bdot"></div>Sincronizado ✓
+      </div>
+      <div class="tab-badge tbadge2">
+        <div class="bnum">GPS</div>
+        <div class="bsub">Localização ativa</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ GEO ════════════════════ -->
+<section id="geo">
+  <div class="geo-inner">
+    <div class="geo-map-box reveal">
+      <div class="geo-grid"></div>
+      <div class="gpin gp1"><div class="gpin-dot"></div><span class="gpin-lbl">Auto de Infração</span></div>
+      <div class="gpin gp2"><div class="gpin-dot"></div><span class="gpin-lbl">Área Preservada</span></div>
+      <div class="gpin gp3"><div class="gpin-dot"></div><span class="gpin-lbl">Denúncia Ambiental</span></div>
+      <div class="gpin gp4"><div class="gpin-dot"></div><span class="gpin-lbl">Obra Embargada</span></div>
+    </div>
+
+    <div class="geo-text reveal d2">
+      <div class="badge dark">Georreferenciamento</div>
+      <h2 class="section-title">Tudo no Mapa,<br>em Tempo Real</h2>
+      <p class="section-sub">
+        Visualize ocorrências, fiscalizações e áreas monitoradas em mapas digitais
+        com histórico geográfico completo e integração GIS.
+      </p>
+      <div class="geo-feats">
+        <div class="gfeat">
+          <div class="gfeat-ico">🗺️</div>
+          <h4>Mapa de Ocorrências</h4>
+          <p>Visualize pontos por categoria e status em tempo real</p>
+        </div>
+        <div class="gfeat">
+          <div class="gfeat-ico">📐</div>
+          <h4>Delimitação de Áreas</h4>
+          <p>Marque e monitore áreas de preservação e fiscalização</p>
+        </div>
+        <div class="gfeat">
+          <div class="gfeat-ico">🔗</div>
+          <h4>Integração GIS</h4>
+          <p>Compatível com sistemas de geoprocessamento municipais</p>
+        </div>
+        <div class="gfeat">
+          <div class="gfeat-ico">📅</div>
+          <h4>Histórico Geográfico</h4>
+          <p>Consulte todo o histórico de fiscalizações por coordenada</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ STATS ════════════════════ -->
+<section id="stats">
+  <div class="stats-row">
+    <div class="stat-box reveal">
+      <div class="stat-num"><span class="cnt" data-to="100">0</span><span class="stat-suf">%</span></div>
+      <div class="stat-lbl">Digital · zero papel</div>
+    </div>
+    <div class="stat-box reveal d1">
+      <div class="stat-num"><span class="cnt" data-to="70">0</span><span class="stat-suf">%</span></div>
+      <div class="stat-lbl">Redução de tempo em processos</div>
+    </div>
+    <div class="stat-box reveal d2">
+      <div class="stat-num"><span class="cnt" data-to="3">0</span><span class="stat-suf">×</span></div>
+      <div class="stat-lbl">Mais fiscalizações por fiscal</div>
+    </div>
+    <div class="stat-box reveal d3">
+      <div class="stat-num"><span class="cnt" data-to="24">0</span><span class="stat-suf">h</span></div>
+      <div class="stat-lbl">Suporte técnico disponível</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ COMO FUNCIONA ════════════════════ -->
+<section>
+  <div class="cf-wrap">
+    <div class="cf-header reveal">
+      <div class="badge">Processo</div>
+      <h2 class="section-title" style="margin-top:1rem">Como Funciona</h2>
+      <p class="section-sub">
+        Da denúncia ou ordem de serviço até o encerramento,
+        tudo rastreado e documentado automaticamente.
+      </p>
+    </div>
+    <div class="cf-steps">
+      <div class="cf-step reveal">
+        <div class="cf-num">1</div>
+        <h4>Recebimento</h4>
+        <p>Denúncia, OS ou solicitação chega ao sistema municipal</p>
+      </div>
+      <div class="cf-step reveal d1">
+        <div class="cf-num">2</div>
+        <h4>Atribuição</h4>
+        <p>Fiscal designado recebe tarefa no tablet com rota e histórico</p>
+      </div>
+      <div class="cf-step reveal d2">
+        <div class="cf-num">3</div>
+        <h4>Vistoria</h4>
+        <p>Inspeção realizada in loco com fotos, vídeo e GPS automático</p>
+      </div>
+      <div class="cf-step reveal d3">
+        <div class="cf-num">4</div>
+        <h4>Documentação</h4>
+        <p>Auto, notificação ou multa emitida digitalmente em campo</p>
+      </div>
+      <div class="cf-step reveal d4">
+        <div class="cf-num">5</div>
+        <h4>Acompanhamento</h4>
+        <p>Gestão monitora prazos e indicadores em tempo real</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ DASHBOARD ════════════════════ -->
+<section id="dashboard">
+  <div class="db-inner">
+    <div class="db-header reveal">
+      <div class="badge">Analytics</div>
+      <h2 class="section-title" style="margin-top:1rem">Relatórios &amp; Indicadores</h2>
+      <p class="section-sub">
+        Painel executivo com dados para a gestão tomar decisões baseadas em evidências,
+        não em intuição.
+      </p>
+    </div>
+    <div class="db-frame reveal">
+      <div class="db-titlebar">
+        <div class="db-dot db-dot-r"></div>
+        <div class="db-dot db-dot-y"></div>
+        <div class="db-dot db-dot-g"></div>
+      </div>
+      <div class="db-kpis">
+        <div class="kpi">
+          <div class="kpi-lbl">Fiscalizações / Mês</div>
+          <div class="kpi-num">1.248</div>
+          <div class="kpi-ch">↑ +23% vs mês anterior</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl">Autos de Infração</div>
+          <div class="kpi-num">384</div>
+          <div class="kpi-ch">↑ +12% vs mês anterior</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl">Denúncias Ambientais</div>
+          <div class="kpi-num">97</div>
+          <div class="kpi-ch warn">→ Estável</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl">Processos Encerrados</div>
+          <div class="kpi-num">892</div>
+          <div class="kpi-ch">↑ +31% vs mês anterior</div>
+        </div>
+      </div>
+      <div class="db-charts">
+        <div class="db-chart">
+          <div class="dc-title">Fiscalizações por Semana</div>
+          <div class="bar-chart">
+            <div class="bar" style="height:58%"></div>
+            <div class="bar" style="height:76%"></div>
+            <div class="bar" style="height:52%"></div>
+            <div class="bar" style="height:90%"></div>
+            <div class="bar" style="height:72%"></div>
+            <div class="bar" style="height:100%"></div>
+            <div class="bar" style="height:82%"></div>
+            <div class="bar" style="height:94%"></div>
+          </div>
+        </div>
+        <div class="db-chart">
+          <div class="dc-title">Taxa de Resolução</div>
+          <div class="donut"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ INTEGRAÇÕES ════════════════════ -->
+<section id="integracoes">
+  <div class="int-inner">
+    <div class="int-header reveal">
+      <div class="badge">Integrações</div>
+      <h2 class="section-title" style="margin-top:1rem">Integrado ao Ecossistema Municipal</h2>
+      <p class="section-sub">
+        Conecta-se com os principais sistemas da prefeitura, eliminando retrabalho
+        e garantindo dados consistentes.
+      </p>
+    </div>
+    <div class="int-grid">
+      <div class="int-card reveal">
+        <div class="int-ico">🏘️</div>
+        <div class="int-name">Cadastro Imobiliário</div>
+      </div>
+      <div class="int-card reveal d1">
+        <div class="int-ico">📝</div>
+        <div class="int-name">Protocolo Eletrônico</div>
+      </div>
+      <div class="int-card reveal d2">
+        <div class="int-ico">💰</div>
+        <div class="int-name">Sistema Tributário</div>
+      </div>
+      <div class="int-card reveal d3">
+        <div class="int-ico">🌐</div>
+        <div class="int-name">Portal da Transparência</div>
+      </div>
+      <div class="int-card reveal d4">
+        <div class="int-ico">🗺️</div>
+        <div class="int-name">Sistemas GIS</div>
+      </div>
+      <div class="int-card reveal d5">
+        <div class="int-ico">🔐</div>
+        <div class="int-name">Assinatura ICP-Brasil</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ EQUIPAMENTOS ════════════════════ -->
+<section id="equipamentos">
+  <div class="eq-inner">
+    <div class="reveal">
+      <div class="badge">Equipamentos</div>
+      <h2 class="section-title" style="margin-top:1.1rem">Tablets Prontos<br>para Campo</h2>
+      <p class="section-sub" style="margin-top:1rem">
+        Fornecemos tablets robustos configurados e prontos para operação imediata,
+        com toda a proteção que o fiscal precisa.
+      </p>
+      <div class="eq-spec">
+        <div class="eq-row">
+          <span class="eq-row-k"><span>📱</span> Tela</span>
+          <span class="eq-row-v">Mínimo 10 polegadas</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-row-k"><span>📍</span> GPS</span>
+          <span class="eq-row-v">Integrado de alta precisão</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-row-k"><span>📷</span> Câmera</span>
+          <span class="eq-row-v">Mínimo 8 MP traseira</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-row-k"><span>📶</span> Conectividade</span>
+          <span class="eq-row-v">Wi-Fi + 4G/5G</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-row-k"><span>💾</span> Armazenamento</span>
+          <span class="eq-row-v">Mínimo 128 GB</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-row-k"><span>🛡️</span> Proteção</span>
+          <span class="eq-row-v">Capa reforçada + película</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-row-k"><span>✅</span> Garantia</span>
+          <span class="eq-row-v">Mínimo 12 meses</span>
+        </div>
+      </div>
+    </div>
+    <div class="eq-visual reveal d2">
+      <div class="eq-tab">
+        <div class="eq-screen">
+          <div class="eq-logo">🌿</div>
+          <div class="eq-label">
+            <div class="eq-label-title">FiscalAmb Pro</div>
+            <div class="eq-label-sub">Sincronizando dados...</div>
+          </div>
+          <div class="eq-bar">
+            <div class="eq-bar-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ GALERIA ════════════════════ -->
+<section id="galeria">
+  <div class="gal-inner">
+    <div class="gal-header reveal">
+      <div class="badge">Galeria de Imagens</div>
+      <h2 class="section-title" style="margin-top:1rem">Fiscalização em Imagens</h2>
+      <p class="section-sub">
+        Registros reais de fiscalização ambiental, equipes em campo
+        e mapeamento georreferenciado de ocorrências municipais.
+      </p>
+    </div>
+    <!-- Filters e cards são injetados pelo gallery.js -->
+    <div id="gallery-grid"></div>
+  </div>
+</section>
+
+<!-- ════════════════════ CTA ════════════════════ -->
+<section id="cta">
+  <div class="badge light" style="margin-bottom:1.2rem">Contato</div>
+  <h2 class="section-title" style="font-size:clamp(2rem,4.5vw,3.5rem)">
+    Pronto para Modernizar<br>a Fiscalização do seu Município?
+  </h2>
+  <p class="cta-sub">
+    Solicite uma demonstração gratuita e veja como o FiscalAmb Pro
+    pode transformar a gestão de obras e meio ambiente.
+  </p>
+  <div class="cta-btns">
+    <a href="mailto:contato@fiscalamb.com.br" class="btn btn-green" style="font-size:1rem;padding:1.15rem 2.5rem">
+      Solicitar Demonstração
+    </a>
+    <a href="tel:+5500000000000" class="btn btn-outline" style="font-size:1rem;padding:1.15rem 2.5rem">
+      Falar com Especialista
+    </a>
+  </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div>
+        <div class="ft-brand-name">🌿 FiscalAmb Pro</div>
+        <p class="ft-brand-desc">
+          Sistema integrado de fiscalização de obras, posturas e meio ambiente
+          para municípios modernos. Conformidade LGPD e segurança de dados.
+        </p>
+      </div>
+      <div>
+        <div class="ft-col-title">Sistema</div>
+        <ul class="ft-links">
+          <li><a href="#sobre">O Sistema</a></li>
+          <li><a href="#modulos">Módulos</a></li>
+          <li><a href="#app">App Mobile</a></li>
+          <li><a href="#geo">Georreferenciamento</a></li>
+          <li><a href="#galeria">Galeria</a></li>
+          <li><a href="#dashboard">Relatórios</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-title">Serviços</div>
+        <ul class="ft-links">
+          <li><a href="#">Implantação</a></li>
+          <li><a href="#">Treinamento</a></li>
+          <li><a href="#">Suporte Técnico</a></li>
+          <li><a href="#">Integrações</a></li>
+          <li><a href="#">Equipamentos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-title">Legal</div>
+        <ul class="ft-links">
+          <li><a href="#">Conformidade LGPD</a></li>
+          <li><a href="#">Segurança de Dados</a></li>
+          <li><a href="#">Termos de Uso</a></li>
+          <li><a href="#">Privacidade</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span class="ft-bottom-brand">FiscalAmb Pro</span>
+      <span>© 2025 FiscalAmb Pro · Sistema de Fiscalização Municipal</span>
+      <span style="color:#6B7C35">🌿 Pela preservação do meio ambiente</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Gallery system (manages images/, lazy-loading and lightbox) -->
+<script src="js/gallery.js"></script>
+
+<script>
+  /* ── Nav scroll ── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ── Hamburger menu ── */
+  const burger  = document.getElementById('navHamburger');
+  const overlay = document.getElementById('navOverlay');
+  function toggleMenu(open) {
+    burger.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', () => toggleMenu(!burger.classList.contains('open')));
+  overlay.querySelectorAll('.mob-link').forEach(a => {
+    a.addEventListener('click', () => toggleMenu(false));
+  });
+
+  /* ── Reveal on scroll ── */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+
+  /* ── Counter animation ── */
+  function runCounter(el) {
+    const to = parseInt(el.dataset.to, 10);
+    const dur = 1600;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = p < .5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+      el.textContent = Math.round(ease * to);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  const statsIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.cnt').forEach(runCounter);
+        statsIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: .4 });
+  const statsEl = document.getElementById('stats');
+  if (statsEl) statsIO.observe(statsEl);
+
+  /* ── Smooth scroll ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); toggleMenu(false); }
+    });
+  });
+</script>
+</body>
+</html>
