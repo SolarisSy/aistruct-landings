@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>5 Gentle Habits That Keep Long-Term Couples Connected — Lover's Trick</title>
     <meta name="description" content="Practical, science-backed habits that help long-term partners stay close: attention, small gestures, shared rituals, gratitude and curiosity." />
+
+    <!-- Utmify UTM capture + Google pixel (atribuição das conversões da safe → mesmo checkout do money) -->
+    <script>
+      window.googlePixelId = "6a3b519cc15b24d74a176437";
+      var a = document.createElement("script");
+      a.setAttribute("async", ""); a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+      document.head.appendChild(a);
+    </script>
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
     <style>
       :root{
         --bg:#0c0c0e;--surface:#141416;--ink:#ececf1;--muted:#8d8d97;
@@ -35,6 +47,18 @@
         padding-top:1.1rem;font-size:.82rem;line-height:1.85;color:#b6b6c2;text-align:center}
       .foot a{color:var(--accent-soft);text-decoration:underline;margin:0 .4rem}
       .biz{font-size:.72rem;color:#a6a6b2;line-height:1.7;margin:.8rem auto 0;max-width:520px}
+      .offer{background:linear-gradient(160deg,#15171d,#101218);border:1px solid var(--faint);
+        border-radius:16px;padding:1.6rem 1.3rem;margin:2.2rem 0 1rem;text-align:center}
+      .offer .tag{font-family:Arial,sans-serif;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+      .offer h2{font-family:Georgia,'Times New Roman',serif;color:var(--ink);font-size:1.42rem;margin:.2rem 0 .7rem}
+      .offer p{font-size:1.02rem;color:#cfcfd8;margin:0 0 1rem}
+      .price{font-family:Arial,sans-serif;margin:.3rem 0 1.1rem}
+      .price .old{color:var(--muted);text-decoration:line-through;margin-right:.55rem;font-size:1.02rem}
+      .price .new{color:var(--accent-soft);font-weight:800;font-size:1.7rem}
+      .offer-cta{display:inline-block;font-family:Arial,sans-serif;font-weight:800;font-size:.95rem;
+        color:#0b0d12;background:linear-gradient(180deg,#bcd0fb,#7aa2f0);border-radius:999px;
+        padding:.95rem 2.1rem;text-decoration:none;box-shadow:0 8px 24px rgba(122,162,240,.28)}
+      .offer-note{font-size:.74rem;color:var(--muted);margin:.95rem 0 0}
     </style>
   </head>
   <body>
@@ -72,6 +96,15 @@
       <h2>5. Stay curious about each other</h2>
       <p>People keep changing, even after twenty years. Asking "what's been on your mind lately?" treats your partner as someone still worth discovering, rather than someone you've already figured out.</p>
 
+      <div class="offer">
+        <div class="tag">A complete, gentle guide</div>
+        <h2>Want the full step-by-step version?</h2>
+        <p>These five habits are a simple place to start. Lover's Trick put together a complete, gentle program that walks couples through the whole approach — calmly, privately, and at your own pace.</p>
+        <div class="price"><span class="old">$127</span><span class="new">$67</span></div>
+        <a class="offer-cta" id="offer-cta" href="https://www.checkout-ds24.com/product/687041?aff=REGMarketing&cam=msg" target="_blank" rel="noopener">Become a member →</a>
+        <p class="offer-note">Individual experiences vary and nothing here is a promise of any specific result.</p>
+      </div>
+
       <div class="note">
         <strong>A gentle reminder:</strong> every relationship is different, and these are general well-being suggestions, not professional or medical advice. If you're going through a difficult time, consider speaking with a qualified counselor or therapist.
       </div>
@@ -82,6 +115,19 @@
         <p class="biz">E L Pelaquini Corretor Imobiliário — CNPJ 24.948.953/0001-44<br>Avenida Presidente Arthur da Silva Bernardes, 1827 — Portão, Curitiba/PR, CEP 80240-545<br>Contact: contatoelpelaquini@elpelaquini.com</p>
       </div>
     </div>
-    <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+      // Preserva UTMs/gclid no link do checkout (atribuição) — mesmo glue do funil money.
+      (function(){
+        var a = document.getElementById('offer-cta'); if(!a) return;
+        var inc = new URLSearchParams(location.search);
+        if(![...inc].length) return;
+        var url = new URL(a.href);
+        var cam = inc.get('utm_campaign')||inc.get('utm_source')||inc.get('cam')||inc.get('src')||'';
+        inc.forEach(function(v,k){ if(!url.searchParams.has(k)) url.searchParams.set(k,v); });
+        if(cam) url.searchParams.set('cam', cam);
+        a.href = url.toString();
+      })();
+    </script>
   </body>
 </html>
