@@ -55,6 +55,8 @@ log = logging.getLogger("hyu-cart")
 PAGGINS_API_KEY = os.environ.get("PAGGINS_API_KEY", "").strip()
 PAGGINS_API_URL = os.environ.get("PAGGINS_API_URL", "https://api.paggins.com").rstrip("/")
 SITE_BASE = os.environ.get("SITE_BASE", "https://hyuoficial.com").rstrip("/")
+# email placeholder p/ a SDK Paggins (customer.email virou obrigatorio 24/06) — editavel no checkout
+PLACEHOLDER_EMAIL = os.environ.get("CHECKOUT_PLACEHOLDER_EMAIL", "comprador@hyuoficial.com").strip()
 # domínios do HYU (CORS + success/cancel por origem) — hyudrinks.com é o principal
 HYU_ORIGINS = [
     "https://hyudrinks.com", "https://www.hyudrinks.com",
@@ -223,6 +225,13 @@ async def create_checkout(request: Request):
     order_id = f"hyu-{uuid.uuid4().hex[:12]}"
     origin = str(payload.get("origin") or "").rstrip("/")
     base = origin if origin in HYU_ORIGINS else SITE_BASE  # volta pro domínio de origem
+    # ⚠️ a SDK Paggins passou a EXIGIR customer.email valido (24/06; ainda "optional" na doc) —
+    # sem ele toda sessao volta 400 "Dados da requisicao sao invalidos". O site nao coleta
+    # email antes do checkout, entao mandamos um placeholder; o campo fica EDITAVEL na pagina
+    # da Paggins e o comprador digita o real. Se o front passar customer.email, usamos o real.
+    cust_email = str((payload.get("customer") or {}).get("email") or "").strip()
+    if not _EMAIL_RE.match(cust_email):
+        cust_email = PLACEHOLDER_EMAIL
     body = {
         "currency": "BRL",
         "items": items,
@@ -230,6 +239,7 @@ async def create_checkout(request: Request):
         "successUrl": f"{base}/obrigado/?session_id={{CHECKOUT_SESSION_ID}}",
         "cancelUrl": f"{base}/?checkout=cancelado",
         "externalOrderId": order_id,
+        "customer": {"email": cust_email},
     }
     metadata = _build_metadata(payload.get("meta"))
     if metadata:
