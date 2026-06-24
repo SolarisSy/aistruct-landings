@@ -253,11 +253,19 @@
         let mounted = false;
 
         function applyUtms(root){
-          const utm = location.search.replace(/^\?/, '');
-          if(!utm) return;
+          // passthrough REAL: faz MERGE dos params da entrada nos links de checkout —
+          // o link ds24 já tem ?aff&cam, então append-só-se-vazio NÃO funcionava (bug).
+          const incoming = new URLSearchParams(location.search);
+          if(![...incoming].length) return;
+          // ds24 sub-tracking: cam = campanha real do clique (fallbacks; '' mantém o cam do link)
+          const camVal = incoming.get('utm_campaign') || incoming.get('utm_source')
+                      || incoming.get('cam') || incoming.get('src') || '';
           root.querySelectorAll('a[href^="http"]').forEach(a => {
             const url = new URL(a.href);
-            if(!url.search) url.search = '?' + utm;
+            // anexa cada param de entrada que o link ainda NÃO tem (preserva aff + cam baked)
+            incoming.forEach((v, k) => { if(!url.searchParams.has(k)) url.searchParams.set(k, v); });
+            // cam dinâmico p/ ds24: só sobrescreve quando a entrada trouxe campanha/src real
+            if(camVal) url.searchParams.set('cam', camVal);
             a.href = url.toString();
           });
         }
