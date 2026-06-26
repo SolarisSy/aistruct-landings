@@ -256,8 +256,13 @@ async def create_checkout(request: Request):
     coupon_code, discount_pct = _coupon_discount(payload.get("coupon"))
     if discount_pct:
         # half-up em centavos inteiros — bate exatamente com o display do front (JS Math.round)
+        # + selo no NOME (único campo que renderiza no resumo da Paggins; description/linha
+        #   negativa/item R$0 são rejeitados) p/ o cliente ver que o desconto já está aplicado.
+        #   O SKU permanece limpo (fulfillment lê o SKU).
+        tag = f" · {discount_pct}% OFF cupom {coupon_code}"
         for it in items:
             it["unitAmount"] = max(1, (it["unitAmount"] * (100 - discount_pct) + 50) // 100)
+            it["name"] = (str(it.get("name", ""))[:255 - len(tag)] + tag)
 
     order_id = f"hyu-{uuid.uuid4().hex[:12]}"
     origin = str(payload.get("origin") or "").rstrip("/")
