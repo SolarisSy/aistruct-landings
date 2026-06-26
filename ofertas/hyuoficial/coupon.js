@@ -123,7 +123,8 @@
       ".hyucpn-bar .chip{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',ui-monospace,monospace;" +
       "font-weight:700;font-size:13px;color:#0c0c0c;background:#c4f439;padding:5px 11px;border-radius:999px;" +
       "box-shadow:2px 2px 0 #11150a;white-space:nowrap}" +
-      ".hyucpn-bar .chip b{font-size:11px}" +
+      // cor explícita: o site tem b{color:var(--lime)} → sem isso "CUPOM" fica lime no fundo lime
+      ".hyucpn-bar .chip b{font-size:11px;color:#0c0c0c}" +
       ".hyucpn-bar .x{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:0;" +
       "color:#f3efe4;opacity:.55;cursor:pointer;font-size:18px;line-height:1;padding:4px}.hyucpn-bar .x:hover{opacity:1}" +
       ".hyucpn-px{display:inline-flex;align-items:baseline;gap:.42em;white-space:nowrap}" +
