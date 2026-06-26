@@ -65,6 +65,36 @@ HYU_ORIGINS = [
 LEADS_PASSWORD = os.environ.get("LEADS_PASSWORD", "").strip()
 PAGGINS_WEBHOOK_SECRET = os.environ.get("PAGGINS_WEBHOOK_SECRET", "").strip()
 LEADS_DB = os.environ.get("LEADS_DB", "/data/leads.db")
+
+
+# ── Cupons de influencer (desconto aplicado AQUI, no unitAmount) ──────────────
+# O checkout EXTERNO (SDK) da Paggins NÃO aplica cupom (provado: campo de cupom não
+# funciona em sessões SDK). Então o desconto é aplicado no preço que enviamos, e o
+# código do influencer vai em metadata.coupon p/ atribuição/comissão.
+# Override por env: INFLUENCER_COUPONS_JSON='{"ARTHURPC":5,...}'
+_DEFAULT_COUPONS = {"ARTHURPC": 5, "THIAGO": 5, "ISA": 5, "NATHAN": 5, "DIGAO": 5}
+
+
+def _parse_coupons() -> dict[str, int]:
+    raw = os.environ.get("INFLUENCER_COUPONS_JSON", "").strip()
+    if raw:
+        try:
+            return {str(k).strip().upper(): int(v) for k, v in json.loads(raw).items()
+                    if 0 < int(v) < 100}
+        except Exception:
+            logging.getLogger("hyu-cart").error("INFLUENCER_COUPONS_JSON invalido; usando default")
+    return dict(_DEFAULT_COUPONS)
+
+
+INFLUENCER_COUPONS = _parse_coupons()
+
+
+def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
+    """Retorna (CODIGO, pct) se o cupom for válido/conhecido, senão ("", 0)."""
+    code = str(raw_coupon or "").strip().upper()
+    if code and code.isalnum() and code in INFLUENCER_COUPONS:
+        return code, INFLUENCER_COUPONS[code]
+    return "", 0
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
@@ -222,6 +252,13 @@ async def create_checkout(request: Request):
         STATS["bad_request"] += 1
         raise
 
+    # cupom de influencer → desconta o unitAmount de cada item (centavos, arredonda)
+    coupon_code, discount_pct = _coupon_discount(payload.get("coupon"))
+    if discount_pct:
+        # half-up em centavos inteiros — bate exatamente com o display do front (JS Math.round)
+        for it in items:
+            it["unitAmount"] = max(1, (it["unitAmount"] * (100 - discount_pct) + 50) // 100)
+
     order_id = f"hyu-{uuid.uuid4().hex[:12]}"
     origin = str(payload.get("origin") or "").rstrip("/")
     base = origin if origin in HYU_ORIGINS else SITE_BASE  # volta pro domínio de origem
@@ -242,6 +279,9 @@ async def create_checkout(request: Request):
         "customer": {"email": cust_email},
     }
     metadata = _build_metadata(payload.get("meta"))
+    if discount_pct:
+        metadata["coupon"] = coupon_code
+        metadata["discount_pct"] = str(discount_pct)
     if metadata:
         body["metadata"] = metadata
 
@@ -267,9 +307,11 @@ async def create_checkout(request: Request):
                     "lines": [(i["sku"], i["quantity"]) for i in items],
                     "total": total, "meta": list(metadata),
                 })
-                log.info("checkout %s -> %s total=%s", order_id, sess.get("id"), total)
+                log.info("checkout %s -> %s total=%s coupon=%s", order_id,
+                         sess.get("id"), total, coupon_code or "-")
                 return {"checkoutUrl": sess.get("checkoutUrl"),
-                        "sessionId": sess.get("id"), "totalAmount": total}
+                        "sessionId": sess.get("id"), "totalAmount": total,
+                        "coupon": coupon_code, "discountPct": discount_pct}
             if r.status_code < 500:
                 STATS["paggins_error"] += 1
                 log.error("paggins %s: %s", r.status_code, r.text[:300])

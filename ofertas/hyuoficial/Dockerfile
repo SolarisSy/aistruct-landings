@@ -28,6 +28,6 @@ RUN printf 'server {\n\
   }\n\
   location / {\n\
     add_header Cache-Control "no-cache";\n\
-    try_files $uri $uri/ =404;\n\
+    try_files $uri $uri/ /index.html;\n\
   }\n\
 }\n' > /etc/nginx/conf.d/default.conf

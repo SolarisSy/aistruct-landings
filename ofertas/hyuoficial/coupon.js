@@ -1,0 +1,144 @@
+/* HYU — Cupom de influencer por link
+ * Abrir hyudrinks.com/ARTHURPC (ou /THIAGO /ISA /NATHAN /DIGAO) aplica o desconto
+ * em TODO o site: banner no topo + preços riscados + total do carrinho descontado.
+ * O desconto REAL é aplicado no bridge (hyu-cart) no unitAmount — aqui só refletimos
+ * visualmente e injetamos o `coupon` no POST /checkout. Validação final = bridge.
+ *
+ * % por cupom (espelha INFLUENCER_COUPONS do bridge). Manter os dois em sincronia.
+ */
+(function () {
+  "use strict";
+  var COUPONS = { ARTHURPC: 5, THIAGO: 5, ISA: 5, NATHAN: 5, DIGAO: 5 };
+  var KEY = "hyu_coupon";
+  var PRICE_RE = /R\$\s?\d{1,3}(?:\.\d{3})*,\d{2}/g;
+  // seletores onde mora preço (estáticos + drawer/sticky renderizados por JS)
+  var SEL = ".plan__price, .plan__per, .col__price, [data-sb-txt], [data-cd-total], [data-cd-lines] li, [data-cd-lines] span, .drawer__total span";
+
+  /* ---- resolve o cupom: 1) path /CODE  2) localStorage ---- */
+  function fromPath() {
+    var segs = location.pathname.split("/").filter(Boolean);
+    if (segs.length === 1) {
+      var c = decodeURIComponent(segs[0]).toUpperCase();
+      if (COUPONS[c]) return c;
+    }
+    return null;
+  }
+  var code = fromPath();
+  if (code) {
+    try { localStorage.setItem(KEY, code); } catch (e) {}
+    // limpa a URL p/ "/" preservando query/hash, sem recarregar
+    try { history.replaceState(null, "", "/" + location.search + location.hash); } catch (e) {}
+  } else {
+    try { code = localStorage.getItem(KEY); } catch (e) {}
+    if (code && !COUPONS[code]) code = null; // cupom obsoleto
+  }
+  if (!code) return;
+  var PCT = COUPONS[code];
+
+  /* ---- helpers de preço ---- */
+  function parseBRL(s) {
+    return parseFloat(s.replace(/[^\d,]/g, "").replace(/\./g, "").replace(",", "."));
+  }
+  function fmtBRL(n) {
+    return "R$ " + n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function discount(v) { return Math.round(v * (100 - PCT)) / 100; }
+
+  /* ---- decora preços (riscado + novo) ---- */
+  function decorate(el) {
+    if (!el || el.dataset.hyucpn || el.closest(".hyucpn-bar")) return;
+    var html = el.innerHTML;
+    if (!html || html.indexOf("R$") === -1) return;
+    var touched = false;
+    var out = html.replace(PRICE_RE, function (m) {
+      var v = parseBRL(m);
+      if (!v || v <= 0) return m;             // pula R$ 0,00 (frete/imposto)
+      touched = true;
+      return '<span class="hyucpn-px"><s>' + m + "</s><b>" + fmtBRL(discount(v)) + "</b></span>";
+    });
+    if (touched) { el.innerHTML = out; el.dataset.hyucpn = "1"; }
+  }
+  function scan() {
+    var nodes = document.querySelectorAll(SEL);
+    for (var i = 0; i < nodes.length; i++) decorate(nodes[i]);
+  }
+
+  /* ---- intercepta o POST /checkout p/ mandar o cupom pro bridge ---- */
+  var _fetch = window.fetch;
+  window.fetch = function (input, init) {
+    try {
+      var url = typeof input === "string" ? input : (input && input.url) || "";
+      var m = (init && init.method) || (input && input.method) || "GET";
+      if (/\/checkout(\?|$)/.test(url) && String(m).toUpperCase() === "POST" && init && typeof init.body === "string") {
+        var b = JSON.parse(init.body);
+        if (b && typeof b === "object") {
+          b.coupon = code; // bridge valida e grava metadata.coupon p/ atribuição
+          init = Object.assign({}, init, { body: JSON.stringify(b) });
+        }
+      }
+    } catch (e) {}
+    return _fetch.call(this, input, init);
+  };
+
+  /* ---- banner + estilos ---- */
+  function injectStyles() {
+    var css =
+      '.hyucpn-bar{position:relative;z-index:9999;display:flex;align-items:center;justify-content:center;gap:14px;' +
+      'flex-wrap:wrap;padding:10px 16px;background:#0c0c0c;color:#f3efe4;border-bottom:3px solid #c4f439;' +
+      "font-family:'Archivo',system-ui,sans-serif;line-height:1.15;animation:hyucpnDrop .5s cubic-bezier(.2,.9,.3,1.4) both}" +
+      "@keyframes hyucpnDrop{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}" +
+      ".hyucpn-bar .off{font-family:'Anton',Impact,sans-serif;font-size:clamp(20px,4.6vw,30px);color:#c4f439;" +
+      "letter-spacing:.3px;line-height:.9;text-shadow:2px 2px 0 #11150a}" +
+      ".hyucpn-bar .msg{font-weight:700;font-size:clamp(12px,3.2vw,15px);text-transform:uppercase;letter-spacing:.4px}" +
+      ".hyucpn-bar .msg small{display:block;font-weight:500;opacity:.7;letter-spacing:.2px;text-transform:none}" +
+      ".hyucpn-bar .chip{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',ui-monospace,monospace;" +
+      "font-weight:700;font-size:13px;color:#0c0c0c;background:#c4f439;padding:5px 11px;border-radius:999px;" +
+      "box-shadow:2px 2px 0 #11150a;white-space:nowrap}" +
+      ".hyucpn-bar .chip b{font-size:11px}" +
+      ".hyucpn-bar .x{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:0;" +
+      "color:#f3efe4;opacity:.55;cursor:pointer;font-size:18px;line-height:1;padding:4px}.hyucpn-bar .x:hover{opacity:1}" +
+      ".hyucpn-px{white-space:nowrap}.hyucpn-px s{opacity:.45;font-weight:400;font-size:.62em;margin-right:.35em}" +
+      ".hyucpn-px b{color:inherit;font-weight:inherit}" +
+      "[data-sb-txt] .hyucpn-px s,[data-cd-total] .hyucpn-px s{font-size:.7em}" +
+      "@media(max-width:520px){.hyucpn-bar{gap:9px;padding:9px 34px 9px 12px}.hyucpn-bar .msg small{display:none}}";
+    var st = document.createElement("style");
+    st.id = "hyucpn-style";
+    st.textContent = css;
+    document.head.appendChild(st);
+  }
+  function buildBar() {
+    var bar = document.createElement("div");
+    bar.className = "hyucpn-bar";
+    bar.setAttribute("role", "status");
+    bar.innerHTML =
+      '<span class="off">' + PCT + "% OFF</span>" +
+      '<span class="msg">em todo o site<small>desconto aplicado automaticamente no checkout</small></span>' +
+      '<span class="chip">🎟️ <b>CUPOM</b>&nbsp;' + code + "</span>" +
+      '<button class="x" type="button" aria-label="Remover cupom">✕</button>';
+    bar.querySelector(".x").addEventListener("click", function () {
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      location.reload();
+    });
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
+
+  function init() {
+    injectStyles();
+    buildBar();
+    scan();
+    // re-decora quando o carrinho/sticky renderizam (drawer abre, qty muda…)
+    var pending = false;
+    var mo = new MutationObserver(function () {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(function () { pending = false; scan(); });
+    });
+    mo.observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
