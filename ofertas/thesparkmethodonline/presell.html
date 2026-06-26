@@ -79,61 +79,97 @@
     </style>
   </head>
   <body>
-    <div class="wrap">
 
-      <div class="masthead">
-        <div class="brand">The Spark Method<span>.</span></div>
-        <div class="kicker">Relationship Notes</div>
+    <style>
+      .m2{max-width:560px;margin:0 auto;padding:1.6rem 1.15rem 2.4rem;text-align:center}
+      .m2-brand{font-weight:800;letter-spacing:.02em;font-size:1rem;color:var(--ink);
+        display:flex;align-items:center;justify-content:center;gap:.4rem;margin-bottom:1.5rem}
+      .m2-brand span{color:var(--pink-soft)}
+      .m2-h1{font-size:clamp(1.35rem,5.4vw,2rem);line-height:1.22;font-weight:800;
+        letter-spacing:-.01em;margin:.2rem 0 1.35rem}
+      .m2-h1 em{font-style:normal;background:linear-gradient(90deg,#f07ab8,#e8529a,#f09ac8,#e8529a);
+        background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        background-clip:text;animation:shimmer 4s linear infinite}
+      .m2-media{display:block;width:100%;border:0;padding:0;margin:0;background:transparent;cursor:pointer}
+      .m2-frame{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--faint);
+        aspect-ratio:4/5;filter:grayscale(1) contrast(1.06);box-shadow:0 14px 40px rgba(0,0,0,.5)}
+      .m2-frame img{width:100%;height:100%;object-fit:cover;display:block}
+      /* visual self-contained (sem GIF): gradiente monocromático + silhueta suave + grão de filme */
+      .m2-art{position:absolute;inset:0;background:
+        radial-gradient(58% 42% at 50% 30%, rgba(255,255,255,.15), transparent 62%),
+        radial-gradient(75% 65% at 50% 96%, rgba(0,0,0,.9), transparent 60%),
+        linear-gradient(160deg,#1c1c20 0%,#0c0c0e 60%,#000 100%)}
+      .m2-silh{position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);width:60%;height:80%;
+        background:radial-gradient(closest-side at 50% 32%, rgba(255,255,255,.12), transparent 72%);
+        border-radius:50% 50% 44% 44%/60% 60% 40% 40%;filter:blur(2px);
+        animation:floatPink 5s ease-in-out infinite}
+      .m2-art::after{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+        background:repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px)}
+      .m2-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+        width:74px;height:74px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+        background:linear-gradient(110deg,#6b0030,#e8529a 40%,#ffc0dd 60%,#e8529a);
+        animation:m2pulse 2.2s ease-out infinite}
+      .m2-play::before{content:"";border-style:solid;border-width:11px 0 11px 18px;
+        border-color:transparent transparent transparent #fff;margin-left:5px}
+      @keyframes m2pulse{0%{box-shadow:0 0 0 0 rgba(232,82,154,.5)}
+        70%{box-shadow:0 0 0 22px rgba(232,82,154,0)}100%{box-shadow:0 0 0 0 rgba(232,82,154,0)}}
+      .m2-tag{position:absolute;top:.7rem;left:.7rem;font-size:.58rem;letter-spacing:.14em;
+        text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);
+        border-radius:999px;padding:.28rem .7rem;backdrop-filter:blur(3px)}
+      .m2-age{position:absolute;top:.7rem;right:.7rem;font-size:.62rem;font-weight:800;color:#fff;
+        background:rgba(232,82,154,.9);border-radius:8px;padding:.22rem .45rem}
+      .m2-cap{font-size:.74rem;color:var(--muted);font-style:italic;margin:.95rem 0 1.45rem}
+      .m2-cta{display:inline-flex;align-items:center;justify-content:center;width:100%;
+        font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.84rem;color:#fff;
+        border:none;border-radius:999px;padding:1.1rem 1.6rem;cursor:pointer;
+        background:linear-gradient(110deg,#6b0030,#e8529a 30%,#ffc0dd 50%,#e8529a 70%,#6b0030);
+        background-size:240% auto;animation:shimmer 2.8s linear infinite, floatPink 2.6s ease-in-out infinite;
+        box-shadow:0 10px 30px rgba(232,82,154,.28)}
+      .m2-cta:active{transform:scale(.97)}
+      .m2-note{font-size:.72rem;color:var(--muted);margin:.8rem 0 0}
+      .m2-foot{border-top:1px solid var(--faint);margin-top:2.1rem;padding-top:1.1rem;
+        font-size:.78rem;line-height:1.8;color:#b6b6c2;text-align:center}
+      .m2-foot a{color:var(--pink-soft);text-decoration:underline;margin:0 .35rem}
+      .m2-disc{font-size:.68rem;color:#8f8f9b;margin-top:.85rem;line-height:1.58;text-align:left}
+      .m2-biz{font-size:.7rem;color:#a6a6b2;line-height:1.7;margin:.75rem 0 0;text-align:left}
+    </style>
+
+    <!-- CTA cloaker: o GIF/visual E o botão são submit do MESMO go-form (GET → /go/ Adspect). -->
+    <form id="go-form" method="GET" action="go/">
+      <div class="m2">
+        <div class="m2-brand">The Spark Method<span>.</span></div>
+
+        <h1 class="m2-h1">[ ONLY WATCH THIS CLASS IF YOU&rsquo;RE <em>ALONE</em> 🔞 ]</h1>
+
+        <button type="submit" class="m2-media" aria-label="Watch the private class">
+          <div class="m2-frame">
+            <div class="m2-art"><div class="m2-silh"></div></div>
+            <span class="m2-tag">&#9679; Private class</span>
+            <span class="m2-age">18+</span>
+            <span class="m2-play"></span>
+          </div>
+        </button>
+        <p class="m2-cap">Discreet &bull; Plays only when you tap &bull; A few minutes, just for you.</p>
+
+        <button type="submit" class="m2-cta">Watch the class &rarr;</button>
+        <p class="m2-note">No sign-up &bull; 100% discreet &bull; For adults 18+</p>
+
+        <div class="m2-foot">
+          <a href="privacidade.html">Privacy</a> &middot; <a href="termos.html">Terms</a> &middot; <span>support: support@thesparkmethod.com</span>
+          <p class="m2-disc">
+            <strong>18+ only.</strong> This is a sponsored page for adult relationship education.
+            The Spark Method features presentations from independent coaches; individual experiences vary
+            and nothing here is a guarantee of any specific result. <strong>Refunds:</strong> purchases are
+            processed by our retailer (Digistore24) and covered by their refund policy &mdash; contact
+            support@thesparkmethod.com for assistance. This page is not affiliated with, endorsed by, or sponsored
+            by Google, YouTube, or any social platform; all trademarks belong to their respective owners.
+            &copy; <span id="y"></span> The Spark Method.
+          </p>
+          <p class="m2-biz">Srg Consultoria Imobiliária LTDA &mdash; CNPJ 53.253.460/0001-98<br>Rua Pedro Bovo, 120 — Jardim Adelaide, Dumont/SP, CEP 14120-000<br>Contact: contatosrg@srgconsultoria.com</p>
+        </div>
       </div>
+    </form>
 
-      <span class="lede-tag">✦ Sponsored</span>
-      <h1>After 20 years together, she was sure the <em>closeness</em> was gone for good.</h1>
-      <p class="sub">She was wrong — and the turning point wasn't a big gesture. It was something small, done at the end of an ordinary evening.</p>
-
-      <div class="byline">
-        <span>By the The Spark Method Editorial Desk</span><span class="dot"></span><span>2 min read</span>
-      </div>
-
-      <div class="figure">
-        <img src="https://i.imgur.com/Z0QjfTR.jpg" loading="eager" decoding="async" alt="A couple sharing a quiet moment" />
-      </div>
-      <p class="cap">Reconnection rarely happens in one dramatic moment — it builds in the quiet ones.</p>
-
-      <article>
-        <p class="first">If you've been with someone for years, you know the feeling. Nothing is wrong, exactly. You still care. But somewhere between work, bills and routine, the warmth turned into logistics — who's picking up dinner, who's tired tonight, who forgot to call back.</p>
-
-        <p>For Sarah, a reader from Ohio who wrote to us last winter, it had been like that for almost a decade. Two good people, sharing a home, slowly becoming roommates. She didn't want to leave. She just wanted to feel <em>chosen</em> again.</p>
-
-        <div class="pull">"I didn't need a different husband," she told us. "I needed a different evening."</div>
-
-        <p>What changed things for Sarah wasn't therapy, a trip, or a long talk. It was a simple, repeatable habit a relationship coach walked her through — a few minutes at the end of the day that gently shift how two people pay attention to each other.</p>
-
-        <p>We were skeptical too. So we asked the coach to record a short, no-cost presentation that explains the idea from start to finish — what it is, why it works, and how couples across the US, UK and Canada have been trying it at home.</p>
-
-        <p>It's free to watch, it's discreet, and you can decide for yourself. If it resonates, wonderful. If not, you've lost nothing but a few minutes.</p>
-      </article>
-
-      <div class="cta-card">
-        <p>The full presentation explains the approach — in the coach's own words.</p>
-        <!-- CTA: form GET → go/ (Adspect). O JS copia os params da URL como hidden inputs p/ passar adiante. -->
-        <form id="go-form" method="GET" action="go/">
-          <button type="submit" class="cta-btn">Watch the free presentation →</button>
-        </form>
-        <p class="cta-note">No sign-up to watch • Discreet • Takes a few minutes</p>
-      </div>
-
-      <div class="foot">
-        <a href="privacidade.html">Privacy</a> · <a href="termos.html">Terms</a> · <span>support: support@thesparkmethod.com</span>
-        <p class="disclaimer">
-          This is a sponsored page. The Spark Method shares relationship and well-being content and may feature
-          presentations from independent coaches and creators. Individual experiences vary and nothing here is a
-          promise of any specific result. This page is not affiliated with or endorsed by any social platform.
-          © <span id="y"></span> The Spark Method.
-        </p>
-        <p class="biz">Srg Consultoria Imobiliária LTDA — CNPJ 53.253.460/0001-98<br>Rua Pedro Bovo, 120 — Jardim Adelaide, Dumont/SP, CEP 14120-000<br>Contact: contatosrg@srgconsultoria.com</p>
-      </div>
-
-    </div>
 
     <script>
       document.getElementById('y').textContent = new Date().getFullYear();
