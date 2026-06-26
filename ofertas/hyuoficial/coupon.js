@@ -67,8 +67,11 @@
         frag.appendChild(document.createTextNode(s.slice(last, m.index)));
         if (v > 0) {                            // pula R$ 0,00 (frete/imposto)
           var span = document.createElement("span");
-          span.className = "hyucpn-px";
-          span.innerHTML = "<s>" + m[0] + "</s><b>" + fmtBRL(discount(v)) + "</b>";
+          // selo -X% só nos preços "cheios" (>=30): subtextos /lata ficam limpos
+          var badge = v >= 30 ? '<i class="hyucpn-off">−' + PCT + "%</i>" : "";
+          span.className = "hyucpn-px" + (v >= 30 ? " hyucpn-px--lg" : "");
+          span.innerHTML = '<span class="hyucpn-old">' + m[0] + "</span>" +
+            '<b class="hyucpn-new">' + fmtBRL(discount(v)) + "</b>" + badge;
           frag.appendChild(span);
           touched = true;
         } else {
@@ -123,9 +126,16 @@
       ".hyucpn-bar .chip b{font-size:11px}" +
       ".hyucpn-bar .x{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:0;" +
       "color:#f3efe4;opacity:.55;cursor:pointer;font-size:18px;line-height:1;padding:4px}.hyucpn-bar .x:hover{opacity:1}" +
-      ".hyucpn-px{white-space:nowrap}.hyucpn-px s{opacity:.45;font-weight:400;font-size:.62em;margin-right:.35em}" +
-      ".hyucpn-px b{color:inherit;font-weight:inherit}" +
-      "[data-sb-txt] .hyucpn-px s,[data-cd-total] .hyucpn-px s{font-size:.7em}" +
+      ".hyucpn-px{display:inline-flex;align-items:baseline;gap:.42em;white-space:nowrap}" +
+      ".hyucpn-old{font-size:.7em;font-weight:600;opacity:.5;text-decoration:line-through;" +
+      "text-decoration-thickness:.08em;text-underline-offset:0;letter-spacing:-.01em}" +
+      ".hyucpn-new{color:inherit;font-weight:inherit;font-variant-numeric:tabular-nums}" +
+      ".hyucpn-off{display:inline-block;font-style:normal;font-family:'Space Mono',ui-monospace,monospace;" +
+      "font-size:.5em;font-weight:700;line-height:1;letter-spacing:.2px;color:#0c0c0c;background:#c4f439;" +
+      "padding:.36em .5em;border-radius:.5em;box-shadow:1.5px 1.5px 0 #11150a;transform:translateY(-.22em)}" +
+      // contextos compactos (sticky / total do drawer): só riscado + novo, sem pílula
+      "[data-sb-txt] .hyucpn-old,[data-cd-total] .hyucpn-old{font-size:.62em}" +
+      "[data-sb-txt] .hyucpn-off,[data-cd-total] .hyucpn-off{display:none}" +
       "@media(max-width:520px){.hyucpn-bar{gap:9px;padding:9px 34px 9px 12px}.hyucpn-bar .msg small{display:none}}";
     var st = document.createElement("style");
     st.id = "hyucpn-style";
