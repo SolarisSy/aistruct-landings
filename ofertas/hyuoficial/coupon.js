@@ -10,9 +10,9 @@
   "use strict";
   var COUPONS = { ARTHURPC: 5, THIAGO: 5, ISA: 5, NATHAN: 5, DIGAO: 5 };
   var KEY = "hyu_coupon";
-  var PRICE_RE = /R\$\s?\d{1,3}(?:\.\d{3})*,\d{2}/g;
-  // seletores onde mora preço (estáticos + drawer/sticky renderizados por JS)
-  var SEL = ".plan__price, .plan__per, .col__price, [data-sb-txt], [data-cd-total], [data-cd-lines] li, [data-cd-lines] span, .drawer__total span";
+  var PRICE_SRC = "R\\$\\s?\\d{1,3}(?:\\.\\d{3})*,\\d{2}";
+  // containers onde mora preço (estáticos + drawer/sticky renderizados por JS)
+  var SEL = ".plan__price, .plan__per, .col__price, [data-sb-txt], [data-cd-total], [data-cd-lines]";
 
   /* ---- resolve o cupom: 1) path /CODE  2) localStorage ---- */
   function fromPath() {
@@ -44,23 +44,49 @@
   }
   function discount(v) { return Math.round(v * (100 - PCT)) / 100; }
 
-  /* ---- decora preços (riscado + novo) ---- */
-  function decorate(el) {
-    if (!el || el.dataset.hyucpn || el.closest(".hyucpn-bar")) return;
-    var html = el.innerHTML;
-    if (!html || html.indexOf("R$") === -1) return;
-    var touched = false;
-    var out = html.replace(PRICE_RE, function (m) {
-      var v = parseBRL(m);
-      if (!v || v <= 0) return m;             // pula R$ 0,00 (frete/imposto)
-      touched = true;
-      return '<span class="hyucpn-px"><s>' + m + "</s><b>" + fmtBRL(discount(v)) + "</b></span>";
+  /* ---- decora preços via text-node (riscado + novo) ----
+   * Escopo: text nodes dentro dos containers SEL. Pula preço já decorado
+   * (texto dentro de .hyucpn-px) → idempotente e re-render-safe: quando o
+   * carrinho reescreve o total/linha, o .hyucpn-px some e o novo texto é
+   * redecorado. Não precisa de flag (que travaria totais que mudam). */
+  function decorateText(root) {
+    var rx = new RegExp(PRICE_SRC, "g");
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        if (!n.nodeValue || n.nodeValue.indexOf("R$") === -1) return NodeFilter.FILTER_REJECT;
+        var p = n.parentNode;
+        if (!p || (p.closest && (p.closest(".hyucpn-px") || p.closest(".hyucpn-bar")))) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      },
     });
-    if (touched) { el.innerHTML = out; el.dataset.hyucpn = "1"; }
+    var todo = [], n;
+    while ((n = walker.nextNode())) todo.push(n);
+    todo.forEach(function (tn) {
+      var s = tn.nodeValue, frag = document.createDocumentFragment(), last = 0, touched = false, m;
+      rx.lastIndex = 0;
+      while ((m = rx.exec(s))) {
+        var v = parseBRL(m[0]);
+        frag.appendChild(document.createTextNode(s.slice(last, m.index)));
+        if (v > 0) {                            // pula R$ 0,00 (frete/imposto)
+          var span = document.createElement("span");
+          span.className = "hyucpn-px";
+          span.innerHTML = "<s>" + m[0] + "</s><b>" + fmtBRL(discount(v)) + "</b>";
+          frag.appendChild(span);
+          touched = true;
+        } else {
+          frag.appendChild(document.createTextNode(m[0]));
+        }
+        last = m.index + m[0].length;
+      }
+      if (touched) {
+        frag.appendChild(document.createTextNode(s.slice(last)));
+        tn.parentNode.replaceChild(frag, tn);
+      }
+    });
   }
   function scan() {
-    var nodes = document.querySelectorAll(SEL);
-    for (var i = 0; i < nodes.length; i++) decorate(nodes[i]);
+    var roots = document.querySelectorAll(SEL);
+    for (var i = 0; i < roots.length; i++) decorateText(roots[i]);
   }
 
   /* ---- intercepta o POST /checkout p/ mandar o cupom pro bridge ---- */
