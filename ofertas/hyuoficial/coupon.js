@@ -11,8 +11,6 @@
   var COUPONS = { ARTHURPC: 5, THIAGO: 5, ISA: 5, NATHAN: 5, DIGAO: 5 };
   var KEY = "hyu_coupon";
   var PRICE_SRC = "R\\$\\s?\\d{1,3}(?:\\.\\d{3})*,\\d{2}";
-  // containers onde mora preço (estáticos + drawer/sticky renderizados por JS)
-  var SEL = ".plan__price, .plan__per, .col__price, [data-sb-txt], [data-cd-total], [data-cd-lines]";
 
   /* ---- resolve o cupom: 1) path /CODE  2) localStorage ---- */
   function fromPath() {
@@ -85,8 +83,10 @@
     });
   }
   function scan() {
-    var roots = document.querySelectorAll(SEL);
-    for (var i = 0; i < roots.length; i++) decorateText(roots[i]);
+    // varre o BODY inteiro: todo preço "R$ x,xx" do site (planos, combos, drawer,
+    // sticky, hero) é decorado. Os guards do acceptNode garantem idempotência
+    // (pula .hyucpn-px/.hyucpn-bar) e re-render-safety do carrinho.
+    decorateText(document.body);
   }
 
   /* ---- intercepta o POST /checkout p/ mandar o cupom pro bridge ---- */
