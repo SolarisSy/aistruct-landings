@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido Confirmado — GTA VI Pre-Order Store</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #E63946;
+      --bg: #09090b;
+      --card: #0f0f11;
+      --border: #27272a;
+      --muted: #71717a;
+      --white: #ffffff;
+      --green: #22c55e;
+    }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 32px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .check-wrap {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.15);
+      border: 2px solid rgba(34,197,94,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      animation: pop 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both;
+    }
+    .check-wrap svg { color: var(--green); }
+    @keyframes pop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .logo-img {
+      width: 120px;
+      margin: 0 auto 20px;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 12px rgba(230,57,70,0.3));
+    }
+    h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(39,39,42,0.6);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+    .info-item svg { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+    .info-item strong { display: block; font-weight: 600; color: var(--white); }
+    .info-item span { color: var(--muted); font-size: 12px; }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.15s;
+      box-shadow: 0 0 16px rgba(230,57,70,0.4);
+    }
+    .btn-home:hover { background: rgba(230,57,70,0.9); transform: scale(1.02); }
+    .footer-note {
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="check-wrap">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+  </div>
+
+  <img src="/assets/gta6-logo-clean.png" alt="GTA VI" class="logo-img">
+
+  <h1>Pedido confirmado!</h1>
+  <p class="sub">
+    Seu pré-pedido do <strong>Grand Theft Auto VI</strong> foi recebido com sucesso. Você receberá a confirmação no e-mail cadastrado em instantes.
+  </p>
+
+  <ul class="info-list">
+    <li class="info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.31a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      </svg>
+      <div>
+        <strong>Confirmação por e-mail</strong>
+        <span>Você receberá todos os detalhes do pedido no e-mail informado.</span>
+      </div>
+    </li>
+    <li class="info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg>
+      <div>
+        <strong>Entrega no lançamento</strong>
+        <span>O código digital será enviado próximo à data de lançamento oficial do GTA VI.</span>
+      </div>
+    </li>
+    <li class="info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <div>
+        <strong>Suporte disponível</strong>
+        <span>suporte@gta6preorder.shop — respondemos em até 24h.</span>
+      </div>
+    </li>
+  </ul>
+
+  <a href="/" class="btn-home">
+    Voltar à loja
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </a>
+
+  <p class="footer-note">
+    GTA VI Pré-Venda © 2025 — Revendedor autorizado independente
+  </p>
+</div>
+
+</body>
+</html>

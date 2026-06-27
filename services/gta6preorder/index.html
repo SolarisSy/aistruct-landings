@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>GTA VI Pre-Order Store</title>
+  <meta name="description" content="A pré-venda mais barata do GTA 6 está aqui! Revendedor autorizado — confirmação imediata.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="GTA VI Pre-Order Store">
+  <meta property="og:description" content="A pré-venda mais barata do GTA 6 está aqui!">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border: 0 solid; }
+    :root {
+      --primary: #E63946;
+      --primary-hover: rgba(230,57,70,0.9);
+      --primary-05: rgba(230,57,70,0.05);
+      --primary-10: rgba(230,57,70,0.1);
+      --primary-15: rgba(230,57,70,0.15);
+      --primary-20: rgba(230,57,70,0.2);
+      --primary-30: rgba(230,57,70,0.3);
+      --primary-glow: 0 0 12px rgba(230,57,70,0.5);
+      --primary-glow-lg: 0 0 25px rgba(230,57,70,0.5);
+      --bg: #09090b;
+      --card: #0f0f11;
+      --border: #27272a;
+      --border-40: rgba(39,39,42,0.4);
+      --muted: #71717a;
+      --white: #ffffff;
+      --white-70: rgba(255,255,255,0.7);
+      --white-80: rgba(255,255,255,0.8);
+      --white-90: rgba(255,255,255,0.9);
+      --secondary: #f59e0b;
+      --font-body: 'Inter', sans-serif;
+      --font-display: 'Rajdhani', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img, video { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font: inherit; background: none; border: none; color: inherit; }
+
+    /* ── Announcement Bar ── */
+    .announce-bar {
+      background: var(--primary-20);
+      border-bottom: 1px solid rgba(230,57,70,0.3);
+      padding: 8px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      text-align: center;
+    }
+    .announce-bar p {
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 16px 4px;
+    }
+    .announce-bar .badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .announce-bar .badge.primary { color: var(--primary); }
+    .announce-bar .badge.muted { color: var(--muted); display: none; }
+    .announce-bar .badge.amber { color: var(--secondary); display: none; }
+    @media (min-width: 640px) {
+      .announce-bar .badge.muted,
+      .announce-bar .badge.amber { display: flex; }
+    }
+
+    /* ── Header ── */
+    header {
+      position: sticky;
+      top: 33px;
+      z-index: 40;
+      background: rgba(9,9,11,0.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 0 16px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    @media (min-width: 768px) { .header-inner { height: 64px; } }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-wrap img {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+    .logo-text {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+    @media (min-width: 768px) { .logo-text { font-size: 18px; } }
+    .logo-text span { color: var(--primary); }
+    .nav-desktop {
+      display: none;
+      align-items: center;
+      gap: 24px;
+    }
+    @media (min-width: 768px) { .nav-desktop { display: flex; } }
+    .nav-link {
+      font-size: 14px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+    .nav-link:hover { color: var(--white); }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.15s;
+      box-shadow: var(--primary-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-menu {
+      display: block;
+      color: var(--white);
+      padding: 4px;
+    }
+    @media (min-width: 768px) { .btn-menu { display: none; } }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(15,15,17,0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-nav-link {
+      display: block;
+      padding: 8px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border-40);
+      text-align: left;
+    }
+    .mobile-nav-link:last-child { border-bottom: none; }
+    .btn-primary-full {
+      background: var(--primary);
+      color: var(--white);
+      padding: 12px;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      width: 100%;
+      cursor: pointer;
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url('/assets/characters-hero.png');
+      background-size: cover;
+      background-position: 70% top;
+      background-repeat: no-repeat;
+    }
+    @media (min-width: 768px) { .hero-bg { background-position: right top; } }
+    .hero-overlay-b { position: absolute; inset: 0; z-index: 0; background: linear-gradient(to bottom, rgba(9,9,11,0.9), rgba(9,9,11,0.4) 50%, transparent); }
+    .hero-overlay-r { position: absolute; inset: 0; z-index: 0; background: linear-gradient(to right, var(--bg), rgba(9,9,11,0.8) 50%, rgba(9,9,11,0.6) 70%, transparent); }
+    @media (min-width: 1024px) { .hero-overlay-r { background: linear-gradient(to right, var(--bg), rgba(9,9,11,0.8) 40%, rgba(9,9,11,0.6) 60%, transparent); } }
+    .hero-overlay-t { position: absolute; bottom: 0; left: 0; right: 0; height: 160px; z-index: 0; background: linear-gradient(to top, var(--bg), transparent); }
+    .hero-inner {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 32px 16px 56px;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+    }
+    @media (min-width: 768px) { .hero-inner { padding: 80px 16px; } }
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    @media (min-width: 1024px) {
+      .hero-content { flex-direction: row; align-items: center; gap: 48px; }
+    }
+    .hero-text { flex: 1; max-width: 384px; }
+    .hero-logo {
+      width: 176px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 4px 24px rgba(0,0,0,0.9));
+      animation: fadeSlideDown 0.6s ease forwards;
+    }
+    @media (min-width: 768px) { .hero-logo { width: 240px; } }
+    .hero-h1 {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+      animation: fadeSlideUp 0.6s 0.2s ease both;
+    }
+    @media (min-width: 768px) { .hero-h1 { font-size: 36px; } }
+    .hero-h1 span { color: var(--primary); }
+    .hero-sub {
+      font-size: 14px;
+      color: var(--white-80);
+      margin-bottom: 20px;
+      max-width: 288px;
+      line-height: 1.625;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+      animation: fadeIn 0.6s 0.35s ease both;
+    }
+    @media (min-width: 768px) { .hero-sub { font-size: 16px; } }
+    .trust-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      animation: fadeIn 0.6s 0.5s ease both;
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      padding: 6px 10px;
+      border-radius: 9999px;
+      color: var(--white-90);
+    }
+    .trust-badge svg { color: var(--primary); flex-shrink: 0; }
+
+    /* Hero purchase card */
+    .hero-card {
+      width: 100%;
+      background: rgba(9,9,11,0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+      animation: fadeSlideLeft 0.7s 0.2s ease both;
+    }
+    @media (min-width: 1024px) { .hero-card { width: 380px; flex-shrink: 0; } }
+    .card-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .platform-grid, .edition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+    .selector-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 8px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      background: rgba(15,15,17,0.6);
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--muted);
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+    .selector-btn:hover { border-color: rgba(230,57,70,0.4); }
+    .selector-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-15);
+      color: var(--white);
+      box-shadow: 0 0 12px rgba(230,57,70,0.35);
+    }
+    .edition-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      background: rgba(15,15,17,0.6);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .edition-btn:hover { border-color: rgba(230,57,70,0.4); }
+    .edition-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-15);
+      box-shadow: 0 0 10px rgba(230,57,70,0.3);
+    }
+    .edition-btn .name { font-weight: 700; font-size: 14px; color: var(--white); }
+    .edition-btn .price { font-weight: 700; font-size: 16px; color: var(--primary); }
+    .btn-cta-hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--primary);
+      color: var(--white);
+      padding: 16px;
+      border-radius: 12px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.15s;
+      box-shadow: 0 0 20px rgba(230,57,70,0.5);
+      margin-bottom: 12px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-cta-hero:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 0 28px rgba(230,57,70,0.7);
+      transform: scale(1.02);
+    }
+    .compare-link {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+    }
+    .compare-link:hover { color: var(--primary); }
+
+    /* ── Section base ── */
+    section { padding: 64px 0; }
+    .container { max-width: 1152px; margin: 0 auto; padding: 0 16px; }
+    .container-md { max-width: 896px; margin: 0 auto; padding: 0 16px; }
+    .container-sm { max-width: 672px; margin: 0 auto; padding: 0 16px; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+    @media (min-width: 768px) { .section-title { font-size: 36px; } }
+
+    /* ── Editions section ── */
+    .editions-section { background: var(--bg); }
+    .editions-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 640px) { .editions-grid { grid-template-columns: 1fr 1fr; } }
+    .edition-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .edition-card.visible { opacity: 1; transform: translateY(0); }
+    .edition-card.featured {
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 25px rgba(230,57,70,0.15);
+    }
+    .badge-top {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: var(--white);
+      padding: 2px 16px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    .edition-name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .edition-price {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .edition-platform {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .feature-list { list-style: none; flex: 1; margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .feature-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      font-size: 14px;
+    }
+    .feature-item .icon { color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+    .feature-item.white { color: var(--white-90); }
+    .feature-item.muted { color: var(--muted); }
+    .btn-select {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.15s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-select-outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    .btn-select-outline:hover { background: var(--primary); color: var(--white); }
+    .btn-select-filled {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: 0 0 14px rgba(230,57,70,0.35);
+    }
+    .btn-select-filled:hover { background: var(--primary-hover); }
+    .editions-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: 24px; }
+
+    /* ── How it works ── */
+    .how-section { background: rgba(15,15,17,0.5); border-top: 1px solid var(--border); }
+    .steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (min-width: 768px) { .steps-grid { grid-template-columns: repeat(4, 1fr); } }
+    .step-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 16px;
+      background: rgba(9,9,11,0.6);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .step-card.visible { opacity: 1; transform: translateY(0); }
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .step-label { font-size: 14px; font-weight: 500; color: var(--white); }
+    .reseller-box {
+      margin-top: 40px;
+      background: rgba(9,9,11,0.6);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .reseller-box img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; margin: 0 auto 12px; opacity: 0.6; }
+    .reseller-box .title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .reseller-box .sub { font-size: 12px; color: var(--muted); }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--bg); border-top: 1px solid var(--border); }
+    .accordion { display: flex; flex-direction: column; gap: 4px; }
+    .accordion-item {
+      border: 1px solid rgba(39,39,42,0.6);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .accordion-item.open { border-color: rgba(230,57,70,0.4); }
+    .accordion-btn {
+      width: 100%;
+      text-align: left;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      background: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .accordion-btn:hover { color: var(--primary); }
+    .accordion-chevron {
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+      color: var(--muted);
+    }
+    .accordion-item.open .accordion-chevron { transform: rotate(180deg); color: var(--primary); }
+    .accordion-content {
+      font-size: 14px;
+      color: var(--muted);
+      padding: 0 16px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .accordion-item.open .accordion-content { padding: 0 16px 16px; max-height: 300px; }
+
+    /* ── Final CTA ── */
+    .final-cta {
+      background: var(--primary-05);
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--primary-10), rgba(245,158,11,0.05));
+      pointer-events: none;
+    }
+    .final-cta-inner {
+      max-width: 576px;
+      margin: 0 auto;
+      padding: 80px 16px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .final-cta-logo { width: 176px; margin: 0 auto 24px; filter: drop-shadow(0 0 20px rgba(230,57,70,0.5)); }
+    .final-cta-sub { color: var(--muted); margin-bottom: 32px; font-size: 14px; }
+    .btn-cta-final {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.15s;
+      box-shadow: var(--primary-glow-lg);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-cta-final:hover { background: var(--primary-hover); transform: scale(1.05); }
+    .final-note { margin-top: 16px; font-size: 11px; color: rgba(230,57,70,0.8); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--bg);
+      padding-top: 40px;
+      padding-bottom: 112px;
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 768px) { footer { padding-bottom: 40px; } }
+    .footer-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
+    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .footer-brand .logo-wrap { margin-bottom: 12px; }
+    .footer-brand p { font-size: 12px; color: var(--muted); max-width: 256px; }
+    .footer-col h4 { font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--white); margin-bottom: 12px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: 12px; color: var(--muted); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-links .link-primary { color: var(--primary); }
+    .footer-links .link-primary:hover { text-decoration: underline; }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(39,39,42,0.4);
+      font-size: 10px;
+      color: rgba(113,113,122,0.7);
+      text-align: center;
+      max-width: 768px;
+      margin: 0 auto;
+    }
+
+    /* ── Mobile sticky CTA ── */
+    .mobile-sticky {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(9,9,11,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      z-index: 50;
+    }
+    @media (min-width: 768px) { .mobile-sticky { display: none; } }
+    .btn-mobile-buy {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--primary);
+      color: var(--white);
+      padding: 14px;
+      border-radius: 12px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      box-shadow: 0 0 16px rgba(230,57,70,0.5);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* ── Desktop floating CTA ── */
+    .floating-cta {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 50;
+      display: none;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.3s ease;
+    }
+    @media (min-width: 768px) { .floating-cta { display: block; } }
+    .floating-cta.visible { opacity: 1; transform: translateY(0); }
+    .btn-float {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      box-shadow: 0 0 22px rgba(230,57,70,0.6);
+      transition: all 0.15s;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-float:hover { transform: scale(1.05); }
+
+    /* ── Animations ── */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideLeft {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ── SVG Icons (inline) ── */
+    .icon-check { display: inline-block; }
+    .icon-mail { display: inline-block; }
+    .icon-clock { display: inline-block; }
+    .icon-zap { display: inline-block; }
+    .icon-arrow { display: inline-block; }
+    .icon-ps { font-size: 16px; }
+    .icon-xbox { display: inline-block; }
+    .icon-chevron { display: inline-block; }
+    .icon-menu { display: inline-block; }
+    .icon-x { display: inline-block; }
+  </style>
+</head>
+<body>
+
+<!-- ── Announcement Bar ── -->
+<div class="announce-bar">
+  <p>
+    <span class="badge primary">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      Pré-venda disponível via revendedor autorizado
+    </span>
+    <span class="badge muted">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      Pagamento seguro
+    </span>
+    <span class="badge muted">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      Confirmação imediata
+    </span>
+    <span class="badge amber">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      Estoque limitado
+    </span>
+  </p>
+</div>
+
+<!-- ── Header ── -->
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <img src="/assets/rockstar-logo.jpg" alt="Rockstar Games">
+      <span class="logo-text">GTA VI <span>PRÉ-VENDA</span></span>
+    </div>
+    <nav class="nav-desktop">
+      <button class="nav-link" onclick="scrollTo('edicoes')">Edições</button>
+      <button class="nav-link" onclick="scrollTo('como-funciona')">Como Funciona</button>
+      <button class="nav-link" onclick="scrollTo('faq')">FAQ</button>
+      <a id="nav-cta" href="/checkout?edition=standard&platform=ps5" class="btn-primary">
+        Garantir Agora
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+    </nav>
+    <button class="btn-menu" id="menu-btn" aria-label="Menu" onclick="toggleMenu()">
+      <svg id="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg id="icon-x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-nav-link" onclick="scrollTo('edicoes');toggleMenu()">Edições</button>
+    <button class="mobile-nav-link" onclick="scrollTo('como-funciona');toggleMenu()">Como Funciona</button>
+    <button class="mobile-nav-link" onclick="scrollTo('faq');toggleMenu()">FAQ</button>
+    <a id="mobile-cta-link" href="/checkout?edition=standard&platform=ps5" class="btn-primary-full" onclick="toggleMenu()">Garantir Agora</a>
+  </div>
+</header>
+
+<!-- ── Main ── -->
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay-b"></div>
+    <div class="hero-overlay-r"></div>
+    <div class="hero-overlay-t"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-text">
+          <img src="/assets/gta6-logo-clean.png" alt="Grand Theft Auto VI" class="hero-logo">
+          <h1 class="hero-h1">A pré-venda mais barata do <span>GTA 6</span> está aqui!</h1>
+          <p class="hero-sub">PlayStation 5 e Xbox Series X|S. Revendedor autorizado independente — confirmação imediata após o pagamento.</p>
+          <div class="trust-badges">
+            <span class="trust-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Revendedor autorizado
+            </span>
+            <span class="trust-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              Confirmação imediata
+            </span>
+            <span class="trust-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              Estoque limitado
+            </span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <p class="card-label">Selecione a plataforma:</p>
+          <div class="platform-grid" id="platform-grid">
+            <button class="selector-btn active" data-platform="ps5" onclick="selectPlatform('ps5')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9.08 1.91C8.93 1.85 7.89 1.53 6.63 1.58c-1.67.06-2.97.77-3.79 2.09-.56.88-.75 1.99-.57 3.29.17 1.22.6 2.27 1.01 3.3.39.97.8 1.9 1.28 2.82.21.4.43.79.65 1.18l.11.2c.08.15.17.3.25.44.2.36.39.71.6 1.04l.09.15c.19.3.4.61.64.85.22.22.48.4.78.46.27.05.56 0 .83-.12.22-.1.41-.26.57-.44.18-.21.32-.45.44-.7l.12-.24.08-.16c.1-.2.21-.39.32-.57.18-.29.37-.55.58-.78.28-.31.6-.52.97-.6.37-.07.77.01 1.12.2l.08.04c.32.17.62.38.89.61l.12.11c.28.27.54.57.75.9.12.19.22.4.3.62l.03.1c.06.21.1.43.1.65.01.37-.07.75-.24 1.09l-.08.16c-.08.16-.18.31-.29.45l-.1.12c-.13.15-.28.28-.44.39l-.09.06c-.17.11-.36.2-.57.26-.14.04-.29.07-.44.08h-.08c-.14 0-.29-.02-.43-.05l-.07-.02c-.12-.03-.24-.08-.35-.14l-.08-.04c-.23-.13-.43-.3-.59-.51-.12-.16-.21-.34-.28-.53l-.07-.18-.06-.19c-.09-.29-.21-.58-.38-.84-.2-.32-.44-.61-.72-.86-.29-.27-.62-.48-1-.63-.37-.14-.76-.21-1.16-.21-.4 0-.79.07-1.16.21-.38.14-.72.36-1.01.63-.28.25-.52.54-.72.86-.17.26-.29.54-.38.84l-.06.19-.07.18c-.07.19-.16.37-.28.53-.16.21-.36.38-.59.51l-.08.04c-.11.06-.23.1-.35.14l-.07.02c-.14.03-.29.05-.43.05h-.08c-.15-.01-.3-.04-.44-.08-.21-.06-.4-.15-.57-.26l-.09-.06c-.16-.11-.31-.24-.44-.39l-.1-.12c-.11-.14-.21-.29-.29-.45l-.08-.16c-.17-.34-.25-.72-.24-1.09 0-.22.04-.44.1-.65l.03-.1c.08-.22.18-.43.3-.62.21-.33.47-.63.75-.9l.12-.11c.27-.23.57-.44.89-.61l.08-.04c.35-.19.75-.27 1.12-.2.37.08.69.29.97.6.21.23.4.49.58.78.11.18.22.37.32.57l.08.16.12.24c.12.25.26.49.44.7.16.18.35.34.57.44.27.12.56.17.83.12.3-.06.56-.24.78-.46.24-.24.45-.55.64-.85l.09-.15c.21-.33.4-.68.6-1.04.08-.14.17-.29.25-.44l.11-.2c.22-.39.44-.78.65-1.18.48-.92.89-1.85 1.28-2.82.41-1.03.84-2.08 1.01-3.3.18-1.3-.01-2.41-.57-3.29-.82-1.32-2.12-2.03-3.79-2.09-1.26-.05-2.3.27-2.45.33L9.08 1.91z"/></svg>
+              PlayStation 5
+            </button>
+            <button class="selector-btn" data-platform="xbox" onclick="selectPlatform('xbox')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-label="Xbox"><path d="M4.102 21.033C6.211 22.881 8.977 24 12 24c3.026 0 5.789-1.119 7.902-2.967 1.877-1.637-4.551-8.13-7.902-11.02-3.352 2.89-9.779 9.383-7.898 11.02zm16.44-14.734C18.973 3.787 15.659 2 12 2S5.025 3.787 3.46 6.299c-1.336 2.234 1.594 6.588 4.887 9.952.504.506 1.007 1.012 1.513 1.481 2.046-1.939 4.085-4.285 6.073-6.418 1.513-1.629 3.055-3.295 4.609-4.015zM2.17 7.416C.822 9.225.049 11.384.049 13.74c0 2.98.99 5.733 2.648 7.933.717-3.038-1.164-9.422-.527-14.257zm19.661 0c.637 4.835-1.244 11.219-.527 14.257C23.01 19.473 24 16.72 24 13.74c0-2.356-.773-4.515-2.169-6.324z"/></svg>
+              Xbox Series X|S
+            </button>
+          </div>
+
+          <p class="card-label">Selecione a edição:</p>
+          <div class="edition-grid" id="edition-grid">
+            <button class="edition-btn active" data-edition="standard" onclick="selectEdition('standard')">
+              <span class="name">Standard</span>
+              <span class="price">R$ 449,90</span>
+            </button>
+            <button class="edition-btn" data-edition="ultimate" onclick="selectEdition('ultimate')">
+              <span class="name">Ultimate</span>
+              <span class="price">R$ 549,90</span>
+            </button>
+          </div>
+
+          <a id="hero-cta" href="/checkout?edition=standard&platform=ps5" class="btn-cta-hero">
+            PRÉ-VENDA: R$ 449,90
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+          <button class="compare-link" onclick="scrollTo('edicoes')">Comparar edições</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editions -->
+  <section id="edicoes" class="editions-section">
+    <div class="container-md">
+      <h2 class="section-title">Escolha sua edição</h2>
+      <div class="editions-grid">
+        <!-- Standard -->
+        <div class="edition-card" data-observe>
+          <h3 class="edition-name">Edição Standard</h3>
+          <div class="edition-price">R$ 449,90</div>
+          <p class="edition-platform">PlayStation 5 / Xbox Series X|S</p>
+          <ul class="feature-list">
+            <li class="feature-item muted">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Jogo completo GTA VI
+            </li>
+            <li class="feature-item muted">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Acesso ao GTA Online incluso
+            </li>
+            <li class="feature-item muted">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Bônus de pré-venda (conteúdo cosmético exclusivo)
+            </li>
+            <li class="feature-item muted">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              Confirmação por e-mail imediata
+            </li>
+          </ul>
+          <a id="btn-select-standard" href="/checkout?edition=standard&platform=ps5" class="btn-select btn-select-outline">Selecionar Standard</a>
+        </div>
+
+        <!-- Ultimate (featured) -->
+        <div class="edition-card featured" data-observe style="transition-delay:0.1s">
+          <div class="badge-top">Mais completo</div>
+          <h3 class="edition-name">Edição Ultimate</h3>
+          <div class="edition-price">R$ 549,90</div>
+          <p class="edition-platform">PlayStation 5 / Xbox Series X|S</p>
+          <ul class="feature-list">
+            <li class="feature-item white">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Tudo da edição Standard
+            </li>
+            <li class="feature-item white">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Pack <strong>"Crime Hustle"</strong> — missões secundárias exclusivas do modo história
+            </li>
+            <li class="feature-item white">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Pack de <strong>veículos e armas</strong> criminosas exclusivos
+            </li>
+            <li class="feature-item white">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Propriedades e esconderijos exclusivos no modo história
+            </li>
+            <li class="feature-item white">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Conteúdo cosmético premium (roupas e customização de personagem)
+            </li>
+          </ul>
+          <a id="btn-select-ultimate" href="/checkout?edition=ultimate&platform=ps5" class="btn-select btn-select-filled">Selecionar Ultimate</a>
+        </div>
+      </div>
+      <p class="editions-note">* Conteúdo da Edição Ultimate sujeito a confirmação oficial pela Rockstar Games. Bônus e disponibilidade podem variar conforme plataforma e região.</p>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="como-funciona" class="how-section">
+    <div class="container-md">
+      <h2 class="section-title">Como funciona</h2>
+      <div class="steps-grid">
+        <div class="step-card" data-observe>
+          <div class="step-num">01</div>
+          <p class="step-label">Escolha a edição</p>
+        </div>
+        <div class="step-card" data-observe style="transition-delay:0.08s">
+          <div class="step-num">02</div>
+          <p class="step-label">Selecione a plataforma</p>
+        </div>
+        <div class="step-card" data-observe style="transition-delay:0.16s">
+          <div class="step-num">03</div>
+          <p class="step-label">Finalize o pagamento</p>
+        </div>
+        <div class="step-card" data-observe style="transition-delay:0.24s">
+          <div class="step-num">04</div>
+          <p class="step-label">Receba a confirmação</p>
+        </div>
+      </div>
+      <div class="reseller-box">
+        <img src="/assets/rockstar-logo.jpg" alt="Rockstar Games">
+        <p class="title">Revendedor Autorizado</p>
+        <p class="sub">Documento de verificação — será atualizado com comprovante oficial</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="faq-section">
+    <div class="container-sm">
+      <h2 class="section-title">Dúvidas frequentes</h2>
+      <div class="accordion" id="accordion">
+        <div class="accordion-item">
+          <button class="accordion-btn" onclick="toggleAccordion(this)">
+            Esta é a loja oficial da Rockstar Games?
+            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-content">
+            Sim. Esta é uma loja de revendedor autorizado independente. A Rockstar Games e as marcas relacionadas pertencem aos seus respectivos proprietários.
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-btn" onclick="toggleAccordion(this)">
+            Quando recebo meu pedido?
+            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-content">
+            Você recebe a confirmação digital por e-mail imediatamente após a compra. Os detalhes de entrega final serão informados próximos à data de lançamento.
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-btn" onclick="toggleAccordion(this)">
+            Quais plataformas são aceitas?
+            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-content">
+            PlayStation 5 e Xbox Series X|S.
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-btn" onclick="toggleAccordion(this)">
+            Posso cancelar o pré-pedido?
+            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-content">
+            Sim, conforme nossa política de reembolso, é possível cancelar até determinado prazo antes do lançamento.
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-btn" onclick="toggleAccordion(this)">
+            Os bônus são garantidos?
+            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-content">
+            Os bônus estão sujeitos a disponibilidade por plataforma, região e termos da distribuidora.
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-btn" onclick="toggleAccordion(this)">
+            O pagamento é seguro?
+            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-content">
+            Sim. Todas as transações são criptografadas e processadas por gateways de pagamento certificados.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <div class="final-cta-inner">
+      <img src="/assets/gta6-logo-clean.png" alt="Grand Theft Auto VI" class="final-cta-logo">
+      <p class="final-cta-sub">Garanta sua cópia com antecedência e receba a confirmação instantaneamente.</p>
+      <a id="final-cta-btn" href="/checkout?edition=standard&platform=ps5" class="btn-cta-final">
+        Garantir Agora
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+      <p class="final-note">Disponibilidade sujeita à plataforma e região</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-wrap">
+          <img src="/assets/rockstar-logo.jpg" alt="Rockstar Games" style="opacity:0.8">
+          <span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--white)">GTA VI PRÉ-VENDA</span>
+        </div>
+        <p>Revendedor autorizado independente de pré-vendas de jogos.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Suporte</h4>
+        <ul class="footer-links">
+          <li><a href="#faq" onclick="scrollTo('faq')">Perguntas frequentes</a></li>
+          <li><a href="#">Política de entrega</a></li>
+          <li><a href="mailto:suporte@gta6preorder.shop" class="link-primary">suporte@gta6preorder.shop</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul class="footer-links">
+          <li><a href="#">Termos de uso</a></li>
+          <li><a href="#">Política de privacidade</a></li>
+          <li><a href="#">Política de reembolso</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Grand Theft Auto, GTA VI, Rockstar Games e marcas relacionadas são propriedade de seus respectivos titulares. Esta loja é um revendedor autorizado independente e não representa a Rockstar Games ou a PlayStation Store.
+    </div>
+  </div>
+</footer>
+
+<!-- ── Mobile sticky CTA ── -->
+<div class="mobile-sticky">
+  <a id="mobile-sticky-btn" href="/checkout?edition=standard&platform=ps5" class="btn-mobile-buy">
+    Pré-comprar: R$ 449,90
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </a>
+</div>
+
+<!-- ── Desktop floating CTA ── -->
+<div class="floating-cta" id="floating-cta">
+  <a id="floating-btn" href="/checkout?edition=standard&platform=ps5" class="btn-float">
+    Garantir Agora
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </a>
+</div>
+
+<script>
+  // ── State ──
+  let platform = 'ps5';
+  let edition = 'standard';
+  const prices = { standard: 449.90, ultimate: 549.90 };
+  const platforms = { ps5: 'PlayStation 5', xbox: 'Xbox Series X|S' };
+  const editions = { standard: 'Edição Standard', ultimate: 'Edição Ultimate' };
+  let menuOpen = false;
+
+  function fmt(price) {
+    return price.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+  }
+
+  function buildCheckoutUrl() {
+    return '/checkout?edition=' + edition + '&platform=' + platform;
+  }
+
+  function updateAllCTAs() {
+    const url = buildCheckoutUrl();
+    const priceStr = 'R$ ' + fmt(prices[edition]);
+    document.getElementById('hero-cta').href = url;
+    document.getElementById('hero-cta').innerHTML =
+      'PRÉ-VENDA: ' + priceStr +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+    document.getElementById('nav-cta').href = url;
+    document.getElementById('mobile-cta-link').href = url;
+    document.getElementById('final-cta-btn').href = url;
+    document.getElementById('floating-btn').href = url;
+    document.getElementById('mobile-sticky-btn').href = url;
+    document.getElementById('mobile-sticky-btn').innerHTML =
+      'Pré-comprar: ' + priceStr +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+    // Edition cards select buttons
+    document.getElementById('btn-select-standard').href = '/checkout?edition=standard&platform=' + platform;
+    document.getElementById('btn-select-ultimate').href = '/checkout?edition=ultimate&platform=' + platform;
+  }
+
+  function selectPlatform(p) {
+    platform = p;
+    document.querySelectorAll('#platform-grid .selector-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.platform === p);
+    });
+    updateAllCTAs();
+  }
+
+  function selectEdition(e) {
+    edition = e;
+    document.querySelectorAll('#edition-grid .edition-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.edition === e);
+    });
+    updateAllCTAs();
+  }
+
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    document.getElementById('mobile-menu').classList.toggle('open', menuOpen);
+    document.getElementById('icon-menu').style.display = menuOpen ? 'none' : '';
+    document.getElementById('icon-x').style.display = menuOpen ? '' : 'none';
+  }
+
+  function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function toggleAccordion(btn) {
+    const item = btn.closest('.accordion-item');
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.accordion-item.open').forEach(i => i.classList.remove('open'));
+    // Open clicked if it wasn't open
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── Scroll-triggered floating CTA ──
+  window.addEventListener('scroll', function() {
+    const floatingCta = document.getElementById('floating-cta');
+    if (window.scrollY > 350) {
+      floatingCta.classList.add('visible');
+    } else {
+      floatingCta.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  // ── Intersection Observer for card animations ──
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[data-observe]').forEach(function(el) {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
