@@ -99,6 +99,7 @@ def _load_html(name: str) -> str:
 _INDEX_HTML    = _load_html("index.html")
 _CHECKOUT_HTML = _load_html("checkout.html")
 _OBRIGADO_HTML = _load_html("obrigado.html")
+_BLOG_HTML     = _load_html("blog.html")
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -114,6 +115,11 @@ def checkout():
 @app.get("/obrigado", response_class=HTMLResponse)
 def obrigado():
     return HTMLResponse(_OBRIGADO_HTML)
+
+
+@app.get("/blog", response_class=HTMLResponse)
+def blog():
+    return HTMLResponse(_BLOG_HTML)
 
 
 @app.get("/healthz")

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pré-venda de Grand Theft Auto VI começa em 25 de junho — GTA VI Brasil</title>
+  <meta name="description" content="A pré-venda do GTA VI começa à meia-noite do dia 25 de junho. Edição Standard e Ultimate disponíveis para PS5 e Xbox Series X|S. Lançamento em 19 de novembro de 2026.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --theme-bg:         linear-gradient(189deg, #1F1F38 0.55%, #18182D 30.38%, #111222 65.19%, #0C0D1B 100%);
+      --theme-surface:    #070810;
+      --theme-sub1:       #1F1F38;
+      --theme-sub2:       #252644;
+      --accent:           #FFB2C6;
+      --accent-h:         #FC97B1;
+      --accent-sec:       #ADB5FF;
+      --text:             #E5DDFF;
+      --text-sec:         #D9D1F6;
+      --text-muted:       #9991C4;
+      --text-dim:         #5A5480;
+      --nav-border:       rgba(255,255,255,0.06);
+      --card-border:      rgba(255,255,255,0.07);
+      --cta-bg:           #FFB2C6;
+      --cta-text:         #0C0D1B;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0b0b0b;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── STICKY TOP BAR CTA ── */
+    .topbar-cta {
+      background: var(--accent);
+      color: var(--cta-text);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 300;
+    }
+    .topbar-cta a {
+      background: var(--cta-text);
+      color: var(--accent);
+      padding: 5px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: opacity 0.15s;
+    }
+    .topbar-cta a:hover { opacity: 0.85; }
+
+    /* ── NAV ── */
+    .nav-outer {
+      background: rgba(7, 8, 16, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--nav-border);
+      position: sticky;
+      top: 41px;
+      z-index: 200;
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      margin-right: 32px;
+      flex-shrink: 0;
+      opacity: 0.9;
+      transition: opacity 0.15s;
+    }
+    .logo-link:hover { opacity: 1; }
+    nav.main-nav {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+    nav.main-nav a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: rgba(229,221,255,0.65);
+      padding: 8px 14px;
+      transition: color 0.15s;
+      white-space: nowrap;
+    }
+    nav.main-nav a:hover { color: var(--text); }
+    nav.main-nav a.active { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .btn-comprar {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cta-text);
+      background: var(--accent);
+      padding: 8px 18px;
+      border-radius: 4px;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .btn-comprar:hover { background: var(--accent-h); }
+
+    /* ── HERO ── */
+    .hero-wrap { width: 100%; overflow: hidden; }
+    .hero-wrap img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+
+    /* ── ARTICLE AREA ── */
+    .article-area { background: var(--theme-bg); }
+    .article-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 24px 72px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 28px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--text-muted); transition: color 0.15s; }
+    .breadcrumb a:hover { color: var(--text); }
+    .breadcrumb-sep { opacity: 0.4; }
+
+    .article-title {
+      font-size: clamp(28px, 4.5vw, 48px);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--accent);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .article-subtitle {
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    .article-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 32px;
+    }
+
+    .article-body {
+      font-size: 15px;
+      line-height: 1.78;
+      color: var(--text-sec);
+    }
+    .article-body p { margin-bottom: 20px; }
+    .article-body p:last-child { margin-bottom: 0; }
+    .article-body strong { font-weight: 600; color: var(--text); }
+    .article-body a { color: var(--accent-sec); text-decoration: underline; text-decoration-color: rgba(173,181,255,0.35); transition: color 0.15s; }
+    .article-body a:hover { color: var(--accent); }
+    .article-body .update-note { font-weight: 700; color: var(--text); }
+
+    /* ── CTA BLOCK (dentro do artigo) ── */
+    .cta-block {
+      background: linear-gradient(135deg, #1F1F38 0%, #111222 100%);
+      border: 1px solid rgba(255,178,198,0.25);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 28px 28px;
+      margin: 36px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cta-block-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .cta-block-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .cta-block-prices {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .price-badge {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,178,198,0.2);
+      border-radius: 6px;
+      padding: 10px 16px;
+      flex: 1;
+      min-width: 140px;
+    }
+    .price-badge-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .price-badge-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .price-badge-platform {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .btn-cta-main {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--cta-text);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 6px;
+      transition: background 0.15s, transform 0.1s;
+      align-self: flex-start;
+    }
+    .btn-cta-main:hover { background: var(--accent-h); transform: translateY(-1px); }
+    .btn-cta-main svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ── RELATED ── */
+    .related-area {
+      background: var(--theme-surface);
+      padding: 56px 24px 72px;
+    }
+    .related-inner { max-width: 1100px; margin: 0 auto; }
+    .related-heading {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .story-card {
+      background: var(--theme-sub1);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .story-card:hover { border-color: rgba(255,178,198,0.25); transform: translateY(-2px); }
+    .story-card-img {
+      width: 100%; aspect-ratio: 16/9;
+      object-fit: cover; display: block;
+      background: var(--theme-sub2);
+    }
+    .story-card-body { padding: 14px 16px 18px; }
+    .story-card-cat {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 6px;
+    }
+    .story-card-cat .sep { color: var(--text-dim); margin: 0 4px; }
+    .story-card-date { color: var(--text-muted); }
+    .story-card-title {
+      font-size: 14px; font-weight: 600;
+      color: var(--text); line-height: 1.35;
+      transition: color 0.15s;
+    }
+    .story-card:hover .story-card-title { color: var(--accent); }
+
+    /* ── STICKY BOTTOM CTA ── */
+    .sticky-bottom {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(7, 8, 16, 0.97);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,178,198,0.2);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      z-index: 400;
+    }
+    .sticky-bottom-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .sticky-bottom-text span { color: var(--accent); }
+    .btn-sticky {
+      background: var(--accent);
+      color: var(--cta-text);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 11px 24px;
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-sticky:hover { background: var(--accent-h); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #000;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 32px 24px 80px; /* 80px bottom = espaço pro sticky bar */
+    }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 16px;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-nav-links { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+    .footer-nav-links a { font-size: 12px; color: var(--text-muted); transition: color 0.15s; }
+    .footer-nav-links a:hover { color: var(--text); }
+    .footer-legal-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-legal-links { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+    .footer-legal-links a { font-size: 11px; color: var(--text-dim); transition: color 0.15s; }
+    .footer-legal-links a:hover { color: var(--text-muted); }
+    .footer-social { display: flex; align-items: center; gap: 12px; }
+    .footer-social a { color: var(--text-dim); transition: color 0.15s; display: flex; }
+    .footer-social a:hover { color: var(--text-sec); }
+    .footer-offices {
+      font-size: 11px; color: var(--text-dim);
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      display: flex; justify-content: space-between;
+    }
+
+    @media (max-width: 900px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) {
+      .related-grid { grid-template-columns: 1fr; }
+      .topbar-cta .topbar-text { display: none; }
+      .sticky-bottom-text { font-size: 13px; }
+      .cta-block-prices { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── STICKY TOP BAR ── -->
+<div class="topbar-cta">
+  <span class="topbar-text">🎮 Pré-venda GTA VI aberta — Edição Standard a partir de R$449,90</span>
+  <a href="/">Pré-comprar agora</a>
+</div>
+
+<!-- ── NAV ── -->
+<div class="nav-outer">
+  <div class="nav-inner">
+    <a href="/" class="logo-link" aria-label="GTA VI Brasil">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M28 0H4C1.791 0 0 1.791 0 4V28C0 30.209 1.791 32 4 32H28C30.209 32 32 30.209 32 28V4C32 1.791 30.209 0 28 0ZM19.266 8.406L24.729 23.734H21.025L20.016 20.859H14.176L13.166 23.734H9.463L14.926 8.406H19.266ZM17.098 11.586L14.994 18.047H19.198L17.098 11.586Z" fill="white"/>
+      </svg>
+    </a>
+    <nav class="main-nav">
+      <a href="/" >Loja</a>
+      <a href="/blog" class="active">Notícias</a>
+      <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">Rockstar ↗</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="/" class="btn-comprar">Pré-comprar GTA VI</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<div class="hero-wrap">
+  <img
+    src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/5171972o3ak5oa/837b1fbc8f96dfa70c1aad939546cdbd85a32527.jpg"
+    alt="Grand Theft Auto VI — Jason e Lucia no estado de Leonida, Vice City"
+  >
+</div>
+
+<!-- ── ARTICLE ── -->
+<div class="article-area">
+  <div class="article-inner">
+
+    <div class="breadcrumb">
+      <a href="/">Loja</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="/blog">Notícias</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Pré-venda GTA VI — 25 de junho</span>
+    </div>
+
+    <h1 class="article-title">Pré-venda de Grand Theft Auto VI começa em 25 de junho</h1>
+    <h3 class="article-subtitle">Disponível à meia-noite, horário local</h3>
+    <div class="article-date">24 de junho de 2026</div>
+
+    <div class="article-body">
+
+      <p><span class="update-note">Atualização: Grand Theft Auto VI já está disponível para pré-venda globalmente. <a href="/">Acesse nossa loja</a> para garantir o seu.</span></p>
+
+      <p>As pré-vendas de <strong>Grand Theft Auto VI</strong> começam à meia-noite do dia 25 de junho, incluindo a <strong>Grand Theft Auto VI: Edição Ultimate</strong>, que amplifica a experiência GTA mais profunda e imersiva de todos os tempos com uma coleção exclusiva de veículos, armas, roupas e ação que permeiam toda a história de Jason e Lucia.</p>
+
+      <p>Grand Theft Auto VI é uma experiência single-player chegando em 19 de novembro para PlayStation 5 e Xbox Series X|S. Todas as pré-vendas e compras de GTA VI realizadas antes de 20 de novembro garantem o <strong>Vintage Vice City Pack</strong>, uma coleção de itens que remetem à época em que o neon brilhava mais intenso em Vice City.</p>
+
+      <p>Jogadores que fizerem pré-venda digital poderão começar o pré-download em 12 de novembro para garantir que estarão prontos para jogar assim que o game for lançado. A versão física de Grand Theft Auto VI, contendo um código de download dentro da caixa, estará disponível a partir de 12 de novembro para suportar o pré-download.</p>
+
+      <!-- CTA BLOCK -->
+      <div class="cta-block">
+        <div class="cta-block-title">Garanta sua cópia de GTA VI agora</div>
+        <div class="cta-block-sub">Pré-venda aberta · Entrega digital no lançamento · 19 de novembro de 2026</div>
+        <div class="cta-block-prices">
+          <div class="price-badge">
+            <div class="price-badge-label">Edição Standard</div>
+            <div class="price-badge-value">R$449,90</div>
+            <div class="price-badge-platform">PS5 · Xbox Series X|S</div>
+          </div>
+          <div class="price-badge">
+            <div class="price-badge-label">Edição Ultimate</div>
+            <div class="price-badge-value">R$549,90</div>
+            <div class="price-badge-platform">PS5 · Xbox Series X|S + bônus exclusivos</div>
+          </div>
+        </div>
+        <a href="/" class="btn-cta-main">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0" stroke="white" stroke-width="2" fill="none"/></svg>
+          Pré-comprar agora
+        </a>
+      </div>
+
+      <p>Saiba mais sobre a Edição Ultimate e os bônus de pré-venda, incluindo detalhes sobre um mês gratuito de GTA+ em pré-vendas digitais, e muito mais em nossa <a href="/">loja oficial</a>.</p>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ── RELATED STORIES ── -->
+<div class="related-area">
+  <div class="related-inner">
+    <div class="related-heading">Mais sobre GTA VI</div>
+    <div class="related-grid">
+
+      <div class="story-card" onclick="window.location='/'">
+        <img class="story-card-img" loading="lazy"
+          src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/517oa135328155/d6584f1ca79133af48f7c2c436288c44f5fb9056.jpg"
+          alt="Pré-vendas GTA VI">
+        <div class="story-card-body">
+          <div class="story-card-cat">Grand Theft Auto VI <span class="sep">·</span> <span class="story-card-date">18 jun. 2026</span></div>
+          <div class="story-card-title">Pré-vendas de GTA VI abertas — garanta a sua edição</div>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="window.open('https://www.rockstargames.com/newswire?tag_id=666','_blank')">
+        <img class="story-card-img" loading="lazy"
+          src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/ak3ak31a49a221/aaa232eb3d48f655ad98ddd17eb9ad5d1f5e62f0.jpg"
+          alt="GTA VI lançamento novembro 2026">
+        <div class="story-card-body">
+          <div class="story-card-cat">Grand Theft Auto VI <span class="sep">·</span> <span class="story-card-date">6 nov. 2025</span></div>
+          <div class="story-card-title">GTA VI tem lançamento confirmado para 19 de novembro de 2026</div>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="window.open('https://www.rockstargames.com/newswire?tag_id=666','_blank')">
+        <img class="story-card-img" loading="lazy"
+          src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/3928aaa9471o3a/acc797c96579836fedbe314a37856a0761cdc687.jpg"
+          alt="GTA VI Trailer 2">
+        <div class="story-card-body">
+          <div class="story-card-cat">Grand Theft Auto VI <span class="sep">·</span> <span class="story-card-date">6 mai. 2025</span></div>
+          <div class="story-card-title">Grand Theft Auto VI — Assista ao Trailer 2 agora</div>
+        </div>
+      </div>
+
+      <div class="story-card" onclick="window.location='/'">
+        <img class="story-card-img" loading="lazy"
+          src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/8978kok9385a82/a21e91fbde08d4d7c9a3e372cc76d72a3ed2262e.jpg"
+          alt="GTA VI Trailer 1">
+        <div class="story-card-body">
+          <div class="story-card-cat">Grand Theft Auto VI <span class="sep">·</span> <span class="story-card-date">5 dez. 2023</span></div>
+          <div class="story-card-title">Grand Theft Auto VI — Trailer 1 revelado ao mundo</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <nav class="footer-nav-links">
+        <a href="/">Loja</a>
+        <a href="/blog">Notícias</a>
+        <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">Rockstar Games ↗</a>
+      </nav>
+    </div>
+    <div class="footer-legal-row">
+      <div class="footer-legal-links">
+        <span style="font-size:11px;color:var(--text-dim)">Site de fãs não oficial. Conteúdo informativo sobre GTA VI.</span>
+      </div>
+      <div class="footer-social">
+        <a href="https://instagram.com/rockstargames" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://x.com/rockstargames" aria-label="X" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.727-8.833L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/rockstargames" aria-label="YouTube" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-offices">
+      <span>GTA VI Brasil — Site informativo</span>
+      <span>© 2026</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── STICKY BOTTOM BAR ── -->
+<div class="sticky-bottom">
+  <div class="sticky-bottom-text">
+    <span>GTA VI</span> já em pré-venda — Standard R$449,90 · Ultimate R$549,90
+  </div>
+  <a href="/" class="btn-sticky">Pré-comprar agora</a>
+</div>
+
+</body>
+</html>
