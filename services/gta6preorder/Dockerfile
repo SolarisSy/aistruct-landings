@@ -5,5 +5,6 @@ COPY app.py .
 COPY index.html .
 COPY checkout.html .
 COPY obrigado.html .
+COPY blog.html .
 COPY assets/ ./assets/
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
