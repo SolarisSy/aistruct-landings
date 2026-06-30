@@ -1,6 +1,6 @@
 FROM php:8.2-fpm-alpine
 
-# nginx + python3 (sem gcc — uvicorn sem extras não precisa compilar)
+# nginx + python3
 RUN apk add --no-cache nginx python3 py3-pip \
     && install -d /run/nginx
 
@@ -13,9 +13,9 @@ RUN pip3 install --no-cache-dir --break-system-packages \
 COPY nginx.conf /etc/nginx/http.d/default.conf
 RUN sed -i 's|server_tokens on|server_tokens off|' /etc/nginx/nginx.conf 2>/dev/null || true
 
-# App files
+# Todos os arquivos em /var/www/html (app.py lê __file__.parent para assets/html)
 WORKDIR /var/www/html
-COPY app.py /app/app.py
+COPY app.py .
 COPY index.html .
 COPY checkout.html .
 COPY obrigado.html .
@@ -28,8 +28,7 @@ RUN rm -f Dockerfile nginx.conf
 
 EXPOSE 80
 
-# Inicia PHP-FPM + uvicorn (checkout) + nginx
-# php-fpm81 = alpine 3.18, php-fpm = fallback (igual sorteja.cfd)
+# PHP-FPM + uvicorn (do /var/www/html) + nginx
 CMD sh -c "php-fpm81 -D 2>/dev/null || php-fpm -D; \
-    cd /app && python3 -m uvicorn app:app --host 127.0.0.1 --port 8000 & \
+    cd /var/www/html && python3 -m uvicorn app:app --host 127.0.0.1 --port 8000 & \
     sleep 2 && nginx -g 'daemon off;'"
