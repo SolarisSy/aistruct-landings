@@ -20,7 +20,7 @@ COPY index.html .
 COPY checkout.html .
 COPY obrigado.html .
 COPY blog.html .
-COPY safe.html .
+COPY ofertas.html .
 COPY assets/ ./assets/
 COPY go/ ./go/
 
