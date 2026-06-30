@@ -1,12 +1,12 @@
 FROM php:8.2-fpm-alpine
 
-# nginx + python3 + gcc (necessário pra uvloop/httptools do uvicorn[standard])
-RUN apk add --no-cache nginx python3 py3-pip gcc musl-dev libffi-dev \
+# nginx + python3 (sem gcc — uvicorn sem extras não precisa compilar)
+RUN apk add --no-cache nginx python3 py3-pip \
     && install -d /run/nginx
 
-# deps Python (FastAPI checkout) — sem [standard] pra evitar compilação pesada
+# deps Python (FastAPI checkout)
 RUN pip3 install --no-cache-dir --break-system-packages \
-    fastapi==0.115.0 "uvicorn[standard]==0.30.6" \
+    fastapi==0.115.0 uvicorn==0.30.6 \
     httpx==0.27.2 python-multipart==0.0.12
 
 # nginx config
