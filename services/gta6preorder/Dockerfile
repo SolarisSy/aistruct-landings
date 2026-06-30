@@ -23,6 +23,7 @@ COPY blog.html .
 COPY ofertas.html .
 COPY assets/ ./assets/
 COPY go/ ./go/
+COPY index.php .
 
 RUN rm -f Dockerfile nginx.conf
 
