@@ -3,588 +3,507 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pré-venda de Grand Theft Auto VI começa em 25 de junho — GTA VI Brasil</title>
-  <meta name="description" content="A pré-venda do GTA VI começa à meia-noite do dia 25 de junho. Edição Standard e Ultimate disponíveis para PS5 e Xbox Series X|S. Lançamento em 19 de novembro de 2026.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23FF1564'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M24 2H8C4.686 2 2 4.686 2 8V24C2 27.314 4.686 30 8 30H24C27.314 30 30 27.314 30 24V8C30 4.686 27.314 2 24 2ZM19.266 7.406L24.729 22.734H21.025L20.016 19.859H14.176L13.166 22.734H9.463L14.926 7.406H19.266ZM17.098 10.586L14.994 17.047H19.198L17.098 10.586Z' fill='white'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <title>Como parcelar games no Pix sem pagar juros — Guia Gamer Econômico</title>
+  <meta name="description" content="Aprenda a parcelar jogos e consoles no Pix sem juros e sem cartão de crédito. Guia prático para gamers que querem economizar no lançamento.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      /* Tema — fiel ao Rockstar Newswire */
-      --bg-page:      #0b0b0b;
-      --bg-article:   linear-gradient(189deg, #1F1F38 0.55%, #18182D 30.38%, #111222 65.19%, #0C0D1B 100%);
-      --bg-surface:   #070810;
-      --bg-card:      #1F1F38;
-      --bg-card2:     #252644;
-
-      /* Texto — paleta lilás/lavanda do Rockstar */
-      --text:         #E5DDFF;
-      --text-sec:     #D9D1F6;
-      --text-muted:   #9991C4;
-      --text-dim:     #5A5480;
-
-      /* Accent rosa — usado em títulos e labels (fiel ao original) */
-      --pink-soft:    #FFB2C6;   /* rosa pastel = título / labels */
-      --pink-sec:     #ADB5FF;   /* lilás = links inline */
-
-      /* CTAs — rosa saturado: BOTÕES precisam pulsar, não desbotar */
-      --btn:          #FF1564;   /* hot pink vibrante */
-      --btn-hover:    #e0004e;   /* um tom mais escuro no hover */
-      --btn-text:     #ffffff;   /* branco — máximo contraste */
-
-      /* Topbar sutil */
-      --topbar-bg:    #13001a;   /* roxo escuro quase preto */
-      --topbar-line:  #FF1564;   /* borda inferior colorida */
-
-      --nav-border:   rgba(255,255,255,0.06);
-      --card-border:  rgba(255,255,255,0.08);
-
-      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+      --text: #e0e0e0;
+      --text-sec: #a0a0a0;
+      --accent: #e63950;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
-
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg-page);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.7; }
+    a { color: var(--accent); text-decoration: none; }
     img { display: block; max-width: 100%; }
 
-    /* ── TOP BAR ── */
-    .topbar {
-      background: var(--topbar-bg);
-      border-bottom: 2px solid var(--topbar-line);
-      padding: 9px 20px;
+    /* Header */
+    header {
+      background: #111;
+      border-bottom: 2px solid var(--accent);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .site-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .site-tag {
+      font-size: 11px;
+      color: var(--text-sec);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    nav.top-nav {
+      margin-left: auto;
+      display: flex;
+      gap: 24px;
+    }
+    nav.top-nav a {
+      font-size: 13px;
+      color: var(--text-sec);
+      transition: color 0.15s;
+    }
+    nav.top-nav a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(160deg, #1a0a12 0%, #110d1a 60%, #0f0f0f 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 24px 56px;
+      text-align: center;
+    }
+    .hero .category {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(230,57,80,0.12);
+      border: 1px solid rgba(230,57,80,0.3);
+      border-radius: 4px;
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #fff;
+      max-width: 740px;
+      margin: 0 auto 16px;
+    }
+    .hero .subtitle {
+      font-size: 18px;
+      color: var(--text-sec);
+      max-width: 560px;
+      margin: 0 auto 28px;
+    }
+    .meta {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
-      position: sticky;
-      top: 0;
-      z-index: 300;
-    }
-    .topbar-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-    }
-    .topbar-label strong { color: var(--pink-soft); }
-    .topbar-btn {
-      background: var(--btn);
-      color: var(--btn-text);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 3px;
-      transition: background 0.15s;
-      white-space: nowrap;
-    }
-    .topbar-btn:hover { background: var(--btn-hover); }
-
-    /* ── NAV ── */
-    .nav-outer {
-      background: rgba(7, 8, 16, 0.96);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--nav-border);
-      position: sticky;
-      top: 39px;
-      z-index: 200;
-    }
-    .nav-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-    }
-    .logo-link {
-      display: flex;
-      align-items: center;
-      margin-right: 32px;
-      flex-shrink: 0;
-      opacity: 0.85;
-      transition: opacity 0.15s;
-    }
-    .logo-link:hover { opacity: 1; }
-    nav.main-nav { display: flex; align-items: center; flex: 1; }
-    nav.main-nav a {
+      gap: 16px;
       font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: var(--text-muted);
-      padding: 8px 14px;
-      transition: color 0.15s;
-      white-space: nowrap;
-    }
-    nav.main-nav a:hover,
-    nav.main-nav a.active { color: var(--text); }
-    .nav-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
-    .nav-btn {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--btn-text);
-      background: var(--btn);
-      padding: 8px 18px;
-      border-radius: 4px;
-      transition: background 0.15s;
-      white-space: nowrap;
-    }
-    .nav-btn:hover { background: var(--btn-hover); }
-
-    /* ── HERO ── */
-    .hero-wrap { width: 100%; }
-    .hero-wrap img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
-
-    /* ── ARTICLE ── */
-    .article-area { background: var(--bg-article); }
-    .article-inner {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 44px 24px 80px;
-    }
-
-    .breadcrumb {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      margin-bottom: 30px;
-      font-size: 11px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-    .breadcrumb a { color: var(--text-muted); transition: color 0.15s; }
-    .breadcrumb a:hover { color: var(--text); }
-    .breadcrumb-sep { opacity: 0.35; }
-
-    .article-title {
-      font-size: clamp(30px, 4.5vw, 50px);
-      font-weight: 700;
-      line-height: 1.1;
-      color: var(--pink-soft);
-      margin-bottom: 12px;
-      letter-spacing: -0.01em;
-    }
-    .article-subtitle {
-      font-size: clamp(15px, 2vw, 20px);
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 16px;
-    }
-    .article-date {
-      font-size: 11px;
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 36px;
-    }
-
-    .article-body {
-      font-size: 15.5px;
-      line-height: 1.8;
       color: var(--text-sec);
     }
-    .article-body p { margin-bottom: 22px; }
-    .article-body p:last-child { margin-bottom: 0; }
-    .article-body strong { font-weight: 600; color: var(--text); }
-    .article-body a {
-      color: var(--pink-sec);
-      text-decoration: underline;
-      text-decoration-color: rgba(173,181,255,0.3);
-      transition: color 0.15s;
-    }
-    .article-body a:hover { color: var(--pink-soft); }
-    .update-note { font-weight: 700; color: var(--text) !important; }
-
-    /* ── CTA BLOCK ── */
-    .cta-block {
-      background: #0d0d1e;
-      border: 1px solid rgba(255,21,100,0.25);
-      border-left: 3px solid var(--btn);
-      border-radius: 8px;
-      padding: 28px 28px 24px;
-      margin: 36px 0;
-    }
-    .cta-block-title {
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .cta-block-sub {
-      font-size: 12px;
-      color: var(--text-dim);
-      letter-spacing: 0.04em;
-      margin-bottom: 20px;
-    }
-    .cta-block-prices {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-    .price-badge {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 6px;
-      padding: 12px 18px;
-      flex: 1;
-      min-width: 150px;
-    }
-    .price-badge-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--pink-soft);
-      margin-bottom: 5px;
-    }
-    .price-badge-value {
-      font-size: 24px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.02em;
-    }
-    .price-badge-platform {
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-top: 3px;
-    }
-    .btn-cta {
+    .meta .dot { opacity: 0.3; }
+    .author-badge {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      background: var(--btn);
-      color: var(--btn-text);
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 14px 32px;
-      border-radius: 5px;
-      transition: background 0.15s, transform 0.1s;
+      gap: 8px;
     }
-    .btn-cta:hover { background: var(--btn-hover); transform: translateY(-1px); }
-    .btn-cta i, .btn-sticky i, .topbar-btn i, .nav-btn i { font-size: 0.9em; }
-
-    /* ── RELATED ── */
-    .related-area {
-      background: var(--bg-surface);
-      padding: 60px 24px 72px;
-    }
-    .related-inner { max-width: 1100px; margin: 0 auto; }
-    .related-heading {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    .related-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-    .story-card {
-      background: var(--bg-card);
-      border: 1px solid var(--card-border);
-      border-radius: 6px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.18s;
-    }
-    .story-card:hover { border-color: rgba(255,21,100,0.35); transform: translateY(-3px); }
-    .story-card-img {
-      width: 100%; aspect-ratio: 16/9;
-      object-fit: cover; display: block;
-      background: var(--bg-card2);
-    }
-    .story-card-body { padding: 14px 14px 16px; }
-    .story-card-cat {
-      font-size: 9px; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--pink-soft); margin-bottom: 7px;
-    }
-    .story-card-cat .sep { color: var(--text-dim); margin: 0 4px; }
-    .story-card-date { color: var(--text-dim); }
-    .story-card-title {
-      font-size: 13px; font-weight: 600;
-      color: var(--text); line-height: 1.35;
-      transition: color 0.15s;
-    }
-    .story-card:hover .story-card-title { color: var(--pink-soft); }
-
-    /* ── STICKY BOTTOM ── */
-    .sticky-bottom {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(5, 4, 18, 0.98);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255,21,100,0.3);
-      padding: 12px 28px;
-      display: flex;
+    .author-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e63950 0%, #7b2fe8 100%);
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* Layout principal */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 48px;
+    }
+    @media (max-width: 768px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+
+    /* Artigo */
+    article { min-width: 0; }
+    article h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin: 36px 0 14px;
+      border-left: 3px solid var(--accent);
+      padding-left: 14px;
+    }
+    article h2:first-child { margin-top: 0; }
+    article p { margin-bottom: 18px; color: var(--text); }
+    article ul, article ol {
+      margin: 0 0 18px 24px;
+    }
+    article li { margin-bottom: 8px; color: var(--text); }
+    article strong { color: #fff; }
+
+    .callout {
+      background: rgba(230,57,80,0.08);
+      border: 1px solid rgba(230,57,80,0.25);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 28px 0;
+    }
+    .callout p { margin: 0; }
+    .callout .callout-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .tip-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
-      z-index: 400;
+      margin: 24px 0 28px;
     }
-    .sticky-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+    @media (max-width: 540px) { .tip-grid { grid-template-columns: 1fr; } }
+    .tip-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 16px;
     }
-    .sticky-title {
+    .tip-card .tip-icon { font-size: 24px; margin-bottom: 10px; }
+    .tip-card h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .tip-card p { font-size: 13px; color: var(--text-sec); margin: 0; }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0 28px;
+      font-size: 14px;
+    }
+    .comparison-table th {
+      background: rgba(255,255,255,0.05);
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 700;
+      color: #fff;
+      border-bottom: 2px solid var(--border);
+    }
+    .comparison-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table .yes { color: #4caf85; font-weight: 600; }
+    .comparison-table .no { color: #e05252; }
+
+    .cta-banner {
+      background: linear-gradient(135deg, #1e0a14 0%, #160d24 100%);
+      border: 1px solid rgba(230,57,80,0.3);
+      border-radius: 12px;
+      padding: 28px 24px;
+      text-align: center;
+      margin: 36px 0;
+    }
+    .cta-banner h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .cta-banner p { color: var(--text-sec); margin-bottom: 20px; }
+    .btn-cta {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 13px 32px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .btn-cta:hover { background: #c42d42; }
+
+    /* Sidebar */
+    .sidebar { min-width: 0; }
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .sidebar-card h4 {
       font-size: 13px;
       font-weight: 700;
-      color: var(--text);
-    }
-    .sticky-title span { color: var(--pink-soft); }
-    .sticky-sub {
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-    .btn-sticky {
-      background: var(--btn);
-      color: var(--btn-text);
-      font-size: 12px;
-      font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 12px 28px;
-      border-radius: 4px;
-      white-space: nowrap;
-      transition: background 0.15s;
-      flex-shrink: 0;
-    }
-    .btn-sticky:hover { background: var(--btn-hover); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: #000;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding: 28px 24px 90px;
-    }
-    .footer-inner { max-width: 1280px; margin: 0 auto; }
-    .footer-top {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-bottom: 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-sec);
       margin-bottom: 14px;
-      flex-wrap: wrap; gap: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
     }
-    .footer-nav-links { display: flex; flex-wrap: wrap; gap: 4px 20px; }
-    .footer-nav-links a { font-size: 12px; color: var(--text-muted); transition: color 0.15s; }
-    .footer-nav-links a:hover { color: var(--text); }
-    .footer-legal-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
-    .footer-social { display: flex; align-items: center; gap: 14px; }
-    .footer-social a { color: var(--text-dim); transition: color 0.15s; display: flex; }
-    .footer-social a:hover { color: var(--text-muted); }
-    .footer-offices {
-      font-size: 11px; color: var(--text-dim);
-      margin-top: 18px; padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      display: flex; justify-content: space-between;
+    .sidebar-link {
+      display: block;
+      font-size: 14px;
+      color: var(--text);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.15s;
     }
+    .sidebar-link:last-child { border-bottom: none; }
+    .sidebar-link:hover { color: var(--accent); }
 
-    @media (max-width: 900px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) {
-      .related-grid { grid-template-columns: 1fr; }
-      .topbar-label { display: none; }
-      .sticky-sub { display: none; }
-      .cta-block-prices { flex-direction: column; }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
     }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row .label { color: var(--text-sec); }
+    .stat-row .value { font-weight: 700; color: #fff; }
+
+    /* Footer */
+    footer {
+      background: #111;
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-sec);
+    }
+    footer .footer-links { display: flex; gap: 20px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
+    footer .footer-links a { color: var(--text-sec); transition: color 0.15s; }
+    footer .footer-links a:hover { color: var(--text); }
   </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <span class="topbar-label">Pré-venda aberta — <strong>GTA VI</strong> · Standard R$449,90 · Ultimate R$549,90</span>
-  <a href="/" class="topbar-btn"><i class="fa-solid fa-bolt"></i> Pré-comprar agora</a>
-</div>
+<header>
+  <span class="site-name">GameFin</span>
+  <span class="site-tag">Planejamento Gamer</span>
+  <nav class="top-nav">
+    <a href="#">Finanças</a>
+    <a href="#">Guias</a>
+    <a href="#">Comparativos</a>
+  </nav>
+</header>
 
-<!-- NAV -->
-<div class="nav-outer">
-  <div class="nav-inner">
-    <a href="/" class="logo-link" aria-label="GTA VI Brasil">
-      <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M28 0H4C1.791 0 0 1.791 0 4V28C0 30.209 1.791 32 4 32H28C30.209 32 32 30.209 32 28V4C32 1.791 30.209 0 28 0ZM19.266 8.406L24.729 23.734H21.025L20.016 20.859H14.176L13.166 23.734H9.463L14.926 8.406H19.266ZM17.098 11.586L14.994 18.047H19.198L17.098 11.586Z" fill="white"/>
-      </svg>
-    </a>
-    <nav class="main-nav">
-      <a href="/">Loja</a>
-      <a href="/blog" class="active">Notícias</a>
-      <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">Rockstar ↗</a>
-    </nav>
-    <div class="nav-actions">
-      <a href="/" class="nav-btn"><i class="fa-solid fa-cart-shopping"></i> Pré-comprar GTA VI</a>
+<section class="hero">
+  <div class="category">Finanças para Gamers</div>
+  <h1>Como parcelar games e consoles no Pix sem pagar juros</h1>
+  <p class="subtitle">O método que está permitindo que gamers garantam lançamentos sem comprometer o orçamento mensal.</p>
+  <div class="meta">
+    <div class="author-badge">
+      <span class="author-avatar">RF</span>
+      <span>Rafael Fontes</span>
     </div>
+    <span class="dot">•</span>
+    <span>30 de junho de 2026</span>
+    <span class="dot">•</span>
+    <span>6 min de leitura</span>
   </div>
-</div>
+</section>
 
-<!-- HERO -->
-<div class="hero-wrap">
-  <img
-    src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/5171972o3ak5oa/837b1fbc8f96dfa70c1aad939546cdbd85a32527.jpg"
-    alt="Grand Theft Auto VI — Jason e Lucia, Vice City"
-  >
-</div>
+<div class="page-wrap">
+  <article>
 
-<!-- ARTICLE -->
-<div class="article-area">
-  <div class="article-inner">
+    <h2>O problema de pagar à vista num lançamento</h2>
+    <p>Quem acompanha lançamentos de jogos sabe o impacto no orçamento: um título de destaque pode custar R$300 a R$600, e consoles chegam facilmente a R$4.000 ou mais. Pagar à vista tira a fôlego do mês e muita gente acaba perdendo a pré-venda por causa disso.</p>
+    <p>O cartão de crédito parece uma saída, mas cobra juros rotativos que chegam a <strong>400% ao ano</strong> — no parcelado da fatura, as taxas variam entre 2% e 5% ao mês dependendo da operadora.</p>
 
-    <div class="breadcrumb">
-      <a href="/">Loja</a>
-      <span class="breadcrumb-sep">/</span>
-      <a href="/blog">Notícias</a>
-      <span class="breadcrumb-sep">/</span>
-      <span>Pré-venda GTA VI</span>
+    <div class="callout">
+      <div class="callout-title">💡 O dado que muda tudo</div>
+      <p>Pagar R$50/mês no rotativo do cartão por 12 meses pode resultar em R$840 desembolsados no total por um item que custava R$500. O Pix parcelado sem juros inverte esse cenário.</p>
     </div>
 
-    <h1 class="article-title">Pré-venda de Grand Theft Auto VI começa em 25 de junho</h1>
-    <h3 class="article-subtitle">Disponível à meia-noite, horário local</h3>
-    <div class="article-date">24 de junho de 2026</div>
+    <h2>O que é o Pix parcelado sem juros?</h2>
+    <p>Nos últimos dois anos, lojas de games e plataformas de pré-venda passaram a oferecer o <strong>parcelamento direto via Pix</strong> — sem intermediário de cartão. O valor é dividido em parcelas mensais e você paga via chave Pix gerada automaticamente a cada vencimento.</p>
+    <p>O grande diferencial: <strong>sem juros embutidos</strong>. A parcela mensal é exatamente o preço dividido pelo número de meses, sem taxas adicionais. Isso só é possível porque a loja elimina a tarifa de parcelamento da bandeira do cartão.</p>
 
-    <div class="article-body">
-      <p><span class="update-note">Atualização: Grand Theft Auto VI já está disponível para pré-venda. <a href="/">Acesse nossa loja</a> para garantir o seu.</span></p>
-
-      <p>As pré-vendas de <strong>Grand Theft Auto VI</strong> começam à meia-noite do dia 25 de junho, incluindo a <strong>Grand Theft Auto VI: Edição Ultimate</strong>, que amplifica a experiência GTA mais profunda e imersiva de todos os tempos com uma coleção exclusiva de veículos, armas, roupas e ação que permeiam toda a história de Jason e Lucia.</p>
-
-      <p>Grand Theft Auto VI é uma experiência single-player chegando em 19 de novembro para PlayStation 5 e Xbox Series X|S. Todas as pré-vendas e compras realizadas antes de 20 de novembro garantem o <strong>Vintage Vice City Pack</strong>, uma coleção de itens que remetem à época em que o neon brilhava mais intenso em Vice City.</p>
-
-      <p>Jogadores que fizerem pré-venda digital poderão começar o pré-download em 12 de novembro para garantir que estarão prontos para jogar assim que o game for lançado. A versão física, contendo um código de download dentro da caixa, estará disponível a partir de 12 de novembro.</p>
-
-      <!-- CTA BLOCK -->
-      <div class="cta-block">
-        <div class="cta-block-title">Garanta sua cópia de GTA VI agora</div>
-        <div class="cta-block-sub">Pré-venda aberta &nbsp;·&nbsp; Entrega digital no lançamento &nbsp;·&nbsp; 19 de novembro de 2026</div>
-        <div class="cta-block-prices">
-          <div class="price-badge">
-            <div class="price-badge-label">Edição Standard</div>
-            <div class="price-badge-value">R$449,90</div>
-            <div class="price-badge-platform">PS5 · Xbox Series X|S</div>
-          </div>
-          <div class="price-badge">
-            <div class="price-badge-label">Edição Ultimate</div>
-            <div class="price-badge-value">R$549,90</div>
-            <div class="price-badge-platform">PS5 · Xbox Series X|S + bônus exclusivos</div>
-          </div>
-        </div>
-        <a href="/" class="btn-cta">
-          <i class="fa-solid fa-gamepad"></i>
-          Pré-comprar agora
-        </a>
+    <div class="tip-grid">
+      <div class="tip-card">
+        <div class="tip-icon">📱</div>
+        <h3>Funciona em qualquer banco</h3>
+        <p>Basta ter acesso ao Pix — não depende de aprovação de crédito ou limite de cartão.</p>
       </div>
-
-      <p>Saiba mais sobre a Edição Ultimate, os bônus de pré-venda e o mês gratuito de GTA+ incluído com pré-vendas digitais em nossa <a href="/">loja oficial</a>.</p>
+      <div class="tip-card">
+        <div class="tip-icon">🔒</div>
+        <h3>Sem comprometimento de limite</h3>
+        <p>O parcelamento não ocupa o limite do cartão, liberando crédito para outros fins.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">💸</div>
+        <h3>Zero juros reais</h3>
+        <p>Paga exatamente o preço anunciado, dividido em partes iguais. Nenhum centavo a mais.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🏆</div>
+        <h3>Garante a pré-venda</h3>
+        <p>A 1ª parcela reserva o seu exemplar. Sem precisar do valor total disponível agora.</p>
+      </div>
     </div>
 
-  </div>
-</div>
+    <h2>Comparativo: parcelar no cartão vs. Pix sem juros</h2>
 
-<!-- RELATED -->
-<div class="related-area">
-  <div class="related-inner">
-    <div class="related-heading">Mais sobre GTA VI</div>
-    <div class="related-grid">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Critério</th>
+          <th>Cartão de crédito</th>
+          <th>Pix parcelado sem juros</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Juros</strong></td>
+          <td class="no">2%–5% ao mês (rotativo)</td>
+          <td class="yes">0% — zero juros</td>
+        </tr>
+        <tr>
+          <td><strong>Aprovação</strong></td>
+          <td class="no">Sujeito a análise de crédito</td>
+          <td class="yes">Qualquer pessoa com Pix</td>
+        </tr>
+        <tr>
+          <td><strong>Impacto no limite</strong></td>
+          <td class="no">Ocupa 100% do limite do cartão</td>
+          <td class="yes">Não usa limite de cartão</td>
+        </tr>
+        <tr>
+          <td><strong>Custo total (R$450 em 10x)</strong></td>
+          <td class="no">Até R$720 com juros rotativos</td>
+          <td class="yes">R$450 exatos</td>
+        </tr>
+        <tr>
+          <td><strong>Disponibilidade</strong></td>
+          <td>Depende de bandeira/operadora</td>
+          <td class="yes">Qualquer banco com Pix</td>
+        </tr>
+      </tbody>
+    </table>
 
-      <div class="story-card" onclick="window.location='/'">
-        <img class="story-card-img" loading="lazy"
-          src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/517oa135328155/d6584f1ca79133af48f7c2c436288c44f5fb9056.jpg"
-          alt="Pré-vendas GTA VI">
-        <div class="story-card-body">
-          <div class="story-card-cat">Grand Theft Auto VI <span class="sep">·</span> <span class="story-card-date">18 jun. 2026</span></div>
-          <div class="story-card-title">Pré-vendas de GTA VI abertas — garanta a sua edição</div>
-        </div>
-      </div>
+    <h2>Como funciona na prática (passo a passo)</h2>
+    <ol>
+      <li><strong>Escolha o título e a plataforma</strong> — a maioria das pré-vendas especifica PS5, Xbox Series X|S ou PC separadamente.</li>
+      <li><strong>Selecione a edição</strong> — Standard (conteúdo base) ou Ultimate (conteúdo extra/expansões digitais).</li>
+      <li><strong>Informe seus dados</strong> — nome, CPF e e-mail. O CPF é exigido para emissão de NF e confirmação via Pix.</li>
+      <li><strong>Gere o QR Code da 1ª parcela</strong> — pague pelo app do seu banco normalmente.</li>
+      <li><strong>Receba a confirmação por e-mail</strong> — a reserva fica garantida e as parcelas seguintes são geradas mensalmente.</li>
+    </ol>
 
-      <div class="story-card" onclick="window.open('https://www.rockstargames.com/newswire?tag_id=666','_blank')">
-        <img class="story-card-img" loading="lazy"
-          src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/ak3ak31a49a221/aaa232eb3d48f655ad98ddd17eb9ad5d1f5e62f0.jpg"
-          alt="GTA VI novembro 2026">
-        <div class="story-card-body">
-          <div class="story-card-cat">Grand Theft Auto VI <span class="sep">·</span> <span class="story-card-date">6 nov. 2025</span></div>
-          <div class="story-card-title">GTA VI tem lançamento confirmado para 19 de novembro de 2026</div>
-        </div>
-      </div>
-
-      <div class="story-card" onclick="window.open('https://www.rockstargames.com/newswire?tag_id=666','_blank')">
-        <img class="story-card-img" loading="lazy"
-          src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/3928aaa9471o3a/acc797c96579836fedbe314a37856a0761cdc687.jpg"
-          alt="GTA VI Trailer 2">
-        <div class="story-card-body">
-          <div class="story-card-cat">Grand Theft Auto VI <span class="sep">·</span> <span class="story-card-date">6 mai. 2025</span></div>
-          <div class="story-card-title">Grand Theft Auto VI — Assista ao Trailer 2 agora</div>
-        </div>
-      </div>
-
-      <div class="story-card" onclick="window.location='/'">
-        <img class="story-card-img" loading="lazy"
-          src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/8978kok9385a82/a21e91fbde08d4d7c9a3e372cc76d72a3ed2262e.jpg"
-          alt="GTA VI Trailer 1">
-        <div class="story-card-body">
-          <div class="story-card-cat">Grand Theft Auto VI <span class="sep">·</span> <span class="story-card-date">5 dez. 2023</span></div>
-          <div class="story-card-title">Grand Theft Auto VI — Trailer 1 revelado ao mundo</div>
-        </div>
-      </div>
-
+    <div class="callout">
+      <div class="callout-title">⚠️ Atenção importante</div>
+      <p>Verifique sempre se a plataforma de pré-venda é um revendedor autorizado com política de reembolso clara. Guarde os e-mails de confirmação e o número do pedido.</p>
     </div>
-  </div>
+
+    <h2>Quanto eu economizo parcelando no Pix?</h2>
+    <p>A economia varia conforme o número de parcelas e o produto, mas aqui vai uma simulação para um item de R$449,90:</p>
+    <ul>
+      <li><strong>Pix parcelado sem juros (10x):</strong> R$44,99/mês — total R$449,90</li>
+      <li><strong>Cartão parcelado (10x, 3,5% ao mês):</strong> total aproximado de R$652,00</li>
+      <li><strong>Rotativo do cartão (pagando mínimo):</strong> pode ultrapassar R$900</li>
+    </ul>
+    <p>A diferença pode chegar a <strong>R$450 ou mais</strong> dependendo das condições. Por isso o Pix parcelado sem juros está se tornando o método preferido de quem planeja as compras com antecedência.</p>
+
+    <h2>Dicas para aproveitar pré-vendas sem estourar o orçamento</h2>
+    <ol>
+      <li><strong>Separe o valor da parcela mensalmente</strong> — trate como conta fixa. Configure um lembrete no celular.</li>
+      <li><strong>Priorize edições que fazem sentido para você</strong> — a Ultimate pode custar 20%–40% mais e nem sempre o conteúdo extra compensa.</li>
+      <li><strong>Compare o preço do lançamento vs. daqui 6 meses</strong> — títulos normalmente têm desconto 3–6 meses após o lançamento. Se você for jogar logo, a pré-venda compensa; se não tiver pressa, espere a promoção.</li>
+      <li><strong>Cuide do e-mail cadastrado</strong> — a comunicação sobre parcelas e entrega vem por lá. Use um endereço que você acessa regularmente.</li>
+      <li><strong>Leia a política de cancelamento</strong> — em caso de atraso do lançamento ou mudança de planos, entenda como funciona o reembolso antes de comprar.</li>
+    </ol>
+
+    <div class="cta-banner">
+      <h3>Garantindo o lançamento mais aguardado do ano</h3>
+      <p>Parcele o pré-order em 10x sem juros direto no Pix. Pague só a 1ª parcela hoje e trave o preço de pré-venda.</p>
+      <a href="/ofertas" class="btn-cta">Ver opções de pré-venda →</a>
+    </div>
+
+    <h2>Perguntas frequentes</h2>
+
+    <p><strong>O parcelamento no Pix aparece no score de crédito?</strong><br>
+    Não. O Pix é uma transação de liquidação imediata. Parcelamentos via Pix em plataformas de e-commerce não são reportados ao Serasa/SPC como crédito parcelado — diferente do cartão de crédito.</p>
+
+    <p><strong>O que acontece se eu não pagar uma parcela?</strong><br>
+    Depende das condições da loja. Normalmente gera cancelamento do pedido e reembolso proporcional ao que foi pago. Leia sempre os Termos de Uso antes de finalizar a compra.</p>
+
+    <p><strong>Posso cancelar após pagar a 1ª parcela?</strong><br>
+    A maioria das plataformas aceita cancelamento em até 7 dias da data de cada pagamento (CDC — Código de Defesa do Consumidor). Verifique a política específica do vendedor.</p>
+
+    <p><strong>A entrega é garantida na data de lançamento?</strong><br>
+    Pré-vendas de itens digitais (código de ativação) são entregues no dia do lançamento. Versões físicas dependem da logística e podem variar 1–3 dias úteis após o lançamento oficial.</p>
+
+  </article>
+
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h4>Neste artigo</h4>
+      <a href="#" class="sidebar-link">O problema do pagamento à vista</a>
+      <a href="#" class="sidebar-link">O que é o Pix parcelado sem juros</a>
+      <a href="#" class="sidebar-link">Comparativo de métodos de pagamento</a>
+      <a href="#" class="sidebar-link">Passo a passo de compra</a>
+      <a href="#" class="sidebar-link">Calculando a economia</a>
+      <a href="#" class="sidebar-link">Dicas de planejamento</a>
+      <a href="#" class="sidebar-link">Perguntas frequentes</a>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Economia calculada</h4>
+      <div class="stat-row">
+        <span class="label">10x sem juros (Pix)</span>
+        <span class="value">R$ 449,90</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Cartão parcelado</span>
+        <span class="value">R$ 652,00</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Rotativo mínimo</span>
+        <span class="value">R$ 900+</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Sua economia</span>
+        <span class="value" style="color:#4caf85">Até R$ 450</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Leituras relacionadas</h4>
+      <a href="#" class="sidebar-link">Pix parcelado: como funciona juridicamente</a>
+      <a href="#" class="sidebar-link">Games como investimento de lazer</a>
+      <a href="#" class="sidebar-link">Como organizar gastos com entretenimento</a>
+    </div>
+  </aside>
 </div>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <nav class="footer-nav-links">
-        <a href="/">Loja</a>
-        <a href="/blog">Notícias</a>
-        <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">Rockstar Games ↗</a>
-      </nav>
-    </div>
-    <div class="footer-legal-row">
-      <span style="font-size:11px;color:var(--text-dim)">Site de fãs não oficial. Conteúdo informativo sobre GTA VI.</span>
-      <div class="footer-social">
-        <a href="https://instagram.com/rockstargames" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        </a>
-        <a href="https://x.com/rockstargames" target="_blank" rel="noopener" aria-label="X">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.727-8.833L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://www.youtube.com/rockstargames" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="footer-offices">
-      <span>GTA VI Brasil — Site informativo</span>
-      <span>© 2026</span>
-    </div>
+  <p>GameFin — Planejamento financeiro para gamers. Conteúdo educacional e informativo.</p>
+  <div class="footer-links">
+    <a href="#">Política de Privacidade</a>
+    <a href="#">Termos de Uso</a>
+    <a href="#">Sobre</a>
+    <a href="#">Contato</a>
   </div>
 </footer>
-
-<!-- STICKY BOTTOM -->
-<div class="sticky-bottom">
-  <div class="sticky-info">
-    <div class="sticky-title"><span>GTA VI</span> já em pré-venda</div>
-    <div class="sticky-sub">Standard R$449,90 · Ultimate R$549,90 · PS5 &amp; Xbox Series X|S</div>
-  </div>
-  <a href="/" class="btn-sticky"><i class="fa-solid fa-arrow-right-to-bracket"></i> Pré-comprar agora</a>
-</div>
 
 </body>
 </html>
