@@ -860,16 +860,16 @@
           <div class="edition-grid" id="edition-grid">
             <button class="edition-btn active" data-edition="standard" onclick="selectEdition('standard')">
               <span class="name">Standard</span>
-              <span class="price">R$ 449,90</span>
+              <span class="price">10x R$ 44,99</span>
             </button>
             <button class="edition-btn" data-edition="ultimate" onclick="selectEdition('ultimate')">
               <span class="name">Ultimate</span>
-              <span class="price">R$ 549,90</span>
+              <span class="price">10x R$ 54,99</span>
             </button>
           </div>
 
           <a id="hero-cta" href="/checkout?edition=standard&platform=ps5" class="btn-cta-hero">
-            PRÉ-VENDA: R$ 449,90
+            PRÉ-VENDA: 10x DE R$ 44,99 SEM JUROS
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </a>
           <button class="compare-link" onclick="scrollTo('edicoes')">Comparar edições</button>
@@ -886,7 +886,7 @@
         <!-- Standard -->
         <div class="edition-card" data-observe>
           <h3 class="edition-name">Edição Standard</h3>
-          <div class="edition-price">R$ 449,90</div>
+          <div class="edition-price">10x de R$ 44,99 <span style="font-size:0.5em;font-weight:600;opacity:.75;">sem juros</span></div>
           <p class="edition-platform">PlayStation 5 / Xbox Series X|S</p>
           <ul class="feature-list">
             <li class="feature-item muted">
@@ -913,7 +913,7 @@
         <div class="edition-card featured" data-observe style="transition-delay:0.1s">
           <div class="badge-top">Mais completo</div>
           <h3 class="edition-name">Edição Ultimate</h3>
-          <div class="edition-price">R$ 549,90</div>
+          <div class="edition-price">10x de R$ 54,99 <span style="font-size:0.5em;font-weight:600;opacity:.75;">sem juros</span></div>
           <p class="edition-platform">PlayStation 5 / Xbox Series X|S</p>
           <ul class="feature-list">
             <li class="feature-item white">
@@ -1089,7 +1089,7 @@
 <!-- ── Mobile sticky CTA ── -->
 <div class="mobile-sticky">
   <a id="mobile-sticky-btn" href="/checkout?edition=standard&platform=ps5" class="btn-mobile-buy">
-    Pré-comprar: R$ 449,90
+    Pré-comprar: 10x R$ 44,99
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
   </a>
 </div>
@@ -1121,7 +1121,7 @@
 
   function updateAllCTAs() {
     const url = buildCheckoutUrl();
-    const priceStr = 'R$ ' + fmt(prices[edition]);
+    const priceStr = '10x DE R$ ' + fmt(prices[edition] / 10) + ' SEM JUROS';
     document.getElementById('hero-cta').href = url;
     document.getElementById('hero-cta').innerHTML =
       'PRÉ-VENDA: ' + priceStr +

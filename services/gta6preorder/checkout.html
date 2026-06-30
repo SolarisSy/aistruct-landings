@@ -440,9 +440,12 @@
         <button type="submit" class="btn-submit" id="submit-btn">
           <div class="spinner"></div>
           <span class="btn-text">
-            Gerar PIX — <span id="submit-price">R$ 449,90</span>
+            Gerar PIX — <span id="submit-price">R$ 44,99</span>
           </span>
         </button>
+        <p class="form-note" style="font-weight:700;color:#FF1564;">
+          1ª parcela no PIX · demais em 10x sem juros
+        </p>
         <p class="form-note">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           Pagamento 100% seguro e criptografado
@@ -506,7 +509,7 @@
       </div>
       <div class="summary-line total">
         <span>Total</span>
-        <span id="summary-total">R$ 449,90</span>
+        <span id="summary-total">10x de R$ 44,99</span>
       </div>
       <div class="payment-method">
         <div class="pix-icon">
@@ -547,14 +550,15 @@
 
   const price = PRICES[edition] || 449.90;
   const priceStr = price.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+  const parcStr = (price / 10).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
   const editionName = EDITION_NAMES[edition] || EDITION_NAMES.standard;
   const platformName = PLATFORM_NAMES[platform] || PLATFORM_NAMES.ps5;
 
-  document.getElementById('submit-price').textContent = 'R$ ' + priceStr;
+  document.getElementById('submit-price').textContent = 'R$ ' + parcStr;
   document.getElementById('summary-edition-name').textContent = editionName;
   document.getElementById('summary-platform-name').textContent = platformName;
   document.getElementById('summary-subtotal').textContent = 'R$ ' + priceStr;
-  document.getElementById('summary-total').textContent = 'R$ ' + priceStr;
+  document.getElementById('summary-total').textContent = '10x de R$ ' + parcStr;
 
   // ── CPF mask ──
   const cpfInput = document.querySelector('input[name=cpf]');
