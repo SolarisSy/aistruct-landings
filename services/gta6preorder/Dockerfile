@@ -26,9 +26,9 @@ COPY go/ ./go/
 
 RUN rm -f Dockerfile nginx.conf
 
-EXPOSE 80
+EXPOSE 8000
 
-# PHP-FPM + uvicorn (do /var/www/html) + nginx
+# PHP-FPM + uvicorn na 8001 (interno) + nginx na 8000 (Traefik)
 CMD sh -c "php-fpm81 -D 2>/dev/null || php-fpm -D; \
-    cd /var/www/html && python3 -m uvicorn app:app --host 127.0.0.1 --port 8000 & \
+    cd /var/www/html && python3 -m uvicorn app:app --host 127.0.0.1 --port 8001 & \
     sleep 2 && nginx -g 'daemon off;'"
