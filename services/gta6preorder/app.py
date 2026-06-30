@@ -44,8 +44,8 @@ GATEWAY_API = "https://api.streetpays.com.br"
 SELF_BASE_URL = os.environ.get("SELF_BASE_URL", "").rstrip("/")
 
 PRICES = {
-    "standard": 44990,   # R$449,90
-    "ultimate": 54990,   # R$549,90
+    "standard": 4499,   # R$44,99 — 1ª parcela
+    "ultimate": 5499,   # R$54,99 — 1ª parcela
 }
 EDITION_NAMES = {
     "standard": "GTA VI Edição Standard",

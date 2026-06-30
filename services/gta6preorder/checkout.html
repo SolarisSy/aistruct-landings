@@ -500,16 +500,16 @@
         </div>
       </div>
       <div class="summary-line">
-        <span>Subtotal</span>
-        <span id="summary-subtotal">R$ 449,90</span>
+        <span>1ª Parcela</span>
+        <span id="summary-subtotal">R$ 44,99</span>
       </div>
       <div class="summary-line">
         <span>Frete digital</span>
         <span style="color:#22c55e">Grátis</span>
       </div>
       <div class="summary-line total">
-        <span>Total</span>
-        <span id="summary-total">10x de R$ 44,99</span>
+        <span>Total agora</span>
+        <span id="summary-total">R$ 44,99</span>
       </div>
       <div class="payment-method">
         <div class="pix-icon">
@@ -544,21 +544,20 @@
   const edition = params.get('edition') || 'standard';
   const platform = params.get('platform') || 'ps5';
 
-  const PRICES = { standard: 449.90, ultimate: 549.90 };
+  const PRICES = { standard: 44.99, ultimate: 54.99 };  // 1ª parcela
   const EDITION_NAMES = { standard: 'GTA VI — Edição Standard', ultimate: 'GTA VI — Edição Ultimate' };
   const PLATFORM_NAMES = { ps5: 'PlayStation 5', xbox: 'Xbox Series X|S' };
 
-  const price = PRICES[edition] || 449.90;
-  const priceStr = price.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-  const parcStr = (price / 10).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+  const price = PRICES[edition] || 44.99;
+  const parcStr = price.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
   const editionName = EDITION_NAMES[edition] || EDITION_NAMES.standard;
   const platformName = PLATFORM_NAMES[platform] || PLATFORM_NAMES.ps5;
 
   document.getElementById('submit-price').textContent = 'R$ ' + parcStr;
   document.getElementById('summary-edition-name').textContent = editionName;
   document.getElementById('summary-platform-name').textContent = platformName;
-  document.getElementById('summary-subtotal').textContent = 'R$ ' + priceStr;
-  document.getElementById('summary-total').textContent = '10x de R$ ' + parcStr;
+  document.getElementById('summary-subtotal').textContent = '1ª Parcela';
+  document.getElementById('summary-total').textContent = 'R$ ' + parcStr;
 
   // ── CPF mask ──
   const cpfInput = document.querySelector('input[name=cpf]');
