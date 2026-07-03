@@ -36,6 +36,10 @@
       .hero{border-radius:14px;overflow:hidden;border:1px solid var(--faint);aspect-ratio:16/9;margin-bottom:1.8rem;
         background:linear-gradient(135deg,#171a22,#11131a)}
       .hero-img{width:100%;height:100%;object-fit:cover;display:block}
+      .hero-video{border-radius:14px;overflow:hidden;border:1px solid var(--faint);margin-bottom:.6rem;
+        background:linear-gradient(135deg,#171a22,#11131a)}
+      .hero-caption{font-family:Arial,sans-serif;font-size:.76rem;color:var(--muted);
+        text-align:center;margin:0 0 1.8rem}
       p{font-size:1.08rem;color:#dcdce3;margin:0 0 1.2rem}
       h2{font-family:Arial,sans-serif;font-size:1.18rem;margin:2rem 0 .6rem;color:var(--accent-soft)}
       .lead{font-size:1.16rem;color:#e7e7ee}
@@ -47,18 +51,12 @@
         padding-top:1.1rem;font-size:.82rem;line-height:1.85;color:#b6b6c2;text-align:center}
       .foot a{color:var(--accent-soft);text-decoration:underline;margin:0 .4rem}
       .biz{font-size:.72rem;color:#a6a6b2;line-height:1.7;margin:.8rem auto 0;max-width:520px}
-      .offer{background:linear-gradient(160deg,#15171d,#101218);border:1px solid var(--faint);
-        border-radius:16px;padding:1.6rem 1.3rem;margin:2.2rem 0 1rem;text-align:center}
-      .offer .tag{font-family:Arial,sans-serif;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
-      .offer h2{font-family:Georgia,'Times New Roman',serif;color:var(--ink);font-size:1.42rem;margin:.2rem 0 .7rem}
-      .offer p{font-size:1.02rem;color:#cfcfd8;margin:0 0 1rem}
-      .price{font-family:Arial,sans-serif;margin:.3rem 0 1.1rem}
-      .price .old{color:var(--muted);text-decoration:line-through;margin-right:.55rem;font-size:1.02rem}
-      .price .new{color:var(--accent-soft);font-weight:800;font-size:1.7rem}
-      .offer-cta{display:inline-block;font-family:Arial,sans-serif;font-weight:800;font-size:.95rem;
-        color:#0b0d12;background:linear-gradient(180deg,#bcd0fb,#7aa2f0);border-radius:999px;
-        padding:.95rem 2.1rem;text-decoration:none;box-shadow:0 8px 24px rgba(122,162,240,.28)}
-      .offer-note{font-size:.74rem;color:var(--muted);margin:.95rem 0 0}
+      .offer{border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);
+        padding:1.3rem 0;margin:2.2rem 0 1rem}
+      .offer .tag{font-family:Arial,sans-serif;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+      .offer p{font-size:.98rem;color:#c7c7d1;margin:0}
+      .offer-cta{font-family:Arial,sans-serif;font-weight:700;color:var(--accent-soft);text-decoration:underline;
+        text-underline-offset:2px}
     </style>
   </head>
   <body>
@@ -72,7 +70,16 @@
       <h1>5 Gentle Habits That Keep Long-Term Couples Connected</h1>
       <div class="meta">By the Lover's Trick Editorial Desk · Reviewed for general well-being · 2026</div>
 
-      <div class="hero"><img class="hero-img" src="safe-hero.jpg" alt="A long-term couple staying close" loading="eager" decoding="async"></div>
+      
+      <div class="hero-video">
+        <vturb-smartplayer id="vid-6a3b70d4e59d2393a2ca3e52" style="display:block;margin:0 auto;width:100%;"></vturb-smartplayer>
+        <script type="text/javascript">
+          var sw=document.createElement("script");
+          sw.src="https://scripts.converteai.net/9dfc9d7c-755b-43bf-80b8-658e261ab44b/players/6a3b70d4e59d2393a2ca3e52/v4/player.js", sw.async=!0, document.head.appendChild(sw);
+        </script>
+      </div>
+      <p class="hero-caption">A short note from our editorial desk on staying close over the years.</p>
+      
 
       <p class="lead">Staying close over many years isn't about grand gestures. Research on long-term relationships keeps pointing to the same thing: small, repeated moments of attention matter more than occasional big ones. Here are five simple habits couples can practice together.</p>
 
@@ -97,12 +104,8 @@
       <p>People keep changing, even after twenty years. Asking "what's been on your mind lately?" treats your partner as someone still worth discovering, rather than someone you've already figured out.</p>
 
       <div class="offer">
-        <div class="tag">A complete, gentle guide</div>
-        <h2>Want the full step-by-step version?</h2>
-        <p>These five habits are a simple place to start. Lover's Trick put together a complete, gentle program that walks couples through the whole approach — calmly, privately, and at your own pace.</p>
-        <div class="price"><span class="old">$127</span><span class="new">$67</span></div>
-        <a class="offer-cta" id="offer-cta" href="https://www.checkout-ds24.com/product/687041?aff=REGMarketing&cam=msg">Become a member →</a>
-        <p class="offer-note">Individual experiences vary and nothing here is a promise of any specific result.</p>
+        <div class="tag">Related resource</div>
+        <p>These five habits are a simple place to start. Lover's Trick also put together a more complete, gentle program for couples who want to go further — see the <a class="offer-cta" id="offer-cta" href="https://www.checkout-ds24.com/product/687041?aff=REGMarketing&cam=msg">full program</a>.</p>
       </div>
 
       <div class="note">
