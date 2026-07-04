@@ -31,20 +31,7 @@
     defer
   ></script>
 
-  <!-- Vturb SmartPlayer v4 — WHITE VSL (vertical 9:16, sem CTA, conteúdo limpo) -->
-  <script src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" id="vturb-smartplayer-js" fetchpriority="high"></script>
-  <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/9dfc9d7c-755b-43bf-80b8-658e261ab44b/players/6a48469f21f63577ceb9c41c/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
-
   <style>
-    vturb-smartplayer template, vturb-smartplayer pre,
-    vturb-anchor-button > style, vturb-anchor-button > template, vturb-anchor-button > pre,
-    vturb-call-action > style, vturb-call-action > template, vturb-call-action > pre,
-    vturb-player > style, vturb-player > template, vturb-player > pre,
-    vturb-headline > template, vturb-bezel > template, vturb-resume > template,
-    vturb-controls > template, vturb-fakebar > template, vturb-thumbsniper > template,
-    vturb-context-menu > template, vturb-license > template, vturb-smallplay > template,
-    vturb-bigplay > template, vturb-minihook > template, vturb-smartautoplay > template { display: none !important; }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -117,19 +104,29 @@
     .sec-head h2 { font-size: clamp(22px, 5vw, 32px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.22; margin-bottom: 12px; }
     .sec-head p { color: var(--text-muted); font-size: 15.5px; }
 
-    /* ── Video (VSL white) ── */
-    .video-wrap { max-width: 400px; margin: 0 auto; }
-    .video-frame {
-      position: relative; background: #000; border-radius: 18px; overflow: hidden;
-      box-shadow: 0 18px 50px rgba(11,122,69,0.18); border: 1px solid var(--border);
+    /* ── Card de demonstração (link pra página do vídeo) ── */
+    .demo-card {
+      max-width: 520px; margin: 0 auto; text-align: center;
+      background: #fff; border: 1px solid var(--border); border-radius: 18px;
+      padding: 34px 26px; box-shadow: 0 18px 50px rgba(11,122,69,0.10);
     }
-    .video-frame vturb-smartplayer { width: 100%; display: block; }
-    .video-live {
-      display: inline-flex; align-items: center; gap: 7px; margin: 0 auto 16px;
-      font-size: 12.5px; font-weight: 600; color: var(--text-muted);
-      background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px;
+    .demo-card .thumb {
+      position: relative; width: 96px; height: 96px; margin: 0 auto 18px;
+      border-radius: 50%; background: linear-gradient(135deg, var(--brand), #16c46a);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 26px rgba(11,122,69,0.35);
     }
-    .video-live .dot { width: 8px; height: 8px; border-radius: 50%; background: #e11d48; animation: blink 1.2s infinite; }
+    .demo-card .thumb::after { content: ""; border-style: solid; border-width: 15px 0 15px 24px; border-color: transparent transparent transparent #fff; margin-left: 5px; }
+    .demo-card h3 { font-size: 19px; font-weight: 800; margin-bottom: 8px; }
+    .demo-card p { font-size: 14.5px; color: var(--text-muted); margin-bottom: 22px; }
+    .demo-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--brand); color: #fff; font-weight: 700; font-size: 16px;
+      text-decoration: none; padding: 15px 30px; border-radius: 12px;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .demo-btn:hover { background: var(--brand-dark); transform: translateY(-1px); }
+    .demo-btn svg { width: 18px; height: 18px; fill: #fff; }
 
     /* ── Features grid ── */
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -217,7 +214,7 @@
     </div>
   </div>
 
-  <!-- ── Vídeo (VSL white) ── -->
+  <!-- ── Demonstração (link para a página do vídeo — demo.html) ── -->
   <section class="block" id="video">
     <div class="wrap">
       <div class="sec-head">
@@ -225,11 +222,14 @@
         <h2>Conheça o LotoApp em 1 minuto</h2>
         <p>Assista à demonstração e veja como é fácil acompanhar os resultados e conferir seus jogos.</p>
       </div>
-      <div style="text-align:center"><span class="video-live"><span class="dot"></span> Demonstração</span></div>
-      <div class="video-wrap">
-        <div class="video-frame">
-          <vturb-smartplayer id="vid-6a48469f21f63577ceb9c41c" style="display:block;margin:0 auto;width:100%;"></vturb-smartplayer>
-        </div>
+      <div class="demo-card">
+        <div class="thumb"></div>
+        <h3>Demonstração do aplicativo</h3>
+        <p>Um vídeo rápido mostrando o LotoApp por dentro.</p>
+        <a href="demo.html" class="demo-btn" id="demo-link">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          Assistir demonstração
+        </a>
       </div>
     </div>
   </section>
@@ -380,6 +380,10 @@
     document.addEventListener('DOMContentLoaded', function () {
       var y = document.getElementById('year');
       if (y) y.textContent = new Date().getFullYear();
+
+      // Preserva os params da URL (utms, etc.) ao ir pra página do vídeo.
+      var link = document.getElementById('demo-link');
+      if (link && location.search) link.href = 'demo.html' + location.search;
     });
   </script>
 
