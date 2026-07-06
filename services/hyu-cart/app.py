@@ -817,10 +817,34 @@ async def create_lead(request: Request):
     return {"ok": True}
 
 
+PANEL_COOKIE = "hyu_panel"
+PANEL_TTL = 7 * 86400  # sessão do painel: 7 dias
+
+
+def _cookie_sig(ts: str) -> str:
+    return hmac.new(LEADS_PASSWORD.encode(), f"hyu-panel:{ts}".encode(),
+                    hashlib.sha256).hexdigest()[:32]
+
+
+def _cookie_ok(request: Request) -> bool:
+    if not LEADS_PASSWORD:
+        return False
+    raw = request.cookies.get(PANEL_COOKIE, "")
+    ts, _, sig = raw.partition(".")
+    if not (ts.isdigit() and sig):
+        return False
+    if time.time() - int(ts) > PANEL_TTL:
+        return False
+    return hmac.compare_digest(_cookie_sig(ts), sig)
+
+
 def _leads_auth(request: Request) -> Response | None:
-    """Basic auth: QUALQUER usuario + senha LEADS_PASSWORD. None = autorizado."""
+    """Cookie de sessão do painel OU Basic auth (senha LEADS_PASSWORD) — p/ scripts.
+    None = autorizado."""
     if not LEADS_PASSWORD:
         return Response("painel desativado (LEADS_PASSWORD nao configurada)", status_code=503)
+    if _cookie_ok(request):
+        return None
     auth = request.headers.get("authorization", "")
     if auth.startswith("Basic "):
         try:
@@ -831,6 +855,111 @@ def _leads_auth(request: Request) -> Response | None:
             return None
     return Response("autentique-se", status_code=401,
                     headers={"WWW-Authenticate": 'Basic realm="HYU leads"'})
+
+
+def _panel_auth(request: Request, next_path: str) -> Response | None:
+    """Auth das PÁGINAS do painel: sem popup do browser — manda pro /login."""
+    from fastapi.responses import RedirectResponse
+    if not LEADS_PASSWORD:
+        return Response("painel desativado (LEADS_PASSWORD nao configurada)", status_code=503)
+    if _cookie_ok(request):
+        return None
+    auth = request.headers.get("authorization", "")
+    if auth.startswith("Basic "):
+        try:
+            dec = base64.b64decode(auth[6:]).decode("utf-8", "replace")
+        except Exception:
+            dec = ""
+        if dec.split(":", 1)[-1] == LEADS_PASSWORD:
+            return None
+    return RedirectResponse(f"/login?next={next_path}", status_code=303)
+
+
+_LOGIN_HTML = """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>HYU — Painel</title>
+<style>
+ *{{box-sizing:border-box}}
+ body{{font:15px/1.5 system-ui,sans-serif;margin:0;min-height:100vh;display:flex;
+      align-items:center;justify-content:center;background:#111318;color:#eef0f3}}
+ .card{{width:min(92vw,380px);background:#1a1d24;border:1px solid #262a33;border-radius:18px;
+       padding:2.2rem 2rem;box-shadow:0 18px 50px rgba(0,0,0,.5)}}
+ .logo{{display:flex;align-items:center;gap:.6rem;margin-bottom:1.4rem}}
+ .logo .dot{{width:38px;height:38px;border-radius:11px;background:#A8CC30;color:#111318;
+            display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.15rem}}
+ .logo b{{font-size:1.12rem;letter-spacing:.02em}}
+ .logo span{{display:block;font-size:.74rem;color:#8b93a1;font-weight:400}}
+ label{{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;
+       letter-spacing:.07em;color:#8b93a1;margin:0 0 .4rem}}
+ .pw{{position:relative}}
+ input[type=password],input[type=text]{{width:100%;padding:.85rem 3rem .85rem 1rem;font-size:1.05rem;
+      background:#111318;color:#eef0f3;border:1px solid #333947;border-radius:12px;outline:none}}
+ input:focus{{border-color:#A8CC30;box-shadow:0 0 0 3px rgba(168,204,48,.18)}}
+ .eye{{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);border:0;background:none;
+      color:#8b93a1;cursor:pointer;font-size:1.1rem;padding:.4rem}}
+ button.go{{width:100%;margin-top:1.1rem;padding:.9rem;font-size:1rem;font-weight:800;
+      background:#A8CC30;color:#111318;border:0;border-radius:12px;cursor:pointer}}
+ button.go:hover{{filter:brightness(1.08)}}
+ .err{{background:#3a1d1f;color:#ff9d9d;border:1px solid #5b2a2e;border-radius:10px;
+      padding:.6rem .8rem;font-size:.85rem;margin-bottom:1rem}}
+ .hint{{margin-top:1.1rem;font-size:.75rem;color:#6b7280;text-align:center}}
+</style></head><body>
+<form class="card" method="post" action="/login">
+ <div class="logo"><div class="dot">H</div><div><b>HYU · Painel</b><span>pedidos &amp; leads</span></div></div>
+ {err}
+ <label for="pw">Senha de acesso</label>
+ <div class="pw">
+  <input id="pw" type="password" name="password" autocomplete="current-password" autofocus required>
+  <button class="eye" type="button" onclick="var i=document.getElementById('pw');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'👁':'🙈'">👁</button>
+ </div>
+ <input type="hidden" name="next" value="{next}">
+ <button class="go" type="submit">Entrar →</button>
+ <div class="hint">Sessão fica ativa por 7 dias neste dispositivo.</div>
+</form></body></html>"""
+
+
+@app.get("/login", response_class=HTMLResponse)
+async def login_page(request: Request):
+    nxt = request.query_params.get("next", "/pedidos")
+    if not nxt.startswith("/"):
+        nxt = "/pedidos"
+    if _cookie_ok(request):
+        from fastapi.responses import RedirectResponse
+        return RedirectResponse(nxt, status_code=303)
+    return HTMLResponse(_LOGIN_HTML.format(err="", next=_esc(nxt)))
+
+
+@app.post("/login")
+async def login_submit(request: Request):
+    from fastapi.responses import RedirectResponse
+    from urllib.parse import parse_qs
+    # form urlencoded parseado na mão (evita dependência python-multipart)
+    raw = (await request.body()).decode("utf-8", "replace")
+    form = {k: v[0] for k, v in parse_qs(raw, keep_blank_values=True).items()}
+    pwd = str(form.get("password") or "")
+    nxt = str(form.get("next") or "/pedidos")
+    if not nxt.startswith("/"):
+        nxt = "/pedidos"
+    if not LEADS_PASSWORD:
+        return Response("painel desativado", status_code=503)
+    if not hmac.compare_digest(pwd, LEADS_PASSWORD):
+        await asyncio.sleep(0.7)  # freio anti-bruteforce
+        return HTMLResponse(_LOGIN_HTML.format(
+            err='<div class="err">Senha incorreta.</div>', next=_esc(nxt)),
+            status_code=401)
+    ts = str(int(time.time()))
+    resp = RedirectResponse(nxt, status_code=303)
+    resp.set_cookie(PANEL_COOKIE, f"{ts}.{_cookie_sig(ts)}", max_age=PANEL_TTL,
+                    httponly=True, secure=True, samesite="lax", path="/")
+    return resp
+
+
+@app.get("/logout")
+async def logout():
+    from fastapi.responses import RedirectResponse
+    resp = RedirectResponse("/login", status_code=303)
+    resp.delete_cookie(PANEL_COOKIE, path="/")
+    return resp
 
 
 def _fetch_leads() -> list[dict[str, Any]]:
@@ -860,7 +989,7 @@ def _esc(s: str) -> str:
 
 @app.get("/leads", response_class=HTMLResponse)
 async def leads_panel(request: Request):
-    denied = _leads_auth(request)
+    denied = _panel_auth(request, "/leads")
     if denied:
         return denied
     leads = _fetch_leads()
@@ -895,7 +1024,8 @@ async def leads_panel(request: Request):
  .muted{{color:#889;font-size:.75rem}} .total{{margin:.8rem 0;color:#445}}
 </style></head><body>
 <header><h1>📋 Leads HYU</h1><span class="pill">{len(leads)}</span><span class="grow"></span>
-<a class="btn" href="/leads.csv">⬇ Exportar CSV</a></header>
+<a class="btn" href="/pedidos">📦 Pedidos</a><a class="btn" href="/leads.csv">⬇ Exportar CSV</a>
+<a class="btn" style="background:none;color:#9aa3b0;border:1px solid #3a3f4a" href="/logout">Sair</a></header>
 <main><p class="total">Valor somado dos pedidos: <strong>{_brl(total_geral)}</strong></p>
 <table><thead><tr><th>#</th><th>Quando</th><th>Nome</th><th>WhatsApp</th><th>E-mail</th>
 <th>Pedido</th><th>Total</th><th>Origem</th></tr></thead>
@@ -957,8 +1087,41 @@ def _endereco_str(p: dict) -> str:
             f"{p['city']}/{p['state']} — CEP {p['cep']}")
 
 
+# SKU ausente (histórico Paggins não tinha SKU cadastrado) → deriva pelo nome
+_SKU_FLAVORS = [("hot lemon", "HOTLEMON"), ("maçã verde", "MACAVERDE"),
+                ("maca verde", "MACAVERDE"), ("pêssego", "PESSEGOMORANGO"),
+                ("pessego", "PESSEGOMORANGO"), ("maçã vermelha", "MACAVERMELHA"),
+                ("maca vermelha", "MACAVERMELHA"), ("tropical", "TROPICAL")]
+_SKU_COMBOS = [("super kit", "SUPERKIT"), ("kit energy", "KITENERGY"),
+               ("kit soda", "KITSODA"), ("kit 24", "KIT24"), ("kit24", "KIT24")]
+
+
+def _derive_sku(name: str) -> str:
+    n = (name or "").lower()
+    sub = "assinatura" in n
+    for hint, sku in _SKU_COMBOS:
+        if hint in n:
+            return f"HYU-SUB-{sku}" if sub else f"HYU-{sku}"
+    flavor = next((sku for hint, sku in _SKU_FLAVORS if hint in n), "")
+    tier = "K12" if ("kit 12" in n or "12 latas" in n) else \
+           "K6" if ("kit 6" in n or "6 latas" in n) else ""
+    if sub:
+        return f"HYU-SUB-{flavor}" if flavor else "HYU-SUB"
+    if flavor and tier:
+        return f"HYU-{flavor}-{tier}"
+    return ""
+
+
+def _item_sku(it: dict) -> str:
+    return it.get("sku") or _derive_sku(it.get("name", ""))
+
+
+def _skus_str(itens: list[dict]) -> str:
+    return " + ".join(f"{i.get('qty', 1)}x {_item_sku(i) or '?'}" for i in itens)
+
+
 _PEDIDOS_COLS = ["id", "data_utc", "pago_em_utc", "status", "nome", "cpf", "whatsapp",
-                 "email", "endereco", "itens", "frete_servico", "frete_reais",
+                 "email", "endereco", "itens", "skus", "frete_servico", "frete_reais",
                  "subtotal_reais", "total_reais", "cupom", "bling_status",
                  "bling_pedido", "rastreio", "utm_source", "utm_campaign", "gclid"]
 
@@ -967,7 +1130,8 @@ def _pedido_export_row(p: dict) -> list:
     m = p["meta_d"]
     return [p["id"], p["ts"], p.get("paid_ts") or "", p["status"], p["name"],
             p["document"], p["phone"], p["email"], _endereco_str(p),
-            _itens_str(p["itens"]), p.get("frete_service") or "",
+            _itens_str(p["itens"]), _skus_str(p["itens"]),
+            p.get("frete_service") or "",
             round((p.get("frete_cents") or 0) / 100, 2),
             round((p.get("subtotal_cents") or 0) / 100, 2),
             round((p.get("total_cents") or 0) / 100, 2),
@@ -978,16 +1142,21 @@ def _pedido_export_row(p: dict) -> list:
 
 @app.get("/pedidos", response_class=HTMLResponse)
 async def pedidos_panel(request: Request):
-    denied = _leads_auth(request)
+    denied = _panel_auth(request, "/pedidos")
     if denied:
         return denied
     pedidos = _fetch_pedidos()
     pagos = [p for p in pedidos if p["status"] == "paid"]
+    n_wait = sum(1 for p in pedidos if p["status"] in ("created", "open"))
+    n_err = len(pedidos) - len(pagos) - n_wait
     total_pago = sum(p.get("total_cents") or 0 for p in pagos)
     rows = []
     for p in pedidos:
-        badge = ("<span class='ok'>PAGO</span>" if p["status"] == "paid"
-                 else "<span class='pend'>criado</span>")
+        st = p["status"]
+        grp = "paid" if st == "paid" else ("wait" if st in ("created", "open") else "err")
+        badge = {"paid": "<span class='ok'>PAGO</span>",
+                 "wait": "<span class='pend'>aguardando</span>",
+                 "err": f"<span class='err'>{_esc(st)}</span>"}[grp]
         bl = p.get("bling_status") or "—"
         if bl == "created":
             bl = f"<span class='ok'>#{_esc(p.get('bling_order_id') or '')}</span>"
@@ -995,16 +1164,26 @@ async def pedidos_panel(request: Request):
             bl = (f"<span class='err' title='{_esc(p.get('bling_error') or '')}'>{bl}</span> "
                   f"<button onclick=\"blingRetry({p['id']},this)\">↻</button>")
         frete = ("grátis" if p.get("frete_service") == "gratis"
-                 else f"{_esc(p.get('frete_service') or '—')} {_brl(p.get('frete_cents') or 0)}")
+                 else f"{_esc(p.get('frete_service') or '—')} {_brl(p.get('frete_cents') or 0)}"
+                 if p.get("frete_cents") or p.get("frete_service") else "—")
+        itens_html = "".join(
+            f"<div>{_esc((str(i.get('qty', 1)) + 'x ') if i.get('qty', 1) > 1 else '')}{_esc(i.get('name', '?'))}"
+            f"<br><span class='sku'>{_esc(_item_sku(i) or 'sem SKU')}</span></div>"
+            for i in p["itens"]) or "—"
+        search = " ".join(str(x) for x in (
+            p["id"], p["name"], p["document"], p["phone"], p["email"],
+            p.get("coupon"), _itens_str(p["itens"]), _skus_str(p["itens"]),
+            p.get("city"), p.get("state"), p.get("cep"),
+            p["meta_d"].get("paggins_order", ""))).lower()
         rows.append(
-            f"<tr><td>{p['id']}</td>"
+            f"<tr data-grp='{grp}' data-q=\"{_esc(search)}\"><td>{p['id']}</td>"
             f"<td data-ts='{p['ts']}'></td>"
             f"<td>{badge}</td>"
             f"<td><strong>{_esc(p['name'])}</strong><br><span class='muted'>{_esc(p['document'])}</span></td>"
             f"<td><a href='https://wa.me/55{_esc(p['phone'])}' target='_blank'>{_esc(p['phone'])}</a><br>"
             f"<a href='mailto:{_esc(p['email'])}'>{_esc(p['email'])}</a></td>"
             f"<td class='addr'>{_esc(_endereco_str(p))}</td>"
-            f"<td>{_esc(_itens_str(p['itens']))}</td>"
+            f"<td class='itens'>{itens_html}</td>"
             f"<td>{frete}</td>"
             f"<td class='r'>{_brl(p.get('total_cents') or 0)}</td>"
             f"<td>{_esc(p.get('coupon') or '—')}</td>"
@@ -1016,31 +1195,65 @@ async def pedidos_panel(request: Request):
 <title>Pedidos HYU ({len(pagos)} pagos)</title>
 <style>
  body{{font:14px/1.5 system-ui,sans-serif;margin:0;background:#f5f6f8;color:#16191f}}
- header{{display:flex;align-items:center;gap:1rem;padding:.9rem 1.2rem;background:#16191f;color:#fff;position:sticky;top:0}}
+ header{{display:flex;align-items:center;gap:1rem;padding:.9rem 1.2rem;background:#16191f;color:#fff;position:sticky;top:0;z-index:5}}
  h1{{font-size:1rem;margin:0}} .pill{{background:#A8CC30;color:#16191f;font-weight:800;border-radius:999px;padding:.1rem .6rem}}
- .grow{{flex:1}} a.btn{{background:#fff;color:#16191f;font-weight:700;text-decoration:none;border-radius:8px;padding:.35rem .8rem;margin-left:.4rem}}
- main{{padding:1rem 1.2rem;overflow-x:auto}}
+ .grow{{flex:1}} a.btn{{background:#fff;color:#16191f;font-weight:700;text-decoration:none;border-radius:8px;padding:.35rem .8rem;margin-left:.4rem;font-size:.85rem}}
+ a.out{{background:none;color:#9aa3b0;border:1px solid #3a3f4a}}
+ .bar{{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.8rem 1.2rem 0}}
+ .tab{{border:1px solid #d7dbe0;background:#fff;border-radius:999px;padding:.32rem .85rem;font-size:.82rem;font-weight:700;cursor:pointer;color:#445}}
+ .tab.on{{background:#16191f;color:#fff;border-color:#16191f}}
+ .tab small{{font-weight:800;opacity:.65;margin-left:.25rem}}
+ #q{{flex:1;min-width:220px;max-width:380px;padding:.45rem .8rem;border:1px solid #d7dbe0;border-radius:999px;font:inherit;font-size:.88rem}}
+ #q:focus{{outline:2px solid #A8CC30;border-color:#A8CC30}}
+ main{{padding:.6rem 1.2rem 1.2rem;overflow-x:auto}}
  table{{border-collapse:collapse;width:100%;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}}
  th,td{{padding:.55rem .7rem;border-bottom:1px solid #eceef1;text-align:left;vertical-align:top;font-size:.82rem}}
  th{{background:#fafbfc;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#667}}
  tr:hover td{{background:#fcfde8}} .r{{text-align:right;white-space:nowrap;font-weight:700}}
- .muted{{color:#889;font-size:.75rem}} .total{{margin:.8rem 0;color:#445}}
+ .muted{{color:#889;font-size:.75rem}} .total{{margin:.6rem 0 .2rem;color:#445;font-size:.85rem}}
  .addr{{max-width:230px;font-size:.76rem;color:#556}}
+ .itens div{{margin-bottom:.3rem}} .itens div:last-child{{margin-bottom:0}}
+ .sku{{font-family:ui-monospace,monospace;font-size:.7rem;background:#f0f2f5;color:#556;border-radius:5px;padding:.02rem .35rem}}
  .ok{{background:#e3f5d4;color:#3a6b12;font-weight:700;border-radius:6px;padding:.05rem .4rem;font-size:.72rem}}
- .pend{{background:#eef0f3;color:#667;border-radius:6px;padding:.05rem .4rem;font-size:.72rem}}
+ .pend{{background:#fff3d6;color:#8a6100;border-radius:6px;padding:.05rem .4rem;font-size:.72rem;font-weight:700}}
  .err{{background:#fde3e3;color:#a11;font-weight:700;border-radius:6px;padding:.05rem .4rem;font-size:.72rem}}
  button{{cursor:pointer;border:1px solid #ccd;border-radius:6px;background:#fff}}
 </style></head><body>
 <header><h1>📦 Pedidos HYU</h1><span class="pill">{len(pagos)} pagos</span><span class="grow"></span>
-<a class="btn" href="/pedidos.xlsx">⬇ Excel</a><a class="btn" href="/pedidos.csv">⬇ CSV</a></header>
-<main><p class="total">Total pago: <strong>{_brl(total_pago)}</strong> · {len(pedidos)} pedidos no total (pagos + carrinhos que geraram sessão)</p>
+<a class="btn" href="/leads">Leads</a><a class="btn" href="/pedidos.xlsx">⬇ Excel</a><a class="btn" href="/pedidos.csv">⬇ CSV</a>
+<a class="btn out" href="/logout">Sair</a></header>
+<div class="bar">
+ <button class="tab on" data-f="all">Todos <small>{len(pedidos)}</small></button>
+ <button class="tab" data-f="paid">Pagos <small>{len(pagos)}</small></button>
+ <button class="tab" data-f="wait">Aguardando <small>{n_wait}</small></button>
+ <button class="tab" data-f="err">Erro/outros <small>{n_err}</small></button>
+ <input id="q" type="search" placeholder="Buscar: nome, CPF, e-mail, SKU, cidade, cupom…">
+</div>
+<main><p class="total">Total pago: <strong>{_brl(total_pago)}</strong> · <span id="showing"></span></p>
 <table><thead><tr><th>#</th><th>Quando</th><th>Status</th><th>Cliente / CPF</th><th>Contato</th>
-<th>Endereço</th><th>Itens</th><th>Frete</th><th>Total</th><th>Cupom</th><th>Bling</th><th>Rastreio</th></tr></thead>
-<tbody>{''.join(rows) or '<tr><td colspan=12 style="text-align:center;padding:2rem;color:#889">Nenhum pedido ainda.</td></tr>'}</tbody></table></main>
+<th>Endereço</th><th>Itens / SKU</th><th>Frete</th><th>Total</th><th>Cupom</th><th>Bling</th><th>Rastreio</th></tr></thead>
+<tbody id="tb">{''.join(rows) or '<tr><td colspan=12 style="text-align:center;padding:2rem;color:#889">Nenhum pedido ainda.</td></tr>'}</tbody></table></main>
 <script>
 document.querySelectorAll('[data-ts]').forEach(td=>{{
  td.textContent=new Date(td.dataset.ts).toLocaleString('pt-BR',{{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}});
 }});
+var F='all',Q='';
+function apply(){{
+ var n=0;
+ document.querySelectorAll('#tb tr[data-grp]').forEach(function(tr){{
+  var ok=(F==='all'||tr.dataset.grp===F)&&(!Q||tr.dataset.q.indexOf(Q)>-1);
+  tr.style.display=ok?'':'none'; if(ok)n++;
+ }});
+ document.getElementById('showing').textContent='mostrando '+n+' pedido'+(n===1?'':'s');
+}}
+document.querySelectorAll('.tab').forEach(function(b){{
+ b.addEventListener('click',function(){{
+  document.querySelectorAll('.tab').forEach(function(x){{x.classList.remove('on')}});
+  b.classList.add('on'); F=b.dataset.f; apply();
+ }});
+}});
+document.getElementById('q').addEventListener('input',function(){{Q=this.value.trim().toLowerCase();apply();}});
+apply();
 function blingRetry(id,btn){{btn.disabled=true;btn.textContent='…';
  fetch('/pedidos/'+id+'/bling',{{method:'POST'}}).then(r=>r.json())
  .then(j=>{{btn.textContent=j.bling_status==='created'?'✅':'↻';alert('Bling: '+j.bling_status+(j.bling_error?' — '+j.bling_error:''));location.reload();}})
@@ -1130,8 +1343,8 @@ async def pedidos_xlsx(request: Request):
     for p in _fetch_pedidos():
         ws.append(_pedido_export_row(p))
     widths = {"A": 5, "B": 20, "C": 20, "D": 8, "E": 24, "F": 13, "G": 13, "H": 26,
-              "I": 46, "J": 40, "K": 12, "L": 10, "M": 12, "N": 10, "O": 10, "P": 12,
-              "Q": 12, "R": 16, "S": 12, "T": 14, "U": 20}
+              "I": 46, "J": 40, "K": 26, "L": 12, "M": 10, "N": 12, "O": 10, "P": 10,
+              "Q": 12, "R": 12, "S": 16, "T": 12, "U": 14, "V": 20}
     for col, wd in widths.items():
         ws.column_dimensions[col].width = wd
     out = io.BytesIO()
