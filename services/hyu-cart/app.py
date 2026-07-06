@@ -1107,6 +1107,31 @@ function blingRetry(id,btn){{btn.disabled=true;btn.textContent='…';
     return HTMLResponse(html)
 
 
+@app.post("/pedidos/purge")
+async def pedidos_purge(request: Request):
+    """Remove pedidos por lista de ids (Basic auth). Body: {"ids":[1,2,...]}.
+    Usado p/ limpar pedidos não-HYU (loja Paggins compartilhada) e testes."""
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    try:
+        payload = await request.json()
+    except Exception:
+        raise HTTPException(400, "JSON invalido")
+    ids = payload.get("ids")
+    if not isinstance(ids, list) or not all(isinstance(i, int) for i in ids) or len(ids) > 2000:
+        raise HTTPException(400, "ids invalido (lista de inteiros)")
+    conn = _db()
+    try:
+        cur = conn.executemany("DELETE FROM pedidos WHERE id=?", [(i,) for i in ids])
+        conn.commit()
+        deleted = cur.rowcount if cur.rowcount is not None else len(ids)
+    finally:
+        conn.close()
+    log.info("pedidos purge: %d ids -> removidos", len(ids))
+    return {"requested": len(ids), "deleted": deleted}
+
+
 @app.post("/pedidos/import")
 async def pedidos_import(request: Request):
     """Importa pedidos históricos (ex.: export do painel Paggins). Basic auth.
