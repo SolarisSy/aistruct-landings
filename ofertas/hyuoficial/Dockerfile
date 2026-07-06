@@ -26,6 +26,11 @@ RUN printf 'server {\n\
     proxy_ssl_server_name on;\n\
     proxy_set_header Host hyu-cart.tiectu.easypanel.host;\n\
   }\n\
+  location ~ ^/pedidos(\\.xlsx|\\.csv|/.*)?$ {\n\
+    proxy_pass https://hyu-cart.tiectu.easypanel.host;\n\
+    proxy_ssl_server_name on;\n\
+    proxy_set_header Host hyu-cart.tiectu.easypanel.host;\n\
+  }\n\
   location / {\n\
     add_header Cache-Control "no-cache";\n\
     try_files $uri $uri/ /index.html;\n\

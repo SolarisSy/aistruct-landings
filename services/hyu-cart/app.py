@@ -7,12 +7,20 @@ O site e estatico (nginx); este servico:
   2. confirma pagamento: GET /session (status) + POST /webhook/paggins (eventos -> tabela orders).
   3. captura LEADS (paliativo p/ carrinho abandonado): form -> SQLite no volume da VPS.
 
+POST /frete            <- {cep, items} -> opcoes de frete Mandaê (gratis se >=12 latas)
 POST /checkout         <- carrinho {items:[{flavor,tier,qty}|{combo,qty}], meta} -> session
+                          + fluxo completo: {customer, address, shipping} -> frete embutido
+                          no unitAmount + pedido completo salvo (dados p/ NF-e no Bling)
 GET  /session/{id}     <- status do pedido (pro obrigado)
-POST /webhook/paggins  <- eventos Paggins (assinatura HMAC) -> marca orders pagos
+POST /webhook/paggins  <- eventos Paggins (assinatura HMAC) -> marca orders/pedidos pagos
+                          -> dispara criacao do pedido de venda no Bling (bling.py)
 POST /lead             <- site: {name, phone, email, items, meta} -> grava na VPS
 GET  /leads            <- painel HTML (Basic auth: qualquer usuario + LEADS_PASSWORD)
 GET  /leads.csv        <- export CSV (mesma auth)
+GET  /pedidos          <- painel HTML dos COMPRADORES (mesma auth) + status Bling
+GET  /pedidos.xlsx     <- export Excel (openpyxl, mesma auth)
+GET  /pedidos.csv      <- export CSV (mesma auth)
+POST /pedidos/{id}/bling <- re-tenta criar o pedido no Bling (mesma auth)
 GET  /healthz          <- liveness
 GET  /                 <- info
 GET  /debug/stats      <- contadores
@@ -25,6 +33,9 @@ Env:
   LEADS_PASSWORD   - senha do /leads (obrigatoria pro painel; NUNCA no git)
   LEADS_DB         - default /data/leads.db (volume) com fallback ./leads.db
   LOG_LEVEL        - default INFO
+  MANDAE_TOKEN     - token da API Mandaê (cálculo de frete) — setar no Easypanel
+  MANDAE_CUSTOMER_ID - customerId Mandaê (referência; envio é via Bling)
+  BLING_CLIENT_ID / BLING_CLIENT_SECRET / BLING_REFRESH_TOKEN - ver bling.py
 """
 from __future__ import annotations
 
@@ -43,10 +54,15 @@ from collections import deque
 from datetime import datetime, timezone
 from typing import Any
 
+import asyncio
+import time
+
 import httpx
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, StreamingResponse
+
+from bling import BlingClient, BlingError
 
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
                     format="%(asctime)s %(levelname)s %(message)s")
@@ -65,6 +81,10 @@ HYU_ORIGINS = [
 LEADS_PASSWORD = os.environ.get("LEADS_PASSWORD", "").strip()
 PAGGINS_WEBHOOK_SECRET = os.environ.get("PAGGINS_WEBHOOK_SECRET", "").strip()
 LEADS_DB = os.environ.get("LEADS_DB", "/data/leads.db")
+MANDAE_TOKEN = os.environ.get("MANDAE_TOKEN", "").strip()
+MANDAE_RATES_URL = "https://api.mandae.com.br/v2/postalcodes/{cep}/rates"
+FREE_SHIPPING_CANS = 12          # política: frete grátis a partir de 12 latas
+BLING = BlingClient()
 
 
 # ── Cupons de influencer (desconto aplicado AQUI, no unitAmount) ──────────────
@@ -126,8 +146,8 @@ FLAVORS: dict[str, dict[str, str]] = {
                         "desc": "15g de proteína · 85mg de cafeína natural · zero açúcar · 269ml"},
 }
 TIERS: dict[str, dict[str, Any]] = {
-    "kit6":  {"label": "Kit 6 (6 latas)",   "cents": 6990,  "sku": "K6"},
-    "kit12": {"label": "Kit 12 (12 latas)", "cents": 11990, "sku": "K12"},
+    "kit6":  {"label": "Kit 6 (6 latas)",   "cents": 6990,  "sku": "K6",  "cans": 6},
+    "kit12": {"label": "Kit 12 (12 latas)", "cents": 11990, "sku": "K12", "cans": 12},
 }
 PRODUCT_IDS: dict[tuple[str, str], str] = {
     ("hot-lemon", "kit6"):        "8534bbc5-5a43-46e2-9551-89d26d84c22f",
@@ -144,14 +164,76 @@ PRODUCT_IDS: dict[tuple[str, str], str] = {
 # combos = produtos Paggins proprios (1 productId cada). Assinaturas NAO entram (links fixos).
 COMBOS: dict[str, dict[str, Any]] = {
     "kit-energy": {"productId": "5287a35b-9a4c-4307-a929-599ab5e2791d", "cents": 6990,
-                   "name": "HYU Kit Energy (6 latas)", "sku": "KITENERGY", "img": "kit-energy"},
+                   "name": "HYU Kit Energy (6 latas)", "sku": "KITENERGY", "img": "kit-energy",
+                   "cans": 6},
     "kit-soda":   {"productId": "62ed2805-089e-454f-afa0-f28f6dfa6abc", "cents": 6990,
-                   "name": "HYU Kit Soda (6 latas)", "sku": "KITSODA", "img": "kit-soda"},
+                   "name": "HYU Kit Soda (6 latas)", "sku": "KITSODA", "img": "kit-soda",
+                   "cans": 6},
     "super-kit":  {"productId": "972ac99f-2800-4db9-88af-d34246cbd3ed", "cents": 11990,
-                   "name": "HYU Super Kit (12 latas)", "sku": "SUPERKIT", "img": "super-kit"},
+                   "name": "HYU Super Kit (12 latas)", "sku": "SUPERKIT", "img": "super-kit",
+                   "cans": 12},
     "kit24":      {"productId": "35818f74-5267-46d6-98f7-c19badd7cea7", "cents": 21990,
-                   "name": "HYU Kit 24 (24 latas)", "sku": "KIT24", "img": "super-kit"},
+                   "name": "HYU Kit 24 (24 latas)", "sku": "KIT24", "img": "super-kit",
+                   "cans": 24},
 }
+
+# ── frete Mandaê ──────────────────────────────────────────────────────────────
+# Peso/caixa por faixa de latas (lata 269ml cheia ~300g + caixa). Kit 6 cai na
+# faixa 1501-2000g da tabela Mandaê (planilha FontesLog). Limites Mandaê:
+# 120cm/lado, 50kg, valor declarado R$5.000.
+def _package_for(cans: int) -> dict[str, float]:
+    if cans <= 6:
+        return {"weight": 1.9, "height": 13, "width": 17, "length": 25}
+    if cans <= 12:
+        return {"weight": 3.8, "height": 14, "width": 25, "length": 33}
+    if cans <= 24:
+        return {"weight": 7.5, "height": 15, "width": 33, "length": 40}
+    return {"weight": min(round(0.31 * cans + 0.3, 1), 50.0),
+            "height": 30, "width": 33, "length": 40}
+
+
+_FRETE_CACHE: dict[tuple, tuple[float, list[dict[str, Any]]]] = {}
+_FRETE_TTL = 600  # 10min
+
+
+async def _mandae_rates(cep: str, cans: int, declared_cents: int) -> list[dict[str, Any]]:
+    """Cota na Mandaê; retorna [{service, name, days, cents}] (Econômico/Rápido)."""
+    if not MANDAE_TOKEN:
+        raise HTTPException(503, "frete indisponivel (MANDAE_TOKEN ausente)")
+    key = (cep, min(cans, 48), min(declared_cents // 10000, 50))
+    hit = _FRETE_CACHE.get(key)
+    if hit and time.time() - hit[0] < _FRETE_TTL:
+        return hit[1]
+    body = dict(_package_for(cans))
+    body["declaredValue"] = min(declared_cents / 100, 5000.0)
+    try:
+        async with httpx.AsyncClient(timeout=15) as c:
+            r = await c.post(MANDAE_RATES_URL.format(cep=cep),
+                             headers={"Authorization": MANDAE_TOKEN,
+                                      "Content-Type": "application/json"},
+                             json=body)
+    except httpx.HTTPError as e:
+        raise HTTPException(502, f"mandae indisponivel: {str(e)[:80]}")
+    if r.status_code != 200:
+        log.error("mandae %s cep=%s: %s", r.status_code, cep, r.text[:200])
+        raise HTTPException(502, "cotacao de frete falhou")
+    services = (r.json() or {}).get("shippingServices") or []
+    options = []
+    for s in services:
+        name = str(s.get("name", "")).strip()
+        slug = ("economico" if "econ" in name.lower()
+                else "rapido" if "ráp" in name.lower() or "rap" in name.lower()
+                else name.lower()[:20])
+        options.append({"service": slug, "name": name,
+                        "days": int(s.get("days") or 0),
+                        "cents": int(round(float(s.get("price") or 0) * 100))})
+    if not options:
+        raise HTTPException(502, "mandae sem opcoes p/ este CEP")
+    _FRETE_CACHE[key] = (time.time(), options)
+    if len(_FRETE_CACHE) > 500:  # poda simples
+        for k in list(_FRETE_CACHE)[:100]:
+            _FRETE_CACHE.pop(k, None)
+    return options
 
 MAX_LINES = 10      # combinacoes distintas por pedido
 MAX_QTY = 20        # kits por linha
@@ -177,11 +259,23 @@ def _db() -> sqlite3.Connection:
         "id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, session_id TEXT, order_id TEXT, "
         "event TEXT, status TEXT, amount_cents INTEGER, verified INTEGER, payload TEXT)"
     )
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS pedidos ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, order_id TEXT, session_id TEXT, "
+        "status TEXT, paid_ts TEXT, "
+        "name TEXT, document TEXT, email TEXT, phone TEXT, "
+        "cep TEXT, street TEXT, number TEXT, complement TEXT, neighborhood TEXT, "
+        "city TEXT, state TEXT, "
+        "items TEXT, subtotal_cents INTEGER, frete_cents INTEGER, frete_service TEXT, "
+        "total_cents INTEGER, coupon TEXT, meta TEXT, "
+        "bling_status TEXT, bling_order_id TEXT, bling_error TEXT, tracking TEXT)"
+    )
     return conn
 
 
-def _build_items(raw_items: Any) -> list[dict[str, Any]]:
-    """Valida o carrinho e monta os items da Paggins com preco do catalogo."""
+def _cart_lines(raw_items: Any) -> list[dict[str, Any]]:
+    """Valida/mescla o carrinho; retorna linhas normalizadas com preco do catalogo:
+    [{qty, sku, name, cents, cans, productId, img, desc?}] (cents = unitario)."""
     if not isinstance(raw_items, list) or not raw_items:
         raise HTTPException(400, "items vazio")
     merged: dict[tuple, int] = {}
@@ -207,27 +301,37 @@ def _build_items(raw_items: Any) -> list[dict[str, Any]]:
         merged[key] = min(merged.get(key, 0) + qty, MAX_QTY)
     if len(merged) > MAX_LINES:
         raise HTTPException(400, f"mais de {MAX_LINES} combinacoes")
-    items = []
+    lines = []
     for key, qty in merged.items():
         if key[0] == "combo":
             c = COMBOS[key[1]]
-            base = {
-                "productId": c["productId"], "name": c["name"], "type": "physical",
-                "unitAmount": c["cents"], "quantity": 1, "sku": f"HYU-{c['sku']}",
-                "imageUrl": f"{SITE_BASE}/img/kits/{c['img']}.webp",
-            }
+            lines.append({"qty": qty, "sku": f"HYU-{c['sku']}", "name": c["name"],
+                          "cents": c["cents"], "cans": c["cans"] * qty,
+                          "productId": c["productId"], "img": c["img"]})
         else:
             _, flavor, tier = key
             f, t = FLAVORS[flavor], TIERS[tier]
-            base = {
-                "productId": PRODUCT_IDS[(flavor, tier)],
-                "name": f"{f['name']} — {t['label']}", "type": "physical",
-                "unitAmount": t["cents"], "quantity": 1,
-                "sku": f"HYU-{f['sku']}-{t['sku']}", "description": f["desc"],
-                "imageUrl": f"{SITE_BASE}/img/kits/{flavor}.webp",
-            }
+            lines.append({"qty": qty, "sku": f"HYU-{f['sku']}-{t['sku']}",
+                          "name": f"{f['name']} — {t['label']}", "cents": t["cents"],
+                          "cans": t["cans"] * qty,
+                          "productId": PRODUCT_IDS[(flavor, tier)],
+                          "img": flavor, "desc": f["desc"]})
+    return lines
+
+
+def _build_items(lines: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Monta os items da Paggins a partir das linhas normalizadas."""
+    items = []
+    for ln in lines:
+        base = {
+            "productId": ln["productId"], "name": ln["name"], "type": "physical",
+            "unitAmount": ln["cents"], "quantity": 1, "sku": ln["sku"],
+            "imageUrl": f"{SITE_BASE}/img/kits/{ln['img']}.webp",
+        }
+        if ln.get("desc"):
+            base["description"] = ln["desc"]
         # ⚠️ SDK Paggins exige quantity=1 por item → duplica a entrada `qty` vezes
-        items.extend(dict(base) for _ in range(qty))
+        items.extend(dict(base) for _ in range(ln["qty"]))
     return items
 
 
@@ -235,6 +339,73 @@ def _build_metadata(raw_meta: Any) -> dict[str, str]:
     if not isinstance(raw_meta, dict):
         return {}
     return {k: str(raw_meta[k])[:200] for k in META_KEYS if raw_meta.get(k)}
+
+
+def _valid_cpf(doc: str) -> bool:
+    d = re.sub(r"\D", "", doc)
+    if len(d) != 11 or d == d[0] * 11:
+        return False
+    for n in (9, 10):
+        s = sum(int(d[i]) * ((n + 1) - i) for i in range(n))
+        dv = (s * 10) % 11 % 10
+        if dv != int(d[n]):
+            return False
+    return True
+
+
+def _parse_customer_address(payload: dict) -> tuple[dict, dict] | tuple[None, None]:
+    """Extrai/valida customer+address do fluxo completo; (None, None) = fluxo legado."""
+    cust, addr = payload.get("customer"), payload.get("address")
+    if not (isinstance(cust, dict) and isinstance(addr, dict) and addr.get("cep")):
+        return None, None
+    name = str(cust.get("name", "")).strip()[:120]
+    document = re.sub(r"\D", "", str(cust.get("document", "")))
+    email = str(cust.get("email", "")).strip()[:160].lower()
+    phone = re.sub(r"\D", "", str(cust.get("phone", "")))[:13]
+    if len(name.split()) < 2:
+        raise HTTPException(400, "nome completo obrigatorio")
+    if not _valid_cpf(document):
+        raise HTTPException(400, "CPF invalido")
+    if not _EMAIL_RE.match(email):
+        raise HTTPException(400, "e-mail invalido")
+    if phone and not _PHONE_RE.match(phone):
+        raise HTTPException(400, "whatsapp invalido (DDD + numero)")
+    cep = re.sub(r"\D", "", str(addr.get("cep", "")))
+    if len(cep) != 8:
+        raise HTTPException(400, "CEP invalido")
+    street = str(addr.get("street", "")).strip()[:120]
+    number = str(addr.get("number", "")).strip()[:12]
+    city = str(addr.get("city", "")).strip()[:80]
+    state = str(addr.get("state", "")).strip()[:2].upper()
+    if not (street and number and city and len(state) == 2):
+        raise HTTPException(400, "endereco incompleto (rua/numero/cidade/UF)")
+    return (
+        {"name": name, "document": document, "email": email, "phone": phone},
+        {"cep": cep, "street": street, "number": number,
+         "complement": str(addr.get("complement", "")).strip()[:100],
+         "neighborhood": str(addr.get("neighborhood", "")).strip()[:80],
+         "city": city, "state": state},
+    )
+
+
+@app.post("/frete")
+async def cotar_frete(request: Request):
+    """Cotação Mandaê pro carrinho: {cep, items} -> opções (grátis se >=12 latas)."""
+    try:
+        payload = await request.json()
+    except Exception:
+        raise HTTPException(400, "JSON invalido")
+    cep = re.sub(r"\D", "", str(payload.get("cep", "")))
+    if len(cep) != 8:
+        raise HTTPException(400, "CEP invalido")
+    lines = _cart_lines(payload.get("items"))
+    cans = sum(ln["cans"] for ln in lines)
+    subtotal = sum(ln["cents"] * ln["qty"] for ln in lines)
+    options = await _mandae_rates(cep, cans, subtotal)
+    free = cans >= FREE_SHIPPING_CANS
+    if free:
+        options = [{**o, "cents": 0} for o in options]
+    return {"cep": cep, "cans": cans, "free": free, "options": options}
 
 
 @app.post("/checkout")
@@ -247,10 +418,14 @@ async def create_checkout(request: Request):
         raise HTTPException(400, "JSON invalido")
 
     try:
-        items = _build_items(payload.get("items"))
+        lines = _cart_lines(payload.get("items"))
+        customer, address = _parse_customer_address(payload)
     except HTTPException:
         STATS["bad_request"] += 1
         raise
+    items = _build_items(lines)
+    subtotal = sum(ln["cents"] * ln["qty"] for ln in lines)
+    cans = sum(ln["cans"] for ln in lines)
 
     # cupom de influencer → desconta o unitAmount de cada item (centavos, arredonda)
     coupon_code, discount_pct = _coupon_discount(payload.get("coupon"))
@@ -264,24 +439,46 @@ async def create_checkout(request: Request):
             it["unitAmount"] = max(1, (it["unitAmount"] * (100 - discount_pct) + 50) // 100)
             it["name"] = (str(it.get("name", ""))[:255 - len(tag)] + tag)
 
+    # fluxo completo (pré-checkout do site): re-cota o frete server-side (não confia
+    # no front) e EMBUTE no unitAmount do 1º item — a SDK Paggins não tem frete
+    # dinâmico (linha separada/R$0 é rejeitada). Grátis a partir de 12 latas.
+    frete_cents, frete_service = 0, ""
+    if customer:
+        if cans >= FREE_SHIPPING_CANS:
+            frete_service = "gratis"
+        else:
+            options = await _mandae_rates(address["cep"], cans, subtotal)
+            wanted = str((payload.get("shipping") or {}).get("service") or "economico")
+            opt = next((o for o in options if o["service"] == wanted), options[0])
+            frete_cents, frete_service = opt["cents"], opt["service"]
+            if frete_cents:
+                tag_f = f" · inclui frete R$ {frete_cents / 100:.2f}".replace(".", ",")
+                items[0]["unitAmount"] += frete_cents
+                items[0]["name"] = str(items[0]["name"])[:255 - len(tag_f)] + tag_f
+
     order_id = f"hyu-{uuid.uuid4().hex[:12]}"
     origin = str(payload.get("origin") or "").rstrip("/")
     base = origin if origin in HYU_ORIGINS else SITE_BASE  # volta pro domínio de origem
     # ⚠️ a SDK Paggins passou a EXIGIR customer.email valido (24/06; ainda "optional" na doc) —
-    # sem ele toda sessao volta 400 "Dados da requisicao sao invalidos". O site nao coleta
-    # email antes do checkout, entao mandamos um placeholder; o campo fica EDITAVEL na pagina
-    # da Paggins e o comprador digita o real. Se o front passar customer.email, usamos o real.
-    cust_email = str((payload.get("customer") or {}).get("email") or "").strip()
+    # sem ele toda sessao volta 400 "Dados da requisicao sao invalidos". No fluxo legado o
+    # site nao coleta email antes do checkout → placeholder editavel na pagina da Paggins.
+    # No fluxo completo o pré-checkout coleta o email real (validado).
+    cust_email = str((customer or payload.get("customer") or {}).get("email") or "").strip()
     if not _EMAIL_RE.match(cust_email):
         cust_email = PLACEHOLDER_EMAIL
+    pag_customer: dict[str, str] = {"email": cust_email}
+    if customer:
+        pag_customer["name"] = customer["name"]  # phone fora: Paggins exige E.164
     body = {
         "currency": "BRL",
         "items": items,
-        "requireShippingInfo": True,
+        # temos o endereço (pré-checkout) → Paggins pula a coleta (provado 06/07:
+        # scripts/paggins_shipinfo_probe.py aceita false com item físico)
+        "requireShippingInfo": customer is None,
         "successUrl": f"{base}/obrigado/?session_id={{CHECKOUT_SESSION_ID}}",
         "cancelUrl": f"{base}/?checkout=cancelado",
         "externalOrderId": order_id,
-        "customer": {"email": cust_email},
+        "customer": pag_customer,
     }
     metadata = _build_metadata(payload.get("meta"))
     if discount_pct:
@@ -312,10 +509,39 @@ async def create_checkout(request: Request):
                     "lines": [(i["sku"], i["quantity"]) for i in items],
                     "total": total, "meta": list(metadata),
                 })
-                log.info("checkout %s -> %s total=%s coupon=%s", order_id,
-                         sess.get("id"), total, coupon_code or "-")
+                if customer:
+                    # pedido completo (dados p/ NF-e) — casado depois pelo webhook
+                    conn = _db()
+                    try:
+                        conn.execute(
+                            "INSERT INTO pedidos (ts, order_id, session_id, status, "
+                            "name, document, email, phone, cep, street, number, "
+                            "complement, neighborhood, city, state, items, "
+                            "subtotal_cents, frete_cents, frete_service, total_cents, "
+                            "coupon, meta, bling_status) "
+                            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                            (datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                             order_id, sess.get("id"), "created",
+                             customer["name"], customer["document"],
+                             customer["email"], customer["phone"],
+                             address["cep"], address["street"], address["number"],
+                             address["complement"], address["neighborhood"],
+                             address["city"], address["state"],
+                             json.dumps([{k: ln[k] for k in
+                                          ("sku", "name", "qty", "cents", "cans")}
+                                         for ln in lines], ensure_ascii=False),
+                             subtotal, frete_cents, frete_service, total,
+                             coupon_code, json.dumps(metadata, ensure_ascii=False),
+                             ""))
+                        conn.commit()
+                    finally:
+                        conn.close()
+                log.info("checkout %s -> %s total=%s frete=%s/%s coupon=%s", order_id,
+                         sess.get("id"), total, frete_service or "-", frete_cents,
+                         coupon_code or "-")
                 return {"checkoutUrl": sess.get("checkoutUrl"),
                         "sessionId": sess.get("id"), "totalAmount": total,
+                        "freteCents": frete_cents, "freteService": frete_service,
                         "coupon": coupon_code, "discountPct": discount_pct}
             if r.status_code < 500:
                 STATS["paggins_error"] += 1
@@ -395,6 +621,7 @@ async def paggins_webhook(request: Request):
         pay = ev.get("payment") or {}
         order_id = ev.get("orderId") or ev.get("externalOrderId") or ""
         ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        pedido_id = None
         conn = _db()
         try:
             conn.execute(
@@ -402,13 +629,91 @@ async def paggins_webhook(request: Request):
                 "VALUES (?,?,?,?,?,?,?,?)",
                 (ts, sid, order_id, event, "paid", pay.get("amount"), int(verified),
                  json.dumps(ev, ensure_ascii=False)[:4000]))
+            if sid:
+                row = conn.execute(
+                    "SELECT id FROM pedidos WHERE session_id=? ORDER BY id DESC LIMIT 1",
+                    (sid,)).fetchone()
+                if row:
+                    pedido_id = row[0]
+                    conn.execute(
+                        "UPDATE pedidos SET status='paid', paid_ts=? WHERE id=?",
+                        (ts, pedido_id))
             conn.commit()
         finally:
             conn.close()
         STATS["webhook_paid"] += 1
-        log.info("webhook PAGO(verified=%s): %s session=%s order=%s amount=%s",
-                 verified, event, sid, order_id, pay.get("amount"))
+        log.info("webhook PAGO(verified=%s): %s session=%s order=%s amount=%s pedido=%s",
+                 verified, event, sid, order_id, pay.get("amount"), pedido_id)
+        if pedido_id:
+            asyncio.create_task(_bling_dispatch(pedido_id))
     return {"received": True}
+
+
+# ═══════════════════ Bling (pedido de venda pós-pagamento) ═══════════════════
+
+def _pedido_get(pid: int) -> dict[str, Any] | None:
+    conn = _db()
+    try:
+        conn.row_factory = sqlite3.Row
+        row = conn.execute("SELECT * FROM pedidos WHERE id=?", (pid,)).fetchone()
+    finally:
+        conn.close()
+    return dict(row) if row else None
+
+
+def _pedido_set(pid: int, **cols: Any) -> None:
+    conn = _db()
+    try:
+        sets = ", ".join(f"{k}=?" for k in cols)
+        conn.execute(f"UPDATE pedidos SET {sets} WHERE id=?", (*cols.values(), pid))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+async def _bling_dispatch(pid: int) -> None:
+    """Cria contato+pedido de venda no Bling p/ um pedido pago. Falha → bling_status
+    'error'/'pending' (re-tenta pelo painel POST /pedidos/{id}/bling)."""
+    p = _pedido_get(pid)
+    if not p or p.get("bling_status") == "created":
+        return
+    if not BLING.configured:
+        _pedido_set(pid, bling_status="pending",
+                    bling_error="BLING_* env ausente (rodar bling_oauth_bootstrap)")
+        log.warning("bling nao configurado; pedido %s fica pending", pid)
+        return
+    try:
+        contato_id = await BLING.ensure_contato(p)
+        bling_id = await BLING.create_pedido(contato_id, {
+            "order_id": p["order_id"],
+            "customer_name": p["name"],
+            "itens": json.loads(p["items"] or "[]"),
+            "frete_cents": p["frete_cents"] or 0,
+            "frete_service": p["frete_service"] or "",
+            "coupon": p["coupon"] or "",
+            "address": {k: p[k] for k in
+                        ("cep", "street", "number", "complement",
+                         "neighborhood", "city", "state")},
+        })
+        _pedido_set(pid, bling_status="created", bling_order_id=str(bling_id),
+                    bling_error="")
+        log.info("bling OK: pedido %s -> bling #%s", p["order_id"], bling_id)
+    except Exception as e:  # noqa: BLE001 — nunca derrubar o webhook
+        _pedido_set(pid, bling_status="error", bling_error=str(e)[:400])
+        log.error("bling FALHOU pedido %s: %s", p["order_id"], str(e)[:200])
+
+
+@app.post("/pedidos/{pid}/bling")
+async def bling_retry(pid: int, request: Request):
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    if not _pedido_get(pid):
+        raise HTTPException(404, "pedido nao encontrado")
+    await _bling_dispatch(pid)
+    p = _pedido_get(pid)
+    return {"id": pid, "bling_status": p["bling_status"],
+            "bling_order_id": p["bling_order_id"], "bling_error": p["bling_error"]}
 
 
 @app.get("/healthz")
@@ -621,3 +926,171 @@ async def leads_csv(request: Request):
     buf.seek(0)
     return StreamingResponse(iter([buf.getvalue()]), media_type="text/csv; charset=utf-8",
                              headers={"Content-Disposition": "attachment; filename=leads-hyu.csv"})
+
+
+# ═══════════════════ PEDIDOS (compradores — painel + Excel) ═══════════════════
+
+def _fetch_pedidos() -> list[dict[str, Any]]:
+    conn = _db()
+    try:
+        conn.row_factory = sqlite3.Row
+        rows = conn.execute("SELECT * FROM pedidos ORDER BY id DESC").fetchall()
+    finally:
+        conn.close()
+    out = []
+    for r in rows:
+        p = dict(r)
+        p["itens"] = json.loads(p.get("items") or "[]")
+        p["meta_d"] = json.loads(p.get("meta") or "{}")
+        out.append(p)
+    return out
+
+
+def _itens_str(itens: list[dict]) -> str:
+    return " + ".join(f"{i['qty']}x {i['name']}" if i.get("qty", 1) > 1 else i["name"]
+                      for i in itens)
+
+
+def _endereco_str(p: dict) -> str:
+    comp = f" {p['complement']}" if p.get("complement") else ""
+    return (f"{p['street']}, {p['number']}{comp} — {p['neighborhood']}, "
+            f"{p['city']}/{p['state']} — CEP {p['cep']}")
+
+
+_PEDIDOS_COLS = ["id", "data_utc", "pago_em_utc", "status", "nome", "cpf", "whatsapp",
+                 "email", "endereco", "itens", "frete_servico", "frete_reais",
+                 "subtotal_reais", "total_reais", "cupom", "bling_status",
+                 "bling_pedido", "rastreio", "utm_source", "utm_campaign", "gclid"]
+
+
+def _pedido_export_row(p: dict) -> list:
+    m = p["meta_d"]
+    return [p["id"], p["ts"], p.get("paid_ts") or "", p["status"], p["name"],
+            p["document"], p["phone"], p["email"], _endereco_str(p),
+            _itens_str(p["itens"]), p.get("frete_service") or "",
+            round((p.get("frete_cents") or 0) / 100, 2),
+            round((p.get("subtotal_cents") or 0) / 100, 2),
+            round((p.get("total_cents") or 0) / 100, 2),
+            p.get("coupon") or "", p.get("bling_status") or "",
+            p.get("bling_order_id") or "", p.get("tracking") or "",
+            m.get("utm_source", ""), m.get("utm_campaign", ""), m.get("gclid", "")]
+
+
+@app.get("/pedidos", response_class=HTMLResponse)
+async def pedidos_panel(request: Request):
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    pedidos = _fetch_pedidos()
+    pagos = [p for p in pedidos if p["status"] == "paid"]
+    total_pago = sum(p.get("total_cents") or 0 for p in pagos)
+    rows = []
+    for p in pedidos:
+        badge = ("<span class='ok'>PAGO</span>" if p["status"] == "paid"
+                 else "<span class='pend'>criado</span>")
+        bl = p.get("bling_status") or "—"
+        if bl == "created":
+            bl = f"<span class='ok'>#{_esc(p.get('bling_order_id') or '')}</span>"
+        elif bl in ("error", "pending"):
+            bl = (f"<span class='err' title='{_esc(p.get('bling_error') or '')}'>{bl}</span> "
+                  f"<button onclick=\"blingRetry({p['id']},this)\">↻</button>")
+        frete = ("grátis" if p.get("frete_service") == "gratis"
+                 else f"{_esc(p.get('frete_service') or '—')} {_brl(p.get('frete_cents') or 0)}")
+        rows.append(
+            f"<tr><td>{p['id']}</td>"
+            f"<td data-ts='{p['ts']}'></td>"
+            f"<td>{badge}</td>"
+            f"<td><strong>{_esc(p['name'])}</strong><br><span class='muted'>{_esc(p['document'])}</span></td>"
+            f"<td><a href='https://wa.me/55{_esc(p['phone'])}' target='_blank'>{_esc(p['phone'])}</a><br>"
+            f"<a href='mailto:{_esc(p['email'])}'>{_esc(p['email'])}</a></td>"
+            f"<td class='addr'>{_esc(_endereco_str(p))}</td>"
+            f"<td>{_esc(_itens_str(p['itens']))}</td>"
+            f"<td>{frete}</td>"
+            f"<td class='r'>{_brl(p.get('total_cents') or 0)}</td>"
+            f"<td>{_esc(p.get('coupon') or '—')}</td>"
+            f"<td>{bl}</td>"
+            f"<td>{_esc(p.get('tracking') or '—')}</td></tr>"
+        )
+    html = f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>Pedidos HYU ({len(pagos)} pagos)</title>
+<style>
+ body{{font:14px/1.5 system-ui,sans-serif;margin:0;background:#f5f6f8;color:#16191f}}
+ header{{display:flex;align-items:center;gap:1rem;padding:.9rem 1.2rem;background:#16191f;color:#fff;position:sticky;top:0}}
+ h1{{font-size:1rem;margin:0}} .pill{{background:#A8CC30;color:#16191f;font-weight:800;border-radius:999px;padding:.1rem .6rem}}
+ .grow{{flex:1}} a.btn{{background:#fff;color:#16191f;font-weight:700;text-decoration:none;border-radius:8px;padding:.35rem .8rem;margin-left:.4rem}}
+ main{{padding:1rem 1.2rem;overflow-x:auto}}
+ table{{border-collapse:collapse;width:100%;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}}
+ th,td{{padding:.55rem .7rem;border-bottom:1px solid #eceef1;text-align:left;vertical-align:top;font-size:.82rem}}
+ th{{background:#fafbfc;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#667}}
+ tr:hover td{{background:#fcfde8}} .r{{text-align:right;white-space:nowrap;font-weight:700}}
+ .muted{{color:#889;font-size:.75rem}} .total{{margin:.8rem 0;color:#445}}
+ .addr{{max-width:230px;font-size:.76rem;color:#556}}
+ .ok{{background:#e3f5d4;color:#3a6b12;font-weight:700;border-radius:6px;padding:.05rem .4rem;font-size:.72rem}}
+ .pend{{background:#eef0f3;color:#667;border-radius:6px;padding:.05rem .4rem;font-size:.72rem}}
+ .err{{background:#fde3e3;color:#a11;font-weight:700;border-radius:6px;padding:.05rem .4rem;font-size:.72rem}}
+ button{{cursor:pointer;border:1px solid #ccd;border-radius:6px;background:#fff}}
+</style></head><body>
+<header><h1>📦 Pedidos HYU</h1><span class="pill">{len(pagos)} pagos</span><span class="grow"></span>
+<a class="btn" href="/pedidos.xlsx">⬇ Excel</a><a class="btn" href="/pedidos.csv">⬇ CSV</a></header>
+<main><p class="total">Total pago: <strong>{_brl(total_pago)}</strong> · {len(pedidos)} pedidos no total (pagos + carrinhos que geraram sessão)</p>
+<table><thead><tr><th>#</th><th>Quando</th><th>Status</th><th>Cliente / CPF</th><th>Contato</th>
+<th>Endereço</th><th>Itens</th><th>Frete</th><th>Total</th><th>Cupom</th><th>Bling</th><th>Rastreio</th></tr></thead>
+<tbody>{''.join(rows) or '<tr><td colspan=12 style="text-align:center;padding:2rem;color:#889">Nenhum pedido ainda.</td></tr>'}</tbody></table></main>
+<script>
+document.querySelectorAll('[data-ts]').forEach(td=>{{
+ td.textContent=new Date(td.dataset.ts).toLocaleString('pt-BR',{{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}});
+}});
+function blingRetry(id,btn){{btn.disabled=true;btn.textContent='…';
+ fetch('/pedidos/'+id+'/bling',{{method:'POST'}}).then(r=>r.json())
+ .then(j=>{{btn.textContent=j.bling_status==='created'?'✅':'↻';alert('Bling: '+j.bling_status+(j.bling_error?' — '+j.bling_error:''));location.reload();}})
+ .catch(()=>{{btn.disabled=false;btn.textContent='↻';}});}}
+</script></body></html>"""
+    return HTMLResponse(html)
+
+
+@app.get("/pedidos.csv")
+async def pedidos_csv(request: Request):
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    buf = io.StringIO()
+    buf.write("﻿")  # BOM pro Excel BR abrir certo
+    w = csv.writer(buf, delimiter=";")
+    w.writerow(_PEDIDOS_COLS)
+    for p in _fetch_pedidos():
+        row = _pedido_export_row(p)
+        row = [str(v).replace(".", ",") if isinstance(v, float) else v for v in row]
+        w.writerow(row)
+    buf.seek(0)
+    return StreamingResponse(iter([buf.getvalue()]), media_type="text/csv; charset=utf-8",
+                             headers={"Content-Disposition": "attachment; filename=pedidos-hyu.csv"})
+
+
+@app.get("/pedidos.xlsx")
+async def pedidos_xlsx(request: Request):
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    from openpyxl import Workbook
+    from openpyxl.styles import Font
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Pedidos HYU"
+    ws.append(_PEDIDOS_COLS)
+    for c in ws[1]:
+        c.font = Font(bold=True)
+    for p in _fetch_pedidos():
+        ws.append(_pedido_export_row(p))
+    widths = {"A": 5, "B": 20, "C": 20, "D": 8, "E": 24, "F": 13, "G": 13, "H": 26,
+              "I": 46, "J": 40, "K": 12, "L": 10, "M": 12, "N": 10, "O": 10, "P": 12,
+              "Q": 12, "R": 16, "S": 12, "T": 14, "U": 20}
+    for col, wd in widths.items():
+        ws.column_dimensions[col].width = wd
+    out = io.BytesIO()
+    wb.save(out)
+    out.seek(0)
+    return StreamingResponse(
+        out,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={"Content-Disposition": "attachment; filename=pedidos-hyu.xlsx"})
