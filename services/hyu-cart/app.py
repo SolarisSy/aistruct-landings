@@ -1049,6 +1049,53 @@ function blingRetry(id,btn){{btn.disabled=true;btn.textContent='…';
     return HTMLResponse(html)
 
 
+@app.post("/pedidos/import")
+async def pedidos_import(request: Request):
+    """Importa pedidos históricos (ex.: export do painel Paggins). Basic auth.
+    Body: {"rows":[{...colunas de pedidos...}]}. Dedupe por order_id e session_id.
+    Importados NÃO disparam Bling automático (bling_status='')."""
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    try:
+        payload = await request.json()
+    except Exception:
+        raise HTTPException(400, "JSON invalido")
+    rows = payload.get("rows")
+    if not isinstance(rows, list) or len(rows) > 2000:
+        raise HTTPException(400, "rows invalido")
+    cols = ["ts", "order_id", "session_id", "status", "paid_ts", "name", "document",
+            "email", "phone", "cep", "street", "number", "complement",
+            "neighborhood", "city", "state", "items", "subtotal_cents",
+            "frete_cents", "frete_service", "total_cents", "coupon", "meta",
+            "bling_status", "tracking"]
+    ins = skip = 0
+    conn = _db()
+    try:
+        for r in rows:
+            if not isinstance(r, dict) or not r.get("order_id"):
+                skip += 1
+                continue
+            dup = conn.execute(
+                "SELECT 1 FROM pedidos WHERE order_id=? OR (session_id!='' AND session_id=?) LIMIT 1",
+                (str(r["order_id"]), str(r.get("session_id") or ""))).fetchone()
+            if dup:
+                skip += 1
+                continue
+            vals = [str(r.get(c) or "") if c not in
+                    ("subtotal_cents", "frete_cents", "total_cents")
+                    else int(r.get(c) or 0) for c in cols]
+            conn.execute(
+                f"INSERT INTO pedidos ({', '.join(cols)}) "
+                f"VALUES ({', '.join('?' * len(cols))})", vals)
+            ins += 1
+        conn.commit()
+    finally:
+        conn.close()
+    log.info("pedidos import: %d inseridos, %d pulados", ins, skip)
+    return {"inserted": ins, "skipped": skip}
+
+
 @app.get("/pedidos.csv")
 async def pedidos_csv(request: Request):
     denied = _leads_auth(request)
