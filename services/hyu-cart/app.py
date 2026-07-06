@@ -472,9 +472,11 @@ async def create_checkout(request: Request):
     body = {
         "currency": "BRL",
         "items": items,
-        # temos o endereço (pré-checkout) → Paggins pula a coleta (provado 06/07:
-        # scripts/paggins_shipinfo_probe.py aceita false com item físico)
-        "requireShippingInfo": customer is None,
+        # ⚠️ SEMPRE true p/ produto físico. Com false a Paggins CRIA a sessão mas
+        # RECUSA o pagamento ("Endereço de entrega é obrigatório quando há produtos
+        # físicos") — é o "beco sem saída" da lesson paggins.md. O cliente reconfirma
+        # o endereço na Paggins; nós já temos o dado salvo p/ a NF-e no Bling.
+        "requireShippingInfo": True,
         "successUrl": f"{base}/obrigado/?session_id={{CHECKOUT_SESSION_ID}}",
         "cancelUrl": f"{base}/?checkout=cancelado",
         "externalOrderId": order_id,
