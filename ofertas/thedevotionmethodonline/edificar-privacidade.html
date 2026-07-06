@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Política de Privacidade · Imobiliária Edificar · E L Pelaquini · Curitiba–PR</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fafaf7;--off:#f4f2ee;--stone:#e8e4dc;--gold:#b8965a;--gold2:#d4af6e;--gold3:#f0d090;--dark:#111010;--slate:#2c2c2a;--ink:#1e1e1c;--muted:#7a7670;--border:rgba(184,150,90,.14);--card:rgba(184,150,90,.04)}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+.tex{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px}
+.topline{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold2),var(--gold),transparent);z-index:9999;opacity:.6}
+
+nav{position:fixed;top:2px;width:100%;z-index:999;background:rgba(250,250,247,.97);backdrop-filter:blur(30px);border-bottom:1px solid var(--border)}
+.ni{max-width:1440px;margin:0 auto;padding:1.4rem 4rem;display:flex;justify-content:space-between;align-items:center}
+.logo{text-decoration:none;display:flex;flex-direction:column}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--dark);letter-spacing:3px;text-transform:uppercase;line-height:1}
+.logo-line{width:100%;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:.15rem 0}
+.logo-sub{font-size:.36rem;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:var(--muted)}
+.back-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.5rem;border:1px solid var(--border);color:var(--muted);font-size:.56rem;font-weight:400;text-decoration:none;transition:all .4s;letter-spacing:2.5px;text-transform:uppercase}
+.back-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+.ph{padding:9rem 4rem 5rem;background:var(--dark);position:relative;overflow:hidden}
+.ph::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold2),transparent)}
+.ph-deco{position:absolute;top:50%;right:3rem;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-size:18rem;font-weight:700;color:rgba(184,150,90,.04);line-height:1;user-select:none}
+.pi{max-width:860px;margin:0 auto;position:relative;z-index:2}
+.ph-pre{font-size:.44rem;font-weight:400;letter-spacing:6px;text-transform:uppercase;color:var(--gold2);margin-bottom:1rem;display:block;opacity:.7}
+.ph h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5.5vw,5.5rem);font-weight:600;color:var(--bg);line-height:1.05;margin-bottom:1.2rem}
+.ph h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ph-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:rgba(250,250,247,.4);max-width:520px;line-height:1.9;margin-bottom:2rem}
+.ph-tags{display:flex;gap:.6rem;flex-wrap:wrap}
+.ph-tag{padding:.26rem .9rem;border:1px solid rgba(184,150,90,.2);font-size:.42rem;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,250,247,.3)}
+
+.content{position:relative;z-index:2;padding:5rem 4rem 8rem}
+.ci{max-width:860px;margin:0 auto}
+
+.toc{background:var(--off);border-left:2px solid var(--gold);padding:2rem 2.5rem;margin-bottom:4rem}
+.toc h3{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--gold);margin-bottom:1.2rem}
+.toc ol{padding-left:1.2rem;columns:2;column-gap:2rem}
+.toc li{margin-bottom:.5rem}
+.toc a{font-family:'Montserrat',sans-serif;color:var(--muted);font-size:.8rem;text-decoration:none;transition:.3s;font-weight:300}
+.toc a:hover{color:var(--gold)}
+
+.sec{margin-bottom:3.5rem;scroll-margin-top:100px}
+.sec-hd{display:flex;align-items:center;gap:1.2rem;margin-bottom:1rem}
+.sec-tag{width:32px;height:32px;background:var(--off);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.85rem;font-weight:600;color:var(--gold);flex-shrink:0}
+.sec h2{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--dark)}
+.sec p{color:var(--muted);font-size:.88rem;line-height:1.95;margin-bottom:.9rem;font-weight:300}
+.sec strong{color:var(--ink);font-weight:500}
+.sec ul{padding-left:1.2rem;margin-bottom:.9rem}
+.sec ul li{color:var(--muted);font-size:.85rem;line-height:1.9;margin-bottom:.35rem;font-weight:300}
+.sec ul li::marker{color:var(--gold)}
+.sec a{color:var(--gold);text-decoration:none;transition:.3s}
+.sec a:hover{color:var(--dark)}
+
+.highlight{background:var(--off);border-left:2px solid var(--gold);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight p{margin:0;color:var(--ink);font-size:.86rem;line-height:1.9;font-weight:300}
+.div-line{height:1px;background:var(--stone);margin:2.5rem 0}
+
+.cta-box{background:var(--dark);padding:3rem;text-align:center;margin-top:3rem;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold2),transparent)}
+.cta-box::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),transparent)}
+.cta-box h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--bg);margin-bottom:.6rem}
+.cta-box p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.93rem;color:rgba(250,250,247,.45);margin-bottom:1.5rem}
+.cta-box a{display:inline-flex;align-items:center;gap:.6rem;padding:.72rem 2.2rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;font-size:.6rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;transition:all .35s}
+.cta-box a:hover{box-shadow:0 8px 30px rgba(184,150,90,.4);transform:translateY(-2px)}
+
+footer{background:var(--slate);padding:2.5rem 4rem;border-top:1px solid rgba(184,150,90,.1);text-align:center}
+.fbot p{font-size:.46rem;color:rgba(250,250,247,.2);margin-bottom:.4rem;letter-spacing:.5px}
+.fbot a{font-size:.46rem;color:var(--gold2);text-decoration:none;opacity:.45}
+.fbot a:hover{opacity:1}
+@media(max-width:768px){.ni{padding:1.2rem 1.5rem}.ph{padding:7rem 1.5rem 4rem}.content{padding:3rem 1.5rem 6rem}.toc{padding:1.5rem}.toc ol{columns:1}footer{padding:2rem 1.5rem}}
+</style>
+</head>
+<body>
+<div class="tex"></div>
+<div class="topline"></div>
+
+<nav>
+  <div class="ni">
+    <a class="logo" href="index.html">
+      <span class="logo-name">Imobiliária Edificar</span>
+      <div class="logo-line"></div>
+      <span class="logo-sub">E L Pelaquini Corretor Imobiliário · Curitiba–PR</span>
+    </a>
+    <a class="back-btn" href="index.html">← Voltar ao Site</a>
+  </div>
+</nav>
+
+<div class="ph">
+  <div class="ph-deco">P</div>
+  <div class="pi">
+    <span class="ph-pre">Transparência · Conformidade · LGPD</span>
+    <h1>Política de <em>Privacidade</em></h1>
+    <p class="ph-sub">Compromisso com a proteção dos dados pessoais conforme a Lei Geral de Proteção de Dados — Lei nº 13.709/2018 — e normativas do CRECI.</p>
+    <div class="ph-tags">
+      <div class="ph-tag">📅 Versão 2026</div>
+      <div class="ph-tag">🔒 LGPD Conforme</div>
+      <div class="ph-tag">✓ CNPJ 24.948.953/0001-44</div>
+      <div class="ph-tag">🏠 CRECI · Corretor de Imóveis</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="ci">
+    <div class="toc">
+      <h3>Sumário</h3>
+      <ol>
+        <li><a href="#s1">Identificação do Responsável</a></li>
+        <li><a href="#s2">Dados Coletados</a></li>
+        <li><a href="#s3">Finalidade do Tratamento</a></li>
+        <li><a href="#s4">Base Legal (LGPD)</a></li>
+        <li><a href="#s5">Compartilhamento</a></li>
+        <li><a href="#s6">Armazenamento & Segurança</a></li>
+        <li><a href="#s7">Direitos dos Titulares</a></li>
+        <li><a href="#s8">Dados Imobiliários & CRECI</a></li>
+        <li><a href="#s9">Cookies</a></li>
+        <li><a href="#s10">Links Externos</a></li>
+        <li><a href="#s11">Alterações</a></li>
+        <li><a href="#s12">Contato (DPO)</a></li>
+      </ol>
+    </div>
+
+    <div class="sec" id="s1"><div class="sec-hd"><div class="sec-tag">I</div><h2>Identificação do Responsável</h2></div>
+      <p>Esta Política de Privacidade é aplicada por <strong>E L Pelaquini Corretor Imobiliário</strong>, operando com o nome fantasia <strong>Imobiliária Edificar</strong>, responsável pelo tratamento dos dados pessoais coletados no site e nas atividades de corretagem.</p>
+      <div class="highlight"><p><strong>Razão Social:</strong> E L Pelaquini Corretor Imobiliário<br><strong>Nome de Fantasia:</strong> Imobiliária Edificar<br><strong>CNPJ:</strong> 24.948.953/0001-44 · Situação: <strong>ATIVA ✓</strong><br><strong>Endereço:</strong> Av. Presidente Arthur da Silva Bernardes, 1827 · Portão · Curitiba–PR · CEP 80.240-545<br><strong>E-mail:</strong> edsonpecaquini@hotmail.com · <strong>Telefone:</strong> (41) 9963-2369<br><strong>Atividade Principal:</strong> Corretagem na compra, venda e avaliação de imóveis (CNAE 68.21-8-01)<br><strong>Abertura:</strong> 16/05/2016 · <strong>Natureza:</strong> Empresário Individual</p></div>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s2"><div class="sec-hd"><div class="sec-tag">II</div><h2>Dados Coletados</h2></div>
+      <p>No contexto de corretagem imobiliária, podemos coletar:</p>
+      <ul>
+        <li><strong>Identificação:</strong> nome completo, CPF, RG, estado civil, profissão</li>
+        <li><strong>Contato:</strong> e-mail, telefone, endereço atual</li>
+        <li><strong>Dados Imobiliários:</strong> informações sobre imóveis de interesse, localização, faixa de preço, finalidade (compra/locação)</li>
+        <li><strong>Financeiros:</strong> comprovante de renda e documentação exigida para financiamento imobiliário</li>
+        <li><strong>Seguros:</strong> dados necessários para cotação de seguros e previdência complementar</li>
+        <li><strong>Transações:</strong> histórico de propostas, contratos e negociações intermediadas</li>
+        <li><strong>Navegação:</strong> cookies e dados de acesso ao site</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s3"><div class="sec-hd"><div class="sec-tag">III</div><h2>Finalidade do Tratamento</h2></div>
+      <ul>
+        <li>Intermediação na compra, venda e avaliação de imóveis</li>
+        <li>Gestão de propostas, contratos de compra e venda</li>
+        <li>Corretagem de locação e acompanhamento contratual</li>
+        <li>Cotação e intermediação de seguros e planos de previdência</li>
+        <li>Cumprimento de obrigações legais do CRECI-PR e Receita Federal</li>
+        <li>Comunicação sobre imóveis disponíveis compatíveis com o perfil do cliente</li>
+        <li>Emissão de documentos, recibos e comissões</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s4"><div class="sec-hd"><div class="sec-tag">IV</div><h2>Base Legal — LGPD</h2></div>
+      <ul>
+        <li><strong>Consentimento (Art. 7º, I):</strong> cadastro, busca de imóveis e comunicações de marketing</li>
+        <li><strong>Execução de contrato (Art. 7º, V):</strong> intermediação de compra/venda/locação e gestão de contratos</li>
+        <li><strong>Obrigação legal (Art. 7º, II):</strong> obrigações perante Receita Federal, CRECI e cartórios</li>
+        <li><strong>Legítimo interesse (Art. 7º, IX):</strong> apresentação de imóveis compatíveis com o perfil declarado pelo cliente</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s5"><div class="sec-hd"><div class="sec-tag">V</div><h2>Compartilhamento de Dados</h2></div>
+      <p>Dados <strong>nunca são vendidos</strong>. Compartilhamentos ocorrem somente quando necessário:</p>
+      <ul>
+        <li><strong>Cartórios e Registros:</strong> documentação para registro de imóveis e escrituras públicas</li>
+        <li><strong>Instituições Financeiras:</strong> dados para análise de financiamento imobiliário mediante autorização do cliente</li>
+        <li><strong>Seguradoras:</strong> cotações de seguro imobiliário e garantia locatícia com consentimento</li>
+        <li><strong>Obrigação legal:</strong> CRECI-PR, Receita Federal e demais autoridades competentes</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s6"><div class="sec-hd"><div class="sec-tag">VI</div><h2>Armazenamento & Segurança</h2></div>
+      <ul>
+        <li>Comunicações via site protegidas por criptografia HTTPS/SSL</li>
+        <li>Contratos e documentos imobiliários mantidos pelo prazo legal (mínimo 5 anos)</li>
+        <li>Dados sensíveis (comprovantes de renda) com acesso restrito e controlado</li>
+        <li>Registros de CRECI e documentos regulatórios armazenados conforme normativas do conselho</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s7"><div class="sec-hd"><div class="sec-tag">VII</div><h2>Direitos dos Titulares</h2></div>
+      <ul>
+        <li>Acesso e cópia dos dados pessoais e histórico de negociações</li>
+        <li>Correção de dados incorretos ou desatualizados</li>
+        <li>Eliminação de dados de cadastro (exceto documentos com prazo legal)</li>
+        <li>Portabilidade do histórico de imóveis visitados e propostas realizadas</li>
+        <li>Revogação do consentimento para comunicações de marketing imobiliário</li>
+      </ul>
+      <p>Para exercer seus direitos: <strong>edsonpecaquini@hotmail.com</strong> · <strong>(41) 9963-2369</strong></p>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s8"><div class="sec-hd"><div class="sec-tag">VIII</div><h2>Dados Imobiliários & CRECI</h2></div>
+      <p>Como corretor de imóveis registrado no CRECI-PR, operamos sob o Código de Ética e Disciplina dos Corretores de Imóveis (Resolução COFECI nº 326/92). Dados de clientes coletados durante o processo de corretagem são tratados com sigilo profissional e utilizados exclusivamente para a finalidade da transação imobiliária autorizada. O compartilhamento de informações sobre imóveis ou clientes com outras partes da transação (comprador/vendedor/locador/locatário) ocorre apenas na medida necessária para concluir a negociação.</p>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s9"><div class="sec-hd"><div class="sec-tag">IX</div><h2>Cookies</h2></div>
+      <p>Utilizamos apenas cookies técnicos essenciais para o funcionamento do site. Nenhum rastreamento publicitário invasivo sem consentimento prévio.</p>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s10"><div class="sec-hd"><div class="sec-tag">X</div><h2>Links Externos</h2></div>
+      <p>Esta política aplica-se exclusivamente ao site da Imobiliária Edificar. Links para portais imobiliários, cartórios, bancos e plataformas externas possuem políticas próprias pelas quais não nos responsabilizamos.</p>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s11"><div class="sec-hd"><div class="sec-tag">XI</div><h2>Alterações</h2></div>
+      <p>Esta política pode ser atualizada para refletir mudanças legais, regulatórias ou operacionais. Alterações relevantes serão comunicadas por e-mail ou aviso no site.</p>
+      <div class="highlight"><p><strong>Vigência original:</strong> 16 de maio de 2016 &nbsp;·&nbsp; <strong>Última atualização:</strong> Julho de 2026 &nbsp;·&nbsp; <strong>Versão:</strong> 2.0</p></div>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s12"><div class="sec-hd"><div class="sec-tag">XII</div><h2>Contato do Encarregado (DPO)</h2></div>
+      <div class="highlight"><p><strong>Empresa:</strong> E L Pelaquini Corretor Imobiliário (Imobiliária Edificar)<br><strong>E-mail:</strong> edsonpecaquini@hotmail.com<br><strong>Telefone:</strong> (41) 9963-2369<br><strong>Endereço:</strong> Av. Presidente Arthur da Silva Bernardes, 1827 · Portão · Curitiba–PR · CEP 80.240-545</p></div>
+      <p>Autoridade Nacional de Proteção de Dados (ANPD): <a href="https://www.gov.br/anpd" target="_blank">www.gov.br/anpd</a></p>
+      <p>CRECI-PR (Conselho Regional de Corretores de Imóveis do Paraná): <a href="https://www.crecipr.gov.br" target="_blank">www.crecipr.gov.br</a></p>
+    </div>
+
+    <div class="cta-box">
+      <h3>Dúvidas sobre Privacidade?</h3>
+      <p>Respondemos em até 15 dias úteis conforme a LGPD.</p>
+      <a href="mailto:edsonpecaquini@hotmail.com">✉ Entrar em Contato</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fbot">
+    <p>© 2026 E L Pelaquini Corretor Imobiliário (Imobiliária Edificar) — CNPJ: 24.948.953/0001-44 · Curitiba–PR</p>
+    <a href="index.html">← Voltar ao Site Principal</a>
+  </div>
+</footer>
+</body>
+</html>
