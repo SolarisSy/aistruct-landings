@@ -61,26 +61,44 @@ class BlingClient:
         except OSError:
             log.error("nao consegui persistir refresh token em %s", self.token_file)
 
+    async def _do_refresh(self, refresh: str) -> httpx.Response:
+        basic = base64.b64encode(f"{self.client_id}:{self.client_secret}".encode()).decode()
+        async with httpx.AsyncClient(timeout=30) as c:
+            return await c.post(TOKEN_URL,
+                                headers={"Authorization": f"Basic {basic}",
+                                         "Content-Type": "application/x-www-form-urlencoded"},
+                                data={"grant_type": "refresh_token", "refresh_token": refresh})
+
     async def _ensure_access(self) -> str:
         if self._access and time.time() < self._access_exp - 60:
             return self._access
-        refresh = self._refresh_token()
-        if not refresh:
+        file_rt = ""
+        try:
+            with open(self.token_file, encoding="utf-8") as f:
+                file_rt = json.load(f).get("refresh_token", "")
+        except (OSError, ValueError):
+            pass
+        env_rt = os.environ.get("BLING_REFRESH_TOKEN", "").strip()
+        # tenta o refresh do arquivo (rotacionado); se invalido, cai pro seed do env.
+        # (re-autorizar no painel Bling invalida o token do /data → o seed do env recupera)
+        candidates = [rt for rt in (file_rt, env_rt) if rt]
+        if not candidates:
             raise BlingError("sem refresh token (rodar bling_oauth_bootstrap)")
-        basic = base64.b64encode(f"{self.client_id}:{self.client_secret}".encode()).decode()
-        async with httpx.AsyncClient(timeout=30) as c:
-            r = await c.post(TOKEN_URL,
-                             headers={"Authorization": f"Basic {basic}",
-                                      "Content-Type": "application/x-www-form-urlencoded"},
-                             data={"grant_type": "refresh_token", "refresh_token": refresh})
-        if r.status_code != 200:
-            raise BlingError(f"refresh falhou {r.status_code}: {r.text[:300]}")
-        tok = r.json()
-        self._access = tok["access_token"]
-        self._access_exp = time.time() + int(tok.get("expires_in", 21600))
-        if tok.get("refresh_token"):
-            self._save_refresh(tok["refresh_token"])
-        return self._access
+        last = "?"
+        for i, rt in enumerate(dict.fromkeys(candidates)):  # dedup preservando ordem
+            r = await self._do_refresh(rt)
+            if r.status_code == 200:
+                tok = r.json()
+                self._access = tok["access_token"]
+                self._access_exp = time.time() + int(tok.get("expires_in", 21600))
+                if tok.get("refresh_token"):
+                    self._save_refresh(tok["refresh_token"])
+                if i > 0:
+                    log.warning("refresh do /data falhou; recuperado pelo BLING_REFRESH_TOKEN do env")
+                return self._access
+            last = f"{r.status_code}: {r.text[:200]}"
+            log.warning("refresh candidato %d falhou (%s)", i, last)
+        raise BlingError(f"refresh falhou (todos candidatos): {last}")
 
     async def _call(self, method: str, path: str, payload: dict | None = None,
                     params: dict | None = None) -> Any:
