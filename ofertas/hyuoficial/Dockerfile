@@ -21,7 +21,7 @@ RUN printf 'server {\n\
     add_header Cache-Control "public, max-age=2592000";\n\
     try_files $uri =404;\n\
   }\n\
-  location ~ ^/leads(\\.csv)?$ {\n\
+  location ~ ^/(login|logout)$ {\n\
     proxy_pass https://hyu-cart.tiectu.easypanel.host;\n\
     proxy_ssl_server_name on;\n\
     proxy_set_header Host hyu-cart.tiectu.easypanel.host;\n\
