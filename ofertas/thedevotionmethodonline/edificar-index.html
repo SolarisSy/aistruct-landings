@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Imobiliária Edificar · E L Pelaquini Corretor Imobiliário · Curitiba–PR</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&family=Montserrat:wght@200;300;400;500;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#fafaf7;
+  --off:#f4f2ee;
+  --stone:#e8e4dc;
+  --gold:#b8965a;
+  --gold2:#d4af6e;
+  --gold3:#f0d090;
+  --dark:#111010;
+  --slate:#2c2c2a;
+  --ink:#1e1e1c;
+  --muted:#7a7670;
+  --border:rgba(184,150,90,.14);
+  --card:rgba(184,150,90,.04);
+  --blue:#1a3a5c;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+
+/* ── SUBTLE TEXTURE ── */
+.tex{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:256px}
+
+/* Gold shimmer line top */
+.topline{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold2) 50%,var(--gold) 70%,transparent 100%);z-index:9999;animation:shimmer 5s ease-in-out infinite}
+@keyframes shimmer{0%,100%{opacity:.6}50%{opacity:1}}
+
+/* ── NAV ── */
+nav{position:fixed;top:2px;width:100%;z-index:999;transition:all .6s}
+nav.on{background:rgba(250,250,247,.97);backdrop-filter:blur(30px);border-bottom:1px solid var(--border);box-shadow:0 1px 25px rgba(184,150,90,.06)}
+.ni{max-width:1440px;margin:0 auto;padding:1.6rem 4rem;display:flex;justify-content:space-between;align-items:center}
+.logo{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--dark);letter-spacing:3px;text-transform:uppercase;line-height:1}
+.logo-line{width:100%;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:.2rem 0}
+.logo-sub{font-size:.38rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:var(--muted)}
+.nl{display:flex;gap:3rem;list-style:none;align-items:center}
+.nl a{font-size:.58rem;font-weight:400;color:var(--muted);text-decoration:none;transition:all .4s;letter-spacing:3px;text-transform:uppercase;position:relative}
+.nl a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s}
+.nl a:hover{color:var(--gold)}.nl a:hover::after{width:100%}
+.nc-btn{padding:.55rem 2rem;background:var(--dark);color:var(--bg)!important;font-size:.58rem!important;font-weight:500!important;letter-spacing:3px;text-transform:uppercase;transition:all .4s}
+.nc-btn:hover{background:var(--gold)!important;color:#fff!important}.nc-btn::after{display:none!important}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.ham span{width:22px;height:1px;background:var(--ink)}
+.mmenu{display:none;position:fixed;inset:0;z-index:998;background:rgba(250,250,247,.98);backdrop-filter:blur(30px);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mmenu.open{display:flex}
+.mmenu a{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-style:italic;color:var(--ink);text-decoration:none;opacity:.2;transition:all .4s;letter-spacing:2px}
+.mmenu a:hover{opacity:1;color:var(--gold)}
+.xbtn{position:absolute;top:1.5rem;right:2rem;font-size:1.8rem;cursor:pointer;color:var(--muted);background:none;border:none}
+
+/* ── HERO ── */
+.hero{min-height:100vh;position:relative;z-index:2;background:var(--dark);overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+
+/* Left panel – dark */
+.h-dark{display:flex;flex-direction:column;justify-content:flex-end;padding:7rem 4rem 5rem;position:relative;overflow:hidden}
+.h-dark::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,58,92,.35) 0%,transparent 60%)}
+.h-deco-num{position:absolute;top:5rem;right:-1rem;font-family:'Cormorant Garamond',serif;font-size:20rem;font-weight:700;color:rgba(184,150,90,.06);line-height:1;user-select:none}
+.h-tag{display:inline-flex;align-items:center;gap:.6rem;padding:.38rem 1rem;border:1px solid rgba(184,150,90,.3);background:rgba(184,150,90,.08);font-size:.48rem;font-weight:400;color:var(--gold2);letter-spacing:3.5px;text-transform:uppercase;margin-bottom:2rem}
+.ht-dot{width:5px;height:5px;border-radius:50%;background:var(--gold2);box-shadow:0 0 8px var(--gold);animation:gdp 2s ease-in-out infinite}
+@keyframes gdp{0%,100%{opacity:1}50%{opacity:.3}}
+.h-city{font-size:.48rem;font-weight:300;letter-spacing:7px;text-transform:uppercase;color:rgba(250,250,247,.3);margin-bottom:.8rem;display:block}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,6.5rem);font-weight:600;color:var(--bg);line-height:1;letter-spacing:1px;margin-bottom:.5rem}
+h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold2),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
+h1 .sub-h{display:block;font-family:'Montserrat',sans-serif;font-size:.26em;font-weight:200;letter-spacing:7px;text-transform:uppercase;color:rgba(250,250,247,.3);margin-top:.6rem}
+.h-line{width:60px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:1.5rem 0}
+.h-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:rgba(250,250,247,.45);line-height:1.8;max-width:400px;margin-bottom:2.8rem}
+.h-ctas{display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:500;text-decoration:none;transition:all .4s;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;border:none}
+.btn-g{padding:.82rem 2.2rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 4px 25px rgba(184,150,90,.35)}
+.btn-g:hover{transform:translateY(-3px);box-shadow:0 8px 35px rgba(184,150,90,.5)}
+.btn-w{padding:.82rem 1.8rem;background:transparent;color:var(--bg);border:1px solid rgba(250,250,247,.15)!important}
+.btn-w:hover{border-color:rgba(184,150,90,.5)!important;background:rgba(184,150,90,.08);transform:translateY(-3px)}
+
+/* Right panel – cream */
+.h-cream{background:var(--off);display:flex;flex-direction:column;justify-content:center;padding:6rem 4rem;gap:1.2rem;position:relative}
+.h-cream::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--gold),transparent)}
+.hc-title{font-size:.44rem;font-weight:400;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.hc-row{padding:1.2rem 1.5rem;background:var(--bg);border-bottom:1px solid var(--stone);transition:all .4s;position:relative}
+.hc-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background .4s}
+.hc-row:hover{background:var(--off)}.hc-row:hover::before{background:var(--gold)}
+.hc-label{font-size:.42rem;font-weight:300;letter-spacing:3.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;display:block}
+.hc-val{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:500;color:var(--ink);line-height:1.4}
+.hc-sub{font-size:.68rem;font-weight:300;color:var(--muted);margin-top:.15rem}
+.hc-active{display:inline-flex;align-items:center;gap:.38rem;font-size:.42rem;font-weight:500;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:.3rem}
+.had{width:4px;height:4px;border-radius:50%;background:var(--gold);animation:gdp 2s infinite}
+
+/* ── MARQUEE ── */
+.mq{position:relative;z-index:2;background:var(--dark);border-top:1px solid rgba(184,150,90,.1);padding:.85rem 0;overflow:hidden}
+.mq-track{display:flex;white-space:nowrap;animation:mqr 25s linear infinite}
+.mq-item{display:inline-flex;align-items:center;gap:2rem;padding:0 2rem;font-size:.46rem;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:rgba(250,250,247,.28)}
+.mq-sep{width:5px;height:5px;background:var(--gold);opacity:.5;transform:rotate(45deg)}
+@keyframes mqr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── ABOUT ── */
+.about{position:relative;z-index:2;padding:9rem 4rem;background:var(--bg)}
+.about-inner{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:8rem;align-items:center}
+.ak{font-size:.46rem;font-weight:400;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
+.ak::before{content:'';width:35px;height:1px;background:var(--gold)}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,4rem);font-weight:600;color:var(--dark);line-height:1.1;margin-bottom:1.4rem}
+h2 em{font-style:italic;color:var(--gold)}
+.ab-p{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--muted);line-height:1.95;margin-bottom:1.2rem;font-style:italic}
+.ab-p2{font-size:.85rem;color:var(--muted);line-height:1.9;font-weight:300}
+.ab-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1.2rem;border:1px solid var(--border);font-size:.5rem;font-weight:400;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:2rem}
+.ab-badge .abd{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:gdp 2s infinite}
+
+.ab-right{display:flex;flex-direction:column;gap:1px;background:var(--stone)}
+.as{background:var(--bg);padding:2rem 2.2rem;display:flex;flex-direction:column;gap:.3rem;transition:all .4s;border-left:3px solid transparent}
+.as:hover{background:var(--off);border-left-color:var(--gold)}
+.as-n{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;color:var(--gold);line-height:1}
+.as-l{font-size:.48rem;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--muted)}
+.as-d{font-size:.75rem;font-weight:300;color:var(--muted);opacity:.6}
+
+/* ── CNPJ ── */
+.cnpj-sec{position:relative;z-index:2;padding:7rem 4rem;background:var(--slate);color:var(--bg)}
+.cnpj-inner{max-width:1440px;margin:0 auto}
+.cnpj-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(184,150,90,.2)}
+.cnpj-hd h2{color:var(--bg)}
+.cnpj-hd h2 em{font-style:italic;color:var(--gold2)}
+.cnpj-hd p{font-size:.42rem;letter-spacing:3px;text-transform:uppercase;color:rgba(250,250,247,.3)}
+.cnpj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(184,150,90,.1)}
+.cg{background:var(--slate);padding:1.6rem;transition:background .3s}
+.cg:hover{background:rgba(184,150,90,.08)}
+.cgl{font-size:.42rem;letter-spacing:3.5px;text-transform:uppercase;color:rgba(250,250,247,.25);margin-bottom:.4rem;display:block}
+.cgv{font-family:'Cormorant Garamond',serif;font-size:.98rem;color:rgba(250,250,247,.8);font-weight:500;line-height:1.4}
+.cgv-a{color:var(--gold2)!important}
+.cgv-h{color:var(--gold3)!important;font-weight:600}
+.cnpj-ft{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(184,150,90,.1);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.cnpj-ft span{font-size:.42rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,250,247,.2)}
+
+/* ── SERVICES ── */
+.services{position:relative;z-index:2;padding:9rem 4rem;background:var(--off)}
+.services-inner{max-width:1440px;margin:0 auto}
+.svc-hd{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end;margin-bottom:5rem}
+.svc-hd h2{margin-bottom:.5rem}
+.svc-hd p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--muted);max-width:380px;align-self:end;line-height:1.9}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.svc-card{background:var(--bg);border:1px solid var(--stone);padding:2.5rem;position:relative;overflow:hidden;transition:all .4s}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .4s}
+.svc-card:hover{box-shadow:0 20px 60px rgba(0,0,0,.06);transform:translateY(-5px)}.svc-card:hover::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.sc-orn{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:700;color:var(--stone);line-height:1;margin-bottom:1rem;user-select:none}
+.sc-ico{font-size:2rem;margin-bottom:.8rem;display:block}
+.sc-cnae{font-size:.42rem;font-weight:400;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;display:block}
+.svc-card h4{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--dark);margin-bottom:.5rem}
+.svc-card p{font-size:.8rem;color:var(--muted);line-height:1.8;font-weight:300}
+.sc-tag{display:inline-block;margin-top:1rem;padding:.2rem .8rem;font-size:.44rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase}
+.st-main{background:var(--dark);color:var(--bg)}
+.st-sec{border:1px solid var(--border);color:var(--muted)}
+
+/* ── CONTACT ── */
+.contact{position:relative;z-index:2;padding:9rem 4rem;background:var(--bg)}
+.contact-inner{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:8rem;align-items:start}
+.contact h2{color:var(--dark)}
+.contact .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--muted);line-height:1.9;margin:.8rem 0 3rem}
+.ct-items{display:flex;flex-direction:column;gap:1px;background:var(--stone)}
+.ct-item{display:flex;gap:1.3rem;align-items:flex-start;padding:1.3rem 1.5rem;background:var(--bg);transition:all .3s;border-left:2px solid transparent}
+.ct-item:hover{background:var(--off);border-left-color:var(--gold)}
+.ct-ico{width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.ct-body h5{font-size:.44rem;font-weight:500;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.28rem}
+.ct-body p,.ct-body a{font-size:.86rem;color:var(--ink);font-weight:300;text-decoration:none;line-height:1.6}
+.ct-body a:hover{color:var(--gold)}
+.act-pill{display:inline-flex;align-items:center;gap:.38rem;font-size:.44rem;font-weight:500;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:.3rem}
+.apd{width:4px;height:4px;border-radius:50%;background:var(--gold);animation:gdp 2s infinite}
+
+.cform{background:var(--slate);padding:3rem;position:relative;overflow:hidden}
+.cform::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold2),transparent)}
+.cf-pre{font-size:.44rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold2);margin-bottom:.4rem;display:block;font-weight:400;opacity:.7}
+.cf-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--bg);margin-bottom:2rem}
+.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.fg label{font-size:.44rem;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,250,247,.38)}
+.fg input,.fg select,.fg textarea{background:rgba(250,250,247,.06);border:none;border-bottom:1px solid rgba(184,150,90,.2);padding:.68rem 0;color:var(--bg);font-size:.85rem;font-family:'Montserrat',sans-serif;font-weight:300;transition:all .3s;outline:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-bottom-color:var(--gold);color:var(--gold3)}
+.fg select option{background:var(--slate)}
+.fg textarea{border:1px solid rgba(184,150,90,.15);padding:.68rem .8rem;min-height:100px;resize:none}
+.fg textarea:focus{border-color:var(--gold)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.sub-btn{width:100%;margin-top:2rem;padding:.9rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border:none;font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .4s;display:flex;align-items:center;justify-content:center;gap:.6rem}
+.sub-btn:hover{box-shadow:0 8px 30px rgba(184,150,90,.4);transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:2;background:var(--dark);padding:5rem 4rem 2.5rem}
+.footer-inner{max-width:1440px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem;padding-bottom:4rem;border-bottom:1px solid rgba(184,150,90,.1)}
+.ft-brand{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--bg);letter-spacing:2px;margin-bottom:.25rem}
+.ft-gold-line{width:60px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:.3rem 0 .8rem}
+.ft-sub{font-size:.4rem;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:rgba(250,250,247,.25);margin-bottom:1rem}
+.ft-p{font-size:.8rem;color:rgba(250,250,247,.3);line-height:1.8;font-weight:300}
+.fc h5{font-size:.44rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-weight:400;opacity:.6}
+.fc ul{list-style:none}
+.fc ul li{margin-bottom:.55rem}
+.fc ul a{font-size:.78rem;color:rgba(250,250,247,.3);text-decoration:none;transition:.3s;font-weight:300}
+.fc ul a:hover{color:var(--gold)}
+.fc ul span{font-size:.78rem;color:rgba(250,250,247,.25);font-weight:300}
+.fbot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.fbot p{font-size:.48rem;color:rgba(250,250,247,.18);letter-spacing:.5px}
+.fbot a{font-size:.48rem;color:var(--gold2);text-decoration:none;opacity:.45}
+.fbot a:hover{opacity:1}
+
+/* ── DIVIDER ── */
+.divider{position:relative;z-index:2;display:flex;align-items:center;padding:0 4rem;margin:.5rem 0}
+.dl{flex:1;height:1px;background:var(--stone)}
+.dlb{padding:.35rem 2rem;font-size:.44rem;letter-spacing:5px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+
+/* ── FADE ── */
+.fi{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+.fi.v{opacity:1;transform:translateY(0)}
+
+@media(max-width:1024px){.hero{grid-template-columns:1fr}.h-cream{display:none}.about-inner,.contact-inner{grid-template-columns:1fr;gap:4rem}.svc-grid{grid-template-columns:1fr}.ft-top{grid-template-columns:1fr 1fr}.cnpj-grid{grid-template-columns:1fr 1fr}.svc-hd{grid-template-columns:1fr}}
+@media(max-width:768px){.ni{padding:1.2rem 1.5rem}.nl{display:none}.ham{display:flex}.about,.services,.contact,.cnpj-sec{padding:5rem 1.5rem}.r2{grid-template-columns:1fr}.ft-top{grid-template-columns:1fr}.fbot{flex-direction:column;text-align:center}.divider{padding:0 1.5rem}.cnpj-grid{grid-template-columns:1fr}.cform{padding:2rem 1.5rem}}
+</style>
+</head>
+<body>
+
+<div class="tex"></div>
+<div class="topline"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="ni">
+    <a class="logo" href="index.html">
+      <span class="logo-name">Imobiliária Edificar</span>
+      <div class="logo-line"></div>
+      <span class="logo-sub">E L Pelaquini Corretor Imobiliário · Curitiba–PR</span>
+    </a>
+    <ul class="nl">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#contato" class="nc-btn">Contato</a></li>
+    </ul>
+    <div class="ham" onclick="document.querySelector('.mmenu').classList.add('open')"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mmenu">
+  <button class="xbtn" onclick="document.querySelector('.mmenu').classList.remove('open')">✕</button>
+  <a href="#inicio" onclick="document.querySelector('.mmenu').classList.remove('open')">Início</a>
+  <a href="#sobre" onclick="document.querySelector('.mmenu').classList.remove('open')">Sobre</a>
+  <a href="#servicos" onclick="document.querySelector('.mmenu').classList.remove('open')">Serviços</a>
+  <a href="edificar-privacidade.html">Privacidade</a>
+  <a href="#contato" onclick="document.querySelector('.mmenu').classList.remove('open')">Contato</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="h-dark">
+    <div class="h-deco-num">E</div>
+    <div class="h-tag"><span class="ht-dot"></span>CNPJ Ativo · Corretor Imobiliário</div>
+    <span class="h-city">Curitiba · Paraná · Brasil</span>
+    <h1>
+      <em>Edificar</em>
+      <span class="sub-h">Imobiliária · Curitiba</span>
+    </h1>
+    <div class="h-line"></div>
+    <p class="h-desc">Corretagem na compra, venda e avaliação de imóveis com excelência, ética e profundo conhecimento do mercado curitibano.</p>
+    <div class="h-ctas">
+      <a href="#contato" class="btn btn-g">Fale com o Corretor →</a>
+      <a href="#servicos" class="btn btn-w">Nossos Serviços</a>
+    </div>
+  </div>
+  <div class="h-cream">
+    <div class="hc-title">Dados da Empresa</div>
+    <div class="hc-row"><span class="hc-label">CNPJ</span><div class="hc-val">24.948.953/0001-44</div><div class="hc-active"><span class="had"></span>Situação Ativa</div></div>
+    <div class="hc-row"><span class="hc-label">Razão Social</span><div class="hc-val" style="font-size:.88rem">E L Pelaquini Corretor Imobiliário</div></div>
+    <div class="hc-row"><span class="hc-label">Nome de Fantasia</span><div class="hc-val">Imobiliária Edificar</div></div>
+    <div class="hc-row"><span class="hc-label">Atividade Principal</span><div class="hc-val" style="font-size:.85rem">Corretagem Compra, Venda & Avaliação</div><div class="hc-sub">CNAE 68.21-8-01</div></div>
+    <div class="hc-row"><span class="hc-label">Localização</span><div class="hc-val">Portão · Curitiba–PR</div><div class="hc-sub">CEP 80.240-545</div></div>
+    <div class="hc-row"><span class="hc-label">No Mercado desde</span><div class="hc-val">2016 · 10 anos de experiência</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-track">
+    <div class="mq-item"><span>Compra & Venda de Imóveis</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Avaliação Imobiliária</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Locação de Imóveis</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Curitiba · Paraná</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Seguros & Previdência</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Imobiliária Edificar</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>CNPJ Ativo desde 2016</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Compra & Venda de Imóveis</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Avaliação Imobiliária</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Locação de Imóveis</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Curitiba · Paraná</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Seguros & Previdência</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>Imobiliária Edificar</span><div class="mq-sep"></div></div>
+    <div class="mq-item"><span>CNPJ Ativo desde 2016</span><div class="mq-sep"></div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="sobre">
+  <div class="about-inner">
+    <div class="fi">
+      <p class="ak">Sobre a Empresa</p>
+      <h2>Expertise imobiliária em <em>Curitiba</em></h2>
+      <p class="ab-p">A Imobiliária Edificar, razão social E L Pelaquini Corretor Imobiliário, é uma empresa individual especializada em corretagem imobiliária em Curitiba, Paraná. Com CNPJ registrado desde 16 de maio de 2016, carregamos décadas de experiência no mercado imobiliário curitibano.</p>
+      <p class="ab-p2">Além da corretagem na compra, venda e avaliação de imóveis, também atuamos na locação, corretagem de seguros e planos de previdência, e intermediação de negócios em geral. Um portfólio completo de soluções para cada necessidade do cliente.</p>
+      <div class="ab-badge"><span class="abd"></span>CNPJ 24.948.953/0001-44 · ATIVO</div>
+    </div>
+    <div class="ab-right fi">
+      <div class="as"><div class="as-n">2016</div><div class="as-l">Fundação</div><div class="as-d">16/05/2016</div></div>
+      <div class="as"><div class="as-n">10+</div><div class="as-l">Anos de Mercado</div><div class="as-d">Experiência imobiliária</div></div>
+      <div class="as"><div class="as-n">04</div><div class="as-l">CNAEs Registrados</div><div class="as-d">Portfólio diversificado</div></div>
+      <div class="as"><div class="as-n" style="font-size:1.8rem">ATIVA</div><div class="as-l">Situação Cadastral</div><div class="as-d" style="color:var(--gold)">✓ Desde 19/01/2021</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CNPJ -->
+<section class="cnpj-sec fi">
+  <div class="cnpj-inner">
+    <div class="cnpj-hd">
+      <h2>Dados <em>Cadastrais</em></h2>
+      <p>Receita Federal · Emitido 06/07/2026</p>
+    </div>
+    <div class="cnpj-grid">
+      <div class="cg"><span class="cgl">CNPJ</span><div class="cgv cgv-h">24.948.953/0001-44</div></div>
+      <div class="cg"><span class="cgl">Situação</span><div class="cgv cgv-a">ATIVA ✓</div></div>
+      <div class="cg"><span class="cgl">Abertura</span><div class="cgv">16/05/2016</div></div>
+      <div class="cg"><span class="cgl">Data Situação</span><div class="cgv">19/01/2021</div></div>
+      <div class="cg"><span class="cgl">Razão Social</span><div class="cgv" style="font-size:.85rem">E L Pelaquini Corretor Imobiliário</div></div>
+      <div class="cg"><span class="cgl">Nome de Fantasia</span><div class="cgv">Imobiliária Edificar</div></div>
+      <div class="cg"><span class="cgl">Natureza Jurídica</span><div class="cgv">213-5 · Empresário Individual</div></div>
+      <div class="cg"><span class="cgl">Porte</span><div class="cgv">ME — Microempresa</div></div>
+      <div class="cg"><span class="cgl">CNAE Principal</span><div class="cgv">68.21-8-01</div></div>
+      <div class="cg"><span class="cgl">Atividade</span><div class="cgv" style="font-size:.82rem">Corretagem compra, venda e avaliação</div></div>
+      <div class="cg"><span class="cgl">Logradouro</span><div class="cgv">Av. Pres. Arthur S. Bernardes, 1827</div></div>
+      <div class="cg"><span class="cgl">Bairro / CEP</span><div class="cgv">Portão · 80.240-545</div></div>
+      <div class="cg"><span class="cgl">Município / UF</span><div class="cgv">Curitiba · PR</div></div>
+      <div class="cg"><span class="cgl">Tipo</span><div class="cgv">MATRIZ</div></div>
+      <div class="cg"><span class="cgl">Telefone</span><div class="cgv">(41) 9963-2369</div></div>
+      <div class="cg"><span class="cgl">E-mail</span><div class="cgv" style="font-size:.82rem">edsonpecaquini@hotmail.com</div></div>
+    </div>
+    <div class="cnpj-ft">
+      <span>CNAEs Secundários: 68.21-8-02 · 66.22-3-00 · 74.90-1-04</span>
+      <span>Emitido: 06/07/2026</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dlb">serviços</div><div class="dl"></div></div>
+
+<!-- SERVICES -->
+<section class="services" id="servicos">
+  <div class="services-inner">
+    <div class="svc-hd fi">
+      <h2>Serviços <em>Imobiliários</em></h2>
+      <p>Corretagem completa: compra, venda, locação, avaliação, seguros e intermediação de negócios em Curitiba</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card fi"><div class="sc-orn">01</div><span class="sc-ico">🏠</span><span class="sc-cnae">68.21-8-01 · Principal</span><h4>Compra, Venda & Avaliação de Imóveis</h4><p>Corretagem especializada na compra e venda de imóveis residenciais e comerciais, com avaliações precisas e seguras no mercado curitibano.</p><span class="sc-tag st-main">Principal</span></div>
+      <div class="svc-card fi"><div class="sc-orn">02</div><span class="sc-ico">🔑</span><span class="sc-cnae">68.21-8-02 · Secundária</span><h4>Corretagem de Locação</h4><p>Intermediação profissional na locação de imóveis residenciais e comerciais, com contratos seguros e gestão de relacionamento proprietário-inquilino.</p><span class="sc-tag st-sec">Secundária</span></div>
+      <div class="svc-card fi"><div class="sc-orn">03</div><span class="sc-ico">🛡️</span><span class="sc-cnae">66.22-3-00 · Secundária</span><h4>Seguros & Planos de Previdência</h4><p>Corretagem de seguros de imóveis, garantia locatícia, previdência complementar e planos de saúde para pessoa física e jurídica.</p><span class="sc-tag st-sec">Secundária</span></div>
+      <div class="svc-card fi"><div class="sc-orn">04</div><span class="sc-ico">🤝</span><span class="sc-cnae">74.90-1-04 · Secundária</span><h4>Intermediação & Agenciamento de Negócios</h4><p>Atividades de intermediação e agenciamento de serviços e negócios em geral, exceto imobiliários — consultoria e facilitação de transações.</p><span class="sc-tag st-sec">Secundária</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dlb">contato</div><div class="dl"></div></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contato">
+  <div class="contact-inner">
+    <div class="fi">
+      <p class="ak">Fale com o Corretor</p>
+      <h2>Entre em <em>contato</em></h2>
+      <p class="sub">Pronto para encontrar seu próximo imóvel ou avaliar sua propriedade? Entre em contato e conte com a experiência de quem conhece Curitiba.</p>
+      <div class="ct-items">
+        <div class="ct-item"><div class="ct-ico">🏢</div><div class="ct-body"><h5>Empresa</h5><p>Imobiliária Edificar<br><small style="opacity:.6;font-size:.78rem">E L Pelaquini Corretor Imobiliário</small></p><div class="act-pill"><span class="apd"></span>CNPJ ATIVO DESDE 2016</div></div></div>
+        <div class="ct-item"><div class="ct-ico">📍</div><div class="ct-body"><h5>Endereço</h5><p>Av. Presidente Arthur da Silva Bernardes, 1827<br>Portão · Curitiba–PR · CEP 80.240-545</p></div></div>
+        <div class="ct-item"><div class="ct-ico">📞</div><div class="ct-body"><h5>Telefone / WhatsApp</h5><p>(41) 9963-2369</p></div></div>
+        <div class="ct-item"><div class="ct-ico">📧</div><div class="ct-body"><h5>E-mail</h5><a href="mailto:edsonpecaquini@hotmail.com">edsonpecaquini@hotmail.com</a></div></div>
+      </div>
+    </div>
+    <div class="cform fi">
+      <span class="cf-pre">Formulário de Contato</span>
+      <div class="cf-title">Envie sua mensagem</div>
+      <div class="r2">
+        <div class="fg"><label>Nome Completo</label><input type="text" placeholder="Seu nome"></div>
+        <div class="fg"><label>Telefone</label><input type="tel" placeholder="(41) _____-____"></div>
+      </div>
+      <div class="fg"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
+      <div class="fg"><label>Serviço de Interesse</label>
+        <select>
+          <option value="">Selecione o serviço</option>
+          <option>Comprar Imóvel</option>
+          <option>Vender Imóvel</option>
+          <option>Alugar Imóvel</option>
+          <option>Avaliação de Imóvel</option>
+          <option>Seguros & Previdência</option>
+          <option>Intermediação de Negócios</option>
+          <option>Outros</option>
+        </select>
+      </div>
+      <div class="fg"><label>Mensagem</label><textarea placeholder="Descreva o imóvel que procura ou o serviço desejado..."></textarea></div>
+      <button class="sub-btn">Enviar Mensagem →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="ft-top">
+      <div>
+        <div class="ft-brand">Imobiliária Edificar</div>
+        <div class="ft-gold-line"></div>
+        <div class="ft-sub">E L Pelaquini Corretor Imobiliário · Curitiba · PR</div>
+        <p class="ft-p">Corretagem imobiliária em Curitiba desde 2016. CNPJ 24.948.953/0001-44, situação ativa. Compra, venda, locação, avaliação de imóveis, seguros e intermediação de negócios no Paraná.</p>
+      </div>
+      <div class="fc"><h5>Navegação</h5><ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a href="edificar-privacidade.html">Privacidade</a></li>
+      </ul></div>
+      <div class="fc"><h5>Contato</h5><ul>
+        <li><span>(41) 9963-2369</span></li>
+        <li><span>edsonpecaquini@hotmail.com</span></li>
+        <li><span>Av. Pres. A. S. Bernardes, 1827</span></li>
+        <li><span>Portão · Curitiba–PR</span></li>
+      </ul></div>
+      <div class="fc"><h5>Dados Legais</h5><ul>
+        <li><span>CNPJ: 24.948.953/0001-44</span></li>
+        <li><span>Situação: Ativa ✓</span></li>
+        <li><span>Abertura: 16/05/2016</span></li>
+        <li><span>ME · Empresário Individual</span></li>
+      </ul></div>
+    </div>
+    <div class="fbot">
+      <p>© 2026 E L Pelaquini Corretor Imobiliário. Todos os direitos reservados.</p>
+      <a href="edificar-privacidade.html">Políticas de Privacidade</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>60));
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}})},{threshold:.1});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
