@@ -18,6 +18,7 @@ import json
 import logging
 import os
 import time
+from datetime import datetime, timezone
 from typing import Any
 
 import httpx
@@ -116,6 +117,7 @@ class BlingClient:
         body = {
             "nome": p["name"][:120],
             "tipo": "F",
+            "situacao": "A",
             "numeroDocumento": doc,
             "email": p.get("email", ""),
             "celular": p.get("phone", ""),
@@ -137,8 +139,10 @@ class BlingClient:
                   frete_service, address{...}, coupon?}
         """
         addr = pedido["address"]
+        hoje = datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d")
         body = {
             "numeroLoja": pedido["order_id"],
+            "data": hoje,
             "contato": {"id": contato_id},
             "itens": [{
                 "codigo": it["sku"],
