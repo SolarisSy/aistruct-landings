@@ -63,48 +63,102 @@
     return true;
   }
 
-  /* ── modal ───────────────────────────────────────────────────────────── */
+  /* ── modal (identidade HYU: ink + lime, bottom-sheet no mobile) ───────── */
   var css = "" +
-    ".hyck .modal{max-width:520px;width:calc(100vw - 2rem);max-height:92vh;overflow-y:auto}" +
-    ".hyck-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem .6rem;margin:.7rem 0}" +
+    ".hyck.modal-back{padding:20px}" +
+    ".hyck .modal{width:min(540px,100%);max-height:min(92dvh,860px);padding:0;overflow:hidden;display:flex;flex-direction:column}" +
+    ".hyck-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;padding:22px 24px 14px}" +
+    ".hyck-head h3{font-family:var(--display,inherit);font-size:1.7rem;line-height:1;margin:0;color:var(--lime,#A8CC30)}" +
+    ".hyck-head p{margin:.45rem 0 0;font-size:.82rem;color:color-mix(in srgb,var(--paper,#fff) 55%,transparent)}" +
+    ".hyck-x{flex:none;font-size:1.6rem;line-height:1;width:38px;height:38px;display:grid;place-items:center;border:0;border-radius:8px;background:none;color:var(--paper,#fff);cursor:pointer}" +
+    ".hyck-x:hover{background:#ffffff14}" +
+    ".hyck-form{display:flex;flex-direction:column;min-height:0;flex:1}" +
+    ".hyck-body{overflow-y:auto;padding:0 24px 14px;min-height:0}" +
+    ".hyck-sec{display:flex;align-items:center;gap:.6rem;margin:1.05rem 0 .55rem;font-family:var(--mono,monospace);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime,#A8CC30)}" +
+    ".hyck-sec:first-child{margin-top:.2rem}" +
+    ".hyck-sec:after{content:'';flex:1;height:1px;background:color-mix(in srgb,var(--paper,#fff) 12%,transparent)}" +
+    ".hyck-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}" +
     ".hyck-grid .full{grid-column:1/-1}" +
-    ".hyck-grid label{display:block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#667;margin-bottom:.18rem}" +
-    ".hyck-grid input{width:100%;box-sizing:border-box;padding:.55rem .65rem;border:1px solid #d7dbe0;border-radius:9px;font:inherit;font-size:.92rem}" +
-    ".hyck-grid input:focus{outline:2px solid #A8CC30;border-color:#A8CC30}" +
-    ".hyck-err{color:#c0392b;font-size:.8rem;min-height:1.1em;margin:.15rem 0}" +
-    ".hyck-frete{border:1px dashed #cbd2d9;border-radius:12px;padding:.6rem .75rem;margin:.5rem 0}" +
-    ".hyck-frete .opt{display:flex;align-items:center;gap:.55rem;padding:.35rem 0;cursor:pointer}" +
-    ".hyck-frete .opt b{flex:1;font-size:.92rem}" +
-    ".hyck-frete .opt span{font-size:.8rem;color:#667}" +
-    ".hyck-free{background:#e9f7d3;color:#3a6b12;font-weight:800;border-radius:10px;padding:.55rem .8rem;font-size:.92rem}" +
-    ".hyck-total{display:flex;justify-content:space-between;font-weight:800;margin:.6rem 0 .2rem;font-size:1.02rem}" +
-    ".hyck-pay{width:100%;margin-top:.4rem}" +
-    ".hyck-muted{font-size:.74rem;color:#889;margin:.3rem 0 0}";
+    ".hyck-duo{grid-column:1/-1;display:grid;gap:.6rem}" +
+    ".hyck-duo.cepnum{grid-template-columns:1fr 108px}" +
+    ".hyck-duo.ciduf{grid-template-columns:1fr 84px}" +
+    ".hyck-grid label{display:block;font-family:var(--mono,monospace);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:color-mix(in srgb,var(--paper,#fff) 48%,transparent);margin:0 0 .28rem .1rem}" +
+    ".hyck-grid input{width:100%;box-sizing:border-box;padding:.72rem .85rem;font-size:16px;font-family:inherit;background:var(--ink,#111);color:var(--paper,#fff);border:1.5px solid color-mix(in srgb,var(--paper,#fff) 16%,transparent);border-radius:10px;transition:border-color .15s}" +
+    ".hyck-grid input::placeholder{color:color-mix(in srgb,var(--paper,#fff) 30%,transparent)}" +
+    ".hyck-grid input:focus{outline:none;border-color:var(--lime,#A8CC30);box-shadow:0 0 0 3px color-mix(in srgb,var(--lime,#A8CC30) 22%,transparent)}" +
+    ".hyck-frete{display:flex;flex-direction:column;gap:.55rem;margin-top:.1rem}" +
+    ".hyck-calc{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:color-mix(in srgb,var(--paper,#fff) 55%,transparent);padding:.7rem .2rem}" +
+    ".hyck-spin{width:15px;height:15px;border:2px solid color-mix(in srgb,var(--lime,#A8CC30) 35%,transparent);border-top-color:var(--lime,#A8CC30);border-radius:50%;animation:hyckspin .7s linear infinite;flex:none}" +
+    "@keyframes hyckspin{to{transform:rotate(360deg)}}" +
+    ".hyck-hint{font-size:.8rem;color:color-mix(in srgb,var(--paper,#fff) 45%,transparent);padding:.5rem .2rem}" +
+    ".hyck-opt{display:flex;align-items:center;gap:.75rem;padding:.75rem .9rem;border:1.5px solid color-mix(in srgb,var(--paper,#fff) 16%,transparent);border-radius:12px;cursor:pointer;transition:border-color .15s,background .15s}" +
+    ".hyck-opt input{display:none}" +
+    ".hyck-opt .dot{flex:none;width:17px;height:17px;border-radius:50%;border:2px solid color-mix(in srgb,var(--paper,#fff) 30%,transparent);display:grid;place-items:center}" +
+    ".hyck-opt .dot:before{content:'';width:8px;height:8px;border-radius:50%;background:transparent}" +
+    ".hyck-opt.sel{border-color:var(--lime,#A8CC30);background:color-mix(in srgb,var(--lime,#A8CC30) 9%,transparent)}" +
+    ".hyck-opt.sel .dot{border-color:var(--lime,#A8CC30)}" +
+    ".hyck-opt.sel .dot:before{background:var(--lime,#A8CC30)}" +
+    ".hyck-opt .inf{flex:1;min-width:0}" +
+    ".hyck-opt .inf b{display:block;font-size:.95rem;color:var(--paper,#fff)}" +
+    ".hyck-opt .inf span{font-size:.76rem;color:color-mix(in srgb,var(--paper,#fff) 50%,transparent)}" +
+    ".hyck-opt .prc{font-weight:800;font-size:1rem;white-space:nowrap;color:var(--paper,#fff)}" +
+    ".hyck-opt.sel .prc{color:var(--lime,#A8CC30)}" +
+    ".hyck-free{display:flex;align-items:center;gap:.6rem;padding:.8rem .9rem;border-radius:12px;background:color-mix(in srgb,var(--lime,#A8CC30) 14%,transparent);border:1.5px solid color-mix(in srgb,var(--lime,#A8CC30) 45%,transparent);color:var(--lime,#A8CC30);font-weight:800;font-size:.92rem}" +
+    ".hyck-free small{display:block;font-weight:400;font-size:.76rem;color:color-mix(in srgb,var(--paper,#fff) 55%,transparent)}" +
+    ".hyck-err{color:#ff8d7a;font-size:.82rem;min-height:1.15em;margin:.55rem .1rem 0}" +
+    ".hyck-foot{flex:none;padding:14px 24px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid color-mix(in srgb,var(--paper,#fff) 10%,transparent);background:color-mix(in srgb,var(--ink,#111) 55%,transparent)}" +
+    ".hyck-total{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 .7rem}" +
+    ".hyck-total span{font-size:.82rem;color:color-mix(in srgb,var(--paper,#fff) 55%,transparent)}" +
+    ".hyck-total b{font-size:1.35rem;color:var(--paper,#fff)}" +
+    ".hyck-pay{width:100%;padding:.95rem;font-size:1rem;font-weight:800;font-family:inherit;background:var(--lime,#A8CC30);color:var(--ink,#111);border:0;border-radius:12px;cursor:pointer;box-shadow:4px 4px 0 #0009;transition:transform .12s,box-shadow .12s}" +
+    ".hyck-pay:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 #0009}" +
+    ".hyck-pay:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #0009}" +
+    ".hyck-pay:disabled{opacity:.6;cursor:default;transform:none}" +
+    ".hyck-muted{font-size:.72rem;color:color-mix(in srgb,var(--paper,#fff) 42%,transparent);margin:.6rem 0 0;text-align:center}" +
+    "@media(max-width:560px){" +
+    ".hyck.modal-back{padding:0;place-items:end stretch}" +
+    ".hyck .modal{width:100%;max-width:none;max-height:96dvh;border-radius:18px 18px 0 0;border-left:0;border-right:0;border-bottom:0}" +
+    ".hyck-head{padding:18px 18px 10px}" +
+    ".hyck-head h3{font-size:1.45rem}" +
+    ".hyck-body{padding:0 18px 12px}" +
+    ".hyck-foot{padding:12px 18px calc(14px + env(safe-area-inset-bottom,0px))}" +
+    ".hyck-grid{gap:.5rem}" +
+    ".hyck-grid .m-full{grid-column:1/-1}" +
+    "}";
 
   var html = "" +
     '<div class="modal" role="dialog" aria-modal="true" aria-label="Dados de entrega">' +
-    '<div class="modal__head"><h3>Dados de entrega</h3>' +
-    '<button class="modal__x" type="button" data-hyck-close aria-label="Fechar">&times;</button></div>' +
-    '<form data-hyck-form novalidate>' +
+    '<div class="hyck-head"><div><h3>Dados de entrega</h3>' +
+    "<p>Rapidinho: s&oacute; pra calcular o frete e emitir sua nota fiscal.</p></div>" +
+    '<button class="hyck-x" type="button" data-hyck-close aria-label="Fechar">&times;</button></div>' +
+    '<form class="hyck-form" data-hyck-form novalidate>' +
+    '<div class="hyck-body">' +
+    '<div class="hyck-sec">1 &middot; Contato</div>' +
     '<div class="hyck-grid">' +
-    '<div class="full"><label>Nome completo</label><input name="name" autocomplete="name" required></div>' +
-    '<div><label>CPF</label><input name="document" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" required></div>' +
-    '<div><label>WhatsApp</label><input name="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-0000" required></div>' +
-    '<div class="full"><label>E-mail</label><input name="email" type="email" autocomplete="email" required></div>' +
-    '<div><label>CEP</label><input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" required></div>' +
-    '<div><label>N&uacute;mero</label><input name="number" autocomplete="address-line2" required></div>' +
-    '<div class="full"><label>Endere&ccedil;o</label><input name="street" autocomplete="address-line1" required></div>' +
-    '<div><label>Complemento</label><input name="complement" placeholder="opcional"></div>' +
-    '<div><label>Bairro</label><input name="neighborhood"></div>' +
-    '<div><label>Cidade</label><input name="city" required></div>' +
-    '<div><label>UF</label><input name="state" maxlength="2" required style="text-transform:uppercase"></div>' +
+    '<div class="full"><label>Nome completo</label><input name="name" autocomplete="name" placeholder="Como no seu documento" required></div>' +
+    '<div class="m-full"><label>CPF</label><input name="document" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" required></div>' +
+    '<div class="m-full"><label>WhatsApp</label><input name="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-0000" required></div>' +
+    '<div class="full"><label>E-mail</label><input name="email" type="email" autocomplete="email" placeholder="voce@email.com" required></div>' +
     "</div>" +
-    '<div data-hyck-frete class="hyck-frete" hidden></div>' +
+    '<div class="hyck-sec">2 &middot; Endere&ccedil;o de entrega</div>' +
+    '<div class="hyck-grid">' +
+    '<div class="hyck-duo cepnum"><div><label>CEP</label><input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" required></div>' +
+    '<div><label>N&uacute;mero</label><input name="number" autocomplete="address-line2" placeholder="123" required></div></div>' +
+    '<div class="full"><label>Endere&ccedil;o</label><input name="street" autocomplete="address-line1" placeholder="Preenche pelo CEP" required></div>' +
+    '<div><label>Complemento</label><input name="complement" placeholder="Apto, bloco…"></div>' +
+    '<div><label>Bairro</label><input name="neighborhood"></div>' +
+    '<div class="hyck-duo ciduf"><div><label>Cidade</label><input name="city" required></div>' +
+    '<div><label>UF</label><input name="state" maxlength="2" required style="text-transform:uppercase"></div></div>' +
+    "</div>" +
+    '<div class="hyck-sec">3 &middot; Frete</div>' +
+    '<div data-hyck-frete class="hyck-frete"><div class="hyck-hint">Digite o CEP acima pra ver as op&ccedil;&otilde;es e prazos.</div></div>' +
     '<p class="hyck-err" data-hyck-err></p>' +
+    "</div>" +
+    '<div class="hyck-foot">' +
     '<div class="hyck-total" data-hyck-total hidden></div>' +
-    '<button type="submit" class="btn btn--lime hyck-pay">Ir para o pagamento &rarr;</button>' +
-    '<p class="hyck-muted">Pagamento seguro via Paggins &middot; PIX, cart&atilde;o ou PayPal.</p>' +
-    "</form></div>";
+    '<button type="submit" class="hyck-pay">Ir para o pagamento &rarr;</button>' +
+    '<p class="hyck-muted">&#128274; Pagamento seguro via Paggins &middot; PIX, cart&atilde;o ou PayPal</p>' +
+    "</div></form></div>";
 
   var back = null, form = null, freteBox = null, errEl = null, totalEl = null;
   var freteState = { cep: "", options: null, free: false, chosen: "economico" };
@@ -192,8 +246,7 @@
     if (!lines.length) return;
     freteState.cep = cep;
     freteState.options = null;
-    freteBox.hidden = false;
-    freteBox.innerHTML = '<span class="hyck-muted">Calculando frete…</span>';
+    freteBox.innerHTML = '<div class="hyck-calc"><span class="hyck-spin"></span>Calculando frete pro seu CEP…</div>';
     fetch(API + "/frete", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -206,8 +259,9 @@
       freteState.options = d.options || [];
       freteState.free = !!d.free;
       renderFrete();
+      try { freteBox.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
     }).catch(function () {
-      freteBox.innerHTML = '<span class="hyck-err">Não consegui calcular o frete — confere o CEP.</span>';
+      freteBox.innerHTML = '<div class="hyck-hint" style="color:#ff8d7a">Não consegui calcular o frete — confere o CEP e tenta de novo.</div>';
     });
   }
 
@@ -218,32 +272,41 @@
   }
 
   function renderFrete() {
-    var lines = cartLines();
     if (freteState.free) {
       freteState.chosen = "economico";
       var dias = "";
       var eco = (freteState.options || []).find(function (o) { return o.service === "economico"; });
-      if (eco && eco.days) dias = " · chega em ~" + eco.days + " dia" + (eco.days > 1 ? "s" : "") + " úteis + despacho";
-      freteBox.innerHTML = '<div class="hyck-free">🎉 Frete grátis' + dias + "</div>";
+      if (eco && eco.days) dias = "<small>Chega em ~" + eco.days + " dia" + (eco.days > 1 ? "s" : "") + " úteis após o despacho</small>";
+      freteBox.innerHTML = '<div class="hyck-free"><span style="font-size:1.2rem">🎉</span><div>Frete grátis pro seu pedido' + dias + "</div></div>";
     } else {
-      freteBox.innerHTML = (freteState.options || []).map(function (o, i) {
-        return '<label class="opt"><input type="radio" name="hyck-frete" value="' + o.service + '"' +
-          (o.service === freteState.chosen || (!i && !freteState.options.some(function (x) { return x.service === freteState.chosen; })) ? " checked" : "") +
-          "><b>" + o.name + " — " + brl(o.cents) + "</b><span>~" + o.days + " dia" + (o.days > 1 ? "s" : "") + " úteis</span></label>";
+      if (!(freteState.options || []).some(function (x) { return x.service === freteState.chosen; })) {
+        freteState.chosen = (freteState.options[0] || {}).service || "economico";
+      }
+      freteBox.innerHTML = (freteState.options || []).map(function (o) {
+        var sel = o.service === freteState.chosen;
+        return '<label class="hyck-opt' + (sel ? " sel" : "") + '"><input type="radio" name="hyck-frete" value="' + o.service + '"' + (sel ? " checked" : "") + ">" +
+          '<span class="dot"></span>' +
+          '<span class="inf"><b>' + o.name + "</b><span>chega em ~" + o.days + " dia" + (o.days > 1 ? "s" : "") + " úteis</span></span>" +
+          '<span class="prc">' + brl(o.cents) + "</span></label>";
       }).join("");
       freteBox.querySelectorAll("input[name=hyck-frete]").forEach(function (r) {
-        r.addEventListener("change", function () { freteState.chosen = this.value; renderTotal(); });
+        r.addEventListener("change", function () {
+          freteState.chosen = this.value;
+          freteBox.querySelectorAll(".hyck-opt").forEach(function (l) {
+            l.classList.toggle("sel", l.querySelector("input").checked);
+          });
+          renderTotal();
+        });
       });
     }
     renderTotal();
   }
 
   function renderTotal() {
-    var lines = cartLines();
-    var sub = subtotalCents(lines);
+    var sub = subtotalCents(cartLines());
     var frete = freteState.free ? 0 : chosenCents();
     totalEl.hidden = false;
-    totalEl.innerHTML = "<span>Total com frete</span><span>" + brl(sub + frete) + "</span>";
+    totalEl.innerHTML = "<span>Total com frete</span><b>" + brl(sub + frete) + "</b>";
   }
 
   /* ── submit ──────────────────────────────────────────────────────────── */
