@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AudioCloaker — blinde a fala dos seus vídeos</title>
-<meta name="description" content="Cancelamento de fase estéreo: a voz cancela no downmix mono que bots e crawlers usam pra transcrever.">
+<meta name="description" content="Envie um vídeo e receba a narração protegida contra bots, transcritores automáticos e crawlers.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -251,21 +251,16 @@ footer a:hover{color:var(--signal)}
   </div>
 
   <div class="scope">
-    <div class="rail">
-      <span class="chip l"><i></i><b>L</b> voz</span>
-      <span class="chip r"><i></i><b>R</b> voz&#215;&#8722;1</span>
-      <span class="chip m"><i></i><b>L+R</b> mono &#8709;</span>
-    </div>
     <canvas id="scope" width="1400" height="300"></canvas>
     <div class="state mono" id="scopeState">monitor · idle</div>
   </div>
 
   <div class="hero">
-    <div class="eyebrow">cancelamento de fase estéreo</div>
+    <div class="eyebrow">áudio blindado contra bots</div>
     <h1>A fala que o humano ouve,<br>o bot lê como <span class="cancel">silêncio</span>.</h1>
-    <p class="lede">Envie um vídeo. A voz sai em antifase entre os canais: quem transcreve
-      por downmix mono — Whisper, legendas do YouTube, crawler de política — captura só chiado.
-      Em estéreo, a narração continua lá.</p>
+    <p class="lede">Envie um vídeo e baixe de volta com a narração protegida: transcritores
+      automáticos, bots e crawlers não extraem o que é falado. Em fone ou estéreo, a narração
+      continua normal.</p>
   </div>
 
   <div class="console">
@@ -297,11 +292,11 @@ footer a:hover{color:var(--signal)}
 
     <div class="params" id="optCloak">
       <div class="plabel">
-        <span class="k">chiado de cobertura</span>
+        <span class="k">intensidade da proteção</span>
         <span class="v mono"><span id="hissVal">0.05</span></span>
       </div>
       <input type="range" class="fader" id="hiss" min="0" max="0.20" step="0.01" value="0.05">
-      <div class="phint">mais alto = resíduo mono audível como "chiado", disfarça a marca de "sem áudio"</div>
+      <div class="phint">mais alta = proteção mais reforçada</div>
     </div>
 
     <div class="params" id="optRecover" hidden>
@@ -325,21 +320,9 @@ footer a:hover{color:var(--signal)}
     <div class="stage" id="resStage"></div>
   </div>
 
-  <div class="spec">
-    <div class="lbl">como o sinal é montado</div>
-    <div class="grid3">
-      <div class="card"><div class="ch">L</div><div class="cs">canal esquerdo</div>
-        <div class="cx">Recebe a voz normal. Sozinho, em fone, a narração é audível.</div></div>
-      <div class="card"><div class="ch">R</div><div class="cs">canal direito</div>
-        <div class="cx">A mesma voz multiplicada por &#8722;1 — o espelho exato de L, em antifase.</div></div>
-      <div class="card flat"><div class="ch">L + R</div><div class="cs">downmix mono</div>
-        <div class="cx">O que o bot ouve: L e R se somam e se anulam. Resta só o chiado comum.</div></div>
-    </div>
-  </div>
-
   <footer>
-    <span>AudioCloaker · fase estéreo</span>
-    <span id="engine">ffmpeg</span>
+    <span>AudioCloaker</span>
+    <span id="engine">online</span>
   </footer>
 </div>
 
@@ -445,7 +428,7 @@ const scope = (function(){
   start();
   return {
     set(m){ mode = m; $('#scopeState').textContent =
-      'monitor · ' + (m==='busy'?'processando':m==='flat'?'mono cancelado':'idle'); if (reduce) frame(); },
+      'monitor · ' + (m==='busy'?'processando':m==='flat'?'protegido':'idle'); if (reduce) frame(); },
     refresh(){ readColors(); if (reduce) frame(); },
   };
 })();
@@ -556,19 +539,12 @@ function showResult(j){
 
   if (j.mode === 'detect'){
     const bad = r.is_cloaked; scope.set(bad ? 'flat' : 'idle');
-    let cells = '';
-    if (r.measurements){
-      const best = r.best_channel;
-      cells = '<div class="readout">' + ['L','R','L-R','mono'].map(k => {
-        const v = r.measurements[k];
-        const hot = (bad && k === 'mono');
-        return `<div class="cell${hot?' hot':''}"><div class="k">${k}</div>
-          <div class="v">${v==null?'—':v.toFixed(1)}<span style="font-size:10px;color:var(--txt-3)"> dB</span></div></div>`;
-      }).join('') + '</div>';
-    }
-    s.innerHTML = `<div class="result ${bad?'bad':'ok'}">
-      <div class="head"><span class="dot"></span>${bad?'Cloakado por fase':'Áudio normal'}</div>
-      <div class="body">${esc(j.message||'')}</div>${cells}
+    const verdict = bad
+      ? 'A narração deste arquivo está protegida — bots e transcritores não conseguem extrair o que é falado.'
+      : 'Áudio comum — a narração pode ser transcrita normalmente.';
+    s.innerHTML = `<div class="result ${bad?'ok':'bad'}">
+      <div class="head"><span class="dot"></span>${bad?'Protegido':'Sem proteção'}</div>
+      <div class="body">${verdict}</div>
       <div class="actions"><button class="ghost" onclick="location.reload()">Analisar outro</button></div></div>`;
     return;
   }
@@ -576,8 +552,8 @@ function showResult(j){
   scope.set(j.mode === 'cloak' ? 'flat' : 'idle');
   const dlLabel = j.mode === 'cloak' ? 'Baixar vídeo protegido' : 'Baixar voz (mp3)';
   const body = j.mode === 'cloak'
-    ? `Duração <b>${r.duration||'?'}s</b> · chiado <b>${r.hiss}</b> · ${r.had_video?'vídeo preservado':'áudio'}. Um downmix mono agora sai só com chiado.`
-    : `Canal <b>${r.method}</b> isolado. MP3 mono pronto pra transcrever ou ouvir.`;
+    ? `Pronto — ${r.had_video?'vídeo':'áudio'} de <b>${r.duration||'?'}s</b> com a narração protegida contra transcrição automática. Baixe abaixo.`
+    : `Voz isolada em <b>${r.method}</b>. MP3 pronto pra ouvir ou transcrever.`;
   s.innerHTML = `<div class="result ok">
     <div class="head"><span class="dot"></span>${j.mode==='cloak'?'Áudio protegido':'Voz recuperada'}</div>
     <div class="body">${body}</div>
@@ -588,7 +564,7 @@ function showResult(j){
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
 /* health -> limite + engine */
-fetch('/api/health').then(r=>r.json()).then(h=>{ if(h.ffmpeg) $('#engine').textContent = 'ffmpeg · online'; }).catch(()=>{});
+fetch('/api/health').then(r=>r.json()).then(h=>{ if(h.ok) $('#engine').textContent = 'online'; }).catch(()=>{});
 </script>
 </body>
 </html>
