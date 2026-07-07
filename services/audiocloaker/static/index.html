@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AudioCloaker — proteja a fala dos seus vídeos</title>
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:#12141c; --panel2:#171a24; --line:#242836;
+    --txt:#e8eaf0; --dim:#8b90a3; --accent:#6c5ce7; --accent2:#00d2a8;
+    --danger:#ff5470; --ok:#00d2a8; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+       background:radial-gradient(1200px 600px at 70% -10%,#1a1230 0%,var(--bg) 55%);
+       color:var(--txt);min-height:100vh;line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+  header{text-align:center;margin-bottom:36px}
+  .logo{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:15px;
+        letter-spacing:.5px;color:var(--dim);text-transform:uppercase}
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--accent2);
+             box-shadow:0 0 12px var(--accent2)}
+  h1{font-size:34px;margin:18px 0 8px;line-height:1.15;font-weight:800}
+  h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));
+          -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--dim);font-size:16px;max-width:560px;margin:0 auto}
+  .tabs{display:flex;gap:8px;background:var(--panel);border:1px solid var(--line);
+        border-radius:12px;padding:6px;margin:28px 0 20px}
+  .tab{flex:1;text-align:center;padding:11px 8px;border-radius:8px;cursor:pointer;
+       font-weight:600;font-size:14px;color:var(--dim);transition:.15s;user-select:none}
+  .tab.active{background:var(--accent);color:#fff;box-shadow:0 4px 16px rgba(108,92,231,.4)}
+  .tab .desc{display:block;font-size:11px;font-weight:400;opacity:.85;margin-top:2px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+         padding:22px}
+  .drop{border:2px dashed var(--line);border-radius:12px;padding:44px 20px;text-align:center;
+        cursor:pointer;transition:.15s;background:var(--panel2)}
+  .drop:hover,.drop.over{border-color:var(--accent);background:#191426}
+  .drop .icon{font-size:40px;margin-bottom:10px}
+  .drop .big{font-weight:600;font-size:16px}
+  .drop .small{color:var(--dim);font-size:13px;margin-top:6px}
+  .file{display:none;align-items:center;gap:12px;background:var(--panel2);
+        border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:4px}
+  .file.show{display:flex}
+  .file .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+  .file .size{color:var(--dim);font-size:13px}
+  .file .x{color:var(--dim);cursor:pointer;font-size:20px;line-height:1}
+  .opt{margin-top:20px}
+  .opt label{display:block;font-size:13px;color:var(--dim);margin-bottom:8px;font-weight:600}
+  .slider-row{display:flex;align-items:center;gap:14px}
+  input[type=range]{flex:1;accent-color:var(--accent)}
+  .sval{font-variant-numeric:tabular-nums;min-width:44px;text-align:right;font-weight:700}
+  .seg{display:flex;gap:8px}
+  .seg button{flex:1;padding:10px;border-radius:9px;border:1px solid var(--line);
+              background:var(--panel2);color:var(--dim);font-weight:600;cursor:pointer;transition:.15s}
+  .seg button.on{border-color:var(--accent);color:#fff;background:#1c1730}
+  .go{width:100%;margin-top:24px;padding:15px;border:none;border-radius:11px;
+      background:linear-gradient(90deg,var(--accent),#8b7bff);color:#fff;font-size:16px;
+      font-weight:700;cursor:pointer;transition:.15s}
+  .go:disabled{opacity:.45;cursor:not-allowed}
+  .go:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(108,92,231,.4)}
+  .hint{color:var(--dim);font-size:12.5px;margin-top:14px;text-align:center}
+  /* progresso / resultado */
+  .stage{display:none;margin-top:22px}
+  .stage.show{display:block}
+  .bar{height:10px;background:var(--panel2);border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+  .bar>i{display:block;height:100%;width:0;border-radius:6px;
+         background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
+  .status{display:flex;justify-content:space-between;margin-top:10px;font-size:14px}
+  .status .msg{color:var(--dim)}
+  .status .pct{font-weight:700;font-variant-numeric:tabular-nums}
+  .result{border-radius:12px;padding:20px;margin-top:4px;border:1px solid var(--line)}
+  .result.ok{background:linear-gradient(180deg,#0e2420,#12141c)}
+  .result.bad{background:linear-gradient(180deg,#2a1420,#12141c);border-color:#4a2230}
+  .result .verdict{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;gap:8px;align-items:center}
+  .result .detail{color:var(--dim);font-size:14px}
+  .meas{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+  .meas div{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}
+  .meas .k{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px}
+  .meas .v{font-weight:700;font-size:16px;margin-top:3px;font-variant-numeric:tabular-nums}
+  .dl{display:inline-block;margin-top:16px;padding:13px 22px;border-radius:10px;
+      background:var(--accent2);color:#04110d;font-weight:700;text-decoration:none}
+  .dl:hover{filter:brightness(1.08)}
+  .again{background:none;border:1px solid var(--line);color:var(--dim);padding:12px 20px;
+         border-radius:10px;cursor:pointer;font-weight:600;margin-left:10px}
+  .how{margin-top:40px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .how h3{margin:0 0 12px;font-size:15px}
+  .how ol{margin:0;padding-left:20px;color:var(--dim);font-size:14px}
+  .how li{margin-bottom:8px}
+  .how code{background:#0d0f16;padding:2px 6px;border-radius:5px;color:var(--accent2);font-size:12.5px}
+  footer{text-align:center;color:#555a6e;font-size:12.5px;margin-top:36px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><span class="dot"></span> AudioCloaker</div>
+    <h1>Blinde a <span>fala</span> dos seus vídeos<br>contra bots e crawlers</h1>
+    <p class="sub">Cancelamento de fase estéreo: a voz cancela no downmix mono que
+      Whisper, legendas automáticas e crawlers usam — enquanto quem assiste em estéreo continua ouvindo.</p>
+  </header>
+
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-mode="cloak">Proteger
+      <span class="desc">esconder a voz dos bots</span></div>
+    <div class="tab" data-mode="detect">Detectar
+      <span class="desc">está cloakado?</span></div>
+    <div class="tab" data-mode="recover">Recuperar
+      <span class="desc">isolar a voz</span></div>
+  </div>
+
+  <div class="panel">
+    <div id="drop" class="drop">
+      <div class="icon">🎬</div>
+      <div class="big">Arraste um vídeo ou clique para enviar</div>
+      <div class="small">MP4, MOV, MKV, WEBM, MP3, WAV… até <span id="maxmb">512</span> MB</div>
+      <input type="file" id="fileInput" accept="video/*,audio/*" hidden>
+    </div>
+    <div class="file" id="fileCard">
+      <span>📁</span>
+      <span class="name" id="fileName"></span>
+      <span class="size" id="fileSize"></span>
+      <span class="x" id="fileClear" title="Remover">×</span>
+    </div>
+
+    <!-- opções por modo -->
+    <div class="opt" id="optCloak">
+      <label>Intensidade do chiado de cobertura — <b id="hissLabel">0.05</b>
+        <span style="opacity:.7">(mais alto = resíduo mono mais audível, disfarça melhor "sem áudio")</span></label>
+      <div class="slider-row">
+        <input type="range" id="hiss" min="0" max="0.20" step="0.01" value="0.05">
+        <span class="sval" id="hissVal">0.05</span>
+      </div>
+    </div>
+    <div class="opt" id="optRecover" style="display:none">
+      <label>Método de recuperação</label>
+      <div class="seg" id="methodSeg">
+        <button class="on" data-m="L">Canal L</button>
+        <button data-m="R">Canal R</button>
+        <button data-m="L-R">L − R</button>
+      </div>
+    </div>
+
+    <button class="go" id="go" disabled>Enviar arquivo primeiro</button>
+    <div class="hint" id="hint">O upload é processado no servidor e o original é apagado após o processamento.</div>
+
+    <!-- progresso -->
+    <div class="stage" id="progStage">
+      <div class="bar"><i id="barFill"></i></div>
+      <div class="status"><span class="msg" id="statusMsg">Enviando…</span>
+        <span class="pct" id="statusPct">0%</span></div>
+    </div>
+
+    <!-- resultado -->
+    <div class="stage" id="resStage"></div>
+  </div>
+
+  <div class="how">
+    <h3>Como funciona</h3>
+    <ol>
+      <li><b>Proteger:</b> a voz vira <code>L = voz</code>, <code>R = voz × (−1)</code> + um chiado comum de 11–15 kHz nos dois canais. O downmix <code>L+R</code> cancela a fala.</li>
+      <li><b>Quem cai na armadilha:</b> Whisper (pré-processa pra mono 16 kHz), legendas automáticas do YouTube e rips casuais <code>ffmpeg -ac 1</code> — todos capturam só chiado.</li>
+      <li><b>Quem continua ouvindo:</b> humano em fone/estéreo (imagem "oca") ou qualquer canal isolado. Em alto-falante mono de celular a voz também cancela — o ganho é esconder a claim falada da transcrição automática.</li>
+    </ol>
+  </div>
+
+  <footer>AudioCloaker · cancelamento de fase estéreo · uso interno AisTruct</footer>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+let mode = "cloak", file = null, method = "L", polling = null;
+
+// ---- tabs ----
+document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
+  document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+  t.classList.add("active");
+  mode = t.dataset.mode;
+  $("#optCloak").style.display = mode === "cloak" ? "block" : "none";
+  $("#optRecover").style.display = mode === "recover" ? "block" : "none";
+  resetStages();
+  updateBtn();
+});
+
+// ---- método (recover) ----
+$("#methodSeg").querySelectorAll("button").forEach(b => b.onclick = () => {
+  $("#methodSeg").querySelectorAll("button").forEach(x => x.classList.remove("on"));
+  b.classList.add("on"); method = b.dataset.m;
+});
+
+// ---- slider ----
+$("#hiss").oninput = e => { $("#hissVal").textContent = e.target.value;
+                            $("#hissLabel").textContent = e.target.value; };
+
+// ---- upload ui ----
+const drop = $("#drop"), input = $("#fileInput");
+drop.onclick = () => input.click();
+["dragover","dragenter"].forEach(ev => drop.addEventListener(ev, e => {
+  e.preventDefault(); drop.classList.add("over"); }));
+["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => {
+  e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => { if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+input.onchange = () => { if (input.files[0]) setFile(input.files[0]); };
+$("#fileClear").onclick = () => { file = null; input.value = ""; $("#fileCard").classList.remove("show");
+                                  drop.style.display = "block"; resetStages(); updateBtn(); };
+
+function setFile(f){
+  file = f;
+  $("#fileName").textContent = f.name;
+  $("#fileSize").textContent = (f.size/1048576).toFixed(1) + " MB";
+  $("#fileCard").classList.add("show");
+  drop.style.display = "none";
+  resetStages(); updateBtn();
+}
+function updateBtn(){
+  const go = $("#go");
+  go.disabled = !file;
+  go.textContent = !file ? "Enviar arquivo primeiro"
+    : mode === "cloak" ? "🔒 Proteger áudio"
+    : mode === "detect" ? "🔍 Detectar cloak"
+    : "🔓 Recuperar voz";
+}
+function resetStages(){
+  clearInterval(polling);
+  $("#progStage").classList.remove("show");
+  $("#resStage").classList.remove("show");
+  $("#resStage").innerHTML = "";
+  $("#barFill").style.width = "0";
+}
+
+// ---- submit ----
+$("#go").onclick = async () => {
+  if (!file) return;
+  resetStages();
+  $("#go").disabled = true;
+  $("#progStage").classList.add("show");
+  setProg(0.02, "Enviando arquivo…");
+
+  const fd = new FormData();
+  fd.append("file", file);
+  fd.append("mode", mode);
+  fd.append("hiss", $("#hiss").value);
+  fd.append("method", method);
+
+  let job;
+  try {
+    const r = await fetch("/api/jobs", { method:"POST", body:fd });
+    job = await r.json();
+    if (!r.ok) throw new Error(job.detail || "Falha no upload");
+  } catch(e){ return showError(e.message); }
+
+  setProg(0.05, "Na fila…");
+  polling = setInterval(async () => {
+    try {
+      const r = await fetch("/api/jobs/" + job.id);
+      const j = await r.json();
+      if (j.status === "running" || j.status === "queued"){
+        setProg(Math.max(0.05, j.progress || 0), j.message || "Processando…");
+      } else if (j.status === "done"){
+        clearInterval(polling); setProg(1, j.message || "Pronto"); showResult(j);
+      } else if (j.status === "error"){
+        clearInterval(polling); showError(j.error || j.message || "Erro");
+      }
+    } catch(e){ /* segue tentando */ }
+  }, 700);
+};
+
+function setProg(p, msg){
+  $("#barFill").style.width = (p*100).toFixed(0) + "%";
+  $("#statusPct").textContent = (p*100).toFixed(0) + "%";
+  if (msg) $("#statusMsg").textContent = msg;
+}
+
+function showError(msg){
+  clearInterval(polling);
+  $("#progStage").classList.remove("show");
+  const s = $("#resStage"); s.classList.add("show");
+  s.innerHTML = `<div class="result bad">
+    <div class="verdict">⚠️ Não deu certo</div>
+    <div class="detail">${escapeHtml(msg)}</div>
+    <button class="again" onclick="location.reload()">Tentar de novo</button></div>`;
+  $("#go").disabled = false;
+}
+
+function showResult(j){
+  $("#progStage").classList.remove("show");
+  const s = $("#resStage"); s.classList.add("show");
+  const r = j.result || {};
+
+  if (j.mode === "detect"){
+    const bad = r.is_cloaked;
+    let meas = "";
+    if (r.measurements){
+      meas = '<div class="meas">' + ["L","R","L-R","mono"].map(k => {
+        const v = r.measurements[k];
+        return `<div><div class="k">${k}</div><div class="v">${v==null?"—":v.toFixed(1)+" dB"}</div></div>`;
+      }).join("") + "</div>";
+    }
+    s.innerHTML = `<div class="result ${bad?'bad':'ok'}">
+      <div class="verdict">${bad?'🕵️ Cloakado por fase':'✅ Áudio normal'}</div>
+      <div class="detail">${escapeHtml(j.message||"")}</div>
+      ${meas}
+      ${bad?`<div class="detail" style="margin-top:14px">Canais na banda de fala (&lt;4 kHz). O <b>mono</b> caído vs. o canal isolado é a assinatura do cloak.</div>`:""}
+      <div><button class="again" onclick="location.reload()">Analisar outro</button></div>
+    </div>`;
+    return;
+  }
+
+  // cloak / recover -> download
+  const label = j.mode === "cloak" ? "⬇️ Baixar vídeo protegido" : "⬇️ Baixar voz recuperada";
+  let extra = "";
+  if (j.mode === "cloak")
+    extra = `<div class="detail">Duração ${r.duration||"?"}s · chiado ${r.hiss} · ${r.had_video?"vídeo preservado":"áudio"}. Teste: um downmix mono deve sair só com chiado.</div>`;
+  else
+    extra = `<div class="detail">Método <b>${r.method}</b>. MP3 mono pronto pra transcrever/ouvir.</div>`;
+  s.innerHTML = `<div class="result ok">
+    <div class="verdict">✅ ${j.mode==='cloak'?'Áudio protegido':'Voz recuperada'}</div>
+    ${extra}
+    <div><a class="dl" href="${j.download_url}" download>${label}</a>
+    <button class="again" onclick="location.reload()">Processar outro</button></div>
+  </div>`;
+}
+
+function escapeHtml(s){ return String(s).replace(/[&<>"]/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// carrega limite do servidor
+fetch("/api/health").catch(()=>{});
+</script>
+</body>
+</html>
