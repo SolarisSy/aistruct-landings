@@ -144,17 +144,18 @@ def _run_ffmpeg(args: list[str], total_seconds: float = 0.0,
 # CLOAK — esconde a voz das nossas mídias
 # --------------------------------------------------------------------------- #
 
-def cloak(input_path: str, output_path: str, hiss: float = 0.05,
+def cloak(input_path: str, output_path: str, hiss: float = 0.0,
           on_progress: Optional[Callable[[float], None]] = None) -> MediaInfo:
     """
     Aplica o cloak de fase:
       FL = voz + chiado(11-15k)
       FR = (voz * -1) + chiado(11-15k)
-    Downmix mono (FL+FR) cancela a voz; o chiado comum sobrevive (parece "áudio
-    presente porém fraco" ao invés de silêncio puro, evitando flag de "sem áudio").
+    Downmix mono (FL+FR) cancela a voz.
 
-    `hiss` (0.0-0.3) controla o volume do chiado comum. 0.05 reproduz a assinatura
-    de referência (mono >8k ~= -41 dB).
+    `hiss` (0.0-0.3) = volume do chiado de cobertura adicionado. DEFAULT 0.0 =
+    fase pura, chão inaudível (mono >8k ~= -85 dB) — igual aos criativos de referência.
+    Medição (voz limpa): 0.0 -> -85 dB | 0.01 -> -54 dB | 0.05 -> -40 dB (audível).
+    Só aumente se precisar de ruído de cobertura explícito; acima de ~0.01 já fica audível.
     """
     info = probe(input_path)
     if not info.has_audio:

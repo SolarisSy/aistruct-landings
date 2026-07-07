@@ -290,15 +290,6 @@ footer a:hover{color:var(--signal)}
       <button class="rm" id="fileClear" aria-label="Remover arquivo">&#215;</button>
     </div>
 
-    <div class="params" id="optCloak">
-      <div class="plabel">
-        <span class="k">intensidade da proteção</span>
-        <span class="v mono"><span id="hissVal">0.05</span></span>
-      </div>
-      <input type="range" class="fader" id="hiss" min="0" max="0.20" step="0.01" value="0.05">
-      <div class="phint">mais alta = proteção mais reforçada</div>
-    </div>
-
     <div class="params" id="optRecover" hidden>
       <div class="plabel"><span class="k">canal a isolar</span></div>
       <div class="switch" id="methodSeg">
@@ -440,7 +431,6 @@ document.querySelectorAll('.mode').forEach(btn => btn.onclick = () => {
   document.querySelectorAll('.mode').forEach(b => b.setAttribute('aria-selected','false'));
   btn.setAttribute('aria-selected','true');
   mode = btn.dataset.mode;
-  $('#optCloak').hidden = mode !== 'cloak';
   $('#optRecover').hidden = mode !== 'recover';
   resetStages(); updateRun();
 });
@@ -449,10 +439,6 @@ $('#methodSeg').querySelectorAll('button').forEach(b => b.onclick = () => {
   $('#methodSeg').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed','false'));
   b.setAttribute('aria-pressed','true'); method = b.dataset.m;
 });
-
-const hiss = $('#hiss');
-function paintFader(){ const p = (hiss.value/0.20)*100; hiss.style.setProperty('--fill', p+'%'); $('#hissVal').textContent = (+hiss.value).toFixed(2); }
-hiss.oninput = paintFader; paintFader();
 
 /* upload */
 const drop = $('#drop'), input = $('#fileInput');
@@ -498,7 +484,7 @@ $('#run').onclick = async () => {
 
   const fd = new FormData();
   fd.append('file', file); fd.append('mode', mode);
-  fd.append('hiss', hiss.value); fd.append('method', method);
+  fd.append('hiss', '0'); fd.append('method', method);
 
   let job;
   try {

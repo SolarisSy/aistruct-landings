@@ -128,7 +128,7 @@ def _process(job: Job, hiss: float, method: str):
 async def create_job(
     file: UploadFile = File(...),
     mode: str = Form("cloak"),
-    hiss: float = Form(0.05),
+    hiss: float = Form(0.0),
     method: str = Form("L"),
 ):
     if mode not in ("cloak", "detect", "recover"):
