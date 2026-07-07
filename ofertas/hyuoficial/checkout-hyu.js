@@ -232,6 +232,7 @@
   function openPage() {
     ensurePage();
     renderSummary();
+    sumEl.classList.add("open"); // resumo já aberto — o cliente vê os itens de cara
     page.classList.add("open");
     document.body.style.overflow = "hidden";
     page.scrollTop = 0;
