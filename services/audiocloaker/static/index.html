@@ -1,330 +1,594 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AudioCloaker — proteja a fala dos seus vídeos</title>
+<title>AudioCloaker — blinde a fala dos seus vídeos</title>
+<meta name="description" content="Cancelamento de fase estéreo: a voz cancela no downmix mono que bots e crawlers usam pra transcrever.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+:root{
+  --ink:#0a0d13; --panel:#0f131c; --raise:#161c28; --line:#222b3b; --line-2:#303a4e;
+  --txt:#eef1f6; --txt-2:#98a2b4; --txt-3:#6b7488;
+  --signal:#ff9e2c; --signal-2:#ffbe6b; --signal-glow:rgba(255,158,44,.30);
+  --good:#37d39a; --bad:#ff5d6c;
+  --shadow:0 24px 60px -24px rgba(0,0,0,.7);
+  --r:12px;
+}
+@media (prefers-color-scheme: light){
   :root{
-    --bg:#0a0b0f; --panel:#12141c; --panel2:#171a24; --line:#242836;
-    --txt:#e8eaf0; --dim:#8b90a3; --accent:#6c5ce7; --accent2:#00d2a8;
-    --danger:#ff5470; --ok:#00d2a8; --radius:14px;
+    --ink:#eceef2; --panel:#ffffff; --raise:#f5f6f9; --line:#dde1e8; --line-2:#c7cdd8;
+    --txt:#121722; --txt-2:#5a6376; --txt-3:#8a92a2;
+    --signal:#c9700a; --signal-2:#a85e00; --signal-glow:rgba(201,112,10,.16);
+    --good:#0e9c6c; --bad:#d5384a;
+    --shadow:0 20px 48px -28px rgba(30,40,60,.35);
   }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
-       background:radial-gradient(1200px 600px at 70% -10%,#1a1230 0%,var(--bg) 55%);
-       color:var(--txt);min-height:100vh;line-height:1.5}
-  .wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
-  header{text-align:center;margin-bottom:36px}
-  .logo{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:15px;
-        letter-spacing:.5px;color:var(--dim);text-transform:uppercase}
-  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--accent2);
-             box-shadow:0 0 12px var(--accent2)}
-  h1{font-size:34px;margin:18px 0 8px;line-height:1.15;font-weight:800}
-  h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));
-          -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .sub{color:var(--dim);font-size:16px;max-width:560px;margin:0 auto}
-  .tabs{display:flex;gap:8px;background:var(--panel);border:1px solid var(--line);
-        border-radius:12px;padding:6px;margin:28px 0 20px}
-  .tab{flex:1;text-align:center;padding:11px 8px;border-radius:8px;cursor:pointer;
-       font-weight:600;font-size:14px;color:var(--dim);transition:.15s;user-select:none}
-  .tab.active{background:var(--accent);color:#fff;box-shadow:0 4px 16px rgba(108,92,231,.4)}
-  .tab .desc{display:block;font-size:11px;font-weight:400;opacity:.85;margin-top:2px}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-         padding:22px}
-  .drop{border:2px dashed var(--line);border-radius:12px;padding:44px 20px;text-align:center;
-        cursor:pointer;transition:.15s;background:var(--panel2)}
-  .drop:hover,.drop.over{border-color:var(--accent);background:#191426}
-  .drop .icon{font-size:40px;margin-bottom:10px}
-  .drop .big{font-weight:600;font-size:16px}
-  .drop .small{color:var(--dim);font-size:13px;margin-top:6px}
-  .file{display:none;align-items:center;gap:12px;background:var(--panel2);
-        border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:4px}
-  .file.show{display:flex}
-  .file .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
-  .file .size{color:var(--dim);font-size:13px}
-  .file .x{color:var(--dim);cursor:pointer;font-size:20px;line-height:1}
-  .opt{margin-top:20px}
-  .opt label{display:block;font-size:13px;color:var(--dim);margin-bottom:8px;font-weight:600}
-  .slider-row{display:flex;align-items:center;gap:14px}
-  input[type=range]{flex:1;accent-color:var(--accent)}
-  .sval{font-variant-numeric:tabular-nums;min-width:44px;text-align:right;font-weight:700}
-  .seg{display:flex;gap:8px}
-  .seg button{flex:1;padding:10px;border-radius:9px;border:1px solid var(--line);
-              background:var(--panel2);color:var(--dim);font-weight:600;cursor:pointer;transition:.15s}
-  .seg button.on{border-color:var(--accent);color:#fff;background:#1c1730}
-  .go{width:100%;margin-top:24px;padding:15px;border:none;border-radius:11px;
-      background:linear-gradient(90deg,var(--accent),#8b7bff);color:#fff;font-size:16px;
-      font-weight:700;cursor:pointer;transition:.15s}
-  .go:disabled{opacity:.45;cursor:not-allowed}
-  .go:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(108,92,231,.4)}
-  .hint{color:var(--dim);font-size:12.5px;margin-top:14px;text-align:center}
-  /* progresso / resultado */
-  .stage{display:none;margin-top:22px}
-  .stage.show{display:block}
-  .bar{height:10px;background:var(--panel2);border-radius:6px;overflow:hidden;border:1px solid var(--line)}
-  .bar>i{display:block;height:100%;width:0;border-radius:6px;
-         background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
-  .status{display:flex;justify-content:space-between;margin-top:10px;font-size:14px}
-  .status .msg{color:var(--dim)}
-  .status .pct{font-weight:700;font-variant-numeric:tabular-nums}
-  .result{border-radius:12px;padding:20px;margin-top:4px;border:1px solid var(--line)}
-  .result.ok{background:linear-gradient(180deg,#0e2420,#12141c)}
-  .result.bad{background:linear-gradient(180deg,#2a1420,#12141c);border-color:#4a2230}
-  .result .verdict{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;gap:8px;align-items:center}
-  .result .detail{color:var(--dim);font-size:14px}
-  .meas{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
-  .meas div{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}
-  .meas .k{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px}
-  .meas .v{font-weight:700;font-size:16px;margin-top:3px;font-variant-numeric:tabular-nums}
-  .dl{display:inline-block;margin-top:16px;padding:13px 22px;border-radius:10px;
-      background:var(--accent2);color:#04110d;font-weight:700;text-decoration:none}
-  .dl:hover{filter:brightness(1.08)}
-  .again{background:none;border:1px solid var(--line);color:var(--dim);padding:12px 20px;
-         border-radius:10px;cursor:pointer;font-weight:600;margin-left:10px}
-  .how{margin-top:40px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
-  .how h3{margin:0 0 12px;font-size:15px}
-  .how ol{margin:0;padding-left:20px;color:var(--dim);font-size:14px}
-  .how li{margin-bottom:8px}
-  .how code{background:#0d0f16;padding:2px 6px;border-radius:5px;color:var(--accent2);font-size:12.5px}
-  footer{text-align:center;color:#555a6e;font-size:12.5px;margin-top:36px}
+}
+:root[data-theme="dark"]{
+  --ink:#0a0d13; --panel:#0f131c; --raise:#161c28; --line:#222b3b; --line-2:#303a4e;
+  --txt:#eef1f6; --txt-2:#98a2b4; --txt-3:#6b7488;
+  --signal:#ff9e2c; --signal-2:#ffbe6b; --signal-glow:rgba(255,158,44,.30);
+  --good:#37d39a; --bad:#ff5d6c; --shadow:0 24px 60px -24px rgba(0,0,0,.7);
+}
+:root[data-theme="light"]{
+  --ink:#eceef2; --panel:#ffffff; --raise:#f5f6f9; --line:#dde1e8; --line-2:#c7cdd8;
+  --txt:#121722; --txt-2:#5a6376; --txt-3:#8a92a2;
+  --signal:#c9700a; --signal-2:#a85e00; --signal-glow:rgba(201,112,10,.16);
+  --good:#0e9c6c; --bad:#d5384a; --shadow:0 20px 48px -28px rgba(30,40,60,.35);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--ink); color:var(--txt);
+  font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.app{max-width:720px; margin:0 auto; padding:22px 20px 72px}
+
+/* ---- masthead ---- */
+.masthead{display:flex; align-items:center; justify-content:space-between; margin-bottom:26px}
+.brand{display:flex; align-items:center; gap:11px}
+.brand .mark{width:30px; height:30px; flex:none}
+.brand .name{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:14px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--txt)}
+.brand .name b{color:var(--signal); font-weight:600}
+.theme{width:34px; height:34px; border-radius:9px; border:1px solid var(--line);
+  background:var(--panel); color:var(--txt-2); cursor:pointer; display:grid; place-items:center;
+  transition:.15s}
+.theme:hover{border-color:var(--line-2); color:var(--txt)}
+.theme svg{width:16px; height:16px}
+.theme .sun{display:none} :root[data-theme="light"] .theme .sun{display:block}
+:root[data-theme="light"] .theme .moon{display:none}
+
+/* ---- scope ---- */
+.scope{position:relative; border:1px solid var(--line); border-radius:var(--r);
+  background:linear-gradient(180deg,var(--panel),var(--ink)); overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.scope canvas{display:block; width:100%; height:150px}
+.scope .rail{position:absolute; top:10px; left:12px; right:12px; display:flex; gap:14px;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; pointer-events:none}
+.scope .rail b{font-weight:500}
+.chip{display:inline-flex; align-items:center; gap:6px; color:var(--txt-2)}
+.chip i{width:9px; height:2px; border-radius:2px; display:inline-block}
+.chip.l i{background:var(--signal)}
+.chip.r i{background:var(--signal); opacity:.42}
+.chip.m{margin-left:auto; color:var(--signal-2)}
+.chip.m i{width:9px; height:2px; background:var(--signal-2); box-shadow:0 0 6px var(--signal-glow)}
+.scope .state{position:absolute; bottom:9px; right:13px; font-family:'IBM Plex Mono',monospace;
+  font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--txt-3)}
+
+/* ---- hero ---- */
+.hero{margin:30px 2px 26px}
+.eyebrow{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--signal); margin-bottom:14px}
+h1{font-family:'IBM Plex Sans Condensed','IBM Plex Sans',sans-serif; font-weight:700;
+  font-size:clamp(2.1rem,7vw,3.15rem); line-height:1.04; letter-spacing:-.01em;
+  margin:0 0 14px; text-wrap:balance}
+h1 .cancel{color:var(--txt-3); text-decoration:line-through; text-decoration-thickness:.06em}
+.lede{color:var(--txt-2); font-size:1.02rem; max-width:56ch; margin:0}
+
+/* ---- console ---- */
+.console{background:var(--panel); border:1px solid var(--line); border-radius:16px;
+  padding:20px; box-shadow:var(--shadow)}
+
+.modes{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; background:var(--ink);
+  border:1px solid var(--line); border-radius:11px; padding:5px; margin-bottom:20px}
+.mode{border:none; background:transparent; color:var(--txt-2); cursor:pointer; border-radius:8px;
+  padding:9px 6px 8px; text-align:center; transition:.15s; font-family:inherit}
+.mode .t{font-weight:600; font-size:14px; display:block; color:inherit}
+.mode .d{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.03em;
+  color:var(--txt-3); margin-top:2px; display:block}
+.mode:hover{color:var(--txt)}
+.mode[aria-selected="true"]{background:var(--raise); color:var(--txt); box-shadow:0 1px 0 var(--line-2)}
+.mode[aria-selected="true"] .t{color:var(--signal)}
+.mode[aria-selected="true"] .d{color:var(--txt-2)}
+
+/* dropzone */
+.drop{border:1.5px dashed var(--line-2); border-radius:12px; padding:34px 20px; text-align:center;
+  cursor:pointer; transition:.16s; background:var(--ink)}
+.drop:hover,.drop.over{border-color:var(--signal); background:var(--raise)}
+.drop .ico{width:38px; height:38px; margin:0 auto 12px; color:var(--signal)}
+.drop .ico svg{width:100%; height:100%}
+.drop .big{font-weight:600; font-size:15px}
+.drop .small{color:var(--txt-3); font-size:12.5px; margin-top:5px; font-family:'IBM Plex Mono',monospace}
+
+.filecard{display:none; align-items:center; gap:13px; background:var(--ink);
+  border:1px solid var(--line); border-radius:12px; padding:13px 15px}
+.filecard.show{display:flex}
+.filecard .fico{width:30px; height:30px; flex:none; color:var(--signal)}
+.filecard .meta{flex:1; min-width:0}
+.filecard .fn{font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.filecard .fs{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--txt-3)}
+.filecard .rm{border:none; background:transparent; color:var(--txt-3); cursor:pointer; font-size:22px;
+  line-height:1; padding:2px 4px; border-radius:6px; transition:.15s}
+.filecard .rm:hover{color:var(--bad)}
+
+/* params */
+.params{margin-top:20px}
+.plabel{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:11px}
+.plabel .k{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--txt-2)}
+.plabel .v{font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--signal);
+  font-variant-numeric:tabular-nums}
+.fader{-webkit-appearance:none; appearance:none; width:100%; height:26px; background:transparent; cursor:pointer}
+.fader::-webkit-slider-runnable-track{height:4px; border-radius:3px;
+  background:linear-gradient(90deg,var(--signal) var(--fill,25%),var(--line-2) var(--fill,25%))}
+.fader::-moz-range-track{height:4px; border-radius:3px; background:var(--line-2)}
+.fader::-moz-range-progress{height:4px; border-radius:3px; background:var(--signal)}
+.fader::-webkit-slider-thumb{-webkit-appearance:none; appearance:none; width:14px; height:22px;
+  border-radius:4px; background:var(--txt); border:2px solid var(--signal); margin-top:-9px;
+  box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.fader::-moz-range-thumb{width:12px; height:22px; border-radius:4px; background:var(--txt);
+  border:2px solid var(--signal)}
+.fader:focus-visible{outline:none}
+.fader:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px var(--signal-glow)}
+.phint{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--txt-3); margin-top:9px}
+
+.switch{display:grid; grid-template-columns:repeat(3,1fr); gap:7px}
+.switch button{border:1px solid var(--line); background:var(--ink); color:var(--txt-2); cursor:pointer;
+  border-radius:9px; padding:11px 6px; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500;
+  transition:.15s}
+.switch button:hover{border-color:var(--line-2); color:var(--txt)}
+.switch button[aria-pressed="true"]{border-color:var(--signal); color:var(--signal);
+  background:var(--raise); box-shadow:inset 0 0 0 1px var(--signal)}
+
+/* run */
+.run{width:100%; margin-top:22px; padding:15px; border:none; border-radius:11px; cursor:pointer;
+  background:var(--signal); color:#12130a; font-family:inherit; font-size:15px; font-weight:700;
+  letter-spacing:.01em; transition:.16s; display:flex; align-items:center; justify-content:center; gap:9px}
+.run svg{width:17px; height:17px}
+.run:disabled{background:var(--raise); color:var(--txt-3); cursor:not-allowed}
+.run:not(:disabled):hover{filter:brightness(1.06); transform:translateY(-1px);
+  box-shadow:0 10px 26px -8px var(--signal-glow)}
+.run:not(:disabled):active{transform:translateY(0)}
+.note{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--txt-3); text-align:center;
+  margin-top:13px}
+
+/* progress + result (state stages) */
+.stage{display:none; margin-top:20px}
+.stage.show{display:block}
+.pbar{height:8px; border-radius:5px; background:var(--ink); border:1px solid var(--line);
+  overflow:hidden; position:relative}
+.pbar>i{position:absolute; inset:0 auto 0 0; border-radius:5px;
+  background:linear-gradient(90deg,var(--signal-2),var(--signal)); width:0; transition:width .3s ease}
+.prow{display:flex; justify-content:space-between; margin-top:11px; font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px}
+.prow .pm{color:var(--txt-2)} .prow .pp{color:var(--signal); font-weight:600; font-variant-numeric:tabular-nums}
+
+.result{border:1px solid var(--line); border-radius:13px; padding:19px}
+.result.ok{border-color:color-mix(in srgb,var(--good) 40%,var(--line))}
+.result.bad{border-color:color-mix(in srgb,var(--bad) 45%,var(--line))}
+.result .head{display:flex; align-items:center; gap:10px; font-weight:700; font-size:15.5px}
+.result .head .dot{width:9px; height:9px; border-radius:50%}
+.result.ok .head .dot{background:var(--good); box-shadow:0 0 10px color-mix(in srgb,var(--good) 60%,transparent)}
+.result.bad .head .dot{background:var(--bad); box-shadow:0 0 10px color-mix(in srgb,var(--bad) 60%,transparent)}
+.result .body{color:var(--txt-2); font-size:13.5px; margin-top:8px}
+.result .body b{color:var(--txt)}
+.readout{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:16px}
+.readout .cell{background:var(--ink); border:1px solid var(--line); border-radius:9px; padding:11px 8px;
+  text-align:center}
+.readout .cell.hot{border-color:var(--signal); background:var(--raise)}
+.readout .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--txt-3)}
+.readout .v{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:15px; margin-top:4px;
+  font-variant-numeric:tabular-nums}
+.readout .cell.hot .v{color:var(--signal)}
+.actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+.dl{display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:10px;
+  background:var(--good); color:#04140d; font-weight:700; text-decoration:none; transition:.15s}
+.dl svg{width:16px;height:16px}
+.dl:hover{filter:brightness(1.06)}
+.ghost{padding:12px 18px; border-radius:10px; border:1px solid var(--line-2); background:transparent;
+  color:var(--txt-2); font-family:inherit; font-weight:600; cursor:pointer; transition:.15s}
+.ghost:hover{border-color:var(--txt-3); color:var(--txt)}
+
+/* ---- spec strip ---- */
+.spec{margin-top:34px}
+.spec .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--txt-3); margin-bottom:14px}
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px}
+.card .ch{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13px; color:var(--signal);
+  letter-spacing:.04em}
+.card .cs{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--txt-3); margin-top:1px}
+.card .cx{font-size:12.5px; color:var(--txt-2); margin-top:11px; line-height:1.5}
+.card.flat .ch{color:var(--good)}
+
+footer{margin-top:34px; padding-top:18px; border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--txt-3);
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
+footer a{color:var(--txt-2); text-decoration:none}
+footer a:hover{color:var(--signal)}
+
+@media (max-width:560px){
+  .readout,.grid3{grid-template-columns:1fr 1fr}
+  .lede{font-size:.96rem}
+  .console{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="logo"><span class="dot"></span> AudioCloaker</div>
-    <h1>Blinde a <span>fala</span> dos seus vídeos<br>contra bots e crawlers</h1>
-    <p class="sub">Cancelamento de fase estéreo: a voz cancela no downmix mono que
-      Whisper, legendas automáticas e crawlers usam — enquanto quem assiste em estéreo continua ouvindo.</p>
-  </header>
+<div class="app">
 
-  <div class="tabs" id="tabs">
-    <div class="tab active" data-mode="cloak">Proteger
-      <span class="desc">esconder a voz dos bots</span></div>
-    <div class="tab" data-mode="detect">Detectar
-      <span class="desc">está cloakado?</span></div>
-    <div class="tab" data-mode="recover">Recuperar
-      <span class="desc">isolar a voz</span></div>
+  <div class="masthead">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="8" stroke="var(--signal)" stroke-width="1.5"/>
+        <path d="M6 16h3l2-7 3 14 3-10 2 5 2-3h5" stroke="var(--signal)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="name">AUDIO<b>CLOAK</b></span>
+    </div>
+    <button class="theme" id="theme" aria-label="Alternar tema">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/></svg>
+    </button>
   </div>
 
-  <div class="panel">
-    <div id="drop" class="drop">
-      <div class="icon">🎬</div>
+  <div class="scope">
+    <div class="rail">
+      <span class="chip l"><i></i><b>L</b> voz</span>
+      <span class="chip r"><i></i><b>R</b> voz&#215;&#8722;1</span>
+      <span class="chip m"><i></i><b>L+R</b> mono &#8709;</span>
+    </div>
+    <canvas id="scope" width="1400" height="300"></canvas>
+    <div class="state mono" id="scopeState">monitor · idle</div>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">cancelamento de fase estéreo</div>
+    <h1>A fala que o humano ouve,<br>o bot lê como <span class="cancel">silêncio</span>.</h1>
+    <p class="lede">Envie um vídeo. A voz sai em antifase entre os canais: quem transcreve
+      por downmix mono — Whisper, legendas do YouTube, crawler de política — captura só chiado.
+      Em estéreo, a narração continua lá.</p>
+  </div>
+
+  <div class="console">
+    <div class="modes" role="tablist" aria-label="Modo de operação">
+      <button class="mode" role="tab" aria-selected="true" data-mode="cloak">
+        <span class="t">Proteger</span><span class="d">esconder a voz</span></button>
+      <button class="mode" role="tab" aria-selected="false" data-mode="detect">
+        <span class="t">Detectar</span><span class="d">está cloakado?</span></button>
+      <button class="mode" role="tab" aria-selected="false" data-mode="recover">
+        <span class="t">Recuperar</span><span class="d">isolar a voz</span></button>
+    </div>
+
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Enviar arquivo">
+      <div class="ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke-linecap="round"/></svg>
+      </div>
       <div class="big">Arraste um vídeo ou clique para enviar</div>
-      <div class="small">MP4, MOV, MKV, WEBM, MP3, WAV… até <span id="maxmb">512</span> MB</div>
+      <div class="small">mp4 · mov · mkv · webm · mp3 · wav — até <span id="maxmb">512</span>&nbsp;mb</div>
       <input type="file" id="fileInput" accept="video/*,audio/*" hidden>
     </div>
-    <div class="file" id="fileCard">
-      <span>📁</span>
-      <span class="name" id="fileName"></span>
-      <span class="size" id="fileSize"></span>
-      <span class="x" id="fileClear" title="Remover">×</span>
+
+    <div class="filecard" id="fileCard">
+      <svg class="fico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13l2 2 2-2 2 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="meta"><div class="fn" id="fileName"></div><div class="fs" id="fileSize"></div></div>
+      <button class="rm" id="fileClear" aria-label="Remover arquivo">&#215;</button>
     </div>
 
-    <!-- opções por modo -->
-    <div class="opt" id="optCloak">
-      <label>Intensidade do chiado de cobertura — <b id="hissLabel">0.05</b>
-        <span style="opacity:.7">(mais alto = resíduo mono mais audível, disfarça melhor "sem áudio")</span></label>
-      <div class="slider-row">
-        <input type="range" id="hiss" min="0" max="0.20" step="0.01" value="0.05">
-        <span class="sval" id="hissVal">0.05</span>
+    <div class="params" id="optCloak">
+      <div class="plabel">
+        <span class="k">chiado de cobertura</span>
+        <span class="v mono"><span id="hissVal">0.05</span></span>
+      </div>
+      <input type="range" class="fader" id="hiss" min="0" max="0.20" step="0.01" value="0.05">
+      <div class="phint">mais alto = resíduo mono audível como "chiado", disfarça a marca de "sem áudio"</div>
+    </div>
+
+    <div class="params" id="optRecover" hidden>
+      <div class="plabel"><span class="k">canal a isolar</span></div>
+      <div class="switch" id="methodSeg">
+        <button aria-pressed="true" data-m="L">canal L</button>
+        <button aria-pressed="false" data-m="R">canal R</button>
+        <button aria-pressed="false" data-m="L-R">L &#8722; R</button>
       </div>
     </div>
-    <div class="opt" id="optRecover" style="display:none">
-      <label>Método de recuperação</label>
-      <div class="seg" id="methodSeg">
-        <button class="on" data-m="L">Canal L</button>
-        <button data-m="R">Canal R</button>
-        <button data-m="L-R">L − R</button>
-      </div>
-    </div>
 
-    <button class="go" id="go" disabled>Enviar arquivo primeiro</button>
-    <div class="hint" id="hint">O upload é processado no servidor e o original é apagado após o processamento.</div>
+    <button class="run" id="run" disabled>Selecione um arquivo</button>
+    <div class="note">o arquivo é processado no servidor e o original é apagado ao terminar</div>
 
-    <!-- progresso -->
     <div class="stage" id="progStage">
-      <div class="bar"><i id="barFill"></i></div>
-      <div class="status"><span class="msg" id="statusMsg">Enviando…</span>
-        <span class="pct" id="statusPct">0%</span></div>
+      <div class="pbar"><i id="barFill"></i></div>
+      <div class="prow"><span class="pm mono" id="statusMsg">enviando…</span>
+        <span class="pp mono" id="statusPct">0%</span></div>
     </div>
 
-    <!-- resultado -->
     <div class="stage" id="resStage"></div>
   </div>
 
-  <div class="how">
-    <h3>Como funciona</h3>
-    <ol>
-      <li><b>Proteger:</b> a voz vira <code>L = voz</code>, <code>R = voz × (−1)</code> + um chiado comum de 11–15 kHz nos dois canais. O downmix <code>L+R</code> cancela a fala.</li>
-      <li><b>Quem cai na armadilha:</b> Whisper (pré-processa pra mono 16 kHz), legendas automáticas do YouTube e rips casuais <code>ffmpeg -ac 1</code> — todos capturam só chiado.</li>
-      <li><b>Quem continua ouvindo:</b> humano em fone/estéreo (imagem "oca") ou qualquer canal isolado. Em alto-falante mono de celular a voz também cancela — o ganho é esconder a claim falada da transcrição automática.</li>
-    </ol>
+  <div class="spec">
+    <div class="lbl">como o sinal é montado</div>
+    <div class="grid3">
+      <div class="card"><div class="ch">L</div><div class="cs">canal esquerdo</div>
+        <div class="cx">Recebe a voz normal. Sozinho, em fone, a narração é audível.</div></div>
+      <div class="card"><div class="ch">R</div><div class="cs">canal direito</div>
+        <div class="cx">A mesma voz multiplicada por &#8722;1 — o espelho exato de L, em antifase.</div></div>
+      <div class="card flat"><div class="ch">L + R</div><div class="cs">downmix mono</div>
+        <div class="cx">O que o bot ouve: L e R se somam e se anulam. Resta só o chiado comum.</div></div>
+    </div>
   </div>
 
-  <footer>AudioCloaker · cancelamento de fase estéreo · uso interno AisTruct</footer>
+  <footer>
+    <span>AudioCloaker · fase estéreo</span>
+    <span id="engine">ffmpeg</span>
+  </footer>
 </div>
 
 <script>
 const $ = s => document.querySelector(s);
-let mode = "cloak", file = null, method = "L", polling = null;
 
-// ---- tabs ----
-document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
-  document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
-  t.classList.add("active");
-  mode = t.dataset.mode;
-  $("#optCloak").style.display = mode === "cloak" ? "block" : "none";
-  $("#optRecover").style.display = mode === "recover" ? "block" : "none";
-  resetStages();
-  updateBtn();
+/* ---------- tema ---------- */
+const root = document.documentElement;
+const savedTheme = (function(){ try{ return localStorage.getItem('ac-theme'); }catch(e){ return null; } })();
+if (savedTheme) root.setAttribute('data-theme', savedTheme);
+else root.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+$('#theme').onclick = () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  try{ localStorage.setItem('ac-theme', next); }catch(e){}
+  scope.refresh();
+};
+
+/* ---------- osciloscópio (canvas) ---------- */
+const scope = (function(){
+  const cv = $('#scope'), ctx = cv.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W = 0, H = 0, dpr = 1, t = 0, raf = null;
+  let mode = 'idle';            // idle | busy | flat
+  let col = {};
+
+  function readColors(){
+    const cs = getComputedStyle(root);
+    col = {
+      sig: cs.getPropertyValue('--signal').trim(),
+      sig2: cs.getPropertyValue('--signal-2').trim(),
+      line: cs.getPropertyValue('--line').trim(),
+      dim: cs.getPropertyValue('--txt-3').trim(),
+    };
+  }
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  // envelope tipo fala: pulsos suaves que abrem e fecham
+  function env(x, tt){
+    const a = Math.sin(x*0.9 + tt*1.1), b = Math.sin(x*0.37 - tt*0.6);
+    return 0.55 + 0.45 * Math.max(0, (a*0.6 + b*0.4));
+  }
+  function wave(x, tt){
+    return (Math.sin(x*3.1 + tt) * 0.6 + Math.sin(x*6.7 + tt*1.3) * 0.28
+          + Math.sin(x*11.3 + tt*0.7) * 0.12) * env(x, tt);
+  }
+  function grid(){
+    ctx.strokeStyle = col.line; ctx.globalAlpha = 0.5; ctx.lineWidth = 1;
+    for (let gx = 0; gx <= W; gx += 46){ ctx.beginPath(); ctx.moveTo(gx,0); ctx.lineTo(gx,H); ctx.stroke(); }
+    ctx.globalAlpha = 1;
+  }
+  function drawWave(amp, mid, color, alpha, dashed){
+    ctx.beginPath();
+    for (let px = 0; px <= W; px += 2){
+      const x = px / 34;
+      const y = mid - wave(x, t) * amp;
+      px === 0 ? ctx.moveTo(px, y) : ctx.lineTo(px, y);
+    }
+    ctx.strokeStyle = color; ctx.globalAlpha = alpha; ctx.lineWidth = 1.8;
+    ctx.setLineDash(dashed ? [4,4] : []); ctx.stroke(); ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
+  }
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    grid();
+    const mid = H/2, amp = H*0.19;
+    if (mode === 'flat'){
+      // L e R desvanecem, sobra a linha mono chapada + glow
+      drawWave(amp*0.35, mid, col.sig, 0.16, false);
+      drawWave(amp*0.35, mid, col.sig, 0.10, true);
+      ctx.shadowColor = col.sig; ctx.shadowBlur = 12;
+      ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(W, mid);
+      ctx.strokeStyle = col.sig2; ctx.lineWidth = 2; ctx.stroke();
+      ctx.shadowBlur = 0;
+    } else {
+      // L (sólido) e R = espelho em antifase (tracejado) — refletidos no eixo
+      drawWave(amp, mid, col.sig, 0.95, false);
+      drawWave(-amp, mid, col.sig, 0.40, true);
+      // linha mono (soma = 0) sempre reta no centro
+      ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(W, mid);
+      ctx.strokeStyle = col.sig2; ctx.globalAlpha = 0.55; ctx.lineWidth = 1; ctx.stroke();
+      ctx.globalAlpha = 1;
+      if (mode === 'busy'){ // sweep
+        const sx = ((t*90) % (W+80)) - 40;
+        const g = ctx.createLinearGradient(sx-40,0,sx+8,0);
+        g.addColorStop(0,'transparent'); g.addColorStop(1,col.sig);
+        ctx.fillStyle = g; ctx.globalAlpha = 0.18; ctx.fillRect(sx-40,0,48,H); ctx.globalAlpha = 1;
+      }
+    }
+  }
+  function loop(){
+    t += mode === 'busy' ? 0.055 : 0.02;
+    frame();
+    raf = requestAnimationFrame(loop);
+  }
+  function start(){ if (reduce){ frame(); return; } if (!raf) loop(); }
+  readColors(); resize();
+  window.addEventListener('resize', () => { resize(); if (reduce) frame(); });
+  start();
+  return {
+    set(m){ mode = m; $('#scopeState').textContent =
+      'monitor · ' + (m==='busy'?'processando':m==='flat'?'mono cancelado':'idle'); if (reduce) frame(); },
+    refresh(){ readColors(); if (reduce) frame(); },
+  };
+})();
+
+/* ---------- estado do app ---------- */
+let mode = 'cloak', file = null, method = 'L', polling = null;
+
+document.querySelectorAll('.mode').forEach(btn => btn.onclick = () => {
+  document.querySelectorAll('.mode').forEach(b => b.setAttribute('aria-selected','false'));
+  btn.setAttribute('aria-selected','true');
+  mode = btn.dataset.mode;
+  $('#optCloak').hidden = mode !== 'cloak';
+  $('#optRecover').hidden = mode !== 'recover';
+  resetStages(); updateRun();
 });
 
-// ---- método (recover) ----
-$("#methodSeg").querySelectorAll("button").forEach(b => b.onclick = () => {
-  $("#methodSeg").querySelectorAll("button").forEach(x => x.classList.remove("on"));
-  b.classList.add("on"); method = b.dataset.m;
+$('#methodSeg').querySelectorAll('button').forEach(b => b.onclick = () => {
+  $('#methodSeg').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed','false'));
+  b.setAttribute('aria-pressed','true'); method = b.dataset.m;
 });
 
-// ---- slider ----
-$("#hiss").oninput = e => { $("#hissVal").textContent = e.target.value;
-                            $("#hissLabel").textContent = e.target.value; };
+const hiss = $('#hiss');
+function paintFader(){ const p = (hiss.value/0.20)*100; hiss.style.setProperty('--fill', p+'%'); $('#hissVal').textContent = (+hiss.value).toFixed(2); }
+hiss.oninput = paintFader; paintFader();
 
-// ---- upload ui ----
-const drop = $("#drop"), input = $("#fileInput");
+/* upload */
+const drop = $('#drop'), input = $('#fileInput');
 drop.onclick = () => input.click();
-["dragover","dragenter"].forEach(ev => drop.addEventListener(ev, e => {
-  e.preventDefault(); drop.classList.add("over"); }));
-["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => {
-  e.preventDefault(); drop.classList.remove("over"); }));
-drop.addEventListener("drop", e => { if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+drop.onkeydown = e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); input.click(); } };
+['dragover','dragenter'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => { if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
 input.onchange = () => { if (input.files[0]) setFile(input.files[0]); };
-$("#fileClear").onclick = () => { file = null; input.value = ""; $("#fileCard").classList.remove("show");
-                                  drop.style.display = "block"; resetStages(); updateBtn(); };
+$('#fileClear').onclick = () => { file = null; input.value = ''; $('#fileCard').classList.remove('show');
+  drop.style.display = 'block'; resetStages(); updateRun(); scope.set('idle'); };
 
 function setFile(f){
   file = f;
-  $("#fileName").textContent = f.name;
-  $("#fileSize").textContent = (f.size/1048576).toFixed(1) + " MB";
-  $("#fileCard").classList.add("show");
-  drop.style.display = "none";
-  resetStages(); updateBtn();
+  $('#fileName').textContent = f.name;
+  $('#fileSize').textContent = (f.size/1048576).toFixed(1) + ' MB';
+  $('#fileCard').classList.add('show'); drop.style.display = 'none';
+  resetStages(); updateRun();
 }
-function updateBtn(){
-  const go = $("#go");
-  go.disabled = !file;
-  go.textContent = !file ? "Enviar arquivo primeiro"
-    : mode === "cloak" ? "🔒 Proteger áudio"
-    : mode === "detect" ? "🔍 Detectar cloak"
-    : "🔓 Recuperar voz";
+function updateRun(){
+  const r = $('#run');
+  r.disabled = !file;
+  const label = !file ? 'Selecione um arquivo'
+    : mode === 'cloak' ? 'Proteger áudio'
+    : mode === 'detect' ? 'Analisar arquivo' : 'Recuperar voz';
+  r.innerHTML = file
+    ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>${label}`
+    : label;
 }
 function resetStages(){
   clearInterval(polling);
-  $("#progStage").classList.remove("show");
-  $("#resStage").classList.remove("show");
-  $("#resStage").innerHTML = "";
-  $("#barFill").style.width = "0";
+  $('#progStage').classList.remove('show');
+  $('#resStage').classList.remove('show'); $('#resStage').innerHTML = '';
+  $('#barFill').style.width = '0';
 }
+updateRun();
 
-// ---- submit ----
-$("#go").onclick = async () => {
+/* submit */
+$('#run').onclick = async () => {
   if (!file) return;
-  resetStages();
-  $("#go").disabled = true;
-  $("#progStage").classList.add("show");
-  setProg(0.02, "Enviando arquivo…");
+  resetStages(); $('#run').disabled = true;
+  $('#progStage').classList.add('show'); setProg(0.03, 'enviando arquivo…'); scope.set('busy');
 
   const fd = new FormData();
-  fd.append("file", file);
-  fd.append("mode", mode);
-  fd.append("hiss", $("#hiss").value);
-  fd.append("method", method);
+  fd.append('file', file); fd.append('mode', mode);
+  fd.append('hiss', hiss.value); fd.append('method', method);
 
   let job;
   try {
-    const r = await fetch("/api/jobs", { method:"POST", body:fd });
+    const r = await fetch('/api/jobs', { method:'POST', body:fd });
     job = await r.json();
-    if (!r.ok) throw new Error(job.detail || "Falha no upload");
+    if (!r.ok) throw new Error(job.detail || 'falha no upload');
   } catch(e){ return showError(e.message); }
 
-  setProg(0.05, "Na fila…");
+  setProg(0.06, 'na fila…');
   polling = setInterval(async () => {
     try {
-      const r = await fetch("/api/jobs/" + job.id);
-      const j = await r.json();
-      if (j.status === "running" || j.status === "queued"){
-        setProg(Math.max(0.05, j.progress || 0), j.message || "Processando…");
-      } else if (j.status === "done"){
-        clearInterval(polling); setProg(1, j.message || "Pronto"); showResult(j);
-      } else if (j.status === "error"){
-        clearInterval(polling); showError(j.error || j.message || "Erro");
-      }
+      const j = await (await fetch('/api/jobs/' + job.id)).json();
+      if (j.status === 'running' || j.status === 'queued'){
+        setProg(Math.max(0.06, j.progress || 0), j.message || 'processando…');
+      } else if (j.status === 'done'){ clearInterval(polling); setProg(1, 'concluído'); showResult(j); }
+      else if (j.status === 'error'){ clearInterval(polling); showError(j.error || j.message || 'erro'); }
     } catch(e){ /* segue tentando */ }
   }, 700);
 };
 
 function setProg(p, msg){
-  $("#barFill").style.width = (p*100).toFixed(0) + "%";
-  $("#statusPct").textContent = (p*100).toFixed(0) + "%";
-  if (msg) $("#statusMsg").textContent = msg;
+  $('#barFill').style.width = (p*100).toFixed(0) + '%';
+  $('#statusPct').textContent = (p*100).toFixed(0) + '%';
+  if (msg) $('#statusMsg').textContent = msg;
 }
-
 function showError(msg){
-  clearInterval(polling);
-  $("#progStage").classList.remove("show");
-  const s = $("#resStage"); s.classList.add("show");
-  s.innerHTML = `<div class="result bad">
-    <div class="verdict">⚠️ Não deu certo</div>
-    <div class="detail">${escapeHtml(msg)}</div>
-    <button class="again" onclick="location.reload()">Tentar de novo</button></div>`;
-  $("#go").disabled = false;
+  clearInterval(polling); scope.set('idle');
+  $('#progStage').classList.remove('show');
+  const s = $('#resStage'); s.classList.add('show');
+  s.innerHTML = `<div class="result bad"><div class="head"><span class="dot"></span>Não foi possível processar</div>
+    <div class="body">${esc(msg)}</div>
+    <div class="actions"><button class="ghost" onclick="location.reload()">Tentar de novo</button></div></div>`;
+  $('#run').disabled = false;
 }
-
 function showResult(j){
-  $("#progStage").classList.remove("show");
-  const s = $("#resStage"); s.classList.add("show");
-  const r = j.result || {};
+  $('#progStage').classList.remove('show');
+  const s = $('#resStage'); s.classList.add('show'); const r = j.result || {};
 
-  if (j.mode === "detect"){
-    const bad = r.is_cloaked;
-    let meas = "";
+  if (j.mode === 'detect'){
+    const bad = r.is_cloaked; scope.set(bad ? 'flat' : 'idle');
+    let cells = '';
     if (r.measurements){
-      meas = '<div class="meas">' + ["L","R","L-R","mono"].map(k => {
+      const best = r.best_channel;
+      cells = '<div class="readout">' + ['L','R','L-R','mono'].map(k => {
         const v = r.measurements[k];
-        return `<div><div class="k">${k}</div><div class="v">${v==null?"—":v.toFixed(1)+" dB"}</div></div>`;
-      }).join("") + "</div>";
+        const hot = (bad && k === 'mono');
+        return `<div class="cell${hot?' hot':''}"><div class="k">${k}</div>
+          <div class="v">${v==null?'—':v.toFixed(1)}<span style="font-size:10px;color:var(--txt-3)"> dB</span></div></div>`;
+      }).join('') + '</div>';
     }
     s.innerHTML = `<div class="result ${bad?'bad':'ok'}">
-      <div class="verdict">${bad?'🕵️ Cloakado por fase':'✅ Áudio normal'}</div>
-      <div class="detail">${escapeHtml(j.message||"")}</div>
-      ${meas}
-      ${bad?`<div class="detail" style="margin-top:14px">Canais na banda de fala (&lt;4 kHz). O <b>mono</b> caído vs. o canal isolado é a assinatura do cloak.</div>`:""}
-      <div><button class="again" onclick="location.reload()">Analisar outro</button></div>
-    </div>`;
+      <div class="head"><span class="dot"></span>${bad?'Cloakado por fase':'Áudio normal'}</div>
+      <div class="body">${esc(j.message||'')}</div>${cells}
+      <div class="actions"><button class="ghost" onclick="location.reload()">Analisar outro</button></div></div>`;
     return;
   }
 
-  // cloak / recover -> download
-  const label = j.mode === "cloak" ? "⬇️ Baixar vídeo protegido" : "⬇️ Baixar voz recuperada";
-  let extra = "";
-  if (j.mode === "cloak")
-    extra = `<div class="detail">Duração ${r.duration||"?"}s · chiado ${r.hiss} · ${r.had_video?"vídeo preservado":"áudio"}. Teste: um downmix mono deve sair só com chiado.</div>`;
-  else
-    extra = `<div class="detail">Método <b>${r.method}</b>. MP3 mono pronto pra transcrever/ouvir.</div>`;
+  scope.set(j.mode === 'cloak' ? 'flat' : 'idle');
+  const dlLabel = j.mode === 'cloak' ? 'Baixar vídeo protegido' : 'Baixar voz (mp3)';
+  const body = j.mode === 'cloak'
+    ? `Duração <b>${r.duration||'?'}s</b> · chiado <b>${r.hiss}</b> · ${r.had_video?'vídeo preservado':'áudio'}. Um downmix mono agora sai só com chiado.`
+    : `Canal <b>${r.method}</b> isolado. MP3 mono pronto pra transcrever ou ouvir.`;
   s.innerHTML = `<div class="result ok">
-    <div class="verdict">✅ ${j.mode==='cloak'?'Áudio protegido':'Voz recuperada'}</div>
-    ${extra}
-    <div><a class="dl" href="${j.download_url}" download>${label}</a>
-    <button class="again" onclick="location.reload()">Processar outro</button></div>
-  </div>`;
+    <div class="head"><span class="dot"></span>${j.mode==='cloak'?'Áudio protegido':'Voz recuperada'}</div>
+    <div class="body">${body}</div>
+    <div class="actions">
+      <a class="dl" href="${j.download_url}" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12M12 16l-4-4M12 16l4-4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke-linecap="round"/></svg>${dlLabel}</a>
+      <button class="ghost" onclick="location.reload()">Processar outro</button></div></div>`;
 }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-function escapeHtml(s){ return String(s).replace(/[&<>"]/g, c =>
-  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-
-// carrega limite do servidor
-fetch("/api/health").catch(()=>{});
+/* health -> limite + engine */
+fetch('/api/health').then(r=>r.json()).then(h=>{ if(h.ffmpeg) $('#engine').textContent = 'ffmpeg · online'; }).catch(()=>{});
 </script>
 </body>
 </html>
