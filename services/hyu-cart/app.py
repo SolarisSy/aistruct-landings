@@ -477,7 +477,9 @@ async def create_checkout(request: Request):
         # físicos") — é o "beco sem saída" da lesson paggins.md. O cliente reconfirma
         # o endereço na Paggins; nós já temos o dado salvo p/ a NF-e no Bling.
         "requireShippingInfo": True,
-        "successUrl": f"{base}/obrigado/?session_id={{CHECKOUT_SESSION_ID}}",
+        # ref = nosso order_id (SEMPRE correto). session_id usa o placeholder da
+        # Paggins ({CHECKOUT_SESSION_ID}) — se ela não substituir, a página usa a ref.
+        "successUrl": f"{base}/obrigado/?ref={order_id}&session_id={{CHECKOUT_SESSION_ID}}",
         "cancelUrl": f"{base}/?checkout=cancelado",
         "externalOrderId": order_id,
         "customer": pag_customer,
