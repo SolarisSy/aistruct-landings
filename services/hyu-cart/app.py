@@ -474,10 +474,10 @@ async def create_checkout(request: Request):
     pag_customer: dict[str, str] = {"email": cust_email}
     if customer:
         pag_customer["name"] = customer["name"]
-        # telefone em E.164 (+55…) → a Paggins pré-preenche o campo no passo 2
-        ph = re.sub(r"\D", "", customer.get("phone") or "")
-        if 10 <= len(ph) <= 11:
-            pag_customer["phone"] = f"+55{ph}"
+        # ⚠️ phone NÃO vai no customer: o create-session RECUSA (400) em qualquer
+        # formato (provado 07/07, scripts/paggins_phone_probe.py — a doc mente).
+        # O prefill do telefone vai por query param no checkoutUrl (doc
+        # "Parâmetros da URL de Checkout", 07/07).
     body = {
         "currency": "BRL",
         "items": items,
@@ -552,7 +552,13 @@ async def create_checkout(request: Request):
                 log.info("checkout %s -> %s total=%s frete=%s/%s coupon=%s", order_id,
                          sess.get("id"), total, frete_service or "-", frete_cents,
                          coupon_code or "-")
-                return {"checkoutUrl": sess.get("checkoutUrl"),
+                # prefill do telefone no passo 2 via query param (?phone=+55…)
+                checkout_url = sess.get("checkoutUrl") or ""
+                ph = re.sub(r"\D", "", (customer or {}).get("phone") or "")
+                if checkout_url and 10 <= len(ph) <= 11:
+                    sep = "&" if "?" in checkout_url else "?"
+                    checkout_url += f"{sep}phone=%2B55{ph}"
+                return {"checkoutUrl": checkout_url,
                         "sessionId": sess.get("id"), "totalAmount": total,
                         "freteCents": frete_cents, "freteService": frete_service,
                         "coupon": coupon_code, "discountPct": discount_pct}
