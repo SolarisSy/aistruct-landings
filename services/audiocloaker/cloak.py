@@ -144,6 +144,20 @@ def _run_ffmpeg(args: list[str], total_seconds: float = 0.0,
 # CLOAK — esconde a voz das nossas mídias
 # --------------------------------------------------------------------------- #
 
+def _audio_codec_args(ext: str) -> list[str]:
+    """Codec de áudio compatível com o container de saída (permite manter a extensão original)."""
+    ext = ext.lower()
+    if ext in (".webm", ".ogg", ".opus"):
+        return ["-c:a", "libopus", "-b:a", "160k"]
+    if ext == ".mp3":
+        return ["-c:a", "libmp3lame", "-q:a", "2"]
+    if ext == ".wav":
+        return ["-c:a", "pcm_s16le"]
+    if ext == ".flac":
+        return ["-c:a", "flac"]
+    return ["-c:a", "aac", "-b:a", "160k"]  # mp4/mov/mkv/m4v/aac/m4a/avi
+
+
 def cloak(input_path: str, output_path: str, hiss: float = 0.0,
           on_progress: Optional[Callable[[float], None]] = None) -> MediaInfo:
     """
@@ -176,17 +190,20 @@ def cloak(input_path: str, output_path: str, hiss: float = 0.0,
         "[FL][FR]join=inputs=2:channel_layout=stereo[aout]"
     )
 
+    out_ext = os.path.splitext(output_path)[1].lower()
+    acodec = _audio_codec_args(out_ext)
+
     args = [
         "-i", input_path,
         "-f", "lavfi", "-t", f"{dur:.3f}", "-i", "anoisesrc=c=white:a=0.9",
         "-filter_complex", fc,
     ]
     if info.has_video:
-        args += ["-map", "0:v", "-map", "[aout]",
-                 "-c:v", "copy", "-c:a", "aac", "-b:a", "160k",
-                 "-movflags", "+faststart"]
+        args += ["-map", "0:v", "-map", "[aout]", "-c:v", "copy", *acodec]
+        if out_ext in (".mp4", ".mov", ".m4v"):
+            args += ["-movflags", "+faststart"]
     else:
-        args += ["-map", "[aout]", "-c:a", "aac", "-b:a", "160k"]
+        args += ["-map", "[aout]", *acodec]
     args += ["-shortest", output_path]
 
     _run_ffmpeg(args, total_seconds=dur, on_progress=on_progress)

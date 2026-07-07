@@ -167,6 +167,38 @@ h1 .cancel{color:var(--txt-3); text-decoration:line-through; text-decoration-thi
 .note{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--txt-3); text-align:center;
   margin-top:13px}
 
+/* ---- fila de arquivos ---- */
+.queue{display:flex; flex-direction:column; gap:8px; margin:20px 0}
+.queue:empty{display:none}
+.qitem{display:flex; align-items:center; gap:12px; background:var(--ink); border:1px solid var(--line);
+  border-radius:11px; padding:11px 13px}
+.qitem.run{border-color:color-mix(in srgb,var(--signal) 45%,var(--line))}
+.qitem.done{border-color:color-mix(in srgb,var(--good) 35%,var(--line))}
+.qitem.error{border-color:color-mix(in srgb,var(--bad) 40%,var(--line))}
+.qic{width:24px; height:24px; flex:none; color:var(--txt-3)}
+.qitem.run .qic,.qitem.queued .qic{color:var(--signal); animation:spin 1.1s linear infinite}
+.qitem.done .qic{color:var(--good)} .qitem.error .qic{color:var(--bad)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.qic{animation:none !important}}
+.qbody{flex:1; min-width:0}
+.qname{font-weight:600; font-size:13.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.qsub{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--txt-3); margin-top:3px}
+.qsub.ok{color:var(--good)} .qsub.err{color:var(--bad)}
+.qmini{height:3px; border-radius:2px; background:var(--line); margin-top:7px; overflow:hidden}
+.qmini>i{display:block; height:100%; width:0; background:var(--signal); transition:width .3s}
+.qside{flex:none; display:flex; align-items:center; gap:8px}
+.qdl{display:inline-flex; align-items:center; gap:6px; padding:8px 13px; border-radius:8px;
+  background:var(--good); color:#04140d; font-weight:700; font-size:12.5px; text-decoration:none}
+.qdl svg{width:14px; height:14px}
+.qdl:hover{filter:brightness(1.07)}
+.qverdict{font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:600}
+.qverdict.ok{color:var(--good)} .qverdict.bad{color:var(--bad)}
+.qrm{border:none; background:transparent; color:var(--txt-3); cursor:pointer; font-size:19px; line-height:1;
+  padding:2px 6px; border-radius:6px}
+.qrm:hover{color:var(--bad)}
+.postrow{display:flex; gap:10px}
+.postrow .ghost{flex:1; text-align:center}
+
 /* progress + result (state stages) */
 .stage{display:none; margin-top:20px}
 .stage.show{display:block}
@@ -279,15 +311,9 @@ footer a:hover{color:var(--signal)}
           <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke-linecap="round"/></svg>
       </div>
-      <div class="big">Arraste um vídeo ou clique para enviar</div>
-      <div class="small">mp4 · mov · mkv · webm · mp3 · wav — até <span id="maxmb">512</span>&nbsp;mb</div>
-      <input type="file" id="fileInput" accept="video/*,audio/*" hidden>
-    </div>
-
-    <div class="filecard" id="fileCard">
-      <svg class="fico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13l2 2 2-2 2 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div class="meta"><div class="fn" id="fileName"></div><div class="fs" id="fileSize"></div></div>
-      <button class="rm" id="fileClear" aria-label="Remover arquivo">&#215;</button>
+      <div class="big">Arraste vídeos ou clique para selecionar</div>
+      <div class="small">vários de uma vez · mp4 · mov · mkv · webm · mp3 · wav — até <span id="maxmb">512</span>&nbsp;mb cada</div>
+      <input type="file" id="fileInput" accept="video/*,audio/*" multiple hidden>
     </div>
 
     <div class="params" id="optRecover" hidden>
@@ -299,16 +325,14 @@ footer a:hover{color:var(--signal)}
       </div>
     </div>
 
-    <button class="run" id="run" disabled>Selecione um arquivo</button>
-    <div class="note">o arquivo é processado no servidor e o original é apagado ao terminar</div>
+    <div class="queue" id="queue"></div>
 
-    <div class="stage" id="progStage">
-      <div class="pbar"><i id="barFill"></i></div>
-      <div class="prow"><span class="pm mono" id="statusMsg">enviando…</span>
-        <span class="pp mono" id="statusPct">0%</span></div>
+    <button class="run" id="run" disabled>Selecione arquivos</button>
+    <div class="postrow" id="postrow" hidden>
+      <button class="ghost" id="dlAll">Baixar todos</button>
+      <button class="ghost" id="clearDone">Limpar prontos</button>
     </div>
-
-    <div class="stage" id="resStage"></div>
+    <div class="note">envie quantos quiser · processados no servidor e apagados após terminar</div>
   </div>
 
   <footer>
@@ -425,14 +449,18 @@ const scope = (function(){
 })();
 
 /* ---------- estado do app ---------- */
-let mode = 'cloak', file = null, method = 'L', polling = null;
+let mode = 'cloak', method = 'L', running = false, seq = 0;
+const items = [];   // {id, file, status, progress, dlUrl, dlName, verdict, error}
+const ALLOWED = ['mp4','mov','mkv','webm','avi','m4v','mp3','wav','m4a','aac','ogg','opus','flac'];
+const verb = () => mode==='cloak'?'Proteger':mode==='detect'?'Analisar':'Recuperar';
 
 document.querySelectorAll('.mode').forEach(btn => btn.onclick = () => {
+  if (running) return;
   document.querySelectorAll('.mode').forEach(b => b.setAttribute('aria-selected','false'));
   btn.setAttribute('aria-selected','true');
   mode = btn.dataset.mode;
   $('#optRecover').hidden = mode !== 'recover';
-  resetStages(); updateRun();
+  renderQueue(); updateRun();
 });
 
 $('#methodSeg').querySelectorAll('button').forEach(b => b.onclick = () => {
@@ -440,116 +468,152 @@ $('#methodSeg').querySelectorAll('button').forEach(b => b.onclick = () => {
   b.setAttribute('aria-pressed','true'); method = b.dataset.m;
 });
 
-/* upload */
+/* upload / drag-drop MÚLTIPLO */
 const drop = $('#drop'), input = $('#fileInput');
 drop.onclick = () => input.click();
 drop.onkeydown = e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); input.click(); } };
 ['dragover','dragenter'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
 ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
-drop.addEventListener('drop', e => { if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
-input.onchange = () => { if (input.files[0]) setFile(input.files[0]); };
-$('#fileClear').onclick = () => { file = null; input.value = ''; $('#fileCard').classList.remove('show');
-  drop.style.display = 'block'; resetStages(); updateRun(); scope.set('idle'); };
+drop.addEventListener('drop', e => addFiles(e.dataTransfer.files));
+input.onchange = () => { addFiles(input.files); input.value = ''; };
 
-function setFile(f){
-  file = f;
-  $('#fileName').textContent = f.name;
-  $('#fileSize').textContent = (f.size/1048576).toFixed(1) + ' MB';
-  $('#fileCard').classList.add('show'); drop.style.display = 'none';
-  resetStages(); updateRun();
+function addFiles(list){
+  for (const f of list){
+    const ext = (f.name.split('.').pop() || '').toLowerCase();
+    if (!ALLOWED.includes(ext)) continue;
+    items.push({ id: ++seq, file: f, status: 'idle', progress: 0 });
+  }
+  renderQueue(); updateRun();
 }
+function removeItem(id){
+  const i = items.findIndex(x => x.id === id);
+  if (i < 0 || items[i].status === 'run') return;
+  items.splice(i, 1); renderQueue(); updateRun();
+}
+
+/* ---- render da fila ---- */
+const ICONS = {
+  file: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
+  spin: '<path d="M12 3a9 9 0 1 0 9 9" stroke-linecap="round"/>',
+  done: '<path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>',
+  error:'<circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/>',
+};
+function iconFor(s){ return s==='done'?ICONS.done : s==='error'?ICONS.error : (s==='run'||s==='queued')?ICONS.spin : ICONS.file; }
+function subFor(it){
+  const mb = (it.file.size/1048576).toFixed(1) + ' MB';
+  if (it.status==='queued') return mb + ' · na fila';
+  if (it.status==='run')    return mb + ' · ' + Math.round((it.progress||0)*100) + '%';
+  if (it.status==='error')  return it.error || 'erro';
+  if (it.status==='done')   return mode==='detect' ? '' : 'pronto · ' + esc(it.dlName||'');
+  return mb;
+}
+function sideFor(it){
+  if (it.status==='done' && mode==='detect')
+    return `<span class="qverdict ${it.verdict==='cloaked'?'ok':'bad'}">${it.verdict==='cloaked'?'✓ protegido':'✕ sem proteção'}</span>`;
+  if (it.status==='done' && it.dlUrl)
+    return `<a class="qdl" href="${it.dlUrl}" download="${esc(it.dlName||'')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v11M12 15l-4-4M12 15l4-4" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 20h14" stroke-linecap="round"/></svg>baixar</a>`;
+  if (it.status==='idle' || it.status==='queued')
+    return `<button class="qrm" data-id="${it.id}" aria-label="Remover">&times;</button>`;
+  return '';
+}
+function renderQueue(){
+  const q = $('#queue'); q.innerHTML = '';
+  for (const it of items){
+    const el = document.createElement('div');
+    el.className = 'qitem ' + it.status;
+    const showBar = it.status==='run' || it.status==='queued';
+    el.innerHTML = `
+      <svg class="qic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">${iconFor(it.status)}</svg>
+      <div class="qbody">
+        <div class="qname">${esc(it.file.name)}</div>
+        <div class="qsub ${it.status==='error'?'err':it.status==='done'?'ok':''}">${subFor(it)}</div>
+        ${showBar ? `<div class="qmini"><i style="width:${Math.round((it.progress||0)*100)}%"></i></div>` : ''}
+      </div>
+      <div class="qside">${sideFor(it)}</div>`;
+    q.appendChild(el);
+  }
+  q.querySelectorAll('.qrm').forEach(b => b.onclick = () => removeItem(+b.dataset.id));
+  $('#postrow').hidden = !items.some(x => x.status==='done');
+}
+function updateItem(){ renderQueue(); updateRun(); }
+
 function updateRun(){
   const r = $('#run');
-  r.disabled = !file;
-  const label = !file ? 'Selecione um arquivo'
-    : mode === 'cloak' ? 'Proteger áudio'
-    : mode === 'detect' ? 'Analisar arquivo' : 'Recuperar voz';
-  r.innerHTML = file
-    ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>${label}`
-    : label;
+  const pending = items.filter(x => x.status==='idle').length;
+  const active = items.filter(x => x.status==='run' || x.status==='queued').length;
+  r.disabled = running || pending===0;
+  if (running){ r.innerHTML = arrow() + `Processando ${active}…`; return; }
+  if (items.length===0){ r.textContent = 'Selecione arquivos'; return; }
+  if (pending===0){ r.textContent = 'Adicione arquivos'; return; }
+  r.innerHTML = arrow() + `${verb()} ${pending} ${pending>1?'arquivos':'arquivo'}`;
 }
-function resetStages(){
-  clearInterval(polling);
-  $('#progStage').classList.remove('show');
-  $('#resStage').classList.remove('show'); $('#resStage').innerHTML = '';
-  $('#barFill').style.width = '0';
-}
-updateRun();
+function arrow(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>`; }
 
-/* submit */
+/* ---- processa a fila (concorrência 2) ---- */
 $('#run').onclick = async () => {
-  if (!file) return;
-  resetStages(); $('#run').disabled = true;
-  $('#progStage').classList.add('show'); setProg(0.03, 'enviando arquivo…'); scope.set('busy');
+  const pending = items.filter(x => x.status==='idle');
+  if (running || !pending.length) return;
+  running = true; scope.set('busy');
+  pending.forEach(it => it.status = 'queued'); updateItem();
 
+  let idx = 0;
+  const worker = async () => { while (idx < pending.length) await processItem(pending[idx++]); };
+  await Promise.all(Array.from({ length: Math.min(2, pending.length) }, worker));
+
+  running = false;
+  scope.set(mode==='cloak' && items.some(x => x.status==='done') ? 'flat' : 'idle');
+  updateItem();
+};
+
+async function processItem(it){
+  it.status = 'run'; it.progress = 0; updateItem();
   const fd = new FormData();
-  fd.append('file', file); fd.append('mode', mode);
+  fd.append('file', it.file); fd.append('mode', mode);
   fd.append('hiss', '0'); fd.append('method', method);
-
   let job;
   try {
     const r = await fetch('/api/jobs', { method:'POST', body:fd });
     job = await r.json();
     if (!r.ok) throw new Error(job.detail || 'falha no upload');
-  } catch(e){ return showError(e.message); }
+  } catch(e){ it.status='error'; it.error=e.message; updateItem(); return; }
 
-  setProg(0.06, 'na fila…');
-  polling = setInterval(async () => {
-    try {
-      const j = await (await fetch('/api/jobs/' + job.id)).json();
-      if (j.status === 'running' || j.status === 'queued'){
-        setProg(Math.max(0.06, j.progress || 0), j.message || 'processando…');
-      } else if (j.status === 'done'){ clearInterval(polling); setProg(1, 'concluído'); showResult(j); }
-      else if (j.status === 'error'){ clearInterval(polling); showError(j.error || j.message || 'erro'); }
-    } catch(e){ /* segue tentando */ }
-  }, 700);
+  await new Promise(resolve => {
+    const iv = setInterval(async () => {
+      try {
+        const j = await (await fetch('/api/jobs/' + job.id)).json();
+        if (j.status==='running' || j.status==='queued'){ it.progress = j.progress || 0; updateItem(); }
+        else if (j.status==='done'){
+          clearInterval(iv); it.progress = 1;
+          if (mode==='detect') it.verdict = (j.result && j.result.is_cloaked) ? 'cloaked' : 'clean';
+          else { it.dlUrl = j.download_url; it.dlName = j.output_name; }
+          it.status = 'done'; updateItem(); resolve();
+        } else if (j.status==='error'){
+          clearInterval(iv); it.status='error'; it.error = j.error || j.message || 'erro'; updateItem(); resolve();
+        }
+      } catch(e){ /* segue tentando */ }
+    }, 700);
+  });
+}
+
+/* ---- baixar todos / limpar ---- */
+$('#dlAll').onclick = () => {
+  const done = items.filter(x => x.status==='done' && x.dlUrl);
+  done.forEach((it, k) => setTimeout(() => {
+    const a = document.createElement('a');
+    a.href = it.dlUrl; a.download = it.dlName || '';
+    document.body.appendChild(a); a.click(); a.remove();
+  }, k * 500));
+};
+$('#clearDone').onclick = () => {
+  for (let i = items.length-1; i >= 0; i--)
+    if (items[i].status==='done' || items[i].status==='error') items.splice(i, 1);
+  renderQueue(); updateRun();
 };
 
-function setProg(p, msg){
-  $('#barFill').style.width = (p*100).toFixed(0) + '%';
-  $('#statusPct').textContent = (p*100).toFixed(0) + '%';
-  if (msg) $('#statusMsg').textContent = msg;
-}
-function showError(msg){
-  clearInterval(polling); scope.set('idle');
-  $('#progStage').classList.remove('show');
-  const s = $('#resStage'); s.classList.add('show');
-  s.innerHTML = `<div class="result bad"><div class="head"><span class="dot"></span>Não foi possível processar</div>
-    <div class="body">${esc(msg)}</div>
-    <div class="actions"><button class="ghost" onclick="location.reload()">Tentar de novo</button></div></div>`;
-  $('#run').disabled = false;
-}
-function showResult(j){
-  $('#progStage').classList.remove('show');
-  const s = $('#resStage'); s.classList.add('show'); const r = j.result || {};
-
-  if (j.mode === 'detect'){
-    const bad = r.is_cloaked; scope.set(bad ? 'flat' : 'idle');
-    const verdict = bad
-      ? 'A narração deste arquivo está protegida — bots e transcritores não conseguem extrair o que é falado.'
-      : 'Áudio comum — a narração pode ser transcrita normalmente.';
-    s.innerHTML = `<div class="result ${bad?'ok':'bad'}">
-      <div class="head"><span class="dot"></span>${bad?'Protegido':'Sem proteção'}</div>
-      <div class="body">${verdict}</div>
-      <div class="actions"><button class="ghost" onclick="location.reload()">Analisar outro</button></div></div>`;
-    return;
-  }
-
-  scope.set(j.mode === 'cloak' ? 'flat' : 'idle');
-  const dlLabel = j.mode === 'cloak' ? 'Baixar vídeo protegido' : 'Baixar voz (mp3)';
-  const body = j.mode === 'cloak'
-    ? `Pronto — ${r.had_video?'vídeo':'áudio'} de <b>${r.duration||'?'}s</b> com a narração protegida contra transcrição automática. Baixe abaixo.`
-    : `Voz isolada em <b>${r.method}</b>. MP3 pronto pra ouvir ou transcrever.`;
-  s.innerHTML = `<div class="result ok">
-    <div class="head"><span class="dot"></span>${j.mode==='cloak'?'Áudio protegido':'Voz recuperada'}</div>
-    <div class="body">${body}</div>
-    <div class="actions">
-      <a class="dl" href="${j.download_url}" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12M12 16l-4-4M12 16l4-4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke-linecap="round"/></svg>${dlLabel}</a>
-      <button class="ghost" onclick="location.reload()">Processar outro</button></div></div>`;
-}
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+updateRun();
 
-/* health -> limite + engine */
+/* health */
 fetch('/api/health').then(r=>r.json()).then(h=>{ if(h.ok) $('#engine').textContent = 'online'; }).catch(()=>{});
 </script>
 </body>

@@ -9,6 +9,7 @@ arquivos longos sem estourar o timeout do request HTTP.
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import threading
 import uuid
@@ -50,6 +51,7 @@ class Job:
     status: str = "queued"   # queued | running | done | error
     progress: float = 0.0
     message: str = ""
+    orig_name: str = ""
     input_path: str = ""
     output_path: str = ""
     output_name: str = ""
@@ -77,32 +79,46 @@ def _set(job: Job, **kw):
             setattr(job, k, v)
 
 
+def _safe_stem(name: str) -> str:
+    """Nome-base do arquivo original, sem caminho/extensão e sem caracteres inválidos."""
+    base = os.path.basename(name or "")
+    stem = os.path.splitext(base)[0]
+    stem = re.sub(r'[\\/:*?"<>|\r\n\t]+', "_", stem).strip()
+    return stem or "audio"
+
+
+_VIDEO_KEEP = (".mp4", ".mov", ".mkv", ".m4v", ".webm")
+_AUDIO_KEEP = (".mp3", ".wav", ".m4a", ".aac", ".ogg", ".opus", ".flac")
+
+
 def _process(job: Job, hiss: float, method: str):
     _set(job, status="running", progress=0.0, message="Analisando o arquivo…")
     try:
         cb = lambda p: _set(job, progress=round(p, 3))
+        stem = _safe_stem(job.orig_name)
+        in_ext = os.path.splitext(job.orig_name)[1].lower()
 
         if job.mode == "cloak":
-            out = OUTPUT_DIR / f"{job.id}_cloaked.mp4"
+            probe0 = engine.probe(job.input_path)
+            if probe0.has_video:
+                out_ext = in_ext if in_ext in _VIDEO_KEEP else ".mp4"
+            else:
+                out_ext = in_ext if in_ext in _AUDIO_KEEP else ".m4a"
+            out = OUTPUT_DIR / f"{job.id}{out_ext}"
             info = engine.cloak(job.input_path, str(out), hiss=hiss, on_progress=cb)
-            if not info.has_video:
-                out2 = out.with_suffix(".m4a")
-                out.rename(out2)
-                out = out2
-            _set(job, output_path=str(out), output_name=f"cloaked{out.suffix}",
-                 result={"duration": round(info.duration, 2),
-                         "had_video": info.has_video, "hiss": hiss},
-                 message="Áudio protegido. Downmix mono cancela a voz.")
+            _set(job, output_path=str(out), output_name=f"{stem}{out_ext}",
+                 result={"duration": round(info.duration, 2), "had_video": info.has_video},
+                 message="Narração protegida.")
 
         elif job.mode == "detect":
             res = engine.detect(job.input_path)
             _set(job, result=asdict(res), message=res.verdict)
 
         elif job.mode == "recover":
-            out = OUTPUT_DIR / f"{job.id}_recovered.mp3"
+            out = OUTPUT_DIR / f"{job.id}.mp3"
             engine.recover(job.input_path, str(out), method=method, on_progress=cb)
-            _set(job, output_path=str(out), output_name="recovered.mp3",
-                 result={"method": method}, message="Voz recuperada (MP3).")
+            _set(job, output_path=str(out), output_name=f"{stem}.mp3",
+                 result={"method": method}, message="Voz recuperada.")
         else:
             raise engine.CloakError(f"Modo desconhecido: {job.mode}")
 
@@ -151,7 +167,7 @@ async def create_job(
                 raise HTTPException(413, f"Arquivo maior que o limite ({MAX_UPLOAD_BYTES // (1024*1024)} MB).")
             f.write(chunk)
 
-    job = Job(id=job_id, mode=mode, input_path=str(dest))
+    job = Job(id=job_id, mode=mode, input_path=str(dest), orig_name=(file.filename or ""))
     with _lock:
         _jobs[job_id] = job
     _pool.submit(_process, job, hiss, method)
