@@ -118,7 +118,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.0.0")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -354,7 +354,12 @@ def _valid_cpf(doc: str) -> bool:
 
 
 def _parse_customer_address(payload: dict) -> tuple[dict, dict] | tuple[None, None]:
-    """Extrai/valida customer+address do fluxo completo; (None, None) = fluxo legado."""
+    """Extrai/valida customer+address do fluxo completo; (None, None) = fluxo legado.
+
+    Passo-1 enxuto (desde 07/07): o site coleta só nome/celular/e-mail + CEP.
+    CPF e endereço completo são OPCIONAIS aqui — a Paggins coleta no passo 2 e o
+    webhook enriquece o pedido (GET session) pra NF-e. Payload antigo (com tudo)
+    continua aceito."""
     cust, addr = payload.get("customer"), payload.get("address")
     if not (isinstance(cust, dict) and isinstance(addr, dict) and addr.get("cep")):
         return None, None
@@ -364,7 +369,7 @@ def _parse_customer_address(payload: dict) -> tuple[dict, dict] | tuple[None, No
     phone = re.sub(r"\D", "", str(cust.get("phone", "")))[:13]
     if len(name.split()) < 2:
         raise HTTPException(400, "nome completo obrigatorio")
-    if not _valid_cpf(document):
+    if document and not _valid_cpf(document):
         raise HTTPException(400, "CPF invalido")
     if not _EMAIL_RE.match(email):
         raise HTTPException(400, "e-mail invalido")
@@ -377,7 +382,7 @@ def _parse_customer_address(payload: dict) -> tuple[dict, dict] | tuple[None, No
     number = str(addr.get("number", "")).strip()[:12]
     city = str(addr.get("city", "")).strip()[:80]
     state = str(addr.get("state", "")).strip()[:2].upper()
-    if not (street and number and city and len(state) == 2):
+    if (street or number or city or state) and not (street and number and city and len(state) == 2):
         raise HTTPException(400, "endereco incompleto (rua/numero/cidade/UF)")
     return (
         {"name": name, "document": document, "email": email, "phone": phone},
@@ -468,7 +473,11 @@ async def create_checkout(request: Request):
         cust_email = PLACEHOLDER_EMAIL
     pag_customer: dict[str, str] = {"email": cust_email}
     if customer:
-        pag_customer["name"] = customer["name"]  # phone fora: Paggins exige E.164
+        pag_customer["name"] = customer["name"]
+        # telefone em E.164 (+55…) → a Paggins pré-preenche o campo no passo 2
+        ph = re.sub(r"\D", "", customer.get("phone") or "")
+        if 10 <= len(ph) <= 11:
+            pag_customer["phone"] = f"+55{ph}"
     body = {
         "currency": "BRL",
         "items": items,
@@ -649,8 +658,70 @@ async def paggins_webhook(request: Request):
         log.info("webhook PAGO(verified=%s): %s session=%s order=%s amount=%s pedido=%s",
                  verified, event, sid, order_id, pay.get("amount"), pedido_id)
         if pedido_id:
-            asyncio.create_task(_bling_dispatch(pedido_id))
+            asyncio.create_task(_enrich_then_bling(pedido_id, sid))
     return {"received": True}
+
+
+async def _enrich_then_bling(pid: int, sid: str) -> None:
+    await _enrich_from_paggins(pid, sid)
+    await _bling_dispatch(pid)
+
+
+async def _enrich_from_paggins(pid: int, sid: str) -> None:
+    """Completa CPF/telefone/endereço do pedido com o que a Paggins devolver na
+    sessão pós-pagamento. Necessário desde o passo-1 enxuto (07/07): o site só
+    coleta contato+CEP; o comprador digita CPF e endereço na página da Paggins.
+    Loga o JSON cru da sessão (prova de campo: o que a Paggins realmente expõe)."""
+    p = _pedido_get(pid)
+    if not p or not sid:
+        return
+    missing = [k for k in ("document", "street", "number", "city", "state")
+               if not str(p.get(k) or "").strip()]
+    if not missing:
+        return
+    try:
+        async with httpx.AsyncClient(timeout=20) as c:
+            r = await c.get(
+                f"{PAGGINS_API_URL}/v1/sdk/checkout-sessions/{sid}?countryCode=BR",
+                headers={"Authorization": f"Bearer {PAGGINS_API_KEY}"})
+    except httpx.HTTPError as e:
+        log.warning("enrich pedido %s: paggins indisponivel (%s)", pid, str(e)[:80])
+        return
+    if r.status_code != 200:
+        log.warning("enrich pedido %s: GET session %s -> %s", pid, sid, r.status_code)
+        return
+    s = r.json()
+    log.info("enrich RAW session %s: %s", sid, json.dumps(s, ensure_ascii=False)[:1800])
+    cust = s.get("customer") or {}
+    addr = (s.get("shippingAddress") or cust.get("shippingAddress")
+            or (s.get("shippingInfo") or {}).get("address") or {})
+    updates: dict[str, str] = {}
+
+    def put(col: str, *vals: Any, digits: bool = False, maxlen: int = 120) -> None:
+        if str(p.get(col) or "").strip():
+            return
+        for v in vals:
+            v = str(v or "").strip()
+            if digits:
+                v = re.sub(r"\D", "", v)
+            if v:
+                updates[col] = v[:maxlen]
+                return
+
+    put("document", cust.get("document"), cust.get("cpf"), digits=True, maxlen=14)
+    put("phone", cust.get("phone"), cust.get("phoneNumber"), digits=True, maxlen=13)
+    put("cep", addr.get("zipCode"), addr.get("cep"), digits=True, maxlen=8)
+    put("street", addr.get("street"), addr.get("address"))
+    put("number", addr.get("number"), maxlen=12)
+    put("complement", addr.get("complement"), maxlen=100)
+    put("neighborhood", addr.get("neighborhood"), maxlen=80)
+    put("city", addr.get("city"), maxlen=80)
+    put("state", addr.get("state"), addr.get("uf"), maxlen=2)
+    if updates:
+        _pedido_set(pid, **updates)
+        log.info("enrich: pedido %s completado da Paggins: %s", pid, sorted(updates))
+    else:
+        log.warning("enrich: sessao %s sem dados novos (faltando %s)", sid, missing)
 
 
 # ═══════════════════ Bling (pedido de venda pós-pagamento) ═══════════════════
@@ -681,6 +752,15 @@ async def _bling_dispatch(pid: int) -> None:
     p = _pedido_get(pid)
     if not p or p.get("bling_status") == "created":
         return
+    faltam = [k for k in ("document", "street", "number", "city", "state")
+              if not str(p.get(k) or "").strip()]
+    if faltam:
+        _pedido_set(pid, bling_status="pending",
+                    bling_error="dados p/ NF-e incompletos: " + ", ".join(faltam)
+                    + " (Paggins não devolveu — completar via POST /pedidos/{id}/bling"
+                    " com os campos no body; dado está no painel Paggins)")
+        log.warning("bling pedido %s aguardando dados: %s", pid, faltam)
+        return
     if not BLING.configured:
         _pedido_set(pid, bling_status="pending",
                     bling_error="BLING_* env ausente (rodar bling_oauth_bootstrap)")
@@ -709,11 +789,32 @@ async def _bling_dispatch(pid: int) -> None:
 
 @app.post("/pedidos/{pid}/bling")
 async def bling_retry(pid: int, request: Request):
+    """Retry do Bling. Body JSON opcional completa dados do pedido antes de
+    disparar (p/ pedidos 'pending' do passo-1 enxuto): document, phone, cep,
+    street, number, complement, neighborhood, city, state, name, email."""
     denied = _leads_auth(request)
     if denied:
         return denied
     if not _pedido_get(pid):
         raise HTTPException(404, "pedido nao encontrado")
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+    if isinstance(body, dict) and body:
+        allowed = {"document", "phone", "cep", "street", "number", "complement",
+                   "neighborhood", "city", "state", "name", "email"}
+        updates = {}
+        for k in allowed & set(body):
+            v = str(body[k] or "").strip()
+            if k in ("document", "phone", "cep"):
+                v = re.sub(r"\D", "", v)
+            if k == "document" and v and not _valid_cpf(v):
+                raise HTTPException(400, "CPF invalido")
+            if v:
+                updates[k] = v[:120]
+        if updates:
+            _pedido_set(pid, **updates)
     await _bling_dispatch(pid)
     p = _pedido_get(pid)
     return {"id": pid, "bling_status": p["bling_status"],

@@ -1,10 +1,12 @@
-﻿/* HYU — pré-checkout com frete Mandaê (patch pós-build, padrão coupon.js).
+/* HYU — checkout em 2 etapas, passo 1 com a estética do checkout Paggins
+ * (layout Marketplace): fundo cinza, cards brancos, radios e CTA azuis.
  *
- * Intercepta o "Finalizar compra" do drawer e abre um modal que coleta os dados
- * do comprador (nome, CPF, WhatsApp, e-mail, endereço com ViaCEP) + cota o frete
- * no bridge (/frete, API Mandaê). Depois POSTa /checkout com tudo — o bridge
- * re-cota o frete, embute no preço (SDK Paggins não tem frete dinâmico), salva o
- * pedido completo p/ NF-e (Bling) e devolve o checkoutUrl da Paggins.
+ * Intercepta o "Finalizar compra" do drawer e abre uma PÁGINA full-screen que
+ * pede só o não-redundante: contato (nome/celular/e-mail — pré-preenchidos na
+ * Paggins via customer) + CEP (cota o frete Mandaê no bridge). CPF e endereço
+ * completo ficam pro passo 2 (a Paggins coleta; o bridge enriquece o pedido
+ * pós-pagamento pra NF-e). POSTa /checkout — o bridge re-cota o frete, embute
+ * no preço e devolve o checkoutUrl da Paggins (passo 2).
  *
  * Assinatura (tier "sub") continua no link nativo — não passa por aqui.
  * O cupom do coupon.js é injetado automaticamente (ele patcha window.fetch).
@@ -16,6 +18,14 @@
   var LS_FORM = "hyu-precheckout-v1";
   var COMBOS = { "kit-energy": 1, "kit-soda": 1, "super-kit": 1, "kit24": 1 };
   var TIER_CENTS = { kit6: 6990, kit12: 11990, kit24: 21990 };
+  var TIER_LABEL = { kit6: "6 latas", kit12: "12 latas", kit24: "24 latas" };
+  var TITLES = {
+    "kit-energy": "Kit Energy", "kit-soda": "Kit Soda", "super-kit": "Super Kit",
+    "kit24": "Kit 24", "hot-lemon": "Hot Lemon", "maca-verde": "Maçã Verde",
+    "pessego-morango": "Pêssego com Morango", "tropical": "Tropical",
+    "maca-vermelha": "Maçã Vermelha"
+  };
+  var IMGS = { "kit24": "super-kit" };
 
   /* ── carrinho (mesma leitura do cart.js) ─────────────────────────────── */
   function cartLines() {
@@ -50,204 +60,219 @@
   function brl(cents) {
     return (cents / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   }
-
-  /* ── validações ──────────────────────────────────────────────────────── */
-  function validCpf(doc) {
-    var d = (doc || "").replace(/\D/g, "");
-    if (d.length !== 11 || /^(\d)\1{10}$/.test(d)) return false;
-    for (var n = 9; n <= 10; n++) {
-      var s = 0;
-      for (var i = 0; i < n; i++) s += parseInt(d[i], 10) * ((n + 1) - i);
-      if ((s * 10) % 11 % 10 !== parseInt(d[n], 10)) return false;
-    }
-    return true;
+  function lineTitle(i) {
+    var t = TITLES[i.flavor] || i.flavor;
+    if (!COMBOS[i.flavor] && TIER_LABEL[i.tier]) t += " — " + TIER_LABEL[i.tier];
+    else if (COMBOS[i.flavor] && TIER_LABEL[i.tier]) t += " · " + TIER_LABEL[i.tier];
+    return t;
+  }
+  function lineImg(i) {
+    return "/img/kits/" + (IMGS[i.flavor] || i.flavor) + ".webp";
   }
 
-  /* ── modal (identidade HYU: ink + lime, bottom-sheet no mobile) ───────── */
+  /* ── página passo 1 (estética Paggins Marketplace) ───────────────────── */
   var css = "" +
-    ".hyck.modal-back{padding:20px}" +
-    ".hyck .modal{width:min(540px,100%);max-height:min(92dvh,860px);padding:0;overflow:hidden;display:flex;flex-direction:column}" +
-    ".hyck-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;padding:22px 24px 14px}" +
-    ".hyck-head h3{display:flex;align-items:center;gap:.55rem;font-family:inherit;font-weight:800;font-size:1.3rem;letter-spacing:-.01em;line-height:1.15;margin:0;color:var(--paper,#fff)}" +
-    ".hyck-head h3:before{content:'';width:5px;height:1.25em;border-radius:3px;background:var(--lime,#A8CC30);flex:none}" +
-    ".hyck-head p{margin:.45rem 0 0;font-size:.82rem;color:color-mix(in srgb,var(--paper,#fff) 55%,transparent)}" +
-    ".hyck-x{flex:none;font-size:1.6rem;line-height:1;width:38px;height:38px;display:grid;place-items:center;border:0;border-radius:8px;background:none;color:var(--paper,#fff);cursor:pointer}" +
-    ".hyck-x:hover{background:#ffffff14}" +
-    ".hyck-form{display:flex;flex-direction:column;min-height:0;flex:1}" +
-    ".hyck-body{overflow-y:auto;padding:0 24px 14px;min-height:0}" +
-    ".hyck-sec{display:flex;align-items:center;gap:.6rem;margin:1.05rem 0 .55rem;font-family:var(--mono,monospace);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime,#A8CC30)}" +
-    ".hyck-sec:first-child{margin-top:.2rem}" +
-    ".hyck-sec:after{content:'';flex:1;height:1px;background:color-mix(in srgb,var(--paper,#fff) 12%,transparent)}" +
-    ".hyck-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}" +
-    ".hyck-grid .full{grid-column:1/-1}" +
-    ".hyck-duo{grid-column:1/-1;display:grid;gap:.6rem}" +
-    ".hyck-duo.cepnum{grid-template-columns:1fr 108px}" +
-    ".hyck-duo.ciduf{grid-template-columns:1fr 84px}" +
-    ".hyck-grid label{display:block;font-family:var(--mono,monospace);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:color-mix(in srgb,var(--paper,#fff) 48%,transparent);margin:0 0 .28rem .1rem}" +
-    ".hyck-grid input{width:100%;box-sizing:border-box;padding:.72rem .85rem;font-size:16px;font-family:inherit;background:var(--ink,#111);color:var(--paper,#fff);border:1.5px solid color-mix(in srgb,var(--paper,#fff) 16%,transparent);border-radius:10px;transition:border-color .15s}" +
-    ".hyck-grid input::placeholder{color:color-mix(in srgb,var(--paper,#fff) 30%,transparent)}" +
-    ".hyck-grid input:focus{outline:none;border-color:var(--lime,#A8CC30);box-shadow:0 0 0 3px color-mix(in srgb,var(--lime,#A8CC30) 22%,transparent)}" +
-    ".hyck-frete{display:flex;flex-direction:column;gap:.55rem;margin-top:.1rem}" +
-    ".hyck-calc{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:color-mix(in srgb,var(--paper,#fff) 55%,transparent);padding:.7rem .2rem}" +
-    ".hyck-spin{width:15px;height:15px;border:2px solid color-mix(in srgb,var(--lime,#A8CC30) 35%,transparent);border-top-color:var(--lime,#A8CC30);border-radius:50%;animation:hyckspin .7s linear infinite;flex:none}" +
-    "@keyframes hyckspin{to{transform:rotate(360deg)}}" +
-    ".hyck-hint{font-size:.8rem;color:color-mix(in srgb,var(--paper,#fff) 45%,transparent);padding:.5rem .2rem}" +
-    ".hyck-opt{display:flex;align-items:center;gap:.75rem;padding:.75rem .9rem;border:1.5px solid color-mix(in srgb,var(--paper,#fff) 16%,transparent);border-radius:12px;cursor:pointer;transition:border-color .15s,background .15s}" +
-    ".hyck-opt input{display:none}" +
-    ".hyck-opt .dot{flex:none;width:17px;height:17px;border-radius:50%;border:2px solid color-mix(in srgb,var(--paper,#fff) 30%,transparent);display:grid;place-items:center}" +
-    ".hyck-opt .dot:before{content:'';width:8px;height:8px;border-radius:50%;background:transparent}" +
-    ".hyck-opt.sel{border-color:var(--lime,#A8CC30);background:color-mix(in srgb,var(--lime,#A8CC30) 9%,transparent)}" +
-    ".hyck-opt.sel .dot{border-color:var(--lime,#A8CC30)}" +
-    ".hyck-opt.sel .dot:before{background:var(--lime,#A8CC30)}" +
-    ".hyck-opt .inf{flex:1;min-width:0}" +
-    ".hyck-opt .inf b{display:block;font-size:.95rem;color:var(--paper,#fff)}" +
-    ".hyck-opt .inf span{font-size:.76rem;color:color-mix(in srgb,var(--paper,#fff) 50%,transparent)}" +
-    ".hyck-opt .prc{font-weight:800;font-size:1rem;white-space:nowrap;color:var(--paper,#fff)}" +
-    ".hyck-opt.sel .prc{color:var(--lime,#A8CC30)}" +
-    ".hyck-free{display:flex;align-items:center;gap:.6rem;padding:.8rem .9rem;border-radius:12px;background:color-mix(in srgb,var(--lime,#A8CC30) 14%,transparent);border:1.5px solid color-mix(in srgb,var(--lime,#A8CC30) 45%,transparent);color:var(--lime,#A8CC30);font-weight:800;font-size:.92rem}" +
-    ".hyck-free small{display:block;font-weight:400;font-size:.76rem;color:color-mix(in srgb,var(--paper,#fff) 55%,transparent)}" +
-    ".hyck-err{color:#ff8d7a;font-size:.82rem;min-height:1.15em;margin:.55rem .1rem 0}" +
-    ".hyck-foot{flex:none;padding:14px 24px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid color-mix(in srgb,var(--paper,#fff) 10%,transparent);background:color-mix(in srgb,var(--ink,#111) 55%,transparent)}" +
-    ".hyck-total{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 .7rem}" +
-    ".hyck-total span{font-size:.82rem;color:color-mix(in srgb,var(--paper,#fff) 55%,transparent)}" +
-    ".hyck-total b{font-size:1.35rem;color:var(--paper,#fff)}" +
-    ".hyck-pay{width:100%;padding:.95rem;font-size:1rem;font-weight:800;font-family:inherit;background:var(--lime,#A8CC30);color:var(--ink,#111);border:0;border-radius:12px;cursor:pointer;box-shadow:4px 4px 0 #0009;transition:transform .12s,box-shadow .12s}" +
-    ".hyck-pay:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 #0009}" +
-    ".hyck-pay:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #0009}" +
-    ".hyck-pay:disabled{opacity:.6;cursor:default;transform:none}" +
-    ".hyck-muted{font-size:.72rem;color:color-mix(in srgb,var(--paper,#fff) 42%,transparent);margin:.6rem 0 0;text-align:center}" +
-    "@media(max-width:560px){" +
-    ".hyck.modal-back{padding:0;place-items:end stretch}" +
-    ".hyck .modal{width:100%;max-width:none;max-height:96dvh;border-radius:18px 18px 0 0;border-left:0;border-right:0;border-bottom:0}" +
-    ".hyck-head{padding:18px 18px 10px}" +
-    ".hyck-head h3{font-size:1.45rem}" +
-    ".hyck-body{padding:0 18px 12px}" +
-    ".hyck-foot{padding:12px 18px calc(14px + env(safe-area-inset-bottom,0px))}" +
-    ".hyck-grid{gap:.5rem}" +
-    ".hyck-grid .m-full{grid-column:1/-1}" +
-    "}";
+    ".hyck2{position:fixed;inset:0;z-index:9999;background:#F2F4F7;overflow-y:auto;-webkit-overflow-scrolling:touch;color:#1A1A1A;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;display:none}" +
+    ".hyck2.open{display:block}" +
+    ".hyck2 *{box-sizing:border-box;font-family:inherit}" +
+    ".hyck2-wrap{max-width:560px;margin:0 auto;padding:12px 14px calc(28px + env(safe-area-inset-bottom,0px))}" +
+    ".hyck2-top{display:flex;align-items:center;gap:.6rem;padding:6px 2px 12px}" +
+    ".hyck2-back{display:flex;align-items:center;gap:.35rem;background:none;border:0;padding:6px 8px 6px 2px;font-size:14px;color:#4B5563;cursor:pointer;border-radius:8px}" +
+    ".hyck2-back:hover{color:#1A1A1A}" +
+    ".hyck2-top .ttl{flex:1;text-align:center;font-weight:700;font-size:15px;color:#111827;margin-right:64px}" +
+    ".hyck2-card{background:#fff;border:1px solid #E8EAEE;border-radius:12px;padding:16px;margin:0 0 8px;box-shadow:0 1px 2px rgba(16,24,40,.04)}" +
+    ".hyck2 h2{font-size:16px;font-weight:700;color:#111827;margin:18px 2px 10px;letter-spacing:-.01em}" +
+    /* resumo */
+    ".hyck2-sumhead{width:100%;display:flex;align-items:center;justify-content:space-between;gap:.6rem;background:none;border:0;padding:0;cursor:pointer;font-size:15px;font-weight:600;color:#111827}" +
+    ".hyck2-sumhead b{font-weight:700;font-size:15px}" +
+    ".hyck2-sumhead .chev{flex:none;margin-left:2px;transition:transform .18s;color:#6B7280}" +
+    ".hyck2-sum.open .chev{transform:rotate(180deg)}" +
+    ".hyck2-sumbody{display:none;margin-top:14px;border-top:1px solid #EEF0F3;padding-top:12px}" +
+    ".hyck2-sum.open .hyck2-sumbody{display:block}" +
+    ".hyck2-it{display:flex;align-items:center;gap:.7rem;padding:.45rem 0}" +
+    ".hyck2-it img{flex:none;width:44px;height:44px;border-radius:8px;object-fit:cover;background:#F3F4F6;border:1px solid #EEF0F3}" +
+    ".hyck2-it .nm{flex:1;min-width:0;font-size:13.5px;color:#111827;line-height:1.3}" +
+    ".hyck2-it .nm small{display:block;color:#6B7280;font-size:12px}" +
+    ".hyck2-it .pr{font-size:13.5px;font-weight:600;white-space:nowrap}" +
+    ".hyck2-tot{border-top:1px solid #EEF0F3;margin-top:8px;padding-top:10px;font-size:13.5px;color:#4B5563}" +
+    ".hyck2-tot div{display:flex;justify-content:space-between;padding:.18rem 0}" +
+    ".hyck2-tot .tt{font-weight:700;color:#111827;font-size:15px;padding-top:.4rem}" +
+    /* campos */
+    ".hyck2-f{margin:0 0 12px}" +
+    ".hyck2-f:last-child{margin-bottom:2px}" +
+    ".hyck2-f label{display:block;font-size:13px;font-weight:500;color:#374151;margin:0 0 6px}" +
+    ".hyck2-f input{width:100%;height:46px;padding:0 13px;font-size:16px;color:#1A1A1A;background:#fff;border:1px solid #D7DBE0;border-radius:8px;outline:none;transition:border-color .12s,box-shadow .12s}" +
+    ".hyck2-f input::placeholder{color:#9CA3AF}" +
+    ".hyck2-f input:focus{border-color:#1E6EF7;box-shadow:0 0 0 3px rgba(30,110,247,.12)}" +
+    ".hyck2-f .sub{font-size:12px;color:#6B7280;margin:6px 2px 0}" +
+    ".hyck2-phone{display:flex;gap:8px}" +
+    ".hyck2-phone .ddi{flex:none;display:flex;align-items:center;gap:6px;height:46px;padding:0 12px;border:1px solid #D7DBE0;border-radius:8px;background:#fff;font-size:14.5px;color:#374151}" +
+    ".hyck2-phone input{flex:1}" +
+    /* frete */
+    ".hyck2-shipwrap{margin-top:4px}" +
+    ".hyck2-shiptag{display:flex;align-items:center;gap:.45rem;font-size:12.5px;color:#6B7280;margin:12px 2px 8px}" +
+    ".hyck2-ship{border:1px solid #E8EAEE;border-radius:10px;overflow:hidden}" +
+    ".hyck2-ship .hd{padding:10px 14px;font-size:13px;font-weight:600;color:#111827;background:#FAFBFC;border-bottom:1px solid #EEF0F3}" +
+    ".hyck2-opt{display:flex;align-items:center;gap:.75rem;padding:13px 14px;cursor:pointer;border-bottom:1px solid #EEF0F3;background:#fff;transition:background .12s}" +
+    ".hyck2-opt:last-child{border-bottom:0}" +
+    ".hyck2-opt input{display:none}" +
+    ".hyck2-opt .dot{flex:none;width:18px;height:18px;border-radius:50%;border:2px solid #C9CED6;display:grid;place-items:center;transition:border-color .12s}" +
+    ".hyck2-opt .dot:before{content:'';width:9px;height:9px;border-radius:50%;background:transparent;transition:background .12s}" +
+    ".hyck2-opt.sel .dot{border-color:#1E6EF7}" +
+    ".hyck2-opt.sel .dot:before{background:#1E6EF7}" +
+    ".hyck2-opt .inf{flex:1;min-width:0;font-size:14px;color:#111827}" +
+    ".hyck2-opt .inf small{display:block;font-size:12px;color:#6B7280}" +
+    ".hyck2-opt .prc{font-size:14px;font-weight:600;white-space:nowrap}" +
+    ".hyck2-calc{display:flex;align-items:center;gap:.6rem;font-size:13.5px;color:#6B7280;padding:10px 2px}" +
+    ".hyck2-spin{width:15px;height:15px;border:2px solid rgba(30,110,247,.25);border-top-color:#1E6EF7;border-radius:50%;animation:hyck2spin .7s linear infinite;flex:none}" +
+    "@keyframes hyck2spin{to{transform:rotate(360deg)}}" +
+    ".hyck2-hint{font-size:13px;color:#6B7280;padding:8px 2px 0}" +
+    ".hyck2-hint.err{color:#DC2626}" +
+    /* erro + CTA */
+    ".hyck2-err{color:#DC2626;font-size:13px;min-height:1.2em;margin:10px 4px 0}" +
+    ".hyck2-cta{width:100%;height:50px;margin-top:10px;background:#1E6EF7;color:#fff;font-size:15.5px;font-weight:700;border:0;border-radius:8px;cursor:pointer;transition:background .12s,opacity .12s}" +
+    ".hyck2-cta:hover{background:#1a5fd8}" +
+    ".hyck2-cta:disabled{opacity:.6;cursor:default}" +
+    ".hyck2-note{text-align:center;font-size:12.5px;color:#6B7280;margin:12px 6px 0;line-height:1.45}" +
+    ".hyck2-foot{text-align:center;font-size:11.5px;color:#9CA3AF;margin:18px 0 0}" +
+    ".hyck2-foot b{color:#6B7280;font-weight:600}" +
+    "@media(min-width:640px){.hyck2-wrap{padding-top:28px}}";
+
+  var CHEV = '<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  var LOCK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1.5px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+  var TRUCK = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>';
 
   var html = "" +
-    '<div class="modal" role="dialog" aria-modal="true" aria-label="Dados de entrega">' +
-    '<div class="hyck-head"><div><h3>Dados de entrega</h3>' +
-    "<p>Rapidinho: s&oacute; pra calcular o frete e emitir sua nota fiscal.</p></div>" +
-    '<button class="hyck-x" type="button" data-hyck-close aria-label="Fechar">&times;</button></div>' +
-    '<form class="hyck-form" data-hyck-form novalidate>' +
-    '<div class="hyck-body">' +
-    '<div class="hyck-sec">1 &middot; Contato</div>' +
-    '<div class="hyck-grid">' +
-    '<div class="full"><label>Nome completo</label><input name="name" autocomplete="name" placeholder="Como no seu documento" required></div>' +
-    '<div class="m-full"><label>CPF</label><input name="document" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" required></div>' +
-    '<div class="m-full"><label>WhatsApp</label><input name="phone" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-0000" required></div>' +
-    '<div class="full"><label>E-mail</label><input name="email" type="email" autocomplete="email" placeholder="voce@email.com" required></div>' +
+    '<div class="hyck2-wrap">' +
+    '<div class="hyck2-top">' +
+    '<button type="button" class="hyck2-back" data-hyck-close>' +
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Voltar</button>' +
+    '<span class="ttl">Finalizar compra</span>' +
     "</div>" +
-    '<div class="hyck-sec">2 &middot; Endere&ccedil;o de entrega</div>' +
-    '<div class="hyck-grid">' +
-    '<div class="hyck-duo cepnum"><div><label>CEP</label><input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" required></div>' +
-    '<div><label>N&uacute;mero</label><input name="number" autocomplete="address-line2" placeholder="123" required></div></div>' +
-    '<div class="full"><label>Endere&ccedil;o</label><input name="street" autocomplete="address-line1" placeholder="Preenche pelo CEP" required></div>' +
-    '<div><label>Complemento</label><input name="complement" placeholder="Apto, bloco…"></div>' +
-    '<div><label>Bairro</label><input name="neighborhood"></div>' +
-    '<div class="hyck-duo ciduf"><div><label>Cidade</label><input name="city" required></div>' +
-    '<div><label>UF</label><input name="state" maxlength="2" required style="text-transform:uppercase"></div></div>' +
-    "</div>" +
-    '<div class="hyck-sec">3 &middot; Frete</div>' +
-    '<div data-hyck-frete class="hyck-frete"><div class="hyck-hint">Digite o CEP acima pra ver as op&ccedil;&otilde;es e prazos.</div></div>' +
-    '<p class="hyck-err" data-hyck-err></p>' +
-    "</div>" +
-    '<div class="hyck-foot">' +
-    '<div class="hyck-total" data-hyck-total hidden></div>' +
-    '<button type="submit" class="hyck-pay">Ir para o pagamento &rarr;</button>' +
-    '<p class="hyck-muted">&#128274; Pagamento seguro via Paggins &middot; PIX, cart&atilde;o ou PayPal</p>' +
-    "</div></form></div>";
+    '<section class="hyck2-card hyck2-sum" data-hyck-sum>' +
+    '<button type="button" class="hyck2-sumhead" data-hyck-sumtoggle>Resumo da compra<span style="flex:1"></span><b data-hyck-sumtotal></b>' + CHEV + "</button>" +
+    '<div class="hyck2-sumbody" data-hyck-sumbody></div>' +
+    "</section>" +
+    '<form data-hyck-form novalidate>' +
+    "<h2>Dados de contato</h2>" +
+    '<section class="hyck2-card">' +
+    '<div class="hyck2-f"><label>Nome Completo</label><input name="name" autocomplete="name" placeholder="Nome completo"></div>' +
+    '<div class="hyck2-f"><label>Telefone de contato</label><div class="hyck2-phone"><span class="ddi">&#127463;&#127479; +55</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Insira seu celular"></div></div>' +
+    '<div class="hyck2-f"><label>E-mail</label><input name="email" type="email" autocomplete="email" placeholder="Insira seu e-mail"><p class="sub">Você recebe a confirmação e o rastreio do pedido nesse e-mail.</p></div>' +
+    "</section>" +
+    "<h2>Escolha quando sua compra chegará</h2>" +
+    '<section class="hyck2-card">' +
+    '<div class="hyck2-f"><label>CEP</label><input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="Digite seu CEP"></div>' +
+    '<div class="hyck2-shipwrap">' +
+    '<div class="hyck2-shiptag" data-hyck-shiptag hidden>' + TRUCK + "<span>Entrega calculada pro seu CEP</span></div>" +
+    '<div data-hyck-frete><div class="hyck2-hint">Digite o CEP acima pra ver as opções e prazos de entrega.</div></div>' +
+    "</div></section>" +
+    '<p class="hyck2-err" data-hyck-err></p>' +
+    '<button type="submit" class="hyck2-cta">Continuar para o pagamento</button>' +
+    '<p class="hyck2-note">Na próxima etapa você confirma o endereço e escolhe como pagar:<br>Pix, cartão de crédito, PayPal ou Google Pay.</p>' +
+    '<p class="hyck2-foot">' + LOCK + " Pagamento processado com segurança por <b>Paggins</b></p>" +
+    "</form></div>";
 
-  var back = null, form = null, freteBox = null, errEl = null, totalEl = null;
+  var page = null, form = null, freteBox = null, errEl = null;
+  var sumEl = null, sumTotalEl = null, sumBodyEl = null, shipTagEl = null;
   var freteState = { cep: "", options: null, free: false, chosen: "economico" };
 
-  function ensureModal() {
-    if (back) return;
+  function ensurePage() {
+    if (page) return;
     var st = document.createElement("style");
     st.textContent = css;
     document.head.appendChild(st);
-    back = document.createElement("div");
-    back.className = "modal-back hyck";
-    back.innerHTML = html;
-    document.body.appendChild(back);
-    form = back.querySelector("[data-hyck-form]");
-    freteBox = back.querySelector("[data-hyck-frete]");
-    errEl = back.querySelector("[data-hyck-err]");
-    totalEl = back.querySelector("[data-hyck-total]");
+    page = document.createElement("div");
+    page.className = "hyck2";
+    page.setAttribute("role", "dialog");
+    page.setAttribute("aria-modal", "true");
+    page.setAttribute("aria-label", "Finalizar compra");
+    page.innerHTML = html;
+    document.body.appendChild(page);
+    form = page.querySelector("[data-hyck-form]");
+    freteBox = page.querySelector("[data-hyck-frete]");
+    errEl = page.querySelector("[data-hyck-err]");
+    sumEl = page.querySelector("[data-hyck-sum]");
+    sumTotalEl = page.querySelector("[data-hyck-sumtotal]");
+    sumBodyEl = page.querySelector("[data-hyck-sumbody]");
+    shipTagEl = page.querySelector("[data-hyck-shiptag]");
 
-    back.addEventListener("click", function (e) {
-      if (e.target === back || e.target.closest("[data-hyck-close]")) closeModal();
+    page.addEventListener("click", function (e) {
+      if (e.target.closest("[data-hyck-close]")) closePage();
+      if (e.target.closest("[data-hyck-sumtoggle]")) sumEl.classList.toggle("open");
     });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeModal();
+      if (e.key === "Escape") closePage();
     });
 
     /* máscaras leves */
-    form.elements["document"].addEventListener("input", function () {
-      var d = this.value.replace(/\D/g, "").slice(0, 11);
-      this.value = d.replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d)/, "$1.$2")
-                    .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-    });
     form.elements["cep"].addEventListener("input", function () {
       var d = this.value.replace(/\D/g, "").slice(0, 8);
       this.value = d.replace(/(\d{5})(\d)/, "$1-$2");
-      if (d.length === 8) onCep(d);
+      if (d.length === 8) quoteFrete(d);
     });
     form.elements["phone"].addEventListener("input", function () {
       var d = this.value.replace(/\D/g, "").slice(0, 11);
       this.value = d.replace(/(\d{2})(\d)/, "($1) $2").replace(/(\d{5})(\d)/, "$1-$2");
     });
     form.addEventListener("submit", onSubmit);
+    form.addEventListener("input", function () { errEl.textContent = ""; });
 
-    /* restaura dados salvos */
+    /* restaura dados salvos (compat com o form antigo) */
     try {
       var saved = JSON.parse(localStorage.getItem(LS_FORM) || "{}");
-      ["name", "document", "phone", "email", "cep", "number", "street",
-       "complement", "neighborhood", "city", "state"].forEach(function (k) {
+      ["name", "phone", "email", "cep"].forEach(function (k) {
         if (saved[k]) form.elements[k].value = saved[k];
       });
       var cepd = (saved.cep || "").replace(/\D/g, "");
-      if (cepd.length === 8) onCep(cepd);
+      if (cepd.length === 8) quoteFrete(cepd);
     } catch (e) {}
   }
 
-  function openModal() {
-    ensureModal();
-    back.classList.add("open");
+  function openPage() {
+    ensurePage();
+    renderSummary();
+    page.classList.add("open");
     document.body.style.overflow = "hidden";
-    setTimeout(function () { form.elements["name"].focus(); }, 80);
+    page.scrollTop = 0;
   }
-  function closeModal() {
-    if (back && back.classList.contains("open")) {
-      back.classList.remove("open");
+  function closePage() {
+    if (page && page.classList.contains("open")) {
+      page.classList.remove("open");
       document.body.style.overflow = "";
     }
   }
 
-  /* ── CEP → ViaCEP + cotação ──────────────────────────────────────────── */
-  function onCep(cep) {
-    fetch("https://viacep.com.br/ws/" + cep + "/json/")
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        if (d && !d.erro) {
-          if (d.logradouro && !form.elements["street"].value) form.elements["street"].value = d.logradouro;
-          if (d.bairro && !form.elements["neighborhood"].value) form.elements["neighborhood"].value = d.bairro;
-          if (d.localidade) form.elements["city"].value = d.localidade;
-          if (d.uf) form.elements["state"].value = d.uf;
-        }
-      }).catch(function () {});
-    quoteFrete(cep);
+  /* ── resumo da compra ────────────────────────────────────────────────── */
+  function renderSummary() {
+    var lines = cartLines();
+    var sub = subtotalCents(lines);
+    var frete = freteState.options ? (freteState.free ? 0 : chosenCents()) : null;
+    sumTotalEl.textContent = brl(sub + (frete || 0));
+    var rows = lines.map(function (i) {
+      return '<div class="hyck2-it"><img src="' + lineImg(i) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' +
+        '<div class="nm">' + lineTitle(i) + "<small>Quantidade: " + i.qty + "</small></div>" +
+        '<div class="pr">' + brl((TIER_CENTS[i.tier] || 0) * i.qty) + "</div></div>";
+    }).join("");
+    var tot = '<div class="hyck2-tot"><div><span>Subtotal</span><span>' + brl(sub) + "</span></div>";
+    if (frete !== null) {
+      tot += "<div><span>Frete</span><span>" + (frete === 0 ? "Grátis" : brl(frete)) + "</span></div>";
+      tot += '<div class="tt"><span>Total</span><span>' + brl(sub + frete) + "</span></div>";
+    } else {
+      tot += '<div class="tt"><span>Total</span><span>' + brl(sub) + " + frete</span></div>";
+    }
+    tot += "</div>";
+    sumBodyEl.innerHTML = rows + tot;
   }
 
+  /* ── CEP → cotação Mandaê ────────────────────────────────────────────── */
   function quoteFrete(cep) {
     var lines = cartLines();
     if (!lines.length) return;
     freteState.cep = cep;
     freteState.options = null;
-    freteBox.innerHTML = '<div class="hyck-calc"><span class="hyck-spin"></span>Calculando frete pro seu CEP…</div>';
+    shipTagEl.hidden = true;
+    freteBox.innerHTML = '<div class="hyck2-calc"><span class="hyck2-spin"></span>Calculando a entrega pro seu CEP…</div>';
     fetch(API + "/frete", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -262,7 +287,7 @@
       renderFrete();
       try { freteBox.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
     }).catch(function () {
-      freteBox.innerHTML = '<div class="hyck-hint" style="color:#ff8d7a">Não consegui calcular o frete — confere o CEP e tenta de novo.</div>';
+      freteBox.innerHTML = '<div class="hyck2-hint err">Não consegui calcular a entrega — confere o CEP e tenta de novo.</div>';
     });
   }
 
@@ -272,42 +297,40 @@
     return o ? o.cents : (freteState.options[0] ? freteState.options[0].cents : 0);
   }
 
+  function optRow(name, days, cents, value, sel) {
+    return '<label class="hyck2-opt' + (sel ? " sel" : "") + '">' +
+      '<input type="radio" name="hyck-frete" value="' + value + '"' + (sel ? " checked" : "") + ">" +
+      '<span class="dot"></span>' +
+      '<span class="inf">' + name + (days ? "<small>chega em ~" + days + " dia" + (days > 1 ? "s" : "") + " úteis</small>" : "") + "</span>" +
+      '<span class="prc">' + (cents === 0 ? "R$ 0,00" : brl(cents)) + "</span></label>";
+  }
+
   function renderFrete() {
+    var rows;
     if (freteState.free) {
       freteState.chosen = "economico";
-      var dias = "";
       var eco = (freteState.options || []).find(function (o) { return o.service === "economico"; });
-      if (eco && eco.days) dias = "<small>Chega em ~" + eco.days + " dia" + (eco.days > 1 ? "s" : "") + " úteis após o despacho</small>";
-      freteBox.innerHTML = '<div class="hyck-free"><span style="font-size:1.2rem">🎉</span><div>Frete grátis pro seu pedido' + dias + "</div></div>";
+      rows = optRow("Frete Grátis", eco && eco.days, 0, "economico", true);
     } else {
       if (!(freteState.options || []).some(function (x) { return x.service === freteState.chosen; })) {
         freteState.chosen = (freteState.options[0] || {}).service || "economico";
       }
-      freteBox.innerHTML = (freteState.options || []).map(function (o) {
-        var sel = o.service === freteState.chosen;
-        return '<label class="hyck-opt' + (sel ? " sel" : "") + '"><input type="radio" name="hyck-frete" value="' + o.service + '"' + (sel ? " checked" : "") + ">" +
-          '<span class="dot"></span>' +
-          '<span class="inf"><b>' + o.name + "</b><span>chega em ~" + o.days + " dia" + (o.days > 1 ? "s" : "") + " úteis</span></span>" +
-          '<span class="prc">' + brl(o.cents) + "</span></label>";
+      rows = (freteState.options || []).map(function (o) {
+        return optRow(o.name, o.days, o.cents, o.service, o.service === freteState.chosen);
       }).join("");
-      freteBox.querySelectorAll("input[name=hyck-frete]").forEach(function (r) {
-        r.addEventListener("change", function () {
-          freteState.chosen = this.value;
-          freteBox.querySelectorAll(".hyck-opt").forEach(function (l) {
-            l.classList.toggle("sel", l.querySelector("input").checked);
-          });
-          renderTotal();
-        });
-      });
     }
-    renderTotal();
-  }
-
-  function renderTotal() {
-    var sub = subtotalCents(cartLines());
-    var frete = freteState.free ? 0 : chosenCents();
-    totalEl.hidden = false;
-    totalEl.innerHTML = "<span>Total com frete</span><b>" + brl(sub + frete) + "</b>";
+    freteBox.innerHTML = '<div class="hyck2-ship"><div class="hd">Envio 1</div>' + rows + "</div>";
+    shipTagEl.hidden = false;
+    freteBox.querySelectorAll("input[name=hyck-frete]").forEach(function (r) {
+      r.addEventListener("change", function () {
+        freteState.chosen = this.value;
+        freteBox.querySelectorAll(".hyck2-opt").forEach(function (l) {
+          l.classList.toggle("sel", l.querySelector("input").checked);
+        });
+        renderSummary();
+      });
+    });
+    renderSummary();
   }
 
   /* ── submit ──────────────────────────────────────────────────────────── */
@@ -318,32 +341,25 @@
     if (!lines.length) { errEl.textContent = "Sacola vazia."; return; }
     var f = form.elements; // ⚠️ form.name é o atributo do <form>, não o input
     var name = f.name.value.trim();
-    var doc = f.document.value.replace(/\D/g, "");
     var phone = f.phone.value.replace(/\D/g, "");
     var email = f.email.value.trim();
     var cep = f.cep.value.replace(/\D/g, "");
     if (name.split(/\s+/).length < 2) { errEl.textContent = "Digite o nome completo."; f.name.focus(); return; }
-    if (!validCpf(doc)) { errEl.textContent = "CPF inválido."; f.document.focus(); return; }
-    if (phone.length < 10) { errEl.textContent = "WhatsApp inválido (DDD + número)."; f.phone.focus(); return; }
+    if (phone.length < 10) { errEl.textContent = "Celular inválido (DDD + número)."; f.phone.focus(); return; }
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { errEl.textContent = "E-mail inválido."; f.email.focus(); return; }
     if (cep.length !== 8) { errEl.textContent = "CEP inválido."; f.cep.focus(); return; }
-    if (!f.street.value.trim() || !f.number.value.trim() || !f.city.value.trim() || f.state.value.trim().length !== 2) {
-      errEl.textContent = "Complete o endereço (rua, número, cidade e UF)."; return;
-    }
-    if (!freteState.options) { errEl.textContent = "Aguarde o cálculo do frete."; quoteFrete(cep); return; }
+    if (!freteState.options) { errEl.textContent = "Aguarde o cálculo da entrega."; quoteFrete(cep); return; }
 
-    var data = {
-      name: name, document: f.document.value, phone: phone, email: email,
-      cep: f.cep.value, number: f.number.value.trim(), street: f.street.value.trim(),
-      complement: f.complement.value.trim(), neighborhood: f.neighborhood.value.trim(),
-      city: f.city.value.trim(), state: f.state.value.trim().toUpperCase()
-    };
-    try { localStorage.setItem(LS_FORM, JSON.stringify(data)); } catch (e) {}
+    try {
+      localStorage.setItem(LS_FORM, JSON.stringify({
+        name: name, phone: phone, email: email, cep: f.cep.value
+      }));
+    } catch (e) {}
 
-    var btn = form.querySelector(".hyck-pay");
+    var btn = form.querySelector(".hyck2-cta");
     btn.disabled = true;
     var old = btn.textContent;
-    btn.textContent = "Processando…";
+    btn.textContent = "Só um instante…";
 
     fetch(API + "/checkout", {
       method: "POST",
@@ -352,12 +368,8 @@
         items: payloadItems(lines),
         meta: cartMeta(),
         origin: location.origin,
-        customer: { name: data.name, document: doc, email: data.email, phone: phone },
-        address: {
-          cep: cep, street: data.street, number: data.number,
-          complement: data.complement, neighborhood: data.neighborhood,
-          city: data.city, state: data.state
-        },
+        customer: { name: name, email: email, phone: phone },
+        address: { cep: cep },
         shipping: { service: freteState.free ? "economico" : freteState.chosen }
       })
     }).then(function (r) {
@@ -385,9 +397,10 @@
     e.preventDefault();
     e.stopImmediatePropagation();
     e.stopPropagation();
-    openModal();
+    openPage();
     // sempre re-cota ao abrir: o carrinho pode ter mudado (o backend tem cache)
     var cep = form.elements["cep"].value.replace(/\D/g, "");
     if (cep.length === 8) quoteFrete(cep);
+    else renderSummary();
   }, true);
 })();
