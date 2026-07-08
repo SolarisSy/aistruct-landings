@@ -118,7 +118,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.2.2")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.2.3")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -175,7 +175,7 @@ PRODUCT_IDS: dict[tuple[str, str], str] = {
 # por sessão — mesmo padrão provado do cupom/frete embutido). Trocar por produto
 # dedicado quando criado no painel: MIX_PRODUCT_ID_KIT6 / MIX_PRODUCT_ID_KIT12.
 MIX_FEE_CENTS = int(os.environ.get("MIX_FEE_CENTS", "490"))   # R$4,90 por kit — manter = front (cart.hyumix)
-MIX_STEP = int(os.environ.get("MIX_STEP", "3"))                # sabores entram em TRINCAS (3, 6, 9…) — manter = front
+MIX_STEP = int(os.environ.get("MIX_STEP", "1"))                # latas por sabor: 1 = escolha livre — manter = front
 # sabores SEM ESTOQUE (tarja "Em breve" no site): bloqueia kit por sabor e mix que
 # os contenha. Voltar estoque = setar env vazio ("") + tirar a tarja do front.
 # ⚠️ COMBOS que contêm esses sabores (kit-soda/super-kit/kit24/assinaturas) seguem
