@@ -118,7 +118,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.2.0")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.2.1")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -175,6 +175,7 @@ PRODUCT_IDS: dict[tuple[str, str], str] = {
 # por sessão — mesmo padrão provado do cupom/frete embutido). Trocar por produto
 # dedicado quando criado no painel: MIX_PRODUCT_ID_KIT6 / MIX_PRODUCT_ID_KIT12.
 MIX_FEE_CENTS = int(os.environ.get("MIX_FEE_CENTS", "490"))   # R$4,90 por kit — manter = front (cart.hyumix)
+MIX_STEP = int(os.environ.get("MIX_STEP", "3"))                # sabores entram em TRINCAS (3, 6, 9…) — manter = front
 MIX_PRODUCT_IDS: dict[str, str] = {
     "kit6":  os.environ.get("MIX_PRODUCT_ID_KIT6",
                             "62ed2805-089e-454f-afa0-f28f6dfa6abc"),   # HYU Kit Soda (6)
@@ -331,6 +332,10 @@ def _cart_lines(raw_items: Any) -> list[dict[str, Any]]:
                     raise HTTPException(400, "mix com quantidade invalida")
                 if n < 1:
                     raise HTTPException(400, "mix com quantidade invalida")
+                if n % MIX_STEP:
+                    raise HTTPException(
+                        400, f"mix em multiplos de {MIX_STEP} latas por sabor "
+                             f"({slug}={n})")
                 counts[slug] = counts.get(slug, 0) + n
             if sum(counts.values()) != TIERS[tier]["cans"]:
                 raise HTTPException(
