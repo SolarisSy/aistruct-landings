@@ -406,10 +406,18 @@ async def cotar_frete(request: Request):
     lines = _cart_lines(payload.get("items"))
     cans = sum(ln["cans"] for ln in lines)
     subtotal = sum(ln["cents"] * ln["qty"] for ln in lines)
-    options = await _mandae_rates(cep, cans, subtotal)
     free = cans >= FREE_SHIPPING_CANS
-    if free:
-        options = [{**o, "cents": 0} for o in options]
+    try:
+        options = await _mandae_rates(cep, cans, subtotal)
+        if free:
+            options = [{**o, "cents": 0} for o in options]
+    except HTTPException:
+        # frete GRÁTIS (>=12 latas) não depende da Mandaê — não deixa a cotação
+        # indisponível travar a loja. Kit 6 avulso (pago) ainda exige a Mandaê.
+        if not free:
+            raise
+        options = [{"service": "economico", "name": "Frete Grátis",
+                    "days": 7, "cents": 0}]
     return {"cep": cep, "cans": cans, "free": free, "options": options}
 
 
