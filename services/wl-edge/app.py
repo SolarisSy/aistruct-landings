@@ -26,15 +26,36 @@ import httpx
 from fastapi import FastAPI, HTTPException, Request, Response
 
 UPSTREAM = os.environ.get("EDGE_UPSTREAM", "https://rpc.adspect.net/v2").rstrip("/")
-TOKENS: dict[str, str] = json.loads(os.environ.get("EDGE_TOKENS", "{}"))
 TIMEOUT = float(os.environ.get("EDGE_TIMEOUT", "60"))
 
 # headers que o provedor de cloaking espera receber (traduzidos a partir dos neutros)
 _H_IP = os.environ.get("EDGE_UPSTREAM_IP_HEADER", "Adspect-IP")
 _H_UA = os.environ.get("EDGE_UPSTREAM_UA_HEADER", "Adspect-UA")
 
+
+def _load_tokens() -> dict[str, str]:
+    raw = (os.environ.get("EDGE_TOKENS") or "").strip() or "{}"
+    try:
+        data = json.loads(raw)
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+TOKENS: dict[str, str] = _load_tokens()
+
 app = FastAPI(title="edge", docs_url=None, redoc_url=None, openapi_url=None)
-_client = httpx.AsyncClient(timeout=TIMEOUT)
+
+# client httpx criado sob demanda (dentro do event loop do uvicorn/uvloop) —
+# criar no import quebra sob uvloop no Linux (não reproduz no Windows local)
+_client: httpx.AsyncClient | None = None
+
+
+def _http() -> httpx.AsyncClient:
+    global _client
+    if _client is None:
+        _client = httpx.AsyncClient(timeout=TIMEOUT)
+    return _client
 
 
 def _real_ip(req: Request) -> str:
@@ -71,10 +92,11 @@ async def relay(token: str, request: Request):
         "Content-Type": request.headers.get("content-type", "application/x-www-form-urlencoded"),
     }
     try:
-        up = await _client.request("POST", target, content=body, headers=fwd)
+        up = await _http().request("POST", target, content=body, headers=fwd)
     except httpx.HTTPError:
         raise HTTPException(502, "upstream error")
 
+    # devolve só o essencial — nenhum header que identifique o provedor
     resp = Response(
         content=up.content,
         status_code=up.status_code,
