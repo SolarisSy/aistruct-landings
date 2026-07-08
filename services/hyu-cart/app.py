@@ -118,7 +118,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.2.1")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.2.2")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -176,6 +176,12 @@ PRODUCT_IDS: dict[tuple[str, str], str] = {
 # dedicado quando criado no painel: MIX_PRODUCT_ID_KIT6 / MIX_PRODUCT_ID_KIT12.
 MIX_FEE_CENTS = int(os.environ.get("MIX_FEE_CENTS", "490"))   # R$4,90 por kit — manter = front (cart.hyumix)
 MIX_STEP = int(os.environ.get("MIX_STEP", "3"))                # sabores entram em TRINCAS (3, 6, 9…) — manter = front
+# sabores SEM ESTOQUE (tarja "Em breve" no site): bloqueia kit por sabor e mix que
+# os contenha. Voltar estoque = setar env vazio ("") + tirar a tarja do front.
+# ⚠️ COMBOS que contêm esses sabores (kit-soda/super-kit/kit24/assinaturas) seguem
+# vendendo — decisão de negócio separada.
+OUT_OF_STOCK = {s.strip() for s in os.environ.get(
+    "OUT_OF_STOCK_FLAVORS", "hot-lemon,pessego-morango").split(",") if s.strip()}
 MIX_PRODUCT_IDS: dict[str, str] = {
     "kit6":  os.environ.get("MIX_PRODUCT_ID_KIT6",
                             "62ed2805-089e-454f-afa0-f28f6dfa6abc"),   # HYU Kit Soda (6)
@@ -326,6 +332,10 @@ def _cart_lines(raw_items: Any) -> list[dict[str, Any]]:
             for slug, n in mix.items():
                 if slug not in FLAVORS:
                     raise HTTPException(400, f"sabor desconhecido no mix: {slug}")
+                if slug in OUT_OF_STOCK:
+                    raise HTTPException(
+                        400, f"{FLAVORS[slug]['short']} esgotado — em breve de volta; "
+                             "tira ele do kit pra continuar")
                 try:
                     n = int(n)
                 except (TypeError, ValueError):
@@ -350,6 +360,10 @@ def _cart_lines(raw_items: Any) -> list[dict[str, Any]]:
             flavor, tier = it.get("flavor"), it.get("tier")
             if flavor not in FLAVORS or tier not in TIERS:
                 raise HTTPException(400, f"combinacao desconhecida: {flavor}/{tier}")
+            if flavor in OUT_OF_STOCK:
+                raise HTTPException(
+                    400, f"{FLAVORS[flavor]['short']} esgotado — em breve de volta; "
+                         "tira ele da sacola pra continuar")
             key = ("flavor", flavor, tier)
         merged[key] = min(merged.get(key, 0) + qty, MAX_QTY)
     if len(merged) > MAX_LINES:
