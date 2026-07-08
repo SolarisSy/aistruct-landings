@@ -118,7 +118,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.1.0")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.2.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -135,14 +135,19 @@ app.add_middleware(
 # front (src/data/products.ts: prices/combos). Hoje: kit6=6990 kit12=11990 kit24=21990 sub=9990.
 FLAVORS: dict[str, dict[str, str]] = {
     "hot-lemon":       {"name": "HYU Soda Protein Hot Lemon", "sku": "HOTLEMON",
+                        "short": "Hot Lemon", "code": "HL",
                         "desc": "15g de proteína · 3g de fibras · zero açúcar · 269ml"},
     "maca-verde":      {"name": "HYU Soda Protein Maçã Verde", "sku": "MACAVERDE",
+                        "short": "Maçã Verde", "code": "MV",
                         "desc": "15g de proteína · 3g de fibras · zero açúcar · 269ml"},
     "pessego-morango": {"name": "HYU Soda Protein Pêssego com Morango", "sku": "PESSEGOMORANGO",
+                        "short": "Pêssego com Morango", "code": "PM",
                         "desc": "15g de proteína · 3g de fibras · zero açúcar · 269ml"},
     "tropical":        {"name": "HYU Energy Protein Tropical", "sku": "TROPICAL",
+                        "short": "Tropical", "code": "TP",
                         "desc": "15g de proteína · 85mg de cafeína natural · zero açúcar · 269ml"},
     "maca-vermelha":   {"name": "HYU Energy Protein Maçã Vermelha", "sku": "MACAVERMELHA",
+                        "short": "Maçã Vermelha", "code": "MA",
                         "desc": "15g de proteína · 85mg de cafeína natural · zero açúcar · 269ml"},
 }
 TIERS: dict[str, dict[str, Any]] = {
@@ -161,6 +166,22 @@ PRODUCT_IDS: dict[tuple[str, str], str] = {
     ("maca-vermelha", "kit6"):    "6595de07-23c2-44b7-bf99-d2f00919be96",
     ("maca-vermelha", "kit12"):   "d8d1b025-bb9f-4b80-92c0-76845a01453c",
 }
+# ── kit PERSONALIZADO (mix de sabores lata a lata) ───────────────────────────
+# Item do carrinho: {mix:{slug:latas,...}, tier, qty}. A soma das latas DEVE fechar
+# o kit (6 ou 12). Preço = kit + taxa de personalização. Mix de 1 sabor só colapsa
+# pra kit normal SEM taxa. A composição vai no NAME (único campo que a Paggins
+# renderiza) e no SKU (fulfillment lê a receita: HYU-MIXK6-MA3TP2HL1).
+# productId: reusa um produto Paggins existente (name/unitAmount são sobrescritos
+# por sessão — mesmo padrão provado do cupom/frete embutido). Trocar por produto
+# dedicado quando criado no painel: MIX_PRODUCT_ID_KIT6 / MIX_PRODUCT_ID_KIT12.
+MIX_FEE_CENTS = int(os.environ.get("MIX_FEE_CENTS", "490"))   # R$4,90 por kit — manter = front (cart.hyumix)
+MIX_PRODUCT_IDS: dict[str, str] = {
+    "kit6":  os.environ.get("MIX_PRODUCT_ID_KIT6",
+                            "62ed2805-089e-454f-afa0-f28f6dfa6abc"),   # HYU Kit Soda (6)
+    "kit12": os.environ.get("MIX_PRODUCT_ID_KIT12",
+                            "972ac99f-2800-4db9-88af-d34246cbd3ed"),   # HYU Super Kit (12)
+}
+
 # combos = produtos Paggins proprios (1 productId cada). Assinaturas NAO entram (links fixos).
 COMBOS: dict[str, dict[str, Any]] = {
     "kit-energy": {"productId": "5287a35b-9a4c-4307-a929-599ab5e2791d", "cents": 6990,
@@ -289,10 +310,37 @@ def _cart_lines(raw_items: Any) -> list[dict[str, Any]]:
         if not 1 <= qty <= MAX_QTY:
             raise HTTPException(400, f"qty fora de 1..{MAX_QTY}")
         combo = it.get("combo")
+        mix = it.get("mix")
         if combo is not None:
             if combo not in COMBOS:
                 raise HTTPException(400, f"combo desconhecido: {combo}")
             key: tuple = ("combo", combo)
+        elif mix is not None:
+            tier = it.get("tier")
+            if tier not in TIERS:
+                raise HTTPException(400, f"tier de mix desconhecido: {tier}")
+            if not isinstance(mix, dict) or not mix:
+                raise HTTPException(400, "mix invalido")
+            counts: dict[str, int] = {}
+            for slug, n in mix.items():
+                if slug not in FLAVORS:
+                    raise HTTPException(400, f"sabor desconhecido no mix: {slug}")
+                try:
+                    n = int(n)
+                except (TypeError, ValueError):
+                    raise HTTPException(400, "mix com quantidade invalida")
+                if n < 1:
+                    raise HTTPException(400, "mix com quantidade invalida")
+                counts[slug] = counts.get(slug, 0) + n
+            if sum(counts.values()) != TIERS[tier]["cans"]:
+                raise HTTPException(
+                    400, f"mix nao fecha o kit: soma {sum(counts.values())} != "
+                         f"{TIERS[tier]['cans']} latas ({tier})")
+            if len(counts) == 1:
+                # 1 sabor só = kit normal (sem taxa de personalização)
+                key = ("flavor", next(iter(counts)), tier)
+            else:
+                key = ("mix", tier, tuple(sorted(counts.items())))
         else:
             flavor, tier = it.get("flavor"), it.get("tier")
             if flavor not in FLAVORS or tier not in TIERS:
@@ -308,6 +356,25 @@ def _cart_lines(raw_items: Any) -> list[dict[str, Any]]:
             lines.append({"qty": qty, "sku": f"HYU-{c['sku']}", "name": c["name"],
                           "cents": c["cents"], "cans": c["cans"] * qty,
                           "productId": c["productId"], "img": c["img"]})
+        elif key[0] == "mix":
+            _, tier, comp = key
+            t = TIERS[tier]
+            # composição: mais latas primeiro (desempate por nome estável)
+            ordered = sorted(comp, key=lambda kv: (-kv[1], kv[0]))
+            comp_txt = " + ".join(f"{n} {FLAVORS[s]['short']}" for s, n in ordered)
+            kit_lbl = t["label"].split(" (")[0]          # "Kit 6"
+            lines.append({
+                "qty": qty,
+                "sku": "HYU-MIX" + t["sku"] + "-"
+                       + "".join(f"{FLAVORS[s]['code']}{n}" for s, n in ordered),
+                "name": f"HYU {kit_lbl} Personalizado — {comp_txt}",
+                "cents": t["cents"] + MIX_FEE_CENTS,
+                "cans": t["cans"] * qty,
+                "productId": MIX_PRODUCT_IDS[tier],
+                "img": "super-kit",
+                "desc": "Kit montado lata a lata pelo cliente "
+                        "(taxa de personalização inclusa)",
+            })
         else:
             _, flavor, tier = key
             f, t = FLAVORS[flavor], TIERS[tier]

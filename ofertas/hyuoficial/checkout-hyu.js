@@ -19,6 +19,9 @@
   var COMBOS = { "kit-energy": 1, "kit-soda": 1, "super-kit": 1, "kit24": 1 };
   var TIER_CENTS = { kit6: 6990, kit12: 11990, kit24: 21990 };
   var TIER_LABEL = { kit6: "6 latas", kit12: "12 latas", kit24: "24 latas" };
+  /* kit personalizado (mix de sabores) — manter = bridge MIX_FEE_CENTS */
+  var MIX_FEE = 490;
+  var MIX_LABEL = { kit6: "Kit 6 Personalizado", kit12: "Kit 12 Personalizado" };
   var TITLES = {
     "kit-energy": "Kit Energy", "kit-soda": "Kit Soda", "super-kit": "Super Kit",
     "kit24": "Kit 24", "hot-lemon": "Hot Lemon", "maca-verde": "Maçã Verde",
@@ -39,6 +42,7 @@
   }
   function payloadItems(lines) {
     return lines.map(function (i) {
+      if (i.mix) return { mix: i.mix, tier: i.tier, qty: i.qty };
       return COMBOS[i.flavor] ? { combo: i.flavor, qty: i.qty }
                               : { flavor: i.flavor, tier: i.tier, qty: i.qty };
     });
@@ -52,21 +56,30 @@
     m.page = location.pathname;
     return m;
   }
+  function lineCents(i) {
+    return (TIER_CENTS[i.tier] || 0) + (i.mix ? MIX_FEE : 0);
+  }
   function subtotalCents(lines) {
     return lines.reduce(function (s, i) {
-      return s + (TIER_CENTS[i.tier] || 0) * i.qty;
+      return s + lineCents(i) * i.qty;
     }, 0);
   }
   function brl(cents) {
     return (cents / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   }
+  function mixComp(mix) {
+    return Object.keys(mix).sort(function (a, b) { return mix[b] - mix[a]; })
+      .map(function (s) { return mix[s] + "× " + (TITLES[s] || s); }).join(" · ");
+  }
   function lineTitle(i) {
+    if (i.mix) return (MIX_LABEL[i.tier] || "Kit Personalizado") + " — " + mixComp(i.mix);
     var t = TITLES[i.flavor] || i.flavor;
     if (!COMBOS[i.flavor] && TIER_LABEL[i.tier]) t += " — " + TIER_LABEL[i.tier];
     else if (COMBOS[i.flavor] && TIER_LABEL[i.tier]) t += " · " + TIER_LABEL[i.tier];
     return t;
   }
   function lineImg(i) {
+    if (i.mix) return "/img/kits/super-kit.webp";
     return "/img/kits/" + (IMGS[i.flavor] || i.flavor) + ".webp";
   }
 
@@ -252,8 +265,9 @@
     sumTotalEl.textContent = brl(sub + (frete || 0));
     var rows = lines.map(function (i) {
       return '<div class="hyck2-it"><img src="' + lineImg(i) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' +
-        '<div class="nm">' + lineTitle(i) + "<small>Quantidade: " + i.qty + "</small></div>" +
-        '<div class="pr">' + brl((TIER_CENTS[i.tier] || 0) * i.qty) + "</div></div>";
+        '<div class="nm">' + lineTitle(i) + "<small>Quantidade: " + i.qty +
+        (i.mix ? " · inclui personalização (R$ 4,90)" : "") + "</small></div>" +
+        '<div class="pr">' + brl(lineCents(i) * i.qty) + "</div></div>";
     }).join("");
     var tot = '<div class="hyck2-tot"><div><span>Subtotal</span><span>' + brl(sub) + "</span></div>";
     if (frete !== null) {
