@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Apresentação</title>
+
+<!-- Utmify UTM capture -->
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+
+<!-- Vturb SmartPlayer v4 (conta marcos 9dfc9d7c) -->
+<script src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" id="vturb-smartplayer-js" fetchpriority="high"></script>
+<script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/9dfc9d7c-755b-43bf-80b8-658e261ab44b/players/6a4417cdeacc4ad5235a17d7/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#000;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100%}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+  .player{width:100%;max-width:800px}
+  vturb-smartplayer{width:100%;display:block;margin:0 auto}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="player">
+      <vturb-smartplayer id="vid-6a4417cdeacc4ad5235a17d7" style="display:block;margin:0 auto;width:100%;max-width:800px;"></vturb-smartplayer>
+    </div>
+  </div>
+
+  <!-- GLUE UTMify: carimba utm_*/fbclid/src no CTA do player (Shadow DOM) → Kirvano. -->
+  <script>
+  (function () {
+    var CO = "https://pay.kirvano.com/fb614336-7035-4bc5-a16c-2063ed7d8380";
+    if (!CO) return;
+    var COBASE = CO.split('?')[0];
+    var KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','src','cmpid'];
+    function params() {
+      var out = {};
+      try {
+        var p = new URLSearchParams(location.search);
+        KEYS.forEach(function(k){ var v=p.get(k); if(v) out[k]=v; });
+        if(!out.src){ var s = p.get('src')||p.get('fbclid')||p.get('gclid')||p.get('utm_source'); if(s) out.src=s; }
+      } catch(e){}
+      return out;
+    }
+    function withUtms(url) {
+      try {
+        if (typeof url !== 'string' || url.indexOf(COBASE) !== 0) return url;
+        var u = new URL(url);
+        var pr = params();
+        Object.keys(pr).forEach(function(k){ if(!u.searchParams.has(k)) u.searchParams.set(k, pr[k]); });
+        return u.toString();
+      } catch(e){ return url; }
+    }
+    function walk(root) {
+      try {
+        var as = root.querySelectorAll ? root.querySelectorAll('a[href]') : [];
+        for (var i=0;i<as.length;i++){ var nu=withUtms(as[i].href); if(nu!==as[i].href) as[i].href=nu; }
+        var all = root.querySelectorAll ? root.querySelectorAll('*') : [];
+        for (var j=0;j<all.length;j++){ if(all[j].shadowRoot) walk(all[j].shadowRoot); }
+      } catch(e){}
+    }
+    function sweep(){ walk(document); }
+    setInterval(sweep, 600);
+    try { new MutationObserver(sweep).observe(document.documentElement,{childList:true,subtree:true}); } catch(e){}
+    function onInteract(ev){
+      try {
+        var path = ev.composedPath ? ev.composedPath() : [];
+        for (var i=0;i<path.length;i++){ var el=path[i];
+          if (el && el.tagName==='A' && el.href){ var nu=withUtms(el.href); if(nu!==el.href) el.href=nu; } }
+      } catch(e){}
+    }
+    document.addEventListener('pointerdown', onInteract, true);
+    document.addEventListener('click', onInteract, true);
+    var _open = window.open;
+    window.open = function(u,n,f){ return _open.call(window, withUtms(u), n, f); };
+    try {
+      var _a = window.location.assign.bind(window.location);
+      window.location.assign = function(u){ return _a(withUtms(u)); };
+      var _r = window.location.replace.bind(window.location);
+      window.location.replace = function(u){ return _r(withUtms(u)); };
+    } catch(e){}
+  })();
+  </script>
+</body>
+</html>
