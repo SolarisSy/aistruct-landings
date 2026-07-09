@@ -425,6 +425,10 @@
                     <p class="text-purple-200 text-sm max-w-md">
                         Crédito rápido, seguro e transparente. Simule em minutos e receba sua proposta personalizada.
                     </p>
+                    <div class="mt-4 text-xs text-purple-200 space-y-1">
+                        <p class="font-semibold text-white">THE ART COMERCIO DE ROUPAS SKATESHOP LTDA</p>
+                        <p>CNPJ: 84.740.869/0003-24</p>
+                    </div>
                 </div>
 
                 <!-- Links -->
@@ -441,16 +445,16 @@
                 <div>
                     <h4 class="font-bold mb-4">Legal</h4>
                     <ul class="space-y-2 text-sm text-purple-200">
-                        <li><a href="#" class="hover:text-white transition">Termos de Uso</a></li>
-                        <li><a href="#" class="hover:text-white transition">Política de Privacidade</a></li>
-                        <li><a href="#" class="hover:text-white transition">LGPD</a></li>
+                        <li><a href="#" onclick="openLegal('termos'); return false;" class="hover:text-white transition">Termos de Uso</a></li>
+                        <li><a href="#" onclick="openLegal('privacidade'); return false;" class="hover:text-white transition">Política de Privacidade</a></li>
+                        <li><a href="#" onclick="openLegal('lgpd'); return false;" class="hover:text-white transition">LGPD</a></li>
                     </ul>
                 </div>
             </div>
 
             <!-- Bottom -->
             <div class="border-t border-purple-400/30 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-purple-200">
-                <p>&copy; 2026 CreditoAgi. Todos os direitos reservados.</p>
+                <p>&copy; 2026 THE ART COMERCIO DE ROUPAS SKATESHOP LTDA &middot; CNPJ 84.740.869/0003-24. Todos os direitos reservados.</p>
                 <p class="mt-2 md:mt-0">
                     <i class="fas fa-shield-halved mr-1"></i>
                     Site seguro | SSL Certificado
@@ -458,6 +462,129 @@
             </div>
         </div>
     </footer>
+
+    <!-- ===================== LEGAL MODALS ===================== -->
+    <div id="legal-overlay" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4" onclick="if(event.target===this)closeLegal()">
+        <div class="bg-white w-full max-w-3xl max-h-[85vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <!-- Modal Header -->
+            <div class="purple-gradient text-white px-6 py-4 flex items-center justify-between flex-shrink-0">
+                <h3 id="legal-title" class="text-lg md:text-xl font-bold"></h3>
+                <button onclick="closeLegal()" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center" aria-label="Fechar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div id="legal-body" class="px-6 py-6 overflow-y-auto text-sm text-gray-700 leading-relaxed space-y-4"></div>
+        </div>
+    </div>
+
+    <script>
+        var LEGAL_COMPANY = "THE ART COMERCIO DE ROUPAS SKATESHOP LTDA";
+        var LEGAL_CNPJ = "84.740.869/0003-24";
+        var LEGAL_SITE = "creditoagil.cfd";
+        var LEGAL_UPDATED = "09 de julho de 2026";
+
+        var LEGAL_CONTENT = {
+            termos: {
+                title: "Termos de Uso",
+                html:
+                    "<p><strong>Última atualização:</strong> " + LEGAL_UPDATED + "</p>" +
+                    "<p>Estes Termos de Uso regulam o acesso e a utilização do site <strong>" + LEGAL_SITE + "</strong> (\"Site\"), de titularidade de <strong>" + LEGAL_COMPANY + "</strong>, inscrita no CNPJ sob o nº <strong>" + LEGAL_CNPJ + "</strong> (\"Empresa\"). Ao acessar e utilizar o Site, você declara ter lido, compreendido e aceito integralmente as condições abaixo.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>1. Objeto</h4>" +
+                    "<p>O Site tem finalidade meramente informativa e de simulação, permitindo ao usuário realizar uma simulação preliminar de crédito e receber conteúdo relacionado a produtos e serviços financeiros. A simulação <strong>não constitui oferta, promessa ou garantia de concessão de crédito</strong>, estando qualquer contratação sujeita a análise e aprovação por instituição financeira parceira.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>2. Elegibilidade</h4>" +
+                    "<p>O uso do Site é destinado a pessoas maiores de 18 (dezoito) anos, plenamente capazes. Ao utilizar o Site, o usuário garante que as informações fornecidas são verdadeiras, exatas e atualizadas, responsabilizando-se civil e criminalmente por elas.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>3. Simulação de Crédito</h4>" +
+                    "<p>Os valores, limites, prazos e condições apresentados na simulação são estimativas geradas com base nos dados informados e podem variar conforme o perfil do usuário e os critérios das instituições parceiras. Nenhum resultado de simulação vincula a Empresa ou terceiros à concessão de crédito.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>4. Obrigações do Usuário</h4>" +
+                    "<p>O usuário compromete-se a: (a) fornecer informações verdadeiras; (b) não utilizar o Site para fins ilícitos, fraudulentos ou que violem direitos de terceiros; (c) não tentar acessar áreas restritas, burlar mecanismos de segurança ou prejudicar o funcionamento do Site.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>5. Propriedade Intelectual</h4>" +
+                    "<p>Todo o conteúdo do Site — incluindo marca, logotipo, textos, imagens, layout e código — é de titularidade da Empresa ou de seus licenciadores, sendo protegido pela legislação de propriedade intelectual. É vedada a reprodução total ou parcial sem autorização prévia e por escrito.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>6. Limitação de Responsabilidade</h4>" +
+                    "<p>A Empresa não se responsabiliza por decisões tomadas pelo usuário com base nas simulações, tampouco por indisponibilidades temporárias, falhas técnicas ou por conteúdos de sites de terceiros eventualmente acessados por links.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>7. Alterações</h4>" +
+                    "<p>A Empresa poderá alterar estes Termos a qualquer momento, publicando a versão atualizada no Site. O uso continuado após alterações implica concordância com as novas condições.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>8. Foro e Legislação Aplicável</h4>" +
+                    "<p>Estes Termos são regidos pela legislação brasileira. Fica eleito o foro do domicílio do consumidor para dirimir quaisquer controvérsias, nos termos do Código de Defesa do Consumidor (Lei nº 8.078/1990).</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>9. Contato</h4>" +
+                    "<p>Dúvidas sobre estes Termos podem ser encaminhadas ao responsável: " + LEGAL_COMPANY + " — CNPJ " + LEGAL_CNPJ + ".</p>"
+            },
+            privacidade: {
+                title: "Política de Privacidade",
+                html:
+                    "<p><strong>Última atualização:</strong> " + LEGAL_UPDATED + "</p>" +
+                    "<p>Esta Política de Privacidade descreve como <strong>" + LEGAL_COMPANY + "</strong> (CNPJ <strong>" + LEGAL_CNPJ + "</strong>) coleta, utiliza, armazena e protege os dados pessoais dos usuários do site <strong>" + LEGAL_SITE + "</strong>, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>1. Dados que Coletamos</h4>" +
+                    "<p>Podemos coletar: (a) <strong>dados fornecidos pelo usuário</strong>, como nome, CPF, e-mail, telefone e informações necessárias à simulação; (b) <strong>dados de navegação</strong>, como endereço IP, tipo de dispositivo, navegador, páginas acessadas e cookies.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>2. Finalidade do Tratamento</h4>" +
+                    "<p>Os dados são utilizados para: (a) realizar a simulação de crédito solicitada; (b) entrar em contato e apresentar propostas; (c) melhorar a experiência e a segurança do Site; (d) cumprir obrigações legais e regulatórias; (e) prevenir fraudes.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>3. Base Legal</h4>" +
+                    "<p>O tratamento fundamenta-se no consentimento do titular, na execução de procedimentos preliminares a contrato, no cumprimento de obrigação legal e no legítimo interesse, conforme o art. 7º da LGPD.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>4. Compartilhamento de Dados</h4>" +
+                    "<p>Os dados poderão ser compartilhados com instituições financeiras e parceiros estritamente necessários à análise e concessão de crédito, bem como com autoridades quando exigido por lei. <strong>Não vendemos dados pessoais.</strong></p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>5. Cookies</h4>" +
+                    "<p>Utilizamos cookies e tecnologias semelhantes para funcionamento do Site, análise de desempenho e personalização. O usuário pode gerenciar ou desativar cookies nas configurações do navegador, ciente de que isso pode limitar funcionalidades.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>6. Armazenamento e Segurança</h4>" +
+                    "<p>Adotamos medidas técnicas e administrativas para proteger os dados contra acessos não autorizados, perda, alteração ou destruição. Os dados são mantidos apenas pelo tempo necessário às finalidades ou exigido por lei.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>7. Direitos do Titular</h4>" +
+                    "<p>O titular pode, a qualquer momento, solicitar confirmação de tratamento, acesso, correção, anonimização, portabilidade, eliminação e revogação do consentimento, conforme detalhado em nossa seção LGPD.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>8. Contato do Encarregado (DPO)</h4>" +
+                    "<p>Solicitações relativas a dados pessoais devem ser encaminhadas ao encarregado de dados de " + LEGAL_COMPANY + " — CNPJ " + LEGAL_CNPJ + ".</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>9. Alterações</h4>" +
+                    "<p>Esta Política poderá ser atualizada periodicamente. A versão vigente estará sempre disponível neste Site.</p>"
+            },
+            lgpd: {
+                title: "LGPD - Proteção de Dados",
+                html:
+                    "<p><strong>Última atualização:</strong> " + LEGAL_UPDATED + "</p>" +
+                    "<p><strong>" + LEGAL_COMPANY + "</strong> (CNPJ <strong>" + LEGAL_CNPJ + "</strong>) está comprometida com o cumprimento da Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 - LGPD) e com a transparência no tratamento dos dados dos usuários do site <strong>" + LEGAL_SITE + "</strong>.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>1. Nosso Compromisso</h4>" +
+                    "<p>Tratamos dados pessoais com respeito aos princípios de finalidade, adequação, necessidade, transparência, segurança e prevenção, garantindo o livre exercício dos direitos do titular.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>2. Direitos do Titular (art. 18 da LGPD)</h4>" +
+                    "<p>Você tem direito a:</p>" +
+                    "<ul class='list-disc pl-6 space-y-1'>" +
+                    "<li>Confirmação da existência de tratamento dos seus dados;</li>" +
+                    "<li>Acesso aos dados que mantemos sobre você;</li>" +
+                    "<li>Correção de dados incompletos, inexatos ou desatualizados;</li>" +
+                    "<li>Anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade;</li>" +
+                    "<li>Portabilidade dos dados a outro fornecedor;</li>" +
+                    "<li>Eliminação dos dados tratados com base no consentimento;</li>" +
+                    "<li>Informação sobre entidades com as quais compartilhamos dados;</li>" +
+                    "<li>Revogação do consentimento a qualquer momento.</li>" +
+                    "</ul>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>3. Como Exercer seus Direitos</h4>" +
+                    "<p>Para exercer qualquer direito acima, o titular pode entrar em contato com o encarregado de proteção de dados (DPO) da Empresa. A solicitação será respondida nos prazos previstos em lei.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>4. Consentimento</h4>" +
+                    "<p>Ao fornecer seus dados para a simulação, o usuário consente com o tratamento descrito na Política de Privacidade. O consentimento é livre, informado e pode ser revogado a qualquer momento, sem prejuízo dos tratamentos já realizados.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>5. Segurança e Incidentes</h4>" +
+                    "<p>Mantemos medidas de segurança adequadas. Em caso de incidente de segurança que possa acarretar risco relevante aos titulares, comunicaremos os afetados e a Autoridade Nacional de Proteção de Dados (ANPD) nos termos da lei.</p>" +
+                    "<h4 class='font-bold text-gray-900 mt-4'>6. Encarregado de Dados</h4>" +
+                    "<p>Controlador: " + LEGAL_COMPANY + " — CNPJ " + LEGAL_CNPJ + ". Todas as solicitações relacionadas à LGPD serão tratadas por nosso encarregado de proteção de dados.</p>"
+            }
+        };
+
+        function openLegal(key) {
+            var data = LEGAL_CONTENT[key];
+            if (!data) return;
+            document.getElementById('legal-title').textContent = data.title;
+            document.getElementById('legal-body').innerHTML = data.html;
+            var ov = document.getElementById('legal-overlay');
+            ov.classList.remove('hidden');
+            ov.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLegal() {
+            var ov = document.getElementById('legal-overlay');
+            ov.classList.add('hidden');
+            ov.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeLegal();
+        });
+    </script>
 
 </body>
 </html>
