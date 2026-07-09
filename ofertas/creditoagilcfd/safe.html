@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simule Seu Crédito | Análise Rápida e Segura</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .purple-gradient {
+            background: linear-gradient(135deg, #9903d6 0%, #7c3aed 50%, #6d28d9 100%);
+        }
+
+        .purple-gradient-dark {
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #9903d6 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(153, 3, 214, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #9903d6 0%, #7c3aed 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(153, 3, 214, 0.4);
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+        }
+
+        .pulse-ring {
+            position: relative;
+        }
+
+        .pulse-ring::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            border: 3px solid #9903d6;
+            animation: pulse-ring 2s ease-out infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .stat-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="purple-gradient text-white py-4 px-6 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                    <i class="fas fa-shield-halved text-purple-600 text-xl"></i>
+                </div>
+                <span class="text-xl font-bold">CreditoAgi</span>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#como-funciona" class="hover:text-purple-200 transition">Como Funciona</a>
+                <a href="#beneficios" class="hover:text-purple-200 transition">Benefícios</a>
+                <a href="#faq" class="hover:text-purple-200 transition">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="purple-gradient text-white py-16 md:py-24 px-6 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left: Copy -->
+                <div class="space-y-6 z-10">
+                    <div class="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
+                        <i class="fas fa-bolt mr-2"></i>Análise em 2 minutos
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+                        Simule em 2 minutos e descubra até quanto você pode conseguir
+                    </h1>
+                    <p class="text-lg md:text-xl text-purple-100">
+                        Crédito rápido, seguro e sem burocracia. Veja sua proposta personalizada agora.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#simulador" class="btn-primary text-white text-center font-bold py-4 px-8 rounded-xl text-lg shadow-lg inline-block">
+                            <i class="fas fa-calculator mr-2"></i>Simular Agora
+                        </a>
+                        <div class="flex items-center space-x-2 text-purple-100">
+                            <i class="fas fa-check-circle"></i>
+                            <span class="text-sm">Sem compromisso</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-purple-200 pt-2">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Sujeito a análise de crédito. Valores variam por perfil.
+                    </p>
+                </div>
+
+                <!-- Right: Phone Mockup -->
+                <div class="relative flex justify-center">
+                    <div class="floating relative">
+                        <!-- Phone Frame -->
+                        <div class="relative w-64 md:w-72 lg:w-80 h-[500px] md:h-[550px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl">
+                            <!-- Screen -->
+                            <div class="w-full h-full bg-white rounded-[2.5rem] overflow-hidden flex flex-col">
+                                <!-- Screen Header -->
+                                <div class="purple-gradient p-4 text-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <i class="fas fa-arrow-left"></i>
+                                        <span class="font-semibold">Simulação</span>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-purple-200">Seu limite disponível</p>
+                                        <p class="text-3xl font-bold mt-1">R$ 5.000</p>
+                                    </div>
+                                </div>
+
+                                <!-- Screen Body -->
+                                <div class="flex-1 p-4 space-y-4">
+                                    <!-- Progress Ring -->
+                                    <div class="bg-gray-50 rounded-2xl p-4 flex items-center justify-between">
+                                        <div>
+                                            <p class="text-xs text-gray-500">Análise</p>
+                                            <p class="text-lg font-bold text-gray-800">98%</p>
+                                            <p class="text-xs text-green-600">Aprovado</p>
+                                        </div>
+                                        <div class="w-16 h-16 pulse-ring rounded-full flex items-center justify-center bg-purple-100">
+                                            <i class="fas fa-check text-purple-600 text-2xl"></i>
+                                        </div>
+                                    </div>
+
+                                    <!-- Gauge -->
+                                    <div class="bg-gray-50 rounded-2xl p-4">
+                                        <p class="text-xs text-gray-500 mb-2">Limite sugerido</p>
+                                        <div class="relative h-2 bg-gray-200 rounded-full overflow-hidden">
+                                            <div class="absolute inset-y-0 left-0 w-4/5 purple-gradient rounded-full"></div>
+                                        </div>
+                                        <div class="flex justify-between mt-2">
+                                            <span class="text-sm text-gray-600">R$ 1.000</span>
+                                            <span class="text-sm font-bold text-purple-600">R$ 5.000</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- CTA Button -->
+                                    <button class="w-full purple-gradient text-white font-bold py-3 rounded-xl text-sm shadow-lg">
+                                        Ver Proposta
+                                    </button>
+
+                                    <!-- Trust -->
+                                    <div class="flex items-center justify-center space-x-1 text-xs text-gray-500">
+                                        <i class="fas fa-lock text-green-500"></i>
+                                        <span>Seguro e criptografado</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Decorative Elements -->
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-purple-400 rounded-full opacity-20 blur-xl"></div>
+                        <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-purple-300 rounded-full opacity-20 blur-xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wave Divider -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f9fafb"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 px-6 -mt-8 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="stat-card rounded-2xl p-6 text-center card-hover shadow-lg">
+                    <p class="text-3xl md:text-4xl font-extrabold text-gradient">+500k</p>
+                    <p class="text-gray-600 text-sm mt-1">Clientes Atendidos</p>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center card-hover shadow-lg">
+                    <p class="text-3xl md:text-4xl font-extrabold text-gradient">4.8/5</p>
+                    <p class="text-gray-600 text-sm mt-1">Avaliação</p>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center card-hover shadow-lg">
+                    <p class="text-3xl md:text-4xl font-extrabold text-gradient">5 min</p>
+                    <p class="text-gray-600 text-sm mt-1">Tempo Médio</p>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center card-hover shadow-lg">
+                    <p class="text-3xl md:text-4xl font-extrabold text-gradient">98%</p>
+                    <p class="text-gray-600 text-sm mt-1">Aprovação</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="beneficios" class="py-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Por que escolher a CreditoAgi?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Crédito simples, transparente e adaptado ao seu perfil</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Benefit 1 -->
+                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
+                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Rápido e Digital</h3>
+                    <p class="text-gray-600">Processo 100% online. Sem filas, sem papelada. Tudo em minutos.</p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
+                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-halved text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">100% Seguro</h3>
+                    <p class="text-gray-600">Seus dados protegidos com criptografia de ponta a ponta.</p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
+                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-hand-holding-dollar text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Sem Taxas Ocultas</h3>
+                    <p class="text-gray-600">Transparência total. Você sabe exatamente quanto vai pagar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="como-funciona" class="py-16 px-6 bg-gray-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Como Funciona</h2>
+                <p class="text-gray-600">3 passos simples para seu crédito</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="text-center">
+                    <div class="relative inline-block mb-6">
+                        <div class="w-20 h-20 purple-gradient rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto shadow-lg">
+                            1
+                        </div>
+                        <div class="absolute -right-4 top-1/2 transform -translate-y-1/2 hidden md:block">
+                            <i class="fas fa-arrow-right text-purple-400 text-2xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Faça a Simulação</h3>
+                    <p class="text-gray-600">Preencha seus dados básicos e veja sua proposta personalizada.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="text-center">
+                    <div class="relative inline-block mb-6">
+                        <div class="w-20 h-20 purple-gradient rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto shadow-lg">
+                            2
+                        </div>
+                        <div class="absolute -right-4 top-1/2 transform -translate-y-1/2 hidden md:block">
+                            <i class="fas fa-arrow-right text-purple-400 text-2xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Escolha o Valor</h3>
+                    <p class="text-gray-600">Selecione o valor e as condições que melhor se adaptam a você.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="text-center">
+                    <div class="w-20 h-20 purple-gradient rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto shadow-lg mb-6">
+                        3
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Receba seu Crédito</h3>
+                    <p class="text-gray-600">Se aprovado, o dinheiro cai na sua conta em até 24 horas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="simulador" class="cta-section py-16 px-6 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para simular seu crédito?</h2>
+            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+                Descubra em 2 minutos quanto você pode conseguir. Sem compromisso, sem burocracia.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="btn-primary text-white font-bold py-4 px-10 rounded-xl text-lg shadow-lg inline-block">
+                    <i class="fas fa-calculator mr-2"></i>Simular Agora
+                </a>
+                <a href="#faq" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-10 rounded-xl text-lg transition inline-block">
+                    <i class="fas fa-question-circle mr-2"></i>Tirar Dúvidas
+                </a>
+            </div>
+            <p class="text-xs text-gray-400 mt-6">
+                <i class="fas fa-info-circle mr-1"></i>
+                Sujeito a análise de crédito. Valores variam por perfil. Simulação sem compromisso.
+            </p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Perguntas Frequentes</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <details class="group">
+                        <summary class="cursor-pointer p-6 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition">
+                            <span>Quanto tempo demora a análise?</span>
+                            <i class="fas fa-chevron-down text-purple-600 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-600">
+                            A análise é feita automaticamente em até 2 minutos. Em alguns casos, pode levar até 24 horas para verificação adicional.
+                        </div>
+                    </details>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <details class="group">
+                        <summary class="cursor-pointer p-6 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition">
+                            <span>Quais documentos são necessários?</span>
+                            <i class="fas fa-chevron-down text-purple-600 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-600">
+                            Apenas CPF e informações básicas. Não enviamos documentos físicos. Tudo 100% digital.
+                        </div>
+                    </details>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <details class="group">
+                        <summary class="cursor-pointer p-6 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition">
+                            <span>Como recebo o dinheiro se aprovado?</span>
+                            <i class="fas fa-chevron-down text-purple-600 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-600">
+                            O dinheiro é transferido via PIX ou TED diretamente para sua conta bancária em até 24 horas após aprovação.
+                        </div>
+                    </details>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <details class="group">
+                        <summary class="cursor-pointer p-6 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition">
+                            <span>A consulta afeta meu score de crédito?</span>
+                            <i class="fas fa-chevron-down text-purple-600 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-600">
+                            Não. Nossa consulta é apenas para fins de simulação e não impacta negativamente seu score de crédito.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="purple-gradient-dark text-white py-12 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                            <i class="fas fa-shield-halved text-purple-600 text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">CreditoAgi</span>
+                    </div>
+                    <p class="text-purple-200 text-sm max-w-md">
+                        Crédito rápido, seguro e transparente. Simule em minutos e receba sua proposta personalizada.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold mb-4">Links Úteis</h4>
+                    <ul class="space-y-2 text-sm text-purple-200">
+                        <li><a href="#como-funciona" class="hover:text-white transition">Como Funciona</a></li>
+                        <li><a href="#beneficios" class="hover:text-white transition">Benefícios</a></li>
+                        <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm text-purple-200">
+                        <li><a href="#" class="hover:text-white transition">Termos de Uso</a></li>
+                        <li><a href="#" class="hover:text-white transition">Política de Privacidade</a></li>
+                        <li><a href="#" class="hover:text-white transition">LGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom -->
+            <div class="border-t border-purple-400/30 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-purple-200">
+                <p>&copy; 2026 CreditoAgi. Todos os direitos reservados.</p>
+                <p class="mt-2 md:mt-0">
+                    <i class="fas fa-shield-halved mr-1"></i>
+                    Site seguro | SSL Certificado
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
