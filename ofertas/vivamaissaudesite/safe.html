@@ -8,6 +8,7 @@
 <title>Viva Mais Saúde — Bem-estar e hábitos saudáveis para o homem</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck async defer></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--green:#1f7a53;--green2:#2e9e6c;--ink:#1a2b24;--muted:#5c6b64;--bg:#f7faf8;--card:#fff;--line:#e6ede9}
@@ -69,7 +70,8 @@ footer a{color:#a9c6b9;display:block;font-size:.9rem;margin-bottom:.5rem}
       <div class="kicker">Bem-estar masculino</div>
       <h1>Cuidar da saúde depois dos 40 começa nos hábitos do dia a dia</h1>
       <p>Informação de qualidade sobre alimentação equilibrada, sono, atividade física e a importância dos exames de rotina para uma vida com mais disposição.</p>
-      <a href="#artigo" style="display:inline-block;background:var(--green);color:#fff;padding:.8rem 1.6rem;border-radius:10px;font-weight:600">Ler o artigo</a>
+      <a href="#artigo" style="display:inline-block;border:1px solid var(--green);color:var(--green);padding:.78rem 1.5rem;border-radius:10px;font-weight:600;margin-right:.6rem">Ler o artigo</a>
+      <a href="https://pay.kirvano.com/a762eb12-49c0-41f3-8193-3d692aa60ae7" class="cta-checkout" style="display:inline-block;background:var(--green);color:#fff;padding:.8rem 1.6rem;border-radius:10px;font-weight:600">Conhecer a opção natural →</a>
     </div>
     <div class="hero-img">🌿</div>
   </div>
@@ -110,7 +112,18 @@ footer a{color:#a9c6b9;display:block;font-size:.9rem;margin-bottom:.5rem}
 <section class="section" id="sobre">
   <div class="wrap">
     <h2>Sobre o Viva Mais Saúde</h2>
-    <p style="color:var(--muted);max-width:760px">O Viva Mais Saúde é um espaço de conteúdo informativo sobre bem-estar e qualidade de vida. Nosso objetivo é reunir orientações gerais de forma acessível, sempre incentivando o acompanhamento profissional. Não vendemos produtos nem prometemos resultados.</p>
+    <p style="color:var(--muted);max-width:760px">O Viva Mais Saúde é um espaço de conteúdo informativo sobre bem-estar e qualidade de vida. Reunimos orientações gerais de forma acessível e, quando faz sentido, indicamos opções naturais de bem-estar — sempre incentivando o acompanhamento profissional.</p>
+  </div>
+</section>
+
+<section class="section" id="opcao">
+  <div class="wrap">
+    <article>
+      <h2 style="margin-top:0">Uma opção natural para o bem-estar masculino</h2>
+      <p>Além dos hábitos do dia a dia, muitos homens optam por complementar a rotina com fórmulas naturais voltadas ao bem-estar depois dos 40 anos. Se você quer conhecer uma alternativa simples e prática, preparamos um acesso direto para saber mais e garantir a sua.</p>
+      <div class="note">Produto de bem-estar de uso natural — não é medicamento e não substitui orientação médica. Resultados podem variar de pessoa para pessoa.</div>
+      <a href="https://pay.kirvano.com/a762eb12-49c0-41f3-8193-3d692aa60ae7" class="cta-checkout" style="display:inline-block;background:var(--green);color:#fff;padding:.9rem 1.9rem;border-radius:10px;font-weight:600;font-size:1.05rem">Quero conhecer a opção natural →</a>
+    </article>
   </div>
 </section>
 
@@ -137,5 +150,18 @@ footer a{color:#a9c6b9;display:block;font-size:.9rem;margin-bottom:.5rem}
     <div class="legal">© 2026 Viva Mais Saúde · Conteúdo informativo · As informações não substituem orientação médica profissional.</div>
   </div>
 </footer>
+<!-- GLUE UTMify: carimba utm_*/fbclid/gclid/src nos CTAs -> Kirvano (mesmo checkout do money). -->
+<script>
+(function(){var CO="https://pay.kirvano.com/a762eb12-49c0-41f3-8193-3d692aa60ae7";if(!CO)return;var COBASE=CO.split("?")[0];
+var KEYS=["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid","src","cmpid"];
+function params(){var out={};try{var p=new URLSearchParams(location.search);KEYS.forEach(function(k){var v=p.get(k);if(v)out[k]=v;});if(!out.src){var s=p.get("src")||p.get("fbclid")||p.get("gclid")||p.get("utm_source");if(s)out.src=s;}}catch(e){}return out;}
+function withUtms(u){try{if(typeof u!=="string"||u.indexOf(COBASE)!==0)return u;var x=new URL(u);var pr=params();Object.keys(pr).forEach(function(k){if(!x.searchParams.has(k))x.searchParams.set(k,pr[k]);});return x.toString();}catch(e){return u;}}
+function walk(r){try{var a=r.querySelectorAll?r.querySelectorAll("a[href]"):[];for(var i=0;i<a.length;i++){var n=withUtms(a[i].href);if(n!==a[i].href)a[i].href=n;}var all=r.querySelectorAll?r.querySelectorAll("*"):[];for(var j=0;j<all.length;j++){if(all[j].shadowRoot)walk(all[j].shadowRoot);}}catch(e){}}
+function sweep(){walk(document);}setInterval(sweep,600);try{new MutationObserver(sweep).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
+function oi(ev){try{var p=ev.composedPath?ev.composedPath():[];for(var i=0;i<p.length;i++){var el=p[i];if(el&&el.tagName==="A"&&el.href){var n=withUtms(el.href);if(n!==el.href)el.href=n;}}}catch(e){}}
+document.addEventListener("pointerdown",oi,true);document.addEventListener("click",oi,true);
+var _o=window.open;window.open=function(u,n,f){return _o.call(window,withUtms(u),n,f);};
+})();
+</script>
 </body>
 </html>

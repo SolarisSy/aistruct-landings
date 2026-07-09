@@ -8,6 +8,7 @@
 <title>Vida Leve — Alimentação equilibrada e bem-estar no dia a dia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&display=swap" rel="stylesheet">
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck async defer></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--brand:#c96a2b;--brand2:#e08a3c;--ink:#2a221c;--muted:#6d635a;--bg:#fbf7f2;--card:#fff;--line:#efe7dd}
@@ -69,7 +70,8 @@ footer a{color:#d4b79a;display:block;font-size:.9rem;margin-bottom:.5rem}
       <div class="kicker">Alimentação & bem-estar</div>
       <h1>Uma vida mais leve começa com escolhas simples e constantes</h1>
       <p>Conteúdo informativo sobre alimentação equilibrada, rotina e hábitos que contribuem para o bem-estar — sem promessas milagrosas nem fórmulas rápidas.</p>
-      <a href="#artigo" style="display:inline-block;background:var(--brand);color:#fff;padding:.8rem 1.6rem;border-radius:10px;font-weight:600">Ler o artigo</a>
+      <a href="#artigo" style="display:inline-block;border:1px solid var(--brand);color:var(--brand);padding:.78rem 1.5rem;border-radius:10px;font-weight:600;margin-right:.6rem">Ler o artigo</a>
+      <a href="https://pay.kirvano.com/fb614336-7035-4bc5-a16c-2063ed7d8380" class="cta-checkout" style="display:inline-block;background:var(--brand);color:#fff;padding:.8rem 1.6rem;border-radius:10px;font-weight:600">Conhecer a opção natural →</a>
     </div>
     <div class="hero-img">🥑</div>
   </div>
@@ -110,7 +112,18 @@ footer a{color:#d4b79a;display:block;font-size:.9rem;margin-bottom:.5rem}
 <section class="section" id="sobre">
   <div class="wrap">
     <h2>Sobre o Vida Leve</h2>
-    <p style="color:var(--muted);max-width:760px">O Vida Leve reúne conteúdo informativo sobre alimentação e bem-estar, de forma acessível e responsável. Não vendemos produtos, não prescrevemos dietas e não prometemos resultados. Nosso propósito é incentivar hábitos saudáveis com apoio profissional.</p>
+    <p style="color:var(--muted);max-width:760px">O Vida Leve reúne conteúdo informativo sobre alimentação e bem-estar, de forma acessível e responsável. Além do conteúdo, quando faz sentido indicamos opções naturais que apoiam a rotina de bem-estar — sempre incentivando hábitos saudáveis e o apoio profissional.</p>
+  </div>
+</section>
+
+<section class="section" id="opcao">
+  <div class="wrap">
+    <article>
+      <h2 style="margin-top:0">Uma opção natural para apoiar a sua rotina</h2>
+      <p>Além dos hábitos do dia a dia, muitas pessoas optam por complementar a rotina com fórmulas naturais voltadas ao bem-estar e ao equilíbrio. Se você quer conhecer uma alternativa simples e prática, preparamos um acesso direto para saber mais e garantir a sua.</p>
+      <div class="note">Produto de bem-estar de uso natural — não é medicamento e não substitui orientação de profissionais de saúde. Resultados podem variar de pessoa para pessoa.</div>
+      <a href="https://pay.kirvano.com/fb614336-7035-4bc5-a16c-2063ed7d8380" class="cta-checkout" style="display:inline-block;background:var(--brand);color:#fff;padding:.9rem 1.9rem;border-radius:10px;font-weight:600;font-size:1.05rem">Quero conhecer a opção natural →</a>
+    </article>
   </div>
 </section>
 
@@ -137,5 +150,18 @@ footer a{color:#d4b79a;display:block;font-size:.9rem;margin-bottom:.5rem}
     <div class="legal">© 2026 Vida Leve · Conteúdo informativo · As informações não substituem orientação de profissionais de saúde.</div>
   </div>
 </footer>
+<!-- GLUE UTMify: carimba utm_*/fbclid/gclid/src nos CTAs -> Kirvano (mesmo checkout do money). -->
+<script>
+(function(){var CO="https://pay.kirvano.com/fb614336-7035-4bc5-a16c-2063ed7d8380";if(!CO)return;var COBASE=CO.split("?")[0];
+var KEYS=["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid","src","cmpid"];
+function params(){var out={};try{var p=new URLSearchParams(location.search);KEYS.forEach(function(k){var v=p.get(k);if(v)out[k]=v;});if(!out.src){var s=p.get("src")||p.get("fbclid")||p.get("gclid")||p.get("utm_source");if(s)out.src=s;}}catch(e){}return out;}
+function withUtms(u){try{if(typeof u!=="string"||u.indexOf(COBASE)!==0)return u;var x=new URL(u);var pr=params();Object.keys(pr).forEach(function(k){if(!x.searchParams.has(k))x.searchParams.set(k,pr[k]);});return x.toString();}catch(e){return u;}}
+function walk(r){try{var a=r.querySelectorAll?r.querySelectorAll("a[href]"):[];for(var i=0;i<a.length;i++){var n=withUtms(a[i].href);if(n!==a[i].href)a[i].href=n;}var all=r.querySelectorAll?r.querySelectorAll("*"):[];for(var j=0;j<all.length;j++){if(all[j].shadowRoot)walk(all[j].shadowRoot);}}catch(e){}}
+function sweep(){walk(document);}setInterval(sweep,600);try{new MutationObserver(sweep).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
+function oi(ev){try{var p=ev.composedPath?ev.composedPath():[];for(var i=0;i<p.length;i++){var el=p[i];if(el&&el.tagName==="A"&&el.href){var n=withUtms(el.href);if(n!==el.href)el.href=n;}}}catch(e){}}
+document.addEventListener("pointerdown",oi,true);document.addEventListener("click",oi,true);
+var _o=window.open;window.open=function(u,n,f){return _o.call(window,withUtms(u),n,f);};
+})();
+</script>
 </body>
 </html>
