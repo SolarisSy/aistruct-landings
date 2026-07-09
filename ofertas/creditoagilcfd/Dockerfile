@@ -1,7 +1,7 @@
 FROM richarvey/nginx-php-fpm:latest
 
-# Copy content to nginx html
-COPY . /usr/share/nginx/html
+# Copy all content to the correct location
+COPY . /var/www/html
 
 # Fix permissions
-RUN chown -R www-data:www-data /usr/share/nginx/html
+RUN chown -R www-data:www-data /var/www/html
