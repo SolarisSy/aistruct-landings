@@ -1,12 +1,18 @@
 const mineflayer = require('mineflayer')
 const zlib = require('zlib')
 
+// silencia o spam de "chunk failed to load" do prismarine (nao afeta nada)
+for (const fn of ['warn', 'info', 'log']) {
+  const orig = console[fn].bind(console)
+  console[fn] = (...a) => { if (!String(a[0] || '').includes('chunk failed to load')) orig(...a) }
+}
+
 // ---------- config ----------
 const HOST = process.env.MC_HOST || 'localhost'
 const PORT = parseInt(process.env.MC_PORT || '25565', 10)
 const USERNAME = process.env.MC_USERNAME || 'AFKBot'
 const PASSWORD = process.env.MC_PASSWORD || ''
-const VERSION = process.env.MC_VERSION || false
+const VERSION = process.env.MC_VERSION || '1.16.5'
 const RECONNECT_MS = parseInt(process.env.RECONNECT_MS || '20000', 10)
 const HOME_CMD = process.env.MC_HOME_CMD || '/home casa'
 const SELECTOR_MATCH = (process.env.MC_SELECTOR_MATCH || 'surviv').toLowerCase()
