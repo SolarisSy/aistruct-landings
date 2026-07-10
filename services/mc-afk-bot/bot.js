@@ -21,8 +21,13 @@ const VISION_PROMPT =
   'Leia o codigo exatamente como aparece. Responda APENAS com o codigo, sem espacos, sem pontuacao, ' +
   'sem explicacao. Se nao conseguir ler, responda UNKNOWN.'
 
+const RECONNECT_MAX_MS = parseInt(process.env.RECONNECT_MAX_MS || '180000', 10)
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 const log = (...a) => console.log(...a)
+
+// backoff: se cair antes de logar (antibot throttle), aumenta o intervalo
+let backoff = RECONNECT_MS
 
 // ---------- paleta de cores do mapa MC ----------
 const BASE_COLORS = [
@@ -158,7 +163,7 @@ function createBot() {
     } catch (e) { /* ignore */ }
   })
 
-  bot.on('login', () => { log('[bot] conectado ao servidor'); mapCanvas.fill(0) })
+  bot.on('login', () => { log('[bot] conectado ao servidor'); mapCanvas.fill(0); backoff = RECONNECT_MS })
 
   bot.on('messagestr', (msg) => {
     const m = (msg || '').trim()
@@ -185,9 +190,12 @@ function createBot() {
   bot.on('kicked', (reason) => log('[bot] kickado:', JSON.stringify(reason)))
   bot.on('error', (err) => log('[bot] erro:', err.message))
   bot.on('end', (reason) => {
-    log(`[bot] desconectado (${reason}) — reconectando em ${RECONNECT_MS}ms`)
     if (antiAfk) clearInterval(antiAfk)
-    setTimeout(createBot, RECONNECT_MS)
+    // se caiu antes de logar (antibot), sobe o backoff; senao usa base
+    const delay = loggedIn ? RECONNECT_MS : backoff
+    if (!loggedIn) backoff = Math.min(Math.floor(backoff * 1.7), RECONNECT_MAX_MS)
+    log(`[bot] desconectado (${reason}) — reconectando em ${delay}ms`)
+    setTimeout(createBot, delay)
   })
 
   async function solveCaptcha() {
