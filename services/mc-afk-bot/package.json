@@ -1,0 +1,12 @@
+{
+  "name": "mc-afk-bot",
+  "version": "1.0.0",
+  "description": "Bot AFK que mantem uma conta cracked sempre online",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "mineflayer": "^4.20.0"
+  }
+}
