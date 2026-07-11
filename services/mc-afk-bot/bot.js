@@ -148,17 +148,29 @@ function createBot() {
   let selecting = false
   let solving = false
   let lastSolve = 0
+  let mapReceived = false
   let antiAfk = null
+
+  // sniffer cru: mostra TODO pacote de mapa que chega (diagnostico)
+  bot._client.on('packet', (data, meta) => {
+    if (meta.name === 'map') {
+      const dlen = data.data ? (data.data.length || (data.data.data && data.data.data.length)) : 0
+      log(`[rawmap] keys=${Object.keys(data).join(',')} cols=${data.columns} rows=${data.rows} x=${data.x} z=${data.z} dlen=${dlen}`)
+    }
+  })
 
   // acumula pacotes de mapa no canvas 128x128
   bot._client.on('map', (packet) => {
     try {
       const cols = packet.columns
       const rows = packet.rows
-      if (!cols || !rows || !packet.data) return
+      // data pode vir como Buffer OU como {type,data:Buffer}
+      let data = packet.data
+      if (data && !data.length && data.data) data = data.data
+      if (!cols || !rows || !data || !data.length) return
+      mapReceived = true
       const ox = packet.x || 0
-      const oy = (packet.y != null ? packet.y : packet.z) || 0
-      const data = packet.data
+      const oy = (packet.z != null ? packet.z : packet.y) || 0
       for (let c = 0; c < cols; c++) {
         for (let r = 0; r < rows; r++) {
           const px = ox + c, py = oy + r
@@ -166,10 +178,10 @@ function createBot() {
           mapCanvas[py * 128 + px] = data[c * rows + r] & 0xFF
         }
       }
-    } catch (e) { /* ignore */ }
+    } catch (e) { log('[map] erro: ' + e.message) }
   })
 
-  bot.on('login', () => { log('[bot] conectado ao servidor'); mapCanvas.fill(0); backoff = RECONNECT_MS })
+  bot.on('login', () => { log('[bot] conectado ao servidor'); mapCanvas.fill(0); mapReceived = false; backoff = RECONNECT_MS })
 
   bot.on('messagestr', (msg) => {
     const m = (msg || '').trim()
@@ -212,8 +224,12 @@ function createBot() {
       if (!GLM_KEY) { log('[captcha] GLM_API_KEY nao setada!'); return }
       log('[captcha] detectado — aguardando o mapa...')
       let waited = 0
-      while (!canvasHasContent(mapCanvas) && waited < 8000) { await sleep(500); waited += 500 }
-      if (!canvasHasContent(mapCanvas)) { log('[captcha] nenhum mapa recebido ainda'); return }
+      // espera um mapa chegar (com conteudo, ou pelo menos algum pacote de mapa)
+      while (!canvasHasContent(mapCanvas) && waited < 6000) { await sleep(300); waited += 300 }
+      if (!mapReceived && !canvasHasContent(mapCanvas)) {
+        log('[captcha] nenhum pacote de mapa recebido — nao da pra ler')
+        return
+      }
       const png = renderCanvas(mapCanvas)
       log(`[captcha] enviando png (${png.length}b) -> ${GLM_MODEL}`)
       let raw = ''
