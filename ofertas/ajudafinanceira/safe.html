@@ -3,79 +3,186 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ajuda Financeira · Central de orientação sobre crédito e finanças</title>
-<meta name="description" content="Central de conteúdo com orientações práticas sobre organização financeira, tipos de crédito e como avaliar propostas. Serviço informativo — não somos banco.">
+<title>Ajuda Financeira · Educação financeira e organização financeira</title>
+<meta name="description" content="Portal de educação financeira com conteúdos sobre organização do orçamento, planejamento financeiro e noções básicas de crédito. Material gratuito e educativo.">
 <meta name="robots" content="index, follow">
+<meta name="author" content="Ajuda Financeira">
 <link rel="canonical" href="https://ajudafinanceira.cfd/">
+<meta property="og:title" content="Ajuda Financeira · Educação financeira">
+<meta property="og:description" content="Conteúdos gratuitos sobre organização financeira e educação financeira.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
 <meta name="theme-color" content="#1d4ed8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231d4ed8'/%3E%3Ctext x='16' y='22' font-size='15' text-anchor='middle' fill='%23fff' font-family='Arial'%3EAF%3C/text%3E%3C/svg%3E">
 <style>
-:root{--bg:#f2f5fb;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#1d4ed8;--accent2:#0ea5b7;--card:#ffffff}
+:root{--bg:#f2f5fb;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#1d4ed8;--accent2:#0ea5b7;--card:#fff;--soft:#eef4ff}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px}
-header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);z-index:5}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
-.brand{font-weight:800;font-size:1.15rem}.brand span{color:var(--accent)}
-nav a{color:var(--muted);text-decoration:none;font-size:.9rem;margin-left:20px}
-.hero{background:linear-gradient(135deg,#1d4ed8,#0ea5b7);color:#fff;border-radius:0 0 26px 26px}
-.hero .wrap{padding:54px 20px 60px}
-.hero h1{font-size:clamp(1.8rem,4.5vw,2.6rem);margin:.2rem 0 .5rem;line-height:1.2}
-.hero p{font-size:1.12rem;max-width:640px;opacity:.95}
-.tag{display:inline-block;background:rgba(255,255,255,.2);padding:.3rem .8rem;border-radius:20px;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:-34px 0 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 8px 24px rgba(15,23,42,.05)}
-.card .ico{width:40px;height:40px;border-radius:10px;background:#eaf1ff;color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin-bottom:12px}
-.card h3{margin:0 0 6px;font-size:1.08rem}.card p{margin:0;color:var(--muted);font-size:.95rem}
-section.block{padding:44px 0}
-section.block h2{font-size:1.5rem;margin:0 0 14px}
-.steps{counter-reset:s;display:grid;gap:14px}
-.step{display:flex;gap:14px;align-items:flex-start}
-.step::before{counter-increment:s;content:counter(s);flex:0 0 34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-.disc{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;color:#7c2d12;font-size:.95rem}
-footer{background:#0f172a;color:#cbd5e1;font-size:.86rem;line-height:1.8;margin-top:20px}
-footer .wrap{padding:32px 20px}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.65;font-size:17px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+a{color:var(--accent)}
+
+/* Header */
+header{position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-weight:800;font-size:1.18rem}.brand span{color:var(--accent)}
+nav{display:flex;gap:20px}
+nav a{color:var(--muted);text-decoration:none;font-size:.92rem;transition:color .15s}
+nav a:hover{color:var(--accent)}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#1d4ed8,#0ea5b7);color:#fff;border-radius:0 0 28px 28px}
+.hero .wrap{padding:60px 20px 64px}
+.tag{display:inline-block;background:rgba(255,255,255,.22);padding:.32rem .9rem;border-radius:20px;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.hero h1{font-size:clamp(1.9rem,4.6vw,2.7rem);margin:.4rem 0 .6rem;line-height:1.18;font-weight:800}
+.hero p{font-size:1.14rem;max-width:660px;opacity:.96;margin:0}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin:-36px 0 0;position:relative;z-index:2}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 10px 28px rgba(15,23,42,.06)}
+.card .ico{width:42px;height:42px;border-radius:11px;background:var(--soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.15rem;margin-bottom:13px}
+.card h3{margin:0 0 6px;font-size:1.1rem}.card p{margin:0;color:var(--muted);font-size:.96rem}
+
+/* Sections */
+section.block{padding:46px 0}
+section.block h2{font-size:1.55rem;margin:0 0 8px;font-weight:800}
+section.block .lead{color:var(--muted);margin:0 0 22px;font-size:1.02rem}
+section.block h3{font-size:1.18rem;margin:26px 0 8px}
+
+/* Steps */
+.steps{counter-reset:s;display:grid;gap:16px}
+.step{display:flex;gap:15px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.step::before{counter-increment:s;content:counter(s);flex:0 0 36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem}
+
+/* Article (glossário / artigos) */
+.article-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.article{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;transition:transform .15s,box-shadow .15s}
+.article:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(15,23,42,.08)}
+.article .cat{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent2);font-weight:700;margin-bottom:6px}
+.article h4{margin:0 0 6px;font-size:1.05rem}
+.article p{margin:0;color:var(--muted);font-size:.93rem}
+
+/* Glossário */
+.gloss{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 22px}
+.gloss dt{font-weight:700;color:var(--ink);margin-top:18px}
+.gloss dd{margin:4px 0 0;color:var(--muted);font-size:.96rem}
+
+/* FAQ */
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:1rem;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";color:var(--accent);font-weight:800;margin-right:10px}
+.faq details[open] summary::before{content:"–"}
+.faq p{margin:10px 0 0;color:var(--muted);font-size:.95rem}
+
+/* Disclaimer */
+.disc{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:18px 22px;color:#7c2d12;font-size:.96rem;line-height:1.7}
+.disc strong{color:#9a3412}
+
+/* Sobre */
+.about{display:flex;gap:22px;align-items:flex-start;background:var(--soft);border:1px solid #dbe7ff;border-radius:16px;padding:24px}
+.about .badge{flex:0 0 64px;height:64px;border-radius:16px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:800}
+
+/* Footer */
+footer{background:#0f172a;color:#cbd5e1;font-size:.86rem;line-height:1.85;margin-top:24px}
+footer .wrap{padding:36px 20px}
 footer a{color:#7dd3fc;text-decoration:underline;margin-right:16px}
-.legal{color:#64748b;font-size:.76rem;margin-top:12px;border-top:1px solid #1e293b;padding-top:12px}
+footer .legal{color:#64748b;font-size:.76rem;margin-top:14px;border-top:1px solid #1e293b;padding-top:14px}
+
+@media(max-width:600px){nav{display:none}.about{flex-direction:column}}
 </style>
 </head>
 <body>
 <header><div class="wrap"><div class="brand">Ajuda<span>Financeira</span></div>
-<nav><a href="#topicos">Tópicos</a><a href="#passos">Como avaliar</a><a href="#aviso">Aviso</a></nav></div></header>
+<nav><a href="#topicos">Conteúdos</a><a href="#artigos">Artigos</a><a href="#glossario">Glossário</a><a href="#faq">Dúvidas</a><a href="#sobre">Sobre</a></nav></div></header>
 
 <div class="hero"><div class="wrap">
-<span class="tag">Central de orientação</span>
-<h1>Entenda crédito antes de decidir</h1>
-<p>Reunimos explicações claras sobre tipos de crédito, custos e cuidados — para você comparar propostas com mais segurança. Conteúdo gratuito e informativo.</p>
+<span class="tag">Educação financeira</span>
+<h1>Aprenda a organizar suas finanças</h1>
+<p>Conteúdos gratuitos sobre orçamento doméstico, planejamento financeiro e noções básicas de crédito. Nosso compromisso é com a informação clara e independente.</p>
 </div></div>
 
 <div class="wrap">
 <div class="grid" id="topicos">
-<div class="card"><div class="ico">%</div><h3>Taxas e CET</h3><p>A diferença entre a taxa anunciada e o custo efetivo total que você paga de verdade.</p></div>
-<div class="card"><div class="ico">↔</div><h3>Prazo x parcela</h3><p>Parcela menor nem sempre é mais barata — o prazo longo aumenta o total pago.</p></div>
-<div class="card"><div class="ico">✓</div><h3>Contrato</h3><p>O que conferir antes de assinar: tarifas, seguros e condições de quitação.</p></div>
-<div class="card"><div class="ico">!</div><h3>Golpes</h3><p>Como reconhecer promessas de "aprovação garantida" e cobranças antecipadas.</p></div>
+<div class="card"><div class="ico">▦</div><h3>Orçamento doméstico</h3><p>Como montar e manter um orçamento que funcione no dia a dia, registrando receitas e despesas.</p></div>
+<div class="card"><div class="ico">⌖</div><h3>Metas e planejamento</h3><p>Definir objetivos financeiros realistas e acompanhar a evolução ao longo do tempo.</p></div>
+<div class="card"><div class="ico">%</div><h3>Juros e taxas</h3><p>Entender a diferença entre taxa de juros, CET e custo total ajuda a comparar opções.</p></div>
+<div class="card"><div class="ico">⚠</div><h3>Prevenção a golpes</h3><p>Reconhecer sinais de oferta enganosa, cobrança antecipada e promessa de aprovação garantida.</p></div>
 </div>
 
+<section class="block" id="artigos">
+<h2>Artigos e guias práticos</h2>
+<p class="lead">Materiais de leitura rápida para você entender conceitos e tomar decisões melhor informadas.</p>
+<div class="article-list">
+<div class="article"><div class="cat">Orçamento</div><h4>Como montar um orçamento mensal em 5 passos</h4><p>O método mais simples para acompanhar para onde vai o seu dinheiro todo mês.</p></div>
+<div class="article"><div class="cat">Planejamento</div><h4>Reserva de emergência: quanto guardar</h4><p>Por que ter uma reserva, qual o valor ideal e como começar mesmo com pouco.</p></div>
+<div class="article"><div class="cat">Crédito</div><h4>Entendendo o Custo Efetivo Total (CET)</h4><p>O que é o CET, como ele é calculado e por que ele é o número que importa na hora de comparar.</p></div>
+<div class="article"><div class="cat">Crédito</div><h4>Diferença entre taxa de juros e parcela</h4><p>Por que a parcela mais baixa nem sempre representa o melhor negócio.</p></div>
+<div class="article"><div class="cat">Segurança</div><h4>Como identificar uma oferta enganosa</h4><p>Sinais de alerta: cobrança antecipada, "garantia de aprovação" e pressão de urgência.</p></div>
+<div class="article"><div class="cat">Educação</div><h4>Dívidas: renegociar ou quitar?</h4><p>Como avaliar se vale a pena renegociar um compromisso existente ou quitá-lo.</p></div>
+</div>
+</section>
+
 <section class="block" id="passos">
-<h2>Como avaliar uma proposta em 4 passos</h2>
+<h2>Como avaliar uma proposta: 4 passos</h2>
+<p class="lead">Um roteiro objetivo para analisar qualquer proposta com clareza.</p>
 <div class="steps">
-<div class="step"><div><strong>Padronize a comparação.</strong> Use o mesmo valor e o mesmo prazo em todas as propostas.</div></div>
-<div class="step"><div><strong>Olhe o CET anual.</strong> Ele reúne juros, tarifas, impostos e seguros num só número.</div></div>
-<div class="step"><div><strong>Some o total a pagar.</strong> Parcela × meses mostra o custo real da operação.</div></div>
-<div class="step"><div><strong>Leia o contrato.</strong> Só assine depois de entender todas as cláusulas.</div></div>
+<div class="step"><div><strong>Padronize a comparação.</strong> Use sempre o mesmo valor e o mesmo prazo em todas as propostas que estiver comparando.</div></div>
+<div class="step"><div><strong>Olhe o CET anual.</strong> Ele reúne juros, tarifas, impostos e seguros em um único número — é a base para comparar.</div></div>
+<div class="step"><div><strong>Some o total a pagar.</strong> Multiplique a parcela pelos meses para visualizar o custo total da operação.</div></div>
+<div class="step"><div><strong>Leia o contrato com calma.</strong> Confira tarifas, seguros, cláusulas de quitação antecipada e condições gerais antes de assinar.</div></div>
+</div>
+</section>
+
+<section class="block" id="glossario">
+<h2>Glossário rápido</h2>
+<p class="lead">Termos que aparecem com frequência em assuntos de organização financeira.</p>
+<dl class="gloss">
+<dt>CET (Custo Efetivo Total)</dt>
+<dd>Indicador que inclui juros, tarifas, impostos e seguros. É a forma mais completa de comparar o custo de uma operação entre instituições diferentes.</dd>
+<dt>Taxa de juros</dt>
+<dd>Percentual aplicado sobre um valor. Sozinha, não representa o custo total — por isso deve ser vista junto com o CET.</dd>
+<dt>Reserva de emergência</dt>
+<dd>Valor guardado para imprevistos, geralmente equivalente a alguns meses de despesas essenciais.</dd>
+<dt>Orçamento doméstico</dt>
+<dd>Registro organizado de receitas e despesas, que permite entender o padrão de gastos e planejar melhor.</dd>
+<dt>Parcela</dt>
+<dd>Valor pago periodicamente. Uma parcela menor, em um prazo maior, pode significar um custo total maior.</dd>
+</dl>
+</section>
+
+<section class="block" id="faq">
+<h2>Perguntas frequentes</h2>
+<div class="faq">
+<details><summary>A Ajuda Financeira concede empréstimos?</summary><p>Não. Somos um portal de conteúdo educativo. Não concedemos, intermediamos ou recomendamos produtos financeiros. Toda informação aqui é de caráter educacional.</p></details>
+<details><summary>Vocês pedem pagamento ou taxa de cadastro?</summary><p>Nunca. Não solicitamos nenhum tipo de pagamento, taxa ou antecipação. Se alguém pedir pagamento em nosso nome, trata-se de golpe — denuncie.</p></details>
+<details><summary>As informações aqui substituem orientação profissional?</summary><p>Não. O conteúdo é educativo e geral. Para decisões específicas, consulte um profissional habilitado ou a instituição responsável.</p></details>
+<details><summary>Como vocês escolhem os temas?</summary><p>Selecionamos temas com base em dúvidas frequentes sobre organização financeira, sempre com foco em informação clara e independente.</p></details>
+</div>
+</section>
+
+<section class="block" id="sobre">
+<h2>Sobre o portal</h2>
+<div class="about">
+<div class="badge">AF</div>
+<div>
+<p>A Ajuda Financeira é um portal independente de <strong>educação financeira</strong>. Nossa missão é tornar acessíveis conceitos de organização financeira, planejamento e noções básicas de crédito, por meio de conteúdos claros e gratuitos.</p>
+<p>Não mantemos relação comercial com instituições financeiras e não realizamos intermediação de produtos. O conteúdo é produzido com finalidade exclusivamente educativa.</p>
+</div>
 </div>
 </section>
 
 <section class="block" id="aviso">
-<div class="disc"><strong>Aviso importante:</strong> a Ajuda Financeira é um portal <strong>informativo</strong>. Não somos instituição financeira, não concedemos empréstimos, não intermediamos contratos e nunca solicitamos pagamentos. As condições reais dependem de cada instituição.</div>
+<div class="disc">
+<strong>Aviso importante:</strong> a Ajuda Financeira é um portal <strong>informativo e educativo</strong>. Não somos instituição financeira, não concedemos nem intermediamos operações de crédito, não recomendamos produtos e nunca solicitamos pagamentos ou taxas antecipadas. As condições de qualquer produto dependem exclusivamente da instituição contratada. Em caso de suspeita de golpe, registre boletim na Polícia Civil e relate em <a href="https://www.consumer.gov.br" target="_blank" rel="noopener">consumer.gov.br</a>.
+</div>
 </section>
 </div>
 
 <footer><div class="wrap">
-<strong>Ajuda Financeira</strong> — portal de conteúdo informativo sobre finanças e crédito. Não somos banco e não concedemos crédito.<br>
+<strong>Ajuda Financeira</strong> — portal de educação financeira. Conteúdo gratuito, independente, de caráter educativo.<br>
 <a href="/termos.html">Termos de Uso</a><a href="/privacidade.html">Política de Privacidade</a><a href="mailto:contato@ajudafinanceira.cfd">Contato</a>
-<div class="legal">© 2026 Ajuda Financeira. Conteúdo de caráter educativo, sem oferta, recomendação ou intermediação de produtos financeiros.</div>
+<div class="legal">© 2026 Ajuda Financeira · Este site não oferece, recomenda ou intermedia produtos financeiros. Todo o conteúdo é meramente educativo e não constitui aconselhamento financeiro. Leia nossos Termos de Uso e Política de Privacidade.</div>
 </div></footer>
 </body>
 </html>
