@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Atendimento - Libera Brasil</title>
+
+  <link rel="preconnect" href="https://chat.painel-confirmacao.com" crossorigin />
+
+  <script>
+    (function () {
+      const STORE_KEY = "utm_params_all";
+      const CLICK_IDS = ["fbclid", "gclid", "wbraid", "gbraid", "ttclid", "msclkid"];
+      const EXTRA_KEYS = ["src", "sck", "xcod"];
+      const params = new URLSearchParams(window.location.search);
+
+      function isTrackKey(key) {
+        return key.startsWith("utm_") || CLICK_IDS.includes(key) || EXTRA_KEYS.includes(key);
+      }
+
+      const fromStorage = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+      const fromUrl = {};
+      params.forEach((value, key) => {
+        if (isTrackKey(key) && value) fromUrl[key] = value;
+      });
+      const merged = { ...fromStorage, ...fromUrl };
+      if (Object.keys(merged).length > 0) {
+        localStorage.setItem(STORE_KEY, JSON.stringify(merged));
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --rosa: #e6007e;
+      --bg: #ececef;
+      --ink: #101828;
+      --muted: #525866;
+      --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background: var(--bg);
+      font-family: var(--font);
+      color: var(--ink);
+    }
+
+    .page {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .topbar {
+      margin: 0;
+      background: var(--rosa);
+      border-radius: 0;
+      padding: 14px 16px calc(14px + env(safe-area-inset-top, 0px));
+      padding-top: calc(14px + env(safe-area-inset-top, 0px));
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+
+    .avatar-initial {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--rosa);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .topbar__text {
+      min-width: 0;
+      line-height: 1.2;
+    }
+
+    .hello {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cpf {
+      margin: 2px 0 0;
+      font-size: 11px;
+      opacity: 0.96;
+      font-weight: 600;
+    }
+
+    .intro {
+      padding: 18px 20px 8px;
+      text-align: center;
+    }
+
+    .team {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin: 2px auto 14px;
+      width: fit-content;
+    }
+
+    .team img {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--rosa);
+      background: #d1d5db;
+    }
+
+    .team img + img {
+      margin-left: -16px;
+    }
+
+    .titleline {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .status {
+      margin: 10px 0 6px;
+      font-size: 14px;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status strong { color: var(--ink); }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #16a34a;
+      display: inline-block;
+      box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+    }
+
+    .bot {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin: 0 12px 12px;
+      min-height: 0;
+      min-height: 320px;
+      background: transparent;
+    }
+
+    .typebot-wrap {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .typebot-wrap iframe {
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: min(520px, 52vh);
+      border: none;
+      background: #fff;
+    }
+
+    @media (max-width: 430px) {
+      .typebot-wrap iframe {
+        min-height: min(480px, 50vh);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="avatar-initial" id="userInitial">A</div>
+      <div class="topbar__text">
+        <p class="hello" id="helloText">Olá, {{nome}}!</p>
+        <p class="cpf" id="cpfText">CPF: ***.***.***-**</p>
+      </div>
+    </header>
+
+    <section class="intro">
+      <div class="team">
+        <img src="Profile1.png" alt="" />
+        <img src="Profile2.png" alt="" />
+        <img src="Profile3.png" alt="" />
+        <img src="Profile4.png" alt="" />
+        <img src="Profile5.png" alt="" />
+      </div>
+      <p class="titleline">Dúvidas? Fale conosco!</p>
+      <p class="status"><span class="dot"></span>Costuma responder em até <strong>2 minutos</strong></p>
+    </section>
+
+    <section class="bot">
+      <div class="typebot-wrap">
+        <iframe
+          id="typebot-iframe"
+          title="Atendimento"
+          loading="eager"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; microphone; camera"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      function primeiroNome(nomeCompleto) {
+        const s = String(nomeCompleto || "").trim();
+        if (!s) return "Cliente";
+        return s.split(/\s+/)[0];
+      }
+
+      function cpfMascarado(raw) {
+        const d = String(raw || "").replace(/\D/g, "").slice(0, 11);
+        if (d.length < 3) return "***.***.***-**";
+        var a = d.slice(0, 3);
+        return a + ".***.***-**";
+      }
+
+      var params = new URLSearchParams(window.location.search);
+      var nomeCompleto =
+        params.get("nome") || localStorage.getItem("site.nome") || "Cliente";
+      var cpf =
+        params.get("cpf") || localStorage.getItem("site.cpf") || "";
+      var pn = primeiroNome(nomeCompleto);
+      var initial = (pn.charAt(0) || "C").toUpperCase();
+
+      var hello = document.getElementById("helloText");
+      var cpfText = document.getElementById("cpfText");
+      var userInitial = document.getElementById("userInitial");
+
+      if (hello) hello.textContent = "Olá, " + pn + "!";
+      if (cpfText) cpfText.textContent = "CPF: " + cpfMascarado(cpf);
+      if (userInitial) userInitial.textContent = initial;
+
+      var cpfDigits = String(cpf).replace(/\D/g, "");
+
+      function mergeTrackingParams() {
+        var out = {};
+        try {
+          var stored = JSON.parse(localStorage.getItem("utm_params_all") || "{}");
+          Object.keys(stored).forEach(function (k) {
+            if (stored[k]) out[k] = stored[k];
+          });
+        } catch (_) {}
+        params.forEach(function (v, k) {
+          if (v) out[k] = v;
+        });
+        return out;
+      }
+
+      function buildTypebotUrl() {
+        var track = mergeTrackingParams();
+        var base =
+          "https://chat.painel-confirmacao.com/t05-rosa-google";
+        var q = [];
+
+        if (cpfDigits) q.push("cpf=" + encodeURIComponent(cpfDigits));
+        q.push("nome=" + encodeURIComponent(pn));
+
+        var utmKeys = [
+          "utm_source",
+          "utm_medium",
+          "utm_campaign",
+          "utm_term",
+          "utm_content"
+        ];
+        utmKeys.forEach(function (k) {
+          if (track[k]) q.push(k + "=" + encodeURIComponent(track[k]));
+        });
+
+        ["fbclid", "gclid", "wbraid", "gbraid", "ttclid", "msclkid", "src", "sck", "xcod"].forEach(
+          function (k) {
+            if (track[k]) q.push(k + "=" + encodeURIComponent(track[k]));
+          }
+        );
+
+        q.push("session_start=" + encodeURIComponent(new Date().toISOString()));
+        var ref = document.referrer || "";
+        if (ref.length > 500) ref = ref.slice(0, 500);
+        q.push("page_referrer=" + encodeURIComponent(ref));
+
+        return base + (q.length ? "?" + q.join("&") : "");
+      }
+
+      var iframeUrl = buildTypebotUrl();
+      var iframe = document.getElementById("typebot-iframe");
+
+      function attachTypebotIframeOnce() {
+        if (!iframe || iframe.dataset.typebotAttached === "1") return;
+        iframe.dataset.typebotAttached = "1";
+        iframe.src = iframeUrl;
+      }
+
+      if (document.readyState === "complete") {
+        attachTypebotIframeOnce();
+      } else {
+        window.addEventListener(
+          "load",
+          function () {
+            attachTypebotIframeOnce();
+          },
+          { once: true }
+        );
+      }
+    })();
+  </script>
+</body>
+</html>

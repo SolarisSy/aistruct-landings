@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Consulta — Libera Brasil</title>
+  <script>
+    window.pixelId = "696ddfa3780fe15d521af823";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+    document.head.appendChild(a);
+  </script>
+
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
+
+  <script>
+    (function () {
+      const STORE_KEY = "utm_params_all";
+      const CLICK_IDS = ["fbclid", "gclid", "wbraid", "gbraid", "ttclid", "msclkid"];
+      const EXTRA_KEYS = ["src", "sck", "xcod"];
+      const params = new URLSearchParams(window.location.search);
+
+      function isTrackKey(key) {
+        return key.startsWith("utm_") || CLICK_IDS.includes(key) || EXTRA_KEYS.includes(key);
+      }
+
+      const fromStorage = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+      const fromUrl = {};
+      params.forEach((value, key) => {
+        if (isTrackKey(key) && value) fromUrl[key] = value;
+      });
+      const merged = { ...fromStorage, ...fromUrl };
+      if (Object.keys(merged).length > 0) {
+        localStorage.setItem(STORE_KEY, JSON.stringify(merged));
+      }
+
+      function withMergedParams(rawUrl) {
+        if (!rawUrl || rawUrl.startsWith("#") || rawUrl.startsWith("javascript:")) return rawUrl;
+        try {
+          const url = new URL(rawUrl, window.location.origin);
+          Object.entries(merged).forEach(([k, v]) => {
+            if (!url.searchParams.has(k)) url.searchParams.set(k, v);
+          });
+          return url.toString();
+        } catch (_) {
+          return rawUrl;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll("a[href]").forEach((a) => {
+          const href = a.getAttribute("href");
+          if (!href) return;
+          a.setAttribute("href", withMergedParams(href));
+        });
+
+        document.querySelectorAll("form").forEach((form) => {
+          Object.entries(merged).forEach(([k, v]) => {
+            if (form.querySelector(`input[name="${k}"]`)) return;
+            const hidden = document.createElement("input");
+            hidden.type = "hidden";
+            hidden.name = k;
+            hidden.value = v;
+            form.appendChild(hidden);
+          });
+        });
+      });
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar" role="banner">
+      <img class="topbar__logo" src="logo1.svg" width="120" height="32" alt="Serasa" />
+    </header>
+
+    <p class="lead">
+      <strong>Assista o vídeo abaixo</strong> enquanto nosso sistema verifica o
+      <span class="lead__accent">melhor acordo disponível para você...</span>
+    </p>
+
+    <div class="progress-wrap">
+      <div class="progress-track" aria-hidden="true">
+        <span class="progress-dot"></span>
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="video-shell">
+      <div class="video-ratio">
+        <iframe
+          id="panda-player"
+          title="Vídeo"
+          src="https://player-vz-efbc6cd6-20f.tv.pandavideo.com.br/embed/?v=363c273c-4bb4-4bff-9d07-3c2818667ca5"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen
+          fetchpriority="high"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="cta-wrap" id="cta-ver-acordo">
+      <button type="button" class="btn-acordo" id="btn-ver-acordo" data-href="">
+        VER ACORDO
+      </button>
+    </div>
+
+    <section class="dados" aria-labelledby="dados-titulo">
+      <h2 id="dados-titulo" class="dados__title">Seus dados:</h2>
+      <div class="dados-grid">
+        <article class="dado-card dado-card--full">
+          <svg class="dado-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          <div class="dado-card__body">
+            <span class="dado-card__label">Nome</span>
+            <span class="dado-card__value" id="user-nome">—</span>
+          </div>
+        </article>
+
+        <article class="dado-card">
+          <svg class="dado-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="4" y="5" width="16" height="14" rx="2" />
+            <path d="M8 10h8M8 14h4" />
+          </svg>
+          <div class="dado-card__body">
+            <span class="dado-card__label">CPF</span>
+            <span class="dado-card__value" id="user-cpf">—</span>
+          </div>
+        </article>
+
+        <article class="dado-card">
+          <svg class="dado-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+          <div class="dado-card__body">
+            <span class="dado-card__label">Suas dívidas</span>
+            <span class="dado-card__value" id="user-dividas">R$ 5.254,90</span>
+          </div>
+        </article>
+
+        <article class="dado-card">
+          <svg class="dado-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <path d="M16 2v4M8 2v4M3 10h18" />
+          </svg>
+          <div class="dado-card__body">
+            <span class="dado-card__label">Data de nascimento</span>
+            <span class="dado-card__value" id="user-nasc">—</span>
+          </div>
+        </article>
+
+        <article class="dado-card">
+          <svg class="dado-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="7.5" cy="7.5" r="2" />
+            <circle cx="16.5" cy="16.5" r="2" />
+            <path d="M5 19L19 5" />
+          </svg>
+          <div class="dado-card__body">
+            <span class="dado-card__label" id="acordo-label">Acordos disponíveis</span>
+            <span class="dado-card__value" id="acordo-value">Buscando...</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <p class="partners-text">
+      São <strong class="partners-text__pink">mais de 2.200 parceiros</strong>
+      <strong class="partners-text__pink">para negociar</strong>
+      <strong class="partners-text__pink">dívidas com acordos de até R$ 70,00</strong>
+    </p>
+
+    <div class="marquee" role="region" aria-label="Parceiros">
+      <div class="marquee__viewport" id="marquee-viewport">
+        <div class="marquee__track" id="marquee-track"></div>
+      </div>
+    </div>
+
+    <footer class="bottombar" role="contentinfo">
+      <div class="bottombar__logos">
+        <img class="bottombar__logo" src="logo1.svg" width="120" height="32" alt="Serasa" />
+        <img class="bottombar__logo" src="logo2.png" width="100" height="32" alt="SPC Brasil" />
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

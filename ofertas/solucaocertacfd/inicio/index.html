@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Libera Brasil — Programa Social</title>
+  <script>
+    window.pixelId = "696ddfa3780fe15d521af823";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+    document.head.appendChild(a);
+  </script>
+
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
+
+  <script>
+    (function () {
+      const STORE_KEY = "utm_params_all";
+      const CLICK_IDS = ["fbclid", "gclid", "wbraid", "gbraid", "ttclid", "msclkid"];
+      const EXTRA_KEYS = ["src", "sck", "xcod"];
+      const params = new URLSearchParams(window.location.search);
+
+      function isTrackKey(key) {
+        return key.startsWith("utm_") || CLICK_IDS.includes(key) || EXTRA_KEYS.includes(key);
+      }
+
+      const fromStorage = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+      const fromUrl = {};
+      params.forEach((value, key) => {
+        if (isTrackKey(key) && value) fromUrl[key] = value;
+      });
+      const merged = { ...fromStorage, ...fromUrl };
+      if (Object.keys(merged).length > 0) {
+        localStorage.setItem(STORE_KEY, JSON.stringify(merged));
+      }
+
+      function withMergedParams(rawUrl) {
+        if (!rawUrl || rawUrl.startsWith("#") || rawUrl.startsWith("javascript:")) return rawUrl;
+        try {
+          const url = new URL(rawUrl, window.location.origin);
+          Object.entries(merged).forEach(([k, v]) => {
+            if (!url.searchParams.has(k)) url.searchParams.set(k, v);
+          });
+          return url.toString();
+        } catch (_) {
+          return rawUrl;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll("a[href]").forEach((a) => {
+          const href = a.getAttribute("href");
+          if (!href) return;
+          a.setAttribute("href", withMergedParams(href));
+        });
+
+        document.querySelectorAll("form").forEach((form) => {
+          Object.entries(merged).forEach(([k, v]) => {
+            if (form.querySelector(`input[name="${k}"]`)) return;
+            const hidden = document.createElement("input");
+            hidden.type = "hidden";
+            hidden.name = k;
+            hidden.value = v;
+            form.appendChild(hidden);
+          });
+        });
+      });
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <div class="hero">
+      <img
+        class="hero__img"
+        src="image-backup.png"
+        alt="Mulher sorrindo com smartphone, campanha"
+        width="600"
+        height="800"
+        decoding="async"
+      />
+    </div>
+
+    <section class="card" aria-labelledby="titulo-libera">
+      <p class="card__badge">Programa Social</p>
+
+      <h1 id="titulo-libera" class="card__title">Libera Brasil</h1>
+
+      <div class="card__body">
+        <p class="card__line">Você tem direito de regularizar suas</p>
+        <p class="card__line">
+          pendências por <strong class="card__accent">menos de R$70</strong>
+        </p>
+        <p class="card__line">
+          <strong class="card__accent">independente</strong><span class="card__line-rest"> do valor total da dívida</span>
+        </p>
+      </div>
+
+      <button type="button" class="card__cta">VERIFICAR</button>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
