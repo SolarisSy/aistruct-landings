@@ -1,595 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CreditoAgi | Compare as Melhores Propostas de Crédito dos Bancos</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .purple-gradient {
-            background: linear-gradient(135deg, #9903d6 0%, #7c3aed 50%, #6d28d9 100%);
-        }
-
-        .purple-gradient-dark {
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-        }
-
-        .text-gradient {
-            background: linear-gradient(135deg, #9903d6 0%, #7c3aed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(153, 3, 214, 0.2);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #9903d6 0%, #7c3aed 100%);
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(153, 3, 214, 0.4);
-        }
-
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(-5deg); }
-            50% { transform: translateY(-15px) rotate(-5deg); }
-        }
-
-        .pulse-ring {
-            position: relative;
-        }
-
-        .pulse-ring::before {
-            content: '';
-            position: absolute;
-            inset: -10px;
-            border-radius: 50%;
-            border: 3px solid #9903d6;
-            animation: pulse-ring 2s ease-out infinite;
-        }
-
-        @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        .stat-card {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .feature-icon {
-            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
-        }
-
-        .cta-section {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crédito Ágil — Guia para comparar propostas de crédito com consciência</title>
+<meta name="description" content="Conteúdo informativo e independente sobre como comparar linhas de crédito, entender CET, taxas e escolher a proposta mais adequada. Não somos instituição financeira.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://creditoagil.cfd/">
+<meta name="theme-color" content="#1f6f54">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f6f54'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fff' font-family='Georgia'%3EC%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#f6f4ee;--ink:#22271f;--muted:#5c6157;--line:#e2ddd0;--accent:#1f6f54;--card:#fffdf8}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.7}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+header{border-bottom:1px solid var(--line);background:var(--card)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;padding:18px 22px}
+.brand{font-weight:bold;font-size:1.25rem;color:var(--accent);letter-spacing:.01em}
+nav a{color:var(--muted);text-decoration:none;font-family:Arial,sans-serif;font-size:.82rem;margin-left:18px;text-transform:uppercase;letter-spacing:.08em}
+.hero{padding:48px 0 22px}
+.kicker{font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;color:var(--accent);margin-bottom:10px}
+h1{font-size:clamp(1.9rem,5vw,2.7rem);line-height:1.18;margin:.1rem 0 .6rem}
+.lead{font-size:1.15rem;color:#3a3f36}
+.byline{font-family:Arial,sans-serif;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:.7rem 0;margin:1.6rem 0}
+article h2{font-size:1.4rem;margin:2.2rem 0 .5rem}
+article p{margin:0 0 1.1rem;color:#33372e}
+ul.clean{padding-left:1.1rem}ul.clean li{margin-bottom:.5rem}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:1rem 1.2rem;font-family:Arial,sans-serif;font-size:.95rem;color:#3a3f36;margin:1.8rem 0}
+.faq dt{font-weight:bold;margin-top:1.1rem}
+.faq dd{margin:.3rem 0 0;color:#33372e}
+footer{background:#20241c;color:#c9cec2;font-family:Arial,sans-serif;font-size:.82rem;line-height:1.8;margin-top:3rem}
+footer .wrap{padding:2rem 22px}
+footer a{color:#9fd3c0;text-decoration:underline;margin-right:14px}
+.legal{color:#8b9084;font-size:.74rem;margin-top:1rem;border-top:1px solid #333a2e;padding-top:1rem}
+</style>
 </head>
-<body class="bg-gray-50">
+<body>
+<header><div class="wrap"><span class="brand">Crédito Ágil</span>
+<nav><a href="#como">Como comparar</a><a href="#custos">Custos</a><a href="#faq">Dúvidas</a></nav></div></header>
 
-    <!-- Header -->
-    <header class="purple-gradient text-white py-4 px-6 sticky top-0 z-50 shadow-lg">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                    <i class="fas fa-shield-halved text-purple-600 text-xl"></i>
-                </div>
-                <span class="text-xl font-bold">CreditoAgi</span>
-            </div>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#como-funciona" class="hover:text-purple-200 transition">Como Funciona</a>
-                <a href="#beneficios" class="hover:text-purple-200 transition">Benefícios</a>
-                <a href="#faq" class="hover:text-purple-200 transition">FAQ</a>
-            </nav>
-        </div>
-    </header>
+<div class="wrap">
+<section class="hero">
+<div class="kicker">Guia independente</div>
+<h1>Como comparar propostas de crédito sem cair em armadilhas</h1>
+<p class="lead">Um material informativo para quem quer entender taxas, prazos e o custo real antes de decidir — escrito de forma simples, sem vender empréstimo.</p>
+<div class="byline">Conteúdo educativo · Revisado para clareza · 2026 · <strong>Crédito Ágil não é banco nem concede crédito</strong></div>
+</section>
 
-    <!-- Hero Section -->
-    <section class="purple-gradient text-white py-16 md:py-24 px-6 relative overflow-hidden">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Left: Copy -->
-                <div class="space-y-6 z-10">
-                    <div class="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
-                        <i class="fas fa-magnifying-glass-dollar mr-2"></i>Plataforma de comparação
-                    </div>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-                        Compare as melhores propostas de crédito dos principais bancos
-                    </h1>
-                    <p class="text-lg md:text-xl text-purple-100">
-                        Somos uma plataforma de tecnologia que reúne e compara ofertas de instituições parceiras para você escolher a melhor. Não somos banco nem instituição financeira — apenas ajudamos você a encontrar a proposta ideal.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <a href="#simulador" class="btn-primary text-white text-center font-bold py-4 px-8 rounded-xl text-lg shadow-lg inline-block">
-                            <i class="fas fa-magnifying-glass-dollar mr-2"></i>Comparar Propostas
-                        </a>
-                        <div class="flex items-center space-x-2 text-purple-100">
-                            <i class="fas fa-check-circle"></i>
-                            <span class="text-sm">Gratuito e sem compromisso</span>
-                        </div>
-                    </div>
-                    <p class="text-xs text-purple-200 pt-2">
-                        <i class="fas fa-info-circle mr-1"></i>
-                        Serviço de comparação. Não realizamos concessão de crédito. Condições variam conforme a instituição parceira.
-                    </p>
-                </div>
+<article>
+<p>Comparar crédito não é só olhar a taxa de juros anunciada. Duas propostas com a mesma taxa nominal podem custar valores muito diferentes no fim — por causa de tarifas, seguros embutidos e do prazo. Este guia reúne o básico para você avaliar com calma.</p>
 
-                <!-- Right: Phone Mockup -->
-                <div class="relative flex justify-center">
-                    <div class="floating relative">
-                        <!-- Phone Frame -->
-                        <div class="relative w-64 md:w-72 lg:w-80 h-[500px] md:h-[550px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl">
-                            <!-- Screen -->
-                            <div class="w-full h-full bg-white rounded-[2.5rem] overflow-hidden flex flex-col">
-                                <!-- Screen Header -->
-                                <div class="purple-gradient p-4 text-white">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <i class="fas fa-arrow-left"></i>
-                                        <span class="font-semibold">Comparação</span>
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </div>
-                                    <div class="text-center">
-                                        <p class="text-sm text-purple-200">Melhor proposta encontrada</p>
-                                        <p class="text-3xl font-bold mt-1">R$ 5.000</p>
-                                    </div>
-                                </div>
+<h2 id="custos">1. Olhe o CET, não só a taxa</h2>
+<p>O <strong>Custo Efetivo Total (CET)</strong> reúne juros, tarifas, impostos e seguros num único percentual ao ano. É ele que mostra quanto a operação realmente custa. Uma taxa baixa com tarifas altas pode ter um CET maior que uma taxa aparentemente mais alta.</p>
 
-                                <!-- Screen Body -->
-                                <div class="flex-1 p-4 space-y-4">
-                                    <!-- Progress Ring -->
-                                    <div class="bg-gray-50 rounded-2xl p-4 flex items-center justify-between">
-                                        <div>
-                                            <p class="text-xs text-gray-500">Bancos comparados</p>
-                                            <p class="text-lg font-bold text-gray-800">12</p>
-                                            <p class="text-xs text-green-600">Concluído</p>
-                                        </div>
-                                        <div class="w-16 h-16 pulse-ring rounded-full flex items-center justify-center bg-purple-100">
-                                            <i class="fas fa-check text-purple-600 text-2xl"></i>
-                                        </div>
-                                    </div>
+<h2 id="como">2. Compare no mesmo prazo e no mesmo valor</h2>
+<p>Parcelas menores costumam esconder prazos mais longos — e mais juros no total. Para comparar de verdade, use o mesmo valor solicitado e o mesmo número de meses nas propostas.</p>
+<ul class="clean">
+<li>Verifique o <strong>valor total a pagar</strong>, não só a parcela.</li>
+<li>Confirme se há tarifa de cadastro ou de abertura.</li>
+<li>Pergunte se o seguro é obrigatório ou opcional.</li>
+</ul>
 
-                                    <!-- Gauge -->
-                                    <div class="bg-gray-50 rounded-2xl p-4">
-                                        <p class="text-xs text-gray-500 mb-2">Melhor oferta entre os bancos</p>
-                                        <div class="relative h-2 bg-gray-200 rounded-full overflow-hidden">
-                                            <div class="absolute inset-y-0 left-0 w-4/5 purple-gradient rounded-full"></div>
-                                        </div>
-                                        <div class="flex justify-between mt-2">
-                                            <span class="text-sm text-gray-600">R$ 1.000</span>
-                                            <span class="text-sm font-bold text-purple-600">R$ 5.000</span>
-                                        </div>
-                                    </div>
+<h2>3. Desconfie de promessas de aprovação garantida</h2>
+<p>Nenhuma instituição séria garante crédito "para todos" sem análise. Aprovação depende de avaliação de cada instituição. Ofertas que pedem pagamento antecipado para "liberar" um empréstimo são um sinal clássico de golpe.</p>
 
-                                    <!-- CTA Button -->
-                                    <button class="w-full purple-gradient text-white font-bold py-3 rounded-xl text-sm shadow-lg">
-                                        Comparar Propostas
-                                    </button>
+<div class="note"><strong>Importante:</strong> a Crédito Ágil é uma plataforma <em>informativa</em>. Não realizamos concessão de crédito, não intermediamos contratos e não solicitamos pagamentos. As condições reais dependem exclusivamente de cada instituição financeira.</div>
 
-                                    <!-- Trust -->
-                                    <div class="flex items-center justify-center space-x-1 text-xs text-gray-500">
-                                        <i class="fas fa-lock text-green-500"></i>
-                                        <span>Seguro e criptografado</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<h2 id="faq">Perguntas frequentes</h2>
+<dl class="faq">
+<dt>Vocês emprestam dinheiro?</dt><dd>Não. Somos um site de conteúdo informativo sobre crédito.</dd>
+<dt>Cobram alguma taxa?</dt><dd>Não cobramos nada do leitor. Se alguém pedir pagamento em nome da Crédito Ágil, desconfie.</dd>
+<dt>Como escolher a melhor proposta?</dt><dd>Compare o CET no mesmo prazo e valor, e leia o contrato antes de assinar.</dd>
+</dl>
+</article>
+</div>
 
-                        <!-- Decorative Elements -->
-                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-purple-400 rounded-full opacity-20 blur-xl"></div>
-                        <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-purple-300 rounded-full opacity-20 blur-xl"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Wave Divider -->
-        <div class="absolute bottom-0 left-0 right-0">
-            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f9fafb"/>
-            </svg>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="py-12 px-6 -mt-8 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="stat-card rounded-2xl p-6 text-center card-hover shadow-lg">
-                    <p class="text-3xl md:text-4xl font-extrabold text-gradient">+500k</p>
-                    <p class="text-gray-600 text-sm mt-1">Clientes Atendidos</p>
-                </div>
-                <div class="stat-card rounded-2xl p-6 text-center card-hover shadow-lg">
-                    <p class="text-3xl md:text-4xl font-extrabold text-gradient">4.8/5</p>
-                    <p class="text-gray-600 text-sm mt-1">Avaliação</p>
-                </div>
-                <div class="stat-card rounded-2xl p-6 text-center card-hover shadow-lg">
-                    <p class="text-3xl md:text-4xl font-extrabold text-gradient">5 min</p>
-                    <p class="text-gray-600 text-sm mt-1">Tempo Médio</p>
-                </div>
-                <div class="stat-card rounded-2xl p-6 text-center card-hover shadow-lg">
-                    <p class="text-3xl md:text-4xl font-extrabold text-gradient">+12</p>
-                    <p class="text-gray-600 text-sm mt-1">Bancos Comparados</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section id="beneficios" class="py-16 px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Por que usar a CreditoAgi?</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Uma plataforma independente que compara ofertas de vários bancos para você decidir com transparência</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Benefit 1 -->
-                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
-                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-bolt text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Compare em Minutos</h3>
-                    <p class="text-gray-600">100% online. Reunimos as ofertas de vários bancos em um só lugar para você comparar sem sair de casa.</p>
-                </div>
-
-                <!-- Benefit 2 -->
-                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
-                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-shield-halved text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">100% Seguro</h3>
-                    <p class="text-gray-600">Seus dados protegidos com criptografia de ponta a ponta.</p>
-                </div>
-
-                <!-- Benefit 3 -->
-                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
-                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-hand-holding-dollar text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Serviço Gratuito</h3>
-                    <p class="text-gray-600">Comparar é totalmente gratuito. Somos independentes e mostramos as condições de cada instituição parceira com transparência.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section id="como-funciona" class="py-16 px-6 bg-gray-100">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Como Funciona</h2>
-                <p class="text-gray-600">3 passos simples para seu crédito</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Step 1 -->
-                <div class="text-center">
-                    <div class="relative inline-block mb-6">
-                        <div class="w-20 h-20 purple-gradient rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto shadow-lg">
-                            1
-                        </div>
-                        <div class="absolute -right-4 top-1/2 transform -translate-y-1/2 hidden md:block">
-                            <i class="fas fa-arrow-right text-purple-400 text-2xl"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Informe o que Procura</h3>
-                    <p class="text-gray-600">Preencha seus dados básicos e o valor desejado para buscarmos as melhores opções.</p>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="text-center">
-                    <div class="relative inline-block mb-6">
-                        <div class="w-20 h-20 purple-gradient rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto shadow-lg">
-                            2
-                        </div>
-                        <div class="absolute -right-4 top-1/2 transform -translate-y-1/2 hidden md:block">
-                            <i class="fas fa-arrow-right text-purple-400 text-2xl"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Compare as Ofertas</h3>
-                    <p class="text-gray-600">Veja lado a lado as propostas das instituições parceiras e escolha a que mais combina com você.</p>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="text-center">
-                    <div class="w-20 h-20 purple-gradient rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto shadow-lg mb-6">
-                        3
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Contrate com o Banco</h3>
-                    <p class="text-gray-600">Ao escolher uma oferta, você é direcionado à instituição parceira para concluir a contratação diretamente com ela.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="simulador" class="cta-section py-16 px-6 text-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para encontrar a melhor proposta?</h2>
-            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-                Compare em 2 minutos as ofertas de vários bancos em um só lugar. Gratuito e sem compromisso.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#" class="btn-primary text-white font-bold py-4 px-10 rounded-xl text-lg shadow-lg inline-block">
-                    <i class="fas fa-magnifying-glass-dollar mr-2"></i>Comparar Propostas
-                </a>
-                <a href="#faq" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-10 rounded-xl text-lg transition inline-block">
-                    <i class="fas fa-question-circle mr-2"></i>Tirar Dúvidas
-                </a>
-            </div>
-            <p class="text-xs text-gray-400 mt-6">
-                <i class="fas fa-info-circle mr-1"></i>
-                Somos uma plataforma de comparação, não uma instituição financeira. A concessão de crédito é feita exclusivamente pelas instituições parceiras, sujeita à análise delas.
-            </p>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-16 px-6">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Perguntas Frequentes</h2>
-            </div>
-
-            <div class="space-y-4">
-                <!-- FAQ 1 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                    <details class="group">
-                        <summary class="cursor-pointer p-6 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition">
-                            <span>A CreditoAgi empresta dinheiro?</span>
-                            <i class="fas fa-chevron-down text-purple-600 group-open:rotate-180 transition-transform"></i>
-                        </summary>
-                        <div class="px-6 pb-6 text-gray-600">
-                            Não. A CreditoAgi é uma plataforma de tecnologia que compara e apresenta ofertas de instituições financeiras parceiras. Não somos banco nem instituição financeira e não realizamos empréstimos — a contratação é feita diretamente com a instituição que você escolher.
-                        </div>
-                    </details>
-                </div>
-
-                <!-- FAQ 2 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                    <details class="group">
-                        <summary class="cursor-pointer p-6 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition">
-                            <span>O serviço tem algum custo?</span>
-                            <i class="fas fa-chevron-down text-purple-600 group-open:rotate-180 transition-transform"></i>
-                        </summary>
-                        <div class="px-6 pb-6 text-gray-600">
-                            Não. Usar a CreditoAgi para comparar propostas é totalmente gratuito. Você só assume compromissos ao contratar diretamente com a instituição financeira escolhida, nas condições dela.
-                        </div>
-                    </details>
-                </div>
-
-                <!-- FAQ 3 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                    <details class="group">
-                        <summary class="cursor-pointer p-6 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition">
-                            <span>Como recebo o crédito?</span>
-                            <i class="fas fa-chevron-down text-purple-600 group-open:rotate-180 transition-transform"></i>
-                        </summary>
-                        <div class="px-6 pb-6 text-gray-600">
-                            A CreditoAgi apenas conecta você às instituições parceiras. Todo o processo de aprovação, contratação e liberação de valores é conduzido diretamente pela instituição financeira escolhida, conforme as políticas e prazos dela.
-                        </div>
-                    </details>
-                </div>
-
-                <!-- FAQ 4 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                    <details class="group">
-                        <summary class="cursor-pointer p-6 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition">
-                            <span>Usar a plataforma afeta meu score de crédito?</span>
-                            <i class="fas fa-chevron-down text-purple-600 group-open:rotate-180 transition-transform"></i>
-                        </summary>
-                        <div class="px-6 pb-6 text-gray-600">
-                            A comparação de ofertas na CreditoAgi é apenas informativa e não impacta seu score. Uma eventual consulta formal ao seu CPF só ocorre caso você opte por contratar diretamente com uma instituição parceira.
-                        </div>
-                    </details>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="purple-gradient-dark text-white py-12 px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <!-- Brand -->
-                <div class="md:col-span-2">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                            <i class="fas fa-shield-halved text-purple-600 text-xl"></i>
-                        </div>
-                        <span class="text-xl font-bold">CreditoAgi</span>
-                    </div>
-                    <p class="text-purple-200 text-sm max-w-md">
-                        Plataforma de tecnologia que compara propostas de crédito de instituições financeiras parceiras. Ajudamos você a encontrar a melhor oferta — de forma gratuita e transparente.
-                    </p>
-                    <p class="text-purple-200/80 text-xs max-w-md mt-3">
-                        A CreditoAgi <strong>não é uma instituição financeira</strong> e não realiza concessão de crédito, empréstimos ou operações financeiras. Atuamos exclusivamente como intermediadora de informações entre o usuário e as instituições parceiras.
-                    </p>
-                    <div class="mt-4 text-xs text-purple-200 space-y-1">
-                        <p class="font-semibold text-white">THE ART COMERCIO DE ROUPAS SKATESHOP LTDA</p>
-                        <p>CNPJ: 84.740.869/0003-24</p>
-                    </div>
-                </div>
-
-                <!-- Links -->
-                <div>
-                    <h4 class="font-bold mb-4">Links Úteis</h4>
-                    <ul class="space-y-2 text-sm text-purple-200">
-                        <li><a href="#como-funciona" class="hover:text-white transition">Como Funciona</a></li>
-                        <li><a href="#beneficios" class="hover:text-white transition">Benefícios</a></li>
-                        <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
-                    </ul>
-                </div>
-
-                <!-- Legal -->
-                <div>
-                    <h4 class="font-bold mb-4">Legal</h4>
-                    <ul class="space-y-2 text-sm text-purple-200">
-                        <li><a href="#" onclick="openLegal('termos'); return false;" class="hover:text-white transition">Termos de Uso</a></li>
-                        <li><a href="#" onclick="openLegal('privacidade'); return false;" class="hover:text-white transition">Política de Privacidade</a></li>
-                        <li><a href="#" onclick="openLegal('lgpd'); return false;" class="hover:text-white transition">LGPD</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Bottom -->
-            <div class="border-t border-purple-400/30 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-purple-200">
-                <p>&copy; 2026 THE ART COMERCIO DE ROUPAS SKATESHOP LTDA &middot; CNPJ 84.740.869/0003-24. Todos os direitos reservados.</p>
-                <p class="mt-2 md:mt-0">
-                    <i class="fas fa-shield-halved mr-1"></i>
-                    Site seguro | SSL Certificado
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ===================== LEGAL MODALS ===================== -->
-    <div id="legal-overlay" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4" onclick="if(event.target===this)closeLegal()">
-        <div class="bg-white w-full max-w-3xl max-h-[85vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-            <!-- Modal Header -->
-            <div class="purple-gradient text-white px-6 py-4 flex items-center justify-between flex-shrink-0">
-                <h3 id="legal-title" class="text-lg md:text-xl font-bold"></h3>
-                <button onclick="closeLegal()" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center" aria-label="Fechar">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <!-- Modal Body -->
-            <div id="legal-body" class="px-6 py-6 overflow-y-auto text-sm text-gray-700 leading-relaxed space-y-4"></div>
-        </div>
-    </div>
-
-    <script>
-        var LEGAL_COMPANY = "THE ART COMERCIO DE ROUPAS SKATESHOP LTDA";
-        var LEGAL_CNPJ = "84.740.869/0003-24";
-        var LEGAL_SITE = "creditoagil.cfd";
-        var LEGAL_UPDATED = "09 de julho de 2026";
-
-        var LEGAL_CONTENT = {
-            termos: {
-                title: "Termos de Uso",
-                html:
-                    "<p><strong>Última atualização:</strong> " + LEGAL_UPDATED + "</p>" +
-                    "<p>Estes Termos de Uso regulam o acesso e a utilização do site <strong>" + LEGAL_SITE + "</strong> (\"Site\" ou \"Plataforma\"), de titularidade de <strong>" + LEGAL_COMPANY + "</strong>, inscrita no CNPJ sob o nº <strong>" + LEGAL_CNPJ + "</strong> (\"Empresa\"). Ao acessar e utilizar o Site, você declara ter lido, compreendido e aceito integralmente as condições abaixo.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>1. Natureza do Serviço</h4>" +
-                    "<p>A CreditoAgi é uma <strong>plataforma de tecnologia e comparação</strong> que reúne, organiza e apresenta ofertas de crédito de instituições financeiras parceiras, com o objetivo de ajudar o usuário a encontrar a melhor proposta. <strong>A Empresa NÃO é uma instituição financeira, banco, cooperativa, correspondente bancário ou credora</strong>, não realiza concessão de crédito, empréstimos, financiamentos ou qualquer operação financeira, e não capta recursos do público. Atuamos exclusivamente como intermediadora de informações entre o usuário e as instituições parceiras.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>2. Objeto</h4>" +
-                    "<p>O Site tem finalidade meramente informativa e de comparação, permitindo ao usuário visualizar e comparar condições de produtos financeiros oferecidos por terceiros. A comparação <strong>não constitui oferta, promessa ou garantia de concessão de crédito</strong>. Toda e qualquer contratação, análise, aprovação e liberação de valores é realizada direta e exclusivamente pela instituição financeira escolhida pelo usuário, conforme as políticas e condições dela.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>3. Elegibilidade</h4>" +
-                    "<p>O uso do Site é destinado a pessoas maiores de 18 (dezoito) anos, plenamente capazes. Ao utilizar o Site, o usuário garante que as informações fornecidas são verdadeiras, exatas e atualizadas, responsabilizando-se civil e criminalmente por elas.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>4. Resultados da Comparação</h4>" +
-                    "<p>Os valores, limites, prazos e condições apresentados são estimativas informativas fornecidas pelas instituições parceiras e podem variar conforme o perfil do usuário e os critérios de cada instituição. Nenhum resultado exibido na Plataforma vincula a Empresa ou terceiros à concessão de crédito.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>5. Obrigações do Usuário</h4>" +
-                    "<p>O usuário compromete-se a: (a) fornecer informações verdadeiras; (b) não utilizar o Site para fins ilícitos, fraudulentos ou que violem direitos de terceiros; (c) não tentar acessar áreas restritas, burlar mecanismos de segurança ou prejudicar o funcionamento do Site.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>6. Propriedade Intelectual</h4>" +
-                    "<p>Todo o conteúdo do Site — incluindo marca, logotipo, textos, imagens, layout e código — é de titularidade da Empresa ou de seus licenciadores, sendo protegido pela legislação de propriedade intelectual. É vedada a reprodução total ou parcial sem autorização prévia e por escrito.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>7. Limitação de Responsabilidade</h4>" +
-                    "<p>Por atuar apenas como plataforma de comparação, a Empresa não se responsabiliza pela concessão, negativa, condições, cobrança ou execução de qualquer contrato firmado entre o usuário e as instituições parceiras, tampouco por decisões tomadas pelo usuário com base nas informações exibidas, por indisponibilidades temporárias, falhas técnicas ou por conteúdos de sites de terceiros acessados por links.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>8. Alterações</h4>" +
-                    "<p>A Empresa poderá alterar estes Termos a qualquer momento, publicando a versão atualizada no Site. O uso continuado após alterações implica concordância com as novas condições.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>9. Foro e Legislação Aplicável</h4>" +
-                    "<p>Estes Termos são regidos pela legislação brasileira. Fica eleito o foro do domicílio do consumidor para dirimir quaisquer controvérsias, nos termos do Código de Defesa do Consumidor (Lei nº 8.078/1990).</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>10. Contato</h4>" +
-                    "<p>Dúvidas sobre estes Termos podem ser encaminhadas ao responsável: " + LEGAL_COMPANY + " — CNPJ " + LEGAL_CNPJ + ".</p>"
-            },
-            privacidade: {
-                title: "Política de Privacidade",
-                html:
-                    "<p><strong>Última atualização:</strong> " + LEGAL_UPDATED + "</p>" +
-                    "<p>Esta Política de Privacidade descreve como <strong>" + LEGAL_COMPANY + "</strong> (CNPJ <strong>" + LEGAL_CNPJ + "</strong>) coleta, utiliza, armazena e protege os dados pessoais dos usuários do site <strong>" + LEGAL_SITE + "</strong>, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD). A CreditoAgi é uma <strong>plataforma de tecnologia e comparação de ofertas de crédito</strong> e não uma instituição financeira.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>1. Dados que Coletamos</h4>" +
-                    "<p>Podemos coletar: (a) <strong>dados fornecidos pelo usuário</strong>, como nome, CPF, e-mail, telefone e informações necessárias à simulação; (b) <strong>dados de navegação</strong>, como endereço IP, tipo de dispositivo, navegador, páginas acessadas e cookies.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>2. Finalidade do Tratamento</h4>" +
-                    "<p>Os dados são utilizados para: (a) realizar a simulação de crédito solicitada; (b) entrar em contato e apresentar propostas; (c) melhorar a experiência e a segurança do Site; (d) cumprir obrigações legais e regulatórias; (e) prevenir fraudes.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>3. Base Legal</h4>" +
-                    "<p>O tratamento fundamenta-se no consentimento do titular, na execução de procedimentos preliminares a contrato, no cumprimento de obrigação legal e no legítimo interesse, conforme o art. 7º da LGPD.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>4. Compartilhamento de Dados</h4>" +
-                    "<p>Os dados poderão ser compartilhados com instituições financeiras e parceiros estritamente necessários à análise e concessão de crédito, bem como com autoridades quando exigido por lei. <strong>Não vendemos dados pessoais.</strong></p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>5. Cookies</h4>" +
-                    "<p>Utilizamos cookies e tecnologias semelhantes para funcionamento do Site, análise de desempenho e personalização. O usuário pode gerenciar ou desativar cookies nas configurações do navegador, ciente de que isso pode limitar funcionalidades.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>6. Armazenamento e Segurança</h4>" +
-                    "<p>Adotamos medidas técnicas e administrativas para proteger os dados contra acessos não autorizados, perda, alteração ou destruição. Os dados são mantidos apenas pelo tempo necessário às finalidades ou exigido por lei.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>7. Direitos do Titular</h4>" +
-                    "<p>O titular pode, a qualquer momento, solicitar confirmação de tratamento, acesso, correção, anonimização, portabilidade, eliminação e revogação do consentimento, conforme detalhado em nossa seção LGPD.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>8. Contato do Encarregado (DPO)</h4>" +
-                    "<p>Solicitações relativas a dados pessoais devem ser encaminhadas ao encarregado de dados de " + LEGAL_COMPANY + " — CNPJ " + LEGAL_CNPJ + ".</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>9. Alterações</h4>" +
-                    "<p>Esta Política poderá ser atualizada periodicamente. A versão vigente estará sempre disponível neste Site.</p>"
-            },
-            lgpd: {
-                title: "LGPD - Proteção de Dados",
-                html:
-                    "<p><strong>Última atualização:</strong> " + LEGAL_UPDATED + "</p>" +
-                    "<p><strong>" + LEGAL_COMPANY + "</strong> (CNPJ <strong>" + LEGAL_CNPJ + "</strong>) está comprometida com o cumprimento da Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 - LGPD) e com a transparência no tratamento dos dados dos usuários do site <strong>" + LEGAL_SITE + "</strong>.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>1. Nosso Compromisso</h4>" +
-                    "<p>Tratamos dados pessoais com respeito aos princípios de finalidade, adequação, necessidade, transparência, segurança e prevenção, garantindo o livre exercício dos direitos do titular.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>2. Direitos do Titular (art. 18 da LGPD)</h4>" +
-                    "<p>Você tem direito a:</p>" +
-                    "<ul class='list-disc pl-6 space-y-1'>" +
-                    "<li>Confirmação da existência de tratamento dos seus dados;</li>" +
-                    "<li>Acesso aos dados que mantemos sobre você;</li>" +
-                    "<li>Correção de dados incompletos, inexatos ou desatualizados;</li>" +
-                    "<li>Anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade;</li>" +
-                    "<li>Portabilidade dos dados a outro fornecedor;</li>" +
-                    "<li>Eliminação dos dados tratados com base no consentimento;</li>" +
-                    "<li>Informação sobre entidades com as quais compartilhamos dados;</li>" +
-                    "<li>Revogação do consentimento a qualquer momento.</li>" +
-                    "</ul>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>3. Como Exercer seus Direitos</h4>" +
-                    "<p>Para exercer qualquer direito acima, o titular pode entrar em contato com o encarregado de proteção de dados (DPO) da Empresa. A solicitação será respondida nos prazos previstos em lei.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>4. Consentimento</h4>" +
-                    "<p>Ao fornecer seus dados para a simulação, o usuário consente com o tratamento descrito na Política de Privacidade. O consentimento é livre, informado e pode ser revogado a qualquer momento, sem prejuízo dos tratamentos já realizados.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>5. Segurança e Incidentes</h4>" +
-                    "<p>Mantemos medidas de segurança adequadas. Em caso de incidente de segurança que possa acarretar risco relevante aos titulares, comunicaremos os afetados e a Autoridade Nacional de Proteção de Dados (ANPD) nos termos da lei.</p>" +
-                    "<h4 class='font-bold text-gray-900 mt-4'>6. Encarregado de Dados</h4>" +
-                    "<p>Controlador: " + LEGAL_COMPANY + " — CNPJ " + LEGAL_CNPJ + ". Todas as solicitações relacionadas à LGPD serão tratadas por nosso encarregado de proteção de dados.</p>"
-            }
-        };
-
-        function openLegal(key) {
-            var data = LEGAL_CONTENT[key];
-            if (!data) return;
-            document.getElementById('legal-title').textContent = data.title;
-            document.getElementById('legal-body').innerHTML = data.html;
-            var ov = document.getElementById('legal-overlay');
-            ov.classList.remove('hidden');
-            ov.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLegal() {
-            var ov = document.getElementById('legal-overlay');
-            ov.classList.add('hidden');
-            ov.classList.remove('flex');
-            document.body.style.overflow = '';
-        }
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeLegal();
-        });
-    </script>
-
+<footer><div class="wrap">
+<strong>Crédito Ágil</strong> — conteúdo informativo e independente sobre crédito. Não somos instituição financeira e não concedemos empréstimos.<br>
+<a href="/termos.html">Termos de Uso</a><a href="/privacidade.html">Política de Privacidade</a><a href="mailto:contato@creditoagil.cfd">Contato</a>
+<div class="legal">Operado por THE ART COMERCIO DE ROUPAS SKATESHOP LTDA — CNPJ 84.740.869/0003-24. © 2026 Crédito Ágil. Todo o conteúdo tem caráter educativo e não constitui oferta, recomendação ou intermediação de produtos financeiros.</div>
+</div></footer>
 </body>
 </html>
