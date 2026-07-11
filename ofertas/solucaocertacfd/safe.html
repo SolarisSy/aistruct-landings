@@ -14,6 +14,18 @@
 <meta property="og:locale" content="pt_BR">
 <meta name="theme-color" content="#0f766e">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-size='14' text-anchor='middle' fill='%23fff' font-family='Arial'%3ESC%3C/text%3E%3C/svg%3E">
+
+<!-- ===== Google Ads (gtag) — ⚠️ TROCAR 'AW-XXXXXXXXX' pelo ID de conversão =====
+     ONDE ACHAR: Google Ads → Ferramentas e configurações → Conversões → nova conversão → site
+     Copie o ID no formato AW-123456789 e substitua nas DUAS linhas abaixo. -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-XXXXXXXXX');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
+
 <style>
 :root{--bg:#f0fdf9;--ink:#0f172a;--muted:#475569;--line:#d1e7e0;--accent:#0f766e;--accent2:#0891b2;--card:#fff;--soft:#e6f7f3;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-ink:#7c2d12}
 *{box-sizing:border-box}
@@ -391,18 +403,48 @@ footer .legal{color:#64748b;font-size:.76rem;margin-top:14px;border-top:1px soli
 </div></footer>
 
 <script>
-// Aviso por e-mail — captura + evento de conversão (Google Ads).
+// ===== Banner de consentimento de cookies (LGPD) =====
+(function(){
+  var b = document.createElement('div');
+  b.id = 'ck';
+  b.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#e2e8f0;padding:14px 20px;display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:.84rem;z-index:9999;box-shadow:0 -4px 20px rgba(0,0,0,.3)';
+  b.innerHTML = '<span style="flex:1;min-width:260px;max-width:680px">Usamos cookies de mensuração (Google Ads) para melhorar nosso conteúdo. Saiba mais na <a href="/privacidade.html" style="color:#5eead4;text-decoration:underline">Política de Privacidade</a>.</span>'
+    + '<button id="ck-ok" style="background:#0f766e;color:#fff;border:none;padding:8px 18px;border-radius:8px;font-weight:700;cursor:pointer">Aceitar</button>'
+    + '<button id="ck-no" style="background:transparent;color:#94a3b8;border:1px solid #475569;padding:8px 14px;border-radius:8px;cursor:pointer">Recusar</button>';
+  function hide(){ b.style.display='none'; try{ localStorage.setItem('ck_consent','1'); }catch(e){} }
+  function hideNo(){ b.style.display='none'; try{ localStorage.setItem('ck_consent','0'); }catch(e){} }
+  b.querySelector('#ck-ok').addEventListener('click', hide);
+  b.querySelector('#ck-no').addEventListener('click', hideNo);
+  try {
+    var c = localStorage.getItem('ck_consent');
+    if (c === '1' || c === '0') { return; } // já decidiu, não mostra de novo
+  } catch(e) {}
+  document.addEventListener('DOMContentLoaded', function(){
+    document.body.appendChild(b);
+  });
+})();
+
+// Aviso por e-mail — captura de lead + evento de conversão (Google Ads).
+// ⚠️ TROCAR 'SEU-EMAIL@gmail.com' abaixo pelo endereço que deve receber os leads.
+// ⚠️ Funciona com FormSubmit.co (grátis): a 1ª inscrição chega com link de confirmação
+//    (clique 1x pra ativar). Depois os leads chegam direto no inbox.
 (function(){
   var form = document.getElementById('vipForm');
   var btn = document.getElementById('vipBtn');
   var ok = document.getElementById('vipOk');
   var email = document.getElementById('vipEmail');
   if(!form) return;
+
+  // ---- DESTINO DOS LEADS ---- (trocar pelo seu email):
+  var LEAD_EMAIL = 'SEU-EMAIL@gmail.com';
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
     if(!email.value || email.value.indexOf('@') < 1) return;
     btn.disabled = true;
     btn.textContent = 'Enviando...';
+
+    // 1) Disparar conversão Google Ads (só se gtag carregou + ID real configurado)
     try {
       if (typeof gtag === 'function') {
         gtag('event', 'sign_up', {
@@ -412,21 +454,26 @@ footer .legal{color:#64748b;font-size:.76rem;margin-top:14px;border-top:1px soli
         });
       }
     } catch(err) {}
-    try {
-      if (typeof dataLayer !== 'undefined') {
-        dataLayer.push({'event': 'vip_signup', 'method': 'aviso_email'});
-      }
-    } catch(err) {}
-    try {
-      var saved = JSON.parse(localStorage.getItem('vip_subs') || '[]');
-      saved.push({'email': email.value, 'ts': Date.now()});
-      localStorage.setItem('vip_subs', JSON.stringify(saved));
-    } catch(err) {}
+    try { if (typeof dataLayer !== 'undefined') dataLayer.push({'event':'vip_signup','method':'aviso_email'}); } catch(err) {}
+
+    // 2) Enviar o lead de VERDADE pro servidor (FormSubmit → inbox do email)
+    var fd = new FormData();
+    fd.append('email', email.value);
+    fd.append('origem', 'solucaocerta.cfd');
+    fd.append('pagina', 'newsletter_cidadania');
+    fd.append('_subject', '🔔 Novo lead — Solução Certa (newsletter)');
+    fd.append('_template', 'table');
+    fetch('https://formsubmit.co/ajax/' + LEAD_EMAIL, { method:'POST', body: fd, headers:{'Accept':'application/json'} })
+      .then(function(){ showOk(); })
+      .catch(function(){ showOk(); }); // mesmo se falhar, mostra OK (não punir usuário)
+  });
+
+  function showOk(){
     setTimeout(function(){
       form.style.display = 'none';
       ok.classList.add('show');
-    }, 600);
-  });
+    }, 400);
+  }
 })();
 </script>
 </body>
