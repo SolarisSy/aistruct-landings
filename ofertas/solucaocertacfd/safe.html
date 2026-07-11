@@ -3,79 +3,431 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Solução Certa · Central de orientação sobre crédito e finanças</title>
-<meta name="description" content="Central de conteúdo com orientações práticas sobre organização financeira, tipos de crédito e como avaliar propostas. Serviço informativo — não somos banco.">
+<title>Solução Certa · Informação útil para o dia a dia do cidadão</title>
+<meta name="description" content="Guias práticos sobre direitos do consumidor, programas sociais, organização doméstica e cidadania. Conteúdo gratuito e educativo, com referências a fontes oficiais do Governo Federal.">
 <meta name="robots" content="index, follow">
+<meta name="author" content="Solução Certa">
 <link rel="canonical" href="https://solucaocerta.cfd/">
-<meta name="theme-color" content="#1d4ed8">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231d4ed8'/%3E%3Ctext x='16' y='22' font-size='15' text-anchor='middle' fill='%23fff' font-family='Arial'%3ESC%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Solução Certa · Informação útil para o cidadão">
+<meta property="og:description" content="Guias práticos sobre direitos do consumidor, programas sociais e cidadania.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-size='14' text-anchor='middle' fill='%23fff' font-family='Arial'%3ESC%3C/text%3E%3C/svg%3E">
 <style>
-:root{--bg:#f2f5fb;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#1d4ed8;--accent2:#0ea5b7;--card:#ffffff}
+:root{--bg:#f0fdf9;--ink:#0f172a;--muted:#475569;--line:#d1e7e0;--accent:#0f766e;--accent2:#0891b2;--card:#fff;--soft:#e6f7f3;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-ink:#7c2d12}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px}
-header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);z-index:5}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
-.brand{font-weight:800;font-size:1.15rem}.brand span{color:var(--accent)}
-nav a{color:var(--muted);text-decoration:none;font-size:.9rem;margin-left:20px}
-.hero{background:linear-gradient(135deg,#1d4ed8,#0ea5b7);color:#fff;border-radius:0 0 26px 26px}
-.hero .wrap{padding:54px 20px 60px}
-.hero h1{font-size:clamp(1.8rem,4.5vw,2.6rem);margin:.2rem 0 .5rem;line-height:1.2}
-.hero p{font-size:1.12rem;max-width:640px;opacity:.95}
-.tag{display:inline-block;background:rgba(255,255,255,.2);padding:.3rem .8rem;border-radius:20px;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:-34px 0 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 8px 24px rgba(15,23,42,.05)}
-.card .ico{width:40px;height:40px;border-radius:10px;background:#eaf1ff;color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin-bottom:12px}
-.card h3{margin:0 0 6px;font-size:1.08rem}.card p{margin:0;color:var(--muted);font-size:.95rem}
-section.block{padding:44px 0}
-section.block h2{font-size:1.5rem;margin:0 0 14px}
-.steps{counter-reset:s;display:grid;gap:14px}
-.step{display:flex;gap:14px;align-items:flex-start}
-.step::before{counter-increment:s;content:counter(s);flex:0 0 34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-.disc{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;color:#7c2d12;font-size:.95rem}
-footer{background:#0f172a;color:#cbd5e1;font-size:.86rem;line-height:1.8;margin-top:20px}
-footer .wrap{padding:32px 20px}
-footer a{color:#7dd3fc;text-decoration:underline;margin-right:16px}
-.legal{color:#64748b;font-size:.76rem;margin-top:12px;border-top:1px solid #1e293b;padding-top:12px}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.7;font-size:17px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+a{color:var(--accent)}
+a:hover{text-decoration:none}
+
+header{position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-weight:800;font-size:1.18rem}.brand span{color:var(--accent)}
+nav{display:flex;gap:16px}
+nav a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .15s}
+nav a:hover{color:var(--accent)}
+
+.hero{background:linear-gradient(135deg,#0f766e,#0891b2);color:#fff;border-radius:0 0 28px 28px}
+.hero .wrap{padding:58px 20px 64px}
+.tag{display:inline-block;background:rgba(255,255,255,.22);padding:.32rem .9rem;border-radius:20px;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.hero h1{font-size:clamp(1.85rem,4.4vw,2.6rem);margin:.4rem 0 .6rem;line-height:1.2;font-weight:800}
+.hero p{font-size:1.12rem;max-width:680px;opacity:.96;margin:0 0 18px}
+.hero .meta{font-size:.84rem;opacity:.85}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin:-38px 0 0;position:relative;z-index:2}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 10px 28px rgba(15,23,42,.06)}
+.card .ico{width:42px;height:42px;border-radius:11px;background:var(--soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.15rem;margin-bottom:13px}
+.card h3{margin:0 0 6px;font-size:1.1rem}.card p{margin:0;color:var(--muted);font-size:.96rem}
+
+section.block{padding:48px 0;border-top:1px solid var(--line)}
+section.block:first-of-type{border-top:none}
+section.block h2{font-size:1.6rem;margin:0 0 8px;font-weight:800}
+section.block .lead{color:var(--muted);margin:0 0 24px;font-size:1.04rem;max-width:720px}
+
+.article{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin-bottom:26px;scroll-margin-top:80px}
+.article .cat{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent2);font-weight:700}
+.article h3{font-size:1.42rem;margin:6px 0 4px;font-weight:800}
+.article .byline{color:var(--muted);font-size:.82rem;margin:0 0 18px}
+.article .byline time{font-weight:600}
+.article p{margin:0 0 14px}
+.article ul{margin:0 0 14px;padding-left:22px}
+.article li{margin-bottom:6px}
+.article h4{font-size:1.05rem;margin:20px 0 8px}
+.sources{background:var(--soft);border-left:3px solid var(--accent);border-radius:8px;padding:14px 18px;font-size:.86rem;color:var(--muted);margin-top:8px}
+.sources strong{color:var(--ink)}
+.sources a{display:block;margin-top:3px}
+
+.vip{background:linear-gradient(135deg,#0f766e,#0891b2);color:#fff;border-radius:20px;padding:40px 36px;margin:0 auto;text-align:center;max-width:720px;box-shadow:0 16px 40px rgba(15,118,110,.18)}
+.vip .tag2{display:inline-block;background:rgba(255,255,255,.22);padding:.28rem .8rem;border-radius:18px;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+.vip h3{font-size:1.7rem;margin:0 0 8px;font-weight:800}
+.vip p{font-size:1.02rem;opacity:.96;margin:0 auto 22px;max-width:560px}
+.vip ul{list-style:none;padding:0;margin:0 auto 24px;max-width:440px;text-align:left;font-size:.96rem;opacity:.96}
+.vip ul li{padding:5px 0 5px 28px;position:relative}
+.vip ul li::before{content:"✓";position:absolute;left:0;font-weight:800;background:rgba(255,255,255,.2);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;top:5px}
+.vip-form{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.vip-form input[type=email]{flex:1;min-width:220px;padding:14px 16px;border:none;border-radius:11px;font-size:1rem;background:#fff;color:var(--ink)}
+.vip-form button{padding:14px 26px;border:none;border-radius:11px;background:#fff;color:var(--accent);font-weight:800;font-size:1rem;cursor:pointer;transition:transform .12s,box-shadow .12s}
+.vip-form button:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,0,0,.16)}
+.vip-form button:disabled{opacity:.6;cursor:default;transform:none}
+.vip-fine{font-size:.78rem;opacity:.8;margin-top:14px;max-width:480px;margin-left:auto;margin-right:auto}
+.vip-ok{display:none;background:rgba(255,255,255,.16);border-radius:12px;padding:16px 20px;margin-top:18px;max-width:460px;margin-left:auto;margin-right:auto;font-size:.96rem}
+.vip-ok.show{display:block}
+
+.gloss{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 24px}
+.gloss dt{font-weight:700;margin-top:20px}
+.gloss dd{margin:4px 0 0;color:var(--muted);font-size:.97rem}
+
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:1rem;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";color:var(--accent);font-weight:800;margin-right:10px}
+.faq details[open] summary::before{content:"–"}
+.faq p{margin:10px 0 0;color:var(--muted);font-size:.96rem}
+
+.disc{background:var(--warn-bg);border:1px solid var(--warn-bd);border-radius:14px;padding:18px 22px;color:var(--warn-ink);font-size:.97rem;line-height:1.7}
+.disc strong{color:#9a3412}
+
+.editorial{background:var(--soft);border:1px solid #bfe7dd;border-radius:16px;padding:26px 28px}
+.editorial h3{margin-top:0}
+.editorial ul{margin:8px 0;padding-left:22px}
+
+footer{background:#0f172a;color:#cbd5e1;font-size:.86rem;line-height:1.85;margin-top:30px}
+footer .wrap{padding:36px 20px}
+footer a{color:#5eead4;text-decoration:underline;margin-right:16px}
+footer .legal{color:#64748b;font-size:.76rem;margin-top:14px;border-top:1px solid #1e293b;padding-top:14px;max-width:760px}
+
+@media(max-width:600px){nav{display:none}.article{padding:22px 20px}.hero .wrap{padding:44px 20px 54px}}
 </style>
 </head>
 <body>
-<header><div class="wrap"><div class="brand">Ajuda<span>Financeira</span></div>
-<nav><a href="#topicos">Tópicos</a><a href="#passos">Como avaliar</a><a href="#aviso">Aviso</a></nav></div></header>
+<header><div class="wrap"><div class="brand">Solução<span>Certa</span></div>
+<nav><a href="#topicos">Tópicos</a><a href="#guias">Guias</a><a href="#plano-vip">Aviso por e-mail</a><a href="#glossario">Glossário</a><a href="#faq">Dúvidas</a><a href="#editorial">Sobre</a></nav></div></header>
 
 <div class="hero"><div class="wrap">
-<span class="tag">Central de orientação</span>
-<h1>Entenda crédito antes de decidir</h1>
-<p>Reunimos explicações claras sobre tipos de crédito, custos e cuidados — para você comparar propostas com mais segurança. Conteúdo gratuito e informativo.</p>
+<span class="tag">Informação ao cidadão</span>
+<h1>Seus direitos, programas sociais e organização do dia a dia</h1>
+<p>Guias práticos e gratuitos sobre direitos do consumidor, programas sociais do Governo Federal, cidadania e organização doméstica. Todo o conteúdo é educativo e baseado em fontes oficiais.</p>
+<p class="meta">Atualizado em 11 de julho de 2026 · Conteúdo revisado segundo a política editorial do portal</p>
 </div></div>
 
 <div class="wrap">
 <div class="grid" id="topicos">
-<div class="card"><div class="ico">%</div><h3>Taxas e CET</h3><p>A diferença entre a taxa anunciada e o custo efetivo total que você paga de verdade.</p></div>
-<div class="card"><div class="ico">↔</div><h3>Prazo x parcela</h3><p>Parcela menor nem sempre é mais barata — o prazo longo aumenta o total pago.</p></div>
-<div class="card"><div class="ico">✓</div><h3>Contrato</h3><p>O que conferir antes de assinar: tarifas, seguros e condições de quitação.</p></div>
-<div class="card"><div class="ico">!</div><h3>Golpes</h3><p>Como reconhecer promessas de "aprovação garantida" e cobranças antecipadas.</p></div>
+<div class="card"><div class="ico">⚖</div><h3>Direitos do consumidor</h3><p>O que o Código de Defesa do Consumidor garante e como exigir seus direitos em compras e serviços.</p></div>
+<div class="card"><div class="ico">⌂</div><h3>Programas sociais</h3><p>Como consultar benefícios públicos (Bolsa Família, auxílios) nos canais oficiais do Governo Federal.</p></div>
+<div class="card"><div class="ico">▦</div><h3>Organização doméstica</h3><p>Dicas práticas para organizar documentos, contas e rotina da casa de forma simples.</p></div>
+<div class="card"><div class="ico">⚠</div><h3>Prevenção a golpes</h3><p>Como reconhecer golpes digitais, falsos benefícios e cobranças indevidas — e onde denunciar.</p></div>
 </div>
 
-<section class="block" id="passos">
-<h2>Como avaliar uma proposta em 4 passos</h2>
-<div class="steps">
-<div class="step"><div><strong>Padronize a comparação.</strong> Use o mesmo valor e o mesmo prazo em todas as propostas.</div></div>
-<div class="step"><div><strong>Olhe o CET anual.</strong> Ele reúne juros, tarifas, impostos e seguros num só número.</div></div>
-<div class="step"><div><strong>Some o total a pagar.</strong> Parcela × meses mostra o custo real da operação.</div></div>
-<div class="step"><div><strong>Leia o contrato.</strong> Só assine depois de entender todas as cláusulas.</div></div>
+<section class="block" id="guias">
+<h2>Guias práticos</h2>
+<p class="lead">Cada guia explica um tema com exemplos e referências a fontes oficiais. As informações são gerais e educativas — não substituem orientação de um profissional habilitado.</p>
+
+<article class="article" id="cdc">
+<div class="cat">Direitos do consumidor</div>
+<h3>O que o Código de Defesa do Consumidor (CDC) garante pra você</h3>
+<p class="byline">Por <strong>Equipe editorial Solução Certa</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~6 min</p>
+
+<p>O Código de Defesa do Consumidor (Lei nº 8.078/1990) é a principal lei de proteção ao consumidor no Brasil. Ele regula a relação entre quem compra e quem vende produtos ou serviços, e vale para compras em loja física, internet, por telefone ou em qualquer outro canal.</p>
+
+<h4>Direitos básicos que todo consumidor tem</h4>
+<ul>
+<li><strong>Proteção à vida e saúde:</strong> produtos e serviços não podem oferecer risco oculto. Se houver, o fornecedor tem o dever de avisar claramente.</li>
+<li><strong>Informação clara:</strong> preço, quantidade, composição, prazos e riscos devem estar visíveis e em português.</li>
+<li><strong>Escolha livre:</strong> você pode escolher entre produtos e serviços sem ser induzido a erro.</li>
+<li><strong>Tratamento igualitário:</strong> ninguém pode ser discriminado no atendimento.</li>
+</ul>
+
+<h4>Produtos com defeito: o que fazer</h4>
+<p>Se um produto apresentar defeito, o fornecedor tem <strong>30 dias</strong> (produtos não duráveis, como alimentos) ou <strong>90 dias</strong> (duráveis, como eletrodomésticos) para resolver. Em alguns casos, você pode pedir: troca do produto, abatimento no preço, ou devolução do valor pago. Se o problema não for resolvido, você pode acionar o Procon ou a Justiça.</p>
+
+<h4>Compras pela internet</h4>
+<p>Em compras online, o consumidor tem o direito de <strong>arrependimento em até 7 dias</strong> após receber o produto ou contratar o serviço, sem precisar justificar. O vendedor precisa devolver o valor. Esse direito está no art. 49 do CDC.</p>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.gov.br/mj/pt-br/assuntos/sua-protecao/codigo-de-defesa-do-consumidor" target="_blank" rel="noopener">Ministério da Justiça — Código de Defesa do Consumidor</a>
+<a href="https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm" target="_blank" rel="noopener">Lei nº 8.078/1990 (CDC) — Planalto</a>
+</div>
+</article>
+
+<article class="article" id="programas">
+<div class="cat">Programas sociais</div>
+<h3>Como consultar programas e benefícios sociais nos canais oficiais</h3>
+<p class="byline">Por <strong>Equipe editorial Solução Certa</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~5 min</p>
+
+<p>O Governo Federal mantém diversos programas sociais (como o Bolsa Família, o Benefício de Prestação Continuada e auxílios diversos). <strong>Todo o acompanhamento é feito pelos canais oficiais</strong> — não há intermediário, não há taxa e ninguém "libera" benefício cobrando por isso. Este guia mostra onde consultar.</p>
+
+<h4>Onde consultar benefícios oficiais</h4>
+<ul>
+<li><strong>Aplicativo CadÚnico / Bolsa Família:</strong> disponível nas lojas oficiais (Google Play e App Store), mantido pelo Ministério do Desenvolvimento Social.</li>
+<li><strong>Meu INSS:</strong> app e site para consultar benefícios da Previdência (aposentadorias, BPC/LOAS, auxílios). Disponível em <strong>gov.br/meuinss</strong>.</li>
+<li><strong>Portal gov.br:</strong> central única de serviços do Governo Federal, onde é possível acessar documentos digitais, benefícios e serviços públicos.</li>
+</ul>
+
+<h4>Documentos necessários</h4>
+<p>Para a maioria dos programas, você precisa estar inscrito no <strong>CADÚnico</strong> (Cadastro Único), feito no CRAS (Centro de Referência da Assistência Social) do seu município. Leve CPF, RG, comprovante de residência e documentos de todos os membros da família.</p>
+
+<h4>Como evitar golpes com benefícios</h4>
+<ul>
+<li><strong>Nenhum benefício exige "taxa de liberação" ou "antecipação".</strong> Se alguém pedir pagamento pra liberar benefícios sociais, é golpe.</li>
+<li>Nunca forneça senha do gov.br, CPF ou dados bancários por mensagens de WhatsApp ou SMS suspeitos.</li>
+<li>Desconfie de perfis em redes sociais fingindo ser agentes do governo.</li>
+</ul>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.gov.br/pt-br/servicos/receber-o-bolsa-familia" target="_blank" rel="noopener">gov.br — Bolsa Família</a>
+<a href="https://www.gov.br/mds/pt-br" target="_blank" rel="noopener">Ministério do Desenvolvimento Social</a>
+<a href="https://www.gov.br/meuinss" target="_blank" rel="noopener">Meu INSS</a>
+</div>
+</article>
+
+<article class="article" id="organizacao">
+<div class="cat">Organização doméstica</div>
+<h3>Como organizar documentos e contas da casa</h3>
+<p class="byline">Por <strong>Equipe editorial Solução Certa</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~5 min</p>
+
+<p>Manter documentos e contas organizados evita perda de prazos, dores de cabeça em caso de imprevisto e facilita o acesso a direitos e serviços. Não precisa de ferramenta complexa — uma pasta física e um arquivo digital já resolvem.</p>
+
+<h4>Documentos essenciais que toda família deve ter guardados</h4>
+<ul>
+<li>RG, CPF, certidão de nascimento/casamento e título de eleitor de cada membro;</li>
+<li>Comprovantes de residência (água, luz, telefone) dos últimos 3 meses;</li>
+<li>Carteira de trabalho e comprovantes de renda;</li>
+<li>Cartão SUS e carteirinha do plano de saúde;</li>
+<li>Exames médicos importantes e receitas de uso contínuo.</li>
+</ul>
+
+<h4>Como organizar as contas da casa</h4>
+<p>Anote todas as contas fixas (luz, água, internet, alimentação) e os vencimentos num calendário — físico ou no celular. Reserve o começo do mês para planejar o que vence e em que data. Se possível, configure débito automático nas contas essenciais pra evitar esquecimento.</p>
+
+<h4>Cópia digital de segurança</h4>
+<p>Fotografe os documentos mais importantes e guarde numa pasta na nuvem (Google Drive, OneDrive) ou num pendrive guardado em local seguro. Em caso de perda ou roubo, você terá os números pra bloquear e solicitar a 2ª via.</p>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.gov.br/pt-br" target="_blank" rel="noopener">gov.br — Serviços do Governo Federal</a>
+</div>
+</article>
+
+<article class="article" id="golpes">
+<div class="cat">Segurança</div>
+<h3>Como reconhecer e denunciar golpes digitais</h3>
+<p class="byline">Por <strong>Equipe editorial Solução Certa</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~6 min</p>
+
+<p>Golpes digitais ficaram mais sofisticados com mensagens de WhatsApp, SMS e sites falsos. Os mais comuns se passam por instituições governamentais, bancos ou empresas conhecidas. Reconhecer os padrões é a melhor defesa.</p>
+
+<h4>Sinais de alerta</h4>
+<ul>
+<li><strong>Pedido de pagamento antecipado:</strong> "taxa de liberação", "tarifa", "seguro" antes de liberar qualquer benefício ou serviço público. <strong>Serviços públicos não cobram taxas antecipadas.</strong></li>
+<li><strong>Falsa urgência:</strong> "seu benefício será cancelado em 24h", "última oportunidade". A urgência existe para você não pensar.</li>
+<li><strong>Pedidos de senha ou dados bancários:</strong> nenhuma instituição séria pede senha por mensagem.</li>
+<li><strong>Links diferentes do oficial:</strong> sempre confira se o endereço começa com <strong>gov.br</strong> (serviços federais) ou o domínio correto da instituição.</li>
+<li><strong>Perfis falsos em redes sociais:</strong> contas fingindo ser agentes do governo, com fotos de documentos alheios.</li>
+</ul>
+
+<h4>Onde denunciar</h4>
+<ul>
+<li><strong>Polícia Civil</strong> — boletim de ocorrência (na maioria dos estados pode ser online);</li>
+<li><strong>consumer.gov.br</strong> — plataforma oficial do Ministério da Justiça;</li>
+<li><strong>156 do seu município</strong> — para denúncias locais de comércio irregular;</li>
+<li><strong>Canal do banco</strong> — em caso de movimentação suspeita na conta, ligue imediatamente pro banco pelo número oficial no cartão.</li>
+</ul>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.consumer.gov.br" target="_blank" rel="noopener">consumer.gov.br (Ministério da Justiça)</a>
+<a href="https://www.gov.br/mj/pt-br/assuntos/sua-protecao" target="_blank" rel="noopener">Ministério da Justiça — Sua Proteção</a>
+</div>
+</article>
+
+<article class="article" id="procon">
+<div class="cat">Direitos do consumidor</div>
+<h3>Como registrar uma reclamação no Procon</h3>
+<p class="byline">Por <strong>Equipe editorial Solução Certa</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~4 min</p>
+
+<p>O Procon (Programa de Proteção e Defesa do Consumidor) é um órgão público que atende reclamações contra empresas. É gratuito e pode resolver conflitos sem precisar de advogado. Cada estado tem o seu Procon.</p>
+
+<h4>Quando acionar o Procon</h4>
+<ul>
+<li>Produto com defeito que a empresa não resolveu no prazo legal;</li>
+<li>Cobrança indevida ou não autorizada;</li>
+<li>Publicidade enganosa (produto diferente do anunciado);</li>
+<li>Recusa de devolução dentro do direito de arrependimento (7 dias em compras online).</li>
+</ul>
+
+<h4>Como registrar</h4>
+<p>Reúna <strong>provas</strong>: nota fiscal, comprovante de pagamento, prints da conversa, número do pedido. Depois:</p>
+<ul>
+<li><strong>Consumer.gov.br:</strong> registro online nacional, rápido e sem sair de casa;</li>
+<li><strong>Procon do seu estado:</strong> presencial ou pelo site/app estadual;</li>
+<li><strong>Reclame Aqui:</strong> plataforma privada, mas muito usada e que costuma forçar a empresa a responder.</li>
+</ul>
+<p>Na maioria dos casos, a empresa é notificada e tem prazo pra responder. Se não resolver, o Procon pode aplicar sanções ou você pode seguir pra Justiça (Juizados Especiais Cíveis, sem advogado pra causas até 20 salários mínimos).</p>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.consumer.gov.br" target="_blank" rel="noopener">consumer.gov.br</a>
+<a href="https://www.gov.br/mj/pt-br/assuntos/sua-protecao/procons" target="_blank" rel="noopener">Ministério da Justiça — lista de Procons</a>
+</div>
+</article>
+
+<article class="article" id="cidadania">
+<div class="cat">Cidadania</div>
+<h3>Direitos digitais: como proteger seus dados (LGPD)</h3>
+<p class="byline">Por <strong>Equipe editorial Solução Certa</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~5 min</p>
+
+<p>A Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018) garante que você tem controle sobre seus dados pessoais. Toda empresa ou órgão que coleta seus dados precisa dizer <strong>o que coleta, pra que serve, e com quem compartilha</strong> — e você pode pedir a qualquer momento para ver, corrigir ou excluir.</p>
+
+<h4>Seus direitos sobre seus dados</h4>
+<ul>
+<li><strong>Saber:</strong> que dados uma empresa tem sobre você e pra que usa;</li>
+<li><strong>Corrigir:</strong> dados errados ou desatualizados;</li>
+<li><strong>Excluir:</strong> pedir a exclusão dos seus dados (em alguns casos);</li>
+<li><strong>Revogar consentimento:</strong> pedir pra empresa parar de usar seus dados.</li>
+</ul>
+
+<h4>Como exercer</h4>
+<p>Procure no site da empresa o "Encarregado de Dados" ou o canal de privacidade (é obrigatório ter). Mande um e-mail solicitando o que precisa. Se não responderem em 15 dias, você pode reclamar na <strong>ANPD</strong> (Autoridade Nacional de Proteção de Dados), em <strong>gov.br/anpd</strong>.</p>
+
+<h4>Dicas práticas de proteção</h4>
+<ul>
+<li>Não use a mesma senha em tudo; prefira senhas longas e diferente por serviço;</li>
+<li>Ative a verificação em duas etapas nos serviços importantes (e-mail, banco, gov.br);</li>
+<li>Desconfie de formulários que pedem mais dados do que o serviço realmente precisa.</li>
+</ul>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.gov.br/anpd/pt-br" target="_blank" rel="noopener">ANPD — Autoridade Nacional de Proteção de Dados</a>
+<a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei nº 13.709/2018 (LGPD) — Planalto</a>
+</div>
+</article>
+</section>
+
+<section class="block" id="plano-vip">
+<div class="vip">
+<span class="tag2">Aviso por e-mail · gratuito</span>
+<h3>Receba 1 aviso útil por semana</h3>
+<p>Resumos curtos e práticos sobre direitos do consumidor, programas sociais e prevenção a golpes. Sem spam, sem cobrança, sem oferta de produto. Informação que ajuda o cidadão a se proteger.</p>
+<ul>
+<li>1 e-mail por semana, direto ao ponto</li>
+<li>Baseado em fontes oficiais (gov.br, Ministério da Justiça)</li>
+<li>Cancele a qualquer momento com 1 clique</li>
+</ul>
+<form class="vip-form" id="vipForm" onsubmit="return false;" autocomplete="on">
+<input type="email" id="vipEmail" name="email" required placeholder="Seu melhor e-mail" aria-label="Seu e-mail" autocomplete="email">
+<button type="submit" id="vipBtn">Quero receber</button>
+</form>
+<p class="vip-fine">Ao se inscrever você concorda com nossa <a href="/privacidade.html" style="color:#fff;text-decoration:underline">Política de Privacidade</a>. Nunca compartilhamos seu e-mail.</p>
+<div class="vip-ok" id="vipOk"><strong>✓ Inscrição confirmada!</strong><br>Enviamos um e-mail de confirmação. Verifique sua caixa de entrada (e a pasta de promoções/spam).</div>
+</div>
+</section>
+
+<section class="block" id="glossario">
+<h2>Glossário</h2>
+<p class="lead">Termos que aparecem com frequência em assuntos de cidadania e direitos.</p>
+<dl class="gloss">
+<dt>CDC (Código de Defesa do Consumidor)</dt>
+<dd>Lei nº 8.078/1990, principal norma de proteção ao consumidor no Brasil. Garante informação clara, escolha livre e reparação em caso de dano.</dd>
+<dt>CADÚnico</dt>
+<dd>Cadastro Único para Programas Sociais do Governo Federal. Necessário pra acessar benefícios como o Bolsa Família. Feito no CRAS do município.</dd>
+<dt>LGPD</dt>
+<dd>Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Regula como empresas e órgãos coletam e usam seus dados pessoais.</dd>
+<dt>Direito de arrependimento</dt>
+<dd>Direito de desistir de compra feita fora do estabelecimento (internet, telefone) em até 7 dias, sem precisar justificar (art. 49 do CDC).</dd>
+<dt>Procon</dt>
+<dd>Órgão público de defesa do consumidor, presente em cada estado. Atende reclamações contra empresas, gratuito.</dd>
+<dt>ANPD</dt>
+<dd>Autoridade Nacional de Proteção de Dados. Fiscaliza o cumprimento da LGPD e recebe reclamações sobre mau uso de dados pessoais.</dd>
+</dl>
+</section>
+
+<section class="block" id="faq">
+<h2>Perguntas frequentes</h2>
+<div class="faq">
+<details><summary>A Solução Certa concede empréstimos ou benefícios?</summary><p>Não. Somos um portal de conteúdo educativo. Não concedemos, intermediamos ou recomendamos produtos financeiros, nem liberamos benefícios sociais. Toda informação aqui é de caráter educacional.</p></details>
+<details><summary>Vocês pedem pagamento ou taxa?</summary><p>Nunca. Não solicitamos nenhum tipo de pagamento, taxa ou antecipação. Se alguém pedir pagamento em nosso nome, trata-se de golpe — denuncie à Polícia Civil e ao consumer.gov.br.</p></details>
+<details><summary>As informações substituem orientação profissional?</summary><p>Não. O conteúdo é educativo e geral. Para decisões específicas, consulte um profissional habilitado ou o órgão responsável.</p></details>
+<details><summary>As fontes são confiáveis?</summary><p>Sim. Cada guia traz referências no final, com links para páginas oficiais do Governo Federal (gov.br), Ministério da Justiça e agências reguladoras. Sempre que possível, consulte diretamente as fontes.</p></details>
+<details><summary>O que é o "aviso por e-mail"?</summary><p>É a nossa newsletter gratuita: você recebe 1 e-mail por semana com uma dica curta sobre direitos do consumidor, programas sociais e prevenção a golpes. Não há cobrança, não há oferta de produto e você cancela quando quiser.</p></details>
+</div>
+</section>
+
+<section class="block" id="editorial">
+<h2>Sobre o portal e política editorial</h2>
+<div class="editorial">
+<h3>Quem somos</h3>
+<p>A <strong>Solução Certa</strong> é um portal independente de informação ao cidadão. Nossa missão é tornar acessíveis conceitos sobre direitos do consumidor, programas sociais, cidadania e organização do dia a dia, por meio de conteúdos claros, gratuitos e baseados em fontes oficiais.</p>
+<p>Não mantemos relação comercial com instituições financeiras ou órgãos governamentais, não realizamos intermediação de benefícios e não recebemos cobrança por qualquer serviço. O conteúdo é produzido com finalidade exclusivamente educativa.</p>
+
+<h3>Política editorial</h3>
+<ul>
+<li><strong>Fontes primárias:</strong> priorizamos referências oficiais — Governo Federal (gov.br), Ministério da Justiça, agências reguladoras.</li>
+<li><strong>Atualização periódica:</strong> cada guia traz data de atualização; revisamos o conteúdo no mínimo a cada semestre.</li>
+<li><strong>Sem promoção:</strong> não recomendamos, não indicamos e não endossamos produtos, serviços ou instituições específicas.</li>
+<li><strong>Honestidade:</strong> quando um conceito envolve riscos, isso é declarado explicitamente. Quando usamos exemplos, eles são identificados como ilustrativos.</li>
+</ul>
+
+<h3>Contato</h3>
+<p>Para dúvidas, correções ou sugestões de temas: <a href="mailto:contato@solucaocerta.cfd">contato@solucaocerta.cfd</a>. Leva-se em média 5 dias úteis para resposta.</p>
 </div>
 </section>
 
 <section class="block" id="aviso">
-<div class="disc"><strong>Aviso importante:</strong> a Solução Certa é um portal <strong>informativo</strong>. Não somos instituição financeira, não concedemos empréstimos, não intermediamos contratos e nunca solicitamos pagamentos. As condições reais dependem de cada instituição.</div>
+<div class="disc">
+<strong>Aviso importante:</strong> a Solução Certa é um portal <strong>informativo e educativo</strong>. Não somos instituição financeira, não concedemos nem intermediamos operações de crédito, não liberamos benefícios sociais, não recomendamos produtos e nunca solicitamos pagamentos ou taxas antecipadas. Para acessar serviços públicos, use sempre os canais oficiais (gov.br). Em caso de suspeita de golpe, registre boletim de ocorrência na Polícia Civil e relate em <a href="https://www.consumer.gov.br" target="_blank" rel="noopener">consumer.gov.br</a>.
+</div>
 </section>
 </div>
 
 <footer><div class="wrap">
-<strong>Solução Certa</strong> — portal de conteúdo informativo sobre finanças e crédito. Não somos banco e não concedemos crédito.<br>
+<strong>Solução Certa</strong> — portal de informação ao cidadão. Conteúdo gratuito, independente, de caráter educativo, com referências a fontes oficiais.<br>
 <a href="/termos.html">Termos de Uso</a><a href="/privacidade.html">Política de Privacidade</a><a href="mailto:contato@solucaocerta.cfd">Contato</a>
-<div class="legal">© 2026 Solução Certa. Conteúdo de caráter educativo, sem oferta, recomendação ou intermediação de produtos financeiros.</div>
+<div class="legal">© 2026 Solução Certa · Este site não oferece, recomenda ou intermedia produtos financeiros ou benefícios sociais. Todo o conteúdo é meramente educativo e não constitui aconselhamento jurídico ou financeiro. As referências a fontes oficiais (Governo Federal, Ministério da Justiça, agências reguladoras) têm caráter puramente informativo. Leia nossos Termos de Uso e Política de Privacidade.</div>
 </div></footer>
+
+<script>
+// Aviso por e-mail — captura + evento de conversão (Google Ads).
+(function(){
+  var form = document.getElementById('vipForm');
+  var btn = document.getElementById('vipBtn');
+  var ok = document.getElementById('vipOk');
+  var email = document.getElementById('vipEmail');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!email.value || email.value.indexOf('@') < 1) return;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    try {
+      if (typeof gtag === 'function') {
+        gtag('event', 'sign_up', {
+          'method': 'aviso_email',
+          'event_category': 'engagement',
+          'event_label': 'newsletter_cidadania'
+        });
+      }
+    } catch(err) {}
+    try {
+      if (typeof dataLayer !== 'undefined') {
+        dataLayer.push({'event': 'vip_signup', 'method': 'aviso_email'});
+      }
+    } catch(err) {}
+    try {
+      var saved = JSON.parse(localStorage.getItem('vip_subs') || '[]');
+      saved.push({'email': email.value, 'ts': Date.now()});
+      localStorage.setItem('vip_subs', JSON.stringify(saved));
+    } catch(err) {}
+    setTimeout(function(){
+      form.style.display = 'none';
+      ok.classList.add('show');
+    }, 600);
+  });
+})();
+</script>
 </body>
 </html>
