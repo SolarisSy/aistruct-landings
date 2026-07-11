@@ -162,15 +162,16 @@ function createBot() {
   // acumula pacotes de mapa no canvas 128x128
   bot._client.on('map', (packet) => {
     try {
-      const cols = packet.columns
-      const rows = packet.rows
+      // cols/rows sao i8 (signed): 128 chega como -128 -> destransformar pra unsigned
+      let cols = packet.columns; if (cols < 0) cols += 256
+      let rows = packet.rows; if (rows < 0) rows += 256
       // data pode vir como Buffer OU como {type,data:Buffer}
       let data = packet.data
       if (data && !data.length && data.data) data = data.data
       if (!cols || !rows || !data || !data.length) return
       mapReceived = true
-      const ox = packet.x || 0
-      const oy = (packet.z != null ? packet.z : packet.y) || 0
+      let ox = packet.x != null ? packet.x : 0; if (ox < 0) ox += 256
+      let oy = (packet.y != null ? packet.y : packet.z) || 0; if (oy < 0) oy += 256
       for (let c = 0; c < cols; c++) {
         for (let r = 0; r < rows; r++) {
           const px = ox + c, py = oy + r
