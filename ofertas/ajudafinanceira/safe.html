@@ -3,69 +3,77 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ajuda Financeira · Educação financeira e organização financeira</title>
-<meta name="description" content="Portal de educação financeira com conteúdos sobre organização do orçamento, planejamento financeiro e noções básicas de crédito. Material gratuito e educativo.">
+<title>Ajuda Financeira · Educação financeira e organização do orçamento</title>
+<meta name="description" content="Guias práticos de educação financeira: como montar um orçamento, criar reserva de emergência, entender o Custo Efetivo Total (CET) e evitar golpes. Conteúdo gratuito com referências ao Banco Central.">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Ajuda Financeira">
 <link rel="canonical" href="https://ajudafinanceira.cfd/">
 <meta property="og:title" content="Ajuda Financeira · Educação financeira">
-<meta property="og:description" content="Conteúdos gratuitos sobre organização financeira e educação financeira.">
+<meta property="og:description" content="Guias práticos de educação financeira com referências ao Banco Central do Brasil.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta name="theme-color" content="#1d4ed8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231d4ed8'/%3E%3Ctext x='16' y='22' font-size='15' text-anchor='middle' fill='%23fff' font-family='Arial'%3EAF%3C/text%3E%3C/svg%3E">
 <style>
-:root{--bg:#f2f5fb;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#1d4ed8;--accent2:#0ea5b7;--card:#fff;--soft:#eef4ff}
+:root{--bg:#f2f5fb;--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--accent:#1d4ed8;--accent2:#0ea5b7;--card:#fff;--soft:#eef4ff;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-ink:#7c2d12}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.65;font-size:17px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.7;font-size:17px}
 .wrap{max-width:980px;margin:0 auto;padding:0 20px}
 a{color:var(--accent)}
+a:hover{text-decoration:none}
 
 /* Header */
 header{position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
 .brand{font-weight:800;font-size:1.18rem}.brand span{color:var(--accent)}
-nav{display:flex;gap:20px}
+nav{display:flex;gap:18px}
 nav a{color:var(--muted);text-decoration:none;font-size:.92rem;transition:color .15s}
 nav a:hover{color:var(--accent)}
 
 /* Hero */
 .hero{background:linear-gradient(135deg,#1d4ed8,#0ea5b7);color:#fff;border-radius:0 0 28px 28px}
-.hero .wrap{padding:60px 20px 64px}
-.tag{display:inline-block;background:rgba(255,255,255,.22);padding:.32rem .9rem;border-radius:20px;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
-.hero h1{font-size:clamp(1.9rem,4.6vw,2.7rem);margin:.4rem 0 .6rem;line-height:1.18;font-weight:800}
-.hero p{font-size:1.14rem;max-width:660px;opacity:.96;margin:0}
+.hero .wrap{padding:58px 20px 64px}
+.tag{display:inline-block;background:rgba(255,255,255,.22);padding:.32rem .9rem;border-radius:20px;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.hero h1{font-size:clamp(1.85rem,4.4vw,2.6rem);margin:.4rem 0 .6rem;line-height:1.2;font-weight:800}
+.hero p{font-size:1.12rem;max-width:680px;opacity:.96;margin:0 0 18px}
+.hero .meta{font-size:.84rem;opacity:.85}
 
-/* Cards */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin:-36px 0 0;position:relative;z-index:2}
+/* Cards de tópicos */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin:-38px 0 0;position:relative;z-index:2}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 10px 28px rgba(15,23,42,.06)}
 .card .ico{width:42px;height:42px;border-radius:11px;background:var(--soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.15rem;margin-bottom:13px}
 .card h3{margin:0 0 6px;font-size:1.1rem}.card p{margin:0;color:var(--muted);font-size:.96rem}
 
 /* Sections */
-section.block{padding:46px 0}
-section.block h2{font-size:1.55rem;margin:0 0 8px;font-weight:800}
-section.block .lead{color:var(--muted);margin:0 0 22px;font-size:1.02rem}
-section.block h3{font-size:1.18rem;margin:26px 0 8px}
+section.block{padding:48px 0;border-top:1px solid var(--line)}
+section.block:first-of-type{border-top:none}
+section.block h2{font-size:1.6rem;margin:0 0 8px;font-weight:800}
+section.block .lead{color:var(--muted);margin:0 0 24px;font-size:1.04rem;max-width:720px}
 
-/* Steps */
-.steps{counter-reset:s;display:grid;gap:16px}
-.step{display:flex;gap:15px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
-.step::before{counter-increment:s;content:counter(s);flex:0 0 36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem}
+/* Artigos longos */
+.article{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin-bottom:26px;scroll-margin-top:80px}
+.article .cat{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent2);font-weight:700}
+.article h3{font-size:1.42rem;margin:6px 0 4px;font-weight:800}
+.article .byline{color:var(--muted);font-size:.82rem;margin:0 0 18px}
+.article .byline time{font-weight:600}
+.article p{margin:0 0 14px}
+.article ul{margin:0 0 14px;padding-left:22px}
+.article li{margin-bottom:6px}
+.article h4{font-size:1.05rem;margin:20px 0 8px}
+.sources{background:var(--soft);border-left:3px solid var(--accent);border-radius:8px;padding:14px 18px;font-size:.86rem;color:var(--muted);margin-top:8px}
+.sources strong{color:var(--ink)}
+.sources a{display:block;margin-top:3px}
 
-/* Article (glossário / artigos) */
-.article-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.article{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;transition:transform .15s,box-shadow .15s}
-.article:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(15,23,42,.08)}
-.article .cat{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent2);font-weight:700;margin-bottom:6px}
-.article h4{margin:0 0 6px;font-size:1.05rem}
-.article p{margin:0;color:var(--muted);font-size:.93rem}
+/* Passos */
+.steps{counter-reset:s;display:grid;gap:14px}
+.step{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.step::before{counter-increment:s;content:counter(s);flex:0 0 34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem}
 
 /* Glossário */
-.gloss{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 22px}
-.gloss dt{font-weight:700;color:var(--ink);margin-top:18px}
-.gloss dd{margin:4px 0 0;color:var(--muted);font-size:.96rem}
+.gloss{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 24px}
+.gloss dt{font-weight:700;margin-top:20px}
+.gloss dd{margin:4px 0 0;color:var(--muted);font-size:.97rem}
 
 /* FAQ */
 .faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
@@ -73,81 +81,275 @@ section.block h3{font-size:1.18rem;margin:26px 0 8px}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::before{content:"+";color:var(--accent);font-weight:800;margin-right:10px}
 .faq details[open] summary::before{content:"–"}
-.faq p{margin:10px 0 0;color:var(--muted);font-size:.95rem}
+.faq p{margin:10px 0 0;color:var(--muted);font-size:.96rem}
 
 /* Disclaimer */
-.disc{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:18px 22px;color:#7c2d12;font-size:.96rem;line-height:1.7}
+.disc{background:var(--warn-bg);border:1px solid var(--warn-bd);border-radius:14px;padding:18px 22px;color:var(--warn-ink);font-size:.97rem;line-height:1.7}
 .disc strong{color:#9a3412}
 
-/* Sobre */
-.about{display:flex;gap:22px;align-items:flex-start;background:var(--soft);border:1px solid #dbe7ff;border-radius:16px;padding:24px}
-.about .badge{flex:0 0 64px;height:64px;border-radius:16px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:800}
+/* Editorial + sobre */
+.editorial{background:var(--soft);border:1px solid #dbe7ff;border-radius:16px;padding:26px 28px}
+.editorial h3{margin-top:0}
+.editorial ul{margin:8px 0;padding-left:22px}
 
 /* Footer */
-footer{background:#0f172a;color:#cbd5e1;font-size:.86rem;line-height:1.85;margin-top:24px}
+footer{background:#0f172a;color:#cbd5e1;font-size:.86rem;line-height:1.85;margin-top:30px}
 footer .wrap{padding:36px 20px}
 footer a{color:#7dd3fc;text-decoration:underline;margin-right:16px}
-footer .legal{color:#64748b;font-size:.76rem;margin-top:14px;border-top:1px solid #1e293b;padding-top:14px}
+footer .legal{color:#64748b;font-size:.76rem;margin-top:14px;border-top:1px solid #1e293b;padding-top:14px;max-width:760px}
 
-@media(max-width:600px){nav{display:none}.about{flex-direction:column}}
+@media(max-width:600px){nav{display:none}.article{padding:22px 20px}.hero .wrap{padding:44px 20px 54px}}
 </style>
 </head>
 <body>
 <header><div class="wrap"><div class="brand">Ajuda<span>Financeira</span></div>
-<nav><a href="#topicos">Conteúdos</a><a href="#artigos">Artigos</a><a href="#glossario">Glossário</a><a href="#faq">Dúvidas</a><a href="#sobre">Sobre</a></nav></div></header>
+<nav><a href="#topicos">Tópicos</a><a href="#guias">Guias</a><a href="#passos">Avaliar propostas</a><a href="#glossario">Glossário</a><a href="#faq">Dúvidas</a><a href="#editorial">Sobre</a></nav></div></header>
 
 <div class="hero"><div class="wrap">
 <span class="tag">Educação financeira</span>
-<h1>Aprenda a organizar suas finanças</h1>
-<p>Conteúdos gratuitos sobre orçamento doméstico, planejamento financeiro e noções básicas de crédito. Nosso compromisso é com a informação clara e independente.</p>
+<h1>Guias práticos de organização financeira</h1>
+<p>Reunimos explicações claras sobre orçamento doméstico, reserva de emergência, custo de operações de crédito e prevenção a golpes. Todo o material é gratuito, independente e baseado em fontes oficiais — como o Banco Central do Brasil.</p>
+<p class="meta">Atualizado em 11 de julho de 2026 · Conteúdo revisado segundo a política editorial do portal</p>
 </div></div>
 
 <div class="wrap">
 <div class="grid" id="topicos">
-<div class="card"><div class="ico">▦</div><h3>Orçamento doméstico</h3><p>Como montar e manter um orçamento que funcione no dia a dia, registrando receitas e despesas.</p></div>
-<div class="card"><div class="ico">⌖</div><h3>Metas e planejamento</h3><p>Definir objetivos financeiros realistas e acompanhar a evolução ao longo do tempo.</p></div>
-<div class="card"><div class="ico">%</div><h3>Juros e taxas</h3><p>Entender a diferença entre taxa de juros, CET e custo total ajuda a comparar opções.</p></div>
-<div class="card"><div class="ico">⚠</div><h3>Prevenção a golpes</h3><p>Reconhecer sinais de oferta enganosa, cobrança antecipada e promessas irreais de aprovação.</p></div>
+<div class="card"><div class="ico">▦</div><h3>Orçamento doméstico</h3><p>Como registrar receitas e despesas e manter um orçamento que funcione no dia a dia.</p></div>
+<div class="card"><div class="ico">⌖</div><h3>Reserva de emergência</h3><p>Quanto guardar, onde guardar e como começar a reserva mesmo com pouco sobrando.</p></div>
+<div class="card"><div class="ico">%</div><h3>Custo Efetivo Total (CET)</h3><p>Como o CET é calculado pelo Banco Central e por que ele é melhor que a taxa de juros.</p></div>
+<div class="card"><div class="ico">⚠</div><h3>Prevenção a golpes</h3><p>Sinais de oferta enganosa, cobrança antecipada e canais oficiais de denúncia.</p></div>
 </div>
 
-<section class="block" id="artigos">
-<h2>Artigos e guias práticos</h2>
-<p class="lead">Materiais de leitura rápida para você entender conceitos e tomar decisões melhor informadas.</p>
-<div class="article-list">
-<div class="article"><div class="cat">Orçamento</div><h4>Como montar um orçamento mensal em 5 passos</h4><p>O método mais simples para acompanhar para onde vai o seu dinheiro todo mês.</p></div>
-<div class="article"><div class="cat">Planejamento</div><h4>Reserva de emergência: quanto guardar</h4><p>Por que ter uma reserva, qual o valor ideal e como começar mesmo com pouco.</p></div>
-<div class="article"><div class="cat">Crédito</div><h4>Entendendo o Custo Efetivo Total (CET)</h4><p>O que é o CET, como ele é calculado e por que ele é o número que importa na hora de comparar.</p></div>
-<div class="article"><div class="cat">Crédito</div><h4>Diferença entre taxa de juros e parcela</h4><p>Por que a parcela mais baixa nem sempre representa o melhor negócio.</p></div>
-<div class="article"><div class="cat">Segurança</div><h4>Como identificar uma oferta enganosa</h4><p>Sinais de alerta: cobrança antecipada, promessas irreais e pressão de urgência.</p></div>
-<div class="article"><div class="cat">Educação</div><h4>Dívidas: renegociar ou quitar?</h4><p>Como avaliar se vale a pena renegociar um compromisso existente ou quitá-lo.</p></div>
+<section class="block" id="guias">
+<h2>Guias práticos</h2>
+<p class="lead">Cada guia explica um conceito com exemplos numéricos e referências a fontes oficiais. As informações são gerais e educativas — não substituem orientação de um profissional habilitado.</p>
+
+<!-- GUIA 1 -->
+<article class="article" id="orcamento">
+<div class="cat">Orçamento doméstico</div>
+<h3>Como montar um orçamento mensal em 5 passos</h3>
+<p class="byline">Por <strong>Equipe editorial Ajuda Financeira</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~5 min</p>
+
+<p>O orçamento doméstico é o registro organizado de tudo que entra e sai da sua casa durante um mês. Ele não precisa ser complicado: uma planilha simples, um caderno ou um aplicativo já resolvem. O importante é que o registro seja fiel à realidade e aconteça com regularidade.</p>
+
+<h4>1. Levante todas as receitas</h4>
+<p>Some todos os valores que entram: salário, benefícios, trabalhos extras e qualquer outra renda fixa ou variável. Se a renda variar muito, use a média dos últimos três meses como referência.</p>
+
+<h4>2. Liste todas as despesas — inclusive as pequenas</h4>
+<p>Aqui está o erro mais comum: esquecer os "gastinhos" do dia (um café, um aplicativo de transporte, assinaturas esquecidas). Eles somados costumam representar uma fatia grande do orçamento. Por isso, registre por 30 dias absolutamente tudo.</p>
+<p>Separe as despesas em três grupos:</p>
+<ul>
+<li><strong>Fixas essenciais:</strong> moradia, alimentação, transporte, saúde, contas básicas.</li>
+<li><strong>Variáveis:</strong> lazer, restaurantes, compras não planejadas.</li>
+<li><strong>Compromissos existentes:</strong> parcelas de operações de crédito já contratadas.</li>
+</ul>
+
+<h4>3. Calcule o saldo</h4>
+<p>Subtraia o total de despesas do total de receitas. Se o resultado for negativo, é sinal de que algo precisa mudar — geralmente cortar despesas variáveis antes de mexer nas essenciais.</p>
+
+<h4>4. Defina uma meta de sobra</h4>
+<p>Um objetivo saudável é que sobrem entre 10% e 20% da renda mensal. Esse valor vai compor a reserva de emergência (veja o guia seguinte). Se não for possível logo de início, comece com qualquer valor — o hábito de poupar importa mais do que o tamanho inicial.</p>
+
+<h4>5. Revise todo mês</h4>
+<p>O orçamento é um instrumento vivo. Revise no fim de cada mês: o que saiu como previsto? O que estourou? Ajuste as categorias e siga. A melhora vem da repetição, não da perfeição no primeiro mês.</p>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.bcb.gov.br/estabilidadefinanceira/educacaofinanceira" target="_blank" rel="noopener">Banco Central — Educação financeira</a>
+<a href="https://www.gov.br/me/pt-br/assuntos/sebrae" target="_blank" rel="noopener">Ministério da Economia — gestão financeira pessoal</a>
 </div>
+</article>
+
+<!-- GUIA 2 -->
+<article class="article" id="reserva">
+<div class="cat">Planejamento</div>
+<h3>Reserva de emergência: quanto guardar e onde</h3>
+<p class="byline">Por <strong>Equipe editorial Ajuda Financeira</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~5 min</p>
+
+<p>Reserva de emergência é um valor guardado para cobrir imprevistos — uma doença, a perda de uma fonte de renda, um reparo urgente. Ela existe justamente para que você não precise recorrer a operações de crédito caras em um momento de aperto.</p>
+
+<h4>Qual o tamanho ideal?</h4>
+<p>A recomendação mais comum, endossada por órgãos de defesa do consumidor e pelo Banco Central, é equivalente a <strong>3 a 6 meses dos seus gastos essenciais</strong>. Para autônomos ou quem tem renda muito variável, o ideal é chegar perto de 6 meses. Para quem tem renda estável, 3 meses costumam ser um bom começo.</p>
+<p>Cálculo prático: some tudo o que você gasta por mês com moradia, alimentação, saúde, transporte e contas. Multiplique por 3 (mínimo) ou 6 (ideal). Esse é o valor-alvo.</p>
+
+<h4>Onde guardar?</h4>
+<p>A reserva precisa estar em um lugar <strong>seguro e líquido</strong> — ou seja, que você consiga sacar rapidamente sem perder dinheiro. Aplicações indicadas:</p>
+<ul>
+<li><strong>Caderneta de poupança:</strong> liquidez imediata, sem risco, mas rentabilidade baixa.</li>
+<li><strong>Tesouro Selic:</strong> liquidez em um dia útil, risco baixíssimo (título público federal).</li>
+<li><strong>CDBs com liquidez diária:</strong> geralmente rendem mais que a poupança, cobertos pelo FGC até R$ 250 mil.</li>
+</ul>
+<p>Evite investimentos de risco alto (ações, criptomoedas) ou com carência longa: a reserva não serve para render muito, e sim para estar lá quando você precisar.</p>
+
+<h4>Como começar com pouco</h4>
+<p>Não espere ter uma quantia grande para começar. O método mais eficaz é <strong>pagar-se primeiro</strong>: assim que a renda entra, transfira uma porcentagem (mesmo que seja 5%) para a reserva. Com o tempo, aumente essa porcentagem conforme suas despesas se ajustam.</p>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.bcb.gov.br/estabilidadefinanceira/educacaofinanceira" target="_blank" rel="noopener">Banco Central — Educação financeira</a>
+<a href="https://www.tesourodireto.com.br/" target="_blank" rel="noopener">Tesouro Direto (Tesouro Nacional)</a>
+</div>
+</article>
+
+<!-- GUIA 3 -->
+<article class="article" id="cet">
+<div class="cat">Crédito</div>
+<h3>Entendendo o Custo Efetivo Total (CET)</h3>
+<p class="byline">Por <strong>Equipe editorial Ajuda Financeira</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~6 min</p>
+
+<p>O Custo Efetivo Total — conhecido pela sigla CET — é o indicador mais completo para comparar o custo de uma operação de crédito. Ele é <strong>obrigatório</strong> por norma do Banco Central (Resolução CMN nº 3.517/2007 e posteriores) e deve aparecer em qualquer publicidade de instituições autorizadas.</p>
+
+<h4>Por que o CET é melhor que a taxa de juros</h4>
+<p>A taxa de juros é só uma parte do custo. Ao contratar uma operação, você também paga:</p>
+<ul>
+<li><strong>Tarifas</strong> de abertura de crédito ou de análise;</li>
+<li><strong>Impostos</strong> (IOF);</li>
+<li><strong>Seguros</strong> (se exigidos pelo contrato);</li>
+<li>Outras <strong>despesas cobradas</strong> no contrato.</li>
+</ul>
+<p>O CET reúne tudo isso em um único número, expresso em percentual ao ano (a.a.) e/ou ao mês (a.m.). Por isso, duas operações com a mesma "taxa de juros" podem ter CETs totalmente diferentes — e é o CET que mostra qual sai mais barato de fato.</p>
+
+<h4>Exemplo numérico</h4>
+<p>Imagine duas propostas de R$ 5.000, em 12 vezes, com a mesma taxa nominal de 2% ao mês:</p>
+<ul>
+<li>Proposta A: sem tarifas nem seguros. CET = 26,8% a.a.</li>
+<li>Proposta B: tarifa de R$ 150 + seguro mensal de R$ 25. CET = 34,1% a.a.</li>
+</ul>
+<p>A taxa de juros é idêntica, mas a Proposta B custa cerca de 27% a mais no ano. Só quem olha o CET percebe a diferença.</p>
+
+<h4>Onde encontrar o CET</h4>
+<p>Por norma do Banco Central, o CET precisa aparecer de forma <strong>destacada e legível</strong> em qualquer publicidade ou proposta de crédito. Se ele não estiver visível, pergunte à instituição por escrito antes de assinar. Sem o CET, não é possível comparar corretamente.</p>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.bcb.gov.br/estabilidadefinanceira/cet" target="_blank" rel="noopener">Banco Central — Custo Efetivo Total (CET)</a>
+<a href="https://www.bcb.gov.br/normativobusca" target="_blank" rel="noopener">Banco Central — Busca de normas (CMN/BACEN)</a>
+</div>
+</article>
+
+<!-- GUIA 4 -->
+<article class="article" id="taxa-parcela">
+<div class="cat">Crédito</div>
+<h3>Diferença entre taxa de juros e parcela</h3>
+<p class="byline">Por <strong>Equipe editorial Ajuda Financeira</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~4 min</p>
+
+<p>Um erro frequente é escolher uma proposta olhando só para o valor da parcela. Mas a parcela menor, em um prazo maior, costuma significar um <strong>custo total maior</strong>. Veja por que isso acontece.</p>
+
+<h4>Como funciona a matemática</h4>
+<p>Em uma operação de crédito, o total que você paga é a soma de (i) o valor que pegou emprestado, mais (ii) os juros e taxas aplicados durante todo o prazo. Quando você alonga o prazo, paga juros por mais meses — e o efeito disso é grande.</p>
+
+<h4>Exemplo comparativo</h4>
+<p>Em uma operação de R$ 3.000:</p>
+<ul>
+<li><strong>Em 12x:</strong> parcela de R$ 295 → total pago ~R$ 3.540.</li>
+<li><strong>Em 24x:</strong> parcela de R$ 168 → total pago ~R$ 4.032.</li>
+<li><strong>Em 36x:</strong> parcela de R$ 126 → total pago ~R$ 4.536.</li>
+</ul>
+<p>Veja: a parcela cai de R$ 295 para R$ 126, mas o custo total <strong>sobe</strong> de R$ 3.540 para R$ 4.536 — quase R$ 1.000 a mais. (Valores ilustrativos, para fins didáticos.)</p>
+
+<h4>Quando alongar o prazo faz sentido</h4>
+<p>Prazo maior só compensa quando o objetivo real é reduzir o peso da parcela no orçamento mensal, porque o valor comprometeria suas contas. Se for apenas para "pagar menos por mês" sem essa necessidade, você estará gastando mais à toa. A regra é: <strong>compare sempre pelo custo total</strong>, não pela parcela isolada.</p>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.bcb.gov.br/estabilidadefinanceira/educacaofinanceira" target="_blank" rel="noopener">Banco Central — Educação financeira</a>
+</div>
+</article>
+
+<!-- GUIA 5 -->
+<article class="article" id="golpes">
+<div class="cat">Segurança</div>
+<h3>Como identificar uma oferta enganosa</h3>
+<p class="byline">Por <strong>Equipe editorial Ajuda Financeira</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~5 min</p>
+
+<p>Golpes financeiros não são novos, mas ficaram mais sofisticados com mensagens por WhatsApp, SMS e sites falsos. O Banco Central e órgãos de defesa do consumidor identificam padrões que se repetem. Reconhecer esses sinais é a melhor proteção.</p>
+
+<h4>Sinais de alerta</h4>
+<ul>
+<li><strong>Cobrança antecipada:</strong> qualquer instituição autorizada pelo Banco Central que exija pagamento de "taxa", "liberação" ou "seguro" antes de liberar o valor está, quase sempre, aplicando um golpe. Operações legítimas não cobram antecipadamente do cliente.</li>
+<li><strong>Promessa de aprovação sem análise:</strong> nenhuma instituição séria aprova sem verificar o histórico. Quem promete aprovação sem análise está mentindo.</li>
+<li><strong>Pressão de urgência:</strong> "só hoje", "última hora", "vaga limitada". A pressão existe para que você não tenha tempo de pensar ou pesquisar.</li>
+<li><strong>Contatos não oficiais:</strong> mensagens por WhatsApp de números desconhecidos, perfis falsos em redes sociais, ou links diferentes do site oficial da instituição.</li>
+</ul>
+
+<h4>Como confirmar se uma instituição é autorizada</h4>
+<p>O Banco Central mantém um sistema público onde é possível verificar se uma instituição é autorizada a funcionar. Antes de fechar qualquer negócio, consulte o <strong>Reclame Aqui</strong>, a existência de CNPJ válido e o registro no Banco Central. Se a instituição não aparecer, trate como não confiável.</p>
+
+<h4>Onde denunciar</h4>
+<p>Se você já foi vítima ou tentou ser, há canais oficiais para denúncia:</p>
+<ul>
+<li><strong>Polícia Civil</strong> (boletim de ocorrência, também online na maioria dos estados);</li>
+<li><strong>consumer.gov.br</strong> — plataforma oficial do Ministério da Justiza;</li>
+<li><strong>Banco Central</strong> — formulário de denúncia no site do BACEN.</li>
+</ul>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.bcb.gov.br/estabilidadefinanceira/prevencaogolpes" target="_blank" rel="noopener">Banco Central — Prevenção a golpes</a>
+<a href="https://www.consumer.gov.br" target="_blank" rel="noopener">consumer.gov.br (Ministério da Justiça)</a>
+</div>
+</article>
+
+<!-- GUIA 6 -->
+<article class="article" id="dividas">
+<div class="cat">Educação</div>
+<h3>Dívidas: renegociar ou quitar?</h3>
+<p class="byline">Por <strong>Equipe editorial Ajuda Financeira</strong> · Atualizado em <time datetime="2026-07-11">11 de julho de 2026</time> · Leitura de ~5 min</p>
+
+<p>Quando uma dívida aperta o orçamento, surgem dois caminhos: renegociar (renovar as condições, geralmente alongando o prazo) ou quitar (pagar de uma vez, muitas vezes com desconto). A escolha depende do que custa menos no total e do que cabe no seu orçamento.</p>
+
+<h4>Renegociar</h4>
+<p>Renegociar é trocar as condições do contrato original — geralmente reduzindo a parcela ao custo de um prazo maior. É útil quando a parcela atual está comprometendo suas contas mensais. Mas lembre-se (guia anterior): prazo maior costuma significar custo total maior.</p>
+
+<h4>Quitar com desconto</h4>
+<p>Muitas instituições aceitam um desconto quando há pagamento à vista, especialmente em dívidas antigas. Quando o desconto é bom, quitar costuma ser a melhor escolha financeira — você encerra a dívida por menos do que pagaria no total parcelado.</p>
+
+<h4>Como decidir</h4>
+<p>Pergunte-se duas coisas:</p>
+<ul>
+<li><strong>Tenho o valor à vista</strong> para quitar (depois de mantida a reserva de emergência)?</li>
+<li><strong>Qual é o custo total de cada caminho?</strong> Some todas as parcelas do renegociamento e compare com o valor de quitação com desconto.</li>
+</ul>
+<p>Se quitar custar menos no total e você tem o dinheiro, faça isso. Se a parcela renegociada é a única que cabe no seu orçamento, renegocie — e use a folga para não contrair novas dívidas.</p>
+
+<h4>Feirões de renegociação</h4>
+<p>O Banco Central organiza periodicamente o <strong>Feirão Serasa Limpa Nome</strong> e iniciativas semelhantes, com descontos acima da média para quitação à vista. Vale conferir antes de fechar qualquer acordo.</p>
+
+<div class="sources">
+<strong>Referências:</strong>
+<a href="https://www.bcb.gov.br/estabilidadefinanceira/educacaofinanceira" target="_blank" rel="noopener">Banco Central — Educação financeira</a>
+<a href="https://www.serasa.com.br/limpa-nome-online" target="_blank" rel="noopener">Serasa — Limpa Nome</a>
+</div>
+</article>
 </section>
 
 <section class="block" id="passos">
-<h2>Como avaliar uma proposta: 4 passos</h2>
-<p class="lead">Um roteiro objetivo para analisar qualquer proposta com clareza.</p>
+<h2>Como avaliar uma proposta em 4 passos</h2>
+<p class="lead">Um roteiro objetivo, baseado em recomendações do Banco Central, para analisar qualquer proposta com clareza.</p>
 <div class="steps">
 <div class="step"><div><strong>Padronize a comparação.</strong> Use sempre o mesmo valor e o mesmo prazo em todas as propostas que estiver comparando.</div></div>
-<div class="step"><div><strong>Olhe o CET anual.</strong> Ele reúne juros, tarifas, impostos e seguros em um único número — é a base para comparar.</div></div>
+<div class="step"><div><strong>Olhe o CET anual.</strong> Ele reúne juros, tarifas, impostos e seguros em um único número — é a base correta para comparar.</div></div>
 <div class="step"><div><strong>Some o total a pagar.</strong> Multiplique a parcela pelos meses para visualizar o custo total da operação.</div></div>
 <div class="step"><div><strong>Leia o contrato com calma.</strong> Confira tarifas, seguros, cláusulas de quitação antecipada e condições gerais antes de assinar.</div></div>
 </div>
 </section>
 
 <section class="block" id="glossario">
-<h2>Glossário rápido</h2>
-<p class="lead">Termos que aparecem com frequência em assuntos de organização financeira.</p>
+<h2>Glossário</h2>
+<p class="lead">Termos que aparecem com frequência em assuntos de organização financeira, com definições curtas.</p>
 <dl class="gloss">
 <dt>CET (Custo Efetivo Total)</dt>
-<dd>Indicador que inclui juros, tarifas, impostos e seguros. É a forma mais completa de comparar o custo de uma operação entre instituições diferentes.</dd>
+<dd>Indicador que inclui juros, tarifas, impostos e seguros. É exigido pelo Banco Central e é a forma mais completa de comparar o custo de uma operação entre instituições.</dd>
 <dt>Taxa de juros</dt>
-<dd>Percentual aplicado sobre um valor. Sozinha, não representa o custo total — por isso deve ser vista junto com o CET.</dd>
+<dd>Percentual aplicado sobre um valor. Sozinha não representa o custo total — por isso deve sempre ser vista junto com o CET.</dd>
 <dt>Reserva de emergência</dt>
-<dd>Valor guardado para imprevistos, geralmente equivalente a alguns meses de despesas essenciais.</dd>
+<dd>Valor guardado para imprevistos, geralmente equivalente a 3 a 6 meses de despesas essenciais.</dd>
 <dt>Orçamento doméstico</dt>
 <dd>Registro organizado de receitas e despesas, que permite entender o padrão de gastos e planejar melhor.</dd>
 <dt>Parcela</dt>
-<dd>Valor pago periodicamente. Uma parcela menor, em um prazo maior, pode significar um custo total maior.</dd>
+<dd>Valor pago periodicamente. Uma parcela menor, em um prazo maior, costuma significar um custo total maior.</dd>
+<dt>IOF</dt>
+<dd>Imposto sobre Operações Financeiras, cobrado em diversas transações e parte do custo efetivo de operações de crédito.</dd>
 </dl>
 </section>
 
@@ -155,34 +357,44 @@ footer .legal{color:#64748b;font-size:.76rem;margin-top:14px;border-top:1px soli
 <h2>Perguntas frequentes</h2>
 <div class="faq">
 <details><summary>A Ajuda Financeira concede empréstimos?</summary><p>Não. Somos um portal de conteúdo educativo. Não concedemos, intermediamos ou recomendamos produtos financeiros. Toda informação aqui é de caráter educacional.</p></details>
-<details><summary>Vocês pedem pagamento ou taxa de cadastro?</summary><p>Nunca. Não solicitamos nenhum tipo de pagamento, taxa ou antecipação. Se alguém pedir pagamento em nosso nome, trata-se de golpe — denuncie.</p></details>
-<details><summary>As informações aqui substituem orientação profissional?</summary><p>Não. O conteúdo é educativo e geral. Para decisões específicas, consulte um profissional habilitado ou a instituição responsável.</p></details>
-<details><summary>Como vocês escolhem os temas?</summary><p>Selecionamos temas com base em dúvidas frequentes sobre organização financeira, sempre com foco em informação clara e independente.</p></details>
+<details><summary>Vocês pedem pagamento ou taxa de cadastro?</summary><p>Nunca. Não solicitamos nenhum tipo de pagamento, taxa ou antecipação. Se alguém pedir pagamento em nosso nome, trata-se de golpe — denuncie à Polícia Civil e ao consumer.gov.br.</p></details>
+<details><summary>As informações substituem orientação profissional?</summary><p>Não. O conteúdo é educativo e geral. Para decisões específicas, consulte um profissional habilitado ou a instituição responsável.</p></details>
+<details><summary>As fontes são confiáveis?</summary><p>Sim. Cada guia traz referências no final, com links para páginas oficiais do Banco Central do Brasil, do Tesouro Nacional e de órgãos de defesa do consumidor. Sempre que possível, consulte diretamente as fontes.</p></details>
+<details><summary>Como vocês escolhem os temas?</summary><p>Selecionamos temas com base em dúvidas frequentes sobre organização financeira, sempre com foco em informação clara, independente e baseada em fontes oficiais.</p></details>
 </div>
 </section>
 
-<section class="block" id="sobre">
-<h2>Sobre o portal</h2>
-<div class="about">
-<div class="badge">AF</div>
-<div>
-<p>A Ajuda Financeira é um portal independente de <strong>educação financeira</strong>. Nossa missão é tornar acessíveis conceitos de organização financeira, planejamento e noções básicas de crédito, por meio de conteúdos claros e gratuitos.</p>
-<p>Não mantemos relação comercial com instituições financeiras e não realizamos intermediação de produtos. O conteúdo é produzido com finalidade exclusivamente educativa.</p>
-</div>
+<section class="block" id="editorial">
+<h2>Sobre o portal e política editorial</h2>
+<div class="editorial">
+<h3>Quem somos</h3>
+<p>A <strong>Ajuda Financeira</strong> é um portal independente de educação financeira. Nossa missão é tornar acessíveis conceitos de organização financeira, planejamento e noções básicas de crédito, por meio de conteúdos claros, gratuitos e baseados em fontes oficiais.</p>
+<p>Não mantemos relação comercial com instituições financeiras, não realizamos intermediação de produtos e não recebemos comissão por qualquer operação. O conteúdo é produzido com finalidade exclusivamente educativa.</p>
+
+<h3>Política editorial</h3>
+<ul>
+<li><strong>Fontes primárias:</strong> priorizamos referências oficiais — Banco Central do Brasil, Tesouro Nacional, Ministério da Justiça.</li>
+<li><strong>Atualização periódica:</strong> cada guia traz data de atualização; revisamos o conteúdo no mínimo a cada semestre.</li>
+<li><strong>Sem promoção:</strong> não recomendamos, não indicamos e não endossamos produtos ou instituições específicas.</li>
+<li><strong>Honestidade:</strong> quando um conceito envolve riscos, isso é declarado explicitamente. Quando usamos exemplos numéricos, eles são identificados como ilustrativos.</li>
+</ul>
+
+<h3>Contato</h3>
+<p>Para dúvidas, correções ou sugestões de temas: <a href="mailto:contato@ajudafinanceira.cfd">contato@ajudafinanceira.cfd</a>. Leva-se em média 5 dias úteis para resposta.</p>
 </div>
 </section>
 
 <section class="block" id="aviso">
 <div class="disc">
-<strong>Aviso importante:</strong> a Ajuda Financeira é um portal <strong>informativo e educativo</strong>. Não somos instituição financeira, não concedemos nem intermediamos operações de crédito, não recomendamos produtos e nunca solicitamos pagamentos ou taxas antecipadas. As condições de qualquer produto dependem exclusivamente da instituição contratada. Em caso de suspeita de golpe, registre boletim na Polícia Civil e relate em <a href="https://www.consumer.gov.br" target="_blank" rel="noopener">consumer.gov.br</a>.
+<strong>Aviso importante:</strong> a Ajuda Financeira é um portal <strong>informativo e educativo</strong>. Não somos instituição financeira, não concedemos nem intermediamos operações de crédito, não recomendamos produtos e nunca solicitamos pagamentos ou taxas antecipadas. As condições de qualquer produto dependem exclusivamente da instituição contratada. O conteúdo aqui não constitui aconselhamento financeiro. Em caso de suspeita de golpe, registre boletim de ocorrência na Polícia Civil e relate em <a href="https://www.consumer.gov.br" target="_blank" rel="noopener">consumer.gov.br</a>.
 </div>
 </section>
 </div>
 
 <footer><div class="wrap">
-<strong>Ajuda Financeira</strong> — portal de educação financeira. Conteúdo gratuito, independente, de caráter educativo.<br>
+<strong>Ajuda Financeira</strong> — portal de educação financeira. Conteúdo gratuito, independente, de caráter educativo, com referências a fontes oficiais.<br>
 <a href="/termos.html">Termos de Uso</a><a href="/privacidade.html">Política de Privacidade</a><a href="mailto:contato@ajudafinanceira.cfd">Contato</a>
-<div class="legal">© 2026 Ajuda Financeira · Este site não oferece, recomenda ou intermedia produtos financeiros. Todo o conteúdo é meramente educativo e não constitui aconselhamento financeiro. Leia nossos Termos de Uso e Política de Privacidade.</div>
+<div class="legal">© 2026 Ajuda Financeira · Este site não oferece, recomenda ou intermedia produtos financeiros. Todo o conteúdo é meramente educativo e não constitui aconselhamento financeiro. As referências a fontes oficiais (Banco Central do Brasil, Tesouro Nacional, Ministério da Justiça) têm caráter puramente informativo. Leia nossos Termos de Uso e Política de Privacidade.</div>
 </div></footer>
 </body>
 </html>
