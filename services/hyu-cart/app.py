@@ -128,7 +128,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.4.0")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.4.1")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -571,6 +571,7 @@ async def create_checkout(request: Request):
         items.append({
             "productId": FRETE_PRODUCT_ID, "name": "Frete", "type": "physical",
             "unitAmount": frete_cents, "quantity": 1, "sku": "HYU-FRETE",
+            "imageUrl": f"{SITE_BASE}/img/frete.webp",
         })
 
     order_id = f"hyu-{uuid.uuid4().hex[:12]}"
