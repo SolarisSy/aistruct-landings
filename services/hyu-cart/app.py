@@ -84,6 +84,11 @@ LEADS_DB = os.environ.get("LEADS_DB", "/data/leads.db")
 MANDAE_TOKEN = os.environ.get("MANDAE_TOKEN", "").strip()
 MANDAE_RATES_URL = "https://api.mandae.com.br/v2/postalcodes/{cep}/rates"
 FREE_SHIPPING_CANS = 12          # política: frete grátis a partir de 12 latas
+# frete FLAT do kit6 (<12 latas) no fluxo simples/drawer (sem endereço p/ cotar Mandaê).
+# ≥12 latas = grátis. Necessário porque o checkout SDK da Paggins IGNORA as regras de
+# frete por-produto e usa só o "frete geral" (que deixamos em 0) — então a diferenciação
+# kit6-pago / acima-grátis é feita aqui, embutindo no preço. 0 = desliga (volta a tudo grátis).
+FLAT_SHIPPING_CENTS = int(os.environ.get("FLAT_SHIPPING_CENTS", "990"))  # R$ 9,90
 BLING = BlingClient()
 
 
@@ -118,7 +123,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.2.3")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.3.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -554,6 +559,13 @@ async def create_checkout(request: Request):
                 tag_f = f" · inclui frete R$ {frete_cents / 100:.2f}".replace(".", ",")
                 items[0]["unitAmount"] += frete_cents
                 items[0]["name"] = str(items[0]["name"])[:255 - len(tag_f)] + tag_f
+    elif cans < FREE_SHIPPING_CANS and FLAT_SHIPPING_CENTS > 0:
+        # fluxo simples (drawer, sem endereço): kit6 (<12 latas) leva frete FLAT
+        # embutido no preço; ≥12 latas segue grátis. (Ver FLAT_SHIPPING_CENTS acima.)
+        frete_cents, frete_service = FLAT_SHIPPING_CENTS, "flat"
+        tag_f = f" · inclui frete R$ {frete_cents / 100:.2f}".replace(".", ",")
+        items[0]["unitAmount"] += frete_cents
+        items[0]["name"] = str(items[0]["name"])[:255 - len(tag_f)] + tag_f
 
     order_id = f"hyu-{uuid.uuid4().hex[:12]}"
     origin = str(payload.get("origin") or "").rstrip("/")
