@@ -89,6 +89,11 @@ FREE_SHIPPING_CANS = 12          # política: frete grátis a partir de 12 latas
 # frete por-produto e usa só o "frete geral" (que deixamos em 0) — então a diferenciação
 # kit6-pago / acima-grátis é feita aqui, embutindo no preço. 0 = desliga (volta a tudo grátis).
 FLAT_SHIPPING_CENTS = int(os.environ.get("FLAT_SHIPPING_CENTS", "990"))  # R$ 9,90
+# o frete vai como um ITEM separado "Frete" no checkout (linha própria; a Paggins
+# mostra envio "Grátis" pois já está contabilizado). Reusa um productId Paggins real
+# (name/unitAmount são sobrescritos por sessão) — trocar por SKU dedicado quando criado.
+FRETE_PRODUCT_ID = os.environ.get(
+    "FRETE_PRODUCT_ID", "9dfc2557-bf1d-4a15-9988-d705dcbbe8f8")
 BLING = BlingClient()
 
 
@@ -123,7 +128,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.3.0")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.4.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -543,29 +548,30 @@ async def create_checkout(request: Request):
             it["unitAmount"] = max(1, (it["unitAmount"] * (100 - discount_pct) + 50) // 100)
             it["name"] = (str(it.get("name", ""))[:255 - len(tag)] + tag)
 
-    # fluxo completo (pré-checkout do site): re-cota o frete server-side (não confia
-    # no front) e EMBUTE no unitAmount do 1º item — a SDK Paggins não tem frete
-    # dinâmico (linha separada/R$0 é rejeitada). Grátis a partir de 12 latas.
+    # ── FRETE decidido AQUI (NÃO usamos o frete nativo da Paggins: o checkout SDK
+    #    ignora as regras por-produto e o "frete geral" da loja fica em 0). O frete
+    #    vai como um ITEM SEPARADO "Frete" → aparece como linha própria no resumo e
+    #    a Paggins mostra envio "Grátis" (já contabilizado no item).
+    #    Regra POR TIPO DE KIT: kit6-tier (6 latas/kit) SEMPRE paga frete — inclusive
+    #    2× kit6; kits grandes (kit12/kit24/super/assinatura) = grátis.
     frete_cents, frete_service = 0, ""
-    if customer:
-        if cans >= FREE_SHIPPING_CANS:
-            frete_service = "gratis"
-        else:
-            options = await _mandae_rates(address["cep"], cans, subtotal)
-            wanted = str((payload.get("shipping") or {}).get("service") or "economico")
-            opt = next((o for o in options if o["service"] == wanted), options[0])
-            frete_cents, frete_service = opt["cents"], opt["service"]
-            if frete_cents:
-                tag_f = f" · inclui frete R$ {frete_cents / 100:.2f}".replace(".", ",")
-                items[0]["unitAmount"] += frete_cents
-                items[0]["name"] = str(items[0]["name"])[:255 - len(tag_f)] + tag_f
-    elif cans < FREE_SHIPPING_CANS and FLAT_SHIPPING_CENTS > 0:
-        # fluxo simples (drawer, sem endereço): kit6 (<12 latas) leva frete FLAT
-        # embutido no preço; ≥12 latas segue grátis. (Ver FLAT_SHIPPING_CENTS acima.)
+    has_small = any((ln["cans"] // max(ln["qty"], 1)) < FREE_SHIPPING_CANS for ln in lines)
+    if not has_small:
+        frete_service = "gratis"
+    elif customer and address:
+        # fluxo completo (pré-checkout com endereço): frete REAL por CEP (Mandaê)
+        options = await _mandae_rates(address["cep"], cans, subtotal)
+        wanted = str((payload.get("shipping") or {}).get("service") or "economico")
+        opt = next((o for o in options if o["service"] == wanted), options[0])
+        frete_cents, frete_service = opt["cents"], opt["service"]
+    elif FLAT_SHIPPING_CENTS > 0:
+        # fluxo simples (drawer, sem endereço): frete FLAT
         frete_cents, frete_service = FLAT_SHIPPING_CENTS, "flat"
-        tag_f = f" · inclui frete R$ {frete_cents / 100:.2f}".replace(".", ",")
-        items[0]["unitAmount"] += frete_cents
-        items[0]["name"] = str(items[0]["name"])[:255 - len(tag_f)] + tag_f
+    if frete_cents > 0:
+        items.append({
+            "productId": FRETE_PRODUCT_ID, "name": "Frete", "type": "physical",
+            "unitAmount": frete_cents, "quantity": 1, "sku": "HYU-FRETE",
+        })
 
     order_id = f"hyu-{uuid.uuid4().hex[:12]}"
     origin = str(payload.get("origin") or "").rstrip("/")
