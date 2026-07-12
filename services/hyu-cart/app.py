@@ -128,7 +128,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.4.1")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.4.2")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -552,11 +552,11 @@ async def create_checkout(request: Request):
     #    ignora as regras por-produto e o "frete geral" da loja fica em 0). O frete
     #    vai como um ITEM SEPARADO "Frete" → aparece como linha própria no resumo e
     #    a Paggins mostra envio "Grátis" (já contabilizado no item).
-    #    Regra POR TIPO DE KIT: kit6-tier (6 latas/kit) SEMPRE paga frete — inclusive
-    #    2× kit6; kits grandes (kit12/kit24/super/assinatura) = grátis.
+    #    Regra POR TOTAL DE LATAS: pedido com < 12 latas (= 1 kit6) paga frete;
+    #    a partir de 12 latas (2× kit6, kit12, super-kit, kit24, assinatura) = grátis.
     frete_cents, frete_service = 0, ""
-    has_small = any((ln["cans"] // max(ln["qty"], 1)) < FREE_SHIPPING_CANS for ln in lines)
-    if not has_small:
+    below_free = cans < FREE_SHIPPING_CANS
+    if not below_free:
         frete_service = "gratis"
     elif customer and address:
         # fluxo completo (pré-checkout com endereço): frete REAL por CEP (Mandaê)
