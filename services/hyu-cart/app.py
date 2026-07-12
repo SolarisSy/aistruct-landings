@@ -88,7 +88,7 @@ FREE_SHIPPING_CANS = 12          # política: frete grátis a partir de 12 latas
 # ≥12 latas = grátis. Necessário porque o checkout SDK da Paggins IGNORA as regras de
 # frete por-produto e usa só o "frete geral" (que deixamos em 0) — então a diferenciação
 # kit6-pago / acima-grátis é feita aqui, embutindo no preço. 0 = desliga (volta a tudo grátis).
-FLAT_SHIPPING_CENTS = int(os.environ.get("FLAT_SHIPPING_CENTS", "1116"))  # R$ 11,16 = média Econômico(10,58)+Rápido(11,73) Mandaê
+FLAT_SHIPPING_CENTS = int(os.environ.get("FLAT_SHIPPING_CENTS", "3377"))  # R$ 33,77 = média total nacional Mandaê (27 capitais, Econômico+Rápido)
 # o frete vai como um ITEM separado "Frete" no checkout (linha própria; a Paggins
 # mostra envio "Grátis" pois já está contabilizado). Reusa um productId Paggins real
 # (name/unitAmount são sobrescritos por sessão) — trocar por SKU dedicado quando criado.
@@ -128,7 +128,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.4.3")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.4.4")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
