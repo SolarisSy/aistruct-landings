@@ -226,25 +226,28 @@ ctaEl?.addEventListener("click", async (e) => {
   const cart = read();
   const items = activeLines(cart);
   if (!items.length) return;
-  // tem kit personalizado? → bridge (só ele faz preço dinâmico + taxa de mix)
-  if (items.some((i) => i.mix)) {
-    busy = true;
-    const old = ctaEl.textContent;
-    ctaEl.classList.add("is-loading");
-    ctaEl.textContent = "Processando…";
-    try {
-      location.href = await checkout(cart);
-      return;
-    } catch {
-      ctaEl.classList.remove("is-loading");
-      ctaEl.textContent = old || "Finalizar compra →";
-      busy = false;
-      alert("Não consegui abrir o checkout agora. Tenta de novo em instantes.");
-      return;
-    }
+  // assinatura → link fixo (SDK não tem recorrência). TODO O RESTO (kits, combos,
+  // mix, multi-item) → BRIDGE: frete correto + nome correto + não perde item.
+  // (Antes só o mix ia pro bridge; kit normal ia pro link fixo do 1º item, o que
+  //  perdia os outros itens, mostrava nome nativo errado e dava frete grátis.)
+  if (isSubOnly(cart)) {
+    location.href = directUrl(items[0]);
+    return;
   }
-  // kit fixo → link nativo
-  location.href = directUrl(items[0]);
+  busy = true;
+  const old = ctaEl.textContent;
+  ctaEl.classList.add("is-loading");
+  ctaEl.textContent = "Processando…";
+  try {
+    location.href = await checkout(cart);
+    return;
+  } catch {
+    ctaEl.classList.remove("is-loading");
+    ctaEl.textContent = old || "Finalizar compra →";
+    busy = false;
+    alert("Não consegui abrir o checkout agora. Tenta de novo em instantes.");
+    return;
+  }
 });
 
 /* ── abre/fecha ───────────────────────────────────────────────────────── */
