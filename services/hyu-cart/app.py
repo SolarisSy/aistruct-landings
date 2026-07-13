@@ -128,7 +128,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.4.4")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.5.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -519,13 +519,50 @@ async def cotar_frete(request: Request):
 
 @app.post("/checkout")
 async def create_checkout(request: Request):
-    STATS["received"] += 1
     try:
         payload = await request.json()
     except Exception:
+        STATS["received"] += 1
         STATS["bad_request"] += 1
         raise HTTPException(400, "JSON invalido")
+    return await _do_checkout(payload)
 
+
+@app.get("/buy")
+async def buy(request: Request):
+    """Link de compra DIRETO p/ anúncios/bio (external): cria a sessão pelo bridge
+    — frete correto (< 12 latas paga, >= 12 grátis) e nome correto — e redireciona
+    pro checkout. Use ISTO em vez do link cru paggins.com/checkout/<uuid> (que não
+    passa pelo bridge e sai grátis). Exemplos:
+      /buy?combo=kit-soda
+      /buy?flavor=tropical&tier=kit6&qty=1
+      /buy?combo=super-kit&utm_source=ig&utm_campaign=x [&coupon=ARTHURPC]"""
+    from fastapi.responses import RedirectResponse
+    q = request.query_params
+    combo, flavor, tier = q.get("combo"), q.get("flavor"), q.get("tier")
+    if combo:
+        item: dict = {"combo": combo}
+    elif flavor and tier:
+        item = {"flavor": flavor, "tier": tier}
+    else:
+        raise HTTPException(400, "informe ?combo=<slug> ou ?flavor=<sabor>&tier=<kit6|kit12>")
+    try:
+        item["qty"] = max(1, min(int(q.get("qty", 1)), MAX_QTY))
+    except (TypeError, ValueError):
+        item["qty"] = 1
+    payload = {"items": [item], "origin": q.get("origin") or SITE_BASE,
+               "meta": {k: q[k] for k in META_KEYS if q.get(k)}}
+    if q.get("coupon"):
+        payload["coupon"] = q["coupon"]
+    res = await _do_checkout(payload)
+    url = res.get("checkoutUrl")
+    if not url:
+        raise HTTPException(502, "checkout indisponivel")
+    return RedirectResponse(url, status_code=302)
+
+
+async def _do_checkout(payload: dict) -> dict:
+    STATS["received"] += 1
     try:
         lines = _cart_lines(payload.get("items"))
         customer, address = _parse_customer_address(payload)
