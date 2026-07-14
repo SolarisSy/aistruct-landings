@@ -29,6 +29,10 @@
   if (GW !== "stripe") return;
 
   var API = "https://hyu-cart.tiectu.easypanel.host";
+  /* HOSTED=true: após o passo 1 redireciona pro checkout NATIVO da Stripe
+     (checkout.stripe.com — confiança da marca converte mais). false = volta
+     pro Payment Element embutido (passo 2 na nossa página). */
+  var HOSTED = true;
   var LS_CART = "hyu-cart-v2";
   var LS_FORM = "hyu-precheckout-v1";
   var LS_COUPON = "hyu_coupon";
@@ -301,7 +305,7 @@
     '<div class="hyst-freenote" data-hyst-freenote hidden>' + TRUCK + "<span>frete grátis a partir de 12 latas</span></div>" +
     "</section>" +
     '<p class="hyst-err" data-hyst-err></p>' +
-    '<p class="hyst-note">pagamento na próxima etapa, sem sair do site —<br>cartão de crédito, Google Pay e Apple Pay</p>' +
+    '<p class="hyst-note">na próxima etapa você paga na página segura da Stripe —<br>cartão de crédito, Google Pay e Apple Pay</p>' +
     '<div class="hyst-bar"><div class="hyst-bar-in">' +
     '<div class="tot"><span class="l">Total</span><span class="v" data-hyst-bartotal>—</span></div>' +
     '<button type="submit" class="hyst-cta">Continuar ' + ARROW + "</button>" +
@@ -443,7 +447,7 @@
     page.classList.add("open");
     document.body.style.overflow = "hidden";
     page.scrollTop = 0;
-    loadStripeJs().catch(function () {}); /* pré-carrega em paralelo ao form */
+    if (!HOSTED) loadStripeJs().catch(function () {}); /* pré-carrega (embedded) */
   }
   function closePage() {
     if (page && page.classList.contains("open")) {
@@ -623,9 +627,8 @@
     var code = couponCode();
     if (code) body.coupon = code;
 
-    Promise.all([
-      loadStripeJs(),
-      fetch(API + "/stripe/checkout", {
+    function postBridge(path) {
+      return fetch(API + path, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
@@ -634,8 +637,24 @@
           throw new Error(j && j.detail ? j.detail : "bridge " + r.status);
         });
         return r.json();
-      })
-    ]).then(function (res) {
+      });
+    }
+
+    if (HOSTED) {
+      /* checkout NATIVO da Stripe: cria a sessão e redireciona */
+      btn.textContent = "Abrindo pagamento seguro…";
+      postBridge("/stripe/hosted").then(function (d) {
+        if (!d || !d.url) throw new Error("checkout indisponível");
+        location.href = d.url;
+      }).catch(function (e) {
+        btn.disabled = false;
+        btn.innerHTML = old;
+        errEl.textContent = (e && e.message) || "Não consegui abrir o pagamento — tenta de novo.";
+      });
+      return;
+    }
+
+    Promise.all([loadStripeJs(), postBridge("/stripe/checkout")]).then(function (res) {
       var d = res[1];
       if (!d || !d.clientSecret || !d.publishableKey) throw new Error("checkout indisponível");
       mountPayment(d);
