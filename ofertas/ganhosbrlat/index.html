@@ -16,9 +16,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  
   <script>
     window.googlePixelId = "6a079de24b406979824cd6ac";
     var a = document.createElement("script");
@@ -28,7 +27,6 @@
     document.head.appendChild(a);
   </script>
 
-  
   <script
     src="https://cdn.utmify.com.br/scripts/utms/latest.js"
     data-utmify-prevent-xcod-sck
@@ -37,396 +35,206 @@
     defer
   ></script>
 
-  
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --gb-bg: #ffffff;
-      --gb-fg: #1a1a1a;
-      --gb-fgm: #6b7280;
-      --gb-bd: #e5e7eb;
+      --gb-fg: #1c1917;
+      --gb-fgm: #78716c;
+      --gb-bd: #ece7e3;
       --gb-ac: #b8531b;
       --gb-ach: #933f12;
+      --gb-soft: #fbeee4;
     }
-
     body {
       background: var(--gb-bg);
       color: var(--gb-fg);
       font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      line-height: 1.6;
+      display: flex; flex-direction: column; min-height: 100vh; line-height: 1.62;
     }
 
-    .gb-topbar {
-      border-bottom: 1px solid var(--gb-bd);
-      padding: 14px 20px;
+    .gb-accent { height: 4px; background: linear-gradient(90deg, var(--gb-ac), #e0873f); }
+
+    header.gb-head { border-bottom: 1px solid var(--gb-bd); padding: 13px 22px; }
+    .gb-head-inner {
+      max-width: 820px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
     }
-    .gb-topbar-inner {
-      max-width: 720px;
-      margin: 0 auto;
-      font-size: 13px;
-      color: var(--gb-fgm);
-      letter-spacing: 0.5px;
+    .gb-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; letter-spacing: -0.2px; }
+    .gb-brand .gb-ico { font-size: 18px; }
+    .gb-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--gb-ac); background: var(--gb-soft); padding: 5px 11px; border-radius: 5px;
     }
 
-    main {
-      flex: 1;
-      width: 100%;
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 48px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    /* corpo estilo "informativo/artigo" — alinhado à esquerda */
+    main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: 40px 22px 18px; }
+    .gb-kicker {
+      font-size: 12.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+      color: var(--gb-ac); margin-bottom: 10px;
+    }
+    h1 { font-size: clamp(24px, 5.4vw, 34px); font-weight: 800; letter-spacing: -0.6px; line-height: 1.18; margin-bottom: 14px; }
+    .gb-lede {
+      font-size: 16.5px; color: var(--gb-fgm); margin-bottom: 30px; max-width: 600px;
+      border-left: 3px solid var(--gb-ac); padding-left: 14px;
     }
 
-    h1 {
-      font-size: clamp(20px, 4vw, 26px);
-      font-weight: 600;
-      color: var(--gb-fg);
-      margin-bottom: 12px;
-      line-height: 1.35;
-    }
+    form.gb-continue-form { display: contents; }
+    .gb-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-    .gb-lead {
-      font-size: 15px;
-      color: var(--gb-fgm);
-      margin-bottom: 36px;
-      max-width: 520px;
-    }
-
-    
-    form.gb-continue-form {
-      display: contents;  
-    }
-
-    
-    .gb-sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    
-    button.cta-btn {
-      display: inline-block;
-      background: var(--gb-ac);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 500;
-      font-family: inherit;
-      text-decoration: none;
-      padding: 12px 28px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.15s ease;
-    }
-    button.cta-btn:hover { background: var(--gb-ach); }
-    button.cta-btn:focus { outline: 2px solid var(--gb-ac); outline-offset: 2px; }
-
-    
+    /* player estilo YouTube clássico (contrasta com o círculo da ganharja) */
     button.gb-video-preview {
-      position: relative;
-      display: block;
-      width: 100%;
-      max-width: 560px;
-      aspect-ratio: 16 / 9;
-      margin: 0 auto;
-      border: 0;
-      border-radius: 4px;
-      overflow: hidden;
-      cursor: pointer;
-      padding: 0;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      
-      background: #0f0f0f;
-      font-family: inherit;
+      position: relative; display: block; width: 100%; aspect-ratio: 16 / 9;
+      margin: 0; border: 0; border-radius: 6px; overflow: hidden; cursor: pointer; padding: 0;
+      background: #000; font-family: inherit;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.22);
+      transition: transform .16s ease;
     }
-    button.gb-video-preview:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.32);
+    button.gb-video-preview:hover { transform: translateY(-2px); }
+    button.gb-video-preview:focus { outline: 3px solid var(--gb-ac); outline-offset: 3px; }
+    button.gb-video-preview .gb-topbar {
+      position: absolute; left: 0; right: 0; top: 0; height: 34px; z-index: 2;
+      background: linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+      display: flex; align-items: center; gap: 8px; padding: 0 12px;
+      color: rgba(255,255,255,0.92); font-size: 12px; font-weight: 500; pointer-events: none;
     }
-    button.gb-video-preview:focus {
-      outline: 3px solid var(--gb-ac);
-      outline-offset: 3px;
-    }
-
-    
+    button.gb-video-preview .gb-topbar .gb-live { width: 8px; height: 8px; border-radius: 50%; background: #ff3b30; flex: none; }
     button.gb-video-preview .gb-play-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 68px;
-      height: 48px;
-      background: rgba(33, 33, 33, 0.85);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      z-index: 2;
-      transition: background 0.18s ease;
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 72px; height: 50px; background: #ff0000; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 2;
+      transition: background .16s ease;
     }
-    button.gb-video-preview:hover .gb-play-icon {
-      background: #ff0000;  
-    }
-    button.gb-video-preview .gb-play-icon svg {
-      width: 28px;
-      height: 28px;
-      fill: #ffffff;
-      margin-left: 3px;
-    }
-
-    
+    button.gb-video-preview:hover .gb-play-icon { background: #cc0000; }
+    button.gb-video-preview .gb-play-icon svg { width: 30px; height: 30px; fill: #fff; margin-left: 3px; }
     button.gb-video-preview .gb-player-bar {
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 38px;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
-      pointer-events: none;
-      z-index: 1;
-      display: flex;
-      align-items: flex-end;
-      flex-direction: column;
+      position: absolute; left: 0; right: 0; bottom: 0; height: 36px; z-index: 1;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+      display: flex; align-items: flex-end; flex-direction: column;
     }
-    
-    button.gb-video-preview .gb-progress {
-      width: 100%;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.18);
-      position: relative;
+    button.gb-video-preview .gb-progress { width: 100%; height: 3px; background: rgba(255,255,255,0.2); position: relative; }
+    button.gb-video-preview .gb-progress::before { content:""; position:absolute; left:0; top:0; bottom:0; width:0; background: #ff0000; }
+    button.gb-video-preview .gb-controls {
+      width: 100%; padding: 6px 11px; display: flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.92); font-size: 11px; font-variant-numeric: tabular-nums;
     }
-    button.gb-video-preview .gb-progress::before {
-      content: "";
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 0;          
-      background: #ff0000;
-    }
-    
-    button.gb-video-preview .gb-player-controls {
-      width: 100%;
-      padding: 6px 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255, 255, 255, 0.92);
-      font-size: 11px;
-      font-variant-numeric: tabular-nums;
-    }
-    button.gb-video-preview .gb-player-controls .gb-time {
-      letter-spacing: 0.3px;
-    }
-    button.gb-video-preview .gb-player-controls .gb-spacer { flex: 1; }
-    button.gb-video-preview .gb-player-controls .gb-ctrl-icon {
-      width: 14px;
-      height: 14px;
-      opacity: 0.95;
-      fill: currentColor;
-    }
+    button.gb-video-preview .gb-controls .gb-spacer { flex: 1; }
+    button.gb-video-preview .gb-controls .gb-ci { width: 14px; height: 14px; opacity: 0.95; fill: currentColor; }
 
-    @media (max-width: 480px) {
-      button.gb-video-preview .gb-play-icon {
-        width: 56px;
-        height: 40px;
-      }
-      button.gb-video-preview .gb-play-icon svg {
-        width: 22px;
-        height: 22px;
-      }
-      button.gb-video-preview .gb-player-bar { height: 32px; }
-      button.gb-video-preview .gb-player-controls { padding: 4px 8px; font-size: 10px; }
+    /* nota abaixo do vídeo */
+    .gb-note {
+      margin-top: 16px; background: var(--gb-soft); border: 1px solid #f2ddc9;
+      border-radius: 8px; padding: 12px 15px; font-size: 13.5px; color: #8a5a34;
+      display: flex; align-items: center; gap: 10px;
     }
+    .gb-note svg { width: 18px; height: 18px; fill: var(--gb-ac); flex: none; }
 
     footer {
-      border-top: 1px solid var(--gb-bd);
-      padding: 28px 20px 32px;
-      text-align: center;
-      font-size: 11px;
-      line-height: 1.55;
-      color: var(--gb-fgm);
+      margin-top: 40px; border-top: 1px solid var(--gb-bd);
+      padding: 26px 22px 34px; font-size: 11px; line-height: 1.55; color: var(--gb-fgm);
     }
-    footer .gb-brand-line {
-      font-size: 12px;
-      color: var(--gb-fg);
-      margin-bottom: 4px;
-      font-weight: 500;
-    }
-    footer .gb-rights {
-      margin-bottom: 14px;
-      font-size: 11px;
-    }
-    footer .gb-links {
-      margin-bottom: 22px;
-      font-size: 12px;
-    }
-    footer .gb-links a {
-      color: var(--gb-fgm);
-      text-decoration: none;
-      border-bottom: 1px dotted var(--gb-fgm);
-      transition: color 0.15s;
-    }
+    .gb-foot-inner { max-width: 720px; margin: 0 auto; }
+    footer .gb-brand-line { font-size: 12px; color: var(--gb-fg); margin-bottom: 4px; font-weight: 700; }
+    footer .gb-rights { margin-bottom: 14px; }
+    footer .gb-links { margin-bottom: 22px; font-size: 12px; }
+    footer .gb-links a { color: var(--gb-fgm); text-decoration: none; border-bottom: 1px dotted var(--gb-fgm); }
     footer .gb-links a:hover { color: var(--gb-ac); border-color: var(--gb-ac); }
-    footer .gb-links .gb-sep {
-      display: inline-block;
-      margin: 0 8px;
-      color: #d1d5db;
-    }
-    footer .gb-disclaimer {
-      max-width: 720px;
-      margin: 0 auto;
-      font-size: 10.5px;
-      line-height: 1.65;
-      text-align: justify;
-      color: #9ca3af;
-    }
+    footer .gb-links .gb-sep { display: inline-block; margin: 0 8px; color: #d6cfc8; }
+    footer .gb-disclaimer { font-size: 10.5px; line-height: 1.65; text-align: justify; color: #a8a29e; }
     footer .gb-disclaimer p { margin-bottom: 10px; }
     footer .gb-disclaimer p:last-child { margin-bottom: 0; }
-    footer .gb-disclaimer strong { color: var(--gb-fgm); font-weight: 600; }
+    footer .gb-disclaimer strong { color: var(--gb-fgm); font-weight: 700; }
   </style>
 </head>
 <body>
 
-  <div class="gb-topbar">
-    <div class="gb-topbar-inner">Ganhos BR</div>
-  </div>
+  <div class="gb-accent"></div>
+  <header class="gb-head">
+    <div class="gb-head-inner">
+      <div class="gb-brand"><span class="gb-ico">💰</span> Ganhos BR</div>
+      <span class="gb-tag">Informativo</span>
+    </div>
+  </header>
 
   <main>
-    <h1>Vídeo disponível</h1>
-    <p class="gb-lead">
-      Clique no vídeo abaixo para reproduzir.
+    <div class="gb-kicker">Conteúdo · Vídeo</div>
+    <h1>Assista ao vídeo informativo desta página</h1>
+    <p class="gb-lede">
+      O material completo está disponível em vídeo logo abaixo. Toque no player para reproduzir e acompanhar as informações.
     </p>
 
-    
     <form id="continue-form" class="gb-continue-form" action="frontyt.html" method="get" autocomplete="off">
-      
       <input type="hidden" name="step" value="2" />
       <input type="hidden" name="ref"  value="content" />
 
-      
       <label for="session_id" class="gb-sr-only">Identificador de sessão</label>
-      <input
-        type="text"
-        id="session_id"
-        name="session_id"
-        class="gb-sr-only"
-        tabindex="-1"
-        aria-hidden="false"
-        readonly
-        value=""
-      />
+      <input type="text" id="session_id" name="session_id" class="gb-sr-only" tabindex="-1" aria-hidden="false" readonly value="" />
 
-      
       <label for="website" class="gb-sr-only">Não preencha este campo</label>
-      <input
-        type="text"
-        id="website"
-        name="website"
-        class="gb-sr-only"
-        tabindex="-1"
-        autocomplete="off"
-        value=""
-      />
+      <input type="text" id="website" name="website" class="gb-sr-only" tabindex="-1" autocomplete="off" value="" />
 
-      
       <button type="submit" class="gb-video-preview" id="cta-main" aria-label="Reproduzir vídeo">
-
-        
+        <span class="gb-topbar" aria-hidden="true"><span class="gb-live"></span> Vídeo informativo</span>
         <span class="gb-play-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
         </span>
-
-        
         <span class="gb-player-bar" aria-hidden="true">
           <span class="gb-progress"></span>
-          <span class="gb-player-controls">
+          <span class="gb-controls">
             <span class="gb-time">0:00 / 0:00</span>
             <span class="gb-spacer"></span>
-            
-            <svg class="gb-ctrl-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.74 2.5-2.27 2.5-4.02z"/></svg>
-            <svg class="gb-ctrl-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.14 12.94c.04-.31.06-.62.06-.94 0-.32-.02-.63-.06-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.6-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 13.86 2h-3.72a.49.49 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.55-1.62.94l-2.39-.96a.49.49 0 0 0-.6.22L2.75 8.48c-.12.21-.07.48.12.61l2.03 1.58c-.04.31-.06.62-.06.94 0 .32.02.63.06.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.14.24.43.34.6.22l2.39-.96c.5.39 1.03.7 1.62.94l.36 2.54c.04.24.25.42.5.42h3.72a.49.49 0 0 0 .5-.42l.36-2.54c.59-.24 1.13-.55 1.62-.94l2.39.96c.22.08.45 0 .6-.22l1.92-3.32c.12-.21.07-.48-.12-.61l-2.03-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"/></svg>
-            <svg class="gb-ctrl-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+            <svg class="gb-ci" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.74 2.5-2.27 2.5-4.02z"/></svg>
+            <svg class="gb-ci" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
           </span>
         </span>
       </button>
     </form>
+
+    <div class="gb-note">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      Toque no player para iniciar. O vídeo carrega em instantes nesta mesma página.
+    </div>
   </main>
 
   <footer>
-    <div class="gb-brand-line">Copyright <span id="year"></span> — Ganhos BR &reg;</div>
-    <div class="gb-rights">Todos os direitos reservados</div>
-    <div class="gb-links">
-      <a href="termos.html">Termos de Uso</a>
-      <span class="gb-sep">&middot;</span>
-      <a href="privacidade.html">Privacidade</a>
-    </div>
+    <div class="gb-foot-inner">
+      <div class="gb-brand-line">Copyright <span id="year"></span> — Ganhos BR &reg;</div>
+      <div class="gb-rights">Todos os direitos reservados</div>
+      <div class="gb-links">
+        <a href="termos.html">Termos de Uso</a>
+        <span class="gb-sep">&middot;</span>
+        <a href="privacidade.html">Privacidade</a>
+      </div>
 
-    <div class="gb-disclaimer">
-      <p>
-        <strong>Aviso Legal:</strong> Este site não faz parte do site do Google&trade; ou da rede de sites como Youtube&trade; ou qualquer empresa pertencente ao Google&trade; ou Youtube&trade;. Adicionalmente, este site <strong>NÃO</strong> é endossado pelo Google&trade; ou Youtube&trade; Inc. de nenhuma forma. Google&trade; é marca registrada de suas respectivas empresas.
-      </p>
-      <p>
-        <strong>Divulgação de Marketing:</strong> Este site é um marketplace afiliado. O proprietário tem relação comercial com os produtos e serviços promovidos e pode receber compensação quando um visitante realiza uma ação qualificada. Isso não influencia a apresentação do conteúdo.
-      </p>
-      <p>
-        <strong>Divulgação Publicitária:</strong> Este site é um veículo publicitário, não uma publicação jornalística ou editorial. O conteúdo é de natureza promocional. O proprietário não garante resultados específicos e os resultados individuais variam.
-      </p>
-      <p>
-        <strong>Conformidade LGPD:</strong> Este site coleta e processa dados pessoais em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Para mais informações sobre o tratamento de seus dados, consulte nossa <a href="privacidade.html" style="color: inherit; border-bottom: 1px dotted;">Política de Privacidade</a> ou entre em contato pelo e-mail <a href="mailto:contato@ganhosbr.lat" style="color: inherit; border-bottom: 1px dotted;">contato@ganhosbr.lat</a>.
-      </p>
+      <div class="gb-disclaimer">
+        <p><strong>Aviso Legal:</strong> Este site não pertence, não integra e não é afiliado ao Google&trade; ou à sua rede de sites, incluindo o Youtube&trade;, nem a qualquer empresa do grupo. Este site <strong>NÃO</strong> conta com endosso do Google&trade; ou do Youtube&trade; Inc. Google&trade; é marca registrada de suas respectivas titulares.</p>
+        <p><strong>Divulgação de Marketing:</strong> Trata-se de um site afiliado. Há relação comercial entre o proprietário e os produtos/serviços divulgados, e o proprietário pode ser remunerado quando o visitante conclui uma ação qualificada — sem que isso interfira na exibição do conteúdo.</p>
+        <p><strong>Divulgação Publicitária:</strong> Esta página é um veículo de natureza publicitária e promocional, e não uma matéria jornalística ou editorial. Nenhum resultado específico é garantido, e os resultados variam conforme cada pessoa.</p>
+        <p><strong>Conformidade LGPD:</strong> O tratamento de dados pessoais segue a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Consulte a <a href="privacidade.html" style="color: inherit; border-bottom: 1px dotted;">Política de Privacidade</a> para detalhes ou escreva para <a href="mailto:contato@ganhosbr.lat" style="color: inherit; border-bottom: 1px dotted;">contato@ganhosbr.lat</a>.</p>
+      </div>
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
     (function() {
       var form = document.getElementById('continue-form');
       if (!form) return;
-
-      // Gera um session_id pseudo-aleatorio pra parecer um form de verdade
       var sessionInput = document.getElementById('session_id');
       if (sessionInput) {
         sessionInput.value = (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
       }
-
-      // No submit, injeta hidden inputs com TODOS os query params da URL atual
-      // (tftk, rtkcid, rtkcmpid, utm_*, gclid, fbclid, etc.) pro frontyt receber tudo.
       form.addEventListener('submit', function(e) {
         var params = new URLSearchParams(window.location.search);
         params.forEach(function(val, key) {
-          // se ja existe input com esse name (ex: hidden step), nao duplica
           if (form.querySelector('input[name="' + key + '"]')) return;
           var inp = document.createElement('input');
-          inp.type = 'hidden';
-          inp.name = key;
-          inp.value = val;
+          inp.type = 'hidden'; inp.name = key; inp.value = val;
           form.appendChild(inp);
         });
-        // submit nativo prossegue normalmente
       });
     })();
   </script>
-
-  
-  
-  
 
 </body>
 </html>
