@@ -1,0 +1,389 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PIX Automático: como funciona e como não ser pego de surpresa · Novo Guia</title>
+  <meta name="description" content="Entenda o PIX Automático: como autorizar débitos recorrentes, definir limites, revisar e cancelar cobranças no app do banco e reconhecer sinais de golpe.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://novoguia.cfd/pix-automatico-2026.html">
+  <style>
+:root{--brand:#059669;--brand2:#10b981;--brand3:#047857;--brand-soft:#ecfdf5;--ink:#0f172a;--muted:#64748b;--bg:#f6faf8;--card:#ffffff;--line:#e5e9ee;--shadow:0 10px 30px rgba(4,120,87,.10);--radius:16px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.narrow{max-width:760px}
+a{color:var(--brand3);text-decoration:none}a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.22;color:var(--ink)}
+
+/* header + nav */
+header.site{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:50}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:14px}
+.brand{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:1.16rem;color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;display:grid;place-items:center;font-weight:800;font-size:.85rem;box-shadow:var(--shadow)}
+.brand span.g{color:var(--brand)}
+header.site nav{display:flex;gap:6px;flex-wrap:wrap}
+header.site nav a{color:#334155;font-size:.92rem;font-weight:600;padding:.45rem .7rem;border-radius:9px}
+header.site nav a:hover{background:var(--brand-soft);color:var(--brand3);text-decoration:none}
+
+/* buttons */
+.btn{display:inline-block;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-weight:700;padding:.85rem 1.5rem;border-radius:12px;border:0;cursor:pointer;font-size:1rem;box-shadow:var(--shadow);transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05);text-decoration:none;color:#fff}
+.btn.ghost{background:#fff;color:var(--brand3);border:1.5px solid var(--brand2);box-shadow:none}
+.btn.sm{padding:.55rem 1rem;font-size:.9rem}
+
+/* hero */
+.hero{position:relative;background:linear-gradient(140deg,#065f46 0%,var(--brand) 55%,var(--brand2) 100%);color:#fff;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%);border-radius:50%}
+.hero .wrap{padding:64px 20px 72px;position:relative;z-index:1}
+.tag{display:inline-block;background:rgba(255,255,255,.2);padding:.35rem .9rem;border-radius:30px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.hero h1{font-size:clamp(1.9rem,4.8vw,2.9rem);margin:.7rem 0 .6rem;font-weight:800;max-width:16ch}
+.hero p{font-size:1.12rem;max-width:60ch;opacity:.96;margin:0 0 1.6rem}
+.hero .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.hero .btn.ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.5)}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:34px}
+.stats div b{display:block;font-size:1.5rem;font-weight:800}
+.stats div span{font-size:.85rem;opacity:.9}
+
+/* sections */
+section{padding:56px 0}
+.sec-head{margin-bottom:28px}
+.sec-head .eyebrow{color:var(--brand);font-weight:800;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+h2.title{font-size:clamp(1.5rem,3.4vw,2rem);margin:.3rem 0 .4rem}
+.lead{color:var(--muted);margin:0;max-width:70ch;font-size:1.05rem}
+
+/* cards grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .16s,box-shadow .16s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.card .thumb{height:120px;background:linear-gradient(135deg,var(--brand3),var(--brand2));display:grid;place-items:center;font-size:2.4rem}
+.card .thumb.v2{background:linear-gradient(135deg,#0e7490,var(--brand2))}
+.card .thumb.v3{background:linear-gradient(135deg,#0f766e,#22c55e)}
+.card .body{padding:20px;display:flex;flex-direction:column;flex:1}
+.chip{align-self:flex-start;background:var(--brand-soft);color:var(--brand3);font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:30px;text-transform:uppercase;letter-spacing:.04em}
+.card h3{margin:.7rem 0 .5rem;font-size:1.14rem}
+.card h3 a{color:var(--ink)}
+.card p{margin:0 0 1rem;color:var(--muted);font-size:.96rem;flex:1}
+.card .meta{font-size:.82rem;color:#94a3b8;display:flex;justify-content:space-between;align-items:center}
+.card .meta a{font-weight:700}
+
+/* feature list (app + como funciona) */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.feature{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.feature .ic{width:46px;height:46px;border-radius:12px;background:var(--brand-soft);display:grid;place-items:center;font-size:1.4rem;margin-bottom:12px}
+.feature h3{margin:0 0 .4rem;font-size:1.08rem}
+.feature p{margin:0;color:var(--muted);font-size:.95rem}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;counter-reset:s}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 20px 22px;position:relative}
+.step::before{counter-increment:s;content:counter(s);position:absolute;top:-14px;left:20px;width:34px;height:34px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:10px;display:grid;place-items:center;font-weight:800;box-shadow:var(--shadow)}
+.step h3{margin:.6rem 0 .4rem;font-size:1.05rem}
+.step p{margin:0;color:var(--muted);font-size:.94rem}
+
+/* app section + mockup */
+.appsec{background:linear-gradient(140deg,#04372b,#065f46);color:#fff}
+.app-split{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center}
+.appsec h2{color:#fff;font-size:clamp(1.6rem,3.6vw,2.2rem);margin:.3rem 0 .8rem}
+.appsec .lead{color:rgba(255,255,255,.85)}
+.applist{list-style:none;padding:0;margin:1.3rem 0}
+.applist li{padding:.4rem 0 .4rem 1.9rem;position:relative}
+.applist li::before{content:"\2713";position:absolute;left:0;color:var(--brand2);font-weight:800;background:rgba(16,185,129,.18);width:1.4rem;height:1.4rem;border-radius:50%;display:grid;place-items:center;font-size:.8rem;top:.5rem}
+.phone{width:270px;max-width:100%;margin:0 auto;background:#0b1220;border:10px solid #0b1220;border-radius:38px;box-shadow:0 30px 60px rgba(0,0,0,.4);overflow:hidden}
+.phone .screen{background:var(--bg);border-radius:26px;overflow:hidden}
+.phone .pbar{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;padding:18px 16px 22px}
+.phone .pbar small{opacity:.85;font-size:.7rem}
+.phone .pbar .bal{font-size:1.45rem;font-weight:800}
+.phone .pbody{padding:14px}
+.pline{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.8rem;color:var(--ink)}
+.pline .k{color:var(--muted)}
+.pbar-progress{height:8px;background:rgba(255,255,255,.3);border-radius:6px;margin-top:10px;overflow:hidden}
+.pbar-progress i{display:block;height:100%;width:68%;background:#fff;border-radius:6px}
+.ptrail{background:var(--brand-soft);border:1px dashed var(--brand2);border-radius:10px;padding:10px 12px;font-size:.78rem;color:var(--brand3);font-weight:600}
+
+/* newsletter */
+.news{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:38px;text-align:center;box-shadow:var(--shadow)}
+.news h2{margin:0 0 .5rem}
+.news p{color:var(--muted);margin:0 0 1.3rem}
+.news form{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.news input{flex:1;min-width:210px;padding:.85rem 1rem;border:1.5px solid var(--line);border-radius:12px;font-size:1rem}
+.news input:focus{outline:0;border-color:var(--brand2)}
+.news .ok{display:none;color:var(--brand3);font-weight:700;margin-top:14px}
+.news small{display:block;color:#94a3b8;margin-top:14px;font-size:.82rem}
+
+/* cta band */
+.cta-band{background:var(--brand-soft);border:1px solid #bbf7d0;border-radius:20px;padding:40px;text-align:center}
+.cta-band h2{margin:0 0 .6rem}
+.cta-band p{color:var(--muted);margin:0 0 1.3rem;max-width:52ch;margin-left:auto;margin-right:auto}
+
+/* article layout */
+.breadcrumb{font-size:.85rem;color:var(--muted);padding:20px 0 0}
+.breadcrumb a{color:var(--muted)}
+.post{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,4vw,52px);margin:20px 0;box-shadow:0 6px 24px rgba(2,6,23,.04)}
+.post .post-head .chip{margin-bottom:14px}
+.post h1{font-size:clamp(1.7rem,4vw,2.5rem);margin:.4rem 0 .5rem}
+.post .post-meta{color:var(--muted);font-size:.9rem;margin:0 0 1.4rem;padding-bottom:1.4rem;border-bottom:1px solid var(--line)}
+.post p{margin:0 0 1.2rem}
+.post h2{font-size:1.55rem;margin:2rem 0 .8rem}
+.post h3{font-size:1.2rem;margin:1.6rem 0 .6rem}
+.post ul,.post ol{margin:0 0 1.2rem;padding-left:1.3rem}
+.post li{margin:.4rem 0}
+.post blockquote{margin:1.6rem 0;padding:16px 22px;background:var(--brand-soft);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;color:#065f46;font-style:italic}
+.post blockquote p{margin:0}
+.post .callout{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px 20px;margin:1.6rem 0;font-size:.96rem}
+.post .callout b{color:#92400e}
+.post table{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:.94rem}
+.post table th,.post table td{border:1px solid var(--line);padding:10px 12px;text-align:left}
+.post table th{background:var(--brand-soft);color:var(--brand3);font-weight:700}
+.post table tr:nth-child(even) td{background:#f8fafc}
+.post .tw{overflow-x:auto}
+.related{margin:26px 0}
+.related h2{font-size:1.3rem;margin:0 0 16px}
+.related .grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.author-box{display:flex;gap:14px;align-items:center;background:var(--brand-soft);border-radius:14px;padding:18px;margin-top:26px}
+.author-box .av{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;display:grid;place-items:center;font-weight:800;flex:0 0 auto}
+.author-box p{margin:0;font-size:.9rem;color:#334155}
+
+/* glossary */
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.term{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;scroll-margin-top:84px;transition:box-shadow .15s}
+.term:hover{box-shadow:var(--shadow)}
+.term dt{font-weight:800;color:var(--brand3);font-size:1.08rem;margin:0}
+.term dd{margin:.45rem 0 0;color:#475569;font-size:.95rem}
+.term .rel{display:block;margin-top:.7rem;font-size:.82rem;font-weight:700;color:var(--brand)}
+.alpha-nav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
+.alpha-nav a{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.35rem .75rem;font-weight:700;font-size:.85rem}
+.alpha-nav a:hover{background:var(--brand-soft);text-decoration:none}
+
+/* faq */
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.faq summary{cursor:pointer;padding:18px 22px;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--brand);font-size:1.4rem;font-weight:800;transition:transform .2s;flex:0 0 auto}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0;padding:0 22px 20px;color:#475569}
+
+/* generic prose page (sobre) */
+.prose h2{font-size:1.5rem;margin:2.2rem 0 .7rem;color:var(--brand3)}
+.prose p{margin:0 0 1.1rem}
+.prose ul{padding-left:1.3rem}
+.prose li{margin:.4rem 0}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:1.4rem 0}
+.member{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center}
+.member .av{width:66px;height:66px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.3rem}
+.member b{display:block}
+.member span{color:var(--muted);font-size:.85rem}
+
+/* footer */
+footer.site{background:#0b1220;color:#cbd5e1;padding:48px 0 28px;margin-top:40px}
+footer.site .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;margin-bottom:28px}
+footer.site h4{color:#fff;font-size:.95rem;margin:0 0 12px;text-transform:uppercase;letter-spacing:.06em}
+footer.site a{color:#94a3b8;display:block;padding:.25rem 0;font-size:.92rem}
+footer.site a:hover{color:#fff}
+footer.site .fbrand{display:flex;align-items:center;gap:.5rem;font-weight:800;color:#fff;font-size:1.1rem;margin-bottom:10px}
+footer.site .fbrand .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;font-size:.75rem}
+footer.site p.small{color:#64748b;font-size:.85rem;max-width:40ch}
+footer.site .bottom{border-top:1px solid #1e293b;padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:.82rem;color:#64748b}
+footer.site .bottom a{display:inline;margin-left:14px}
+
+@media(max-width:820px){
+.app-split{grid-template-columns:1fr;text-align:center}
+.applist{text-align:left;max-width:340px;margin:1.3rem auto}
+footer.site .cols{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+body{font-size:16px}
+header.site nav a{padding:.4rem .5rem;font-size:.85rem}
+.stats{gap:22px}
+footer.site .cols{grid-template-columns:1fr}
+}
+  </style>
+</head><body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="safe.html"><span class="logo">NG</span>Novo<span class="g">Guia</span></a>
+  <nav>
+    <a href="safe.html">Início</a>
+    <a href="app.html">App</a>
+    <a href="glossario.html">Glossário</a>
+    <a href="faq.html">Dúvidas</a>
+    <a href="sobre.html">Sobre</a>
+  </nav>
+</div></header>
+
+<div class="wrap narrow">
+  <div class="breadcrumb"><a href="safe.html">Início</a> / <a href="safe.html">Pagamentos</a> / PIX Automático</div>
+</div>
+
+<article class="post wrap narrow">
+  <div class="post-head">
+    <span class="chip">Pagamentos</span>
+    <h1>PIX Automático: como funciona e como não ser pego de surpresa</h1>
+    <p class="post-meta">Pagamentos · 10 de fevereiro de 2026 · por Equipe Novo Guia</p>
+  </div>
+
+  <p>Durante anos, quem queria pagar uma assinatura ou uma conta de forma recorrente tinha basicamente dois caminhos: cadastrar um cartão de crédito ou autorizar o débito automático da conta corrente. Agora existe um terceiro, construído em cima do sistema de pagamentos instantâneos: o <strong>PIX Automático</strong>. A proposta é simples de enunciar e fácil de subestimar — você autoriza uma vez e as cobranças passam a sair sozinhas, direto da sua conta, sem cartão e sem boleto.</p>
+
+  <p>A comodidade é real, mas ela vem com uma responsabilidade nova: entender exatamente <em>o que</em> você autorizou, <em>por quanto tempo</em> e <em>até que valor</em>. Este guia explica como o PIX Automático funciona, onde ele costuma aparecer, como ativar, revisar e cancelar autorizações, e quais sinais ajudam a distinguir uma cobrança legítima de uma tentativa de golpe.</p>
+
+  <h2>O que é o PIX Automático</h2>
+  <p>O PIX Automático é uma modalidade de <strong>débito recorrente autorizado por PIX</strong>. Em vez de você lembrar de pagar todo mês, você concede a uma empresa uma <em>autorização prévia</em> para puxar valores da sua conta em datas combinadas. Depois disso, cada cobrança acontece de forma automática, dentro das regras que você aprovou no momento da adesão.</p>
+  <p>Vale a pena guardar a lógica com uma frase: <strong>você não autoriza um pagamento — você autoriza uma permissão para cobrar</strong>. É por isso que o controle sobre essa permissão (limites, prazo e cancelamento) importa tanto quanto o pagamento em si. Se o termo ainda soa novo, vale conferir a definição rápida no nosso <a href="glossario.html">glossário financeiro</a>, que traz as entradas de PIX e PIX Automático em linguagem direta.</p>
+
+  <h3>Em que ele difere do débito automático e do cartão recorrente</h3>
+  <p>Os três mecanismos resolvem o mesmo problema — pagar algo repetidamente sem esforço manual —, mas funcionam de formas bem diferentes por baixo dos panos. A tabela abaixo resume os pontos que mais impactam o seu bolso no dia a dia.</p>
+
+  <div class="tw">
+  <table>
+    <thead>
+      <tr><th>Característica</th><th>PIX Automático</th><th>Débito automático</th><th>Cartão recorrente</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Origem do dinheiro</td><td>Saldo em conta (via PIX)</td><td>Saldo em conta corrente</td><td>Limite do cartão de crédito</td></tr>
+      <tr><td>Como se autoriza</td><td>Aprovação no app do banco</td><td>Cadastro junto à empresa/banco</td><td>Número do cartão informado à empresa</td></tr>
+      <tr><td>Limite de valor por cobrança</td><td>Em geral pode ser definido pelo cliente</td><td>Costuma não ter teto por transação</td><td>Limitado pelo limite total do cartão</td></tr>
+      <tr><td>Onde revisar/cancelar</td><td>No próprio app do banco</td><td>Banco e/ou empresa cobradora</td><td>Empresa cobradora (e contestação no cartão)</td></tr>
+      <tr><td>Depende de validade de cartão</td><td>Não</td><td>Não</td><td>Sim — expira e precisa reatualizar</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Repare no ponto que mais chama atenção: no PIX Automático, o controle tende a ficar concentrado <strong>no app do seu banco</strong>, e não espalhado entre a empresa e a operadora. Isso costuma facilitar a revisão — desde que você saiba onde procurar.</p>
+
+  <h2>Onde o PIX Automático costuma aparecer</h2>
+  <p>A modalidade foi pensada para cobranças que se repetem em intervalos previsíveis. Na prática, ela tende a surgir em situações como:</p>
+  <ul>
+    <li><strong>Assinaturas digitais</strong> — streaming, aplicativos, academias e clubes de compra.</li>
+    <li><strong>Contas de consumo</strong> — energia, água, gás e internet, quando a prestadora oferece a opção.</li>
+    <li><strong>Mensalidades</strong> — escolas, cursos, planos e associações.</li>
+    <li><strong>Serviços por assinatura</strong> — softwares, ferramentas e planos de saúde ou seguros.</li>
+  </ul>
+  <p>Em todos esses casos, a empresa apresenta a opção de pagar por PIX Automático no momento da contratação ou nas configurações de pagamento. A adesão só se concretiza depois que <em>você</em> confirma dentro do app do banco — nunca apenas do lado da empresa.</p>
+
+  <h2>Como autorizar uma cobrança recorrente — passo a passo</h2>
+  <p>O fluxo pode variar um pouco entre instituições, mas em geral segue esta sequência:</p>
+  <ol>
+    <li><strong>Escolha a opção de pagamento.</strong> No site ou app da empresa, selecione "PIX Automático" como forma de pagamento recorrente.</li>
+    <li><strong>Receba a solicitação de autorização.</strong> A empresa envia um pedido de autorização que aparece dentro do seu aplicativo bancário — não em um link externo qualquer.</li>
+    <li><strong>Confira os dados antes de aprovar.</strong> Verifique o nome de quem vai cobrar, a frequência (mensal, por exemplo), o valor ou a faixa de valor e o prazo da autorização.</li>
+    <li><strong>Defina limites, se disponível.</strong> Muitos bancos permitem estabelecer um teto de valor por cobrança — um freio útil contra reajustes inesperados.</li>
+    <li><strong>Confirme com sua autenticação.</strong> A aprovação exige a validação de segurança do próprio banco (senha, biometria ou token).</li>
+  </ol>
+
+  <h3>Como definir limites de valor</h3>
+  <p>Sempre que a instituição oferecer, vale a pena definir um <strong>limite máximo por cobrança</strong>. A ideia é simples: se você assinou algo que costuma custar em torno de um valor mensal, configure o teto próximo desse patamar. Assim, se por erro ou má-fé uma cobrança vier muito acima do combinado, ela é barrada antes de sair da sua conta. É uma camada de proteção parecida, em espírito, com manter uma <a href="reserva-de-emergencia-do-zero.html">reserva de emergência</a> bem organizada — trata-se de não deixar o imprevisto pegar você desprevenido.</p>
+
+  <blockquote>
+    <p>Dica de segurança: um pedido de autorização de PIX Automático legítimo aparece <strong>dentro do app do seu banco</strong>, com nome, valor e frequência claros. Se alguém pede que você "autorize um PIX recorrente" por link, mensagem ou telefone, com pressa, desconfie e não confirme nada fora do aplicativo oficial.</p>
+  </blockquote>
+
+  <h2>Como revisar autorizações ativas</h2>
+  <p>Uma das melhores práticas de saúde financeira é fazer, de tempos em tempos, uma "faxina" nas suas cobranças recorrentes. No app do banco, procure por uma área com nome parecido com <em>"PIX Automático"</em>, <em>"Pagamentos recorrentes"</em> ou <em>"Autorizações"</em>. Ali costuma ser possível ver:</p>
+  <ul>
+    <li>quais empresas têm permissão para cobrar você;</li>
+    <li>o valor ou a faixa autorizada de cada uma;</li>
+    <li>a data da próxima cobrança prevista;</li>
+    <li>o limite configurado, quando existe.</li>
+  </ul>
+  <p>Fazer essa revisão a cada poucos meses ajuda a flagrar assinaturas esquecidas — aquelas que você testou, não usa mais e continua pagando. Encaixar essa checagem no seu <a href="metodo-50-30-20-orcamento.html">orçamento mensal</a> transforma um gasto invisível em uma decisão consciente.</p>
+
+  <div class="callout"><b>Atenção:</b> autorizar uma cobrança recorrente não é o mesmo que se comprometer para sempre. A permissão fica sob o seu controle e pode ser revisada, pausada ou cancelada a qualquer momento pelo app do banco. Não deixar autorizações "no piloto automático" é o que separa a comodidade do descontrole.</p></div>
+
+  <h2>Como cancelar ou pausar</h2>
+  <p>Cancelar uma autorização de PIX Automático costuma ser feito diretamente no aplicativo bancário, na mesma área onde você revisa as cobranças. Em geral, basta selecionar a autorização e escolher a opção de cancelar ou suspender. Pontos que valem lembrar:</p>
+  <ul>
+    <li><strong>Cancelar a autorização interrompe as cobranças futuras</strong>, mas não cancela automaticamente o serviço contratado. Se você quer encerrar a assinatura em si, avise também a empresa.</li>
+    <li><strong>Alguns bancos permitem pausar</strong> temporariamente, o que é útil quando você quer só dar um intervalo.</li>
+    <li>Cobranças que já saíram antes do cancelamento seguem as regras normais de contestação e reembolso — o cancelamento vale daqui para frente.</li>
+  </ul>
+
+  <h2>Sinais de golpe e boas práticas</h2>
+  <p>Como toda novidade em pagamentos, o PIX Automático também vira isca para golpistas que se aproveitam do desconhecimento. Os pedidos falsos tendem a explorar dois gatilhos clássicos: <strong>pressa</strong> e <strong>confusão</strong>. Fique atento a:</p>
+  <ul>
+    <li><strong>Autorização "fora do app".</strong> Ninguém legítimo pede para você aprovar um PIX recorrente por link de mensagem, e-mail ou ligação. A confirmação real acontece dentro do banco.</li>
+    <li><strong>Urgência artificial.</strong> "Autorize agora ou sua conta será bloqueada" é padrão de golpe, não de empresa séria.</li>
+    <li><strong>Valores ou nomes que não batem.</strong> Antes de aprovar, leia o nome de quem vai cobrar e o valor. Se algo destoa do que você contratou, recuse.</li>
+    <li><strong>Pedidos de dados ou senhas.</strong> O banco nunca precisa da sua senha por telefone para "ativar" um PIX Automático.</li>
+  </ul>
+  <p>Essas cautelas conversam diretamente com as que descrevemos no guia sobre <a href="golpes-do-pix-como-evitar.html">golpes do PIX</a>: a lógica é sempre a mesma — desacelerar, conferir dentro dos canais oficiais e não confirmar nada sob pressão. Se ficou alguma dúvida pontual, nossa página de <a href="faq.html">perguntas frequentes</a> reúne respostas curtas para as situações mais comuns.</p>
+
+  <h3>Boas práticas em uma frase cada</h3>
+  <ul>
+    <li>Autorize apenas dentro do app oficial do banco.</li>
+    <li>Defina limites de valor sempre que possível.</li>
+    <li>Revise suas autorizações a cada poucos meses.</li>
+    <li>Cancele o que você não usa mais — e avise a empresa também.</li>
+    <li>Desconfie de qualquer pedido com pressa ou por fora do banco.</li>
+  </ul>
+
+  <h2>Conclusão</h2>
+  <p>O PIX Automático não é bom nem ruim por natureza: ele é uma ferramenta poderosa que recompensa quem entende como configurá-la. Usado com atenção — limites definidos, revisões periódicas e ceticismo diante da pressa —, ele elimina boletos esquecidos e mensalidades atrasadas. Usado no automático, sem revisão, ele pode virar um vazamento silencioso no seu orçamento. A diferença está no controle, e o controle está, literalmente, na palma da sua mão, dentro do app do banco.</p>
+  <p>Se você quer acompanhar todas as suas cobranças recorrentes em um só lugar e receber lembretes antes de cada débito, o <a href="app.html">app Norteia</a> ajuda a organizar essa visão e a manter o orçamento sob controle sem esforço manual.</p>
+
+  <div class="author-box">
+    <div class="av">NG</div>
+    <p>Escrito pela <strong>Equipe Novo Guia</strong> — conteúdo educativo e independente sobre finanças pessoais no Brasil. Este material tem propósito informativo e não constitui recomendação financeira.</p>
+  </div>
+
+  <div class="related">
+    <h2>Leia também</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb">🛡️</div>
+        <div class="body">
+          <span class="chip">Segurança</span>
+          <h3><a href="golpes-do-pix-como-evitar.html">Golpes do PIX: os 6 mais comuns e como se proteger</a></h3>
+          <p>Reconheça as armadilhas mais frequentes e blinde suas transferências instantâneas.</p>
+          <div class="meta"><span>Segurança</span><a href="golpes-do-pix-como-evitar.html">Ler →</a></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb v2">🔗</div>
+        <div class="body">
+          <span class="chip">Tecnologia</span>
+          <h3><a href="open-finance-explicado.html">Open Finance explicado: seus dados trabalhando por você</a></h3>
+          <p>Entenda como o compartilhamento de dados pode gerar ofertas melhores para o seu bolso.</p>
+          <div class="meta"><span>Tecnologia</span><a href="open-finance-explicado.html">Ler →</a></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb v3">💰</div>
+        <div class="body">
+          <span class="chip">Planejamento</span>
+          <h3><a href="metodo-50-30-20-orcamento.html">Método 50-30-20: um orçamento que cabe na vida real</a></h3>
+          <p>Uma forma simples de dividir a renda e encaixar as cobranças recorrentes sem sufoco.</p>
+          <div class="meta"><span>Planejamento</span><a href="metodo-50-30-20-orcamento.html">Ler →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<footer class="site"><div class="wrap">
+  <div class="cols">
+    <div>
+      <div class="fbrand"><span class="logo">NG</span>NovoGuia</div>
+      <p class="small">Educação financeira gratuita e independente para o Brasil. Conteúdo com propósito didático — não constitui recomendação de investimento.</p>
+    </div>
+    <div>
+      <h4>Conteúdo</h4>
+      <a href="reserva-de-emergencia-do-zero.html">Reserva de emergência</a>
+      <a href="metodo-50-30-20-orcamento.html">Orçamento 50-30-20</a>
+      <a href="investir-com-100-reais.html">Investir com pouco</a>
+      <a href="golpes-do-pix-como-evitar.html">Golpes do PIX</a>
+      <a href="glossario.html">Glossário financeiro</a>
+    </div>
+    <div>
+      <h4>Institucional</h4>
+      <a href="sobre.html">Sobre o Novo Guia</a>
+      <a href="app.html">App Norteia</a>
+      <a href="faq.html">Perguntas frequentes</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+      <a href="termos.html">Termos de Uso</a>
+    </div>
+  </div>
+  <div class="bottom">
+    <div>© 2026 Novo Guia · novoguia.cfd — conteúdo educativo gratuito.</div>
+    <div><a href="privacidade.html">Privacidade</a><a href="termos.html">Termos</a></div>
+  </div>
+</div></footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>
