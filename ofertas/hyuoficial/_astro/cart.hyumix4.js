@@ -210,14 +210,25 @@ function bridgeItems(lines) {
 async function checkout(cart = read()) {
   const items = bridgeItems(activeLines(cart));
   if (!items.length) throw new Error("carrinho vazio");
-  const r = await fetch(`${API}/checkout`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ items, meta: meta(), origin: location.origin }),
-  });
-  if (!r.ok) throw new Error(`bridge ${r.status}`);
+  let r;
+  try {
+    r = await fetch(`${API}/checkout`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items, meta: meta(), origin: location.origin }),
+    });
+  } catch {
+    throw new Error("__RETRY__");
+  }
+  if (!r.ok) {
+    // 400 = problema do carrinho (ex: sabor esgotado) → propaga a msg do bridge
+    // ("Hot Lemon esgotado — ...tira da sacola"); 5xx/rede → genérico "tenta de novo".
+    let detail = "";
+    try { detail = (await r.json())?.detail || ""; } catch {}
+    throw new Error(r.status < 500 && detail ? detail : "__RETRY__");
+  }
   const d = await r.json();
-  if (!d?.checkoutUrl) throw new Error("sem checkoutUrl");
+  if (!d?.checkoutUrl) throw new Error("__RETRY__");
   return d.checkoutUrl;
 }
 

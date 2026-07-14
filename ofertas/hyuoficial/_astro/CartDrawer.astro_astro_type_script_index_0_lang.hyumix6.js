@@ -252,11 +252,15 @@ ctaEl?.addEventListener("click", async (e) => {
   try {
     location.href = await checkout(cart);
     return;
-  } catch {
+  } catch (err) {
     ctaEl.classList.remove("is-loading");
     ctaEl.textContent = old || "Finalizar compra →";
     busy = false;
-    alert("Não consegui abrir o checkout agora. Tenta de novo em instantes.");
+    // msg do bridge (ex: "Hot Lemon esgotado — tira da sacola") vs genérica de rede/5xx
+    const m = err && err.message;
+    alert(m && m !== "__RETRY__"
+      ? m
+      : "Não consegui abrir o checkout agora. Tenta de novo em instantes.");
     return;
   }
 });
