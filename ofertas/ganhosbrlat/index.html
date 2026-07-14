@@ -16,87 +16,81 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <script>
     window.googlePixelId = "6a079de24b406979824cd6ac";
     var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
+    a.setAttribute("async", ""); a.setAttribute("defer", "");
     a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
     document.head.appendChild(a);
   </script>
-
-  <script
-    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-    data-utmify-prevent-xcod-sck
-    data-utmify-prevent-subids
-    async
-    defer
-  ></script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --gb-bg: #ffffff; --gb-fg: #1c1917; --gb-fgm: #78716c; --gb-bd: #ece7e3;
-      --gb-ac: #b8531b; --gb-ach: #933f12; --gb-soft: #fbeee4;
-    }
+    :root { --gb-bg:#fff8f3; --gb-fg:#1c1917; --gb-fgm:#78716c; --gb-ac:#ea6a1e; --gb-ach:#c9530f; --gb-soft:#fdeadb; }
     body {
       background: var(--gb-bg); color: var(--gb-fg);
       font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
-      display: flex; flex-direction: column; min-height: 100vh; line-height: 1.62;
+      display: flex; flex-direction: column; min-height: 100vh; line-height: 1.55;
     }
-    .gb-accent { height: 4px; background: linear-gradient(90deg, var(--gb-ac), #e0873f); }
-    header.gb-head { border-bottom: 1px solid var(--gb-bd); padding: 13px 22px; }
-    .gb-head-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .gb-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; letter-spacing: -0.2px; }
+    .gb-accent { height: 4px; background: linear-gradient(90deg, var(--gb-ac), #f0a35c); }
+    header.gb-head { padding: 14px 22px; border-bottom: 1px solid var(--gb-soft); }
+    .gb-head-inner { max-width: 640px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .gb-brand { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 16px; }
     .gb-brand .gb-ico { font-size: 18px; }
-    .gb-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gb-ac); background: var(--gb-soft); padding: 5px 11px; border-radius: 5px; }
+    .gb-pill { font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: #fff; background: var(--gb-ac); padding: 5px 11px; border-radius: 999px; }
 
-    main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: 40px 22px 18px; }
-    .gb-kicker { font-size: 12.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--gb-ac); margin-bottom: 10px; }
-    h1 { font-size: clamp(24px, 5.4vw, 34px); font-weight: 800; letter-spacing: -0.6px; line-height: 1.18; margin-bottom: 14px; }
-    .gb-lede { font-size: 16.5px; color: var(--gb-fgm); margin-bottom: 28px; max-width: 600px; border-left: 3px solid var(--gb-ac); padding-left: 14px; }
+    main { flex: 1; width: 100%; max-width: 560px; margin: 0 auto; padding: 36px 20px 26px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .gb-new { display: inline-flex; align-items: center; gap: 7px; background: var(--gb-soft); color: var(--gb-ach); font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; padding: 6px 13px; border-radius: 8px; margin-bottom: 15px; }
+    .gb-new i { width: 7px; height: 7px; border-radius: 50%; background: #ff3b30; animation: gbpulse 1.6s infinite; }
+    @keyframes gbpulse { 0%{box-shadow:0 0 0 0 rgba(255,59,48,.6);} 70%{box-shadow:0 0 0 7px rgba(255,59,48,0);} 100%{box-shadow:0 0 0 0 rgba(255,59,48,0);} }
+    h1 { font-size: clamp(25px, 6.2vw, 35px); font-weight: 900; letter-spacing: -0.7px; line-height: 1.14; margin-bottom: 10px; }
+    .gb-sub { font-size: 15px; color: var(--gb-fgm); margin-bottom: 24px; max-width: 400px; }
 
     form.gb-continue-form { display: contents; }
     .gb-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-    /* CTA HONESTO — bloco de acesso ao conteúdo (não simula player tocando) */
-    button.gb-cta {
-      display: flex; align-items: center; gap: 18px; width: 100%; cursor: pointer;
-      background: var(--gb-soft); border: 1px solid #f2ddc9; border-radius: 14px;
-      padding: 20px 22px; font-family: inherit; text-align: left;
-      transition: transform .15s ease, box-shadow .15s ease;
+    /* POSTER de vídeo clicável (herói) — moldura clara, área escura */
+    button.gb-poster {
+      position: relative; display: block; width: 100%; max-width: 520px; aspect-ratio: 16/9;
+      margin: 0 auto; border: 0; padding: 0; cursor: pointer; overflow: hidden; border-radius: 14px;
+      font-family: inherit;
+      background: linear-gradient(160deg, #2a1a10 0%, #120b06 100%);
+      box-shadow: 0 18px 44px rgba(184,83,27,0.22), 0 0 0 4px #fff, 0 0 0 5px var(--gb-soft);
+      transition: transform .16s ease;
     }
-    button.gb-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,83,27,0.14); }
-    button.gb-cta:focus { outline: 3px solid var(--gb-ac); outline-offset: 3px; }
-    button.gb-cta .gb-play { width: 54px; height: 54px; flex: none; border-radius: 12px; background: var(--gb-ac); display: flex; align-items: center; justify-content: center; }
-    button.gb-cta .gb-play svg { width: 24px; height: 24px; fill: #fff; margin-left: 2px; }
-    button.gb-cta .gb-cta-txt { flex: 1; }
-    button.gb-cta .gb-cta-title { font-size: 15.5px; font-weight: 700; color: var(--gb-fg); display: block; }
-    button.gb-cta .gb-cta-sub { font-size: 13px; color: #8a5a34; }
-    button.gb-cta .gb-cta-arrow { width: 22px; height: 22px; flex: none; fill: var(--gb-ac); }
+    button.gb-poster:hover { transform: translateY(-3px); }
+    button.gb-poster:focus { outline: 3px solid var(--gb-ac); outline-offset: 4px; }
+    button.gb-poster .gb-tag { position: absolute; top: 12px; left: 12px; z-index: 3; display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,.55); color: #fff; font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 6px; }
+    button.gb-poster .gb-tag i { width: 6px; height: 6px; border-radius: 50%; background: #ff3b30; }
+    button.gb-poster .gb-dur { position: absolute; bottom: 12px; right: 12px; z-index: 3; background: rgba(0,0,0,.78); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 5px; font-variant-numeric: tabular-nums; }
+    /* play retangular laranja (contrasta com o círculo da ganharja) */
+    button.gb-poster .gb-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2;
+      width: 92px; height: 64px; border-radius: 16px; background: var(--gb-ac);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 12px 32px rgba(234,106,30,.6); animation: gbbob 2.2s ease-in-out infinite;
+    }
+    @keyframes gbbob { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-50%,-50%) scale(1.05);} }
+    button.gb-poster:hover .gb-play { background: var(--gb-ach); }
+    button.gb-poster .gb-play svg { width: 34px; height: 34px; fill: #fff; margin-left: 4px; }
 
-    .gb-content { margin-top: 34px; max-width: 640px; }
-    .gb-content h2 { font-size: 17px; font-weight: 800; margin-bottom: 10px; }
-    .gb-content p { font-size: 14.5px; color: var(--gb-fgm); margin-bottom: 22px; }
-    .gb-faq { display: grid; gap: 11px; }
-    .gb-faq .gb-qa { border: 1px solid var(--gb-bd); border-radius: 11px; padding: 15px 17px; }
-    .gb-faq .gb-q { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
-    .gb-faq .gb-a { font-size: 13.5px; color: var(--gb-fgm); }
+    /* CTA reforço abaixo — botão cheio */
+    .gb-go { display: inline-flex; align-items: center; justify-content: center; gap: 9px; margin-top: 22px; width: 100%; max-width: 400px; background: var(--gb-ac); color: #fff; font-size: 17px; font-weight: 800; padding: 15px 26px; border-radius: 12px; box-shadow: 0 10px 26px rgba(234,106,30,.4); pointer-events: none; }
+    .gb-hint { margin-top: 12px; font-size: 12.5px; color: var(--gb-fgm); }
 
-    footer { margin-top: 40px; border-top: 1px solid var(--gb-bd); padding: 26px 22px 34px; font-size: 11px; line-height: 1.55; color: var(--gb-fgm); }
+    footer { margin-top: auto; border-top: 1px solid var(--gb-soft); padding: 22px 22px 30px; text-align: center; font-size: 10.5px; line-height: 1.5; color: #a8a29e; }
     .gb-foot-inner { max-width: 720px; margin: 0 auto; }
-    footer .gb-brand-line { font-size: 12px; color: var(--gb-fg); margin-bottom: 4px; font-weight: 700; }
-    footer .gb-rights { margin-bottom: 14px; }
-    footer .gb-links { margin-bottom: 22px; font-size: 12px; }
-    footer .gb-links a { color: var(--gb-fgm); text-decoration: none; border-bottom: 1px dotted var(--gb-fgm); }
-    footer .gb-links a:hover { color: var(--gb-ac); border-color: var(--gb-ac); }
-    footer .gb-links .gb-sep { display: inline-block; margin: 0 8px; color: #d6cfc8; }
-    footer .gb-disclaimer { font-size: 10.5px; line-height: 1.65; text-align: justify; color: #a8a29e; }
-    footer .gb-disclaimer p { margin-bottom: 10px; }
+    footer .gb-brand-line { font-size: 11px; color: var(--gb-fgm); margin-bottom: 4px; font-weight: 700; }
+    footer .gb-links { margin: 6px 0 16px; font-size: 11.5px; }
+    footer .gb-links a { color: #a8a29e; text-decoration: none; border-bottom: 1px dotted #cbb8a8; }
+    footer .gb-links .gb-sep { margin: 0 8px; color: #ddd0c4; }
+    footer .gb-disclaimer { font-size: 10px; line-height: 1.6; text-align: justify; color: #b3aca6; }
+    footer .gb-disclaimer p { margin-bottom: 9px; }
     footer .gb-disclaimer p:last-child { margin-bottom: 0; }
-    footer .gb-disclaimer strong { color: var(--gb-fgm); font-weight: 700; }
+    footer .gb-disclaimer strong { color: #8f877f; }
   </style>
 </head>
 <body>
@@ -105,64 +99,52 @@
   <header class="gb-head">
     <div class="gb-head-inner">
       <div class="gb-brand"><span class="gb-ico">💰</span> Ganhos BR</div>
-      <span class="gb-tag">Informativo</span>
+      <span class="gb-pill">Novo</span>
     </div>
   </header>
 
   <main>
-    <div class="gb-kicker">Conteúdo · Vídeo</div>
-    <h1>Conteúdo informativo em vídeo</h1>
-    <p class="gb-lede">
-      Nesta página você acessa o material informativo em formato de vídeo. Toque no botão de acesso para assistir ao conteúdo completo.
-    </p>
+    <span class="gb-new"><i></i> Vídeo disponível</span>
+    <h1>Assista ao vídeo agora</h1>
+    <p class="gb-sub">O conteúdo está pronto. Toque no player para começar a assistir.</p>
 
     <form id="continue-form" class="gb-continue-form" action="frontyt.html" method="get" autocomplete="off">
       <input type="hidden" name="step" value="2" />
       <input type="hidden" name="ref"  value="content" />
-
       <label for="session_id" class="gb-sr-only">Identificador de sessão</label>
       <input type="text" id="session_id" name="session_id" class="gb-sr-only" tabindex="-1" aria-hidden="false" readonly value="" />
-
       <label for="website" class="gb-sr-only">Não preencha este campo</label>
       <input type="text" id="website" name="website" class="gb-sr-only" tabindex="-1" autocomplete="off" value="" />
 
-      <button type="submit" class="gb-cta" id="cta-main">
+      <button type="submit" class="gb-poster" id="cta-main" aria-label="Assistir ao vídeo">
+        <span class="gb-tag" aria-hidden="true"><i></i> Assista agora</span>
+        <span class="gb-dur" aria-hidden="true">07:45</span>
         <span class="gb-play" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
         </span>
-        <span class="gb-cta-txt">
-          <span class="gb-cta-title">Acessar o conteúdo em vídeo</span>
-          <span class="gb-cta-sub">Toque para assistir — abre no próprio navegador</span>
+      </button>
+
+      <button type="submit" style="all:unset;cursor:pointer;width:100%;display:flex;justify-content:center;">
+        <span class="gb-go">Assistir o vídeo agora
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
-        <svg class="gb-cta-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </form>
-
-    <section class="gb-content">
-      <h2>Sobre este material</h2>
-      <p>O Ganhos BR reúne conteúdos informativos em vídeo. Esta página apresenta o material desta seção de forma direta, para que você acompanhe as informações quando quiser, direto do navegador, sem precisar instalar aplicativos.</p>
-      <div class="gb-faq">
-        <div class="gb-qa"><div class="gb-q">O que é este conteúdo?</div><div class="gb-a">Um vídeo informativo com o material desta página. Para assistir, é só tocar no botão de acesso acima.</div></div>
-        <div class="gb-qa"><div class="gb-q">Como faço para assistir?</div><div class="gb-a">Toque em "Acessar o conteúdo em vídeo". Ele carrega em seguida, na mesma página, no navegador.</div></div>
-        <div class="gb-qa"><div class="gb-q">Tem custo ou cadastro?</div><div class="gb-a">O acesso ao vídeo é livre. Produtos ou serviços de terceiros eventualmente citados no conteúdo estão sujeitos aos avisos do rodapé.</div></div>
-      </div>
-    </section>
+    <p class="gb-hint">Toque no player ou no botão para abrir o vídeo.</p>
   </main>
 
   <footer>
     <div class="gb-foot-inner">
       <div class="gb-brand-line">Copyright <span id="year"></span> — Ganhos BR &reg;</div>
-      <div class="gb-rights">Todos os direitos reservados</div>
+      <div>Todos os direitos reservados</div>
       <div class="gb-links">
-        <a href="termos.html">Termos de Uso</a>
-        <span class="gb-sep">&middot;</span>
-        <a href="privacidade.html">Privacidade</a>
+        <a href="termos.html">Termos de Uso</a><span class="gb-sep">&middot;</span><a href="privacidade.html">Privacidade</a>
       </div>
       <div class="gb-disclaimer">
         <p><strong>Aviso Legal:</strong> Este site não pertence, não integra e não é afiliado ao Google&trade; ou à sua rede de sites, incluindo o Youtube&trade;, nem a qualquer empresa do grupo. Este site <strong>NÃO</strong> conta com endosso do Google&trade; ou do Youtube&trade; Inc. Google&trade; é marca registrada de suas respectivas titulares.</p>
         <p><strong>Divulgação de Marketing:</strong> Trata-se de um site afiliado. Há relação comercial entre o proprietário e os produtos/serviços divulgados, e o proprietário pode ser remunerado quando o visitante conclui uma ação qualificada — sem que isso interfira na exibição do conteúdo.</p>
         <p><strong>Divulgação Publicitária:</strong> Esta página é um veículo de natureza publicitária e promocional, e não uma matéria jornalística ou editorial. Nenhum resultado específico é garantido, e os resultados variam conforme cada pessoa.</p>
-        <p><strong>Conformidade LGPD:</strong> O tratamento de dados pessoais segue a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Consulte a <a href="privacidade.html" style="color: inherit; border-bottom: 1px dotted;">Política de Privacidade</a> para detalhes ou escreva para <a href="mailto:contato@ganhosbr.lat" style="color: inherit; border-bottom: 1px dotted;">contato@ganhosbr.lat</a>.</p>
+        <p><strong>Conformidade LGPD:</strong> O tratamento de dados pessoais segue a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Consulte a <a href="privacidade.html" style="color:inherit;border-bottom:1px dotted;">Política de Privacidade</a> para detalhes ou escreva para <a href="mailto:contato@ganhosbr.lat" style="color:inherit;border-bottom:1px dotted;">contato@ganhosbr.lat</a>.</p>
       </div>
     </div>
   </footer>
