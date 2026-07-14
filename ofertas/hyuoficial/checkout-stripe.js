@@ -1,14 +1,17 @@
-/* HYU — checkout 100% NOSSO (Stripe Payment Element), dark + lime.
+/* HYU — checkout 100% NOSSO (Stripe Payment Element) v2 "street".
  *
- * Página full-screen no NOSSO domínio: resumo + contato + CPF + endereço
- * (ViaCEP) + frete Mandaê + cupom, e a Stripe entra só como o cofre do
- * pagamento (Payment Element embutido: cartão/PIX/wallets, QR inline, 3DS).
- * O total é SEMPRE do backend (POST /stripe/checkout devolve o clientSecret).
+ * Página full-screen no NOSSO domínio com o DNA visual do site (brutalist/
+ * street: Anton display, Space Mono kickers, lime #c4f439, hard-shadow 4px,
+ * cantos retos, sticker rotacionado, thumb com cor do sabor). A Stripe entra
+ * só como o cofre (Payment Element: cartão/PIX/wallets/3DS). Total SEMPRE do
+ * backend (POST /stripe/checkout devolve o clientSecret).
  *
- * GATE (paralelo ao Paggins, sem afetar quem compra hoje):
- *   ativa só com ?gw=stripe na URL (persiste em localStorage hyu-gw);
- *   ?gw=paggins desativa. Pra virar a chave: remover o gate abaixo.
+ * UX (Baymard/refs 2026): CTA sticky no rodapé mobile (+5-12% conclusão),
+ * selos de confiança junto do campo de pagamento (+15-30% marca nova),
+ * resumo recolhível, campos mínimos, steps 01 DADOS → 02 PAGAMENTO.
  *
+ * GATE (paralelo ao Paggins): ativa só com ?gw=stripe (localStorage hyu-gw);
+ * ?gw=paggins desativa. Virar a chave = remover o gate abaixo.
  * Assinatura (tier "sub") segue o fluxo nativo — recorrência Stripe é fase 2.
  * Cupom: lê o hyu_coupon do coupon.js e manda no body (validação = bridge).
  */
@@ -29,7 +32,6 @@
   var LS_CART = "hyu-cart-v2";
   var LS_FORM = "hyu-precheckout-v1";
   var LS_COUPON = "hyu_coupon";
-  var LIME = "#c4f439";
   var COMBOS = { "kit-energy": 1, "kit-soda": 1, "super-kit": 1, "kit24": 1 };
   var TIER_CENTS = { kit6: 6990, kit12: 11990, kit24: 21990 };
   var TIER_LABEL = { kit6: "6 latas", kit12: "12 latas", kit24: "24 latas" };
@@ -42,6 +44,14 @@
     "maca-vermelha": "Maçã Vermelha"
   };
   var IMGS = { "kit24": "super-kit" };
+  /* cor do sabor no thumb (espelha :root do site) */
+  var COLORS = {
+    "hot-lemon": "#A8CC30", "maca-verde": "#3CC0E4", "pessego-morango": "#EE7C3C",
+    "tropical": "#E4A83C", "maca-vermelha": "#CC5454",
+    "kit-energy": "#E4A83C", "kit-soda": "#3CC0E4", "super-kit": "#c4f439",
+    "kit24": "#c4f439"
+  };
+  var FREE_CANS = 12; /* manter = bridge FREE_SHIPPING_CANS */
 
   /* ── carrinho (mesma leitura do cart.js) ─────────────────────────────── */
   function cartLines() {
@@ -71,8 +81,16 @@
     try { return localStorage.getItem(LS_COUPON) || ""; } catch (e) { return ""; }
   }
   function lineCents(i) { return (TIER_CENTS[i.tier] || 0) + (i.mix ? MIX_FEE : 0); }
+  function lineCans(i) {
+    var per = i.tier === "kit12" ? 12 : i.tier === "kit24" ? 24
+      : (i.flavor === "super-kit" ? 12 : i.flavor === "kit24" ? 24 : 6);
+    return per * i.qty;
+  }
   function subtotalCents(lines) {
     return lines.reduce(function (s, i) { return s + lineCents(i) * i.qty; }, 0);
+  }
+  function totalCans(lines) {
+    return lines.reduce(function (s, i) { return s + lineCans(i); }, 0);
   }
   function brl(cents) {
     return (cents / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -82,15 +100,23 @@
       .map(function (s) { return mix[s] + "× " + (TITLES[s] || s); }).join(" · ");
   }
   function lineTitle(i) {
-    if (i.mix) return (MIX_LABEL[i.tier] || "Kit Personalizado") + " — " + mixComp(i.mix);
+    if (i.mix) return (MIX_LABEL[i.tier] || "Kit Personalizado");
     var t = TITLES[i.flavor] || i.flavor;
     if (!COMBOS[i.flavor] && TIER_LABEL[i.tier]) t += " — " + TIER_LABEL[i.tier];
     else if (COMBOS[i.flavor] && TIER_LABEL[i.tier]) t += " · " + TIER_LABEL[i.tier];
     return t;
   }
+  function lineSub(i) {
+    if (i.mix) return mixComp(i.mix);
+    return "Quantidade: " + i.qty;
+  }
   function lineImg(i) {
     if (i.mix) return "/img/kits/super-kit.webp";
     return "/img/kits/" + (IMGS[i.flavor] || i.flavor) + ".webp";
+  }
+  function lineColor(i) {
+    if (i.mix) return "#c4f439";
+    return COLORS[i.flavor] || "#c4f439";
   }
   function validCPF(doc) {
     var d = (doc || "").replace(/\D/g, "");
@@ -103,141 +129,209 @@
     return true;
   }
 
-  /* ── estética HYU: dark + lime ───────────────────────────────────────── */
+  /* ── estética HYU street: ink + lime, cantos retos, hard shadow ──────── */
   var css = "" +
     ".hyst{position:fixed;inset:0;z-index:9999;background:#0c0c0c;overflow-y:auto;-webkit-overflow-scrolling:touch;color:#f3efe4;font-family:'Archivo',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;display:none}" +
     ".hyst.open{display:block}" +
     ".hyst *{box-sizing:border-box;font-family:inherit}" +
-    ".hyst-wrap{max-width:560px;margin:0 auto;padding:12px 14px calc(28px + env(safe-area-inset-bottom,0px))}" +
-    ".hyst-top{display:flex;align-items:center;gap:.6rem;padding:6px 2px 12px}" +
-    ".hyst-back{display:flex;align-items:center;gap:.35rem;background:none;border:0;padding:6px 8px 6px 2px;font-size:14px;color:#8b93a1;cursor:pointer;border-radius:8px}" +
-    ".hyst-back:hover{color:#f3efe4}" +
-    ".hyst-top .ttl{flex:1;text-align:center;font-weight:800;font-size:15px;color:#f3efe4;margin-right:64px;letter-spacing:.02em}" +
-    ".hyst-card{background:#15171c;border:1px solid #262a33;border-radius:14px;padding:16px;margin:0 0 8px}" +
-    ".hyst h2{font-size:13px;font-weight:800;color:#8b93a1;margin:18px 4px 10px;letter-spacing:.08em;text-transform:uppercase}" +
+    ".hyst-glow{position:absolute;top:-140px;left:50%;transform:translateX(-50%);width:520px;height:340px;background:radial-gradient(closest-side,rgba(196,244,57,.14),transparent 70%);pointer-events:none}" +
+    /* marquee topo (street) */
+    ".hyst-marq{position:sticky;top:0;z-index:5;background:#c4f439;color:#0c0c0c;overflow:hidden;white-space:nowrap;border-bottom:2px solid #0c0c0c}" +
+    ".hyst-marq span{display:inline-block;padding:5px 0;font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;animation:hystmarq 22s linear infinite}" +
+    "@keyframes hystmarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}" +
+    ".hyst-wrap{position:relative;max-width:560px;margin:0 auto;padding:14px 16px calc(110px + env(safe-area-inset-bottom,0px))}" +
+    /* topo */
+    ".hyst-top{display:flex;align-items:center;gap:.7rem;padding:8px 0 4px}" +
+    ".hyst-back{display:inline-flex;align-items:center;gap:.4rem;background:none;border:1.5px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 14px 7px 10px;font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#8b93a1;cursor:pointer;transition:color .15s,border-color .15s}" +
+    ".hyst-back:hover{color:#f3efe4;border-color:rgba(255,255,255,.4)}" +
+    ".hyst-stick{margin-left:auto;font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;background:#c4f439;color:#0c0c0c;padding:5px 10px;border-radius:3px;border:2px solid #0c0c0c;box-shadow:2px 2px 0 rgba(255,255,255,.14);transform:rotate(2.5deg)}" +
+    ".hyst-h1{font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.9;letter-spacing:.005em;font-size:clamp(2.1rem,9vw,2.9rem);margin:14px 0 4px}" +
+    ".hyst-h1 i{font-style:normal;color:#c4f439}" +
+    /* steps */
+    ".hyst-steps{display:flex;align-items:center;gap:.7rem;margin:10px 0 18px;font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#565e6b}" +
+    ".hyst-steps .st{display:inline-flex;align-items:center;gap:.45em;transition:color .2s}" +
+    ".hyst-steps .st b{font-weight:700;color:inherit}" +
+    ".hyst-steps .st.on{color:#c4f439}" +
+    ".hyst-steps .ln{flex:1;height:1.5px;background:rgba(255,255,255,.14)}" +
+    ".hyst-steps .st.done{color:#8b93a1;text-decoration:line-through;text-decoration-thickness:1.5px}" +
+    /* kicker de seção */
+    ".hyst-k{display:flex;align-items:center;gap:.6em;font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#c4f439;margin:22px 2px 10px}" +
+    ".hyst-k:after{content:'';flex:1;height:1.5px;background:rgba(255,255,255,.1)}" +
+    /* cards */
+    ".hyst-card{background:#141412;border:1.5px solid rgba(255,255,255,.12);border-radius:6px;padding:16px;margin:0 0 10px;box-shadow:5px 5px 0 rgba(0,0,0,.55)}" +
     /* resumo */
-    ".hyst-sumhead{width:100%;display:flex;align-items:center;justify-content:space-between;gap:.6rem;background:none;border:0;padding:0;cursor:pointer;font-size:15px;font-weight:700;color:#f3efe4}" +
-    ".hyst-sumhead b{font-weight:800;font-size:15px;color:" + LIME + "}" +
-    ".hyst-sumhead .chev{flex:none;margin-left:2px;transition:transform .18s;color:#8b93a1}" +
+    ".hyst-sumhead{width:100%;display:flex;align-items:center;gap:.6rem;background:none;border:0;padding:0;cursor:pointer;color:#f3efe4}" +
+    ".hyst-sumhead .lbl{font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#8b93a1}" +
+    ".hyst-sumhead .ct{font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.62rem;letter-spacing:.06em;border:1.5px solid rgba(255,255,255,.18);border-radius:999px;padding:3px 9px;color:#f3efe4}" +
+    ".hyst-sumhead b{margin-left:auto;font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.95rem;color:#c4f439;font-variant-numeric:tabular-nums}" +
+    ".hyst-sumhead .chev{flex:none;transition:transform .2s;color:#8b93a1}" +
     ".hyst-sum.open .chev{transform:rotate(180deg)}" +
-    ".hyst-sumbody{display:none;margin-top:14px;border-top:1px solid #262a33;padding-top:12px}" +
+    ".hyst-sumbody{display:none;margin-top:14px;border-top:1.5px dashed rgba(255,255,255,.14);padding-top:6px}" +
     ".hyst-sum.open .hyst-sumbody{display:block}" +
-    ".hyst-it{display:flex;align-items:center;gap:.7rem;padding:.45rem 0}" +
-    ".hyst-it img{flex:none;width:44px;height:44px;border-radius:8px;object-fit:cover;background:#1e2128;border:1px solid #262a33}" +
-    ".hyst-it .nm{flex:1;min-width:0;font-size:13.5px;color:#f3efe4;line-height:1.3}" +
-    ".hyst-it .nm small{display:block;color:#8b93a1;font-size:12px}" +
-    ".hyst-it .pr{font-size:13.5px;font-weight:700;white-space:nowrap}" +
-    ".hyst-tot{border-top:1px solid #262a33;margin-top:8px;padding-top:10px;font-size:13.5px;color:#8b93a1}" +
-    ".hyst-tot div{display:flex;justify-content:space-between;padding:.18rem 0}" +
-    ".hyst-tot .off{color:" + LIME + "}" +
-    ".hyst-tot .tt{font-weight:800;color:#f3efe4;font-size:15.5px;padding-top:.4rem}" +
+    ".hyst-it{display:flex;align-items:center;gap:.8rem;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.07)}" +
+    ".hyst-it:last-of-type{border-bottom:0}" +
+    ".hyst-it .pic{flex:none;width:52px;height:52px;border-radius:4px;border:2px solid #0c0c0c;box-shadow:2.5px 2.5px 0 rgba(0,0,0,.6);display:grid;place-items:center;overflow:hidden}" +
+    ".hyst-it .pic img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}" +
+    ".hyst-it .nm{flex:1;min-width:0;font-size:.9rem;font-weight:800;line-height:1.25;letter-spacing:.01em}" +
+    ".hyst-it .nm small{display:block;font-family:'Space Mono',ui-monospace,monospace;font-weight:400;color:#8b93a1;font-size:.68rem;margin-top:2px;letter-spacing:.03em}" +
+    ".hyst-it .pr{font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.82rem;white-space:nowrap;font-variant-numeric:tabular-nums}" +
+    ".hyst-tot{margin-top:10px;font-family:'Space Mono',ui-monospace,monospace;font-size:.78rem;color:#8b93a1}" +
+    ".hyst-tot div{display:flex;justify-content:space-between;align-items:baseline;padding:.22rem 0}" +
+    ".hyst-tot .off{color:#c4f439}" +
+    ".hyst-tot .tt{border-top:1.5px dashed rgba(255,255,255,.14);margin-top:.4rem;padding-top:.6rem;color:#f3efe4}" +
+    ".hyst-tot .tt span:first-child{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.68rem}" +
+    ".hyst-tot .tt span:last-child{font-family:'Anton',Impact,sans-serif;font-size:1.5rem;color:#c4f439;letter-spacing:.01em}" +
+    /* cupom */
+    ".hyst-cpn{display:inline-flex;align-items:center;gap:.5em;font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#0c0c0c;background:#c4f439;border:2px solid #0c0c0c;border-radius:3px;box-shadow:2.5px 2.5px 0 rgba(255,255,255,.14);padding:7px 12px;margin:4px 0 0;transform:rotate(-1.2deg)}" +
     /* campos */
-    ".hyst-f{margin:0 0 12px}" +
+    ".hyst-f{margin:0 0 13px}" +
     ".hyst-f:last-child{margin-bottom:2px}" +
-    ".hyst-f label{display:block;font-size:12.5px;font-weight:600;color:#8b93a1;margin:0 0 6px}" +
-    ".hyst-f input{width:100%;height:46px;padding:0 13px;font-size:16px;color:#f3efe4;background:#0f1115;border:1px solid #333947;border-radius:10px;outline:none;transition:border-color .12s,box-shadow .12s}" +
-    ".hyst-f input::placeholder{color:#565e6b}" +
-    ".hyst-f input:focus{border-color:" + LIME + ";box-shadow:0 0 0 3px rgba(196,244,57,.14)}" +
-    ".hyst-f .sub{font-size:12px;color:#6b7280;margin:6px 2px 0}" +
-    ".hyst-row{display:flex;gap:8px}" +
+    ".hyst-f label{display:block;font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#8b93a1;margin:0 0 6px}" +
+    ".hyst-f input{width:100%;height:48px;padding:0 13px;font-size:16px;font-weight:600;color:#f3efe4;background:#0c0c0c;border:1.5px solid rgba(255,255,255,.16);border-radius:4px;outline:none;transition:border-color .15s,box-shadow .15s}" +
+    ".hyst-f input::placeholder{color:#565e6b;font-weight:400}" +
+    ".hyst-f input:focus{border-color:#c4f439;box-shadow:3px 3px 0 rgba(196,244,57,.22)}" +
+    ".hyst-f .sub{font-family:'Space Mono',ui-monospace,monospace;font-size:.64rem;color:#565e6b;margin:6px 2px 0;letter-spacing:.03em}" +
+    ".hyst-row{display:flex;gap:9px}" +
     ".hyst-row .hyst-f{flex:1;min-width:0}" +
     ".hyst-row .hyst-f.sm{flex:0 0 96px}" +
-    ".hyst-phone{display:flex;gap:8px}" +
-    ".hyst-phone .ddi{flex:none;display:flex;align-items:center;gap:6px;height:46px;padding:0 12px;border:1px solid #333947;border-radius:10px;background:#0f1115;font-size:14.5px;color:#8b93a1}" +
+    ".hyst-phone{display:flex;gap:9px}" +
+    ".hyst-phone .ddi{flex:none;display:flex;align-items:center;gap:6px;height:48px;padding:0 12px;border:1.5px solid rgba(255,255,255,.16);border-radius:4px;background:#0c0c0c;font-family:'Space Mono',ui-monospace,monospace;font-size:.8rem;color:#8b93a1}" +
     ".hyst-phone input{flex:1}" +
     /* frete */
-    ".hyst-ship{border:1px solid #262a33;border-radius:12px;overflow:hidden;margin-top:4px}" +
-    ".hyst-opt{display:flex;align-items:center;gap:.75rem;padding:13px 14px;cursor:pointer;border-bottom:1px solid #262a33;background:#15171c;transition:background .12s}" +
+    ".hyst-ship{margin-top:6px;border:1.5px solid rgba(255,255,255,.12);border-radius:4px;overflow:hidden}" +
+    ".hyst-opt{display:flex;align-items:center;gap:.8rem;padding:14px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.09);background:#0c0c0c;border-left:3px solid transparent;transition:border-color .15s,background .15s}" +
     ".hyst-opt:last-child{border-bottom:0}" +
+    ".hyst-opt:hover{background:#111110}" +
     ".hyst-opt input{display:none}" +
-    ".hyst-opt .dot{flex:none;width:18px;height:18px;border-radius:50%;border:2px solid #40485a;display:grid;place-items:center;transition:border-color .12s}" +
-    ".hyst-opt .dot:before{content:'';width:9px;height:9px;border-radius:50%;background:transparent;transition:background .12s}" +
-    ".hyst-opt.sel .dot{border-color:" + LIME + "}" +
-    ".hyst-opt.sel .dot:before{background:" + LIME + "}" +
-    ".hyst-opt .inf{flex:1;min-width:0;font-size:14px;color:#f3efe4}" +
-    ".hyst-opt .inf small{display:block;font-size:12px;color:#8b93a1}" +
-    ".hyst-opt .prc{font-size:14px;font-weight:700;white-space:nowrap}" +
-    ".hyst-calc{display:flex;align-items:center;gap:.6rem;font-size:13.5px;color:#8b93a1;padding:10px 2px}" +
-    ".hyst-spin{width:15px;height:15px;border:2px solid rgba(196,244,57,.25);border-top-color:" + LIME + ";border-radius:50%;animation:hystspin .7s linear infinite;flex:none}" +
+    ".hyst-opt .dot{flex:none;width:17px;height:17px;border-radius:50%;border:2px solid #40485a;display:grid;place-items:center;transition:border-color .15s}" +
+    ".hyst-opt .dot:before{content:'';width:8px;height:8px;border-radius:50%;background:transparent;transition:background .15s}" +
+    ".hyst-opt.sel{border-left-color:#c4f439;background:#141412}" +
+    ".hyst-opt.sel .dot{border-color:#c4f439}" +
+    ".hyst-opt.sel .dot:before{background:#c4f439}" +
+    ".hyst-opt .inf{flex:1;min-width:0;font-size:.88rem;font-weight:800}" +
+    ".hyst-opt .inf small{display:block;font-family:'Space Mono',ui-monospace,monospace;font-weight:400;font-size:.66rem;color:#8b93a1;margin-top:2px;letter-spacing:.03em}" +
+    ".hyst-opt .prc{font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.82rem;white-space:nowrap}" +
+    ".hyst-opt .prc.free{color:#c4f439}" +
+    ".hyst-freenote{display:flex;align-items:center;gap:.5em;font-family:'Space Mono',ui-monospace,monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#565e6b;margin:8px 2px 0}" +
+    ".hyst-calc{display:flex;align-items:center;gap:.6rem;font-family:'Space Mono',ui-monospace,monospace;font-size:.72rem;color:#8b93a1;padding:12px 2px;letter-spacing:.03em}" +
+    ".hyst-spin{width:14px;height:14px;border:2px solid rgba(196,244,57,.25);border-top-color:#c4f439;border-radius:50%;animation:hystspin .7s linear infinite;flex:none}" +
     "@keyframes hystspin{to{transform:rotate(360deg)}}" +
-    ".hyst-hint{font-size:13px;color:#8b93a1;padding:8px 2px 0}" +
-    ".hyst-hint.err{color:#ff9d9d}" +
-    /* cupom */
-    ".hyst-cpn{display:flex;align-items:center;gap:8px;font-size:13px;color:#0c0c0c;background:" + LIME + ";border-radius:10px;padding:9px 12px;font-weight:700;margin:2px 0 0}" +
-    /* erro + CTA */
-    ".hyst-err{color:#ff9d9d;font-size:13px;min-height:1.2em;margin:10px 4px 0}" +
-    ".hyst-cta{width:100%;height:52px;margin-top:10px;background:" + LIME + ";color:#0c0c0c;font-size:15.5px;font-weight:800;border:0;border-radius:12px;cursor:pointer;transition:filter .12s,opacity .12s;letter-spacing:.01em}" +
-    ".hyst-cta:hover{filter:brightness(1.08)}" +
-    ".hyst-cta:disabled{opacity:.55;cursor:default}" +
-    ".hyst-note{text-align:center;font-size:12.5px;color:#6b7280;margin:12px 6px 0;line-height:1.45}" +
-    ".hyst-foot{text-align:center;font-size:11.5px;color:#565e6b;margin:18px 0 0}" +
-    ".hyst-foot b{color:#8b93a1;font-weight:600}" +
+    ".hyst-hint{font-family:'Space Mono',ui-monospace,monospace;font-size:.7rem;color:#8b93a1;padding:9px 2px 0;letter-spacing:.02em}" +
+    ".hyst-hint.err{color:#ff8f8f}" +
+    /* erro */
+    ".hyst-err{font-family:'Space Mono',ui-monospace,monospace;color:#ff8f8f;font-size:.74rem;min-height:1.2em;margin:12px 2px 0;letter-spacing:.02em}" +
+    ".hyst-err:not(:empty):before{content:'! ';font-weight:700}" +
+    /* barra sticky (CTA sempre visível — mobile-first) */
+    ".hyst-bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(12,12,12,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1.5px solid rgba(255,255,255,.14);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}" +
+    ".hyst-bar-in{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:14px}" +
+    ".hyst-bar .tot{min-width:0}" +
+    ".hyst-bar .tot .l{font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:#8b93a1;display:block}" +
+    ".hyst-bar .tot .v{font-family:'Anton',Impact,sans-serif;font-size:1.45rem;line-height:1.1;color:#c4f439;letter-spacing:.01em;white-space:nowrap}" +
+    ".hyst-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:52px;background:#c4f439;color:#0c0c0c;font-family:'Archivo',system-ui,sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.01em;text-transform:uppercase;border:2px solid #0c0c0c;border-radius:4px;cursor:pointer;box-shadow:4px 4px 0 rgba(0,0,0,.9);transition:transform .15s ease,box-shadow .15s ease,opacity .15s}" +
+    ".hyst-cta:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(0,0,0,.9)}" +
+    ".hyst-cta:active{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(0,0,0,.9)}" +
+    ".hyst-cta:disabled{opacity:.55;cursor:default;transform:none;box-shadow:4px 4px 0 rgba(0,0,0,.9)}" +
     /* passo pagamento */
-    ".hyst-payhead{display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 12px}" +
-    ".hyst-payhead .lbl{font-size:13px;color:#8b93a1;font-weight:600}" +
-    ".hyst-payhead .val{font-size:22px;font-weight:800;color:" + LIME + "}" +
     ".hyst-payel{min-height:220px}" +
-    ".hyst-editlink{background:none;border:0;color:#8b93a1;font-size:13px;cursor:pointer;text-decoration:underline;padding:6px 2px;margin-top:2px}" +
+    ".hyst-trust{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 0}" +
+    ".hyst-trust .tc{display:inline-flex;align-items:center;gap:.45em;font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:#8b93a1;border:1.5px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 11px}" +
+    ".hyst-trust .tc svg{color:#c4f439}" +
+    ".hyst-editlink{display:block;margin:14px auto 0;background:none;border:0;color:#8b93a1;font-family:'Space Mono',ui-monospace,monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:6px}" +
     ".hyst-editlink:hover{color:#f3efe4}" +
-    "@media(min-width:640px){.hyst-wrap{padding-top:28px}}";
+    /* nada rola pra "debaixo" da barra sticky (scrollIntoView/focus respeitam) */
+    ".hyst input,.hyst-editlink,.hyst-err,.hyst-foot,.hyst-opt,.hyst-note{scroll-margin-bottom:130px}" +
+    ".hyst-note{text-align:center;font-family:'Space Mono',ui-monospace,monospace;font-size:.64rem;color:#565e6b;margin:14px 6px 0;line-height:1.6;letter-spacing:.03em}" +
+    ".hyst-foot{display:flex;align-items:center;justify-content:center;gap:.5em;font-family:'Space Mono',ui-monospace,monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:#565e6b;margin:22px 0 0}" +
+    ".hyst-foot b{color:#8b93a1;font-weight:700}" +
+    /* animação de entrada dos passos — SÓ opacity: transform animado (mesmo
+       com fill-mode) vira containing block e quebra o position:fixed da barra */
+    ".hyst-anim{animation:hystin .3s ease both}" +
+    "@keyframes hystin{from{opacity:0}to{opacity:1}}" +
+    "@media (prefers-reduced-motion:reduce){.hyst-marq span,.hyst-anim{animation:none}.hyst-cta{transition:none}}" +
+    "@media(min-width:640px){.hyst-wrap{padding-top:26px}}";
 
-  var CHEV = '<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
-  var LOCK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1.5px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+  var CHEV = '<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  var LOCK = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="vertical-align:-1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+  var TRUCK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>';
+  var ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+  var MARQ = "HYU &nbsp;●&nbsp; COMPRA SEGURA &nbsp;●&nbsp; ENVIO RASTREADO &nbsp;●&nbsp; 15G DE PROTEÍNA &nbsp;●&nbsp; ZERO AÇÚCAR &nbsp;●&nbsp; ";
 
   var html = "" +
+    '<div class="hyst-marq" aria-hidden="true"><span>' + MARQ + MARQ + "</span></div>" +
+    '<div class="hyst-glow"></div>' +
     '<div class="hyst-wrap">' +
     '<div class="hyst-top">' +
     '<button type="button" class="hyst-back" data-hyst-close>' +
-    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Voltar</button>' +
-    '<span class="ttl">Finalizar compra</span>' +
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Voltar</button>' +
+    '<span class="hyst-stick">' + LOCK + " compra segura</span>" +
     "</div>" +
+    '<h1 class="hyst-h1">Finalizar <i>compra.</i></h1>' +
+    '<div class="hyst-steps" data-hyst-steps>' +
+    '<span class="st on" data-st="1"><b>01</b> dados</span><span class="ln"></span>' +
+    '<span class="st" data-st="2"><b>02</b> pagamento</span>' +
+    "</div>" +
+    '<div data-hyst-cpn hidden></div>' +
+    /* resumo */
     '<section class="hyst-card hyst-sum" data-hyst-sum>' +
-    '<button type="button" class="hyst-sumhead" data-hyst-sumtoggle>Resumo da compra<span style="flex:1"></span><b data-hyst-sumtotal></b>' + CHEV + "</button>" +
+    '<button type="button" class="hyst-sumhead" data-hyst-sumtoggle>' +
+    '<span class="lbl">Sua sacola</span><span class="ct" data-hyst-count></span>' +
+    "<b data-hyst-sumtotal></b>" + CHEV + "</button>" +
     '<div class="hyst-sumbody" data-hyst-sumbody></div>' +
     "</section>" +
-    '<div data-hyst-cpn hidden></div>' +
     /* ── passo 1: dados ── */
     '<div data-hyst-step1>' +
     '<form data-hyst-form novalidate>' +
-    "<h2>Dados de contato</h2>" +
+    '<div class="hyst-k">01 / contato</div>' +
     '<section class="hyst-card">' +
-    '<div class="hyst-f"><label>Nome Completo</label><input name="name" autocomplete="name" placeholder="Nome completo"></div>' +
-    '<div class="hyst-f"><label>Telefone de contato</label><div class="hyst-phone"><span class="ddi">&#127463;&#127479; +55</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Insira seu celular"></div></div>' +
-    '<div class="hyst-f"><label>E-mail</label><input name="email" type="email" autocomplete="email" placeholder="Insira seu e-mail"></div>' +
-    '<div class="hyst-f"><label>CPF</label><input name="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00"><p class="sub">Usado só pra emitir a nota fiscal do pedido.</p></div>' +
+    '<div class="hyst-f"><label>Nome completo</label><input name="name" autocomplete="name" placeholder="Seu nome completo"></div>' +
+    '<div class="hyst-f"><label>Celular / WhatsApp</label><div class="hyst-phone"><span class="ddi">+55</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 99999-9999"></div></div>' +
+    '<div class="hyst-f"><label>E-mail</label><input name="email" type="email" autocomplete="email" placeholder="voce@email.com"><p class="sub">confirmação + rastreio do pedido vão nesse e-mail</p></div>' +
+    '<div class="hyst-f"><label>CPF</label><input name="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00"><p class="sub">usado só pra emitir a nota fiscal</p></div>' +
     "</section>" +
-    "<h2>Endereço de entrega</h2>" +
+    '<div class="hyst-k">02 / entrega</div>' +
     '<section class="hyst-card">' +
-    '<div class="hyst-f"><label>CEP</label><input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="Digite seu CEP"></div>' +
+    '<div class="hyst-f"><label>CEP</label><input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000"></div>' +
     '<div data-hyst-addr hidden>' +
     '<div class="hyst-row"><div class="hyst-f"><label>Rua</label><input name="street" autocomplete="address-line1" placeholder="Rua / Avenida"></div><div class="hyst-f sm"><label>Número</label><input name="number" inputmode="numeric" placeholder="Nº"></div></div>' +
-    '<div class="hyst-f"><label>Complemento (opcional)</label><input name="complement" placeholder="Apto, bloco…"></div>' +
-    '<div class="hyst-row"><div class="hyst-f"><label>Bairro</label><input name="neighborhood" placeholder="Bairro"></div></div>' +
+    '<div class="hyst-f"><label>Complemento <span style="text-transform:none;letter-spacing:.02em">(opcional)</span></label><input name="complement" placeholder="Apto, bloco…"></div>' +
+    '<div class="hyst-f"><label>Bairro</label><input name="neighborhood" placeholder="Bairro"></div>' +
     '<div class="hyst-row"><div class="hyst-f"><label>Cidade</label><input name="city" placeholder="Cidade"></div><div class="hyst-f sm"><label>UF</label><input name="state" maxlength="2" placeholder="UF" style="text-transform:uppercase"></div></div>' +
     "</div>" +
-    '<div data-hyst-frete><div class="hyst-hint">Digite o CEP acima pra ver as opções e prazos de entrega.</div></div>' +
+    '<div data-hyst-frete><div class="hyst-hint">digite o CEP acima pra ver prazo e valor da entrega</div></div>' +
+    '<div class="hyst-freenote" data-hyst-freenote hidden>' + TRUCK + "<span>frete grátis a partir de 12 latas</span></div>" +
     "</section>" +
     '<p class="hyst-err" data-hyst-err></p>' +
-    '<button type="submit" class="hyst-cta">Continuar para o pagamento</button>' +
-    '<p class="hyst-note">Pagamento na próxima etapa, sem sair do site:<br>Pix, cartão de crédito, Google Pay ou Apple Pay.</p>' +
+    '<p class="hyst-note">pagamento na próxima etapa, sem sair do site —<br>cartão de crédito, Google Pay e Apple Pay</p>' +
+    '<div class="hyst-bar"><div class="hyst-bar-in">' +
+    '<div class="tot"><span class="l">Total</span><span class="v" data-hyst-bartotal>—</span></div>' +
+    '<button type="submit" class="hyst-cta">Continuar ' + ARROW + "</button>" +
+    "</div></div>" +
     "</form></div>" +
     /* ── passo 2: pagamento ── */
     '<div data-hyst-step2 hidden>' +
-    "<h2>Pagamento</h2>" +
+    '<div class="hyst-k">03 / pagamento</div>' +
     '<section class="hyst-card">' +
-    '<div class="hyst-payhead"><span class="lbl">Total a pagar</span><span class="val" data-hyst-paytotal></span></div>' +
     '<div class="hyst-payel" data-hyst-payel></div>' +
-    "</section>" +
+    '<div class="hyst-trust">' +
+    '<span class="tc">' + LOCK + " criptografado</span>" +
+    '<span class="tc">' + TRUCK + " envio rastreado</span>" +
+    '<span class="tc">stripe&trade;</span>' +
+    '<span class="tc">nota fiscal</span>' +
+    "</div></section>" +
     '<p class="hyst-err" data-hyst-payerr></p>' +
+    '<button type="button" class="hyst-editlink" data-hyst-edit>&larr; voltar e editar meus dados</button>' +
+    '<div class="hyst-bar"><div class="hyst-bar-in">' +
+    '<div class="tot"><span class="l">Total</span><span class="v" data-hyst-paytotal>—</span></div>' +
     '<button type="button" class="hyst-cta" data-hyst-pay>Pagar agora</button>' +
-    '<button type="button" class="hyst-editlink" data-hyst-edit>← Voltar e editar meus dados</button>' +
+    "</div></div>" +
     "</div>" +
-    '<p class="hyst-foot">' + LOCK + " Pagamento processado com segurança por <b>Stripe</b></p>" +
+    '<p class="hyst-foot">' + LOCK + "&nbsp; pagamento processado por <b>Stripe</b> &middot; dados criptografados</p>" +
     "</div>";
 
   var page = null, form = null, freteBox = null, errEl = null;
   var sumEl = null, sumTotalEl = null, sumBodyEl = null, addrEl = null, cpnEl = null;
   var step1 = null, step2 = null, payTotalEl = null, payErrEl = null, payElBox = null;
+  var countEl = null, barTotalEl = null, freeNoteEl = null, stepsEl = null;
   var freteState = { cep: "", options: null, free: false, chosen: "economico" };
   var payState = null; /* {stripe, elements, orderId} quando o passo 2 está montado */
 
@@ -281,6 +375,10 @@
     payTotalEl = page.querySelector("[data-hyst-paytotal]");
     payErrEl = page.querySelector("[data-hyst-payerr]");
     payElBox = page.querySelector("[data-hyst-payel]");
+    countEl = page.querySelector("[data-hyst-count]");
+    barTotalEl = page.querySelector("[data-hyst-bartotal]");
+    freeNoteEl = page.querySelector("[data-hyst-freenote]");
+    stepsEl = page.querySelector("[data-hyst-steps]");
 
     page.addEventListener("click", function (e) {
       if (e.target.closest("[data-hyst-close]")) closePage();
@@ -323,9 +421,18 @@
     var code = couponCode();
     if (code) {
       cpnEl.hidden = false;
-      cpnEl.innerHTML = '<div class="hyst-cpn">🎟️ Cupom <b>' + code +
-        "</b> aplicado — desconto no total do pagamento</div>";
+      cpnEl.innerHTML = '<div class="hyst-cpn">🎟️ cupom ' + code +
+        " ativo — desconto no total</div>";
     }
+  }
+
+  function setStep(n) {
+    if (!stepsEl) return;
+    stepsEl.querySelectorAll(".st").forEach(function (s) {
+      var me = Number(s.dataset.st);
+      s.classList.toggle("on", me === n);
+      s.classList.toggle("done", me < n);
+    });
   }
 
   function openPage() {
@@ -346,30 +453,40 @@
   }
   function showStep1() {
     step1.hidden = false;
+    step1.classList.add("hyst-anim");
     step2.hidden = true;
     payErrEl.textContent = "";
     if (payState) { try { payState.elements = null; } catch (e) {} payState = null; }
     payElBox.innerHTML = "";
+    setStep(1);
   }
 
   /* ── resumo ──────────────────────────────────────────────────────────── */
   function renderSummary() {
     var lines = cartLines();
     var sub = subtotalCents(lines);
+    var cans = totalCans(lines);
     var frete = freteState.options ? (freteState.free ? 0 : chosenCents()) : null;
-    sumTotalEl.textContent = brl(sub + (frete || 0));
+    var total = sub + (frete || 0);
+    sumTotalEl.textContent = brl(total);
+    if (barTotalEl) barTotalEl.textContent = frete === null ? brl(sub) + " + frete" : brl(total);
+    if (countEl) countEl.textContent = cans + (cans === 1 ? " lata" : " latas");
+    if (freeNoteEl) freeNoteEl.hidden = !(freteState.options && !freteState.free && cans < FREE_CANS);
     var rows = lines.map(function (i) {
-      return '<div class="hyst-it"><img src="' + lineImg(i) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' +
-        '<div class="nm">' + lineTitle(i) + "<small>Quantidade: " + i.qty +
-        (i.mix ? " · inclui personalização (R$ 4,90)" : "") + "</small></div>" +
+      return '<div class="hyst-it">' +
+        '<span class="pic" style="background:' + lineColor(i) + '"><img src="' + lineImg(i) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'"></span>' +
+        '<div class="nm">' + lineTitle(i) + "<small>" + lineSub(i) +
+        (i.mix ? " · personalização inclusa" : "") + "</small></div>" +
         '<div class="pr">' + brl(lineCents(i) * i.qty) + "</div></div>";
     }).join("");
     var tot = '<div class="hyst-tot"><div><span>Subtotal</span><span>' + brl(sub) + "</span></div>";
     if (frete !== null) {
-      tot += "<div><span>Frete</span><span>" + (frete === 0 ? "Grátis" : brl(frete)) + "</span></div>";
-      tot += '<div class="tt"><span>Total</span><span>' + brl(sub + frete) + "</span></div>";
+      tot += "<div><span>Frete</span><span" + (frete === 0 ? ' class="off"' : "") + ">" +
+        (frete === 0 ? "GRÁTIS" : brl(frete)) + "</span></div>";
+      tot += '<div class="tt"><span>Total</span><span>' + brl(total) + "</span></div>";
     } else {
-      tot += '<div class="tt"><span>Total</span><span>' + brl(sub) + " + frete</span></div>";
+      tot += '<div class="tt"><span>Total</span><span>' + brl(sub) + "</span></div>" +
+        '<div><span>+ frete (calculado pelo CEP)</span><span></span></div>';
     }
     tot += "</div>";
     sumBodyEl.innerHTML = rows + tot;
@@ -397,7 +514,7 @@
     if (!lines.length) return;
     freteState.cep = cep;
     freteState.options = null;
-    freteBox.innerHTML = '<div class="hyst-calc"><span class="hyst-spin"></span>Calculando a entrega pro seu CEP…</div>';
+    freteBox.innerHTML = '<div class="hyst-calc"><span class="hyst-spin"></span>calculando a entrega pro seu CEP…</div>';
     fetch(API + "/frete", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -411,7 +528,7 @@
       freteState.free = !!d.free;
       renderFrete();
     }).catch(function () {
-      freteBox.innerHTML = '<div class="hyst-hint err">Não consegui calcular a entrega — confere o CEP e tenta de novo.</div>';
+      freteBox.innerHTML = '<div class="hyst-hint err">não consegui calcular a entrega — confere o CEP e tenta de novo</div>';
     });
   }
   function chosenCents() {
@@ -424,7 +541,7 @@
       '<input type="radio" name="hyst-frete" value="' + value + '"' + (sel ? " checked" : "") + ">" +
       '<span class="dot"></span>' +
       '<span class="inf">' + name + (days ? "<small>chega em ~" + days + " dia" + (days > 1 ? "s" : "") + " úteis</small>" : "") + "</span>" +
-      '<span class="prc">' + (cents === 0 ? "Grátis" : brl(cents)) + "</span></label>";
+      '<span class="prc' + (cents === 0 ? " free" : "") + '">' + (cents === 0 ? "GRÁTIS" : brl(cents)) + "</span></label>";
   }
   function renderFrete() {
     var rows;
@@ -489,8 +606,8 @@
 
     var btn = form.querySelector(".hyst-cta");
     btn.disabled = true;
-    var old = btn.textContent;
-    btn.textContent = "Preparando o pagamento…";
+    var old = btn.innerHTML;
+    btn.textContent = "Preparando…";
 
     var body = {
       items: payloadItems(lines),
@@ -523,34 +640,38 @@
       if (!d || !d.clientSecret || !d.publishableKey) throw new Error("checkout indisponível");
       mountPayment(d);
       btn.disabled = false;
-      btn.textContent = old;
+      btn.innerHTML = old;
     }).catch(function (e) {
       btn.disabled = false;
-      btn.textContent = old;
+      btn.innerHTML = old;
       errEl.textContent = (e && e.message) || "Não consegui preparar o pagamento — tenta de novo.";
     });
   }
 
-  /* ── passo 2: Payment Element (tema HYU) + confirmPayment ────────────── */
+  /* ── passo 2: Payment Element (tema HYU street) + confirmPayment ─────── */
   function mountPayment(d) {
     var stripe = window.Stripe(d.publishableKey);
     var appearance = {
       theme: "night",
       variables: {
-        colorPrimary: LIME,
-        colorBackground: "#0f1115",
+        colorPrimary: "#c4f439",
+        colorBackground: "#0c0c0c",
         colorText: "#f3efe4",
         colorTextSecondary: "#8b93a1",
-        colorDanger: "#ff9d9d",
-        borderRadius: "10px",
+        colorDanger: "#ff8f8f",
+        borderRadius: "4px",
         fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif",
         focusOutline: "none",
-        focusBoxShadow: "0 0 0 3px rgba(196,244,57,.14)"
+        focusBoxShadow: "3px 3px 0 rgba(196,244,57,.22)"
       },
       rules: {
-        ".Input": { border: "1px solid #333947" },
-        ".Input:focus": { borderColor: LIME },
-        ".Tab--selected": { borderColor: LIME }
+        ".Input": { border: "1.5px solid rgba(255,255,255,.16)", fontWeight: "600" },
+        ".Input:focus": { borderColor: "#c4f439" },
+        ".Label": { fontFamily: "'Space Mono', ui-monospace, monospace",
+                    textTransform: "uppercase", letterSpacing: ".14em",
+                    fontSize: "10px", fontWeight: "700", color: "#8b93a1" },
+        ".Tab": { border: "1.5px solid rgba(255,255,255,.16)" },
+        ".Tab--selected": { borderColor: "#c4f439", color: "#c4f439" }
       }
     };
     var elements = stripe.elements({ clientSecret: d.clientSecret, appearance: appearance, locale: "pt-BR" });
@@ -560,7 +681,11 @@
     payTotalEl.textContent = brl(d.totalCents);
     step1.hidden = true;
     step2.hidden = false;
+    step2.classList.remove("hyst-anim");
+    void step2.offsetWidth;
+    step2.classList.add("hyst-anim");
     payErrEl.textContent = "";
+    setStep(2);
     page.scrollTop = 0;
   }
 
