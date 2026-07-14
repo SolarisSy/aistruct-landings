@@ -220,6 +220,17 @@ linesEl?.addEventListener("click", (e) => {
    Kit FIXO (combo/sabor) → link NATIVO Paggins (com menu de frete do painel).
    MIX (monte seu kit, preço dinâmico) → BRIDGE (cria sessão Paggins dinâmica). */
 let busy = false;
+const ctaDefaultText = ctaEl?.textContent || "Finalizar compra →";
+// bfcache: ao clicar Finalizar navegamos pro checkout (location.href); se o cliente
+// aperta VOLTAR, o navegador restaura a página congelada e o botão fica preso em
+// "Processando…"/is-loading (pointer-events:none → não clica). Reseta ao reexibir.
+window.addEventListener("pageshow", () => {
+  busy = false;
+  if (ctaEl) {
+    ctaEl.classList.remove("is-loading");
+    ctaEl.textContent = ctaDefaultText;
+  }
+});
 ctaEl?.addEventListener("click", async (e) => {
   e.preventDefault();
   if (busy) return;
