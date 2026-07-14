@@ -553,7 +553,7 @@
         ".Tab--selected": { borderColor: LIME }
       }
     };
-    var elements = stripe.elements({ clientSecret: d.clientSecret, appearance: appearance });
+    var elements = stripe.elements({ clientSecret: d.clientSecret, appearance: appearance, locale: "pt-BR" });
     payState = { stripe: stripe, elements: elements, orderId: d.orderId };
     payElBox.innerHTML = "";
     elements.create("payment").mount(payElBox);
