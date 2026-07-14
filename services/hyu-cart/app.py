@@ -1053,26 +1053,29 @@ async def _stripe_call(method: str, path: str, data: dict | None = None,
     return body
 
 
-async def _stripe_prepare(payload: dict) -> dict:
-    """Validação + preparação comum às rotas Stripe (embedded e hosted):
-    customer+address COMPLETOS obrigatórios (CPF incluso — a NF-e sai 100%
-    do nosso registro), cupom por-unidade (= display do front) e frete
-    (mesma régua do Paggins: >=12 latas grátis; senão Mandaê real por CEP)."""
+async def _stripe_prepare(payload: dict, require_customer: bool = True) -> dict:
+    """Validação + preparação comum às rotas Stripe.
+    require_customer=True (embedded/2 etapas): customer+address COMPLETOS
+    obrigatórios (CPF incluso) e frete Mandaê real por CEP.
+    require_customer=False (hosted 1 ETAPA): a Stripe coleta endereço/telefone/
+    CPF — frete sem CEP prévio usa a régua do fluxo Paggins simples (>=12 latas
+    grátis; kit 6 avulso FLAT_SHIPPING_CENTS)."""
     try:
         lines = _cart_lines(payload.get("items"))
         customer, address = _parse_customer_address(payload)
     except HTTPException:
         STATS["bad_request"] += 1
         raise
-    if not (customer and address):
-        raise HTTPException(400, "customer e address obrigatorios")
-    if not customer["document"]:
-        raise HTTPException(400, "CPF obrigatorio")
-    if not (address["street"] and address["number"] and address["city"]
-            and len(address["state"]) == 2):
-        raise HTTPException(400, "endereco completo obrigatorio (rua/numero/cidade/UF)")
-    if not customer["phone"]:
-        raise HTTPException(400, "whatsapp obrigatorio (DDD + numero)")
+    if require_customer:
+        if not (customer and address):
+            raise HTTPException(400, "customer e address obrigatorios")
+        if not customer["document"]:
+            raise HTTPException(400, "CPF obrigatorio")
+        if not (address["street"] and address["number"] and address["city"]
+                and len(address["state"]) == 2):
+            raise HTTPException(400, "endereco completo obrigatorio (rua/numero/cidade/UF)")
+        if not customer["phone"]:
+            raise HTTPException(400, "whatsapp obrigatorio (DDD + numero)")
 
     subtotal = sum(ln["cents"] * ln["qty"] for ln in lines)
     cans = sum(ln["cans"] for ln in lines)
@@ -1085,11 +1088,16 @@ async def _stripe_prepare(payload: dict) -> dict:
 
     frete_cents, frete_service, frete_name, frete_days = 0, "gratis", "Frete Grátis", 0
     if cans < FREE_SHIPPING_CANS:
-        options = await _mandae_rates(address["cep"], cans, subtotal)
-        wanted = str((payload.get("shipping") or {}).get("service") or "economico")
-        opt = next((o for o in options if o["service"] == wanted), options[0])
-        frete_cents, frete_service = opt["cents"], opt["service"]
-        frete_name, frete_days = opt["name"], opt["days"]
+        if customer and address:
+            options = await _mandae_rates(address["cep"], cans, subtotal)
+            wanted = str((payload.get("shipping") or {}).get("service") or "economico")
+            opt = next((o for o in options if o["service"] == wanted), options[0])
+            frete_cents, frete_service = opt["cents"], opt["service"]
+            frete_name, frete_days = opt["name"], opt["days"]
+        elif FLAT_SHIPPING_CENTS > 0:
+            # 1 etapa sem CEP: FLAT (mesma regra do fluxo Paggins drawer)
+            frete_cents, frete_service = FLAT_SHIPPING_CENTS, "flat"
+            frete_name, frete_days = "Frete (Brasil)", 7
 
     total = disc_subtotal + frete_cents
     if total < 100:  # guarda-corpo: mínimo da Stripe (~R$0,50) com folga
@@ -1114,8 +1122,13 @@ async def _stripe_prepare(payload: dict) -> dict:
 
 
 def _stripe_save_pedido(o: dict, session_ref: str) -> None:
-    """Grava o pedido completo (dados da NF-e) casável pelo webhook via
-    session_ref (pi_... no embedded, cs_... no hosted)."""
+    """Grava o pedido casável pelo webhook via session_ref (pi_... no embedded,
+    cs_... no hosted). No 1 etapa customer/address vêm None — o webhook completa
+    com o que a Stripe coletou (_stripe_fill_from_session)."""
+    cust = o.get("customer") or {"name": "", "document": "", "email": "", "phone": ""}
+    addr = o.get("address") or {"cep": "", "street": "", "number": "",
+                                "complement": "", "neighborhood": "",
+                                "city": "", "state": ""}
     conn = _db()
     try:
         conn.execute(
@@ -1127,11 +1140,10 @@ def _stripe_save_pedido(o: dict, session_ref: str) -> None:
             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (datetime.now(timezone.utc).isoformat(timespec="seconds"),
              o["order_id"], session_ref, "created",
-             o["customer"]["name"], o["customer"]["document"],
-             o["customer"]["email"], o["customer"]["phone"],
-             o["address"]["cep"], o["address"]["street"], o["address"]["number"],
-             o["address"]["complement"], o["address"]["neighborhood"],
-             o["address"]["city"], o["address"]["state"],
+             cust["name"], cust["document"], cust["email"], cust["phone"],
+             addr["cep"], addr["street"], addr["number"],
+             addr["complement"], addr["neighborhood"],
+             addr["city"], addr["state"],
              json.dumps([{k: ln[k] for k in ("sku", "name", "qty", "cents", "cans")}
                          for ln in o["lines"]], ensure_ascii=False),
              o["subtotal"], o["frete_cents"], o["frete_service"], o["total"],
@@ -1205,7 +1217,12 @@ async def stripe_hosted(request: Request):
     except Exception:
         STATS["bad_request"] += 1
         raise HTTPException(400, "JSON invalido")
-    o = await _stripe_prepare(payload)
+    # 1 ETAPA (default do site): payload SEM customer/address — a Stripe coleta
+    # endereço+telefone+CPF. Com customer completo = fluxo 2 etapas (página nossa).
+    one_step = not (isinstance(payload.get("customer"), dict)
+                    and isinstance(payload.get("address"), dict)
+                    and (payload.get("address") or {}).get("cep"))
+    o = await _stripe_prepare(payload, require_customer=not one_step)
     customer, address = o["customer"], o["address"]
     order_id, metadata = o["order_id"], o["metadata"]
 
@@ -1239,23 +1256,11 @@ async def stripe_hosted(request: Request):
         "mode": "payment",
         "locale": "pt-BR",
         "line_items": line_items,
-        "customer_email": customer["email"],
         "client_reference_id": order_id,
-        "metadata": {**metadata, "order_id": order_id, "cpf": customer["document"]},
+        "metadata": {**metadata, "order_id": order_id},
         "payment_intent_data": {
             "description": f"HYU {order_id} — {o['items_txt']}"[:900],
             "metadata": {"order_id": order_id, "gw": "stripe"},
-            "shipping": {
-                "name": customer["name"],
-                "phone": f"+55{customer['phone']}",
-                "address": {
-                    "line1": f"{address['street']}, {address['number']}",
-                    "line2": (f"{address['complement']} — " if address["complement"]
-                              else "") + address["neighborhood"],
-                    "city": address["city"], "state": address["state"],
-                    "postal_code": address["cep"], "country": "BR",
-                },
-            },
         },
         "shipping_options": [{
             "shipping_rate_data": {
@@ -1270,6 +1275,31 @@ async def stripe_hosted(request: Request):
                        "&session_id={CHECKOUT_SESSION_ID}",
         "cancel_url": f"{base}/?checkout=cancelado",
     }
+    if one_step:
+        # Stripe coleta TUDO: endereço de entrega BR, telefone e CPF (custom field
+        # — tax_id_collection não mostra campo pra BR). Webhook lê de volta pra NF-e.
+        body["shipping_address_collection"] = {"allowed_countries": ["BR"]}
+        body["phone_number_collection"] = {"enabled": True}
+        body["custom_fields"] = [{
+            "key": "cpf",
+            "label": {"type": "custom", "custom": "CPF (pra emitir sua nota fiscal)"},
+            "type": "numeric",
+            "numeric": {"minimum_length": 11, "maximum_length": 11},
+        }]
+    else:
+        body["customer_email"] = customer["email"]
+        body["metadata"]["cpf"] = customer["document"]
+        body["payment_intent_data"]["shipping"] = {
+            "name": customer["name"],
+            "phone": f"+55{customer['phone']}",
+            "address": {
+                "line1": f"{address['street']}, {address['number']}",
+                "line2": (f"{address['complement']} — " if address["complement"]
+                          else "") + address["neighborhood"],
+                "city": address["city"], "state": address["state"],
+                "postal_code": address["cep"], "country": "BR",
+            },
+        }
     sess = await _stripe_call("POST", "/checkout/sessions", body, idem_key=order_id)
     cs_id, url = str(sess.get("id") or ""), str(sess.get("url") or "")
     if not (cs_id and url):
@@ -1284,6 +1314,51 @@ async def stripe_hosted(request: Request):
             "totalCents": o["total"], "freteCents": o["frete_cents"],
             "freteService": o["frete_service"], "coupon": o["coupon_code"],
             "discountPct": o["discount_pct"]}
+
+
+def _stripe_fill_from_session(pid: int, obj: dict) -> None:
+    """1 ETAPA: completa o pedido com o que a Stripe coletou na Checkout Session
+    (customer_details, shipping, custom_fields[cpf]) — só campos vazios.
+    line1 vem "Rua X, 123" → melhor esforço pra separar rua/número (Bling exige)."""
+    p = _pedido_get(pid)
+    if not p:
+        return
+    cd = obj.get("customer_details") or {}
+    ship = ((obj.get("collected_information") or {}).get("shipping_details")
+            or obj.get("shipping_details") or {})
+    addr = ship.get("address") or cd.get("address") or {}
+    cpf = ""
+    for cf in obj.get("custom_fields") or []:
+        if cf.get("key") == "cpf":
+            v = (cf.get("numeric") or {}).get("value") or (cf.get("text") or {}).get("value")
+            cpf = re.sub(r"\D", "", str(v or ""))
+    line1 = str(addr.get("line1") or "").strip()
+    line2 = str(addr.get("line2") or "").strip()
+    m = re.match(r"^(.*?)[,\s]+(\d+\s*[A-Za-z0-9/\-]*)$", line1)
+    street, number = (m.group(1).strip(" ,"), m.group(2).strip()) if m else (line1, "")
+    if not number and line2:
+        m2 = re.match(r"^[Nn]?[ºo°.]?\s*(\d+\S*)\s*[,\-]?\s*(.*)$", line2)
+        if m2:
+            number, line2 = m2.group(1), m2.group(2).strip()
+    phone = re.sub(r"\D", "", str(cd.get("phone") or ""))
+    if phone.startswith("55") and len(phone) > 11:
+        phone = phone[2:]
+    vals = {
+        "name": str(ship.get("name") or cd.get("name") or "").strip()[:120],
+        "email": str(cd.get("email") or "").strip()[:160].lower(),
+        "phone": phone[:13],
+        "document": cpf[:14] if (not cpf or _valid_cpf(cpf)) else "",
+        "cep": re.sub(r"\D", "", str(addr.get("postal_code") or ""))[:8],
+        "street": street[:120],
+        "number": (number or ("S/N" if street else ""))[:12],
+        "complement": line2[:100],
+        "city": str(addr.get("city") or "").strip()[:80],
+        "state": str(addr.get("state") or "").strip()[:2].upper(),
+    }
+    updates = {k: v for k, v in vals.items() if v and not str(p.get(k) or "").strip()}
+    if updates:
+        _pedido_set(pid, **updates)
+        log.info("stripe fill: pedido %s completado da sessao: %s", pid, sorted(updates))
 
 
 def _stripe_webhook_verified(raw: bytes, header: str) -> bool:
@@ -1353,8 +1428,11 @@ async def stripe_webhook(request: Request):
         STATS["stripe_webhook_paid"] += 1
         log.info("stripe webhook PAGO: %s id=%s order=%s amount=%s pedido=%s",
                  event, obj_id, order_id, amount, pedido_id)
-        # dados já completos (nossa página coletou tudo) — Bling direto, sem enrich
         if pedido_id:
+            # 1 etapa: completa o pedido com o que a Stripe coletou (endereço/
+            # telefone/CPF) antes do Bling; 2 etapas já veio completo (no-op)
+            if event.startswith("checkout.session."):
+                _stripe_fill_from_session(pedido_id, obj)
             asyncio.create_task(_bling_dispatch(pedido_id))
     elif event in ("payment_intent.payment_failed",
                    "checkout.session.async_payment_failed"):

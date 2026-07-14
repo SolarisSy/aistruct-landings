@@ -29,9 +29,13 @@
   if (GW !== "stripe") return;
 
   var API = "https://hyu-cart.tiectu.easypanel.host";
-  /* HOSTED=true: após o passo 1 redireciona pro checkout NATIVO da Stripe
-     (checkout.stripe.com — confiança da marca converte mais). false = volta
-     pro Payment Element embutido (passo 2 na nossa página). */
+  /* ONESTEP=true (atual): "Finalizar compra" vai DIRETO pro checkout nativo da
+     Stripe — ela coleta endereço/telefone/CPF (custom field) e o webhook lê de
+     volta pra NF-e. Frete sem CEP prévio = régua do fluxo simples (>=12 latas
+     grátis; kit 6 flat). false = passo 1 nosso (página street) antes da Stripe. */
+  var ONESTEP = true;
+  /* HOSTED=true: paga no checkout NATIVO da Stripe (checkout.stripe.com).
+     false = Payment Element embutido (passo 2 na nossa página). */
   var HOSTED = true;
   var LS_CART = "hyu-cart-v2";
   var LS_FORM = "hyu-precheckout-v1";
@@ -735,6 +739,41 @@
     });
   });
 
+  /* ── 1 ETAPA: manda o carrinho pro bridge e redireciona pra Stripe ────── */
+  var going = false;
+  function goHostedDirect(btn) {
+    if (going) return;
+    going = true;
+    var old = btn.textContent;
+    btn.classList.add("is-loading");
+    btn.textContent = "Abrindo pagamento seguro…";
+    var body = { items: payloadItems(cartLines()), meta: cartMeta(), origin: location.origin };
+    var code = couponCode();
+    if (code) body.coupon = code;
+    fetch(API + "/stripe/hosted", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      if (!r.ok) return r.json().then(function (j) {
+        throw new Error(j && j.detail ? j.detail : "bridge " + r.status);
+      });
+      return r.json();
+    }).then(function (d) {
+      if (!d || !d.url) throw new Error("checkout indisponível");
+      location.href = d.url;
+    }).catch(function (e) {
+      going = false;
+      btn.classList.remove("is-loading");
+      btn.textContent = old;
+      alert((e && e.message) || "Não consegui abrir o pagamento — tenta de novo em instantes.");
+    });
+  }
+  /* bfcache: voltar da Stripe restaura a página congelada — reseta o botão */
+  window.addEventListener("pageshow", function () {
+    going = false;
+  });
+
   /* ── intercepta o Finalizar compra (capture, antes do handler do drawer).
         Assinatura pura segue o fluxo nativo (recorrência Stripe = fase 2). ── */
   document.addEventListener("click", function (e) {
@@ -745,6 +784,7 @@
     e.preventDefault();
     e.stopImmediatePropagation();
     e.stopPropagation();
+    if (ONESTEP) { goHostedDirect(btn); return; }
     openPage();
     var cep = form.elements["cep"].value.replace(/\D/g, "");
     if (cep.length === 8) quoteFrete(cep);
