@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <title>GTA VI Pre-Order Store</title>
-  <meta name="description" content="A pré-venda mais barata do GTA 6 está aqui! Revendedor autorizado — confirmação imediata.">
+  <meta name="description"
+    content="A pré-venda mais barata do GTA 6 está aqui! Revendedor autorizado — confirmação imediata.">
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="GTA VI Pre-Order Store">
   <meta property="og:description" content="A pré-venda mais barata do GTA 6 está aqui!">
@@ -13,9 +15,24 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap"
+    rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border: 0 solid; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border: 0 solid;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
     :root {
       --primary: hsl(340, 90%, 55%);
       --primary-hover: hsla(340, 90%, 55%, 0.9);
@@ -24,22 +41,26 @@
       --primary-15: hsla(340, 90%, 55%, 0.15);
       --primary-20: hsla(340, 90%, 55%, 0.2);
       --primary-30: hsla(340, 90%, 55%, 0.3);
-      --primary-glow: 0 0 12px rgba(230,57,70,0.5);
-      --primary-glow-lg: 0 0 25px rgba(230,57,70,0.5);
+      --primary-glow: 0 0 12px rgba(230, 57, 70, 0.5);
+      --primary-glow-lg: 0 0 25px rgba(230, 57, 70, 0.5);
       --bg: hsl(220, 20%, 5%);
       --card: hsl(220, 15%, 10%);
       --border: hsl(270, 30%, 20%);
       --border-40: hsla(270, 30%, 20%, 0.4);
       --muted: hsl(220, 15%, 45%);
       --white: #ffffff;
-      --white-70: rgba(255,255,255,0.7);
-      --white-80: rgba(255,255,255,0.8);
-      --white-90: rgba(255,255,255,0.9);
+      --white-70: rgba(255, 255, 255, 0.7);
+      --white-80: rgba(255, 255, 255, 0.8);
+      --white-90: rgba(255, 255, 255, 0.9);
       --secondary: #f59e0b;
       --font-body: 'Inter', sans-serif;
       --font-display: 'Rajdhani', sans-serif;
     }
-    html { scroll-behavior: smooth; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: var(--bg);
       color: var(--white);
@@ -48,14 +69,42 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    img, video { display: block; max-width: 100%; height: auto; }
-    a { color: inherit; text-decoration: none; }
-    button { cursor: pointer; font: inherit; background: none; border: none; color: inherit; }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      background-image: linear-gradient(rgba(10, 10, 16, 0.88), rgba(10, 10, 16, 0.88)), url('/assets/characters-bed.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    img,
+    video {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      cursor: pointer;
+      font: inherit;
+      background: none;
+      border: none;
+      color: inherit;
+    }
 
     /* ── Announcement Bar ── */
     .announce-bar {
       background: var(--primary-20);
-      border-bottom: 1px solid rgba(230,57,70,0.3);
+      border-bottom: 1px solid rgba(230, 57, 70, 0.3);
       padding: 8px 16px;
       position: sticky;
       top: 0;
@@ -64,6 +113,7 @@
       -webkit-backdrop-filter: blur(12px);
       text-align: center;
     }
+
     .announce-bar p {
       font-size: 12px;
       font-weight: 500;
@@ -73,29 +123,46 @@
       justify-content: center;
       gap: 16px 4px;
     }
+
     .announce-bar .badge {
       display: flex;
       align-items: center;
       gap: 4px;
     }
-    .announce-bar .badge.primary { color: var(--primary); }
-    .announce-bar .badge.muted { color: var(--muted); display: none; }
-    .announce-bar .badge.amber { color: var(--secondary); display: none; }
+
+    .announce-bar .badge.primary {
+      color: var(--primary);
+    }
+
+    .announce-bar .badge.muted {
+      color: var(--muted);
+      display: none;
+    }
+
+    .announce-bar .badge.amber {
+      color: var(--secondary);
+      display: none;
+    }
+
     @media (min-width: 640px) {
+
       .announce-bar .badge.muted,
-      .announce-bar .badge.amber { display: flex; }
+      .announce-bar .badge.amber {
+        display: flex;
+      }
     }
 
     /* ── Header ── */
     header {
       position: sticky;
-      top: 33px;
+      top: 0;
       z-index: 40;
-      background: rgba(9,9,11,0.8);
+      background: rgba(9, 9, 11, 0.8);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--border);
     }
+
     .header-inner {
       max-width: 1152px;
       margin: 0 auto;
@@ -105,18 +172,26 @@
       align-items: center;
       justify-content: space-between;
     }
-    @media (min-width: 768px) { .header-inner { height: 64px; } }
+
+    @media (min-width: 768px) {
+      .header-inner {
+        height: 64px;
+      }
+    }
+
     .logo-wrap {
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
     .logo-wrap img {
       width: 32px;
       height: 32px;
       border-radius: 6px;
       object-fit: cover;
     }
+
     .logo-text {
       font-family: var(--font-display);
       font-weight: 700;
@@ -124,20 +199,39 @@
       color: var(--white);
       letter-spacing: 0.05em;
     }
-    @media (min-width: 768px) { .logo-text { font-size: 18px; } }
-    .logo-text span { color: var(--primary); }
+
+    @media (min-width: 768px) {
+      .logo-text {
+        font-size: 18px;
+      }
+    }
+
+    .logo-text span {
+      color: var(--primary);
+    }
+
     .nav-desktop {
       display: none;
       align-items: center;
       gap: 24px;
     }
-    @media (min-width: 768px) { .nav-desktop { display: flex; } }
+
+    @media (min-width: 768px) {
+      .nav-desktop {
+        display: flex;
+      }
+    }
+
     .nav-link {
       font-size: 14px;
       color: var(--muted);
       transition: color 0.15s;
     }
-    .nav-link:hover { color: var(--white); }
+
+    .nav-link:hover {
+      color: var(--white);
+    }
+
     .btn-primary {
       background: var(--primary);
       color: var(--white);
@@ -154,13 +248,22 @@
       gap: 8px;
       cursor: pointer;
     }
-    .btn-primary:hover { background: var(--primary-hover); }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
     .btn-menu {
       display: block;
       color: var(--white);
       padding: 4px;
     }
-    @media (min-width: 768px) { .btn-menu { display: none; } }
+
+    @media (min-width: 768px) {
+      .btn-menu {
+        display: none;
+      }
+    }
 
     /* Mobile menu */
     .mobile-menu {
@@ -169,7 +272,7 @@
       top: 100%;
       left: 0;
       width: 100%;
-      background: rgba(15,15,17,0.95);
+      background: rgba(15, 15, 17, 0.95);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--border);
@@ -177,7 +280,11 @@
       flex-direction: column;
       gap: 12px;
     }
-    .mobile-menu.open { display: flex; }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
     .mobile-nav-link {
       display: block;
       padding: 8px 0;
@@ -187,7 +294,11 @@
       border-bottom: 1px solid var(--border-40);
       text-align: left;
     }
-    .mobile-nav-link:last-child { border-bottom: none; }
+
+    .mobile-nav-link:last-child {
+      border-bottom: none;
+    }
+
     .btn-primary-full {
       background: var(--primary);
       color: var(--white);
@@ -211,20 +322,54 @@
       align-items: center;
       overflow: hidden;
     }
+
     .hero-bg {
       position: absolute;
       inset: 0;
       z-index: 0;
-      background-image: url('/assets/characters-hero.png');
+      background-image: url('/assets/hero-mobile.png');
       background-size: cover;
-      background-position: 70% top;
+      background-position: center top;
       background-repeat: no-repeat;
     }
-    @media (min-width: 768px) { .hero-bg { background-position: right top; } }
-    .hero-overlay-b { position: absolute; inset: 0; z-index: 0; background: linear-gradient(to bottom, rgba(9,9,11,0.9), rgba(9,9,11,0.4) 50%, transparent); }
-    .hero-overlay-r { position: absolute; inset: 0; z-index: 0; background: linear-gradient(to right, var(--bg), rgba(9,9,11,0.8) 50%, rgba(9,9,11,0.6) 70%, transparent); }
-    @media (min-width: 1024px) { .hero-overlay-r { background: linear-gradient(to right, var(--bg), rgba(9,9,11,0.8) 40%, rgba(9,9,11,0.6) 60%, transparent); } }
-    .hero-overlay-t { position: absolute; bottom: 0; left: 0; right: 0; height: 160px; z-index: 0; background: linear-gradient(to top, var(--bg), transparent); }
+
+    @media (min-width: 768px) {
+      .hero-bg {
+        background-image: url('/assets/characters-hero.png');
+        background-position: right top;
+      }
+    }
+
+    .hero-overlay-b {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(to bottom, rgba(9, 9, 11, 0.9), rgba(9, 9, 11, 0.4) 50%, transparent);
+    }
+
+    .hero-overlay-r {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(to right, var(--bg), rgba(9, 9, 11, 0.8) 50%, rgba(9, 9, 11, 0.6) 70%, transparent);
+    }
+
+    @media (min-width: 1024px) {
+      .hero-overlay-r {
+        background: linear-gradient(to right, var(--bg), rgba(9, 9, 11, 0.8) 40%, rgba(9, 9, 11, 0.6) 60%, transparent);
+      }
+    }
+
+    .hero-overlay-t {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 160px;
+      z-index: 0;
+      background: linear-gradient(to top, var(--bg), transparent);
+    }
+
     .hero-inner {
       max-width: 1152px;
       margin: 0 auto;
@@ -233,24 +378,49 @@
       position: relative;
       z-index: 10;
     }
-    @media (min-width: 768px) { .hero-inner { padding: 80px 16px; } }
+
+    @media (min-width: 768px) {
+      .hero-inner {
+        padding: 80px 16px;
+      }
+    }
+
     .hero-content {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 24px;
     }
+
     @media (min-width: 1024px) {
-      .hero-content { flex-direction: row; align-items: center; gap: 48px; }
+      .hero-content {
+        flex-direction: row;
+        align-items: center;
+        gap: 48px;
+      }
     }
-    .hero-text { flex: 1; max-width: 384px; }
+
+    .hero-text {
+      flex: 1;
+      max-width: 384px;
+    }
+
     .hero-logo {
-      width: 176px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 4px 24px rgba(0,0,0,0.9));
+      display: block;
+      width: 280px;
+      margin: 0 auto 20px;
+      filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.9));
       animation: fadeSlideDown 0.6s ease forwards;
     }
-    @media (min-width: 768px) { .hero-logo { width: 240px; } }
+
+    @media (min-width: 768px) {
+      .hero-logo {
+        width: 320px;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
     .hero-h1 {
       font-family: var(--font-display);
       font-size: 30px;
@@ -259,54 +429,97 @@
       text-transform: uppercase;
       line-height: 1.2;
       margin-bottom: 12px;
-      text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
       animation: fadeSlideUp 0.6s 0.2s ease both;
     }
-    @media (min-width: 768px) { .hero-h1 { font-size: 36px; } }
-    .hero-h1 span { color: var(--primary); }
+
+    @media (min-width: 768px) {
+      .hero-h1 {
+        font-size: 36px;
+      }
+    }
+
+    .hero-h1 span {
+      color: var(--primary);
+    }
+
     .hero-sub {
       font-size: 14px;
       color: var(--white-80);
       margin-bottom: 20px;
       max-width: 288px;
       line-height: 1.625;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
       animation: fadeIn 0.6s 0.35s ease both;
     }
-    @media (min-width: 768px) { .hero-sub { font-size: 16px; } }
-    .trust-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 12px;
+
+    @media (min-width: 768px) {
+      .hero-sub {
+        font-size: 16px;
+      }
+    }
+
+    .coupon-badge-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 8px;
       animation: fadeIn 0.6s 0.5s ease both;
     }
-    .trust-badge {
-      display: flex;
+
+    .coupon-badge {
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      padding: 6px 10px;
-      border-radius: 9999px;
-      color: var(--white-90);
+      gap: 10px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 2px dashed rgba(74, 222, 128, 0.55);
+      border-radius: 10px;
+      padding: 10px 18px;
+      box-shadow: 0 0 14px rgba(74, 222, 128, 0.12), inset 0 0 12px rgba(74, 222, 128, 0.04);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
-    .trust-badge svg { color: var(--primary); flex-shrink: 0; }
+
+    .coupon-badge-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #4ade80;
+      letter-spacing: 0.02em;
+    }
+
+    .coupon-badge-text strong {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+    }
+
+    .coupon-badge-sub {
+      font-size: 11.5px;
+      color: rgba(74, 222, 128, 0.65);
+      padding-left: 4px;
+      letter-spacing: 0.01em;
+    }
 
     /* Hero purchase card */
     .hero-card {
       width: 100%;
-      background: rgba(9,9,11,0.85);
+      background: rgba(9, 9, 11, 0.85);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
       animation: fadeSlideLeft 0.7s 0.2s ease both;
     }
-    @media (min-width: 1024px) { .hero-card { width: 380px; flex-shrink: 0; } }
+
+    @media (min-width: 1024px) {
+      .hero-card {
+        width: 380px;
+        flex-shrink: 0;
+      }
+    }
+
     .card-label {
       font-size: 11px;
       font-weight: 700;
@@ -315,7 +528,15 @@
       letter-spacing: 0.1em;
       margin-bottom: 8px;
     }
-    .platform-grid, .edition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+
+    .platform-grid,
+    .edition-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
     .selector-btn {
       display: flex;
       align-items: center;
@@ -324,20 +545,25 @@
       padding: 12px 8px;
       border-radius: 8px;
       border: 2px solid var(--border);
-      background: rgba(15,15,17,0.6);
+      background: rgba(15, 15, 17, 0.6);
       font-weight: 700;
       font-size: 12px;
       color: var(--muted);
       transition: all 0.15s;
       cursor: pointer;
     }
-    .selector-btn:hover { border-color: rgba(230,57,70,0.4); }
+
+    .selector-btn:hover {
+      border-color: rgba(230, 57, 70, 0.4);
+    }
+
     .selector-btn.active {
       border-color: var(--primary);
       background: var(--primary-15);
       color: var(--white);
-      box-shadow: 0 0 12px rgba(230,57,70,0.35);
+      box-shadow: 0 0 12px rgba(230, 57, 70, 0.35);
     }
+
     .edition-btn {
       display: flex;
       flex-direction: column;
@@ -345,18 +571,49 @@
       padding: 12px;
       border-radius: 8px;
       border: 2px solid var(--border);
-      background: rgba(15,15,17,0.6);
+      background: rgba(15, 15, 17, 0.6);
       cursor: pointer;
       transition: all 0.15s;
     }
-    .edition-btn:hover { border-color: rgba(230,57,70,0.4); }
+
+    .edition-btn:hover {
+      border-color: rgba(230, 57, 70, 0.4);
+    }
+
     .edition-btn.active {
       border-color: var(--primary);
       background: var(--primary-15);
-      box-shadow: 0 0 10px rgba(230,57,70,0.3);
+      box-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
     }
-    .edition-btn .name { font-weight: 700; font-size: 14px; color: var(--white); }
-    .edition-btn .price { font-weight: 700; font-size: 16px; color: var(--primary); }
+
+    .edition-btn .name {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--white);
+    }
+
+    .edition-btn .price {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+    }
+
+    .edition-btn .price-old {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-color: rgba(230,57,70,0.7);
+      line-height: 1.2;
+    }
+
+    .edition-btn .price-new {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
     .btn-cta-hero {
       display: flex;
       align-items: center;
@@ -373,16 +630,18 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
       transition: all 0.15s;
-      box-shadow: 0 0 20px rgba(230,57,70,0.5);
+      box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
       margin-bottom: 12px;
       cursor: pointer;
       text-decoration: none;
     }
+
     .btn-cta-hero:hover {
       background: var(--primary-hover);
-      box-shadow: 0 0 28px rgba(230,57,70,0.7);
+      box-shadow: 0 0 28px rgba(230, 57, 70, 0.7);
       transform: scale(1.02);
     }
+
     .compare-link {
       display: block;
       text-align: center;
@@ -395,13 +654,34 @@
       border: none;
       width: 100%;
     }
-    .compare-link:hover { color: var(--primary); }
+
+    .compare-link:hover {
+      color: var(--primary);
+    }
 
     /* ── Section base ── */
-    section { padding: 64px 0; }
-    .container { max-width: 1152px; margin: 0 auto; padding: 0 16px; }
-    .container-md { max-width: 896px; margin: 0 auto; padding: 0 16px; }
-    .container-sm { max-width: 672px; margin: 0 auto; padding: 0 16px; }
+    section {
+      padding: 64px 0;
+    }
+
+    .container {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .container-md {
+      max-width: 896px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .container-sm {
+      max-width: 672px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
     .section-title {
       font-family: var(--font-display);
       font-size: 24px;
@@ -411,12 +691,127 @@
       color: var(--white);
       margin-bottom: 40px;
     }
-    @media (min-width: 768px) { .section-title { font-size: 36px; } }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 36px;
+      }
+    }
+
+    /* ── Motivos section ── */
+    .motivos-section {
+      background: transparent;
+      padding: 64px 0 48px;
+    }
+
+    .motivos-header {
+      margin-bottom: 40px;
+    }
+
+    .motivos-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .motivos-title { font-size: 36px; }
+    }
+
+    .motivos-title span { color: var(--primary); }
+
+    .motivos-sub {
+      font-size: 14px;
+      color: var(--white-80);
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    @media (min-width: 768px) {
+      .motivos-sub { font-size: 15px; }
+    }
+
+    .motivos-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .motivos-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 960px) {
+      .motivos-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .motivo-card {
+      background: hsl(220, 15%, 12%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .motivo-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .motivo-card:hover {
+      border-color: var(--primary-30);
+    }
+
+    .motivo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-10);
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .motivo-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    .motivo-desc {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+    }
 
     /* ── Editions section ── */
-    .editions-section { background: var(--bg); }
-    .editions-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-    @media (min-width: 640px) { .editions-grid { grid-template-columns: 1fr 1fr; } }
+    .editions-section {
+      background: transparent;
+    }
+
+    .editions-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .editions-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     .edition-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -429,11 +824,17 @@
       transform: translateY(20px);
       transition: opacity 0.4s ease, transform 0.4s ease;
     }
-    .edition-card.visible { opacity: 1; transform: translateY(0); }
+
+    .edition-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .edition-card.featured {
       border: 2px solid var(--primary);
-      box-shadow: 0 0 25px rgba(230,57,70,0.15);
+      box-shadow: 0 0 25px rgba(230, 57, 70, 0.15);
     }
+
     .badge-top {
       position: absolute;
       top: -12px;
@@ -449,6 +850,7 @@
       letter-spacing: 0.1em;
       white-space: nowrap;
     }
+
     .edition-name {
       font-family: var(--font-display);
       font-size: 20px;
@@ -457,107 +859,521 @@
       color: var(--white);
       margin-bottom: 4px;
     }
+
+    .edition-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      margin-top: 12px;
+    }
+
     .edition-price {
       font-size: 30px;
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 4px;
     }
+
     .edition-platform {
       font-size: 12px;
       color: var(--muted);
       margin-bottom: 20px;
     }
-    .feature-list { list-style: none; flex: 1; margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px; }
+
+    .feature-list {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .feature-group-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 10px;
+      margin-bottom: 2px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature-group-label:first-child {
+      margin-top: 0;
+    }
+
     .feature-item {
       display: flex;
       gap: 8px;
       align-items: flex-start;
-      font-size: 14px;
+      font-size: 13px;
     }
-    .feature-item .icon { color: var(--primary); flex-shrink: 0; margin-top: 2px; }
-    .feature-item.white { color: var(--white-90); }
-    .feature-item.muted { color: var(--muted); }
-    .btn-select {
-      display: block;
-      text-align: center;
-      padding: 12px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      transition: all 0.15s;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .btn-select-outline {
-      border: 2px solid var(--primary);
-      color: var(--primary);
-    }
-    .btn-select-outline:hover { background: var(--primary); color: var(--white); }
-    .btn-select-filled {
-      background: var(--primary);
-      color: var(--white);
-      box-shadow: 0 0 14px rgba(230,57,70,0.35);
-    }
-    .btn-select-filled:hover { background: var(--primary-hover); }
-    .editions-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: 24px; }
 
-    /* ── How it works ── */
-    .how-section { background: rgba(15,15,17,0.5); border-top: 1px solid var(--border); }
-    .steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    @media (min-width: 768px) { .steps-grid { grid-template-columns: repeat(4, 1fr); } }
-    .step-card {
+    .feature-item .icon {
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .feature-item.white {
+      color: var(--white-90);
+    }
+
+    .feature-item.muted {
+      color: var(--muted);
+    }
+
+    .feature-item.locked {
+      color: rgba(255,255,255,0.3);
+    }
+
+    .feature-item.locked .icon-x {
+      color: rgba(230,57,70,0.55);
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      width: 14px;
+      text-align: center;
+    }
+
+    .edition-platforms {
       display: flex;
       flex-direction: column;
+      gap: 10px;
+      margin-top: 24px;
+      width: 100%;
+    }
+
+    .platform-btn {
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .platform-btn-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .platform-btn svg.ps-logo,
+    .platform-btn svg.xbox-logo {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .platform-btn {
+      background: rgba(230, 57, 70, 0.05);
+      color: var(--white);
+      border: 2px solid var(--primary);
+    }
+
+    .platform-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      transform: translateY(-2.5px);
+      box-shadow: 0 8px 24px rgba(230, 57, 70, 0.45);
+    }
+
+    .platform-btn .chevron-right {
+      color: var(--white-80);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .platform-btn:hover .chevron-right {
+      color: #ffffff;
+      transform: translateX(5px);
+    }
+
+    .editions-note {
       text-align: center;
-      padding: 16px;
-      background: rgba(9,9,11,0.6);
-      border-radius: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 24px;
+    }
+
+    /* ── About the game ── */
+    .about-section {
+      background: transparent;
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .about-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 60px;
+      }
+    }
+
+    .about-content {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .about-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    @media (min-width: 768px) {
+      .about-title { font-size: 36px; }
+    }
+
+    .about-text {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.7;
+    }
+
+    .about-text strong {
+      color: var(--primary);
+    }
+
+    /* Rating classification */
+    .about-rating {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rating-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    .rating-badge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rating-badge-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .rating-text {
+      font-size: 15px;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* Slider Container */
+    .about-slider-wrap {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      width: 100%;
+    }
+
+    .about-slider-wrap.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about-slider {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 16px;
+      overflow: hidden;
       border: 1px solid var(--border);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+    }
+
+    .slider-track {
+      display: flex;
+      width: 500%;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide-item {
+      width: 20%;
+      height: 100%;
+    }
+
+    .slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(10, 10, 16, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    .slider-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(230, 57, 70, 0.4);
+    }
+
+    .slider-btn.prev-btn {
+      left: 16px;
+    }
+
+    .slider-btn.next-btn {
+      right: 16px;
+    }
+
+    .slider-dots {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .slider-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+    }
+
+    .slider-dot.active {
+      background: var(--primary);
+      transform: scale(1.3);
+      box-shadow: 0 0 8px var(--primary);
+    }
+
+    /* ── How it works ── */
+    .how-section {
+      background: transparent;
+      border-top: 1px solid var(--border);
+      padding: 80px 0;
+    }
+
+    .how-header {
+      margin-bottom: 40px;
+    }
+
+    .how-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .how-title { font-size: 36px; }
+    }
+
+    .how-title span {
+      color: var(--primary);
+    }
+
+    .how-sub {
+      font-size: 14px;
+      color: var(--white-80);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    @media (min-width: 768px) {
+      .how-sub { font-size: 15px; }
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 640px) {
+      .steps-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 960px) {
+      .steps-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .step-card {
+      background: hsl(220, 15%, 10%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.4s ease, transform 0.4s ease;
     }
-    .step-card.visible { opacity: 1; transform: translateY(0); }
-    .step-num {
-      width: 40px;
-      height: 40px;
+
+    .step-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step-card:hover {
+      border-color: var(--primary-20);
+    }
+
+    .step-index {
+      font-family: var(--font-display);
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .step-desc {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.6;
+    }
+
+    /* Why buy banner */
+    .why-banner {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-top: 40px;
+    }
+
+    .why-icon {
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      border: 2px solid var(--primary);
+      background: rgba(74, 222, 128, 0.1);
+      color: #4ade80;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-display);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .why-content {
+      flex: 1;
+    }
+
+    .why-title {
+      font-size: 16px;
       font-weight: 700;
-      font-size: 14px;
-      color: var(--primary);
-      margin-bottom: 12px;
+      color: var(--white);
+      margin-bottom: 8px;
     }
-    .step-label { font-size: 14px; font-weight: 500; color: var(--white); }
-    .reseller-box {
-      margin-top: 40px;
-      background: rgba(9,9,11,0.6);
-      border: 1px dashed var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
+
+    .why-desc {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.65;
     }
-    .reseller-box img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; margin: 0 auto 12px; opacity: 0.6; }
-    .reseller-box .title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
-    .reseller-box .sub { font-size: 12px; color: var(--muted); }
 
     /* ── FAQ ── */
-    .faq-section { background: var(--bg); border-top: 1px solid var(--border); }
-    .accordion { display: flex; flex-direction: column; gap: 4px; }
+    .faq-section {
+      background: transparent;
+      border-top: 1px solid var(--border);
+    }
+
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
     .accordion-item {
       border: 1px solid hsla(270, 30%, 20%, 0.6);
       border-radius: 8px;
       overflow: hidden;
     }
-    .accordion-item.open { border-color: rgba(230,57,70,0.4); }
+
+    .accordion-item.open {
+      border-color: rgba(230, 57, 70, 0.4);
+    }
+
     .accordion-btn {
       width: 100%;
       text-align: left;
@@ -572,13 +1388,22 @@
       align-items: center;
       gap: 8px;
     }
-    .accordion-btn:hover { color: var(--primary); }
+
+    .accordion-btn:hover {
+      color: var(--primary);
+    }
+
     .accordion-chevron {
       flex-shrink: 0;
       transition: transform 0.2s ease;
       color: var(--muted);
     }
-    .accordion-item.open .accordion-chevron { transform: rotate(180deg); color: var(--primary); }
+
+    .accordion-item.open .accordion-chevron {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+
     .accordion-content {
       font-size: 14px;
       color: var(--muted);
@@ -587,7 +1412,11 @@
       overflow: hidden;
       transition: max-height 0.3s ease, padding 0.3s ease;
     }
-    .accordion-item.open .accordion-content { padding: 0 16px 16px; max-height: 300px; }
+
+    .accordion-item.open .accordion-content {
+      padding: 0 16px 16px;
+      max-height: 300px;
+    }
 
     /* ── Final CTA ── */
     .final-cta {
@@ -596,13 +1425,15 @@
       position: relative;
       overflow: hidden;
     }
+
     .final-cta::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, var(--primary-10), rgba(245,158,11,0.05));
+      background: linear-gradient(135deg, var(--primary-10), rgba(245, 158, 11, 0.05));
       pointer-events: none;
     }
+
     .final-cta-inner {
       max-width: 576px;
       margin: 0 auto;
@@ -611,8 +1442,19 @@
       z-index: 1;
       text-align: center;
     }
-    .final-cta-logo { width: 176px; margin: 0 auto 24px; filter: drop-shadow(0 0 20px rgba(230,57,70,0.5)); }
-    .final-cta-sub { color: var(--muted); margin-bottom: 32px; font-size: 14px; }
+
+    .final-cta-logo {
+      width: 176px;
+      margin: 0 auto 24px;
+      filter: drop-shadow(0 0 20px rgba(230, 57, 70, 0.5));
+    }
+
+    .final-cta-sub {
+      color: var(--muted);
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+
     .btn-cta-final {
       display: inline-flex;
       align-items: center;
@@ -631,32 +1473,97 @@
       cursor: pointer;
       text-decoration: none;
     }
-    .btn-cta-final:hover { background: var(--primary-hover); transform: scale(1.05); }
-    .final-note { margin-top: 16px; font-size: 11px; color: rgba(230,57,70,0.8); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .btn-cta-final:hover {
+      background: var(--primary-hover);
+      transform: scale(1.05);
+    }
+
+    .final-note {
+      margin-top: 16px;
+      font-size: 11px;
+      color: rgba(230, 57, 70, 0.8);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
 
     /* ── Footer ── */
     footer {
-      background: var(--bg);
+      background: transparent;
       padding-top: 40px;
       padding-bottom: 112px;
       border-top: 1px solid var(--border);
     }
-    @media (min-width: 768px) { footer { padding-bottom: 40px; } }
-    .footer-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
-    @media (min-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
-    .footer-brand .logo-wrap { margin-bottom: 12px; }
-    .footer-brand p { font-size: 12px; color: var(--muted); max-width: 256px; }
-    .footer-col h4 { font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--white); margin-bottom: 12px; }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .footer-links a { font-size: 12px; color: var(--muted); transition: color 0.15s; }
-    .footer-links a:hover { color: var(--primary); }
-    .footer-links .link-primary { color: var(--primary); }
-    .footer-links .link-primary:hover { text-decoration: underline; }
+
+    @media (min-width: 768px) {
+      footer {
+        padding-bottom: 40px;
+      }
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 640px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .footer-brand .logo-wrap {
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 256px;
+    }
+
+    .footer-col h4 {
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-links .link-primary {
+      color: var(--primary);
+    }
+
+    .footer-links .link-primary:hover {
+      text-decoration: underline;
+    }
+
     .footer-bottom {
       padding-top: 24px;
       border-top: 1px solid hsla(270, 30%, 20%, 0.4);
       font-size: 10px;
-      color: rgba(113,113,122,0.7);
+      color: rgba(113, 113, 122, 0.7);
       text-align: center;
       max-width: 768px;
       margin: 0 auto;
@@ -669,13 +1576,19 @@
       left: 0;
       width: 100%;
       padding: 12px 16px;
-      background: rgba(9,9,11,0.95);
+      background: rgba(9, 9, 11, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-top: 1px solid var(--border);
       z-index: 50;
     }
-    @media (min-width: 768px) { .mobile-sticky { display: none; } }
+
+    @media (min-width: 768px) {
+      .mobile-sticky {
+        display: none;
+      }
+    }
+
     .btn-mobile-buy {
       display: flex;
       justify-content: center;
@@ -691,7 +1604,7 @@
       font-size: 16px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      box-shadow: 0 0 16px rgba(230,57,70,0.5);
+      box-shadow: 0 0 16px rgba(230, 57, 70, 0.5);
       text-decoration: none;
       cursor: pointer;
     }
@@ -707,8 +1620,18 @@
       transform: translateY(40px);
       transition: all 0.3s ease;
     }
-    @media (min-width: 768px) { .floating-cta { display: block; } }
-    .floating-cta.visible { opacity: 1; transform: translateY(0); }
+
+    @media (min-width: 768px) {
+      .floating-cta {
+        display: block;
+      }
+    }
+
+    .floating-cta.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .btn-float {
       display: flex;
       align-items: center;
@@ -721,484 +1644,939 @@
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      box-shadow: 0 0 22px rgba(230,57,70,0.6);
+      box-shadow: 0 0 22px rgba(230, 57, 70, 0.6);
       transition: all 0.15s;
       text-decoration: none;
       cursor: pointer;
     }
-    .btn-float:hover { transform: scale(1.05); }
+
+    .btn-float:hover {
+      transform: scale(1.05);
+    }
 
     /* ── Animations ── */
     @keyframes fadeSlideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     @keyframes fadeSlideLeft {
-      from { opacity: 0; transform: translateX(30px); }
-      to { opacity: 1; transform: translateX(0); }
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     /* ── SVG Icons (inline) ── */
-    .icon-check { display: inline-block; }
-    .icon-mail { display: inline-block; }
-    .icon-clock { display: inline-block; }
-    .icon-zap { display: inline-block; }
-    .icon-arrow { display: inline-block; }
-    .icon-ps { font-size: 16px; }
-    .icon-xbox { display: inline-block; }
-    .icon-chevron { display: inline-block; }
-    .icon-menu { display: inline-block; }
-    .icon-x { display: inline-block; }
+    .icon-check {
+      display: inline-block;
+    }
+
+    .icon-mail {
+      display: inline-block;
+    }
+
+    .icon-clock {
+      display: inline-block;
+    }
+
+    .icon-zap {
+      display: inline-block;
+    }
+
+    .icon-arrow {
+      display: inline-block;
+    }
+
+    .icon-ps {
+      font-size: 16px;
+    }
+
+    .icon-xbox {
+      display: inline-block;
+    }
+
+    .icon-chevron {
+      display: inline-block;
+    }
+
+    .icon-menu {
+      display: inline-block;
+    }
+
+    .icon-x {
+      display: inline-block;
+    }
+
+    /* Mercado Pago Info Box */
+    .mp-info-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(0, 158, 227, 0.05);
+      border: 1px solid rgba(0, 158, 227, 0.2);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .mp-info-box:hover {
+      background: rgba(0, 158, 227, 0.08);
+      border-color: rgba(0, 158, 227, 0.35);
+    }
+
+    .mp-checkmark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #22c55e;
+      flex-shrink: 0;
+    }
+
+    .mp-logo-badge {
+      background: #ffffff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .mp-logo-badge img {
+      height: 14px;
+      width: auto;
+      display: block;
+    }
+
+    .mp-text-prefix {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .mp-text-suffix {
+      font-size: 13px;
+      font-weight: 700;
+      color: #009ee3;
+      margin-left: 2px;
+    }
   </style>
 </head>
+
 <body>
 
-<!-- ── Announcement Bar ── -->
-<div class="announce-bar">
-  <p>
-    <span class="badge primary">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      Pré-venda disponível via revendedor autorizado
-    </span>
-    <span class="badge muted">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-      Pagamento seguro
-    </span>
-    <span class="badge muted">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-      Confirmação imediata
-    </span>
-    <span class="badge amber">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-      Estoque limitado
-    </span>
-  </p>
-</div>
 
-<!-- ── Header ── -->
-<header>
-  <div class="header-inner">
-    <div class="logo-wrap">
-      <img src="/assets/rockstar-logo.jpg" alt="Rockstar Games">
-      <span class="logo-text">GTA VI <span>PRÉ-VENDA</span></span>
-    </div>
-    <nav class="nav-desktop">
-      <button class="nav-link" onclick="scrollTo('edicoes')">Edições</button>
-      <button class="nav-link" onclick="scrollTo('como-funciona')">Como Funciona</button>
-      <button class="nav-link" onclick="scrollTo('faq')">FAQ</button>
-      <a id="nav-cta" href="/checkout?edition=standard&platform=ps5" class="btn-primary">
-        Garantir Agora
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </a>
-    </nav>
-    <button class="btn-menu" id="menu-btn" aria-label="Menu" onclick="toggleMenu()">
-      <svg id="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      <svg id="icon-x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </button>
-  </div>
-  <div class="mobile-menu" id="mobile-menu">
-    <button class="mobile-nav-link" onclick="scrollTo('edicoes');toggleMenu()">Edições</button>
-    <button class="mobile-nav-link" onclick="scrollTo('como-funciona');toggleMenu()">Como Funciona</button>
-    <button class="mobile-nav-link" onclick="scrollTo('faq');toggleMenu()">FAQ</button>
-    <a id="mobile-cta-link" href="/checkout?edition=standard&platform=ps5" class="btn-primary-full" onclick="toggleMenu()">Garantir Agora</a>
-  </div>
-</header>
-
-<!-- ── Main ── -->
-<main>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay-b"></div>
-    <div class="hero-overlay-r"></div>
-    <div class="hero-overlay-t"></div>
-    <div class="hero-inner">
-      <div class="hero-content">
-        <div class="hero-text">
-          <img src="/assets/gta6-logo-clean.png" alt="Grand Theft Auto VI" class="hero-logo">
-          <h1 class="hero-h1">A pré-venda mais barata do <span>GTA 6</span> está aqui!</h1>
-          <p class="hero-sub">PlayStation 5 e Xbox Series X|S. Revendedor autorizado independente — confirmação imediata após o pagamento.</p>
-          <div class="trust-badges">
-            <span class="trust-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Revendedor autorizado
-            </span>
-            <span class="trust-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              Confirmação imediata
-            </span>
-            <span class="trust-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-              Estoque limitado
-            </span>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <p class="card-label">Selecione a plataforma:</p>
-          <div class="platform-grid" id="platform-grid">
-            <button class="selector-btn active" data-platform="ps5" onclick="selectPlatform('ps5')">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9.08 1.91C8.93 1.85 7.89 1.53 6.63 1.58c-1.67.06-2.97.77-3.79 2.09-.56.88-.75 1.99-.57 3.29.17 1.22.6 2.27 1.01 3.3.39.97.8 1.9 1.28 2.82.21.4.43.79.65 1.18l.11.2c.08.15.17.3.25.44.2.36.39.71.6 1.04l.09.15c.19.3.4.61.64.85.22.22.48.4.78.46.27.05.56 0 .83-.12.22-.1.41-.26.57-.44.18-.21.32-.45.44-.7l.12-.24.08-.16c.1-.2.21-.39.32-.57.18-.29.37-.55.58-.78.28-.31.6-.52.97-.6.37-.07.77.01 1.12.2l.08.04c.32.17.62.38.89.61l.12.11c.28.27.54.57.75.9.12.19.22.4.3.62l.03.1c.06.21.1.43.1.65.01.37-.07.75-.24 1.09l-.08.16c-.08.16-.18.31-.29.45l-.1.12c-.13.15-.28.28-.44.39l-.09.06c-.17.11-.36.2-.57.26-.14.04-.29.07-.44.08h-.08c-.14 0-.29-.02-.43-.05l-.07-.02c-.12-.03-.24-.08-.35-.14l-.08-.04c-.23-.13-.43-.3-.59-.51-.12-.16-.21-.34-.28-.53l-.07-.18-.06-.19c-.09-.29-.21-.58-.38-.84-.2-.32-.44-.61-.72-.86-.29-.27-.62-.48-1-.63-.37-.14-.76-.21-1.16-.21-.4 0-.79.07-1.16.21-.38.14-.72.36-1.01.63-.28.25-.52.54-.72.86-.17.26-.29.54-.38.84l-.06.19-.07.18c-.07.19-.16.37-.28.53-.16.21-.36.38-.59.51l-.08.04c-.11.06-.23.1-.35.14l-.07.02c-.14.03-.29.05-.43.05h-.08c-.15-.01-.3-.04-.44-.08-.21-.06-.4-.15-.57-.26l-.09-.06c-.16-.11-.31-.24-.44-.39l-.1-.12c-.11-.14-.21-.29-.29-.45l-.08-.16c-.17-.34-.25-.72-.24-1.09 0-.22.04-.44.1-.65l.03-.1c.08-.22.18-.43.3-.62.21-.33.47-.63.75-.9l.12-.11c.27-.23.57-.44.89-.61l.08-.04c.35-.19.75-.27 1.12-.2.37.08.69.29.97.6.21.23.4.49.58.78.11.18.22.37.32.57l.08.16.12.24c.12.25.26.49.44.7.16.18.35.34.57.44.27.12.56.17.83.12.3-.06.56-.24.78-.46.24-.24.45-.55.64-.85l.09-.15c.21-.33.4-.68.6-1.04.08-.14.17-.29.25-.44l.11-.2c.22-.39.44-.78.65-1.18.48-.92.89-1.85 1.28-2.82.41-1.03.84-2.08 1.01-3.3.18-1.3-.01-2.41-.57-3.29-.82-1.32-2.12-2.03-3.79-2.09-1.26-.05-2.3.27-2.45.33L9.08 1.91z"/></svg>
-              PlayStation 5
-            </button>
-            <button class="selector-btn" data-platform="xbox" onclick="selectPlatform('xbox')">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-label="Xbox"><path d="M4.102 21.033C6.211 22.881 8.977 24 12 24c3.026 0 5.789-1.119 7.902-2.967 1.877-1.637-4.551-8.13-7.902-11.02-3.352 2.89-9.779 9.383-7.898 11.02zm16.44-14.734C18.973 3.787 15.659 2 12 2S5.025 3.787 3.46 6.299c-1.336 2.234 1.594 6.588 4.887 9.952.504.506 1.007 1.012 1.513 1.481 2.046-1.939 4.085-4.285 6.073-6.418 1.513-1.629 3.055-3.295 4.609-4.015zM2.17 7.416C.822 9.225.049 11.384.049 13.74c0 2.98.99 5.733 2.648 7.933.717-3.038-1.164-9.422-.527-14.257zm19.661 0c.637 4.835-1.244 11.219-.527 14.257C23.01 19.473 24 16.72 24 13.74c0-2.356-.773-4.515-2.169-6.324z"/></svg>
-              Xbox Series X|S
-            </button>
-          </div>
-
-          <p class="card-label">Selecione a edição:</p>
-          <div class="edition-grid" id="edition-grid">
-            <button class="edition-btn active" data-edition="standard" onclick="selectEdition('standard')">
-              <span class="name">Standard</span>
-              <span class="price">10x R$ 44,99</span>
-            </button>
-            <button class="edition-btn" data-edition="ultimate" onclick="selectEdition('ultimate')">
-              <span class="name">Ultimate</span>
-              <span class="price">10x R$ 54,99</span>
-            </button>
-          </div>
-
-          <a id="hero-cta" href="/checkout?edition=standard&platform=ps5" class="btn-cta-hero">
-            PRÉ-VENDA: 10x DE R$ 44,99 SEM JUROS
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </a>
-          <button class="compare-link" onclick="scrollTo('edicoes')">Comparar edições</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Editions -->
-  <section id="edicoes" class="editions-section">
-    <div class="container-md">
-      <h2 class="section-title">Escolha sua edição</h2>
-      <div class="editions-grid">
-        <!-- Standard -->
-        <div class="edition-card" data-observe>
-          <h3 class="edition-name">Edição Standard</h3>
-          <div class="edition-price">10x de R$ 44,99 <span style="font-size:0.5em;font-weight:600;opacity:.75;">sem juros</span></div>
-          <p class="edition-platform">PlayStation 5 / Xbox Series X|S</p>
-          <ul class="feature-list">
-            <li class="feature-item muted">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Jogo completo GTA VI
-            </li>
-            <li class="feature-item muted">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Acesso ao GTA Online incluso
-            </li>
-            <li class="feature-item muted">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Bônus de pré-venda (conteúdo cosmético exclusivo)
-            </li>
-            <li class="feature-item muted">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              Confirmação por e-mail imediata
-            </li>
-          </ul>
-          <a id="btn-select-standard" href="/checkout?edition=standard&platform=ps5" class="btn-select btn-select-outline">Selecionar Standard</a>
-        </div>
-
-        <!-- Ultimate (featured) -->
-        <div class="edition-card featured" data-observe style="transition-delay:0.1s">
-          <div class="badge-top">Mais completo</div>
-          <h3 class="edition-name">Edição Ultimate</h3>
-          <div class="edition-price">10x de R$ 54,99 <span style="font-size:0.5em;font-weight:600;opacity:.75;">sem juros</span></div>
-          <p class="edition-platform">PlayStation 5 / Xbox Series X|S</p>
-          <ul class="feature-list">
-            <li class="feature-item white">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Tudo da edição Standard
-            </li>
-            <li class="feature-item white">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Pack <strong>"Crime Hustle"</strong> — missões secundárias exclusivas do modo história
-            </li>
-            <li class="feature-item white">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Pack de <strong>veículos e armas</strong> criminosas exclusivos
-            </li>
-            <li class="feature-item white">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Propriedades e esconderijos exclusivos no modo história
-            </li>
-            <li class="feature-item white">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Conteúdo cosmético premium (roupas e customização de personagem)
-            </li>
-          </ul>
-          <a id="btn-select-ultimate" href="/checkout?edition=ultimate&platform=ps5" class="btn-select btn-select-filled">Selecionar Ultimate</a>
-        </div>
-      </div>
-      <p class="editions-note">* Conteúdo da Edição Ultimate sujeito a confirmação oficial pela Rockstar Games. Bônus e disponibilidade podem variar conforme plataforma e região.</p>
-    </div>
-  </section>
-
-  <!-- How it works -->
-  <section id="como-funciona" class="how-section">
-    <div class="container-md">
-      <h2 class="section-title">Como funciona</h2>
-      <div class="steps-grid">
-        <div class="step-card" data-observe>
-          <div class="step-num">01</div>
-          <p class="step-label">Escolha a edição</p>
-        </div>
-        <div class="step-card" data-observe style="transition-delay:0.08s">
-          <div class="step-num">02</div>
-          <p class="step-label">Selecione a plataforma</p>
-        </div>
-        <div class="step-card" data-observe style="transition-delay:0.16s">
-          <div class="step-num">03</div>
-          <p class="step-label">Finalize o pagamento</p>
-        </div>
-        <div class="step-card" data-observe style="transition-delay:0.24s">
-          <div class="step-num">04</div>
-          <p class="step-label">Receba a confirmação</p>
-        </div>
-      </div>
-      <div class="reseller-box">
+  <!-- ── Header ── -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-wrap">
         <img src="/assets/rockstar-logo.jpg" alt="Rockstar Games">
-        <p class="title">Revendedor Autorizado</p>
-        <p class="sub">Documento de verificação — será atualizado com comprovante oficial</p>
+        <span class="logo-text">GTA VI <span>PRÉ-VENDA</span></span>
       </div>
+      <nav class="nav-desktop">
+        <button class="nav-link" onclick="scrollTo('edicoes')">Edições</button>
+        <button class="nav-link" onclick="scrollTo('como-funciona')">Como Funciona</button>
+        <button class="nav-link" onclick="scrollTo('faq')">FAQ</button>
+        <a id="nav-cta" href="/checkout.html?edition=standard&platform=ps5" class="btn-primary">
+          Garantir Agora
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+      </nav>
+      <button class="btn-menu" id="menu-btn" aria-label="Menu" onclick="toggleMenu()">
+        <svg id="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg id="icon-x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
-  </section>
+    <div class="mobile-menu" id="mobile-menu">
+      <button class="mobile-nav-link" onclick="scrollTo('edicoes');toggleMenu()">Edições</button>
+      <button class="mobile-nav-link" onclick="scrollTo('como-funciona');toggleMenu()">Como Funciona</button>
+      <button class="mobile-nav-link" onclick="scrollTo('faq');toggleMenu()">FAQ</button>
+      <a id="mobile-cta-link" href="/checkout.html?edition=standard&platform=ps5" class="btn-primary-full"
+        onclick="toggleMenu()">Garantir Agora</a>
+    </div>
+  </header>
 
-  <!-- FAQ -->
-  <section id="faq" class="faq-section">
-    <div class="container-sm">
-      <h2 class="section-title">Dúvidas frequentes</h2>
-      <div class="accordion" id="accordion">
-        <div class="accordion-item">
-          <button class="accordion-btn" onclick="toggleAccordion(this)">
-            Esta é a loja oficial da Rockstar Games?
-            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div class="accordion-content">
-            Sim. Esta é uma loja de revendedor autorizado independente. A Rockstar Games e as marcas relacionadas pertencem aos seus respectivos proprietários.
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-btn" onclick="toggleAccordion(this)">
-            Quando recebo meu pedido?
-            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div class="accordion-content">
-            Você recebe a confirmação digital por e-mail imediatamente após a compra. Os detalhes de entrega final serão informados próximos à data de lançamento.
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-btn" onclick="toggleAccordion(this)">
-            Quais plataformas são aceitas?
-            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div class="accordion-content">
-            PlayStation 5 e Xbox Series X|S.
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-btn" onclick="toggleAccordion(this)">
-            Posso cancelar o pré-pedido?
-            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div class="accordion-content">
-            Sim, conforme nossa política de reembolso, é possível cancelar até determinado prazo antes do lançamento.
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-btn" onclick="toggleAccordion(this)">
-            Os bônus são garantidos?
-            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div class="accordion-content">
-            Os bônus estão sujeitos a disponibilidade por plataforma, região e termos da distribuidora.
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-btn" onclick="toggleAccordion(this)">
-            O pagamento é seguro?
-            <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div class="accordion-content">
-            Sim. Todas as transações são criptografadas e processadas por gateways de pagamento certificados.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ── Main ── -->
+  <main>
 
-  <!-- Final CTA -->
-  <section class="final-cta">
-    <div class="final-cta-inner">
-      <img src="/assets/gta6-logo-clean.png" alt="Grand Theft Auto VI" class="final-cta-logo">
-      <p class="final-cta-sub">Garanta sua cópia com antecedência e receba a confirmação instantaneamente.</p>
-      <a id="final-cta-btn" href="/checkout?edition=standard&platform=ps5" class="btn-cta-final">
-        Garantir Agora
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </a>
-      <p class="final-note">Disponibilidade sujeita à plataforma e região</p>
-    </div>
-  </section>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay-b"></div>
+      <div class="hero-overlay-r"></div>
+      <div class="hero-overlay-t"></div>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-text">
+            <img src="/assets/gta6-logo-clean.png" alt="Grand Theft Auto VI" class="hero-logo">
+            <h1 class="hero-h1">A pré-venda mais barata do <span>GTA 6</span> está aqui!</h1>
+            <p class="hero-sub">Pré-venda do Grand Theft Auto VI para PlayStation 5 e Xbox Series X|S em até 9x sem juros.</p>
+            <div class="coupon-badge-wrap">
+              <div class="coupon-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="coupon-badge-text">Cupom <strong>GTA6</strong> já aplicado</span>
+              </div>
+              <p class="coupon-badge-sub">Cupom de desconto já aplicado pro seu GTA VI ficar mais barato</p>
+            </div>
+          </div>
 
-</main>
+          <div class="hero-card">
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:7px 12px;margin-bottom:14px;">
+              <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#f59e0b;flex-shrink:0;animation:pulse-dot 1.4s ease-in-out infinite;"></span>
+              <span style="font-size:12px;font-weight:600;color:#f59e0b;letter-spacing:0.03em;">Estoque limitado — garanta o seu agora</span>
+            </div>
+            <p class="card-label">Selecione a plataforma:</p>
+            <div class="platform-grid" id="platform-grid">
+              <button class="selector-btn active" data-platform="ps5" onclick="selectPlatform('ps5')">
+                <svg width="16" height="16" viewBox="0 0 200 154.8" fill="currentColor">
+                  <path
+                    d="m 197.23914,117.96194 c -3.8677,4.8796 -13.34356,8.36053 -13.34356,8.36053 0,0 -70.49109,25.31994 -70.49109,25.31994 0,0 0,-18.67289 0,-18.67289 0,0 51.87665,-18.48401 51.87665,-18.48401 5.887,-2.10924 6.79096,-5.09097 2.00581,-6.65604 -4.77616,-1.56957 -13.42451,-1.11983 -19.31601,0.99841 0,0 -34.56645,12.17426 -34.56645,12.17426 0,0 0,-19.37898 0,-19.37898 0,0 1.99232,-0.6746 1.99232,-0.6746 0,0 9.98856,-3.534896 24.03371,-5.09097 14.04515,-1.547081 31.24291,0.211374 44.74389,5.32933 15.21445,4.80764 16.92793,11.89543 13.06473,16.77502 z M 120.11451,86.165853 c 0,0 0,-47.752601 0,-47.752601 0,-5.608163 -1.03439,-10.771093 -6.29626,-12.232725 -4.0296,-1.290734 -6.53012,2.45104 -6.53012,8.054706 0,0 0,119.583887 0,119.583887 0,0 -32.250314,-10.23591 -32.250314,-10.23591 0,0 0,-142.58321 0,-142.58321 13.712343,2.54549 33.689454,8.56291 44.429074,12.18326 27.31226,9.376917 36.57225,21.047482 36.57225,47.343343 0,25.630256 -15.82159,35.344478 -35.92463,25.63925 z M 15.862004,131.01768 C 0.24279269,126.6193 -2.3566614,117.45375 4.7626047,112.17389 c 6.5795883,-4.8751 17.7689333,-8.54492 17.7689333,-8.54492 0,0 46.241498,-16.442224 46.241498,-16.442224 0,0 0,18.744854 0,18.744854 0,0 -33.275709,11.90892 -33.275709,11.90892 -5.878004,2.10924 -6.781967,5.09547 -2.005807,6.66054 4.780657,1.56506 13.433512,1.11983 19.320511,-0.99391 0,0 15.961005,-5.79256 15.961005,-5.79256 0,0 0,16.77053 0,16.77053 -1.011893,0.17989 -2.140724,0.35978 -3.184104,0.53518 -15.965505,2.60845 -32.969893,1.5201 -49.726928,-4.00262 z m 171.105246,7.42508 c 2.0193,0 3.91267,0.78254 5.33832,2.22618 1.42566,1.42115 2.21269,3.31903 2.21269,5.33383 0,2.02379 -0.78703,3.91267 -2.21269,5.33383 -1.42565,1.43464 -3.31902,2.21718 -5.33832,2.21718 -2.0193,0 -3.90818,-0.78254 -5.33833,-2.21718 -1.42565,-1.42116 -2.20818,-3.31004 -2.20818,-5.33383 0,-4.16453 3.38198,-7.56001 7.54651,-7.56001 z m -6.27827,7.56001 c 0,1.6775 0.65211,3.25606 1.83941,4.43436 1.18279,1.19629 2.76585,1.8439 4.43886,1.8439 3.46743,0 6.27826,-2.81532 6.27826,-6.27826 0,-1.682 -0.64761,-3.26056 -1.8394,-4.44336 -1.1828,-1.19629 -2.76586,-1.83941 -4.43886,-1.83941 -1.67301,0 -3.25607,0.64312 -4.43886,1.83941 -1.1873,1.1828 -1.83941,2.76136 -1.83941,4.44336 z m 8.55841,-4.07008 c 0.82751,0.36428 1.24576,1.06586 1.24576,2.06427 0,0.5127 -0.10794,0.94444 -0.3283,1.28174 -0.15741,0.24285 -0.38228,0.44074 -0.63413,0.61163 0.19788,0.11694 0.37328,0.25635 0.50371,0.41826 0.17988,0.23386 0.28332,0.60713 0.29682,1.11533 0,0 0.0405,1.07486 0.0405,1.07486 0.0135,0.28783 0.0315,0.5082 0.0765,0.64312 0.045,0.19788 0.13042,0.32381 0.23835,0.36429 0,0 0.11244,0.054 0.11244,0.054 0,0 0,0.12143 0,0.12143 0,0 0.18439,0 0.18439,0 0,0 0,0.18439 0,0.18439 0,0 0,-0.18439 0,-0.18439 0,0 -1.33571,0 -1.33571,0 0,0 -0.10793,0 -0.10793,0 0,0 -0.054,-0.0944 -0.054,-0.0944 -0.045,-0.0899 -0.0764,-0.19338 -0.10793,-0.3283 -0.0225,-0.12143 -0.045,-0.3328 -0.0585,-0.65661 0,0 -0.0675,-1.33571 -0.0675,-1.33571 -0.018,-0.46322 -0.1754,-0.75105 -0.47222,-0.90396 -0.18439,-0.0854 -0.49021,-0.12592 -0.90396,-0.12592 0,0 -2.28914,0 -2.28914,0 0,0 0,3.26056 0,3.26056 0,0 0,0.18439 0,0.18439 0,0 -0.18889,0 -0.18889,0 0,0 -1.08836,0 -1.08836,0 0,0 -0.18438,0 -0.18438,0 0,0 0,-0.18439 0,-0.18439 0,0 0,-8.03672 0,-8.03672 0,0 0,-0.18439 0,-0.18439 0,0 0.18438,0 0.18438,0 0,0 3.71929,0 3.71929,0 0.63863,0 1.17381,0.0944 1.58756,0.28782 z m -4.0296,3.38648 c 0,0 2.32961,0 2.32961,0 0.46772,0 0.841,-0.0855 1.10634,-0.26084 0.24286,-0.1754 0.35979,-0.49471 0.35979,-0.95793 0,-0.5037 -0.1664,-0.83201 -0.51719,-1.0074 -0.19338,-0.0944 -0.46323,-0.14841 -0.80503,-0.14841 0,0 -2.47352,0 -2.47352,0 0,0 0,2.37458 0,2.37458 z">
+                  </path>
+                </svg>
+                PlayStation 5
+              </button>
+              <button class="selector-btn" data-platform="xbox" onclick="selectPlatform('xbox')">
+                <svg width="16" height="16" viewBox="0 0 372.4 372.6" fill="currentColor" aria-label="Xbox">
+                  <path
+                    d="M 169.18811,359.44924 C 140.50497,356.70211 111.4651,346.40125 86.518706,330.1252 65.614374,316.48637 60.893704,310.87967 60.893704,299.69061 c 0,-22.47524 24.711915,-61.84014 66.992496,-106.71584 24.01246,-25.48631 57.46022,-55.36001 61.0775,-54.55105 7.0309,1.57238 63.25048,56.41053 84.29655,82.2252 33.28077,40.82148 48.58095,74.24535 40.808,89.14682 -5.9087,11.32753 -42.57224,33.4669 -69.50775,41.97242 -22.19984,7.01011 -51.35538,9.9813 -75.37239,7.68108 z M 32.660004,276.3228 C 15.288964,249.67326 6.5125436,223.43712 2.2752336,185.49086 c -1.39917002,-12.53 -0.89778,-19.69701 3.17715,-45.41515 5.0788204,-32.05404 23.3330104,-69.136381 45.2671304,-91.957616 9.34191,-9.719732 10.17624,-9.956543 21.56341,-6.120482 13.828357,4.658436 28.595936,14.857457 51.498366,35.56661 l 13.36254,12.082873 -7.2969,8.96431 C 95.97448,140.22403 60.217254,199.2085 46.741444,235.70071 c -7.32599,19.83862 -10.28084,39.75281 -7.12868,48.04363 2.12818,5.59752 0.17339,3.51093 -6.95276,-7.42154 z m 304.915426,4.53255 c 1.71605,-8.37719 -0.4544,-23.76257 -5.5413,-39.28002 -11.01667,-33.60598 -47.83964,-96.12421 -81.65282,-138.63054 L 239.73699,89.563875 251.25285,78.989784 c 15.03631,-13.806637 25.47602,-22.073835 36.74025,-29.094513 8.88881,-5.540156 21.59109,-10.444558 27.05113,-10.444558 3.36626,0 15.21723,12.298726 24.78421,25.720611 14.81725,20.787711 25.71782,45.986976 31.24045,72.219686 3.56833,16.9498 3.8657,53.23126 0.57486,70.13935 -2.70068,13.87582 -8.40314,31.87484 -13.9661,44.08195 -4.16823,9.14657 -14.53521,26.91044 -19.0783,32.69074 -2.33569,2.97175 -2.33761,2.96527 -1.02393,-3.4477 z M 172.25917,33.104812 c -15.60147,-7.922671 -39.6696,-16.427164 -52.96493,-18.715209 -4.66097,-0.802124 -12.61193,-1.249474 -17.6688,-0.994114 -10.969613,0.55394 -10.479662,-0.0197 7.11783,-8.3336652 14.63023,-6.912081 26.83386,-10.976696 43.40044,-14.455218 18.6362,-3.9130858 53.66559,-3.9590088 72.00507,-0.0944 19.80818,4.174105 43.13297,12.854085 56.27623,20.9423862 l 3.90633,2.403927 -8.96247,-0.452584 c -17.81002,-0.899366 -43.76575,6.295879 -71.63269,19.857459 -8.40538,4.090523 -15.71788,7.357511 -16.25,7.25997 -0.53211,-0.09754 -7.38426,-3.43589 -15.22701,-7.418555 z">
+                  </path>
+                </svg>
+                Xbox Series X|S
+              </button>
+            </div>
 
-<!-- ── Footer ── -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo-wrap">
-          <img src="/assets/rockstar-logo.jpg" alt="Rockstar Games" style="opacity:0.8">
-          <span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--white)">GTA VI PRÉ-VENDA</span>
+            <p class="card-label">Selecione a edição:</p>
+            <div class="edition-grid" id="edition-grid">
+              <button class="edition-btn active" data-edition="standard" onclick="selectEdition('standard')">
+                <span class="name">Standard</span>
+                <span class="price">
+                  <span class="price-old">9x R$ 49,99</span>
+                  <span class="price-new">9x R$ 46,99</span>
+                </span>
+              </button>
+              <button class="edition-btn" data-edition="ultimate" onclick="selectEdition('ultimate')">
+                <span class="name">Ultimate</span>
+                <span class="price">
+                  <span class="price-old">9x R$ 61,10</span>
+                  <span class="price-new">9x R$ 57,43</span>
+                </span>
+              </button>
+            </div>
+
+            <a id="hero-cta" href="/checkout.html?edition=standard&platform=ps5" class="btn-cta-hero">
+              PRÉ-COMPRAR
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+            <div class="mp-info-box" style="margin-top: 12px; margin-bottom: 12px;">
+              <div class="mp-checkmark">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <span class="mp-text-prefix">Parcelado via</span>
+              <div class="mp-logo-badge">
+                <img src="/assets/mercado-pago-icon.svg" alt="Mercado Pago">
+              </div>
+              <span class="mp-text-suffix">Mercado Pago</span>
+            </div>
+            <button class="compare-link" onclick="scrollTo('edicoes')">Comparar edições</button>
+          </div>
         </div>
-        <p>Revendedor autorizado independente de pré-vendas de jogos.</p>
       </div>
-      <div class="footer-col">
-        <h4>Suporte</h4>
-        <ul class="footer-links">
-          <li><a href="#faq" onclick="scrollTo('faq')">Perguntas frequentes</a></li>
-          <li><a href="#">Política de entrega</a></li>
-          <li><a href="mailto:suporte@gta6preorder.shop" class="link-primary">suporte@gta6preorder.shop</a></li>
-        </ul>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="about-section">
+      <div class="container">
+        <div class="about-grid">
+          
+          <div class="about-content" data-observe>
+            <h2 class="about-title">Sobre o Jogo</h2>
+            <p class="about-text">
+              <strong>Vice City, EUA.</strong><br><br>
+              Jason e Lucia sempre souberam que tudo estava contra eles. Mas, depois que um serviço simples dá errado, eles vão parar no lado mais sombrio do lugar mais ensolarado dos Estados Unidos, em meio a uma conspiração criminosa se estendendo por todo o estado de Leonida – e são forçados a depender um do outro mais do que nunca para saírem dessa vivos.
+            </p>
+            <div class="about-rating">
+              <span class="rating-label">Classificação Indicativa:</span>
+              <div class="rating-badge-wrap">
+                <img src="/assets/rating-18.png" alt="Classificação 18 anos" class="rating-badge-img">
+                <span class="rating-text">Não recomendado para menores de 18 anos.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-slider-wrap" data-observe style="transition-delay:0.1s">
+            <div class="about-slider">
+              <div class="slider-track" id="about-slider-track">
+                <div class="slide-item">
+                  <img src="/assets/slider-1.png" alt="Grand Theft Auto VI - Jason no Carro">
+                </div>
+                <div class="slide-item">
+                  <img src="/assets/slider-2.png" alt="Grand Theft Auto VI - Jason com Fuzil">
+                </div>
+                <div class="slide-item">
+                  <img src="/assets/slider-3.jpg" alt="Grand Theft Auto VI - Lucia na Piscina">
+                </div>
+                <div class="slide-item">
+                  <img src="/assets/slider-4.png" alt="Grand Theft Auto VI - Lucia Boxe">
+                </div>
+                <div class="slide-item">
+                  <img src="/assets/slider-5.jpg" alt="Grand Theft Auto VI - Cidade à Noite">
+                </div>
+              </div>
+              
+              <button class="slider-btn prev-btn" onclick="prevSlideManually()" aria-label="Slide anterior">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button class="slider-btn next-btn" onclick="nextSlideManually()" aria-label="Próximo slide">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+
+              <div class="slider-dots">
+                <button class="slider-dot active" onclick="setSlideManually(0)" aria-label="Ir para slide 1"></button>
+                <button class="slider-dot" onclick="setSlideManually(1)" aria-label="Ir para slide 2"></button>
+                <button class="slider-dot" onclick="setSlideManually(2)" aria-label="Ir para slide 3"></button>
+                <button class="slider-dot" onclick="setSlideManually(3)" aria-label="Ir para slide 4"></button>
+                <button class="slider-dot" onclick="setSlideManually(4)" aria-label="Ir para slide 5"></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul class="footer-links">
-          <li><a href="#">Termos de uso</a></li>
-          <li><a href="#">Política de privacidade</a></li>
-          <li><a href="#">Política de reembolso</a></li>
-        </ul>
+    </section>
+
+    <!-- Motivos -->
+    <section class="motivos-section">
+      <div class="container">
+        <div class="motivos-header">
+          <h2 class="motivos-title">Três motivos para garantir sua <span>PRÉ-VENDA</span> aqui</h2>
+          <p class="motivos-sub">A diferença entre comprar o GTA VI aqui e direto na loja do console aparece na sua conta do banco.</p>
+        </div>
+        <div class="motivos-grid">
+
+          <div class="motivo-card" data-observe>
+            <div class="motivo-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+              </svg>
+            </div>
+            <div class="motivo-title">Parcele em 9x sem juros</div>
+            <p class="motivo-desc">Divida o valor do GTA VI em até nove parcelas mensais, sem nenhum acréscimo. Quem prefere estender, pode parcelar em 10x a 12x com um pequeno acréscimo.</p>
+          </div>
+
+          <div class="motivo-card" data-observe style="transition-delay:0.08s">
+            <div class="motivo-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5.283 18.36a3.505 3.505 0 0 0 2.493-1.032l3.6-3.6a.684.684 0 0 1 .946 0l3.613 3.613a3.504 3.504 0 0 0 2.493 1.032h.71l-4.56 4.56a3.647 3.647 0 0 1-5.156 0L4.85 18.36ZM18.428 5.627a3.505 3.505 0 0 0-2.493 1.032l-3.613 3.614a.67.67 0 0 1-.946 0l-3.6-3.6A3.505 3.505 0 0 0 5.283 5.64h-.434l4.573-4.572a3.646 3.646 0 0 1 5.156 0l4.559 4.559ZM1.068 9.422 3.79 6.699h1.492a2.483 2.483 0 0 1 1.744.722l3.6 3.6a1.73 1.73 0 0 0 2.443 0l3.614-3.613a2.482 2.482 0 0 1 1.744-.723h1.767l2.737 2.737a3.646 3.646 0 0 1 0 5.156l-2.736 2.736h-1.768a2.482 2.482 0 0 1-1.744-.722l-3.613-3.613a1.77 1.77 0 0 0-2.444 0l-3.6 3.6a2.483 2.483 0 0 1-1.744.722H3.791l-2.723-2.723a3.646 3.646 0 0 1 0-5.156"/>
+              </svg>
+            </div>
+            <div class="motivo-title">Parcelamento no Pix</div>
+            <p class="motivo-desc">Comprando aqui você garante seu GTA VI pagando apenas a primeira parcela. As demais são cobradas mensalmente direto no Pix, sem precisar de cartão.</p>
+          </div>
+
+          <div class="motivo-card" data-observe style="transition-delay:0.16s">
+            <div class="motivo-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+              </svg>
+            </div>
+            <div class="motivo-title">Cupom de desconto</div>
+            <p class="motivo-desc">É claro que vai ter cupom pra você garantir seu GTA VI com o melhor preço! Cupom já está aplicado para todos clientes ganharem um desconto especial.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Editions -->
+    <section id="edicoes" class="editions-section">
+      <div class="container-md">
+        <h2 class="section-title">Escolha sua edição</h2>
+        <div class="editions-grid">
+          <!-- Standard -->
+          <div class="edition-card" data-observe>
+            <h3 class="edition-name">Edição Standard</h3>
+            <img src="/assets/edition-standard.png" alt="Edição Standard" class="edition-img">
+            <div class="edition-price">
+              <span style="font-size:0.5em;font-weight:600;color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(230,57,70,0.7);display:block;margin-bottom:2px;">de 9x R$ 49,99</span>
+              9x de R$ 46,99 <span style="font-size:0.5em;font-weight:600;opacity:.75;">sem juros</span>
+            </div>
+            <p class="edition-platform">PlayStation 5 / Xbox Series X|S</p>
+            <ul class="feature-list">
+              <li class="feature-group-label">Bônus de pré-venda</li>
+              <li class="feature-item muted">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Vapid Stanier (1995) e garagem de Shore Court
+              </li>
+              <li class="feature-item muted">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Vestuário e estilos de cabelo
+              </li>
+              <li class="feature-item muted">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Padronagem de arma exclusiva
+              </li>
+              <li class="feature-group-label">Bônus da edição Ultimate</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Vapid Dominator Buggy (1967) e garagem Paradise</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Grotti Cheetah (1995)</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Veículos e o Vapid Ganado composição retrô na casa segura do Jason</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Oficinas de veículos</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Coleção de carros clássicos</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Shitzu Squalo</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Revólveres Hawk &amp; Little Morgan</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Variantes de armas personalizadas</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Reduto e espólios da PTT Youngin$</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Estilo Vice City para Jason e Lucia</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Itens do Estado da Curtição</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Loja de roupas Stock 305</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Salão Unissex Sara's</li>
+              <li class="feature-item locked"><span class="icon-x">✘</span>Electric Fang Tattoo</li>
+            </ul>
+            <div class="edition-platforms">
+              <a href="/checkout.html?edition=standard&platform=ps5" class="platform-btn ps-btn">
+                <span class="platform-btn-left">
+                  <svg class="ps-logo" viewBox="0 0 200 154.8" fill="currentColor">
+                    <path d="m 197.23914,117.96194 c -3.8677,4.8796 -13.34356,8.36053 -13.34356,8.36053 0,0 -70.49109,25.31994 -70.49109,25.31994 0,0 0,-18.67289 0,-18.67289 0,0 51.87665,-18.48401 51.87665,-18.48401 5.887,-2.10924 6.79096,-5.09097 2.00581,-6.65604 -4.77616,-1.56957 -13.42451,-1.11983 -19.31601,0.99841 0,0 -34.56645,12.17426 -34.56645,12.17426 0,0 0,-19.37898 0,-19.37898 0,0 1.99232,-0.6746 1.99232,-0.6746 0,0 9.98856,-3.534896 24.03371,-5.09097 14.04515,-1.547081 31.24291,0.211374 44.74389,5.32933 15.21445,4.80764 16.92793,11.89543 13.06473,16.77502 z M 120.11451,86.165853 c 0,0 0,-47.752601 0,-47.752601 0,-5.608163 -1.03439,-10.771093 -6.29626,-12.232725 -4.0296,-1.290734 -6.53012,2.45104 -6.53012,8.054706 0,0 0,119.583887 0,119.583887 0,0 -32.250314,-10.23591 -32.250314,-10.23591 0,0 0,-142.58321 0,-142.58321 13.712343,2.54549 33.689454,8.56291 44.429074,12.18326 27.31226,9.376917 36.57225,21.047482 36.57225,47.343343 0,25.630256 -15.82159,35.344478 -35.92463,25.63925 z M 15.862004,131.01768 C 0.24279269,126.6193 -2.3566614,117.45375 4.7626047,112.17389 c 6.5795883,-4.8751 17.7689333,-8.54492 17.7689333,-8.54492 0,0 46.241498,-16.442224 46.241498,-16.442224 0,0 0,18.744854 0,18.744854 0,0 -33.275709,11.90892 -33.275709,11.90892 -5.878004,2.10924 -6.781967,5.09547 -2.005807,6.66054 4.780657,1.56506 13.433512,1.11983 19.320511,-0.99391 0,0 15.961005,-5.79256 15.961005,-5.79256 0,0 0,16.77053 0,16.77053 -1.011893,0.17989 -2.140724,0.35978 -3.184104,0.53518 -15.965505,2.60845 -32.969893,1.5201 -49.726928,-4.00262 z m 171.105246,7.42508 c 2.0193,0 3.91267,0.78254 5.33832,2.22618 1.42566,1.42115 2.21269,3.31903 2.21269,5.33383 0,2.02379 -0.78703,3.91267 -2.21269,5.33383 -1.42565,1.43464 -3.31902,2.21718 -5.33832,2.21718 -2.0193,0 -3.90818,-0.78254 -5.33833,-2.21718 -1.42565,-1.42116 -2.20818,-3.31004 -2.20818,-5.33383 0,-4.16453 3.38198,-7.56001 7.54651,-7.56001 z m -6.27827,7.56001 c 0,1.6775 0.65211,3.25606 1.83941,4.43436 1.18279,1.19629 2.76585,1.8439 4.43886,1.8439 3.46743,0 6.27826,-2.81532 6.27826,-6.27826 0,-1.682 -0.64761,-3.26056 -1.8394,-4.44336 -1.1828,-1.19629 -2.76586,-1.83941 -4.43886,-1.83941 -1.67301,0 -3.25607,0.64312 -4.43886,1.83941 -1.1873,1.1828 -1.83941,2.76136 -1.83941,4.44336 z m 8.55841,-4.07008 c 0.82751,0.36428 1.24576,1.06586 1.24576,2.06427 0,0.5127 -0.10794,0.94444 -0.3283,1.28174 -0.15741,0.24285 -0.38228,0.44074 -0.63413,0.61163 0.19788,0.11694 0.37328,0.25635 0.50371,0.41826 0.17988,0.23386 0.28332,0.60713 0.29682,1.11533 0,0 0.0405,1.07486 0.0405,1.07486 0.0135,0.28783 0.0315,0.5082 0.0765,0.64312 0.045,0.19788 0.13042,0.32381 0.23835,0.36429 0,0 0.11244,0.054 0.11244,0.054 0,0 0,0.12143 0,0.12143 0,0 0.18439,0 0.18439,0 0,0 0,0.18439 0,0.18439 0,0 0,-0.18439 0,-0.18439 0,0 -1.33571,0 -1.33571,0 0,0 -0.10793,0 -0.10793,0 0,0 -0.054,-0.0944 -0.054,-0.0944 -0.045,-0.0899 -0.0764,-0.19338 -0.10793,-0.3283 -0.0225,-0.12143 -0.045,-0.3328 -0.0585,-0.65661 0,0 -0.0675,-1.33571 -0.0675,-1.33571 -0.018,-0.46322 -0.1754,-0.75105 -0.47222,-0.90396 -0.18439,-0.0854 -0.49021,-0.12592 -0.90396,-0.12592 0,0 -2.28914,0 -2.28914,0 0,0 0,3.26056 0,3.26056 0,0 0,0.18439 0,0.18439 0,0 -0.18889,0 -0.18889,0 0,0 -1.08836,0 -1.08836,0 0,0 -0.18438,0 -0.18438,0 0,0 0,-0.18439 0,-0.18439 0,0 0,-8.03672 0,-8.03672 0,0 0,-0.18439 0,-0.18439 0,0 0.18438,0 0.18438,0 0,0 3.71929,0 3.71929,0 0.63863,0 1.17381,0.0944 1.58756,0.28782 z m -4.0296,3.38648 c 0,0 2.32961,0 2.32961,0 0.46772,0 0.841,-0.0855 1.10634,-0.26084 0.24286,-0.1754 0.35979,-0.49471 0.35979,-0.95793 0,-0.5037 -0.1664,-0.83201 -0.51719,-1.0074 -0.19338,-0.0944 -0.46323,-0.14841 -0.80503,-0.14841 0,0 -2.47352,0 -2.47352,0 0,0 0,2.37458 0,2.37458 z"></path>
+                  </svg>
+                  Playstation 5
+                </span>
+                <svg class="chevron-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
+              <a href="/checkout.html?edition=standard&platform=xbox" class="platform-btn xbox-btn">
+                <span class="platform-btn-left">
+                  <svg class="xbox-logo" viewBox="0 0 372.4 372.6" fill="currentColor">
+                    <path d="M 169.18811,359.44924 C 140.50497,356.70211 111.4651,346.40125 86.518706,330.1252 65.614374,316.48637 60.893704,310.87967 60.893704,299.69061 c 0,-22.47524 24.711915,-61.84014 66.992496,-106.71584 24.01246,-25.48631 57.46022,-55.36001 61.0775,-54.55105 7.0309,1.57238 63.25048,56.41053 84.29655,82.2252 33.28077,40.82148 48.58095,74.24535 40.808,89.14682 -5.9087,11.32753 -42.57224,33.4669 -69.50775,41.97242 -22.19984,7.01011 -51.35538,9.9813 -75.37239,7.68108 z M 32.660004,276.3228 C 15.288964,249.67326 6.5125436,223.43712 2.2752336,185.49086 c -1.39917002,-12.53 -0.89778,-19.69701 3.17715,-45.41515 5.0788204,-32.05404 23.3330104,-69.136381 45.2671304,-91.957616 9.34191,-9.719732 10.17624,-9.956543 21.56341,-6.120482 13.828357,4.658436 28.595936,14.857457 51.498366,35.56661 l 13.36254,12.082873 -7.2969,8.96431 C 95.97448,140.22403 60.217254,199.2085 46.741444,235.70071 c -7.32599,19.83862 -10.28084,39.75281 -7.12868,48.04363 2.12818,5.59752 0.17339,3.51093 -6.95276,-7.42154 z m 304.915426,4.53255 c 1.71605,-8.37719 -0.4544,-23.76257 -5.5413,-39.28002 -11.01667,-33.60598 -47.83964,-96.12421 -81.65282,-138.63054 L 239.73699,89.563875 251.25285,78.989784 c 15.03631,-13.806637 25.47602,-22.073835 36.74025,-29.094513 8.88881,-5.540156 21.59109,-10.444558 27.05113,-10.444558 3.36626,0 15.21723,12.298726 24.78421,25.720611 14.81725,20.787711 25.71782,45.986976 31.24045,72.219686 3.56833,16.9498 3.8657,53.23126 0.57486,70.13935 -2.70068,13.87582 -8.40314,31.87484 -13.9661,44.08195 -4.16823,9.14657 -14.53521,26.91044 -19.0783,32.69074 -2.33569,2.97175 -2.33761,2.96527 -1.02393,-3.4477 z M 172.25917,33.104812 c -15.60147,-7.922671 -39.6696,-16.427164 -52.96493,-18.715209 -4.66097,-0.802124 -12.61193,-1.249474 -17.6688,-0.994114 -10.969613,0.55394 -10.479662,-0.0197 7.11783,-8.3336652 14.63023,-6.912081 26.83386,-10.976696 43.40044,-14.455218 18.6362,-3.9130858 53.66559,-3.9590088 72.00507,-0.0944 19.80818,4.174105 43.13297,12.854085 56.27623,20.9423862 l 3.90633,2.403927 -8.96247,-0.452584 c -17.81002,-0.899366 -43.76575,6.295879 -71.63269,19.857459 -8.40538,4.090523 -15.71788,7.357511 -16.25,7.25997 -0.53211,-0.09754 -7.38426,-3.43589 -15.22701,-7.418555 z"></path>
+                  </svg>
+                  Xbox Series X|S
+                </span>
+                <svg class="chevron-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Ultimate (featured) -->
+          <div class="edition-card featured" data-observe style="transition-delay:0.1s">
+            <div class="badge-top">Mais completo</div>
+            <h3 class="edition-name">Edição Ultimate</h3>
+            <img src="/assets/edition-ultimate.jpg" alt="Edição Ultimate" class="edition-img">
+            <div class="edition-price">
+              <span style="font-size:0.5em;font-weight:600;color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(230,57,70,0.7);display:block;margin-bottom:2px;">de 9x R$ 61,10</span>
+              9x de R$ 57,43 <span style="font-size:0.5em;font-weight:600;opacity:.75;">sem juros</span>
+            </div>
+            <p class="edition-platform">PlayStation 5 / Xbox Series X|S</p>
+            <ul class="feature-list">
+              <li class="feature-group-label">Bônus de pré-venda</li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Vapid Stanier (1995) e garagem de Shore Court
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Vestuário e estilos de cabelo
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Padronagem de arma exclusiva
+              </li>
+              <li class="feature-group-label">Bônus da edição Ultimate</li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Vapid Dominator Buggy (1967) e garagem Paradise
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Grotti Cheetah (1995)
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Veículos e o Vapid Ganado composição retrô na casa segura do Jason
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Oficinas de veículos
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Coleção de carros clássicos
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Shitzu Squalo
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Revólveres Hawk &amp; Little Morgan
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Variantes de armas personalizadas
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Reduto e espólios da PTT Youngin$
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Estilo Vice City para Jason e Lucia
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Itens do Estado da Curtição
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Loja de roupas Stock 305
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Salão Unissex Sara's
+              </li>
+              <li class="feature-item white">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Electric Fang Tattoo
+              </li>
+            </ul>
+            <div class="edition-platforms">
+              <a href="/checkout.html?edition=ultimate&platform=ps5" class="platform-btn ps-btn">
+                <span class="platform-btn-left">
+                  <svg class="ps-logo" viewBox="0 0 200 154.8" fill="currentColor">
+                    <path d="m 197.23914,117.96194 c -3.8677,4.8796 -13.34356,8.36053 -13.34356,8.36053 0,0 -70.49109,25.31994 -70.49109,25.31994 0,0 0,-18.67289 0,-18.67289 0,0 51.87665,-18.48401 51.87665,-18.48401 5.887,-2.10924 6.79096,-5.09097 2.00581,-6.65604 -4.77616,-1.56957 -13.42451,-1.11983 -19.31601,0.99841 0,0 -34.56645,12.17426 -34.56645,12.17426 0,0 0,-19.37898 0,-19.37898 0,0 1.99232,-0.6746 1.99232,-0.6746 0,0 9.98856,-3.534896 24.03371,-5.09097 14.04515,-1.547081 31.24291,0.211374 44.74389,5.32933 15.21445,4.80764 16.92793,11.89543 13.06473,16.77502 z M 120.11451,86.165853 c 0,0 0,-47.752601 0,-47.752601 0,-5.608163 -1.03439,-10.771093 -6.29626,-12.232725 -4.0296,-1.290734 -6.53012,2.45104 -6.53012,8.054706 0,0 0,119.583887 0,119.583887 0,0 -32.250314,-10.23591 -32.250314,-10.23591 0,0 0,-142.58321 0,-142.58321 13.712343,2.54549 33.689454,8.56291 44.429074,12.18326 27.31226,9.376917 36.57225,21.047482 36.57225,47.343343 0,25.630256 -15.82159,35.344478 -35.92463,25.63925 z M 15.862004,131.01768 C 0.24279269,126.6193 -2.3566614,117.45375 4.7626047,112.17389 c 6.5795883,-4.8751 17.7689333,-8.54492 17.7689333,-8.54492 0,0 46.241498,-16.442224 46.241498,-16.442224 0,0 0,18.744854 0,18.744854 0,0 -33.275709,11.90892 -33.275709,11.90892 -5.878004,2.10924 -6.781967,5.09547 -2.005807,6.66054 4.780657,1.56506 13.433512,1.11983 19.320511,-0.99391 0,0 15.961005,-5.79256 15.961005,-5.79256 0,0 0,16.77053 0,16.77053 -1.011893,0.17989 -2.140724,0.35978 -3.184104,0.53518 -15.965505,2.60845 -32.969893,1.5201 -49.726928,-4.00262 z m 171.105246,7.42508 c 2.0193,0 3.91267,0.78254 5.33832,2.22618 1.42566,1.42115 2.21269,3.31903 2.21269,5.33383 0,2.02379 -0.78703,3.91267 -2.21269,5.33383 -1.42565,1.43464 -3.31902,2.21718 -5.33832,2.21718 -2.0193,0 -3.90818,-0.78254 -5.33833,-2.21718 -1.42565,-1.42116 -2.20818,-3.31004 -2.20818,-5.33383 0,-4.16453 3.38198,-7.56001 7.54651,-7.56001 z m -6.27827,7.56001 c 0,1.6775 0.65211,3.25606 1.83941,4.43436 1.18279,1.19629 2.76585,1.8439 4.43886,1.8439 3.46743,0 6.27826,-2.81532 6.27826,-6.27826 0,-1.682 -0.64761,-3.26056 -1.8394,-4.44336 -1.1828,-1.19629 -2.76586,-1.83941 -4.43886,-1.83941 -1.67301,0 -3.25607,0.64312 -4.43886,1.83941 -1.1873,1.1828 -1.83941,2.76136 -1.83941,4.44336 z m 8.55841,-4.07008 c 0.82751,0.36428 1.24576,1.06586 1.24576,2.06427 0,0.5127 -0.10794,0.94444 -0.3283,1.28174 -0.15741,0.24285 -0.38228,0.44074 -0.63413,0.61163 0.19788,0.11694 0.37328,0.25635 0.50371,0.41826 0.17988,0.23386 0.28332,0.60713 0.29682,1.11533 0,0 0.0405,1.07486 0.0405,1.07486 0.0135,0.28783 0.0315,0.5082 0.0765,0.64312 0.045,0.19788 0.13042,0.32381 0.23835,0.36429 0,0 0.11244,0.054 0.11244,0.054 0,0 0,0.12143 0,0.12143 0,0 0.18439,0 0.18439,0 0,0 0,0.18439 0,0.18439 0,0 0,-0.18439 0,-0.18439 0,0 -1.33571,0 -1.33571,0 0,0 -0.10793,0 -0.10793,0 0,0 -0.054,-0.0944 -0.054,-0.0944 -0.045,-0.0899 -0.0764,-0.19338 -0.10793,-0.3283 -0.0225,-0.12143 -0.045,-0.3328 -0.0585,-0.65661 0,0 -0.0675,-1.33571 -0.0675,-1.33571 -0.018,-0.46322 -0.1754,-0.75105 -0.47222,-0.90396 -0.18439,-0.0854 -0.49021,-0.12592 -0.90396,-0.12592 0,0 -2.28914,0 -2.28914,0 0,0 0,3.26056 0,3.26056 0,0 0,0.18439 0,0.18439 0,0 -0.18889,0 -0.18889,0 0,0 -1.08836,0 -1.08836,0 0,0 -0.18438,0 -0.18438,0 0,0 0,-0.18439 0,-0.18439 0,0 0,-8.03672 0,-8.03672 0,0 0,-0.18439 0,-0.18439 0,0 0.18438,0 0.18438,0 0,0 3.71929,0 3.71929,0 0.63863,0 1.17381,0.0944 1.58756,0.28782 z m -4.0296,3.38648 c 0,0 2.32961,0 2.32961,0 0.46772,0 0.841,-0.0855 1.10634,-0.26084 0.24286,-0.1754 0.35979,-0.49471 0.35979,-0.95793 0,-0.5037 -0.1664,-0.83201 -0.51719,-1.0074 -0.19338,-0.0944 -0.46323,-0.14841 -0.80503,-0.14841 0,0 -2.47352,0 -2.47352,0 0,0 0,2.37458 0,2.37458 z"></path>
+                  </svg>
+                  Playstation 5
+                </span>
+                <svg class="chevron-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
+              <a href="/checkout.html?edition=ultimate&platform=xbox" class="platform-btn xbox-btn">
+                <span class="platform-btn-left">
+                  <svg class="xbox-logo" viewBox="0 0 372.4 372.6" fill="currentColor">
+                    <path d="M 169.18811,359.44924 C 140.50497,356.70211 111.4651,346.40125 86.518706,330.1252 65.614374,316.48637 60.893704,310.87967 60.893704,299.69061 c 0,-22.47524 24.711915,-61.84014 66.992496,-106.71584 24.01246,-25.48631 57.46022,-55.36001 61.0775,-54.55105 7.0309,1.57238 63.25048,56.41053 84.29655,82.2252 33.28077,40.82148 48.58095,74.24535 40.808,89.14682 -5.9087,11.32753 -42.57224,33.4669 -69.50775,41.97242 -22.19984,7.01011 -51.35538,9.9813 -75.37239,7.68108 z M 32.660004,276.3228 C 15.288964,249.67326 6.5125436,223.43712 2.2752336,185.49086 c -1.39917002,-12.53 -0.89778,-19.69701 3.17715,-45.41515 5.0788204,-32.05404 23.3330104,-69.136381 45.2671304,-91.957616 9.34191,-9.719732 10.17624,-9.956543 21.56341,-6.120482 13.828357,4.658436 28.595936,14.857457 51.498366,35.56661 l 13.36254,12.082873 -7.2969,8.96431 C 95.97448,140.22403 60.217254,199.2085 46.741444,235.70071 c -7.32599,19.83862 -10.28084,39.75281 -7.12868,48.04363 2.12818,5.59752 0.17339,3.51093 -6.95276,-7.42154 z m 304.915426,4.53255 c 1.71605,-8.37719 -0.4544,-23.76257 -5.5413,-39.28002 -11.01667,-33.60598 -47.83964,-96.12421 -81.65282,-138.63054 L 239.73699,89.563875 251.25285,78.989784 c 15.03631,-13.806637 25.47602,-22.073835 36.74025,-29.094513 8.88881,-5.540156 21.59109,-10.444558 27.05113,-10.444558 3.36626,0 15.21723,12.298726 24.78421,25.720611 14.81725,20.787711 25.71782,45.986976 31.24045,72.219686 3.56833,16.9498 3.8657,53.23126 0.57486,70.13935 -2.70068,13.87582 -8.40314,31.87484 -13.9661,44.08195 -4.16823,9.14657 -14.53521,26.91044 -19.0783,32.69074 -2.33569,2.97175 -2.33761,2.96527 -1.02393,-3.4477 z M 172.25917,33.104812 c -15.60147,-7.922671 -39.6696,-16.427164 -52.96493,-18.715209 -4.66097,-0.802124 -12.61193,-1.249474 -17.6688,-0.994114 -10.969613,0.55394 -10.479662,-0.0197 7.11783,-8.3336652 14.63023,-6.912081 26.83386,-10.976696 43.40044,-14.455218 18.6362,-3.9130858 53.66559,-3.9590088 72.00507,-0.0944 19.80818,4.174105 43.13297,12.854085 56.27623,20.9423862 l 3.90633,2.403927 -8.96247,-0.452584 c -17.81002,-0.899366 -43.76575,6.295879 -71.63269,19.857459 -8.40538,4.090523 -15.71788,7.357511 -16.25,7.25997 -0.53211,-0.09754 -7.38426,-3.43589 -15.22701,-7.418555 z"></path>
+                  </svg>
+                  Xbox Series X|S
+                </span>
+                <svg class="chevron-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <p class="editions-note">* Conteúdo da Edição Ultimate sujeito a confirmação oficial pela Rockstar Games. Bônus
+          e disponibilidade podem variar conforme plataforma e região.</p>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="como-funciona" class="how-section">
+      <div class="container">
+        <div class="how-header">
+          <h2 class="how-title">Como funciona a compra via <span>PIX Parcelado</span></h2>
+          <p class="how-sub">A compra do GTA VI na nossa pré-venda é simples, segura e 100% oficial. Você garante sua cópia com o melhor parcelamento do mercado.</p>
+        </div>
+        <div class="steps-grid">
+
+          <div class="step-card" data-observe>
+            <div class="step-index">1</div>
+            <h3 class="step-title">Escolha sua edição</h3>
+            <p class="step-desc">Selecione a versão Standard (R$ 449,90) ou Ultimate (R$ 549,90) que mais combina com você.</p>
+          </div>
+
+          <div class="step-card" data-observe style="transition-delay:0.08s">
+            <div class="step-index">2</div>
+            <h3 class="step-title">Finalize a compra</h3>
+            <p class="step-desc">Pague a primeira parcela via PIX (R$ 46,99 na Standard ou R$ 57,43 na Ultimate) e o restante em até 9x sem juros no cartão.</p>
+          </div>
+
+          <div class="step-card" data-observe style="transition-delay:0.16s">
+            <div class="step-index">3</div>
+            <h3 class="step-title">Receba a confirmação imediata</h3>
+            <p class="step-desc">Assim que o PIX for confirmado, you recebe na hora o comprovante de pré-venda e o acesso garantido.</p>
+          </div>
+
+          <div class="step-card" data-observe style="transition-delay:0.24s">
+            <div class="step-index">4</div>
+            <h3 class="step-title">Resgate no lançamento</h3>
+            <p class="step-desc">No dia 19 de novembro de 2026, sua cópia será liberada diretamente na sua conta da PlayStation Store ou Microsoft Store (conforme a plataforma escolhida).</p>
+          </div>
+
+        </div>
+
+        <div class="why-banner" data-observe>
+          <div class="why-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="why-content">
+            <h4 class="why-title">Por que comprar via PIX Parcelado?</h4>
+            <p class="why-desc">É a forma mais inteligente e segura de garantir GTA VI. Você trava o jogo pagando pouco agora, deixa o restante do dinheiro rendendo na sua conta até o lançamento e ainda evita o aumento de preço que vai acontecer quando o jogo sair.<br><br>Sem intermediários duvidosos e sem perder rendimento do seu dinheiro. Tudo transparente, com pagamento seguro e entrega garantida na data oficial e ainda tem garantia de 7 dias na sua compra.</p>
+          </div>
+        </div>
+
+      </div>
+    <!-- FAQ -->
+    <section id="faq" class="faq-section">
+      <div class="container-sm">
+        <h2 class="section-title">Dúvidas frequentes</h2>
+        <div class="accordion" id="accordion">
+          <div class="accordion-item">
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+              Esta é a loja oficial da Rockstar Games?
+              <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              Sim. somos um distribuidor digital oficial e revendedor autorizado de Grand Theft Auto VI. Toda a distribuição de chaves e ativações é feita de forma legítima e integrada diretamente com a plataforma oficial da Rockstar Games, Microsoft Store e Playstation Store.
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+              Quando recebo meu pedido?
+              <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              Você recebe a confirmação digital por e-mail imediatamente após a compra. Os detalhes de entrega final
+              serão informados próximos à data de lançamento.
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+              Quais plataformas são aceitas?
+              <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              PlayStation 5 e Xbox Series X|S.
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+              Posso cancelar o pré-pedido?
+              <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              Sim, conforme nossa política de reembolso, é possível cancelar até determinado prazo antes do lançamento.
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+              Os bônus são garantidos?
+              <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              Os bônus estão sujeitos a disponibilidade por plataforma, região e termos da distribuidora.
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+              O pagamento é seguro?
+              <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              Sim. Todas as transações são criptografadas e processadas por gateways de pagamento certificados.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+      <div class="final-cta-inner">
+        <img src="/assets/gta6-logo-clean.png" alt="Grand Theft Auto VI" class="final-cta-logo">
+        <p class="final-cta-sub">Garanta sua cópia com antecedência e receba a confirmação instantaneamente.</p>
+        <a id="final-cta-btn" href="/checkout.html?edition=standard&platform=ps5" class="btn-cta-final">
+          Garantir Agora
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+        <p class="final-note">Disponibilidade sujeita à plataforma e região</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Suporte</h4>
+          <ul class="footer-links">
+            <li><a href="#faq" onclick="scrollTo('faq')">Perguntas frequentes</a></li>
+            <li><a href="#">Política de entrega</a></li>
+            <li><a href="mailto:suporte@gta6preorder.shop" class="link-primary">suporte@gta6preorder.shop</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Termos de uso</a></li>
+            <li><a href="#">Política de privacidade</a></li>
+            <li><a href="#">Política de reembolso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        Grand Theft Auto, GTA VI, Rockstar Games e marcas relacionadas são propriedade de seus respectivos titulares.
+        Esta loja é um revendedor autorizado independente e não representa a Rockstar Games ou a PlayStation Store.
       </div>
     </div>
-    <div class="footer-bottom">
-      Grand Theft Auto, GTA VI, Rockstar Games e marcas relacionadas são propriedade de seus respectivos titulares. Esta loja é um revendedor autorizado independente e não representa a Rockstar Games ou a PlayStation Store.
-    </div>
+  </footer>
+
+  <!-- ── Mobile sticky CTA ── -->
+  <div class="mobile-sticky">
+    <a id="mobile-sticky-btn" href="/checkout.html?edition=standard&platform=ps5" class="btn-mobile-buy">
+      Pré-comprar: 9x R$ 46,99 sem juros
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </a>
   </div>
-</footer>
 
-<!-- ── Mobile sticky CTA ── -->
-<div class="mobile-sticky">
-  <a id="mobile-sticky-btn" href="/checkout?edition=standard&platform=ps5" class="btn-mobile-buy">
-    Pré-comprar: 10x R$ 44,99
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-  </a>
-</div>
+  <!-- ── Desktop floating CTA ── -->
+  <div class="floating-cta" id="floating-cta">
+    <a id="floating-btn" href="/checkout.html?edition=standard&platform=ps5" class="btn-float">
+      Garantir Agora
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </a>
+  </div>
 
-<!-- ── Desktop floating CTA ── -->
-<div class="floating-cta" id="floating-cta">
-  <a id="floating-btn" href="/checkout?edition=standard&platform=ps5" class="btn-float">
-    Garantir Agora
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-  </a>
-</div>
+  <script>
+    // ── State ──
+    let platform = 'ps5';
+    let edition = 'standard';
+    const prices = { standard: 449.90, ultimate: 549.90 };
+    const pricesDiscounted = { standard: 422.91, ultimate: 516.90 };
+    const platforms = { ps5: 'PlayStation 5', xbox: 'Xbox Series X|S' };
+    const editions = { standard: 'Edição Standard', ultimate: 'Edição Ultimate' };
+    let menuOpen = false;
 
-<script>
-  // ── State ──
-  let platform = 'ps5';
-  let edition = 'standard';
-  const prices = { standard: 449.90, ultimate: 549.90 };
-  const platforms = { ps5: 'PlayStation 5', xbox: 'Xbox Series X|S' };
-  const editions = { standard: 'Edição Standard', ultimate: 'Edição Ultimate' };
-  let menuOpen = false;
-
-  function fmt(price) {
-    return price.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-  }
-
-  function buildCheckoutUrl() {
-    return '/checkout?edition=' + edition + '&platform=' + platform;
-  }
-
-  function updateAllCTAs() {
-    const url = buildCheckoutUrl();
-    const priceStr = '10x DE R$ ' + fmt(prices[edition] / 10) + ' SEM JUROS';
-    document.getElementById('hero-cta').href = url;
-    document.getElementById('hero-cta').innerHTML =
-      'PRÉ-VENDA: ' + priceStr +
-      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>';
-    document.getElementById('nav-cta').href = url;
-    document.getElementById('mobile-cta-link').href = url;
-    document.getElementById('final-cta-btn').href = url;
-    document.getElementById('floating-btn').href = url;
-    document.getElementById('mobile-sticky-btn').href = url;
-    document.getElementById('mobile-sticky-btn').innerHTML =
-      'Pré-comprar: ' + priceStr +
-      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>';
-    // Edition cards select buttons
-    document.getElementById('btn-select-standard').href = '/checkout?edition=standard&platform=' + platform;
-    document.getElementById('btn-select-ultimate').href = '/checkout?edition=ultimate&platform=' + platform;
-  }
-
-  function selectPlatform(p) {
-    platform = p;
-    document.querySelectorAll('#platform-grid .selector-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.platform === p);
-    });
-    updateAllCTAs();
-  }
-
-  function selectEdition(e) {
-    edition = e;
-    document.querySelectorAll('#edition-grid .edition-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.edition === e);
-    });
-    updateAllCTAs();
-  }
-
-  function toggleMenu() {
-    menuOpen = !menuOpen;
-    document.getElementById('mobile-menu').classList.toggle('open', menuOpen);
-    document.getElementById('icon-menu').style.display = menuOpen ? 'none' : '';
-    document.getElementById('icon-x').style.display = menuOpen ? '' : 'none';
-  }
-
-  function scrollTo(id) {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  function toggleAccordion(btn) {
-    const item = btn.closest('.accordion-item');
-    const isOpen = item.classList.contains('open');
-    // Close all
-    document.querySelectorAll('.accordion-item.open').forEach(i => i.classList.remove('open'));
-    // Open clicked if it wasn't open
-    if (!isOpen) item.classList.add('open');
-  }
-
-  // ── Scroll-triggered floating CTA ──
-  window.addEventListener('scroll', function() {
-    const floatingCta = document.getElementById('floating-cta');
-    if (window.scrollY > 350) {
-      floatingCta.classList.add('visible');
-    } else {
-      floatingCta.classList.remove('visible');
+    function fmt(price) {
+      return price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-  }, { passive: true });
 
-  // ── Intersection Observer for card animations ──
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+    function buildCheckoutUrl() {
+      return '/checkout.html?edition=' + edition + '&platform=' + platform;
+    }
+
+    function updateAllCTAs() {
+      const url = buildCheckoutUrl();
+      const price9xOld = fmt(prices[edition] / 9);
+      const price9xNew = fmt(pricesDiscounted[edition] / 9);
+      document.getElementById('hero-cta').href = url;
+      document.getElementById('hero-cta').innerHTML =
+        'PRÉ-COMPRAR' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+      document.getElementById('nav-cta').href = url;
+      document.getElementById('mobile-cta-link').href = url;
+      document.getElementById('final-cta-btn').href = url;
+      document.getElementById('floating-btn').href = url;
+      document.getElementById('mobile-sticky-btn').href = url;
+      document.getElementById('mobile-sticky-btn').innerHTML =
+        'Pré-comprar: 9x R$ ' + price9xNew + ' sem juros' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+    }
+
+    function selectPlatform(p) {
+      platform = p;
+      document.querySelectorAll('#platform-grid .selector-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.platform === p);
+      });
+      updateAllCTAs();
+    }
+
+    function selectEdition(e) {
+      edition = e;
+      document.querySelectorAll('#edition-grid .edition-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.edition === e);
+      });
+      updateAllCTAs();
+    }
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      document.getElementById('mobile-menu').classList.toggle('open', menuOpen);
+      document.getElementById('icon-menu').style.display = menuOpen ? 'none' : '';
+      document.getElementById('icon-x').style.display = menuOpen ? '' : 'none';
+    }
+
+    function scrollTo(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleAccordion(btn) {
+      const item = btn.closest('.accordion-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.accordion-item.open').forEach(i => i.classList.remove('open'));
+      // Open clicked if it wasn't open
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ── Scroll-triggered floating CTA ──
+    window.addEventListener('scroll', function () {
+      const floatingCta = document.getElementById('floating-cta');
+      if (window.scrollY > 350) {
+        floatingCta.classList.add('visible');
+      } else {
+        floatingCta.classList.remove('visible');
       }
-    });
-  }, { threshold: 0.1 });
+    }, { passive: true });
 
-  document.querySelectorAll('[data-observe]').forEach(function(el) {
-    observer.observe(el);
-  });
-</script>
+    // ── About Game Slider Logic ──
+    let currentSlide = 0;
+    const totalSlides = 5;
+
+    function updateSlider() {
+      const track = document.getElementById('about-slider-track');
+      if (track) {
+        track.style.transform = `translateX(-${currentSlide * 20}%)`;
+      }
+      const dots = document.querySelectorAll('.slider-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlider();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlider();
+    }
+
+    function setSlide(index) {
+      currentSlide = index;
+      updateSlider();
+    }
+
+    let slideInterval = setInterval(nextSlide, 5000);
+
+    function resetSlideInterval() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    window.nextSlideManually = function() {
+      nextSlide();
+      resetSlideInterval();
+    };
+
+    window.prevSlideManually = function() {
+      prevSlide();
+      resetSlideInterval();
+    };
+
+    window.setSlideManually = function(index) {
+      setSlide(index);
+      resetSlideInterval();
+    };
+
+    // ── Intersection Observer for card animations ──
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-observe]').forEach(function (el) {
+      observer.observe(el);
+    });
+  </script>
 </body>
+
 </html>

@@ -108,16 +108,19 @@ def index():
 
 
 @app.get("/checkout", response_class=HTMLResponse)
+@app.get("/checkout.html", response_class=HTMLResponse)
 def checkout():
     return HTMLResponse(_CHECKOUT_HTML)
 
 
 @app.get("/obrigado", response_class=HTMLResponse)
+@app.get("/obrigado.html", response_class=HTMLResponse)
 def obrigado():
     return HTMLResponse(_OBRIGADO_HTML)
 
 
 @app.get("/blog", response_class=HTMLResponse)
+@app.get("/blog.html", response_class=HTMLResponse)
 def blog():
     return HTMLResponse(_BLOG_HTML)
 

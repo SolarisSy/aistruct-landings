@@ -28,6 +28,29 @@
       font-family: var(--font-body);
       min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+    .checkout-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: url('/assets/checkout-mobile.png');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
+    @media (min-width: 768px) {
+      .checkout-bg {
+        background-image: url('/assets/checkout-hero.jpg');
+        background-position: center center;
+      }
+    }
+    .checkout-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(circle at center, rgba(9, 9, 11, 0.4) 0%, rgba(9, 9, 11, 0.85) 100%),
+                  linear-gradient(to bottom, rgba(9, 9, 11, 0.9) 0%, rgba(9, 9, 11, 0.7) 50%, rgba(9, 9, 11, 0.9) 100%);
     }
     a { color: inherit; text-decoration: none; }
     input, select, textarea { font: inherit; }
@@ -378,6 +401,49 @@
     }
     .security-item svg { color: var(--primary); flex-shrink: 0; }
 
+    /* Coupon badge (checkout) */
+    .checkout-coupon-wrap {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .checkout-coupon-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 2px dashed rgba(74, 222, 128, 0.55);
+      border-radius: 10px;
+      padding: 10px 16px;
+      box-shadow: 0 0 14px rgba(74, 222, 128, 0.1), inset 0 0 10px rgba(74, 222, 128, 0.04);
+    }
+    .checkout-coupon-badge-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #4ade80;
+      letter-spacing: 0.02em;
+    }
+    .checkout-coupon-badge-text strong {
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 10px rgba(74, 222, 128, 0.45);
+    }
+    .checkout-coupon-sub {
+      font-size: 11px;
+      color: rgba(74, 222, 128, 0.6);
+      padding-left: 2px;
+    }
+    .summary-line.discount {
+      color: #4ade80;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .summary-line.discount span:last-child {
+      font-weight: 700;
+      color: #4ade80;
+    }
+
     /* Error */
     .global-error {
       display: none;
@@ -390,9 +456,110 @@
       margin-bottom: 16px;
     }
     .global-error.visible { display: block; }
+
+    /* Mercado Pago Info Box */
+    .mp-info-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(0, 158, 227, 0.05);
+      border: 1px solid rgba(0, 158, 227, 0.2);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .mp-info-box:hover {
+      background: rgba(0, 158, 227, 0.08);
+      border-color: rgba(0, 158, 227, 0.35);
+    }
+    .mp-info-box.summary-version {
+      justify-content: flex-start;
+      margin-top: 8px;
+      font-size: 12.5px;
+      padding: 8px 12px;
+    }
+    .mp-checkmark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+    .mp-logo-badge {
+      background: #ffffff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .mp-logo-badge img {
+      height: 14px;
+      width: auto;
+      display: block;
+    }
+    .mp-text-prefix {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .mp-text-suffix {
+      font-size: 13px;
+      font-weight: 700;
+      color: #009ee3;
+      margin-left: 2px;
+    }
+    .important-info-box {
+      background: rgba(11, 59, 140, 0.22);
+      border: 1px solid rgba(0, 158, 227, 0.25);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+    .important-info-box .info-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 14px;
+      font-family: var(--font-body);
+    }
+    .important-info-box .info-icon {
+      width: 18px;
+      height: 18px;
+      color: #009ee3;
+      flex-shrink: 0;
+    }
+    .important-info-box .info-list {
+      list-style-type: disc;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .important-info-box .info-list li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .important-info-box .info-list li a {
+      color: #009ee3;
+      text-decoration: underline;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
+  <div class="checkout-bg"></div>
+  <div class="checkout-overlay"></div>
 
 <header class="checkout-header">
   <a href="/" class="back-link">
@@ -432,9 +599,28 @@
             <div class="field-error">CPF inválido</div>
           </div>
           <div class="field" id="field-phone">
-            <label>Celular</label>
-            <input type="tel" name="phone" placeholder="(11) 99999-9999" maxlength="15" inputmode="numeric">
+            <label>Celular *</label>
+            <input type="tel" name="phone" placeholder="(11) 99999-9999" maxlength="15" inputmode="numeric" required>
+            <div class="field-error">Celular obrigatório</div>
           </div>
+        </div>
+        <div class="field" id="field-birthdate">
+          <label>Data de nascimento *</label>
+          <input type="text" name="birthdate" id="birthdate-input" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric" autocomplete="bday" required>
+          <div class="field-error">Data inválida</div>
+        </div>
+        <div class="field" id="field-payment-method">
+          <label>Opção de pagamento</label>
+          <select id="payment-method-select" name="payment_method">
+            <option value="installments" selected>Parcelado no Pix (via Mercado Pago)</option>
+            <option value="single">À vista no Pix</option>
+          </select>
+        </div>
+        <div class="field" id="field-installments">
+          <label>Número de parcelas</label>
+          <select id="installments-select" name="installments_qty">
+            <!-- Será populado dinamicamente via JS -->
+          </select>
         </div>
         <div style="height:8px"></div>
         <button type="submit" class="btn-submit" id="submit-btn">
@@ -443,9 +629,21 @@
             Gerar PIX — <span id="submit-price">R$ 44,99</span>
           </span>
         </button>
-        <p class="form-note" style="font-weight:700;color:#FF1564;">
-          1ª parcela no PIX · demais em 10x sem juros
+        <p class="form-note" style="font-weight:700;color:#FF1564;margin-bottom:12px;">
+          1ª parcela no PIX · até 9x sem juros via Mercado Pago
         </p>
+        <div class="mp-info-box" style="margin-bottom:12px;">
+          <div class="mp-checkmark">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <span class="mp-text-prefix">Parcelado via</span>
+          <div class="mp-logo-badge">
+            <img src="/assets/mercado-pago-icon.svg" alt="Mercado Pago">
+          </div>
+          <span class="mp-text-suffix">Mercado Pago</span>
+        </div>
         <p class="form-note">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           Pagamento 100% seguro e criptografado
@@ -486,6 +684,23 @@
         <span style="font-size:13px;color:var(--muted)">Redirecionando...</span>
       </div>
     </div>
+
+    <div class="important-info-box">
+      <div class="info-title">
+        <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>Informações importantes:</span>
+      </div>
+      <ul class="info-list">
+        <li>Todos os itens são entregues apenas de forma digital por download ou créditos direto na conta e estão sujeitos à política de reembolso.</li>
+        <li>Verifique os requisitos de sistema na página de cada jogo e os <a href="#" target="_blank">Termos de Uso</a> antes de realizar a compra.</li>
+        <li>Alguns itens possuem limite temporário de compra e podem levar em torno de 2 dias para poder fazer uma nova compra do mesmo item.</li>
+        <li>Inserir produtos ou cupons no carrinho não garante a reserva das promoções ativas.</li>
+      </ul>
+    </div>
   </div>
 
   <!-- Right: Summary -->
@@ -500,24 +715,36 @@
         </div>
       </div>
       <div class="summary-line">
-        <span>1ª Parcela</span>
+        <span id="summary-subtotal-label">1ª Parcela</span>
         <span id="summary-subtotal">R$ 44,99</span>
       </div>
-      <div class="summary-line">
-        <span>Frete digital</span>
-        <span style="color:#22c55e">Grátis</span>
+      <div class="summary-line discount" id="summary-discount-line">
+        <span>Cupom de desconto</span>
+        <span id="summary-discount">-R$ 2,70</span>
       </div>
       <div class="summary-line total">
         <span>Total agora</span>
-        <span id="summary-total">R$ 44,99</span>
+        <span id="summary-total">R$ 42,29</span>
       </div>
       <div class="payment-method">
         <div class="pix-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6.012 20.25c1.012 0 1.968-.395 2.685-1.112l2.96-2.96c.217-.218.504-.338.808-.338s.59.12.808.338l2.972 2.972a3.784 3.784 0 0 0 2.685 1.112h.586l-3.75-3.75a1.876 1.876 0 0 1 0-2.65l3.75-3.75H20.1a3.784 3.784 0 0 0-2.685 1.112l-2.96 2.96a1.132 1.132 0 0 1-.808.338 1.132 1.132 0 0 1-.808-.338l-2.96-2.96a3.784 3.784 0 0 0-2.685-1.112H5.4l3.75 3.75a1.876 1.876 0 0 1 0 2.65L5.4 20.25h.612ZM3.9 17.5l3.75-3.75a1.876 1.876 0 0 1 0-2.65L3.9 7.35a3.784 3.784 0 0 0-1.112 2.685v4.73a3.784 3.784 0 0 0 1.112 2.735ZM6.012 3.75a3.784 3.784 0 0 0-2.685 1.112l-.427.427h.688a1.876 1.876 0 0 1 1.325.55l3.75 3.75a1.132 1.132 0 0 0 .808.338c.304 0 .591-.12.808-.338l2.96-2.96a3.784 3.784 0 0 1 2.685-1.112H16.5l-.427-.427A3.784 3.784 0 0 0 13.388 3.75H6.012ZM20.1 3.75h-.586l-3.75 3.75a1.876 1.876 0 0 1 0 2.65l3.75 3.75h.586a3.784 3.784 0 0 0 2.685-1.112V4.862A3.784 3.784 0 0 0 20.1 3.75Z"/>
+            <path d="M5.283 18.36a3.505 3.505 0 0 0 2.493-1.032l3.6-3.6a.684.684 0 0 1 .946 0l3.613 3.613a3.504 3.504 0 0 0 2.493 1.032h.71l-4.56 4.56a3.647 3.647 0 0 1-5.156 0L4.85 18.36ZM18.428 5.627a3.505 3.505 0 0 0-2.493 1.032l-3.613 3.614a.67.67 0 0 1-.946 0l-3.6-3.6A3.505 3.505 0 0 0 5.283 5.64h-.434l4.573-4.572a3.646 3.646 0 0 1 5.156 0l4.559 4.559ZM1.068 9.422 3.79 6.699h1.492a2.483 2.483 0 0 1 1.744.722l3.6 3.6a1.73 1.73 0 0 0 2.443 0l3.614-3.613a2.482 2.482 0 0 1 1.744-.723h1.767l2.737 2.737a3.646 3.646 0 0 1 0 5.156l-2.736 2.736h-1.768a2.482 2.482 0 0 1-1.744-.722l-3.613-3.613a1.77 1.77 0 0 0-2.444 0l-3.6 3.6a2.483 2.483 0 0 1-1.744.722H3.791l-2.723-2.723a3.646 3.646 0 0 1 0-5.156"/>
           </svg>
         </div>
-        <span>Pix — confirmação instantânea</span>
+        <span>Pix - confirmação instantânea</span>
+      </div>
+      <div class="mp-info-box summary-version">
+        <div class="mp-checkmark">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <span class="mp-text-prefix">Parcelado via</span>
+        <div class="mp-logo-badge">
+          <img src="/assets/mercado-pago-icon.svg" alt="Mercado Pago">
+        </div>
+        <span class="mp-text-suffix">Mercado Pago</span>
       </div>
       <div class="security-list">
         <div class="security-item">
@@ -533,6 +760,17 @@
           Reembolso garantido
         </div>
       </div>
+
+      <!-- Coupon badge -->
+      <div class="checkout-coupon-wrap">
+        <div class="checkout-coupon-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span class="checkout-coupon-badge-text">Cupom <strong>GTA6</strong> aplicado</span>
+        </div>
+        <p class="checkout-coupon-sub">Cupom de desconto já aplicado pro seu GTA VI ficar mais barato</p>
+      </div>
     </div>
   </div>
 
@@ -544,20 +782,87 @@
   const edition = params.get('edition') || 'standard';
   const platform = params.get('platform') || 'ps5';
 
-  const PRICES = { standard: 44.99, ultimate: 54.99 };  // 1ª parcela
+  const TOTAL_PRICES    = { standard: 449.90, ultimate: 549.90 };
+  const DISCOUNT_RATE   = 0.06; // cupom GTA6 — 6%
+  const TOTAL_DISCOUNTED = {
+    standard: +(449.90 * (1 - DISCOUNT_RATE)).toFixed(2),
+    ultimate: +(549.90 * (1 - DISCOUNT_RATE)).toFixed(2)
+  };
   const EDITION_NAMES = { standard: 'GTA VI — Edição Standard', ultimate: 'GTA VI — Edição Ultimate' };
   const PLATFORM_NAMES = { ps5: 'PlayStation 5', xbox: 'Xbox Series X|S' };
 
-  const price = PRICES[edition] || 44.99;
-  const parcStr = price.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+  const totalOriginal   = TOTAL_PRICES[edition]    || 449.90;
+  const totalDiscounted = TOTAL_DISCOUNTED[edition] || TOTAL_DISCOUNTED.standard;
   const editionName = EDITION_NAMES[edition] || EDITION_NAMES.standard;
   const platformName = PLATFORM_NAMES[platform] || PLATFORM_NAMES.ps5;
 
-  document.getElementById('submit-price').textContent = 'R$ ' + parcStr;
   document.getElementById('summary-edition-name').textContent = editionName;
   document.getElementById('summary-platform-name').textContent = platformName;
-  document.getElementById('summary-subtotal').textContent = '1ª Parcela';
-  document.getElementById('summary-total').textContent = 'R$ ' + parcStr;
+
+  // Taxa de juros mensal não aplicada — todas as parcelas são sem juros
+
+  function calcInstallmentValue(total, n) {
+    return total / n; // sem juros
+  }
+
+  function populateInstallments() {
+    const select = document.getElementById('installments-select');
+    select.innerHTML = '';
+
+    // 9x → 2x sem juros (ordem decrescente, melhor opção primeiro)
+    for (let i = 9; i >= 2; i--) {
+      const partVal = calcInstallmentValue(totalDiscounted, i);
+      const partStr = partVal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${i}x de R$ ${partStr} — sem juros`;
+      if (i === 9) opt.selected = true;
+      select.appendChild(opt);
+    }
+  }
+
+  let selectedPriceNow = calcInstallmentValue(totalDiscounted, 9);
+
+  function updatePrices() {
+    const method = document.getElementById('payment-method-select').value;
+    const isSingle = method === 'single';
+
+    const installmentsField = document.getElementById('field-installments');
+    installmentsField.style.display = isSingle ? 'none' : 'block';
+
+    let originalNow, discountedNow;
+    if (isSingle) {
+      originalNow   = totalOriginal;
+      discountedNow = totalDiscounted;
+    } else {
+      const count = parseInt(document.getElementById('installments-select').value) || 9;
+      originalNow   = calcInstallmentValue(totalOriginal, count);
+      discountedNow = calcInstallmentValue(totalDiscounted, count);
+    }
+    selectedPriceNow = discountedNow;
+
+    const discountAmt = originalNow - discountedNow;
+    const fmt = v => v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    document.getElementById('submit-price').textContent = 'R$ ' + fmt(discountedNow);
+    document.getElementById('summary-subtotal-label').textContent = isSingle ? 'Total à vista' : '1ª Parcela';
+    document.getElementById('summary-subtotal').textContent = 'R$ ' + fmt(originalNow);
+    document.getElementById('summary-discount').textContent = '-R$ ' + fmt(discountAmt);
+    document.getElementById('summary-total').textContent = 'R$ ' + fmt(discountedNow);
+
+    const badgesText = isSingle ? 'Processado via' : 'Parcelado via';
+    document.querySelectorAll('.mp-text-prefix').forEach(el => {
+      el.textContent = badgesText;
+    });
+  }
+
+  // Inicializa
+  populateInstallments();
+  updatePrices();
+
+  // Event Listeners
+  document.getElementById('payment-method-select').addEventListener('change', updatePrices);
+  document.getElementById('installments-select').addEventListener('change', updatePrices);
 
   // ── CPF mask ──
   const cpfInput = document.querySelector('input[name=cpf]');
@@ -578,6 +883,66 @@
     else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
     else v = v.replace(/(\d{0,2})/, '($1');
     this.value = v;
+  });
+
+  // ── Birthdate mask + validation (DD/MM/AAAA) ──
+  const birthdateInput = document.getElementById('birthdate-input');
+  birthdateInput.addEventListener('input', function(e) {
+    // Guarda a posição do cursor antes de qualquer modificação
+    const raw = this.value.replace(/\D/g, '').slice(0, 8);
+    let d = raw;
+
+    // ── Dia (dígitos 0-1) ──
+    if (d.length >= 1) {
+      // Primeiro dígito do dia: só pode ser 0, 1, 2 ou 3
+      let d0 = parseInt(d[0]);
+      if (d0 > 3) d = '3' + d.slice(1);
+    }
+    if (d.length >= 2) {
+      // Segundo dígito do dia: limita conforme o primeiro
+      let d0 = parseInt(d[0]);
+      let d1 = parseInt(d[1]);
+      const maxD1 = d0 === 3 ? 1 : 9; // 31 é o máximo; se d0=0 só aceita 01-09
+      if (d0 === 0 && d1 === 0) d = d[0] + '1' + d.slice(2); // 00 não existe
+      if (d1 > maxD1) d = d[0] + String(maxD1) + d.slice(2);
+    }
+
+    // ── Mês (dígitos 2-3) ──
+    if (d.length >= 3) {
+      // Primeiro dígito do mês: só pode ser 0 ou 1
+      let m0 = parseInt(d[2]);
+      if (m0 > 1) d = d.slice(0, 2) + '1' + d.slice(3);
+    }
+    if (d.length >= 4) {
+      let m0 = parseInt(d[2]);
+      let m1 = parseInt(d[3]);
+      const maxM1 = m0 === 1 ? 2 : 9; // mês máx 12; se m0=0 aceita 01-09
+      if (m0 === 0 && m1 === 0) d = d.slice(0, 3) + '1' + d.slice(4); // 00 não existe
+      if (m1 > maxM1) d = d.slice(0, 3) + String(maxM1) + d.slice(4);
+    }
+
+    // ── Ano (dígitos 4-7) ──
+    if (d.length >= 5) {
+      // Primeiro dígito do ano: só pode ser 1 ou 2
+      let y0 = parseInt(d[4]);
+      if (y0 < 1) d = d.slice(0, 4) + '1' + d.slice(5);
+      if (y0 > 2) d = d.slice(0, 4) + '2' + d.slice(5);
+    }
+    if (d.length === 8) {
+      // Ano completo: limita entre 1900 e ano atual
+      const currentYear = new Date().getFullYear();
+      let year = parseInt(d.slice(4, 8));
+      if (year < 1900) year = 1900;
+      if (year > currentYear) year = currentYear;
+      d = d.slice(0, 4) + String(year);
+    }
+
+    // ── Aplica máscara DD/MM/AAAA ──
+    let formatted = d;
+    if (d.length > 4) formatted = d.slice(0, 2) + '/' + d.slice(2, 4) + '/' + d.slice(4);
+    else if (d.length > 2) formatted = d.slice(0, 2) + '/' + d.slice(2);
+
+    this.value = formatted;
   });
 
   // ── Validation ──
@@ -606,6 +971,10 @@
     err = setError('field-name', !fd.name.trim()) || err;
     err = setError('field-email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fd.email)) || err;
     err = setError('field-cpf', !validateCPF(fd.cpf)) || err;
+    const phoneDigits = (fd.phone || '').replace(/\D/g, '');
+    err = setError('field-phone', phoneDigits.length < 10) || err;
+    const bdate = (fd.birthdate || '').replace(/\D/g, '');
+    err = setError('field-birthdate', bdate.length !== 8) || err;
     return !err;
   }
 
@@ -653,7 +1022,7 @@
           document.getElementById('status-bar').style.borderColor = 'rgba(34,197,94,0.5)';
           document.getElementById('status-bar').style.background = 'rgba(34,197,94,0.08)';
           document.getElementById('status-paid').style.display = 'flex';
-          setTimeout(() => { location.href = '/obrigado'; }, 2000);
+          setTimeout(() => { location.href = '/obrigado.html'; }, 2000);
         }
       } catch(e) {}
     }, 3000);
@@ -699,7 +1068,7 @@
         customer: fd,
         edition: edition,
         platform: platform,
-        price: price,
+        price: selectedPriceNow,
         externalRef: 'gta6-' + Date.now(),
       };
       const r = await fetch('/api/pagamento/pix', {
