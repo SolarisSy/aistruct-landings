@@ -25,6 +25,16 @@ GET  /healthz          <- liveness
 GET  /                 <- info
 GET  /debug/stats      <- contadores
 
+STRIPE (checkout 100% nosso — Payment Element; roda EM PARALELO ao Paggins):
+POST /stripe/checkout  <- carrinho + customer/address COMPLETOS (nossa página coleta
+                          tudo: CPF/endereço obrigatórios — não há "passo 2" externo)
+                          -> cria PaymentIntent (total server-side: catálogo + cupom
+                          + frete Mandaê) -> {clientSecret, publishableKey, ...}
+POST /stripe/webhook   <- eventos Stripe (assinatura Stripe-Signature) ->
+                          payment_intent.succeeded marca pedido pago -> Bling direto
+                          (dados já completos; sem enrich)
+GET  /stripe/session/{pi} <- status do PaymentIntent (pro /obrigado; PIX = processing)
+
 Env:
   PAGGINS_API_KEY  - sk_live_... — setar no Easypanel, NUNCA no git
   PAGGINS_API_URL  - default https://api.paggins.com
@@ -36,6 +46,8 @@ Env:
   MANDAE_TOKEN     - token da API Mandaê (cálculo de frete) — setar no Easypanel
   MANDAE_CUSTOMER_ID - customerId Mandaê (referência; envio é via Bling)
   BLING_CLIENT_ID / BLING_CLIENT_SECRET / BLING_REFRESH_TOKEN - ver bling.py
+  STRIPE_SECRET_KEY / STRIPE_PUBLISHABLE_KEY / STRIPE_WEBHOOK_SECRET - checkout
+                     Stripe (sk_test/pk_test em teste); ausentes = rotas /stripe 503
 """
 from __future__ import annotations
 
@@ -128,7 +140,7 @@ def _coupon_discount(raw_coupon: Any) -> tuple[str, int]:
 if not os.path.isdir(os.path.dirname(LEADS_DB) or "."):
     LEADS_DB = "./leads.db"  # dev local sem volume
 
-app = FastAPI(title="HYU cart -> Paggins bridge", version="1.5.0")
+app = FastAPI(title="HYU cart -> Paggins bridge", version="1.6.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=HYU_ORIGINS + [
@@ -977,9 +989,273 @@ async def bling_retry(pid: int, request: Request):
             "bling_order_id": p["bling_order_id"], "bling_error": p["bling_error"]}
 
 
+# ═══════════════════ STRIPE (checkout 100% nosso — Payment Element) ═══════════
+# A página /checkout é NOSSA (checkout-stripe.js no site): coleta contato + CPF +
+# endereço + frete + cupom e monta o Payment Element. Este bloco só cria o
+# PaymentIntent (total SEMPRE server-side) e confirma via webhook. Roda em
+# paralelo ao Paggins — nenhuma rota antiga muda. Sem SDK: REST form-encoded
+# via httpx (padrão do serviço). docs.stripe.com/api/payment_intents
+
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "").strip()
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "").strip()
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "").strip()
+STRIPE_API = "https://api.stripe.com/v1"
+STATS.update({"stripe_received": 0, "stripe_created": 0, "stripe_error": 0,
+              "stripe_webhook_received": 0, "stripe_webhook_paid": 0,
+              "stripe_webhook_bad_sig": 0})
+
+
+def _stripe_flat(d: dict, prefix: str = "") -> dict[str, str]:
+    """Achata dict aninhado pra bracket notation form-encoded da Stripe:
+    {"shipping":{"address":{"city":"SP"}}} -> {"shipping[address][city]":"SP"}."""
+    out: dict[str, str] = {}
+    for k, v in d.items():
+        key = f"{prefix}[{k}]" if prefix else str(k)
+        if isinstance(v, dict):
+            out.update(_stripe_flat(v, key))
+        elif isinstance(v, (list, tuple)):
+            for i, item in enumerate(v):
+                if isinstance(item, dict):
+                    out.update(_stripe_flat(item, f"{key}[{i}]"))
+                else:
+                    out[f"{key}[{i}]"] = str(item)
+        elif isinstance(v, bool):
+            out[key] = "true" if v else "false"
+        elif v is not None:
+            out[key] = str(v)
+    return out
+
+
+async def _stripe_call(method: str, path: str, data: dict | None = None,
+                       idem_key: str | None = None) -> dict:
+    if not STRIPE_SECRET_KEY:
+        raise HTTPException(503, "stripe nao configurado (STRIPE_SECRET_KEY ausente)")
+    headers = {}
+    if idem_key:
+        headers["Idempotency-Key"] = idem_key
+    try:
+        async with httpx.AsyncClient(timeout=30, auth=(STRIPE_SECRET_KEY, "")) as c:
+            r = await c.request(method, f"{STRIPE_API}{path}", headers=headers,
+                                data=_stripe_flat(data) if data else None)
+    except httpx.HTTPError as e:
+        raise HTTPException(502, f"stripe indisponivel: {str(e)[:80]}")
+    body = {}
+    try:
+        body = r.json()
+    except Exception:
+        pass
+    if r.status_code >= 400:
+        msg = (body.get("error") or {}).get("message", "")[:200]
+        log.error("stripe %s %s -> %s: %s", method, path, r.status_code, msg or r.text[:200])
+        STATS["stripe_error"] += 1
+        # 402 = pagamento recusado etc; 4xx de request nosso vira 502 genérico
+        raise HTTPException(502, "checkout indisponivel")
+    return body
+
+
+@app.post("/stripe/checkout")
+async def stripe_checkout(request: Request):
+    """Cria o PaymentIntent pro checkout NOSSO. Aqui customer+address são
+    OBRIGATÓRIOS e completos (CPF incluso) — não existe passo 2 externo que
+    colete depois; a NF-e sai 100% do nosso registro."""
+    STATS["stripe_received"] += 1
+    try:
+        payload = await request.json()
+    except Exception:
+        STATS["bad_request"] += 1
+        raise HTTPException(400, "JSON invalido")
+    try:
+        lines = _cart_lines(payload.get("items"))
+        customer, address = _parse_customer_address(payload)
+    except HTTPException:
+        STATS["bad_request"] += 1
+        raise
+    if not (customer and address):
+        raise HTTPException(400, "customer e address obrigatorios")
+    if not customer["document"]:
+        raise HTTPException(400, "CPF obrigatorio")
+    if not (address["street"] and address["number"] and address["city"]
+            and len(address["state"]) == 2):
+        raise HTTPException(400, "endereco completo obrigatorio (rua/numero/cidade/UF)")
+    if not customer["phone"]:
+        raise HTTPException(400, "whatsapp obrigatorio (DDD + numero)")
+
+    subtotal = sum(ln["cents"] * ln["qty"] for ln in lines)
+    cans = sum(ln["cans"] for ln in lines)
+
+    # cupom: mesmo arredondamento por-unidade do fluxo Paggins (= display do front)
+    coupon_code, discount_pct = _coupon_discount(payload.get("coupon"))
+    disc_subtotal = subtotal
+    if discount_pct:
+        disc_subtotal = sum(
+            max(1, (ln["cents"] * (100 - discount_pct) + 50) // 100) * ln["qty"]
+            for ln in lines)
+
+    # frete: mesma régua do Paggins (>=12 latas grátis; senão Mandaê real por CEP)
+    frete_cents, frete_service = 0, "gratis"
+    if cans < FREE_SHIPPING_CANS:
+        options = await _mandae_rates(address["cep"], cans, subtotal)
+        wanted = str((payload.get("shipping") or {}).get("service") or "economico")
+        opt = next((o for o in options if o["service"] == wanted), options[0])
+        frete_cents, frete_service = opt["cents"], opt["service"]
+
+    total = disc_subtotal + frete_cents
+    if total < 100:  # guarda-corpo: mínimo da Stripe (~R$0,50) com folga
+        raise HTTPException(400, "total abaixo do minimo")
+
+    order_id = f"hyu-{uuid.uuid4().hex[:12]}"
+    metadata = _build_metadata(payload.get("meta"))
+    metadata["gw"] = "stripe"
+    if discount_pct:
+        metadata["coupon"] = coupon_code
+        metadata["discount_pct"] = str(discount_pct)
+    items_txt = " + ".join(
+        (f"{ln['qty']}x " if ln["qty"] > 1 else "") + ln["name"] for ln in lines)
+    pi_meta = {"order_id": order_id, "cpf": customer["document"],
+               "items": items_txt[:480], **metadata}
+    pi = await _stripe_call("POST", "/payment_intents", {
+        "amount": total,
+        "currency": "brl",
+        "automatic_payment_methods": {"enabled": True},
+        "description": f"HYU {order_id} — {items_txt}"[:900],
+        "receipt_email": customer["email"],
+        "metadata": pi_meta,
+        "shipping": {
+            "name": customer["name"],
+            "phone": f"+55{customer['phone']}",
+            "address": {
+                "line1": f"{address['street']}, {address['number']}",
+                "line2": (f"{address['complement']} — " if address["complement"]
+                          else "") + address["neighborhood"],
+                "city": address["city"], "state": address["state"],
+                "postal_code": address["cep"], "country": "BR",
+            },
+        },
+    }, idem_key=order_id)
+
+    pi_id = str(pi.get("id") or "")
+    client_secret = str(pi.get("client_secret") or "")
+    if not (pi_id and client_secret):
+        STATS["stripe_error"] += 1
+        raise HTTPException(502, "checkout indisponivel")
+    conn = _db()
+    try:
+        conn.execute(
+            "INSERT INTO pedidos (ts, order_id, session_id, status, "
+            "name, document, email, phone, cep, street, number, "
+            "complement, neighborhood, city, state, items, "
+            "subtotal_cents, frete_cents, frete_service, total_cents, "
+            "coupon, meta, bling_status) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (datetime.now(timezone.utc).isoformat(timespec="seconds"),
+             order_id, pi_id, "created",
+             customer["name"], customer["document"],
+             customer["email"], customer["phone"],
+             address["cep"], address["street"], address["number"],
+             address["complement"], address["neighborhood"],
+             address["city"], address["state"],
+             json.dumps([{k: ln[k] for k in ("sku", "name", "qty", "cents", "cans")}
+                         for ln in lines], ensure_ascii=False),
+             subtotal, frete_cents, frete_service, total,
+             coupon_code, json.dumps(metadata, ensure_ascii=False), ""))
+        conn.commit()
+    finally:
+        conn.close()
+    STATS["stripe_created"] += 1
+    log.info("stripe checkout %s -> %s total=%s frete=%s/%s coupon=%s", order_id,
+             pi_id, total, frete_service or "-", frete_cents, coupon_code or "-")
+    return {"clientSecret": client_secret, "publishableKey": STRIPE_PUBLISHABLE_KEY,
+            "orderId": order_id, "totalCents": total, "subtotalCents": subtotal,
+            "freteCents": frete_cents, "freteService": frete_service,
+            "coupon": coupon_code, "discountPct": discount_pct}
+
+
+def _stripe_webhook_verified(raw: bytes, header: str) -> bool:
+    """Stripe-Signature: 't=<ts>,v1=<hmac>,...' — HMAC-SHA256 do '<ts>.<raw>' com
+    o STRIPE_WEBHOOK_SECRET (whsec_... usado como chave, INTEIRO). Tolerância 10min."""
+    if not (STRIPE_WEBHOOK_SECRET and header):
+        return False
+    parts = dict(p.split("=", 1) for p in header.split(",") if "=" in p)
+    ts, v1s = parts.get("t", ""), [v for k, v in
+                                   (p.split("=", 1) for p in header.split(",") if "=" in p)
+                                   if k == "v1"]
+    if not (ts.isdigit() and v1s):
+        return False
+    if abs(time.time() - int(ts)) > 600:
+        return False
+    expected = hmac.new(STRIPE_WEBHOOK_SECRET.encode(),
+                        f"{ts}.".encode() + raw, hashlib.sha256).hexdigest()
+    return any(hmac.compare_digest(expected, v) for v in v1s)
+
+
+@app.post("/stripe/webhook")
+async def stripe_webhook(request: Request):
+    """payment_intent.succeeded -> pedido pago -> Bling. Assinatura ESTRITA
+    (diferente do Paggins: o esquema da Stripe é documentado e estável) —
+    mismatch = 400 e a Stripe re-tenta."""
+    raw = await request.body()
+    STATS["stripe_webhook_received"] += 1
+    if not _stripe_webhook_verified(raw, request.headers.get("stripe-signature", "")):
+        STATS["stripe_webhook_bad_sig"] += 1
+        raise HTTPException(400, "assinatura invalida")
+    try:
+        ev = json.loads(raw or b"{}")
+    except Exception:
+        raise HTTPException(400, "JSON invalido")
+    event = str(ev.get("type") or "")
+    obj = (ev.get("data") or {}).get("object") or {}
+    pi_id = str(obj.get("id") or "")
+    if event == "payment_intent.succeeded" and pi_id:
+        amount = obj.get("amount_received") or obj.get("amount")
+        order_id = str((obj.get("metadata") or {}).get("order_id") or "")
+        ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        pedido_id = None
+        conn = _db()
+        try:
+            conn.execute(
+                "INSERT INTO orders (ts, session_id, order_id, event, status, "
+                "amount_cents, verified, payload) VALUES (?,?,?,?,?,?,?,?)",
+                (ts, pi_id, order_id, event, "paid", amount, 1,
+                 json.dumps(ev, ensure_ascii=False)[:4000]))
+            row = conn.execute(
+                "SELECT id FROM pedidos WHERE session_id=? ORDER BY id DESC LIMIT 1",
+                (pi_id,)).fetchone()
+            if row:
+                pedido_id = row[0]
+                conn.execute("UPDATE pedidos SET status='paid', paid_ts=? WHERE id=?",
+                             (ts, pedido_id))
+            conn.commit()
+        finally:
+            conn.close()
+        STATS["stripe_webhook_paid"] += 1
+        log.info("stripe webhook PAGO: %s pi=%s order=%s amount=%s pedido=%s",
+                 event, pi_id, order_id, amount, pedido_id)
+        # dados já completos (nossa página coletou tudo) — Bling direto, sem enrich
+        if pedido_id:
+            asyncio.create_task(_bling_dispatch(pedido_id))
+    elif event == "payment_intent.payment_failed":
+        log.warning("stripe webhook FALHA pi=%s: %s", pi_id,
+                    ((obj.get("last_payment_error") or {}).get("message") or "")[:200])
+    return {"received": True}
+
+
+@app.get("/stripe/session/{pi_id}")
+async def stripe_session(pi_id: str):
+    """Status do PaymentIntent (pro /obrigado). PIX é assíncrono: 'processing'
+    até o webhook confirmar — a página mostra 'aguardando confirmação'."""
+    if not re.match(r"^pi_[A-Za-z0-9]+$", pi_id):
+        raise HTTPException(400, "payment_intent invalido")
+    pi = await _stripe_call("GET", f"/payment_intents/{pi_id}")
+    status = str(pi.get("status") or "")
+    return {"id": pi.get("id"), "status": status,
+            "paymentStatus": "paid" if status == "succeeded" else status,
+            "totalAmount": pi.get("amount"), "currency": pi.get("currency")}
+
+
 @app.get("/healthz")
 async def healthz():
-    return {"ok": True, "has_key": bool(PAGGINS_API_KEY)}
+    return {"ok": True, "has_key": bool(PAGGINS_API_KEY),
+            "stripe": bool(STRIPE_SECRET_KEY and STRIPE_PUBLISHABLE_KEY)}
 
 
 @app.get("/")
