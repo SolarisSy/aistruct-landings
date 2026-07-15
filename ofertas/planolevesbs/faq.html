@@ -8,67 +8,87 @@
 <link rel="canonical" href="https://planoleve.sbs/faq.html">
 <meta name="robots" content="index, follow">
 <style>
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/SpaceGrotesk-400.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/SpaceGrotesk-500.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/SpaceGrotesk-700.woff2') format('woff2')}
 *,*::before,*::after{box-sizing:border-box}
-:root{--teal:#0d9488;--teal-3:#5eead4;--teal-ink:#0f766e;--ink:#0f172a;--body:#334155;--muted:#64748b;--line:#e2e8f0;--bg:#f4f7f9;--card:#ffffff;--soft:#ecfdf5;--soft-2:#f0fdfa;--shadow-sm:0 1px 3px rgba(15,23,42,.08);--radius:18px;--wrap:1120px;--grad:linear-gradient(135deg,#0d9488 0%,#14b8a6 55%,#2dd4bf 100%);--grad-soft:linear-gradient(135deg,#ecfdf5 0%,#f0fdfa 100%)}
+:root{
+  --paper:#f6f4ef;--paper-2:#eeebe2;--ink:#1b1c1e;--ink-soft:#43454a;
+  --muted:#7a7568;--line:#d9d3c5;--line-strong:#c1b9a7;
+  --sage:#5f7a63;--sage-deep:#3f5443;--sage-tint:#e8ece4;
+  --radius:3px;--wrap:1160px;--wrap-narrow:760px;
+  --font-display:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;
+  --font-body:Georgia,'Iowan Old Style','Times New Roman',serif;
+  --s-1:.5rem;--s-2:1rem;--s-3:1.5rem;--s-4:2.5rem;--s-5:4rem;--s-6:6rem;
+}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--body);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
-a{color:var(--teal-ink);text-decoration:none}a:hover{text-decoration:underline}
-h1,h2,h3,h4{color:var(--ink);line-height:1.25;font-weight:800;letter-spacing:-.02em}
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
-.section{padding:52px 0}
-.eyebrow{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
-.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
-.site-header .bar{display:flex;align-items:center;justify-content:space-between;gap:18px;height:66px;max-width:var(--wrap);margin:0 auto;padding:0 20px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;color:var(--ink)}.brand:hover{text-decoration:none}
-.brand .mark{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;box-shadow:0 6px 16px -6px rgba(13,148,136,.6)}
-.brand .mark svg{width:20px;height:20px}
-.brand small{display:block;font-size:.64rem;font-weight:600;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:1px}
-.nav{display:flex;align-items:center;gap:4px}
-.nav a{padding:9px 14px;border-radius:10px;color:var(--body);font-weight:600;font-size:.95rem}
-.nav a:hover{background:var(--soft);color:var(--teal-ink);text-decoration:none}
-.nav a.cta{background:var(--teal);color:#fff}.nav a.cta:hover{background:var(--teal-ink)}
-.nav-toggle{display:none;background:none;border:0;font-size:1.5rem;cursor:pointer;color:var(--ink)}
-.page-hero{background:var(--grad-soft);border-bottom:1px solid var(--line);padding:52px 0 46px;text-align:center}
-.page-hero h1{font-size:2.5rem;margin:0 0 12px}
-.page-hero p{color:var(--muted);font-size:1.14rem;max-width:58ch;margin:0 auto}
-.faq-cats{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 0}
-.faq-cats span{background:#fff;border:1px solid var(--line);color:var(--teal-ink);padding:7px 15px;border-radius:999px;font-weight:600;font-size:.88rem}
-.grp{max-width:820px;margin:36px auto 14px;font-size:1.35rem;color:var(--ink)}
+body{margin:0;background:var(--paper);color:var(--ink-soft);font-family:var(--font-body);line-height:1.68;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--sage-deep);text-decoration:none}
+a:hover{text-decoration:underline;text-decoration-color:var(--line-strong)}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);line-height:1.18;font-weight:600;letter-spacing:-.01em}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.section{padding:var(--s-4) 0}
+.kicker{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:var(--s-2)}
+.kicker::before{content:"";display:inline-block;width:20px;height:1px;background:var(--sage-deep)}
+.site-header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--line)}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;gap:18px;height:74px;max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:600;font-size:1.12rem;color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand .mark{width:32px;height:32px;border-radius:var(--radius);background:var(--ink);display:grid;place-items:center;flex:0 0 auto}
+.brand .mark svg{width:18px;height:18px}
+.brand small{display:block;font-size:.63rem;font-weight:500;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:2px;font-family:var(--font-body);font-style:italic}
+.nav{display:flex;align-items:center;gap:2px}
+.nav a{padding:10px 14px;color:var(--ink-soft);font-family:var(--font-display);font-weight:500;font-size:.92rem;border-bottom:1px solid transparent}
+.nav a:hover{color:var(--ink);text-decoration:none;border-bottom-color:var(--line-strong)}
+.nav a.cta{background:var(--ink);color:var(--paper);border-radius:var(--radius);border-bottom:0;padding:10px 18px}
+.nav a.cta:hover{background:var(--sage-deep)}
+.nav-toggle{display:none;background:none;border:0;font-size:1.4rem;cursor:pointer;color:var(--ink);font-family:var(--font-display)}
+.page-hero{background:var(--paper-2);border-bottom:1px solid var(--line);padding:var(--s-5) 0}
+.page-hero .wrap{max-width:var(--wrap-narrow)}
+.page-hero h1{font-size:clamp(1.9rem,3.4vw,2.4rem);margin:0 0 12px}
+.page-hero p{color:var(--muted);font-size:1.1rem;max-width:60ch;margin:0}
+.faq-cats{display:flex;flex-wrap:wrap;gap:8px 6px;margin:var(--s-2) 0 0}
+.faq-cats span{border:1px solid var(--line-strong);color:var(--muted);padding:6px 14px;border-radius:var(--radius);font-family:var(--font-display);font-weight:500;font-size:.82rem}
+.grp{max-width:var(--wrap-narrow);margin:var(--s-4) auto 14px;font-size:1.3rem;padding-bottom:10px;border-bottom:1px solid var(--ink)}
 .grp:first-of-type{margin-top:0}
-.faq-list{max-width:820px;margin:0 auto}
-.faq-item{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;box-shadow:var(--shadow-sm);overflow:hidden}
-.faq-item summary{list-style:none;cursor:pointer;padding:20px 24px;font-weight:700;color:var(--ink);font-size:1.06rem;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-list{max-width:var(--wrap-narrow);margin:0 auto}
+.faq-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.faq-item summary{list-style:none;cursor:pointer;padding:18px 22px;font-family:var(--font-display);font-weight:600;color:var(--ink);font-size:1.02rem;display:flex;justify-content:space-between;align-items:center;gap:16px}
 .faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary::after{content:"+";color:var(--teal);font-size:1.5rem;font-weight:400;transition:transform .2s;flex:0 0 auto}
+.faq-item summary::after{content:"+";color:var(--sage-deep);font-family:var(--font-display);font-size:1.3rem;font-weight:400;transition:transform .2s;flex:0 0 auto}
 .faq-item[open] summary::after{transform:rotate(45deg)}
-.faq-item .fa-body{padding:0 24px 22px;color:var(--body)}
+.faq-item .fa-body{padding:0 22px 20px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:16px}
 .faq-item .fa-body p{margin:0 0 12px}
 .faq-item .fa-body p:last-child{margin:0}
 .faq-item .fa-body a{font-weight:600}
-.help{max-width:820px;margin:34px auto 0;background:var(--grad-soft);border:1px solid var(--teal-3);border-radius:var(--radius);padding:30px;text-align:center}
-.help h2{font-size:1.4rem;margin:0 0 8px}
+.help{max-width:var(--wrap-narrow);margin:var(--s-4) auto 0;background:var(--paper-2);border:1px solid var(--line-strong);border-radius:var(--radius);padding:30px;text-align:center}
+.help h2{font-size:1.3rem;margin:0 0 8px}
 .help p{color:var(--muted);margin:0 0 18px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:12px;font-weight:700;border:0;cursor:pointer;text-decoration:none;background:var(--teal);color:#fff;box-shadow:0 10px 22px -10px rgba(13,148,136,.8)}
-.btn:hover{text-decoration:none;background:var(--teal-ink)}
-.site-footer{background:#0b1220;color:#94a3b8;padding:56px 0 26px;margin-top:20px}
-.site-footer .cols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px;padding-bottom:34px;border-bottom:1px solid rgba(255,255,255,.09)}
-.site-footer .brand{color:#fff}.site-footer .brand small{color:#64748b}
-.site-footer .fabout{margin:16px 0 0;font-size:.94rem;max-width:34ch;color:#94a3b8}
-.site-footer h4{color:#e2e8f0;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px}
-.site-footer ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
-.site-footer a{color:#94a3b8;font-size:.95rem}.site-footer a:hover{color:var(--teal-3);text-decoration:none}
-.site-footer .legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:22px;font-size:.86rem;color:#64748b}
-.site-footer .legal a{color:#64748b}
-.risk{background:#0b1220;color:#475569;font-size:.8rem;text-align:center;padding:0 20px 30px;line-height:1.6}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.85em 1.5em;border-radius:var(--radius);font-family:var(--font-display);font-weight:600;font-size:.98rem;border:1px solid var(--ink);cursor:pointer;text-decoration:none;background:var(--ink);color:var(--paper)}
+.btn:hover{text-decoration:none;background:var(--sage-deep);border-color:var(--sage-deep)}
+.site-footer{background:var(--ink);color:#8b8983;padding:var(--s-5) 0 26px;margin-top:20px}
+.site-footer .cols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px;padding-bottom:34px;border-bottom:1px solid rgba(246,244,239,.12)}
+.site-footer .brand{color:var(--paper)}
+.site-footer .brand .mark{background:var(--paper)}
+.site-footer .brand .mark svg path,.site-footer .brand .mark svg circle{stroke:var(--ink);fill:var(--ink)}
+.site-footer .brand small{color:#726f68}
+.site-footer .fabout{margin:16px 0 0;font-size:.93rem;max-width:34ch;color:#928f88}
+.site-footer h4{font-family:var(--font-display);color:#c9c7bf;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;font-weight:600}
+.site-footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.site-footer a{color:#928f88;font-size:.94rem}
+.site-footer a:hover{color:var(--paper);text-decoration:none}
+.site-footer .legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:22px;font-size:.85rem;color:#726f68}
+.site-footer .legal a{color:#726f68}
+.risk{background:var(--ink);color:#5c5a54;font-size:.79rem;text-align:center;padding:0 24px 30px;line-height:1.6}
 .risk .wrap{max-width:820px}
 @media(max-width:920px){.site-footer .cols{grid-template-columns:1fr 1fr}}
-@media(max-width:760px){body{font-size:16px}.nav{position:fixed;top:66px;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;border-bottom:1px solid var(--line);padding:12px;gap:4px;display:none;box-shadow:0 20px 30px -20px rgba(0,0,0,.3)}.nav.open{display:flex}.nav-toggle{display:block}.page-hero h1{font-size:1.9rem}.section{padding:40px 0}}
+@media(max-width:760px){body{font-size:16px}.nav{position:fixed;top:74px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--paper);border-bottom:1px solid var(--line);padding:12px;gap:2px;display:none}.nav.open{display:flex}.nav-toggle{display:block}.section{padding:var(--s-4) 0}}
 </style>
 </head>
 <body>
 <header class="site-header">
   <div class="bar">
-    <a class="brand" href="safe.html" aria-label="Plano Leve — início"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 16.5C7 12 9 15 12 10.5C15 6 17 9 20 5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="5" r="1.8" fill="#fff"/></svg></span><span>Plano Leve<small>Finanças sem estresse</small></span></a>
+    <a class="brand" href="safe.html" aria-label="Plano Leve — início"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 16.5C7 12 9 15 12 10.5C15 6 17 9 20 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="5" r="1.6" fill="#fff"/></svg></span><span>Plano Leve<small>Finanças sem estresse</small></span></a>
     <button class="nav-toggle" aria-label="Abrir menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
     <nav class="nav" id="nav">
       <a href="safe.html">Início</a>
@@ -81,10 +101,12 @@ h1,h2,h3,h4{color:var(--ink);line-height:1.25;font-weight:800;letter-spacing:-.0
 </header>
 
 <section class="page-hero">
-  <span class="eyebrow">Dúvidas frequentes</span>
-  <h1>Perguntas que todo mundo tem</h1>
-  <p>Reunimos as dúvidas mais comuns sobre organização financeira — e algumas sobre o Plano Leve e o app Bússola Leve. Respostas curtas, sem enrolação.</p>
-  <div class="faq-cats"><span>Primeiros passos</span><span>Reserva e dívidas</span><span>Investir</span><span>Segurança</span><span>Sobre o site</span></div>
+  <div class="wrap">
+    <span class="kicker">Dúvidas frequentes</span>
+    <h1>Perguntas que todo mundo tem</h1>
+    <p>Reunimos as dúvidas mais comuns sobre organização financeira — e algumas sobre o Plano Leve e o app Bússola Leve. Respostas curtas, sem enrolação.</p>
+    <div class="faq-cats"><span>Primeiros passos</span><span>Reserva e dívidas</span><span>Investir</span><span>Segurança</span><span>Sobre o site</span></div>
+  </div>
 </section>
 
 <section class="section">
@@ -138,7 +160,7 @@ h1,h2,h3,h4{color:var(--ink);line-height:1.25;font-weight:800;letter-spacing:-.0
   <div class="wrap">
     <div class="cols">
       <div>
-        <a class="brand" href="safe.html"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 16.5C7 12 9 15 12 10.5C15 6 17 9 20 5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="5" r="1.8" fill="#fff"/></svg></span><span>Plano Leve<small>Finanças sem estresse</small></span></a>
+        <a class="brand" href="safe.html"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 16.5C7 12 9 15 12 10.5C15 6 17 9 20 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="5" r="1.6" fill="#fff"/></svg></span><span>Plano Leve<small>Finanças sem estresse</small></span></a>
         <p class="fabout">Conteúdo educativo sobre organização financeira, orçamento e metas — para você cuidar do dinheiro com calma e sem culpa.</p>
       </div>
       <div><h4>Navegar</h4><ul><li><a href="safe.html">Início</a></li><li><a href="app.html">O app Bússola Leve</a></li><li><a href="glossario.html">Glossário</a></li><li><a href="faq.html">Dúvidas frequentes</a></li><li><a href="sobre.html">Sobre nós</a></li></ul></div>
