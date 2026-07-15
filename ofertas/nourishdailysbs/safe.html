@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nourish Daily — Everyday Health and Wellness, Explained Simply</title>
+<meta name="description" content="Nourish Daily is a health and wellness blog about everyday nutrition, hydration, sleep, movement, and balanced habits — clear, evidence-aware education for the way you actually live.">
+<link rel="canonical" href="https://nourishdaily.sbs/safe.html">
+<meta property="og:image" content="https://nourishdaily.sbs/img/_hero.jpg">
+<meta name="robots" content="index, follow">
+<style>
+:root{--teal-900:#134e4a;--teal-800:#115e59;--teal-700:#0f766e;--teal-600:#0d9488;--teal-500:#14b8a6;--teal-100:#ccfbf1;--teal-50:#f0fdfa;--ink:#0f2a28;--gray-700:#3f5e5b;--gray-500:#6b807d;--gray-300:#c9d6d3;--border:#e2eceb;--bg:#f5faf9;--card:#ffffff;--radius:18px;--radius-sm:12px;--shadow:0 4px 18px rgba(15,42,40,.06);--shadow-lg:0 16px 40px rgba(13,148,136,.18);--maxw:1180px;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:var(--teal-700);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.22;margin:0 0 .5em;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.eyebrow{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-700);background:var(--teal-50);padding:6px 13px;border-radius:999px;margin-bottom:14px}
+.muted{color:var(--gray-500)}
+/* Header */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--border)}
+.nav-wrap{max-width:var(--maxw);margin:0 auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.16rem;color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand-mark{width:38px;height:38px;border-radius:11px;flex:none;background:linear-gradient(135deg,var(--teal-600),var(--teal-500));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.05rem;font-weight:900;box-shadow:0 6px 16px rgba(13,148,136,.32);position:relative}
+.brand-mark::after{content:"";position:absolute;right:3px;bottom:3px;width:9px;height:9px;border-radius:50%;background:#fff;opacity:.85}
+.brand-name span{color:var(--teal-600)}
+.site-nav ul{list-style:none;display:flex;gap:4px;margin:0;padding:0;flex-wrap:wrap}
+.site-nav a{color:var(--gray-700);font-weight:600;font-size:.94rem;padding:9px 14px;border-radius:999px;transition:background .15s,color .15s}
+.site-nav a:hover{background:var(--teal-50);color:var(--teal-700);text-decoration:none}
+/* Hero */
+.hero{background:linear-gradient(155deg,var(--teal-900) 0%,var(--teal-700) 60%,var(--teal-600) 100%);color:#fff;padding:66px 0 84px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-20%;left:-8%;width:46%;padding-top:46%;background:radial-gradient(closest-side,rgba(20,184,166,.45),transparent 70%);border-radius:50%}
+.hero::after{content:"";position:absolute;inset:auto -8% -45% auto;width:55%;padding-top:55%;background:radial-gradient(closest-side,rgba(255,255,255,.16),transparent 70%);border-radius:50%}
+.hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.26);padding:6px 15px;border-radius:999px;font-size:.8rem;font-weight:600;margin-bottom:18px}
+.hero h1{font-size:clamp(2rem,4.2vw,2.85rem);color:#fff;margin-bottom:.45em}
+.hero p.lead{font-size:1.08rem;color:rgba(255,255,255,.9);max-width:52ch}
+.hero-actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.hero-art{position:relative}
+.hero-art img{width:100%;height:340px;object-fit:cover;border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.2)}
+.hero-art .hero-chip{position:absolute;background:#fff;color:var(--ink);border-radius:14px;padding:12px 16px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:10px;font-size:.86rem;font-weight:600}
+.hero-art .hero-chip .hc-ico{width:34px;height:34px;border-radius:9px;background:var(--teal-50);color:var(--teal-700);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.hero-art .chip-1{left:-18px;bottom:42px}
+.hero-art .chip-2{right:-14px;top:30px}
+/* Sections */
+.section{padding:62px 0}
+.section-tight{padding:42px 0}
+.section-head{max-width:660px;margin:0 auto 36px;text-align:center}
+.section-head.left{margin:0 0 32px;text-align:left}
+.section-title{font-size:clamp(1.55rem,3vw,2.1rem)}
+.section-sub{color:var(--gray-500);font-size:1.03rem}
+.bg-alt{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+/* Cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease;height:100%;overflow:hidden}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);text-decoration:none}
+a.card{color:inherit}
+.thumb{position:relative;overflow:hidden;height:172px;background:var(--teal-50)}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.card:hover .thumb img{transform:scale(1.05)}
+.card-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card .tag{align-self:flex-start;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--teal-700);background:var(--teal-50);padding:4px 11px;border-radius:999px}
+.card h3{font-size:1.12rem;margin:2px 0 0}
+.card p{color:var(--gray-500);font-size:.93rem;margin:0}
+.card .meta{margin-top:auto;font-size:.8rem;color:var(--gray-500);display:flex;align-items:center;gap:8px;padding-top:12px;border-top:1px solid var(--border)}
+.card .meta .dot{width:4px;height:4px;border-radius:50%;background:var(--gray-300)}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;font-weight:700;font-size:.95rem;border:2px solid transparent;cursor:pointer;transition:all .15s ease}
+.btn:hover{text-decoration:none}
+.btn-primary{background:#fff;color:var(--teal-700)}
+.btn-primary:hover{background:var(--teal-50);transform:translateY(-2px)}
+.btn-outline{border-color:rgba(255,255,255,.6);color:#fff;background:transparent}
+.btn-outline:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.btn-solid{background:var(--teal-600);color:#fff}
+.btn-solid:hover{background:var(--teal-700);transform:translateY(-2px)}
+.btn-block{width:100%}
+/* App section */
+.app-section{background:linear-gradient(180deg,var(--teal-50),#fff)}
+.app-inner{display:grid;grid-template-columns:.95fr 1.05fr;gap:50px;align-items:center}
+.app-copy .eyebrow{background:#fff}
+.feature-list{list-style:none;padding:0;margin:22px 0}
+.feature-list li{display:flex;gap:11px;align-items:flex-start;margin-bottom:13px;font-weight:600;color:var(--gray-700)}
+.feature-list li .ico{flex:none;width:27px;height:27px;border-radius:8px;background:var(--teal-100);color:var(--teal-700);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800}
+.phone-mock{width:278px;margin:0 auto;background:var(--ink);border-radius:38px;padding:14px;box-shadow:var(--shadow-lg);position:relative}
+.phone-screen{background:linear-gradient(160deg,var(--teal-700),var(--teal-500));border-radius:26px;padding:22px 16px;color:#fff;min-height:440px;position:relative;overflow:hidden}
+.phone-screen::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:64px;height:6px;border-radius:4px;background:rgba(255,255,255,.35)}
+.phone-status{font-size:.7rem;opacity:.75;margin:14px 0 18px;display:flex;justify-content:space-between}
+.phone-greet{font-size:.78rem;opacity:.85;margin-bottom:4px}
+.phone-balance{font-size:1.65rem;font-weight:800;margin-bottom:14px}
+.phone-ring{width:96px;height:96px;border-radius:50%;background:conic-gradient(#fff 0 72%,rgba(255,255,255,.25) 72% 100%);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;position:relative}
+.phone-ring::after{content:"";position:absolute;inset:11px;background:var(--teal-600);border-radius:50%}
+.phone-ring span{position:relative;z-index:1;font-size:.78rem;font-weight:700;text-align:center;line-height:1.1}
+.phone-item{background:rgba(255,255,255,.15);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:.8rem}
+.phone-item strong{display:block;font-size:.82rem}
+.phone-item small{opacity:.78}
+.phone-nav{position:absolute;bottom:14px;left:16px;right:16px;background:rgba(255,255,255,.18);border-radius:14px;padding:9px 10px;display:flex;justify-content:space-around;font-size:1rem}
+/* Newsletter */
+.newsletter{background:linear-gradient(135deg,var(--teal-700),var(--teal-500));border-radius:26px;padding:46px 36px;color:#fff;text-align:center;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.newsletter::after{content:"";position:absolute;inset:auto -10% -50% auto;width:50%;padding-top:50%;background:radial-gradient(closest-side,rgba(255,255,255,.16),transparent 70%);border-radius:50%}
+.newsletter-inner{position:relative;z-index:1}
+.newsletter h2{color:#fff}
+.newsletter p{color:rgba(255,255,255,.9);max-width:54ch;margin:0 auto 22px}
+.newsletter-form{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap}
+.newsletter-form input[type=email]{flex:1;min-width:210px;padding:14px 18px;border-radius:999px;border:none;font-size:.95rem;font-family:var(--font);color:var(--ink)}
+.newsletter-form input[type=email]:focus{outline:3px solid rgba(255,255,255,.5)}
+.newsletter small{display:block;margin-top:14px;color:rgba(255,255,255,.78);font-size:.78rem}
+.newsletter-ok{display:none;background:rgba(255,255,255,.18);border-radius:12px;padding:11px 18px;margin-top:16px;font-weight:600;max-width:460px;margin-left:auto;margin-right:auto}
+/* Mini trust strip */
+.pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+.pill{background:#fff;border:1px solid var(--border);border-radius:999px;padding:7px 14px;font-size:.82rem;font-weight:600;color:var(--gray-700);display:inline-flex;align-items:center;gap:7px}
+.pill .pd{width:7px;height:7px;border-radius:50%;background:var(--teal-500)}
+/* Footer */
+.site-footer{background:var(--teal-900);color:rgba(255,255,255,.85);margin-top:60px}
+.footer-top{padding:52px 0 32px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:34px}
+.footer-brand{display:flex;align-items:center;gap:11px;font-weight:800;color:#fff;font-size:1.12rem;margin-bottom:12px}
+.footer-brand:hover{text-decoration:none}
+.footer-about{color:rgba(255,255,255,.62);font-size:.9rem;max-width:36ch}
+.footer-col h4{color:#fff;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:10px}
+.footer-col a{color:rgba(255,255,255,.72);font-size:.92rem}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:20px;text-align:center;font-size:.82rem;color:rgba(255,255,255,.55)}
+.footer-bottom a{color:rgba(255,255,255,.72)}
+@media (max-width:880px){.hero-inner{grid-template-columns:1fr}.hero-art{order:-1}.hero-art img{height:260px}.hero-art .chip-1,.hero-art .chip-2{display:none}.app-inner{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.nav-wrap{flex-direction:column;align-items:flex-start}.site-nav ul{gap:2px}.hero{padding:46px 0 60px}.section{padding:46px 0}.newsletter-form{flex-direction:column}.footer-top{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="safe.html" aria-label="Nourish Daily — home">
+      <span class="brand-mark">ND</span>
+      <span class="brand-name">Nourish <span>Daily</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a href="safe.html">Home</a></li>
+        <li><a href="app.html">App</a></li>
+        <li><a href="glossario.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="sobre.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <span class="hero-badge">🌿 Everyday wellness, kept simple</span>
+      <h1>Healthier days start with simple, sensible choices</h1>
+      <p class="lead">Nourish Daily turns everyday nutrition, hydration, sleep, and movement into clear, friendly reads — no fads, no extremes, no hype. Just practical education for the way you actually live.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#in-focus">Browse latest articles</a>
+        <a class="btn btn-outline" href="app.html">See the NourishTrack app</a>
+      </div>
+      <div class="pill-row" style="justify-content:flex-start">
+        <span class="pill"><span class="pd"></span>Nutrition basics</span>
+        <span class="pill"><span class="pd"></span>Sleep &amp; energy</span>
+        <span class="pill"><span class="pd"></span>Healthy habits</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="img/_hero.jpg" alt="A bright, simple spread of vegetables, water, and a notebook on a kitchen counter" loading="eager">
+      <div class="hero-chip chip-1"><span class="hc-ico">💧</span>Hydration &amp; focus</div>
+      <div class="hero-chip chip-2"><span class="hc-ico">🥗</span>Balanced plates</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="in-focus">
+  <div class="container">
+    <div class="section-head left">
+      <span class="eyebrow">In focus</span>
+      <h2 class="section-title">Recent reads on everyday wellness</h2>
+      <p class="section-sub">Fresh, evergreen guides on hydration, macronutrients, sleep, mindful eating, and building balanced meals — written to be genuinely useful, not flashy.</p>
+    </div>
+    <div class="grid">
+
+      <a class="card" href="how-hydration-affects-energy.html">
+        <div class="thumb"><img src="img/how-hydration-affects-energy.jpg" alt="A glass of water on a wooden table beside fresh fruit" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">Hydration</span>
+          <h3>How Hydration Affects Your Daily Energy</h3>
+          <p>Why drinking enough water matters for focus and steadiness through the day — and how to make it a low-effort habit.</p>
+          <span class="meta">🌿 Nutrition <span class="dot"></span> Jan 14, 2026 <span class="dot"></span> 7 min</span>
+        </div>
+      </a>
+
+      <a class="card" href="understanding-macronutrients.html">
+        <div class="thumb"><img src="img/understanding-macronutrients.jpg" alt="Bowls of grains, legumes, vegetables, and fish arranged on a table" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">Nutrition</span>
+          <h3>Understanding Macronutrients: A Simple Guide</h3>
+          <p>Carbs, protein, and fat, explained without the noise — what each does and how they show up in everyday meals.</p>
+          <span class="meta">🌿 Nutrition <span class="dot"></span> Jan 28, 2026 <span class="dot"></span> 9 min</span>
+        </div>
+      </a>
+
+      <a class="card" href="mindful-eating-basics.html">
+        <div class="thumb"><img src="img/mindful-eating-basics.jpg" alt="A person eating slowly at a calm, set table" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">Mindful Eating</span>
+          <h3>Mindful Eating Basics: A Gentle Introduction</h3>
+          <p>What mindful eating really means, why it's not a diet, and small ways to tune in to hunger and satisfaction.</p>
+          <span class="meta">🧠 Habits <span class="dot"></span> Feb 11, 2026 <span class="dot"></span> 8 min</span>
+        </div>
+      </a>
+
+      <a class="card" href="role-of-fiber-in-healthy-eating.html">
+        <div class="thumb"><img src="img/role-of-fiber-in-healthy-eating.jpg" alt="Assorted fruits, vegetables, oats, and seeds on a linen cloth" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">Nutrition</span>
+          <h3>The Role of Fiber in Everyday Eating</h3>
+          <p>Why fiber gets so much attention, where to find it, and how to add more gradually without upsetting your stomach.</p>
+          <span class="meta">🌿 Nutrition <span class="dot"></span> Feb 25, 2026 <span class="dot"></span> 8 min</span>
+        </div>
+      </a>
+
+      <a class="card" href="sleep-and-daily-energy.html">
+        <div class="thumb"><img src="img/sleep-and-daily-energy.jpg" alt="A neatly made bed in soft morning light" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">Sleep</span>
+          <h3>How Sleep Shapes Your Daily Energy and Focus</h3>
+          <p>What happens while you sleep, why consistency often beats perfection, and realistic ways to rest better.</p>
+          <span class="meta">😴 Sleep <span class="dot"></span> Mar 10, 2026 <span class="dot"></span> 9 min</span>
+        </div>
+      </a>
+
+      <a class="card" href="reading-nutrition-labels.html">
+        <div class="thumb"><img src="img/reading-nutrition-labels.jpg" alt="A hand holding a food package and reading the nutrition label" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">Food Skills</span>
+          <h3>Reading Nutrition Labels Without the Stress</h3>
+          <p>The handful of numbers that actually matter on a food package — and how to scan them in a few seconds.</p>
+          <span class="meta">🛒 Food Skills <span class="dot"></span> Mar 24, 2026 <span class="dot"></span> 7 min</span>
+        </div>
+      </a>
+
+      <a class="card" href="building-balanced-meals.html">
+        <div class="thumb"><img src="img/building-balanced-meals.jpg" alt="A balanced plate with vegetables, grains, and a protein source" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">Meal Building</span>
+          <h3>Building Balanced Meals: The Plate Method</h3>
+          <p>A visual, no-calorie-counting way to put together satisfying meals from foods you already enjoy.</p>
+          <span class="meta">🍽️ Meals <span class="dot"></span> Apr 8, 2026 <span class="dot"></span> 8 min</span>
+        </div>
+      </a>
+
+      <a class="card" href="everyday-movement-basics.html">
+        <div class="thumb"><img src="img/everyday-movement-basics.jpg" alt="A person walking through a sunny park" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">Movement</span>
+          <h3>Everyday Movement: A Beginner's Guide</h3>
+          <p>How to add more movement into ordinary days, why "exercise" isn't the only thing that counts, and how to start gently.</p>
+          <span class="meta">🚶 Movement <span class="dot"></span> May 6, 2026 <span class="dot"></span> 8 min</span>
+        </div>
+      </a>
+
+      <a class="card" href="stress-and-eating-habits.html">
+        <div class="thumb"><img src="img/stress-and-eating-habits.jpg" alt="A cup of herbal tea beside an open journal on a quiet desk" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">Wellbeing</span>
+          <h3>Stress and Eating Habits: What's Going On?</h3>
+          <p>How everyday stress can shape food choices, why it's not a willpower failure, and gentler ways to respond.</p>
+          <span class="meta">🧠 Wellbeing <span class="dot"></span> Jun 3, 2026 <span class="dot"></span> 9 min</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="container app-inner">
+    <div class="app-copy">
+      <span class="eyebrow">Our app</span>
+      <h2>Meet NourishTrack — a gentle daily habits companion</h2>
+      <p class="muted">NourishTrack is a simple logging and reminders app for everyday wellness: water, meals, movement, and sleep notes. It's about awareness, not pressure — a friendly companion to what you read here.</p>
+      <ul class="feature-list">
+        <li><span class="ico">✓</span> One-tap water and meal notes</li>
+        <li><span class="ico">✓</span> Gentle movement and sleep reminders</li>
+        <li><span class="ico">✓</span> A weekly habits snapshot, no scoring</li>
+      </ul>
+      <a class="btn btn-solid" href="app.html">See how NourishTrack works</a>
+    </div>
+    <div class="phone-mock" aria-hidden="true">
+      <div class="phone-screen">
+        <div class="phone-status"><span>9:41</span><span>●●●●</span></div>
+        <div class="phone-greet">Good morning, Sam</div>
+        <div class="phone-balance">Today feels balanced</div>
+        <div class="phone-ring"><span>4 of 5<br>habits</span></div>
+        <div class="phone-item"><span><strong>💧 Water</strong><small>6 cups so far</small></span><span>›</span></div>
+        <div class="phone-item"><span><strong>🥗 Lunch</strong><small>Veggies + grains</small></span><span>›</span></div>
+        <div class="phone-item"><span><strong>🚶 Walk</strong><small>20 min after lunch</small></span><span>›</span></div>
+        <div class="phone-nav"><span>🏠</span><span>📝</span><span>📊</span><span>👤</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="newsletter">
+      <div class="newsletter-inner">
+        <h2>Get one calm, useful wellness read each week</h2>
+        <p>No spam, no before-and-after photos, no pressure. Just a friendly summary of our latest articles on nutrition, sleep, and everyday habits.</p>
+        <form class="newsletter-form" onsubmit="return sub(event)">
+          <input type="email" name="email" placeholder="you@email.com" required aria-label="Your email">
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+        <div class="newsletter-ok" id="newsletterOk">You're on the list. Watch your inbox for a welcome note soon.</div>
+        <small>Unsubscribe anytime. See our <a href="privacidade.html" style="color:#fff;text-decoration:underline">Privacy Policy</a>.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-alt">
+  <div class="container" style="max-width:820px">
+    <div class="section-head left">
+      <span class="eyebrow">About Nourish Daily</span>
+      <h2 class="section-title">A health blog written for real life</h2>
+    </div>
+    <p>Nourish Daily is an independent, reader-friendly blog about everyday wellness. We write about nutrition basics, hydration, sleep, movement, and the small habits that can quietly support how you feel day to day — always in plain language, and always with care for what the evidence does (and doesn't) say.</p>
+    <p>We don't sell supplements and we don't promise quick fixes. Curious how we work? Read our <a href="sobre.html">editorial mission</a>, look up a term in the <a href="glossario.html">wellness glossary</a>, or check our <a href="faq.html">frequently asked questions</a>.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div>
+      <a class="footer-brand" href="safe.html"><span class="brand-mark">ND</span>Nourish Daily</a>
+      <p class="footer-about">Independent, everyday health and wellness education — nutrition, hydration, sleep, and balanced habits, explained simply. Educational only; not medical advice.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Read</h4>
+      <ul>
+        <li><a href="safe.html">Home</a></li>
+        <li><a href="how-hydration-affects-energy.html">Hydration &amp; energy</a></li>
+        <li><a href="understanding-macronutrients.html">Macronutrients</a></li>
+        <li><a href="building-balanced-meals.html">Balanced meals</a></li>
+        <li><a href="sleep-and-daily-energy.html">Sleep &amp; energy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="sobre.html">About Nourish Daily</a></li>
+        <li><a href="app.html">NourishTrack app</a></li>
+        <li><a href="glossario.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Privacy Policy</a></li>
+        <li><a href="termos.html">Terms of Use</a></li>
+        <li><a href="mailto:contact@nourishdaily.sbs">contact@nourishdaily.sbs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Nourish Daily · nourishdaily.sbs — Educational content only. Not medical advice; consult a healthcare professional.</div>
+    <div><a href="privacidade.html">Privacy</a> · <a href="termos.html">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+function sub(e){
+  e.preventDefault();
+  try{
+    var v=e.target.querySelector('input[type=email]').value;
+    if(v){localStorage.setItem('nd_news',v);}
+  }catch(_){}
+  if(typeof gtag==='function'){gtag('event','sign_up',{method:'newsletter'});}
+  var ok=document.getElementById('newsletterOk');
+  if(ok){ok.style.display='block';}
+  e.target.reset();
+  return false;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NourishTrack — A Simple Daily Habits &amp; Nutrition Log App · Nourish Daily</title>
+<meta name="description" content="NourishTrack is a gentle daily habits app: log water, meals, movement, and sleep notes with one tap, get friendly reminders, and see a calm weekly snapshot. Awareness, not pressure.">
+<link rel="canonical" href="https://nourishdaily.sbs/app.html">
+<meta property="og:image" content="https://nourishdaily.sbs/img/_app.jpg">
+<meta name="robots" content="index, follow">
+<style>
+:root{--teal-900:#134e4a;--teal-800:#115e59;--teal-700:#0f766e;--teal-600:#0d9488;--teal-500:#14b8a6;--teal-100:#ccfbf1;--teal-50:#f0fdfa;--ink:#0f2a28;--gray-700:#3f5e5b;--gray-500:#6b807d;--gray-300:#c9d6d3;--border:#e2eceb;--bg:#f5faf9;--card:#ffffff;--radius:18px;--radius-sm:12px;--shadow:0 4px 18px rgba(15,42,40,.06);--shadow-lg:0 16px 40px rgba(13,148,136,.18);--maxw:1180px;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:var(--teal-700);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.22;margin:0 0 .5em;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.eyebrow{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-700);background:var(--teal-50);padding:6px 13px;border-radius:999px;margin-bottom:14px}
+.muted{color:var(--gray-500)}
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--border)}
+.nav-wrap{max-width:var(--maxw);margin:0 auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.16rem;color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand-mark{width:38px;height:38px;border-radius:11px;flex:none;background:linear-gradient(135deg,var(--teal-600),var(--teal-500));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.05rem;font-weight:900;box-shadow:0 6px 16px rgba(13,148,136,.32);position:relative}
+.brand-mark::after{content:"";position:absolute;right:3px;bottom:3px;width:9px;height:9px;border-radius:50%;background:#fff;opacity:.85}
+.brand-name span{color:var(--teal-600)}
+.site-nav ul{list-style:none;display:flex;gap:4px;margin:0;padding:0;flex-wrap:wrap}
+.site-nav a{color:var(--gray-700);font-weight:600;font-size:.94rem;padding:9px 14px;border-radius:999px;transition:background .15s,color .15s}
+.site-nav a:hover{background:var(--teal-50);color:var(--teal-700);text-decoration:none}
+.section{padding:62px 0}
+.section-head{max-width:660px;margin:0 auto 36px;text-align:center}
+.section-head.left{margin:0 0 32px;text-align:left}
+.section-title{font-size:clamp(1.55rem,3vw,2.1rem)}
+.section-sub{color:var(--gray-500);font-size:1.03rem}
+.bg-alt{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;font-weight:700;font-size:.95rem;border:2px solid transparent;cursor:pointer;transition:all .15s ease}
+.btn:hover{text-decoration:none}
+.btn-primary{background:#fff;color:var(--teal-700)}
+.btn-primary:hover{background:var(--teal-50);transform:translateY(-2px)}
+.btn-outline{border-color:rgba(255,255,255,.6);color:#fff;background:transparent}
+.btn-outline:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.btn-solid{background:var(--teal-600);color:#fff}
+.btn-solid:hover{background:var(--teal-700);transform:translateY(-2px)}
+.btn-block{width:100%}
+/* App hero */
+.app-hero{background:linear-gradient(155deg,var(--teal-900) 0%,var(--teal-700) 60%,var(--teal-600) 100%);color:#fff;padding:64px 0 90px;position:relative;overflow:hidden}
+.app-hero::after{content:"";position:absolute;inset:auto -8% -50% auto;width:55%;padding-top:55%;background:radial-gradient(closest-side,rgba(255,255,255,.15),transparent 70%);border-radius:50%}
+.app-hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;position:relative;z-index:1}
+.app-hero .eyebrow{background:rgba(255,255,255,.16);color:#fff}
+.app-hero h1{font-size:clamp(1.9rem,4vw,2.7rem);color:#fff;margin-bottom:.4em}
+.app-hero p.lead{font-size:1.08rem;color:rgba(255,255,255,.9);max-width:50ch}
+.app-hero-actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.app-hero-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:.85rem;color:rgba(255,255,255,.8)}
+.app-hero-meta span{display:inline-flex;align-items:center;gap:7px}
+/* Phone */
+.phone-stage{display:flex;justify-content:center;position:relative}
+.phone-mock{width:286px;background:var(--ink);border-radius:40px;padding:15px;box-shadow:0 30px 70px rgba(0,0,0,.35);position:relative}
+.phone-mock::before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);width:90px;height:24px;background:var(--ink);border-radius:14px;z-index:2}
+.phone-screen{background:linear-gradient(160deg,var(--teal-700),var(--teal-500));border-radius:28px;padding:48px 16px 70px;color:#fff;min-height:520px;position:relative;overflow:hidden}
+.phone-status{font-size:.7rem;opacity:.8;display:flex;justify-content:space-between;margin-bottom:14px}
+.phone-greet{font-size:.82rem;opacity:.88;margin-bottom:2px}
+.phone-balance{font-size:1.7rem;font-weight:800;margin-bottom:18px}
+.phone-rings{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
+.phone-ring{aspect-ratio:1;border-radius:14px;background:rgba(255,255,255,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;text-align:center;gap:3px}
+.phone-ring .pr-ico{font-size:1.1rem}
+.phone-ring.done{background:rgba(255,255,255,.92);color:var(--teal-700)}
+.phone-section-label{font-size:.72rem;opacity:.8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.phone-item{background:rgba(255,255,255,.15);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:.8rem}
+.phone-item strong{display:block;font-size:.82rem}
+.phone-item small{opacity:.78}
+.phone-nav{position:absolute;bottom:14px;left:16px;right:16px;background:rgba(0,0,0,.18);border-radius:16px;padding:10px;display:flex;justify-content:space-around;font-size:1.05rem}
+/* Feature grid */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.feature-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px 24px}
+.feature-card .ico{width:48px;height:48px;border-radius:13px;background:var(--teal-50);color:var(--teal-700);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:14px}
+.feature-card h3{font-size:1.12rem}
+.feature-card p{color:var(--gray-500);font-size:.94rem;margin:0}
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;counter-reset:step}
+.step{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px 24px;position:relative}
+.step::before{counter-increment:step;content:counter(step);width:38px;height:38px;border-radius:50%;background:var(--teal-600);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:1.05rem}
+.step h3{font-size:1.08rem}
+.step p{color:var(--gray-500);font-size:.93rem;margin:0}
+/* Mini FAQ */
+.faq-list{display:flex;flex-direction:column;gap:14px;max-width:760px;margin:0 auto}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px 22px}
+.faq-item h3{font-size:1.02rem;color:var(--teal-700);margin-bottom:8px}
+.faq-item p{margin:0;color:var(--gray-700);font-size:.96rem}
+/* CTA */
+.cta-box{background:linear-gradient(135deg,var(--teal-700),var(--teal-500));border-radius:26px;padding:48px 36px;color:#fff;text-align:center;box-shadow:var(--shadow-lg)}
+.cta-box h2{color:#fff}
+.cta-box p{color:rgba(255,255,255,.9);max-width:54ch;margin:0 auto 24px}
+.store-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.store-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--ink);border-radius:12px;padding:11px 18px;font-weight:700;font-size:.9rem}
+.store-badge small{display:block;font-weight:500;font-size:.7rem;color:var(--gray-500)}
+.disclaimer{background:var(--teal-50);border:1px solid var(--teal-100);border-radius:12px;padding:16px 20px;font-size:.9rem;color:var(--gray-700);max-width:760px;margin:0 auto;text-align:center}
+/* Footer */
+.site-footer{background:var(--teal-900);color:rgba(255,255,255,.85);margin-top:60px}
+.footer-top{padding:52px 0 32px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:34px}
+.footer-brand{display:flex;align-items:center;gap:11px;font-weight:800;color:#fff;font-size:1.12rem;margin-bottom:12px}
+.footer-brand:hover{text-decoration:none}
+.footer-about{color:rgba(255,255,255,.62);font-size:.9rem;max-width:36ch}
+.footer-col h4{color:#fff;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:10px}
+.footer-col a{color:rgba(255,255,255,.72);font-size:.92rem}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:20px;text-align:center;font-size:.82rem;color:rgba(255,255,255,.55)}
+.footer-bottom a{color:rgba(255,255,255,.72)}
+@media (max-width:880px){.app-hero-inner{grid-template-columns:1fr}.phone-stage{order:-1}.footer-top{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.nav-wrap{flex-direction:column;align-items:flex-start}.site-nav ul{gap:2px}.footer-top{grid-template-columns:1fr}.cta-box{padding:34px 22px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="safe.html" aria-label="Nourish Daily — home">
+      <span class="brand-mark">ND</span>
+      <span class="brand-name">Nourish <span>Daily</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a href="safe.html">Home</a></li>
+        <li><a href="app.html">App</a></li>
+        <li><a href="glossario.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="sobre.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="app-hero">
+  <div class="container app-hero-inner">
+    <div>
+      <span class="eyebrow">NourishTrack app</span>
+      <h1>A gentle daily habits log, built for real life</h1>
+      <p class="lead">NourishTrack helps you notice your water, meals, movement, and sleep — with one-tap notes and friendly reminders. No calorie scoring, no pressure, no before-and-after. Just awareness.</p>
+      <div class="app-hero-actions">
+        <a class="btn btn-primary" href="#download">Get NourishTrack</a>
+        <a class="btn btn-outline" href="#how">How it works</a>
+      </div>
+      <div class="app-hero-meta">
+        <span>✓ Free to start</span>
+        <span>✓ No ads in your logs</span>
+        <span>✓ Works offline</span>
+      </div>
+    </div>
+    <div class="phone-stage">
+      <div class="phone-mock" aria-hidden="true">
+        <div class="phone-screen">
+          <div class="phone-status"><span>9:41</span><span>●●●●</span></div>
+          <div class="phone-greet">Tuesday, in focus</div>
+          <div class="phone-balance">Today feels steady</div>
+          <div class="phone-rings">
+            <div class="phone-ring done"><span class="pr-ico">💧</span>Water</div>
+            <div class="phone-ring done"><span class="pr-ico">🥗</span>Meals</div>
+            <div class="phone-ring"><span class="pr-ico">🚶</span>Move</div>
+            <div class="phone-ring"><span class="pr-ico">😴</span>Sleep</div>
+          </div>
+          <div class="phone-section-label">Recent notes</div>
+          <div class="phone-item"><span><strong>💧 Water</strong><small>6 cups · last at 3:10pm</small></span><span>›</span></div>
+          <div class="phone-item"><span><strong>🥗 Lunch</strong><small>Veggies, rice, beans</small></span><span>›</span></div>
+          <div class="phone-item"><span><strong>😴 Last night</strong><small>~7h, fell asleep easily</small></span><span>›</span></div>
+          <div class="phone-nav"><span>🏠</span><span>📝</span><span>📊</span><span>👤</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What it does</span>
+      <h2 class="section-title">Simple, calm, genuinely useful</h2>
+      <p class="section-sub">NourishTrack is built around noticing — not scoring, ranking, or shaming. Here's what you'll find inside.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="ico">💧</div>
+        <h3>Water logging</h3>
+        <p>Tap a cup to add water. Set a gentle reminder if you tend to forget during busy mornings.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">🥗</div>
+        <h3>Meal notes</h3>
+        <p>Jot meals in your own words — "veggies, rice, beans" — no calorie counting required.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">🚶</div>
+        <h3>Movement notes</h3>
+        <p>Log walks, stretching, gardening, anything that gets you moving. Everyday movement counts.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">😴</div>
+        <h3>Sleep notes</h3>
+        <p>Record how rested you feel and roughly when you slept. Spot patterns over weeks, not days.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">🔔</div>
+        <h3>Friendly reminders</h3>
+        <p>Choose one or two nudges a day — water after lunch, a stretch break. Fully customizable.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ico">📊</div>
+        <h3>Weekly snapshot</h3>
+        <p>A calm weekly view of your habits. No grades, no streaks that punish you for missing a day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">Three quiet steps</h2>
+      <p class="section-sub">You can be up and running in under a minute. No account quizzes, no onboarding gauntlet.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Pick a few habits</h3>
+        <p>Choose water, meals, movement, and sleep — or start with just one. Add more whenever you like.</p>
+      </div>
+      <div class="step">
+        <h3>Log with a tap</h3>
+        <p>One tap adds water. A quick line captures a meal. It takes seconds, not minutes.</p>
+      </div>
+      <div class="step">
+        <h3>Notice the patterns</h3>
+        <p>Your weekly snapshot shows trends gently — like how you feel after better sleep or more water.</p>
+      </div>
+      <div class="step">
+        <h3>Adjust as you go</h3>
+        <p>Life changes. Tweak reminders, add habits, or take a break. The app never nags you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Mini FAQ</span>
+      <h2 class="section-title">Quick questions, straight answers</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Does NourishTrack count calories or tell me what to eat?</h3>
+        <p>No. NourishTrack doesn't count calories, score meals, or recommend specific foods. It's a noticing tool — you write meals in your own words and spot patterns over time. For individualized nutrition guidance, talk with a registered dietitian or your healthcare provider.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is it a weight-loss app?</h3>
+        <p>No. NourishTrack is a general daily-habits and awareness app. We don't set weight goals, track body size, or promise any health outcome. It pairs well with the educational articles you'll find on <a href="safe.html">Nourish Daily</a>.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Will it lecture me if I miss a day?</h3>
+        <p>Never. There are no streaks that reset, no red Xs, no guilt. You can take a day (or a month) off and your weekly snapshot simply waits for you to come back.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does it work offline?</h3>
+        <p>Yes. You can log and review habits without a connection. Data syncs to your own device account when you're online again. See our <a href="privacidade.html">Privacy Policy</a> for how data is handled.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is NourishTrack free?</h3>
+        <p>The core logging, reminders, and weekly snapshot are free to use. There's no advertising inside your logs. More questions? See our full <a href="faq.html">FAQ page</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="download">
+  <div class="container">
+    <div class="cta-box">
+      <h2>Start noticing your days, gently</h2>
+      <p>NourishTrack is a calm companion to the everyday wellness habits you read about here — hydration, balanced meals, movement, and rest.</p>
+      <div class="store-row">
+        <span class="store-badge">📱 <span><small>Download on the</small>App Store</span></span>
+        <span class="store-badge">🤖 <span><small>Get it on</small>Google Play</span></span>
+      </div>
+      <p style="font-size:.82rem;opacity:.78;margin-top:18px;margin-bottom:0">NourishTrack is a concept app from Nourish Daily for illustration. Educational only; not a medical device and not intended to diagnose or treat any condition.</p>
+    </div>
+    <p class="disclaimer" style="margin-top:26px">This page describes a habits and nutrition logging app. It is educational and general in nature. It is not medical advice and is not a substitute for guidance from a qualified healthcare professional.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div>
+      <a class="footer-brand" href="safe.html"><span class="brand-mark">ND</span>Nourish Daily</a>
+      <p class="footer-about">Independent, everyday health and wellness education — nutrition, hydration, sleep, and balanced habits, explained simply. Educational only; not medical advice.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Read</h4>
+      <ul>
+        <li><a href="safe.html">Home</a></li>
+        <li><a href="how-hydration-affects-energy.html">Hydration &amp; energy</a></li>
+        <li><a href="understanding-macronutrients.html">Macronutrients</a></li>
+        <li><a href="building-balanced-meals.html">Balanced meals</a></li>
+        <li><a href="sleep-and-daily-energy.html">Sleep &amp; energy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="sobre.html">About Nourish Daily</a></li>
+        <li><a href="app.html">NourishTrack app</a></li>
+        <li><a href="glossario.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Privacy Policy</a></li>
+        <li><a href="termos.html">Terms of Use</a></li>
+        <li><a href="mailto:contact@nourishdaily.sbs">contact@nourishdaily.sbs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Nourish Daily · nourishdaily.sbs — Educational content only. Not medical advice; consult a healthcare professional.</div>
+    <div><a href="privacidade.html">Privacy</a> · <a href="termos.html">Terms</a></div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Focus-and-Break Cycle: Working With Your Attention — Healthy Minds</title>
+<meta name="description" content="Why short work blocks paired with real breaks often beat marathon sessions. A calm guide to the focus-and-break cycle (the Pomodoro idea), with practical variations.">
+<link rel="canonical" href="https://healthyminds.sbs/focus-and-break-cycle.html">
+<meta property="og:image" content="https://healthyminds.sbs/img/focus-and-break-cycle.jpg">
+<meta name="robots" content="index, follow">
+<style>
+:root{--blue-900:#0b1e4d;--blue-800:#15357a;--blue-700:#1d4ed8;--blue-600:#2563eb;--blue-500:#3b82f6;--blue-100:#dbeafe;--blue-50:#eff6ff;--teal-600:#0d9488;--teal-50:#f0fdfa;--ink:#0f172a;--gray-700:#334155;--gray-500:#64748b;--gray-300:#cbd5e1;--border:#e6ecf5;--bg:#f5f8fd;--white:#ffffff;--radius:18px;--radius-sm:12px;--shadow:0 4px 18px rgba(15,23,42,.06);--shadow-lg:0 16px 40px rgba(29,78,216,.16);--maxw:1180px;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:var(--blue-700);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--border)}
+.nav-wrap{max-width:var(--maxw);margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.16rem;color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand-mark{width:38px;height:38px;border-radius:11px;flex:none;background:linear-gradient(135deg,var(--blue-700),var(--teal-600));display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:var(--shadow-lg)}
+.brand-mark svg{width:22px;height:22px}
+.brand-name span{color:var(--blue-700)}
+.site-nav ul{list-style:none;display:flex;gap:4px;margin:0;padding:0;flex-wrap:wrap}
+.site-nav a{color:var(--gray-700);font-weight:600;font-size:.95rem;padding:8px 14px;border-radius:999px;transition:background .15s,color .15s}
+.site-nav a:hover{background:var(--blue-50);color:var(--blue-700);text-decoration:none}
+.post-header{max-width:780px;margin:0 auto;padding:40px 20px 6px}
+.post-header .tag{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--blue-700);background:var(--blue-50);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.post-header h1{font-size:clamp(1.75rem,3.8vw,2.45rem)}
+.post-meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--gray-500);font-size:.88rem;margin:14px 0 0;align-items:center}
+.post-meta .dot{width:4px;height:4px;border-radius:50%;background:var(--gray-300)}
+.post-dek{font-size:1.12rem;color:var(--gray-700);margin-top:14px}
+.post-hero{max-width:780px;margin:24px auto 0;padding:0 20px}
+.post-hero img{width:100%;height:auto;border-radius:var(--radius);box-shadow:var(--shadow)}
+.breadcrumb{font-size:.85rem;color:var(--gray-500);margin-bottom:18px}
+.breadcrumb a{color:var(--gray-500)}
+.breadcrumb a:hover{color:var(--blue-700)}
+.post-wrap{max-width:780px;margin:0 auto;padding:34px 20px 20px}
+.post{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:40px clamp(22px,4vw,52px)}
+.post p{color:var(--gray-700);font-size:1.05rem}
+.post ul,.post ol{color:var(--gray-700)}
+.post li{margin-bottom:.45em}
+.post h2{font-size:1.5rem;margin-top:1.8em;color:var(--blue-900)}
+.post h3{font-size:1.18rem;margin-top:1.5em;color:var(--ink)}
+.post blockquote{margin:1.8em 0;padding:18px 24px;border-left:4px solid var(--blue-500);background:var(--blue-50);border-radius:0 14px 14px 0;color:var(--blue-900);font-style:italic;font-size:1.04rem}
+.post .tablewrap{overflow-x:auto;margin:1.8em 0}
+.post table{width:100%;border-collapse:collapse;font-size:.95rem;margin:0}
+.post table thead{background:var(--blue-50)}
+.post table th,.post table td{border:1px solid var(--border);padding:11px 13px;text-align:left}
+.post table th{color:var(--blue-700)}
+.callout{background:var(--teal-50);border:1px solid #b9e8e0;border-radius:14px;padding:16px 22px;margin:1.8em 0;color:var(--gray-700);font-size:.97rem}
+.callout strong{color:var(--teal-600)}
+.disclaimer{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:16px 22px;margin:1.8em 0;color:#7c2d12;font-size:.94rem}
+.disclaimer strong{color:#9a3412}
+.post-footer{margin-top:34px;padding-top:22px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.share-note{font-size:.85rem;color:var(--gray-500)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:999px;font-weight:700;font-size:.92rem;border:2px solid transparent;cursor:pointer;transition:all .15s ease;text-decoration:none}
+.btn-ghost{background:var(--blue-50);color:var(--blue-700)}
+.btn-ghost:hover{background:var(--blue-100)}
+.related{max-width:780px;margin:0 auto;padding:20px}
+.related-box{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
+.related-box h2{font-size:1.3rem;margin-bottom:6px}
+.related-box .lead-r{color:var(--gray-500);margin-bottom:18px;font-size:.96rem}
+.related-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.related-list a{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);transition:background .15s,border-color .15s}
+.related-list a:hover{background:var(--blue-50);border-color:var(--blue-100);text-decoration:none}
+.related-list .r-thumb{position:relative;width:84px;height:60px;flex:none;border-radius:8px;overflow:hidden}
+.related-list .r-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.related-list .r-info strong{display:block;font-size:1rem;color:var(--ink)}
+.related-list .r-info small{color:var(--gray-500);font-size:.82rem}
+.site-footer{background:var(--blue-900);color:rgba(255,255,255,.85);margin-top:40px}
+.footer-top{padding:54px 0 32px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:34px}
+.footer-brand{display:flex;align-items:center;gap:11px;font-weight:800;color:#fff;font-size:1.12rem;margin-bottom:12px}
+.footer-brand:hover{text-decoration:none}
+.footer-about{color:rgba(255,255,255,.62);font-size:.9rem;max-width:36ch}
+.footer-col h4{color:#fff;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:9px}
+.footer-col a{color:rgba(255,255,255,.72);font-size:.92rem}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:20px;text-align:center;font-size:.82rem;color:rgba(255,255,255,.55)}
+.footer-bottom a{color:rgba(255,255,255,.75)}
+@media (max-width:880px){.footer-top{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.nav-wrap{flex-direction:column;align-items:flex-start}.site-nav ul{gap:2px}.post{padding:26px 18px}.footer-top{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="safe.html">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2 0 2-4 4-4s2 8 4 8 2-12 4-12 2 8 4 8 2-4 4-4"/></svg></span>
+      <span class="brand-name">Healthy <span>Minds</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a href="safe.html">Home</a></li>
+        <li><a href="app.html">App</a></li>
+        <li><a href="glossario.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="sobre.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="post-header">
+  <p class="breadcrumb"><a href="safe.html">Home</a> &nbsp;&rsaquo;&nbsp; <a href="safe.html#in-focus">In focus</a> &nbsp;&rsaquo;&nbsp; Focus &amp; breaks</p>
+  <span class="tag">Focus</span>
+  <h1>The Focus-and-Break Cycle: Working With Your Attention</h1>
+  <div class="post-meta">
+    <span>By Daniel Reyes</span><span class="dot"></span>
+    <span>Feb 18, 2026</span><span class="dot"></span>
+    <span>7 min read</span>
+  </div>
+  <p class="post-dek">Pushing through for hours usually backfires. The focus-and-break cycle — the idea behind the Pomodoro technique — works with how attention actually behaves. Here's how to use it well.</p>
+</div>
+
+<div class="post-hero">
+  <img src="img/focus-and-break-cycle.jpg" alt="A kitchen timer next to an open notebook">
+</div>
+
+<div class="post-wrap">
+  <article class="post">
+    <p>There's a stubborn myth about focus: that it's about willpower, endurance, and simply sitting there until the work is done. The reality is that attention is cyclical. It rises, holds for a while, and fades — and fighting that rhythm tends to produce a lot of time at a desk with very little actual work to show for it.</p>
+
+    <p>This article is about a simple alternative: working in deliberate blocks of focus separated by real breaks. It's the idea behind the well-known <a href="glossario.html#term-pomodoro">Pomodoro technique</a>, and it's quietly powerful. It's a productivity method, not a medical or health treatment — and if you have an attention-related condition like ADHD, professional support matters far more than any timer.</p>
+
+    <h2>Why marathons usually lose to intervals</h2>
+    <p>Attention is not a faucet you can leave running at full strength. Research on <a href="glossario.html#term-attention">sustained attention</a> suggests that performance on a demanding task tends to drift downward the longer you go without a break — slowly at first, then more steeply. You start missing details, re-reading lines, reaching for your phone.</p>
+    <p>The strange part is how invisible this is in the moment. An hour into a session, you usually still feel "fine," even though the quality of your work has quietly dropped. By breaking the work into shorter blocks, you catch that drift earlier and reset before it compounds.</p>
+
+    <blockquote>Working with attention beats working against it. Short, focused effort with genuine recovery tends to outperform long, grim slogs — and it usually feels better too.</blockquote>
+
+    <p>There's a second reason intervals help: the deadline effect. A short, defined block creates a small sense of urgency that sharpens focus, and a defined break creates permission to actually rest. Both matter.</p>
+
+    <h2>The basic cycle</h2>
+    <p>The classic Pomodoro structure is a fine starting point, though it's far from the only option:</p>
+    <ul>
+      <li><strong>Choose one task.</strong> A single, specific thing — "draft the email," not "do work."</li>
+      <li><strong>Focus for 25 minutes.</strong> Same task, no tab-switching, phone face-down.</li>
+      <li><strong>Break for 5 minutes.</strong> Stand, look out a window, drink water. Away from screens.</li>
+      <li><strong>Repeat.</strong> After about four blocks, take a longer break of 15&ndash;30 minutes.</li>
+    </ul>
+    <p>That's the whole method. The genius is in the simplicity: there's nothing to optimize, no app to master. You just need a timer.</p>
+
+    <h2>One size does not fit all</h2>
+    <p>Twenty-five minutes is a starting suggestion, not a law. Different work, and different people, suit different rhythms. Here's how a few variations tend to feel:</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Block / break</th><th>Good for</th><th>Watch out for</th></tr></thead>
+        <tbody>
+          <tr><td>25 / 5 (classic)</td><td>Admin, email, studying short topics.</td><td>Breaks may feel too short for deep recovery.</td></tr>
+          <tr><td>50 / 10</td><td>Coding, writing, design — work with a ramp-up.</td><td>Requires real protection from interruption.</td></tr>
+          <tr><td>90 / 20</td><td>Deep, creative work; matches natural attention waves.</td><td>Hard to fit into fragmented days.</td></tr>
+          <tr><td>52 / 17</td><td>A popular "researched" ratio; broadly similar to 50/10.</td><td>Don't fetishize the exact number.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The honest truth: the specific numbers matter less than the principle. What matters is that you have a defined focus period, you protect it, and you take a genuine break afterward.</p>
+
+    <h2>What makes a break "real"</h2>
+    <p>This is where most people quietly undo the method. A "break" spent scrolling social media is not the kind of recovery your attention needs. The break should let the directed-focus parts of the brain ease off.</p>
+    <ul>
+      <li><strong>Move your body.</strong> Stand, stretch, walk to another room. Movement helps.</li>
+      <li><strong>Rest your eyes.</strong> Look at something distant — ideally outside.</li>
+      <li><strong>Change context.</strong> A different physical space signals "not working."</li>
+      <li><strong>Avoid new inputs.</strong> No feeds, no news. Let your mind idle a little.</li>
+    </ul>
+    <p>It sounds trivial, but the quality of the break is what makes the next block possible. People who say "the Pomodoro technique didn't work for me" very often skipped the breaks.</p>
+
+    <div class="callout">
+      <strong>A quiet helper:</strong> A gentle focus timer like <a href="app.html">MindClarity</a> can hold the structure for you, with soft chimes and an optional guard that quiets notifications during a block — so you don't have to manage the timer and the work at the same time.
+    </div>
+
+    <h2>Protecting the block</h2>
+    <p>The cycle only works if the focus block is actually focused. A few practical defenses:</p>
+    <ol>
+      <li><strong>One task, written down.</strong> Vague intentions drift; a clear task holds.</li>
+      <li><strong>Phone out of reach.</strong> Face-down on the desk still tempts; the next room is better.</li>
+      <li><strong>One tab, one app.</strong> Close everything not related to the task.</li>
+      <li><strong>A "parking lot" list.</strong> When a distracting thought or to-do appears, jot it and return — don't chase it. (See <a href="simple-ways-to-train-working-memory.html">working memory</a>: offloading protects focus.)</li>
+    </ol>
+
+    <h2>When the cycle doesn't fit</h2>
+    <p>Not every kind of work suits rigid blocks. Meetings, collaborative sessions, creative work that needs to run long, and on-call roles can all clash with a strict timer. That's fine. The cycle is a tool for the parts of your day you control — not a rule for every minute.</p>
+    <p>It's also worth noting that attention struggles can have deeper roots. Chronic inability to focus can reflect poor sleep (see <a href="how-sleep-shapes-focus.html">how sleep shapes focus</a>), sustained stress (see <a href="how-stress-affects-concentration.html">how stress affects concentration</a>), or a health condition. A timer can't fix those — but it can make the focus you do have go further.</p>
+
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> The focus-and-break cycle is a general productivity method, not a treatment for ADHD or any attention or health condition. If you have persistent difficulty focusing that affects your daily life, please consult a qualified health professional.
+    </div>
+
+    <h2>Getting started today</h2>
+    <p>If you'd like to try it, keep it deliberately small. Pick one task you've been avoiding, set a 25-minute timer, work on only that until it rings, then take a real 5-minute break. That's one cycle. Do four and notice how the afternoon feels compared to your usual marathon.</p>
+    <p>You'll likely discover what everyone eventually does: that working in cycles isn't about doing less. It's about doing more of the kind of work that actually counts — and feeling less wrecked by the end of it.</p>
+
+    <div class="post-footer">
+      <span class="share-note">Enjoyed this? Browse more <a href="safe.html">focus reads</a>.</span>
+      <a class="btn btn-ghost" href="app.html">Try a focus block in MindClarity</a>
+    </div>
+  </article>
+</div>
+
+<section class="related">
+  <div class="related-box">
+    <h2>Read also</h2>
+    <p class="lead-r">Connected reads on attention, recovery and steady focus.</p>
+    <div class="related-list">
+      <a href="how-sleep-shapes-focus.html">
+        <span class="r-thumb"><img src="img/how-sleep-shapes-focus.jpg" alt="" loading="lazy"></span>
+        <span class="r-info"><strong>How sleep shapes focus</strong><small>Better recovery overnight means better blocks by day.</small></span>
+      </a>
+      <a href="screen-time-and-attention.html">
+        <span class="r-thumb"><img src="img/screen-time-and-attention.jpg" alt="" loading="lazy"></span>
+        <span class="r-info"><strong>Screen time and attention</strong><small>Why your phone is the focus block's biggest threat.</small></span>
+      </a>
+      <a href="simple-ways-to-train-working-memory.html">
+        <span class="r-thumb"><img src="img/simple-ways-to-train-working-memory.jpg" alt="" loading="lazy"></span>
+        <span class="r-info"><strong>Give working memory a gentle workout</strong><small>What you hold in mind during each block.</small></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div>
+      <a class="footer-brand" href="safe.html"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2 0 2-4 4-4s2 8 4 8 2-12 4-12 2 8 4 8 2-4 4-4"/></svg></span>Healthy Minds</a>
+      <p class="footer-about">Calm, science-aware education on focus, sleep and everyday mental wellness. General information only — never a substitute for professional care.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Read</h4>
+      <ul>
+        <li><a href="safe.html">Home</a></li>
+        <li><a href="how-sleep-shapes-focus.html">How sleep shapes focus</a></li>
+        <li><a href="basics-of-mindfulness.html">Basics of mindfulness</a></li>
+        <li><a href="science-of-habit-formation.html">Science of habits</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="sobre.html">About</a></li>
+        <li><a href="app.html">MindClarity app</a></li>
+        <li><a href="glossario.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Privacy Policy</a></li>
+        <li><a href="termos.html">Terms of Use</a></li>
+        <li><a href="mailto:contact@healthyminds.sbs">contact@healthyminds.sbs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 Healthy Minds · healthyminds.sbs — Educational content only; not medical advice. Consult a qualified professional for any health concern.</div>
+    <div><a href="privacidade.html">Privacy</a> · <a href="termos.html">Terms</a></div>
+  </div>
+</footer>
+</body>
+</html>
