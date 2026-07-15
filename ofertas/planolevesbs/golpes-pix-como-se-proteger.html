@@ -1,0 +1,384 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Golpes do PIX: como reconhecer e se proteger sem paranoia · Plano Leve</title>
+  <meta name="description" content="Aprenda a reconhecer os golpes de PIX mais comuns, adotar hábitos simples de segurança e saber o que fazer se cair em um — com calma, sem paranoia.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://planoleve.sbs/golpes-pix-como-se-proteger.html">
+  <style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --teal:#0d9488;--teal-2:#14b8a6;--teal-3:#5eead4;--teal-ink:#0f766e;
+  --ink:#0f172a;--body:#334155;--muted:#64748b;--line:#e2e8f0;
+  --bg:#f4f7f9;--card:#ffffff;--soft:#ecfdf5;--soft-2:#f0fdfa;
+  --amber:#f59e0b;--danger:#e11d48;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 10px 30px -12px rgba(13,148,136,.18);
+  --shadow-sm:0 1px 3px rgba(15,23,42,.08);
+  --radius:18px;--radius-sm:12px;--wrap:1120px;
+  --grad:linear-gradient(135deg,#0d9488 0%,#14b8a6 55%,#2dd4bf 100%);
+  --grad-soft:linear-gradient(135deg,#ecfdf5 0%,#f0fdfa 100%);
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--body);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--teal-ink);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{color:var(--ink);line-height:1.25;font-weight:800;letter-spacing:-.02em}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.section{padding:60px 0}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.lead{font-size:1.12rem;color:var(--muted)}
+
+/* HEADER / NAV */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;gap:18px;height:66px;max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;color:var(--ink);letter-spacing:-.02em}
+.brand:hover{text-decoration:none}
+.brand .mark{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;box-shadow:0 6px 16px -6px rgba(13,148,136,.6)}
+.brand .mark svg{width:20px;height:20px}
+.brand small{display:block;font-size:.64rem;font-weight:600;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:1px}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{padding:9px 14px;border-radius:10px;color:var(--body);font-weight:600;font-size:.95rem;transition:background .15s,color .15s}
+.nav a:hover{background:var(--soft);color:var(--teal-ink);text-decoration:none}
+.nav a.cta{background:var(--teal);color:#fff}
+.nav a.cta:hover{background:var(--teal-ink)}
+.nav-toggle{display:none;background:none;border:0;font-size:1.5rem;cursor:pointer;color:var(--ink)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:12px;font-weight:700;font-size:1rem;border:0;cursor:pointer;transition:transform .12s,box-shadow .12s,background .15s;text-decoration:none}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:var(--teal);color:#fff;box-shadow:0 10px 22px -10px rgba(13,148,136,.8)}
+.btn-primary:hover{background:var(--teal-ink)}
+.btn-ghost{background:#fff;color:var(--teal-ink);border:1.5px solid var(--teal-3)}
+.btn-ghost:hover{background:var(--soft)}
+.btn-light{background:rgba(255,255,255,.16);color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+.btn-light:hover{background:rgba(255,255,255,.26)}
+.btn-lg{padding:16px 30px;font-size:1.05rem}
+
+/* PAGE HERO (interior) */
+.page-hero{background:var(--grad-soft);border-bottom:1px solid var(--line);padding:52px 0 46px;text-align:center}
+.page-hero h1{font-size:2.5rem;margin:0 0 12px}
+.page-hero p{color:var(--muted);font-size:1.14rem;max-width:58ch;margin:0 auto}
+
+/* SECTION HEADS */
+.sec-head{text-align:center;max-width:640px;margin:0 auto 40px}
+.sec-head h2{font-size:2rem;margin:6px 0 12px}
+.sec-head p{color:var(--muted);font-size:1.08rem;margin:0}
+.sec-head.left{text-align:left;margin-left:0}
+.softsec{background:var(--grad-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+/* ARTICLE / POST */
+.post{max-width:760px;margin:0 auto;padding:34px 0 20px}
+.breadcrumb{font-size:.86rem;color:var(--muted);margin-bottom:18px}
+.breadcrumb a{color:var(--muted)}
+.breadcrumb a:hover{color:var(--teal-ink)}
+.breadcrumb span{color:var(--teal-ink);font-weight:600}
+.post-head .tag{margin-bottom:14px}
+.tag{align-self:flex-start;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-ink);background:var(--soft);padding:5px 10px;border-radius:8px}
+.post-head h1{font-size:2.35rem;margin:0 0 14px;line-height:1.15}
+.post-dek{font-size:1.2rem;color:var(--muted);margin:0 0 18px}
+.post-meta{display:flex;align-items:center;gap:14px;font-size:.9rem;color:var(--muted);padding-bottom:22px;margin-bottom:8px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.post-meta .who{display:flex;align-items:center;gap:9px}
+.post-meta .who .dot{width:30px;height:30px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.post-hero{height:210px;border-radius:var(--radius);background:var(--grad);margin:24px 0 6px;position:relative;overflow:hidden;display:grid;place-items:center}
+.post-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 90% at 80% 0%,rgba(255,255,255,.28),transparent 55%)}
+.post-hero .emoji{font-size:3.4rem;position:relative;filter:drop-shadow(0 6px 12px rgba(0,0,0,.2))}
+.post-body{font-size:1.08rem;color:#1e293b}
+.post-body h2{font-size:1.6rem;margin:38px 0 14px}
+.post-body h3{font-size:1.25rem;margin:28px 0 10px}
+.post-body p{margin:0 0 18px}
+.post-body ul,.post-body ol{margin:0 0 20px;padding-left:22px}
+.post-body li{margin-bottom:9px}
+.post-body a{font-weight:600;text-decoration:underline;text-decoration-color:var(--teal-3)}
+.post-body strong{color:var(--ink)}
+.post-body blockquote{margin:26px 0;padding:20px 24px;background:var(--soft);border-left:5px solid var(--teal);border-radius:0 14px 14px 0;color:var(--teal-ink);font-size:1.1rem}
+.post-body blockquote p{margin:0}
+.callout{background:var(--soft-2);border:1px solid var(--teal-3);border-radius:14px;padding:20px 24px;margin:26px 0;display:flex;gap:14px}
+.callout .ci{font-size:1.6rem;flex:0 0 auto}
+.callout h4{margin:0 0 6px;color:var(--teal-ink)}
+.callout p{margin:0}
+.callout.danger{background:#fff1f2;border-color:#fecdd3}
+.callout.danger h4{color:var(--danger)}
+.data-table{width:100%;border-collapse:collapse;margin:26px 0;font-size:.98rem;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.data-table th,.data-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.data-table thead th{background:var(--soft);color:var(--teal-ink);font-weight:700;font-size:.86rem;text-transform:uppercase;letter-spacing:.04em}
+.data-table tbody tr:last-child td{border-bottom:0}
+.data-table tbody tr:nth-child(even){background:var(--soft-2)}
+.table-scroll{overflow-x:auto}
+.post-cta{background:var(--grad-soft);border:1px solid var(--teal-3);border-radius:var(--radius);padding:28px 30px;margin:34px 0;text-align:center}
+.post-cta h3{margin:0 0 8px}
+.post-cta p{margin:0 0 18px;color:var(--muted)}
+.disclaimer{font-size:.85rem;color:var(--muted);background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-top:30px}
+
+/* RELATED */
+.related{border-top:1px solid var(--line);margin-top:44px;padding-top:34px}
+.related h2{font-size:1.4rem;margin:0 0 20px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.related a{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow-sm);transition:border-color .15s,transform .15s}
+.related a:hover{border-color:var(--teal-3);transform:translateY(-2px);text-decoration:none}
+.related a .tag{margin-bottom:10px;font-size:.66rem;display:inline-block}
+.related a b{display:block;color:var(--ink);font-size:1rem;line-height:1.35}
+
+/* FOOTER */
+.site-footer{background:#0b1220;color:#94a3b8;padding:56px 0 26px;margin-top:20px}
+.site-footer .cols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px;padding-bottom:34px;border-bottom:1px solid rgba(255,255,255,.09)}
+.site-footer .brand{color:#fff}
+.site-footer .brand small{color:#64748b}
+.site-footer .fabout{margin:16px 0 0;font-size:.94rem;max-width:34ch;color:#94a3b8}
+.site-footer h4{color:#e2e8f0;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px}
+.site-footer ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.site-footer a{color:#94a3b8;font-size:.95rem}
+.site-footer a:hover{color:var(--teal-3);text-decoration:none}
+.site-footer .legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:22px;font-size:.86rem;color:#64748b}
+.site-footer .legal a{color:#64748b}
+.risk{background:#0b1220;color:#475569;font-size:.8rem;text-align:center;padding:0 20px 30px;line-height:1.6}
+.risk .wrap{max-width:820px}
+
+/* RESPONSIVE */
+@media(max-width:920px){
+  .site-footer .cols{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  body{font-size:16px}
+  .nav{position:fixed;top:66px;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;border-bottom:1px solid var(--line);padding:12px;gap:4px;display:none;box-shadow:0 20px 30px -20px rgba(0,0,0,.3)}
+  .nav.open{display:flex}
+  .nav a{padding:12px 14px}
+  .nav-toggle{display:block}
+  .related-grid{grid-template-columns:1fr}
+  .section{padding:44px 0}
+  .post-head h1{font-size:1.85rem}
+  .page-hero h1{font-size:1.9rem}
+}
+  </style>
+</head><body>
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="safe.html" aria-label="Plano Leve — início">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 16.5C7 12 9 15 12 10.5C15 6 17 9 20 5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="20" cy="5" r="1.8" fill="#fff"/>
+        </svg>
+      </span>
+      <span>Plano Leve<small>Finanças sem estresse</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+    <nav class="nav" id="nav">
+      <a href="safe.html">Início</a>
+      <a href="app.html">App</a>
+      <a href="glossario.html">Glossário</a>
+      <a href="faq.html">Dúvidas</a>
+      <a href="sobre.html">Sobre</a>
+      <a class="cta" href="app.html">Conheça o app</a>
+    </nav>
+  </div>
+</header>
+
+<article class="post">
+  <div class="wrap">
+    <div class="breadcrumb">
+      <a href="safe.html">Início</a> / <a href="safe.html">Segurança</a> / <span>Golpes do PIX: como se proteger</span>
+    </div>
+
+    <div class="post-head">
+      <span class="tag">Segurança</span>
+      <h1>Golpes do PIX: como reconhecer e se proteger sem paranoia</h1>
+      <p class="post-dek">Sinais de alerta, hábitos simples de segurança e o que fazer se você cair em um golpe — com calma e sem transformar sua vida financeira num campo minado.</p>
+      <div class="post-meta">
+        <span class="who"><span class="dot">PL</span> por Equipe Plano Leve</span>
+        <span>·</span>
+        <time datetime="2026-06-18">18 de junho de 2026</time>
+        <span>·</span>
+        <span>Leitura de 8 min</span>
+      </div>
+    </div>
+
+    <div class="post-hero"><span class="emoji">🔐</span></div>
+
+    <div class="post-body">
+      <p>O PIX virou parte da rotina de praticamente todo mundo no Brasil. É rápido, gratuito e funciona a qualquer hora — e é justamente essa conveniência que os golpistas tentam explorar. A boa notícia é que a maioria dos golpes segue receitas parecidas. Quando você aprende a reconhecer o padrão, a defesa deixa de ser sorte e passa a ser hábito.</p>
+
+      <p>Este guia não é para te deixar com medo de usar o celular. É para te dar tranquilidade: entender como os golpes funcionam, quais são os sinais que se repetem em quase todos eles e o que fazer com serenidade caso algo dê errado. Sem paranoia, mas com atenção nos momentos certos.</p>
+
+      <blockquote><p>Golpe de PIX quase nunca é sobre tecnologia sofisticada. É sobre pressa e emoção. Quem tira dois minutos para respirar antes de transferir já eliminou a maior parte do risco.</p></blockquote>
+
+      <h2>Os formatos mais comuns (e como cada um funciona)</h2>
+      <p>Os golpes mudam de roupa o tempo todo, mas se apoiam nos mesmos truques psicológicos. Conhecer os principais formatos ajuda a acender o sinal amarelo antes de clicar em qualquer coisa.</p>
+
+      <h3>1. Falso parente ou mensagem de emergência</h3>
+      <p>Você recebe uma mensagem de um número desconhecido dizendo ser um filho, um irmão ou um amigo que "trocou de celular" e precisa de um PIX urgente. O golpista aposta no carinho e na pressa. Às vezes usa até a foto de perfil da pessoa, copiada de redes sociais.</p>
+
+      <h3>2. Falsa central do banco</h3>
+      <p>Alguém liga se passando por funcionário do banco, avisando de uma "transação suspeita" e pedindo que você faça um PIX para uma "conta segura" ou informe códigos. Nenhum banco de verdade pede que você transfira dinheiro para se proteger — isso simplesmente não existe.</p>
+
+      <h3>3. Falso comprovante de pagamento</h3>
+      <p>Comum em vendas pela internet. O "comprador" envia uma imagem de comprovante de PIX e pede o produto na hora. O comprovante é falso ou editado, e o dinheiro nunca chega. Sempre confirme o valor <strong>na sua própria conta</strong>, nunca na imagem que o outro mandou.</p>
+
+      <h3>4. Mão fantasma e acesso remoto</h3>
+      <p>O golpista convence a vítima a instalar um aplicativo de "suporte" ou "atualização", que dá controle remoto do aparelho. Com isso, ele mesmo abre o app do banco e faz as transferências. Nenhuma instituição séria pede para instalar programas de acesso remoto para resolver problemas.</p>
+
+      <h3>5. QR Code adulterado</h3>
+      <p>Em cobranças presenciais ou por mensagem, um QR Code pode ser trocado por outro que aponta para a conta do golpista — às vezes com valor diferente do combinado. Antes de confirmar, sempre confira o <strong>nome do recebedor e o valor</strong> que aparecem na tela.</p>
+
+      <div class="callout">
+        <span class="ci">💡</span>
+        <div>
+          <h4>O ponto em comum</h4>
+          <p>Repare que todos esses golpes precisam de uma coisa: que <strong>você</strong> autorize a transferência. O PIX em si é seguro; o alvo é a sua decisão no calor do momento. Por isso a melhor trava é sempre a mesma — parar, respirar e conferir.</p>
+        </div>
+      </div>
+
+      <h2>Os sinais de alerta que se repetem</h2>
+      <p>Independente do disfarce, os golpes carregam marcas parecidas. Se você notar duas ou mais destas ao mesmo tempo, trate como um alerta forte:</p>
+      <ul>
+        <li><strong>Urgência artificial:</strong> "é agora ou nunca", "sua conta será bloqueada em minutos", "o boleto vence hoje". A pressa serve para você não pensar.</li>
+        <li><strong>Pressão emocional:</strong> medo, culpa, empolgação com um prêmio ou pena de um parente em apuros.</li>
+        <li><strong>Contato não solicitado:</strong> ligação, mensagem ou e-mail que você não esperava, ainda que pareça vir do banco ou de uma loja conhecida.</li>
+        <li><strong>Pedido de códigos ou senhas:</strong> nenhum canal legítimo pede o código do SMS, a senha do app ou dados completos do cartão.</li>
+        <li><strong>Links encurtados ou estranhos:</strong> endereços com erros de digitação, domínios esquisitos ou que fogem do site oficial.</li>
+        <li><strong>Canal fora do oficial:</strong> um "atendente do banco" que só fala com você por WhatsApp de número pessoal.</li>
+      </ul>
+
+      <blockquote><p>Uma regra que resolve quase tudo: se a mensagem tenta te apressar, desconfie na mesma proporção da pressa. Quanto mais urgente parece, mais devagar você deveria ir.</p></blockquote>
+
+      <h2>Hábitos simples de prevenção</h2>
+      <p>Você não precisa virar especialista em segurança digital. Alguns hábitos, repetidos até virarem automáticos, já reduzem muito o risco no dia a dia.</p>
+      <ul>
+        <li><strong>Confira sempre o nome do recebedor.</strong> Antes de confirmar qualquer PIX, olhe o nome e, se possível, o começo do CPF/CNPJ que aparecem na tela. Estranhou? Não confirme.</li>
+        <li><strong>Nunca compartilhe códigos, senhas ou o print da tela do banco.</strong> Código de SMS é seu e de mais ninguém.</li>
+        <li><strong>Ative limites de valor por transação e por período.</strong> A maioria dos apps permite definir um teto para o PIX, principalmente no período noturno.</li>
+        <li><strong>Ligue a verificação em duas etapas</strong> no app do banco e no e-mail associado.</li>
+        <li><strong>Desconfie de links.</strong> Em vez de clicar, abra o app oficial do banco ou da loja e verifique por lá.</li>
+        <li><strong>Confirme por outro canal.</strong> Recebeu um pedido de dinheiro de um "parente"? Ligue para o número antigo dele antes de transferir.</li>
+        <li><strong>Cadastre chaves com cuidado</strong> e revise de tempos em tempos quais chaves e dispositivos estão vinculados à sua conta.</li>
+      </ul>
+
+      <p>Vale lembrar que segurança e organização andam juntas. Quem acompanha o próprio saldo e sabe o que costuma entrar e sair percebe rápido uma movimentação fora do padrão. Um <a href="app.html">app como o Bússola Leve</a> ajuda nesse ponto: ao registrar seus gastos, você cria o hábito de olhar as movimentações — e um PIX estranho salta aos olhos muito mais cedo.</p>
+
+      <h2>Um comparativo rápido para ter à mão</h2>
+      <p>Para fixar a diferença entre o comportamento legítimo e o do golpe, esta tabela educativa resume os contrastes mais úteis:</p>
+      <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr><th>Situação</th><th>O que um canal legítimo faz</th><th>O que costuma indicar golpe</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Contato do banco</td><td>Pede que você use o app ou vá à agência</td><td>Pede PIX para "conta segura" ou códigos</td></tr>
+          <tr><td>Urgência</td><td>Dá tempo e canais oficiais para resolver</td><td>Exige decisão imediata, "agora ou nunca"</td></tr>
+          <tr><td>Comprovante de venda</td><td>Valor confirmado na sua própria conta</td><td>Só a imagem enviada pela outra pessoa</td></tr>
+          <tr><td>Suporte técnico</td><td>Orienta dentro do app oficial</td><td>Pede para instalar app de acesso remoto</td></tr>
+          <tr><td>Pedido de familiar</td><td>Confere por um canal já conhecido</td><td>Número novo, com pressa e sem confirmação</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Os exemplos acima são educativos e servem como referência geral — golpes se reinventam, mas o espírito da coluna da direita tende a se manter.</p>
+
+      <div class="callout danger">
+        <span class="ci">🚨</span>
+        <div>
+          <h4>Caí em um golpe. E agora?</h4>
+          <p>Respire. Agir rápido e com clareza aumenta a chance de reduzir o prejuízo. Siga os passos abaixo <strong>na ordem</strong> — nenhum deles envolve pagar mais nada a quem te contatou.</p>
+        </div>
+      </div>
+
+      <h2>O passo a passo se você foi vítima</h2>
+      <ol>
+        <li><strong>Registre tudo.</strong> Salve prints das conversas, números, comprovantes e horários. Essas informações são importantes para o banco e para a ocorrência.</li>
+        <li><strong>Acione seu banco pelos canais oficiais.</strong> Use o número no verso do cartão ou o atendimento dentro do app. Relate o ocorrido e peça a abertura de contestação.</li>
+        <li><strong>Solicite o MED (Mecanismo Especial de Devolução).</strong> É o procedimento criado justamente para tentar recuperar valores em casos de fraude ou falha. Quanto antes você aciona, maior a chance de o dinheiro ser bloqueado na conta de destino.</li>
+        <li><strong>Registre um boletim de ocorrência.</strong> Pode ser feito online em muitos estados. O B.O. formaliza o caso e costuma ser exigido em contestações.</li>
+        <li><strong>Troque senhas e revise acessos.</strong> Altere a senha do app e do e-mail, e revise dispositivos autorizados. Se instalou algum aplicativo suspeito, desinstale.</li>
+        <li><strong>Fique atento a novos contatos.</strong> Depois de um golpe, é comum aparecer um "segundo golpe": alguém oferecendo ajuda para "recuperar o dinheiro" — mediante um PIX. Não caia nessa.</li>
+      </ol>
+
+      <p>Não existe garantia de recuperação em todos os casos, mas a rapidez faz muita diferença. Por isso, deixar salvo o telefone oficial do seu banco e saber onde fica a opção de contestação no app já é meio caminho andado.</p>
+
+      <div class="post-cta">
+        <h3>Organize suas finanças com calma</h3>
+        <p>Quem acompanha o próprio dinheiro percebe movimentações estranhas mais cedo. O Bússola Leve ajuda você a criar esse hábito, sem planilhas complicadas.</p>
+        <a class="btn btn-primary btn-lg" href="app.html">Conhecer o Bússola Leve</a>
+      </div>
+
+      <h2>Segurança é hábito, não vigilância constante</h2>
+      <p>Você não precisa desconfiar de cada mensagem que chega nem viver com o celular na defensiva. A ideia é outra: incorporar alguns cuidados até que eles se tornem naturais, e reservar a atenção redobrada para os momentos que realmente pedem — quando alguém te apressa, te emociona ou aparece do nada pedindo dinheiro.</p>
+
+      <p>O PIX segue sendo uma das melhores coisas que aconteceram para a vida financeira no Brasil. Entender também as novidades ao redor dele ajuda a usar com mais confiança: vale conhecer como funciona o <a href="pix-automatico-2026.html">PIX Automático em 2026</a> e o que muda no <a href="open-finance-guia.html">Open Finance</a> quando você compartilha seus dados bancários. E, se você quiser uma base sólida para lidar com imprevistos sem desespero, montar uma <a href="reserva-de-emergencia.html">reserva de emergência</a> é o alicerce que traz tranquilidade — inclusive na hora de reagir a um susto.</p>
+
+      <p>No fim, proteger-se de golpes é menos sobre tecnologia e mais sobre ritmo. Devagar na hora certa, calma diante da pressa. Com esses hábitos, o medo dá lugar à confiança — que é exatamente onde a sua relação com o dinheiro deveria estar.</p>
+
+      <p class="disclaimer">Este conteúdo tem caráter educativo e informativo. Não substitui a orientação dos canais oficiais do seu banco nem de autoridades competentes. Em caso de fraude, priorize sempre o contato pelo telefone impresso no verso do seu cartão e os registros formais (contestação, MED e boletim de ocorrência).</p>
+
+      <div class="related">
+        <h2>Leia também</h2>
+        <div class="related-grid">
+          <a href="pix-automatico-2026.html">
+            <span class="tag">Atualidades</span>
+            <b>PIX Automático em 2026: cobrança recorrente sem susto</b>
+          </a>
+          <a href="open-finance-guia.html">
+            <span class="tag">Atualidades</span>
+            <b>Open Finance na prática: o que muda ao compartilhar seus dados</b>
+          </a>
+          <a href="reserva-de-emergencia.html">
+            <span class="tag">Planejamento</span>
+            <b>Reserva de emergência leve: comece com o que você tem hoje</b>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="safe.html">
+          <span class="mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 16.5C7 12 9 15 12 10.5C15 6 17 9 20 5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="20" cy="5" r="1.8" fill="#fff"/>
+            </svg>
+          </span>
+          <span>Plano Leve<small>Finanças sem estresse</small></span>
+        </a>
+        <p class="fabout">Conteúdo educativo sobre organização financeira, orçamento e metas — para você cuidar do dinheiro com calma e sem culpa.</p>
+      </div>
+      <div>
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="app.html">O app Bússola Leve</a></li>
+          <li><a href="glossario.html">Glossário</a></li>
+          <li><a href="faq.html">Dúvidas frequentes</a></li>
+          <li><a href="sobre.html">Sobre nós</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ler agora</h4>
+        <ul>
+          <li><a href="reserva-de-emergencia.html">Reserva de emergência</a></li>
+          <li><a href="orcamento-50-30-20-adaptado.html">Orçamento sem culpa</a></li>
+          <li><a href="investir-com-pouco-tesouro-cdb.html">Investir com pouco</a></li>
+          <li><a href="score-de-credito-mitos.html">Mitos do score</a></li>
+          <li><a href="golpes-pix-como-se-proteger.html">Golpes do PIX</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Atualidades</h4>
+        <ul>
+          <li><a href="pix-automatico-2026.html">PIX Automático 2026</a></li>
+          <li><a href="open-finance-guia.html">Open Finance</a></li>
+          <li><a href="selic-e-seu-bolso.html">Selic e seu bolso</a></li>
+          <li><a href="ir-2026-sem-estresse.html">IR 2026 sem estresse</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Plano Leve · planoleve.sbs — Todos os direitos reservados.</span>
+      <span><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos de uso</a> · <a href="mailto:contato@planoleve.sbs">contato@planoleve.sbs</a></span>
+    </div>
+  </div>
+</footer>
+<div class="risk"><div class="wrap">O Plano Leve tem caráter exclusivamente educativo e informativo. Não realizamos recomendação de investimento, oferta de crédito nem consultoria financeira individual. Antes de decidir, avalie seu contexto e, se necessário, procure um profissional habilitado.</div></div>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobre o Jeito Certo — Nossa missão e política de conteúdo</title>
+<meta name="description" content="Quem faz o Jeito Certo, nossa missão editorial e a política de conteúdo original e independente sobre finanças pessoais no Brasil.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://jeitocerto.sbs/sobre.html">
+<meta property="og:title" content="Sobre o Jeito Certo — Nossa missão e política de conteúdo">
+<meta property="og:description" content="Quem faz o Jeito Certo, nossa missão editorial e a política de conteúdo original e independente sobre finanças pessoais no Brasil.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23b45309'/%3E%3Ctext x='16' y='22' font-size='16' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3EJC%3C/text%3E%3C/svg%3E">
+
+<style>
+:root{
+  --amber:#b45309;--amber-2:#d97706;--amber-soft:#fef3e2;--amber-line:#fcd9a6;
+  --ink:#1c1917;--body:#44403c;--muted:#78716c;--line:#eee6dd;
+  --bg:#faf7f2;--card:#ffffff;--dark:#1c1512;--dark-2:#2a201b;
+  --radius:16px;--shadow:0 1px 2px rgba(28,25,23,.04),0 12px 30px -18px rgba(180,83,9,.28);
+  --wrap:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--body);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased;font-size:17px;
+}
+img{max-width:100%;display:block}
+a{color:var(--amber);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{color:var(--ink);line-height:1.2;font-weight:800;letter-spacing:-.02em}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
+.narrow{max-width:760px;margin:0 auto;padding:0 22px}
+
+/* ---------- HEADER / NAV ---------- */
+.site-head{
+  position:sticky;top:0;z-index:50;background:rgba(250,247,242,.86);
+  backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line);
+}
+.site-head .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:66px;max-width:var(--wrap);margin:0 auto;padding:0 22px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;color:var(--ink);letter-spacing:-.03em;font-size:1.18rem}
+.brand:hover{text-decoration:none}
+.brand .mark{
+  width:34px;height:34px;border-radius:10px;flex:none;display:grid;place-items:center;color:#fff;font-weight:900;
+  background:linear-gradient(135deg,var(--amber-2),var(--amber));box-shadow:0 6px 16px -6px rgba(180,83,9,.6)
+}
+.brand small{display:block;font-size:.62rem;font-weight:600;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:1px}
+.nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.nav a{color:var(--body);font-weight:600;font-size:.95rem;padding:8px 12px;border-radius:9px}
+.nav a:hover{background:var(--amber-soft);color:var(--amber);text-decoration:none}
+.nav a.cta{background:var(--ink);color:#fff}
+.nav a.cta:hover{background:var(--amber)}
+
+/* ---------- BUTTONS ---------- */
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:1rem;padding:13px 24px;border-radius:12px;border:0;cursor:pointer;transition:.18s;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,var(--amber-2),var(--amber));color:#fff;box-shadow:0 12px 26px -12px rgba(180,83,9,.7)}
+.btn-primary:hover{transform:translateY(-2px);text-decoration:none;filter:brightness(1.05)}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--amber-line)}
+.btn-ghost:hover{background:var(--amber-soft);text-decoration:none}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:var(--amber);text-decoration:none}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;padding:64px 0 52px}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;
+  background:
+   radial-gradient(700px 340px at 82% -8%,rgba(217,119,6,.16),transparent 60%),
+   radial-gradient(560px 300px at 8% 12%,rgba(180,83,9,.10),transparent 60%)}
+.hero .kicker{display:inline-flex;align-items:center;gap:8px;background:var(--amber-soft);border:1px solid var(--amber-line);color:var(--amber);font-weight:700;font-size:.82rem;padding:6px 13px;border-radius:999px;letter-spacing:.02em}
+.hero h1{font-size:clamp(2rem,5.2vw,3.3rem);margin:18px 0 14px;max-width:14ch}
+.hero p.lead{font-size:1.16rem;color:var(--body);max-width:56ch;margin:0 0 26px}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.hero-badges{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px}
+.hero-badges div{font-size:.9rem;color:var(--muted)}
+.hero-badges b{display:block;color:var(--ink);font-size:1.5rem;font-weight:900;letter-spacing:-.02em}
+
+/* ---------- SECTIONS ---------- */
+.section{padding:56px 0}
+.section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sec-head{max-width:640px;margin:0 0 34px}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.eyebrow{color:var(--amber);font-weight:800;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase}
+.sec-head h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:10px 0 12px}
+.sec-head p{color:var(--muted);font-size:1.05rem;margin:0}
+
+/* ---------- CARD GRID (posts) ---------- */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grid.two{grid-template-columns:repeat(2,1fr)}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  display:flex;flex-direction:column;transition:.2s;box-shadow:var(--shadow)
+}
+.card:hover{transform:translateY(-4px);border-color:var(--amber-line)}
+.card .thumb{height:132px;position:relative;background:linear-gradient(135deg,var(--amber-2),var(--amber))}
+.card .thumb.g2{background:linear-gradient(135deg,#f59e0b,#b45309)}
+.card .thumb.g3{background:linear-gradient(135deg,#ea9a3e,#92400e)}
+.card .thumb.g4{background:linear-gradient(135deg,#fbbf24,#c2410c)}
+.card .thumb .ico{position:absolute;right:14px;bottom:-2px;font-size:3.2rem;opacity:.9;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2))}
+.card .thumb .tag{position:absolute;left:14px;top:14px;background:rgba(28,21,18,.72);color:#fff;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.04em}
+.card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+.card .meta{font-size:.78rem;color:var(--muted);font-weight:600}
+.card h3{font-size:1.12rem;margin:0}
+.card h3 a{color:var(--ink)}
+.card h3 a:hover{color:var(--amber);text-decoration:none}
+.card p{margin:0;font-size:.94rem;color:var(--body)}
+.card .more{margin-top:auto;padding-top:6px;font-weight:700;font-size:.9rem;color:var(--amber)}
+
+/* ---------- FEATURE CARDS ---------- */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;transition:.18s}
+.feat:hover{border-color:var(--amber-line);box-shadow:var(--shadow)}
+.feat .fi{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:1.4rem;background:var(--amber-soft);border:1px solid var(--amber-line);margin-bottom:14px}
+.feat h3{font-size:1.08rem;margin:0 0 7px}
+.feat p{margin:0;font-size:.95rem;color:var(--muted)}
+
+/* ---------- STEPS ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+.step{position:relative;padding:26px 18px 20px;background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
+.step:before{counter-increment:s;content:counter(s);position:absolute;top:-16px;left:18px;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:900;background:linear-gradient(135deg,var(--amber-2),var(--amber));box-shadow:0 8px 18px -8px rgba(180,83,9,.7)}
+.step h3{font-size:1.02rem;margin:8px 0 6px}
+.step p{margin:0;font-size:.92rem;color:var(--muted)}
+
+/* ---------- APP SECTION + MOCKUP ---------- */
+.app-split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.app-copy .pill{display:inline-flex;gap:7px;align-items:center;background:var(--amber-soft);border:1px solid var(--amber-line);color:var(--amber);font-weight:700;font-size:.8rem;padding:5px 12px;border-radius:999px}
+.app-copy h2{font-size:clamp(1.7rem,3.6vw,2.3rem);margin:16px 0 12px}
+.app-copy p{color:var(--body);font-size:1.06rem;margin:0 0 18px}
+.app-list{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:11px}
+.app-list li{display:flex;gap:11px;align-items:flex-start;font-weight:600;color:var(--ink)}
+.app-list li span{color:var(--amber);font-weight:900;flex:none}
+.mock-wrap{display:flex;justify-content:center;perspective:1400px}
+.phone{
+  width:290px;background:#0f0b09;border-radius:38px;padding:12px;box-shadow:0 40px 80px -30px rgba(120,53,15,.55),0 0 0 1px rgba(0,0,0,.4);
+  transform:rotateY(-11deg) rotateX(4deg)
+}
+.phone .screen{background:var(--bg);border-radius:28px;overflow:hidden;min-height:560px}
+.phone .notch{height:26px;display:flex;justify-content:center}
+.phone .notch:after{content:"";width:120px;height:18px;background:#0f0b09;border-radius:0 0 14px 14px}
+.app-top{background:linear-gradient(135deg,var(--amber-2),var(--amber));color:#fff;padding:18px 18px 22px}
+.app-top small{opacity:.85;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.app-top .bal{font-size:1.9rem;font-weight:900;margin-top:2px}
+.app-top .row{display:flex;justify-content:space-between;margin-top:14px;font-size:.8rem}
+.app-top .row div{background:rgba(255,255,255,.16);padding:8px 10px;border-radius:10px;flex:1;margin:0 4px;text-align:center}
+.app-top .row div:first-child{margin-left:0}.app-top .row div:last-child{margin-right:0}
+.app-body{padding:16px}
+.app-body .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin:6px 0 8px}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:11px;font-size:.82rem}
+.bar .name{flex:1;color:var(--ink);font-weight:600}
+.bar .track{width:96px;height:8px;background:#efe6da;border-radius:99px;overflow:hidden}
+.bar .fill{height:100%;background:linear-gradient(90deg,var(--amber-2),var(--amber))}
+.habit{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:.85rem;font-weight:600;color:var(--ink)}
+.habit .chk{width:22px;height:22px;border-radius:7px;background:var(--amber-soft);border:1.5px solid var(--amber-line);display:grid;place-items:center;color:var(--amber);font-size:.8rem}
+.habit .chk.on{background:var(--amber);border-color:var(--amber);color:#fff}
+.habit.done .name{color:var(--muted);text-decoration:line-through}
+.habit .name{flex:1}
+
+/* ---------- NEWSLETTER ---------- */
+.news{background:linear-gradient(135deg,var(--dark),var(--dark-2));color:#fff;border-radius:24px;padding:44px;position:relative;overflow:hidden}
+.news:before{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(217,119,6,.5),transparent 68%)}
+.news h2{color:#fff;font-size:1.8rem;margin:0 0 8px}
+.news p{color:#d6cfc8;margin:0 0 22px;max-width:52ch}
+.news form{display:flex;gap:10px;flex-wrap:wrap;max-width:520px}
+.news input{flex:1;min-width:220px;padding:14px 16px;border-radius:12px;border:1px solid #4a3d34;background:#12100e;color:#fff;font-size:1rem}
+.news input::placeholder{color:#8a8078}
+.news input:focus{outline:none;border-color:var(--amber-2)}
+.news .fine{color:#a79e96;font-size:.8rem;margin:14px 0 0}
+.news .ok{display:none;color:#fcd9a6;font-weight:700;margin-top:14px}
+
+/* ---------- ABOUT STRIP ---------- */
+.about-strip{display:grid;grid-template-columns:1.4fr 1fr;gap:36px;align-items:center}
+.about-strip .card-soft{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:var(--radius);padding:24px}
+.about-strip h2{font-size:1.7rem;margin:8px 0 12px}
+.about-strip p{margin:0 0 12px}
+
+/* ---------- ARTICLE (.post) ---------- */
+.breadcrumb{font-size:.85rem;color:var(--muted);padding:22px 0 0}
+.breadcrumb a{color:var(--muted)}
+.breadcrumb a:hover{color:var(--amber)}
+.post{padding:8px 0 20px}
+.post-head{max-width:760px;margin:0 auto;padding:14px 22px 8px}
+.post-head .cat{display:inline-block;background:var(--amber-soft);border:1px solid var(--amber-line);color:var(--amber);font-weight:700;font-size:.78rem;padding:4px 12px;border-radius:999px}
+.post-head h1{font-size:clamp(1.9rem,4.4vw,2.7rem);margin:16px 0 12px}
+.post-head .dek{font-size:1.16rem;color:var(--body);margin:0 0 14px}
+.post-head .byline{font-size:.88rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+.post-hero{max-width:960px;margin:18px auto 0;padding:0 22px}
+.post-hero .fig{height:230px;border-radius:var(--radius);background:linear-gradient(135deg,var(--amber-2),var(--amber));position:relative;overflow:hidden}
+.post-hero .fig .em{position:absolute;right:24px;bottom:8px;font-size:6rem;opacity:.85}
+.post-body{max-width:720px;margin:0 auto;padding:34px 22px 10px;font-size:1.08rem}
+.post-body p{margin:0 0 20px}
+.post-body h2{font-size:1.55rem;margin:38px 0 12px}
+.post-body h3{font-size:1.2rem;margin:28px 0 8px}
+.post-body ul,.post-body ol{margin:0 0 20px;padding-left:22px}
+.post-body li{margin:0 0 9px}
+.post-body a{font-weight:600;text-decoration:underline;text-decoration-color:var(--amber-line);text-underline-offset:3px}
+.post-body strong{color:var(--ink)}
+.post-body blockquote{margin:26px 0;padding:18px 22px;background:var(--amber-soft);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;font-size:1.08rem;color:var(--ink)}
+.post-body blockquote p:last-child{margin:0}
+.callout{background:#fff;border:1px solid var(--amber-line);border-radius:var(--radius);padding:20px 22px;margin:26px 0}
+.callout .t{font-weight:800;color:var(--amber);margin:0 0 6px;font-size:.95rem;letter-spacing:.02em}
+.callout p{margin:0}
+.data-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.96rem;overflow:hidden;border-radius:12px;border:1px solid var(--line)}
+.data-table th,.data-table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}
+.data-table thead th{background:var(--amber-soft);color:var(--ink);font-weight:800}
+.data-table tbody tr:last-child td{border-bottom:0}
+.data-table tbody tr:nth-child(even){background:#fbf8f3}
+.table-scroll{overflow-x:auto}
+.tldr{background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:12px;padding:18px 20px;margin:0 0 26px}
+.tldr b{color:var(--amber)}
+.tldr ul{margin:8px 0 0;padding-left:20px}
+
+/* ---------- RELATED ---------- */
+.related{background:#fff;border-top:1px solid var(--line);padding:44px 0}
+.related h2{font-size:1.4rem;margin:0 0 22px;text-align:center}
+.share{max-width:720px;margin:18px auto 0;padding:0 22px}
+.author-box{max-width:720px;margin:26px auto 0;padding:20px 22px;display:flex;gap:16px;align-items:center;background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:var(--radius)}
+.author-box .av{width:54px;height:54px;border-radius:50%;flex:none;background:linear-gradient(135deg,var(--amber-2),var(--amber));display:grid;place-items:center;color:#fff;font-weight:900;font-size:1.3rem}
+.author-box p{margin:0;font-size:.9rem;color:var(--body)}
+.author-box b{color:var(--ink)}
+
+/* ---------- GLOSSARY / FAQ ---------- */
+.glossary{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.term{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;scroll-margin-top:90px}
+.term dt{font-weight:800;color:var(--ink);font-size:1.06rem;margin-bottom:5px}
+.term dt span{color:var(--amber)}
+.term dd{margin:0;color:var(--body);font-size:.95rem}
+.az{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
+.az a{background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-weight:700;font-size:.85rem;color:var(--body)}
+.az a:hover{background:var(--amber-soft);color:var(--amber);text-decoration:none}
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 22px;margin-bottom:12px}
+.faq-item summary{cursor:pointer;font-weight:700;color:var(--ink);padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:14px;align-items:center;font-size:1.04rem}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:after{content:"+";color:var(--amber);font-weight:900;font-size:1.4rem;flex:none}
+.faq-item[open] summary:after{content:"–"}
+.faq-item .a{padding:0 0 18px;color:var(--body)}
+.faq-item .a p{margin:0 0 10px}
+
+/* ---------- TEAM ---------- */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.member{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-align:center}
+.member .av{width:64px;height:64px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--amber-2),var(--amber));display:grid;place-items:center;color:#fff;font-weight:900;font-size:1.4rem}
+.member h3{font-size:1.05rem;margin:0 0 3px}
+.member .role{color:var(--amber);font-weight:700;font-size:.82rem;margin-bottom:8px}
+.member p{margin:0;font-size:.9rem;color:var(--muted)}
+
+/* ---------- MISC ---------- */
+.pagehead{padding:46px 0 8px;background:
+  radial-gradient(600px 260px at 85% -20%,rgba(217,119,6,.14),transparent 60%)}
+.pagehead h1{font-size:clamp(1.9rem,4.4vw,2.8rem);margin:8px 0 12px}
+.pagehead p{font-size:1.1rem;color:var(--muted);max-width:60ch;margin:0}
+.prose{max-width:760px}
+.prose h2{font-size:1.5rem;margin:34px 0 12px}
+.prose h3{font-size:1.15rem;margin:24px 0 8px}
+.prose p{margin:0 0 16px}
+.prose ul{margin:0 0 18px;padding-left:22px}
+.prose li{margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+.chip{background:#fff;border:1px solid var(--amber-line);color:var(--amber);font-weight:700;font-size:.85rem;padding:7px 14px;border-radius:999px}
+
+/* ---------- FOOTER ---------- */
+.site-foot{background:var(--dark);color:#cbc3ba;margin-top:20px}
+.site-foot .top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px;padding:50px 22px 34px;max-width:var(--wrap);margin:0 auto}
+.site-foot h4{color:#fff;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px}
+.site-foot ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.site-foot a{color:#cbc3ba;font-size:.94rem}
+.site-foot a:hover{color:var(--amber-2)}
+.site-foot .brand-col .brand{color:#fff}
+.site-foot .brand-col p{font-size:.92rem;color:#9c938a;max-width:34ch;margin:14px 0 0}
+.site-foot .bottom{border-top:1px solid #3a2e26;padding:18px 22px;text-align:center;font-size:.86rem;color:#8a8078;max-width:var(--wrap);margin:0 auto}
+.site-foot .disc{max-width:var(--wrap);margin:0 auto;padding:0 22px 20px;font-size:.8rem;color:#7a7168;line-height:1.6}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:920px){
+  .hero-grid,.app-split,.about-strip{grid-template-columns:1fr;gap:30px}
+  .hero-visual{order:-1}
+  .grid,.features,.steps,.team,.glossary{grid-template-columns:repeat(2,1fr)}
+  .site-foot .top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  body{font-size:16px}
+  .nav{gap:2px}.nav a{padding:7px 9px;font-size:.86rem}
+  .brand small{display:none}
+  .grid,.grid.two,.features,.steps,.team,.glossary{grid-template-columns:1fr}
+  .news{padding:28px}
+  .site-foot .top{grid-template-columns:1fr 1fr}
+  .section{padding:42px 0}
+  .phone{transform:none}
+}
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="bar">
+    <a class="brand" href="safe.html">
+      <span class="mark">JC</span>
+      <span>Jeito Certo<small>Dinheiro no dia a dia</small></span>
+    </a>
+    <nav class="nav">
+      <a href="safe.html">Início</a>
+      <a href="glossario.html">Glossário</a>
+      <a href="faq.html">Dúvidas</a>
+      <a href="sobre.html">Sobre</a>
+      <a class="cta" href="app.html">App</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="pagehead">
+    <div class="wrap">
+      <div class="prose">
+        <span class="eyebrow">Sobre nós</span>
+        <h1>Educação financeira sem enrolação, do jeito certo</h1>
+        <p>Somos um portal independente que acredita que cuidar do dinheiro é uma habilidade que se aprende — e que ninguém deveria precisar de um diploma em economia para fazer boas escolhas no dia a dia.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Nossa missão editorial</h2>
+      <p>O Jeito Certo existe para traduzir o mundo das finanças pessoais para a linguagem da vida real. A gente parte de uma constatação simples: a maioria das decisões sobre dinheiro não acontece numa mesa de reunião, mas no supermercado, na maquininha, no aplicativo do banco às onze da noite. É nesses momentos cotidianos que queremos estar ao seu lado.</p>
+      <p>Por isso, cada texto que publicamos precisa passar por um teste: <strong>ele ajuda alguém a agir melhor já na próxima semana?</strong> Se a resposta for não, ele volta para a mesa. Não publicamos conteúdo para impressionar, e sim para ser útil.</p>
+
+      <h2>No que a gente acredita</h2>
+      <ul>
+        <li><strong>Nada de dinheiro fácil.</strong> Fugimos de qualquer promessa de enriquecer rápido, esquema ou atalho milagroso. Riqueza construída com pressa costuma ser dívida disfarçada.</li>
+        <li><strong>Clareza vale mais que complexidade.</strong> Preferimos explicar um conceito de forma que caiba na cabeça a impressionar com jargão.</li>
+        <li><strong>Independência.</strong> Nosso compromisso é com quem lê. Quando falamos de um produto ou serviço, mostramos os dois lados.</li>
+        <li><strong>Sem julgamento.</strong> Todo mundo já se enrolou com dinheiro em algum momento. O ponto de partida não importa; a direção, sim.</li>
+      </ul>
+
+      <blockquote><p>"O jeito certo não é o mais sofisticado. É aquele que você consegue repetir todos os meses sem se sabotar."</p></blockquote>
+
+      <h2>Nossa política de conteúdo</h2>
+      <p>Todo o conteúdo do Jeito Certo é <strong>original</strong> e produzido pela nossa equipe editorial. Escrevemos sobre temas atuais — como Pix, Open Finance, Selic e Imposto de Renda — de forma explicativa e educativa, sempre com linguagem de aproximação (“em geral”, “costuma”, “por volta de”), porque regras e números mudam e cada situação é única.</p>
+      <p>Nossos artigos têm caráter informativo e <strong>não constituem recomendação de investimento nem aconselhamento financeiro individual</strong>. Antes de tomar decisões importantes, avalie o seu contexto e, se necessário, consulte um profissional habilitado. Quando percebemos que algo saiu impreciso, corrigimos — e agradecemos quem nos avisa.</p>
+
+      <h2>Quem faz o Jeito Certo</h2>
+      <p>Somos um pequeno time de redatores, editores e revisores apaixonados por descomplicar dinheiro. Os nomes abaixo representam os papéis da nossa redação.</p>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="team">
+        <div class="member"><div class="av">RM</div><h3>Rafaela Monteiro</h3><div class="role">Editora-chefe</div><p>Cuida da linha editorial e garante que todo texto passe no teste do “dá para aplicar amanhã?”.</p></div>
+        <div class="member"><div class="av">TA</div><h3>Tiago Alves</h3><div class="role">Redator de finanças</div><p>Escreve os guias práticos de orçamento, dívidas e primeiros investimentos.</p></div>
+        <div class="member"><div class="av">CB</div><h3>Camila Braga</h3><div class="role">Revisão e checagem</div><p>Confere clareza, contexto e a linguagem de aproximação de cada publicação.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow" style="text-align:center">
+      <div class="sec-head center" style="margin-bottom:18px">
+        <span class="eyebrow">Fale com a gente</span>
+        <h2>Contato</h2>
+        <p>Tem uma dúvida, uma sugestão de pauta ou encontrou algo para corrigir? A porta está aberta.</p>
+      </div>
+      <a class="btn btn-primary" href="mailto:contato@jeitocerto.sbs">contato@jeitocerto.sbs</a>
+      <p style="margin-top:22px;color:var(--muted)">Prefere navegar? Veja o <a href="glossario.html">glossário</a>, as <a href="faq.html">dúvidas frequentes</a> ou conheça o <a href="app.html">app Conta Certa</a>.</p>
+    </div>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="top">
+    <div class="brand-col">
+      <a class="brand" href="safe.html"><span class="mark">JC</span><span>Jeito Certo</span></a>
+      <p>Conteúdo prático e independente sobre o jeito certo de cuidar do dinheiro no dia a dia: hábitos, decisões e menos sustos no fim do mês.</p>
+    </div>
+    <div>
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="reserva-de-emergencia.html">Reserva de emergência</a></li>
+        <li><a href="metodo-50-30-20.html">Método 50-30-20</a></li>
+        <li><a href="investir-com-100-reais.html">Investir com pouco</a></li>
+        <li><a href="entender-score-credito.html">Score de crédito</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Atualidades</h4>
+      <ul>
+        <li><a href="pix-automatico-2026.html">Pix Automático</a></li>
+        <li><a href="open-finance-guia.html">Open Finance</a></li>
+        <li><a href="selic-o-que-muda.html">Selic</a></li>
+        <li><a href="ir-2026-declaracao.html">IR 2026</a></li>
+        <li><a href="golpes-pix-como-evitar.html">Golpes financeiros</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Institucional</h4>
+      <ul>
+        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="app.html">App Conta Certa</a></li>
+        <li><a href="faq.html">Dúvidas frequentes</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos de uso</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="disc">Aviso: o Jeito Certo é um portal educativo. Nossos textos têm caráter informativo e não constituem recomendação de investimento nem aconselhamento financeiro individual. Antes de decidir, avalie sua situação e, se precisar, procure um profissional habilitado.</p>
+  <div class="bottom">© 2026 Jeito Certo · jeitocerto.sbs — Todos os direitos reservados. Feito no Brasil.</div>
+</footer>
+</body>
+</html>
