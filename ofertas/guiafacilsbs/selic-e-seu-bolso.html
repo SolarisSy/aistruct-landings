@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taxa Selic: como ela influencia seus investimentos e suas dívidas · Guia Fácil</title>
+  <meta name="description" content="Entenda de forma simples o que é a taxa Selic, como ela se relaciona com o CDI e por que ela pesa tanto na poupança, no CDB, no financiamento e no cartão.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://guiafacil.sbs/selic-e-seu-bolso.html">
+  <style>
+:root{
+  --blue-900:#0c1f4d;
+  --blue-700:#1d4ed8;
+  --blue-600:#2563eb;
+  --blue-500:#3b82f6;
+  --blue-100:#dbeafe;
+  --blue-50:#eff6ff;
+  --ink:#0f172a;
+  --gray-700:#334155;
+  --gray-500:#64748b;
+  --gray-300:#cbd5e1;
+  --border:#e2e8f0;
+  --bg:#f6f8fc;
+  --white:#ffffff;
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow:0 4px 16px rgba(15,23,42,.06);
+  --shadow-lg:0 12px 32px rgba(29,78,216,.14);
+  --maxw:1160px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%;display:block}
+a{color:var(--blue-700);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em;font-weight:800;color:var(--ink)}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.eyebrow{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-700);background:var(--blue-50);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.muted{color:var(--gray-500)}
+
+/* ---------- Header / Nav ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:saturate(180%) blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-wrap{
+  max-width:var(--maxw);margin:0 auto;padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand-mark{
+  width:36px;height:36px;border-radius:10px;flex:none;
+  background:linear-gradient(135deg,var(--blue-700),var(--blue-500));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;font-weight:900;
+  box-shadow:var(--shadow-lg);
+}
+.brand-name span{color:var(--blue-700)}
+.site-nav ul{list-style:none;display:flex;gap:6px;margin:0;padding:0;flex-wrap:wrap}
+.site-nav a{
+  color:var(--gray-700);font-weight:600;font-size:.95rem;padding:8px 14px;border-radius:999px;
+  transition:background .15s,color .15s;
+}
+.site-nav a:hover{background:var(--blue-50);color:var(--blue-700);text-decoration:none}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:linear-gradient(160deg,var(--blue-900) 0%,var(--blue-700) 55%,var(--blue-500) 100%);
+  color:#fff;padding:64px 0 80px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;inset:auto -10% -40% auto;width:60%;padding-top:60%;
+  background:radial-gradient(closest-side,rgba(255,255,255,.16),transparent 70%);
+  border-radius:50%;
+}
+.hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;position:relative;z-index:1}
+.hero h1{font-size:clamp(1.9rem,4vw,2.7rem);color:#fff;margin-bottom:.4em}
+.hero p.lead{font-size:1.08rem;color:rgba(255,255,255,.88);max-width:52ch}
+.hero-actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:999px;font-size:.82rem;font-weight:600;margin-bottom:18px;
+}
+.hero-art{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;
+  padding:26px;backdrop-filter:blur(6px);
+}
+.hero-art .mini-card{background:rgba(255,255,255,.95);color:var(--ink);border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.hero-art .mini-card:last-child{margin-bottom:0}
+.hero-art .mini-card strong{display:block;font-size:.85rem;color:var(--blue-700)}
+.hero-art .mini-card small{color:var(--gray-500)}
+
+/* ---------- Sections ---------- */
+.section{padding:60px 0}
+.section-tight{padding:40px 0}
+.section-head{max-width:640px;margin:0 auto 34px;text-align:center}
+.section-head.left{margin:0 0 30px;text-align:left}
+.section-title{font-size:clamp(1.5rem,3vw,2rem)}
+.section-sub{color:var(--gray-500);font-size:1.02rem}
+.bg-alt{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+
+/* ---------- Grid / Cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+.card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);
+  transition:transform .18s ease,box-shadow .18s ease;height:100%;
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);text-decoration:none}
+a.card{color:inherit}
+.card .tag{
+  align-self:flex-start;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--blue-700);background:var(--blue-50);padding:4px 10px;border-radius:999px;
+}
+.card h3{font-size:1.08rem;margin:2px 0 0}
+.card p{color:var(--gray-500);font-size:.93rem;margin:0}
+.card .meta{margin-top:auto;font-size:.8rem;color:var(--gray-500);display:flex;align-items:center;gap:6px;padding-top:8px;border-top:1px dashed var(--border)}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 22px;border-radius:999px;font-weight:700;font-size:.95rem;
+  border:2px solid transparent;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{text-decoration:none}
+.btn-primary{background:#fff;color:var(--blue-700)}
+.btn-primary:hover{background:var(--blue-50);transform:translateY(-2px)}
+.btn-outline{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+.btn-outline:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.btn-solid{background:var(--blue-700);color:#fff}
+.btn-solid:hover{background:var(--blue-600);transform:translateY(-2px)}
+.btn-block{width:100%}
+
+/* ---------- App section / mockup ---------- */
+.app-section{background:linear-gradient(180deg,var(--blue-50),#fff)}
+.app-inner{display:grid;grid-template-columns:.95fr 1.05fr;gap:48px;align-items:center}
+.app-copy .eyebrow{background:#fff}
+.feature-list{list-style:none;padding:0;margin:22px 0}
+.feature-list li{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-weight:600;color:var(--gray-700)}
+.feature-list li .ico{
+  flex:none;width:26px;height:26px;border-radius:8px;background:var(--blue-100);color:var(--blue-700);
+  display:flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+.phone-mock{
+  width:270px;margin:0 auto;background:var(--ink);border-radius:36px;padding:14px;
+  box-shadow:var(--shadow-lg);
+}
+.phone-screen{
+  background:linear-gradient(160deg,var(--blue-700),var(--blue-500));
+  border-radius:24px;padding:22px 16px;color:#fff;min-height:420px;position:relative;overflow:hidden;
+}
+.phone-screen::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:60px;height:6px;border-radius:4px;background:rgba(255,255,255,.35)}
+.phone-status{font-size:.7rem;opacity:.75;margin:14px 0 18px;display:flex;justify-content:space-between}
+.phone-balance{font-size:1.7rem;font-weight:800;margin-bottom:4px}
+.phone-sub{font-size:.78rem;opacity:.8;margin-bottom:16px}
+.phone-item{background:rgba(255,255,255,.14);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:.8rem}
+.phone-item strong{display:block;font-size:.82rem}
+.phone-item small{opacity:.75}
+.phone-nav{position:absolute;bottom:14px;left:16px;right:16px;background:rgba(255,255,255,.16);border-radius:14px;padding:8px 10px;display:flex;justify-content:space-around;font-size:1rem}
+
+/* ---------- Steps ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;counter-reset:step}
+.step{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;position:relative}
+.step::before{
+  counter-increment:step;content:counter(step);
+  width:34px;height:34px;border-radius:50%;background:var(--blue-700);color:#fff;font-weight:800;
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+}
+
+/* ---------- Newsletter ---------- */
+.newsletter{
+  background:linear-gradient(135deg,var(--blue-700),var(--blue-500));
+  border-radius:24px;padding:44px 34px;color:#fff;text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+.newsletter h2{color:#fff}
+.newsletter p{color:rgba(255,255,255,.88);max-width:52ch;margin:0 auto 22px}
+.newsletter-form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+.newsletter-form input[type=email]{
+  flex:1;min-width:200px;padding:13px 16px;border-radius:999px;border:none;font-size:.95rem;font-family:var(--font);
+}
+.newsletter-form input[type=email]:focus{outline:3px solid rgba(255,255,255,.5)}
+.newsletter small{display:block;margin-top:12px;color:rgba(255,255,255,.7);font-size:.78rem}
+.newsletter-ok{display:none;background:rgba(255,255,255,.16);border-radius:12px;padding:10px 16px;margin-top:14px;font-weight:600}
+
+/* ---------- FAQ ---------- */
+.faq-list{display:flex;flex-direction:column;gap:14px}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px}
+.faq-item h3{font-size:1rem;color:var(--blue-700);margin-bottom:6px}
+.faq-item p{margin:0;color:var(--gray-700)}
+
+/* ---------- Glossary ---------- */
+.glossary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.term-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;scroll-margin-top:90px}
+.term-card dt{font-weight:800;color:var(--blue-700);margin-bottom:6px;font-size:1.02rem}
+.term-card dd{margin:0;color:var(--gray-700);font-size:.93rem}
+.az-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:30px}
+.az-nav a{background:#fff;border:1px solid var(--border);padding:6px 12px;border-radius:999px;font-size:.85rem;font-weight:700;color:var(--blue-700)}
+.az-nav a:hover{background:var(--blue-50);text-decoration:none}
+
+/* ---------- Article / .post ---------- */
+.breadcrumb{font-size:.85rem;color:var(--gray-500);margin-bottom:18px}
+.breadcrumb a{color:var(--gray-500)}
+.breadcrumb a:hover{color:var(--blue-700)}
+.post-header{padding:44px 0 10px}
+.post-header .tag{margin-bottom:14px}
+.post-header h1{font-size:clamp(1.7rem,3.6vw,2.4rem)}
+.post-meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--gray-500);font-size:.88rem;margin:14px 0 0;align-items:center}
+.post-meta .dot{width:4px;height:4px;border-radius:50%;background:var(--gray-300)}
+.post-dek{font-size:1.12rem;color:var(--gray-700);margin-top:10px;max-width:70ch}
+.post-wrap{display:grid;grid-template-columns:1fr;gap:40px;padding-bottom:20px}
+.post{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:36px clamp(20px,4vw,48px);max-width:780px;
+}
+.post h2{font-size:1.45rem;margin-top:1.6em;color:var(--blue-900)}
+.post h3{font-size:1.15rem;margin-top:1.4em;color:var(--ink)}
+.post p{color:var(--gray-700);font-size:1.02rem}
+.post ul,.post ol{color:var(--gray-700)}
+.post li{margin-bottom:.4em}
+.post blockquote{
+  margin:1.8em 0;padding:16px 22px;border-left:4px solid var(--blue-500);
+  background:var(--blue-50);border-radius:0 12px 12px 0;color:var(--blue-900);font-style:italic;
+}
+.post table{width:100%;border-collapse:collapse;margin:1.6em 0;font-size:.92rem}
+.post .tablewrap{overflow-x:auto;margin:1.6em 0}
+.post .tablewrap table{margin:0}
+.post table thead{background:var(--blue-50)}
+.post table th,.post table td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+.post table th{color:var(--blue-700)}
+.callout{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:12px;padding:16px 20px;margin:1.6em 0}
+.callout strong{color:var(--blue-700)}
+.post-footer{margin-top:34px;padding-top:22px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.share-note{font-size:.85rem;color:var(--gray-500)}
+
+.related{padding:10px 0 0}
+.related h2{font-size:1.3rem}
+.related .grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+
+/* ---------- About / team ---------- */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.team-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;text-align:center}
+.avatar{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 12px;
+  background:linear-gradient(135deg,var(--blue-500),var(--blue-700));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.3rem;
+}
+.value-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:20px 0}
+.value-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px}
+.value-card .ico{font-size:1.4rem;margin-bottom:8px}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--blue-900);color:rgba(255,255,255,.85);margin-top:60px}
+.footer-top{padding:50px 0 30px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.footer-brand{display:flex;align-items:center;gap:10px;font-weight:800;color:#fff;font-size:1.1rem;margin-bottom:10px}
+.footer-brand:hover{text-decoration:none}
+.footer-about{color:rgba(255,255,255,.6);font-size:.9rem;max-width:34ch}
+.footer-col h4{color:#fff;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:9px}
+.footer-col a{color:rgba(255,255,255,.7);font-size:.92rem}
+.footer-col a:hover{color:#fff}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.12);padding:20px;text-align:center;
+  font-size:.82rem;color:rgba(255,255,255,.55);
+}
+.footer-bottom a{color:rgba(255,255,255,.7)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:860px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-art{order:-1}
+  .app-inner{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .nav-wrap{flex-direction:column;align-items:flex-start}
+  .site-nav ul{gap:2px}
+  .hero{padding:44px 0 60px}
+  .section{padding:44px 0}
+  .newsletter-form{flex-direction:column}
+  .footer-top{grid-template-columns:1fr}
+  .post{padding:26px 18px}
+}
+  </style>
+</head><body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="safe.html">
+      <span class="brand-mark">GF</span>
+      <span class="brand-name">Guia <span>Fácil</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="app.html">App</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="faq.html">Dúvidas</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<article class="post">
+  <div class="container" style="padding:0">
+    <p class="breadcrumb"><a href="safe.html">Início</a> / <a href="safe.html">Economia</a> / Taxa Selic: como ela influencia seus investimentos e suas dívidas</p>
+  </div>
+
+  <span class="tag" style="align-self:flex-start;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--blue-700);background:var(--blue-50);padding:4px 10px;border-radius:999px;display:inline-block;margin-bottom:14px">Economia</span>
+  <h1>Taxa Selic: como ela influencia seus investimentos e suas dívidas</h1>
+  <div class="post-meta">
+    <span>Economia</span>
+    <span class="dot"></span>
+    <span>22 de janeiro de 2026</span>
+    <span class="dot"></span>
+    <span>por Equipe Guia Fácil</span>
+  </div>
+  <p class="post-dek">Um guia simples sobre o que é a taxa básica de juros e por que ela afeta desde a poupança até as parcelas do cartão.</p>
+
+  <p>Se você já ouviu falar em "reunião do Copom" no jornal e mudou de canal porque parecia assunto só de economista, este texto é para você. A taxa Selic aparece pouco no dia a dia, mas está por trás de decisões que você toma o tempo todo: quanto rende a poupança, quanto custa parcelar a geladeira, quanto seu CDB paga no fim do mês. Entender a lógica por trás dela não exige diploma em economia — exige só destrinchar algumas ideias simples, uma de cada vez.</p>
+
+  <h2>O que é, afinal, a taxa Selic</h2>
+  <p>A Selic é a <strong>taxa básica de juros da economia brasileira</strong>, definida periodicamente pelo Comitê de Política Monetária (Copom) do Banco Central. Na prática, ela funciona como uma referência: o custo do dinheiro "no atacado", usado como parâmetro para praticamente todas as outras taxas de juros do país — dos empréstimos bancários aos rendimentos de investimentos de renda fixa.</p>
+  <p>Pense nela como o "termostato" da economia. Quando o Banco Central quer esfriar o consumo e conter a inflação, costuma elevar a Selic, tornando o crédito mais caro e o consumo mais contido. Quando o objetivo é estimular a atividade econômica, a tendência é reduzir a taxa, baratear o crédito e incentivar o consumo e o investimento produtivo. Se quiser a definição rápida, ela está no <a href="glossario.html#selic">glossário do Guia Fácil</a>.</p>
+
+  <h2>Selic e CDI: primas de primeiro grau</h2>
+  <p>Outro termo que aparece colado à Selic é o <a href="glossario.html#cdi">CDI</a> (Certificado de Depósito Interbancário) — a taxa que os bancos usam para emprestar dinheiro entre si, de um dia para o outro. Na prática, o CDI costuma andar muito próximo da Selic, então boa parte dos investimentos de renda fixa que você vê por aí ("rende 100% do CDI", "rende 110% do CDI") está, indiretamente, atrelada à taxa básica de juros.</p>
+  <p>É por isso que, quando a Selic sobe, é comum ver bancos e corretoras anunciando CDBs, LCIs e fundos DI com rendimentos mais atrativos — e o contrário também vale quando ela cai.</p>
+
+  <h2>Como a Selic afeta seus investimentos</h2>
+  <h3>Poupança</h3>
+  <p>A poupança tem uma regra própria, meio automática: em cenários de Selic em patamares mais altos, ela costuma render um percentual fixo mais uma correção; quando a Selic está em patamares mais baixos, a regra muda e o rendimento tende a ficar mais modesto. Por isso a poupança é, historicamente, uma das aplicações menos eficientes para quem busca rendimento — ela existe mais pela praticidade e pela liquidez imediata do que pelo retorno.</p>
+  <h3>CDB, Tesouro Selic e fundos DI</h3>
+  <p>Já os investimentos atrelados ao CDI ou diretamente à Selic — como CDBs pós-fixados, o Tesouro Selic e boa parte dos fundos DI — tendem a acompanhar de perto o movimento da taxa básica. Quando a Selic sobe, esses produtos costumam pagar mais; quando ela cai, o rendimento nominal tende a diminuir junto. Se você está começando a organizar as primeiras aplicações, vale a leitura complementar em <a href="investir-com-pouco-dinheiro-tesouro-cdb.html">Investir com pouco dinheiro: Tesouro Direto, CDB e primeiros passos</a>, que explica a diferença entre esses produtos com mais calma.</p>
+
+  <blockquote>Regra prática: quanto mais um investimento estiver "grudado" na Selic ou no CDI, mais rápido ele reage às mudanças da taxa — para cima e para baixo.</blockquote>
+
+  <h2>Como a Selic afeta suas dívidas</h2>
+  <h3>Financiamentos e empréstimos</h3>
+  <p>Do outro lado da moeda, a Selic também é a base para o custo do crédito. Bancos captam recursos a taxas influenciadas pela Selic e repassam esse custo — acrescido de spread, risco e margem — para financiamentos de veículo, imóvel, crédito consignado e empréstimo pessoal. Quando a taxa básica sobe, novas contratações costumam ficar mais caras; quando ela cai, o crédito tende a ficar mais acessível.</p>
+  <h3>Cartão de crédito e rotativo</h3>
+  <p>O cartão de crédito, especialmente o rotativo (quando você paga só o mínimo da fatura), já é historicamente uma das modalidades de crédito mais caras do mercado, independente do momento da Selic. Ainda assim, o patamar da taxa básica também influencia esse custo: em ciclos de Selic mais alta, o rotativo tende a ficar ainda mais caro, reforçando por que ele deve ser evitado sempre que possível — e por que organizar o orçamento (como no método explicado em <a href="metodo-50-30-20-orcamento-domestico.html">Método 50-30-20</a>) ajuda a nunca depender dele.</p>
+
+  <h2>Resumo visual: Selic alta x Selic baixa</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Selic em patamar mais alto</th><th>Selic em patamar mais baixo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Poupança</td><td>Rendimento um pouco melhor</td><td>Rendimento mais modesto</td></tr>
+        <tr><td>CDB / Tesouro Selic</td><td>Tende a pagar mais</td><td>Tende a pagar menos</td></tr>
+        <tr><td>Financiamentos</td><td>Parcelas e juros mais altos</td><td>Crédito mais barato</td></tr>
+        <tr><td>Cartão rotativo</td><td>Custo ainda mais elevado</td><td>Custo relativamente menor (mas ainda alto)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Por que a Selic é ajustada periodicamente</h2>
+  <p>O principal objetivo por trás dos ajustes da Selic é controlar a inflação, mantendo-a dentro de uma meta estabelecida para a economia. Quando os preços sobem além do desejado, elevar a Selic encarece o crédito, desestimula o consumo e ajuda a esfriar a demanda. Quando a inflação está controlada e a economia precisa de estímulo, reduzir a taxa é uma forma de baratear o crédito e incentivar investimento e consumo. Esse processo é gradual e passa por reuniões periódicas do Copom, quase sempre acompanhadas de perto pelo mercado financeiro.</p>
+
+  <h2>O que fazer na prática</h2>
+  <ul>
+    <li>Antes de deixar dinheiro parado na poupança, compare com CDBs e Tesouro Selic — a diferença de rendimento pode ser relevante ao longo do tempo.</li>
+    <li>Evite financiar bens em momentos de juros altos sem antes comparar taxas entre instituições.</li>
+    <li>Nunca deixe a fatura do cartão entrar no rotativo — é, disparado, uma das formas mais caras de crédito disponíveis.</li>
+    <li>Acompanhar o cenário de juros ajuda a decidir o melhor momento para contrair uma dívida grande, como financiamento de imóvel ou veículo.</li>
+  </ul>
+  <p>Ferramentas simples também ajudam nessa rotina: dentro do <a href="app.html">app GranaClara</a>, por exemplo, dá para organizar contas e enxergar rapidamente onde o orçamento está sendo consumido por juros — um primeiro passo antes de qualquer decisão sobre investir ou quitar dívidas.</p>
+
+  <h2>Conclusão</h2>
+  <p>A taxa Selic não é um número abstrato reservado a economistas: ela chega até o seu bolso todo mês, seja no extrato da poupança, no boleto do financiamento ou na fatura do cartão. Entender essa lógica básica — Selic sobe, crédito fica mais caro e renda fixa tende a pagar mais; Selic cai, o movimento se inverte — já é suficiente para tomar decisões mais informadas sobre quando investir, quando esperar e, principalmente, quando evitar dívidas caras como o rotativo do cartão.</p>
+
+  <div class="post-footer">
+    <span class="share-note">Conteúdo educativo e independente. Não constitui recomendação de investimento.</span>
+  </div>
+
+  <div class="related">
+    <h2>Leia também</h2>
+    <div class="grid">
+      <a class="card" href="investir-com-pouco-dinheiro-tesouro-cdb.html">
+        <span class="tag">Investimentos</span>
+        <h3>Investir com pouco dinheiro: Tesouro Direto, CDB e primeiros passos</h3>
+        <p>Como começar a investir mesmo com pouco dinheiro disponível.</p>
+      </a>
+      <a class="card" href="reserva-de-emergencia-passo-a-passo.html">
+        <span class="tag">Planejamento</span>
+        <h3>Reserva de emergência: quanto guardar e onde deixar o dinheiro</h3>
+        <p>O passo a passo para montar sua reserva antes de qualquer outro investimento.</p>
+      </a>
+      <a class="card" href="metodo-50-30-20-orcamento-domestico.html">
+        <span class="tag">Orçamento</span>
+        <h3>Método 50-30-20: um jeito simples de organizar o orçamento da casa</h3>
+        <p>Uma forma prática de dividir a renda entre gastos, desejos e investimentos.</p>
+      </a>
+    </div>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div>
+      <a class="footer-brand" href="safe.html"><span class="brand-mark">GF</span>Guia Fácil</a>
+      <p class="footer-about">Conteúdo educativo e independente sobre educação financeira e organização das contas do dia a dia. Sem promessa de dinheiro fácil — só informação clara para você decidir melhor.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="reserva-de-emergencia-passo-a-passo.html">Reserva de emergência</a></li>
+        <li><a href="metodo-50-30-20-orcamento-domestico.html">Orçamento 50-30-20</a></li>
+        <li><a href="investir-com-pouco-dinheiro-tesouro-cdb.html">Tesouro x CDB</a></li>
+        <li><a href="golpes-financeiros-mais-comuns-como-se-proteger.html">Golpes financeiros</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Institucional</h4>
+      <ul>
+        <li><a href="sobre.html">Sobre o Guia Fácil</a></li>
+        <li><a href="app.html">App GranaClara</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="faq.html">Dúvidas frequentes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Política de Privacidade</a></li>
+        <li><a href="termos.html">Termos de Uso</a></li>
+        <li><a href="mailto:contato@guiafacil.sbs">contato@guiafacil.sbs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Guia Fácil · guiafacil.sbs — conteúdo educativo e independente sobre finanças pessoais. Não constitui recomendação de investimento.</div>
+    <div><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></div>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>

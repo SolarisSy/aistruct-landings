@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Como funciona o score de crédito (e como melhorar o seu) · Guia Fácil</title>
+  <meta name="description" content="Entenda quem calcula o score de crédito, o que costuma pesar na nota e hábitos simples que ajudam a melhorá-la aos poucos.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://guiafacil.sbs/como-funciona-o-score-de-credito.html">
+  <style>
+:root{
+  --blue-900:#0c1f4d;
+  --blue-700:#1d4ed8;
+  --blue-600:#2563eb;
+  --blue-500:#3b82f6;
+  --blue-100:#dbeafe;
+  --blue-50:#eff6ff;
+  --ink:#0f172a;
+  --gray-700:#334155;
+  --gray-500:#64748b;
+  --gray-300:#cbd5e1;
+  --border:#e2e8f0;
+  --bg:#f6f8fc;
+  --white:#ffffff;
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow:0 4px 16px rgba(15,23,42,.06);
+  --shadow-lg:0 12px 32px rgba(29,78,216,.14);
+  --maxw:1160px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%;display:block}
+a{color:var(--blue-700);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em;font-weight:800;color:var(--ink)}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.eyebrow{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-700);background:var(--blue-50);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.muted{color:var(--gray-500)}
+
+/* ---------- Header / Nav ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:saturate(180%) blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-wrap{
+  max-width:var(--maxw);margin:0 auto;padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand-mark{
+  width:36px;height:36px;border-radius:10px;flex:none;
+  background:linear-gradient(135deg,var(--blue-700),var(--blue-500));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;font-weight:900;
+  box-shadow:var(--shadow-lg);
+}
+.brand-name span{color:var(--blue-700)}
+.site-nav ul{list-style:none;display:flex;gap:6px;margin:0;padding:0;flex-wrap:wrap}
+.site-nav a{
+  color:var(--gray-700);font-weight:600;font-size:.95rem;padding:8px 14px;border-radius:999px;
+  transition:background .15s,color .15s;
+}
+.site-nav a:hover{background:var(--blue-50);color:var(--blue-700);text-decoration:none}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:linear-gradient(160deg,var(--blue-900) 0%,var(--blue-700) 55%,var(--blue-500) 100%);
+  color:#fff;padding:64px 0 80px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;inset:auto -10% -40% auto;width:60%;padding-top:60%;
+  background:radial-gradient(closest-side,rgba(255,255,255,.16),transparent 70%);
+  border-radius:50%;
+}
+.hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;position:relative;z-index:1}
+.hero h1{font-size:clamp(1.9rem,4vw,2.7rem);color:#fff;margin-bottom:.4em}
+.hero p.lead{font-size:1.08rem;color:rgba(255,255,255,.88);max-width:52ch}
+.hero-actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:999px;font-size:.82rem;font-weight:600;margin-bottom:18px;
+}
+.hero-art{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;
+  padding:26px;backdrop-filter:blur(6px);
+}
+.hero-art .mini-card{background:rgba(255,255,255,.95);color:var(--ink);border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.hero-art .mini-card:last-child{margin-bottom:0}
+.hero-art .mini-card strong{display:block;font-size:.85rem;color:var(--blue-700)}
+.hero-art .mini-card small{color:var(--gray-500)}
+
+/* ---------- Sections ---------- */
+.section{padding:60px 0}
+.section-tight{padding:40px 0}
+.section-head{max-width:640px;margin:0 auto 34px;text-align:center}
+.section-head.left{margin:0 0 30px;text-align:left}
+.section-title{font-size:clamp(1.5rem,3vw,2rem)}
+.section-sub{color:var(--gray-500);font-size:1.02rem}
+.bg-alt{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+
+/* ---------- Grid / Cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+.card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);
+  transition:transform .18s ease,box-shadow .18s ease;height:100%;
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);text-decoration:none}
+a.card{color:inherit}
+.card .tag{
+  align-self:flex-start;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--blue-700);background:var(--blue-50);padding:4px 10px;border-radius:999px;
+}
+.card h3{font-size:1.08rem;margin:2px 0 0}
+.card p{color:var(--gray-500);font-size:.93rem;margin:0}
+.card .meta{margin-top:auto;font-size:.8rem;color:var(--gray-500);display:flex;align-items:center;gap:6px;padding-top:8px;border-top:1px dashed var(--border)}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 22px;border-radius:999px;font-weight:700;font-size:.95rem;
+  border:2px solid transparent;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{text-decoration:none}
+.btn-primary{background:#fff;color:var(--blue-700)}
+.btn-primary:hover{background:var(--blue-50);transform:translateY(-2px)}
+.btn-outline{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+.btn-outline:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.btn-solid{background:var(--blue-700);color:#fff}
+.btn-solid:hover{background:var(--blue-600);transform:translateY(-2px)}
+.btn-block{width:100%}
+
+/* ---------- App section / mockup ---------- */
+.app-section{background:linear-gradient(180deg,var(--blue-50),#fff)}
+.app-inner{display:grid;grid-template-columns:.95fr 1.05fr;gap:48px;align-items:center}
+.app-copy .eyebrow{background:#fff}
+.feature-list{list-style:none;padding:0;margin:22px 0}
+.feature-list li{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-weight:600;color:var(--gray-700)}
+.feature-list li .ico{
+  flex:none;width:26px;height:26px;border-radius:8px;background:var(--blue-100);color:var(--blue-700);
+  display:flex;align-items:center;justify-content:center;font-size:.85rem;
+}
+.phone-mock{
+  width:270px;margin:0 auto;background:var(--ink);border-radius:36px;padding:14px;
+  box-shadow:var(--shadow-lg);
+}
+.phone-screen{
+  background:linear-gradient(160deg,var(--blue-700),var(--blue-500));
+  border-radius:24px;padding:22px 16px;color:#fff;min-height:420px;position:relative;overflow:hidden;
+}
+.phone-screen::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:60px;height:6px;border-radius:4px;background:rgba(255,255,255,.35)}
+.phone-status{font-size:.7rem;opacity:.75;margin:14px 0 18px;display:flex;justify-content:space-between}
+.phone-balance{font-size:1.7rem;font-weight:800;margin-bottom:4px}
+.phone-sub{font-size:.78rem;opacity:.8;margin-bottom:16px}
+.phone-item{background:rgba(255,255,255,.14);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:.8rem}
+.phone-item strong{display:block;font-size:.82rem}
+.phone-item small{opacity:.75}
+.phone-nav{position:absolute;bottom:14px;left:16px;right:16px;background:rgba(255,255,255,.16);border-radius:14px;padding:8px 10px;display:flex;justify-content:space-around;font-size:1rem}
+
+/* ---------- Steps ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;counter-reset:step}
+.step{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;position:relative}
+.step::before{
+  counter-increment:step;content:counter(step);
+  width:34px;height:34px;border-radius:50%;background:var(--blue-700);color:#fff;font-weight:800;
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+}
+
+/* ---------- Newsletter ---------- */
+.newsletter{
+  background:linear-gradient(135deg,var(--blue-700),var(--blue-500));
+  border-radius:24px;padding:44px 34px;color:#fff;text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+.newsletter h2{color:#fff}
+.newsletter p{color:rgba(255,255,255,.88);max-width:52ch;margin:0 auto 22px}
+.newsletter-form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+.newsletter-form input[type=email]{
+  flex:1;min-width:200px;padding:13px 16px;border-radius:999px;border:none;font-size:.95rem;font-family:var(--font);
+}
+.newsletter-form input[type=email]:focus{outline:3px solid rgba(255,255,255,.5)}
+.newsletter small{display:block;margin-top:12px;color:rgba(255,255,255,.7);font-size:.78rem}
+.newsletter-ok{display:none;background:rgba(255,255,255,.16);border-radius:12px;padding:10px 16px;margin-top:14px;font-weight:600}
+
+/* ---------- FAQ ---------- */
+.faq-list{display:flex;flex-direction:column;gap:14px}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px}
+.faq-item h3{font-size:1rem;color:var(--blue-700);margin-bottom:6px}
+.faq-item p{margin:0;color:var(--gray-700)}
+
+/* ---------- Glossary ---------- */
+.glossary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.term-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;scroll-margin-top:90px}
+.term-card dt{font-weight:800;color:var(--blue-700);margin-bottom:6px;font-size:1.02rem}
+.term-card dd{margin:0;color:var(--gray-700);font-size:.93rem}
+.az-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:30px}
+.az-nav a{background:#fff;border:1px solid var(--border);padding:6px 12px;border-radius:999px;font-size:.85rem;font-weight:700;color:var(--blue-700)}
+.az-nav a:hover{background:var(--blue-50);text-decoration:none}
+
+/* ---------- Article / .post ---------- */
+.breadcrumb{font-size:.85rem;color:var(--gray-500);margin-bottom:18px}
+.breadcrumb a{color:var(--gray-500)}
+.breadcrumb a:hover{color:var(--blue-700)}
+.post-header{padding:44px 0 10px}
+.post-header .tag{margin-bottom:14px}
+.post-header h1{font-size:clamp(1.7rem,3.6vw,2.4rem)}
+.post-meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--gray-500);font-size:.88rem;margin:14px 0 0;align-items:center}
+.post-meta .dot{width:4px;height:4px;border-radius:50%;background:var(--gray-300)}
+.post-dek{font-size:1.12rem;color:var(--gray-700);margin-top:10px;max-width:70ch}
+.post-wrap{display:grid;grid-template-columns:1fr;gap:40px;padding-bottom:20px}
+.post{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:36px clamp(20px,4vw,48px);max-width:780px;
+}
+.post h2{font-size:1.45rem;margin-top:1.6em;color:var(--blue-900)}
+.post h3{font-size:1.15rem;margin-top:1.4em;color:var(--ink)}
+.post p{color:var(--gray-700);font-size:1.02rem}
+.post ul,.post ol{color:var(--gray-700)}
+.post li{margin-bottom:.4em}
+.post blockquote{
+  margin:1.8em 0;padding:16px 22px;border-left:4px solid var(--blue-500);
+  background:var(--blue-50);border-radius:0 12px 12px 0;color:var(--blue-900);font-style:italic;
+}
+.post table{width:100%;border-collapse:collapse;margin:1.6em 0;font-size:.92rem}
+.post .tablewrap{overflow-x:auto;margin:1.6em 0}
+.post .tablewrap table{margin:0}
+.post table thead{background:var(--blue-50)}
+.post table th,.post table td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+.post table th{color:var(--blue-700)}
+.callout{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:12px;padding:16px 20px;margin:1.6em 0}
+.callout strong{color:var(--blue-700)}
+.post-footer{margin-top:34px;padding-top:22px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.share-note{font-size:.85rem;color:var(--gray-500)}
+
+.related{padding:10px 0 0}
+.related h2{font-size:1.3rem}
+.related .grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+
+/* ---------- About / team ---------- */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.team-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;text-align:center}
+.avatar{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 12px;
+  background:linear-gradient(135deg,var(--blue-500),var(--blue-700));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.3rem;
+}
+.value-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:20px 0}
+.value-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px}
+.value-card .ico{font-size:1.4rem;margin-bottom:8px}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--blue-900);color:rgba(255,255,255,.85);margin-top:60px}
+.footer-top{padding:50px 0 30px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.footer-brand{display:flex;align-items:center;gap:10px;font-weight:800;color:#fff;font-size:1.1rem;margin-bottom:10px}
+.footer-brand:hover{text-decoration:none}
+.footer-about{color:rgba(255,255,255,.6);font-size:.9rem;max-width:34ch}
+.footer-col h4{color:#fff;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:9px}
+.footer-col a{color:rgba(255,255,255,.7);font-size:.92rem}
+.footer-col a:hover{color:#fff}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.12);padding:20px;text-align:center;
+  font-size:.82rem;color:rgba(255,255,255,.55);
+}
+.footer-bottom a{color:rgba(255,255,255,.7)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:860px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-art{order:-1}
+  .app-inner{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .nav-wrap{flex-direction:column;align-items:flex-start}
+  .site-nav ul{gap:2px}
+  .hero{padding:44px 0 60px}
+  .section{padding:44px 0}
+  .newsletter-form{flex-direction:column}
+  .footer-top{grid-template-columns:1fr}
+  .post{padding:26px 18px}
+}
+  </style>
+</head><body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="safe.html">
+      <span class="brand-mark">GF</span>
+      <span class="brand-name">Guia <span>Fácil</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="app.html">App</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="faq.html">Dúvidas</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<article class="post">
+<div class="container" style="max-width:780px;padding:0">
+  <div class="post-header" style="padding-top:8px">
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <a href="safe.html">Início</a> / <a href="safe.html">Crédito</a> / Como funciona o score de crédito
+    </nav>
+    <span class="eyebrow tag">Crédito</span>
+    <h1>Como funciona o score de crédito (e como melhorar o seu)</h1>
+    <div class="post-meta">
+      <span>Crédito</span>
+      <span class="dot"></span>
+      <span>10 de maio de 2026</span>
+      <span class="dot"></span>
+      <span>por Equipe Guia Fácil</span>
+    </div>
+    <p class="post-dek">O que pesa na nota que os bancos usam pra te avaliar e hábitos que ajudam a melhorá-la com o tempo.</p>
+  </div>
+</div>
+
+<p>Se você já tentou fazer um empréstimo, pedir um cartão de crédito ou até alugar um imóvel, provavelmente ouviu falar do "score de crédito". É aquele número — geralmente entre 0 e 1000 — que aparece nos aplicativos de bancos e em sites de consulta gratuita. Muita gente sabe que ele existe, mas poucos entendem de verdade como ele é calculado e, principalmente, o que dá pra fazer no dia a dia para melhorá-lo. Vamos destrinchar isso de forma simples.</p>
+
+<h2>Quem calcula o score, afinal?</h2>
+<p>O score não é calculado pelo banco onde você tem conta, nem pela loja onde você compra parcelado. Ele é calculado por empresas conhecidas como <strong>bureaus de crédito</strong> — no Brasil, os mais conhecidos são Serasa, Boa Vista e Quod. Essas empresas reúnem informações financeiras que circulam no mercado (como você paga contas, se tem dívidas em aberto, há quanto tempo você movimenta crédito) e, a partir de um modelo estatístico, geram uma pontuação que tenta estimar o risco de você não pagar uma dívida nova.</p>
+<p>Bancos, financeiras e até algumas lojas consultam esse número como <em>um</em> dos critérios para decidir se aprovam ou não um crédito — e em que condições (limite, taxa de juros, prazo). Não é o único critério, mas costuma pesar bastante.</p>
+
+<h2>O que costuma pesar na nota</h2>
+<p>Os modelos exatos de cada bureau são proprietários e não são divulgados em detalhe, mas as instituições costumam ser transparentes sobre as <em>categorias</em> de informação que entram na conta. De forma geral, os fatores mais citados são:</p>
+<ul>
+  <li><strong>Histórico de pagamento em dia</strong> — é, em geral, o fator com mais peso. Contas pagas na data, sem atraso, tendem a contribuir positivamente ao longo do tempo.</li>
+  <li><strong>Nível de endividamento</strong> — quanto do seu limite disponível você costuma usar, e quantas dívidas ativas você tem em relação à sua renda.</li>
+  <li><strong>Tempo de relacionamento com o mercado de crédito</strong> — pessoas com histórico mais longo (contas, cartões, financiamentos antigos, geridos com cuidado) costumam ter uma base de avaliação mais estável.</li>
+  <li><strong>Uso do limite do cartão de crédito</strong> — usar quase 100% do limite todo mês, mesmo pagando a fatura, costuma ser visto como sinal de aperto financeiro.</li>
+  <li><strong>Diversidade e frequência de novas solicitações de crédito</strong> — pedir crédito em muitos lugares em pouco tempo pode sinalizar necessidade urgente de dinheiro.</li>
+</ul>
+<p>Vale reforçar: isso são tendências gerais, não uma fórmula fechada. Cada bureau pondera essas informações de um jeito próprio, e o resultado pode variar de uma consulta para outra.</p>
+
+<h2>Mitos comuns sobre o score</h2>
+<p>Existem algumas ideias erradas bem espalhadas sobre o assunto. Vale desfazer pelo menos duas delas:</p>
+<h3>"Consultar o próprio score derruba a nota"</h3>
+<p>Não é assim que funciona. Consultar seu <em>próprio</em> score — pelo app do banco, pelo site do bureau ou por um serviço de consulta — não tem efeito negativo sobre a pontuação. O que pode ter algum peso são consultas feitas <em>por terceiros</em> (uma loja ou financeira analisando seu perfil para liberar crédito), especialmente se acontecerem em grande volume em pouco tempo. Olhar seu próprio número quantas vezes quiser é seguro.</p>
+<h3>"Score baixo é o mesmo que nome sujo"</h3>
+<p>Também não é uma regra automática. "Nome sujo" normalmente se refere a uma dívida específica, vencida e não paga, registrada nos órgãos de proteção ao crédito. Já o score é uma pontuação mais ampla, que leva em conta o comportamento financeiro como um todo — incluindo pessoas que nunca tiveram uma pendência formal, mas que têm pouco histórico ou usam o crédito de um jeito que o modelo interpreta como arriscado. Dá pra ter score baixo sem estar com o nome negativado, e o contrário também pode acontecer dependendo do caso.</p>
+
+<blockquote>Score de crédito é uma <em>estimativa de risco</em>, não um veredito definitivo. Ele muda com o tempo, junto com os seus hábitos financeiros — não é uma etiqueta fixa colada no seu nome.</blockquote>
+
+<h2>Faixas de score: uma referência aproximada</h2>
+<p>As faixas variam de bureau para bureau, mas a tabela abaixo dá uma ideia educativa de como esses números costumam ser interpretados no mercado:</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Faixa aproximada</th><th>Como costuma ser interpretada</th></tr></thead>
+<tbody>
+<tr><td>0 – 300</td><td>Risco considerado alto pela maioria das instituições</td></tr>
+<tr><td>300 – 600</td><td>Risco médio; análise mais criteriosa costuma ser aplicada</td></tr>
+<tr><td>600 – 800</td><td>Risco considerado baixo a moderado</td></tr>
+<tr><td>800 – 1000</td><td>Risco considerado baixo pela maior parte do mercado</td></tr>
+</tbody>
+</table>
+</div>
+<p>Esses números são apenas uma referência geral — cada instituição pode usar critérios próprios além do score na hora de decidir.</p>
+
+<h2>Hábitos práticos para melhorar aos poucos</h2>
+<p>O score não muda da noite para o dia, mas alguns hábitos simples, mantidos com consistência, costumam ajudar:</p>
+<ul>
+  <li><strong>Pagar contas em dia</strong> — mesmo valores pequenos, como assinaturas e contas de consumo, entram no radar de alguns modelos. Atrasos recorrentes tendem a pesar mais do que um atraso isolado.</li>
+  <li><strong>Evitar usar todo o limite do cartão</strong> — deixar uma folga entre o que você usa e o limite total costuma ser visto de forma mais favorável do que "estourar" o cartão todo mês.</li>
+  <li><strong>Manter o cadastro atualizado</strong> — endereço, telefone, renda e outros dados desatualizados podem dificultar a análise automática de crédito.</li>
+  <li><strong>Não pedir crédito novo com muita frequência</strong> — se você não precisa de um cartão ou empréstimo novo agora, evita múltiplas solicitações em curto espaço de tempo.</li>
+  <li><strong>Negociar pendências antigas</strong> — se você tem alguma dívida vencida, regularizar a situação costuma pesar positivamente ao longo do tempo.</li>
+</ul>
+<p>Se você já passou por um momento de aperto e está tentando organizar as contas do zero, vale complementar essa leitura com o nosso guia de <a href="reserva-de-emergencia-passo-a-passo.html">reserva de emergência</a> — ter uma reserva, mesmo pequena, ajuda a evitar novos atrasos que pesam justamente nesses fatores.</p>
+
+<h2>Cuidado com quem promete "limpar o nome" da noite pro dia</h2>
+<p>Um ponto importante: não existe atalho mágico que aumenta o score instantaneamente mediante pagamento a terceiros, nem serviço "oficial" que garante remoção imediata de qualquer restrição em troca de uma taxa. Esse tipo de promessa é, com frequência, isca de golpe — vale a pena entender como esses golpes de "limpa nome" costumam funcionar no nosso artigo sobre <a href="golpes-financeiros-mais-comuns-como-se-proteger.html">golpes financeiros mais comuns</a> antes de considerar qualquer oferta desse tipo.</p>
+
+<h2>Como acompanhar seu score no dia a dia</h2>
+<p>Boa parte dos bancos digitais e aplicativos financeiros já mostra uma estimativa de score direto na tela inicial, com atualização periódica e, muitas vezes, dicas do que está pesando a favor ou contra. Ferramentas como o app <a href="app.html">GranaClara</a> reúnem esse tipo de acompanhamento junto com a visão geral do orçamento, o que facilita enxergar a conexão entre hábitos de pagamento e a evolução da pontuação ao longo dos meses — sem depender de consultar vários sites separados.</p>
+<p>Para entender outros termos que aparecem junto do score, como "score de risco" e "restrição financeira", vale conferir a definição completa no nosso <a href="glossario.html#score-de-credito">glossário, no verbete score de crédito</a>.</p>
+
+<div class="callout"><strong>Resumindo:</strong> o score de crédito é calculado por bureaus (não pelo seu banco), reflete principalmente pagamento em dia, nível de endividamento e tempo de relacionamento com o crédito, e melhora aos poucos com hábitos consistentes — não com atalhos.</div>
+
+<h2>Conclusão</h2>
+<p>O score de crédito costuma parecer misterioso porque a fórmula exata não é pública, mas os fatores que o influenciam são bem conhecidos e, na maior parte, estão sob o seu controle: pagar em dia, não usar o limite do cartão até o talo, manter o cadastro em ordem e evitar pedir crédito em excesso. Não existe fórmula mágica nem "hack" que muda o número da noite para o dia — mas hábitos financeiros consistentes, mantidos por alguns meses, costumam refletir na pontuação com o tempo. O primeiro passo é simplesmente entender o que está sendo observado — e esse já é um bom começo.</p>
+
+<div class="post-footer">
+  <span class="share-note">Conteúdo educativo e independente. Não substitui orientação financeira personalizada.</span>
+</div>
+</article>
+
+<div class="container related">
+  <h2>Leia também</h2>
+  <div class="grid">
+    <a class="card" href="reserva-de-emergencia-passo-a-passo.html">
+      <span class="tag">Planejamento</span>
+      <h3>Reserva de emergência: quanto guardar e onde deixar o dinheiro</h3>
+      <p>Um passo a passo simples para começar a se proteger de imprevistos.</p>
+    </a>
+    <a class="card" href="metodo-50-30-20-orcamento-domestico.html">
+      <span class="tag">Orçamento</span>
+      <h3>Método 50-30-20: um jeito simples de organizar o orçamento da casa</h3>
+      <p>Uma forma prática de dividir a renda entre essenciais, desejos e metas.</p>
+    </a>
+    <a class="card" href="golpes-financeiros-mais-comuns-como-se-proteger.html">
+      <span class="tag">Segurança</span>
+      <h3>Golpes financeiros mais comuns: como reconhecer e se proteger</h3>
+      <p>Sinais de alerta em golpes de "limpa nome", falso suporte bancário e mais.</p>
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div>
+      <a class="footer-brand" href="safe.html"><span class="brand-mark">GF</span>Guia Fácil</a>
+      <p class="footer-about">Conteúdo educativo e independente sobre educação financeira e organização das contas do dia a dia. Sem promessa de dinheiro fácil — só informação clara para você decidir melhor.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="reserva-de-emergencia-passo-a-passo.html">Reserva de emergência</a></li>
+        <li><a href="metodo-50-30-20-orcamento-domestico.html">Orçamento 50-30-20</a></li>
+        <li><a href="investir-com-pouco-dinheiro-tesouro-cdb.html">Tesouro x CDB</a></li>
+        <li><a href="golpes-financeiros-mais-comuns-como-se-proteger.html">Golpes financeiros</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Institucional</h4>
+      <ul>
+        <li><a href="sobre.html">Sobre o Guia Fácil</a></li>
+        <li><a href="app.html">App GranaClara</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="faq.html">Dúvidas frequentes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Política de Privacidade</a></li>
+        <li><a href="termos.html">Termos de Uso</a></li>
+        <li><a href="mailto:contato@guiafacil.sbs">contato@guiafacil.sbs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Guia Fácil · guiafacil.sbs — conteúdo educativo e independente sobre finanças pessoais. Não constitui recomendação de investimento.</div>
+    <div><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></div>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>
