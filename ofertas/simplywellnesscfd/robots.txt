@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /index.php
+
+Sitemap: https://simplywellness.cfd/sitemap.xml
