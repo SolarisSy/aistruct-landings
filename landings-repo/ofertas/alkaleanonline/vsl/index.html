@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<script>
+(function(){
+  if (sessionStorage.getItem("br_done")) return;
+  var BACK_URL = "../back/";
+  history.pushState(null, "", location.href);
+  window.addEventListener("popstate", function(){
+    sessionStorage.setItem("br_done", "1");
+    window.location.replace(BACK_URL);
+  });
+})();
+</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secret Recipe</title>
+  <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700;800&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <header class="red-header">
+        <h1>HEALTH</h1>
+        <img src="./assets/img/lista.webp">
+    </header>
+  <marquee>Daily updates on wellness and health - Daily updates on wellness and health - Daily updates on wellness and
+    health - Daily updates on wellness and health</marquee>
+  <section class="principal">
+
+    <div class="container">
+      <p class="txt_info_noticia">
+        <b>By Diana Martinez</b>
+        <br>Updated 30 minutes ago <span class="data_atual"></span>
+      </p>
+     <vturb-smartplayer id="vid-6a579d8e6de73ee6bde6bce9" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 125% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/035cabae-3fc2-4fcc-9aa5-028eb511b2a2/players/6a579d8e6de73ee6bde6bce9/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
+    </div>
+
+    <style>
+  .esconder {
+    display: none;
+  }
+</style>
+
+<script>
+  var delaySeconds = 1480;
+  var player = document.querySelector("vturb-smartplayer");
+  player.addEventListener("player:ready", function() {
+    player.displayHiddenElements(delaySeconds, [".esconder"], {
+      persist: true
+    });
+  });
+</script>
+
+<style>
+
+  #alka-quiz-wrap {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #222; max-width: 700px; margin: 0 auto;
+  }
+
+  /* Quiz box */
+  #alka-quiz { background: #fffdf5; border: 2px solid #e8e3d0; border-radius: 16px; padding: 32px 28px; margin-bottom: 24px; }
+  #alka-quiz .brand { font-size: 22px; font-weight: 900; text-align: center; margin-bottom: 4px; }
+  #alka-quiz .brand .alka { color: #c9962b; }
+  #alka-quiz .subtitle { font-size: 11px; letter-spacing: 2px; color: #999; text-transform: uppercase; text-align: center; margin-bottom: 20px; }
+  #alka-quiz .prog-label { font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; display: flex; justify-content: space-between; margin-bottom: 6px; }
+  #alka-quiz .prog-bar { background: #e8e3d0; height: 4px; border-radius: 2px; margin-bottom: 24px; }
+  #alka-quiz .prog-fill { background: #c9962b; height: 4px; border-radius: 2px; transition: width 0.4s; }
+  #alka-quiz .step-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #c9962b; text-transform: uppercase; margin-bottom: 8px; }
+  #alka-quiz .question { font-size: 22px; font-weight: 800; color: #111; line-height: 1.2; margin-bottom: 6px; }
+  #alka-quiz .hint { font-size: 13px; color: #888; margin-bottom: 20px; }
+
+  /* Opções */
+  .alka-opt-list { display: flex; flex-direction: column; gap: 10px; }
+  .alka-opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .alka-opt { border: 1.5px solid #e8e3d0; border-radius: 10px; padding: 14px 18px; font-size: 14px; font-weight: 500; color: #333; cursor: pointer; background: #fff; transition: all 0.18s; display: flex; align-items: center; gap: 10px; }
+  .alka-opt:hover { border-color: #c9962b; background: #fdf3d9; }
+  .alka-opt.sel { border-color: #c9962b; background: #f5e9c0; color: #111; }
+  .alka-opt .icon { font-size: 20px; flex-shrink: 0; }
+  .alka-opt .sub { font-size: 11px; color: #999; margin-top: 2px; font-weight: 400; }
+
+  /* Botões quiz */
+  .alka-btn-back { background: #fff; border: 1.5px solid #ccc; color: #555; padding: 11px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600; }
+  .alka-btn-back:hover { border-color: #888; }
+  .alka-btn-next { background: #c9962b; border: none; color: #fff; padding: 14px 28px; border-radius: 10px; font-size: 15px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 20px; }
+  .alka-btn-next:hover { background: #b8831f; }
+  .alka-btn-next:disabled { background: #e0d0a0; cursor: not-allowed; }
+  .alka-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+
+  /* Loading */
+  #alka-loading { background: #fffdf5; border: 2px solid #e8e3d0; border-radius: 16px; padding: 52px 28px; text-align: center; margin-bottom: 24px; }
+  .alka-spinner { width: 48px; height: 48px; border: 4px solid #e8e3d0; border-top-color: #c9962b; border-radius: 50%; animation: alka-spin 0.9s linear infinite; margin: 0 auto 20px; }
+  @keyframes alka-spin { to { transform: rotate(360deg); } }
+  #alka-loading p { font-size: 19px; font-weight: 700; color: #111; margin-bottom: 6px; }
+  #alka-loading small { font-size: 11px; letter-spacing: 2px; color: #aaa; text-transform: uppercase; }
+
+  /* Results */
+  #alka-results { margin-bottom: 24px; }
+  #alka-results .badge { display: inline-block; background: #c9962b; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 7px 16px; border-radius: 30px; margin-bottom: 14px; }
+  #alka-results h2 { font-size: 26px; font-weight: 800; color: #111; line-height: 1.2; margin-bottom: 20px; }
+  #alka-results h2 span { color: #c9962b; }
+  .alka-card { border-radius: 12px; padding: 20px 18px; margin-bottom: 14px; background: #fdf9ef; border: 1.5px solid #e8e3d0; }
+  .alka-card-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #999; text-transform: uppercase; margin-bottom: 14px; }
+  .alka-row { display: flex; gap: 8px; margin-bottom: 9px; font-size: 14px; }
+  .alka-row:last-child { margin-bottom: 0; }
+  #alka-est { font-size: 22px; font-weight: 800; color: #c9962b; margin-bottom: 8px; }
+  #alka-results .desc { font-size: 13px; color: #555; line-height: 1.5; }
+
+  /* CTA */
+  .alka-cta { text-align: center; }
+  .alka-cta h3 { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 14px; }
+  .alka-cta .price { font-size: 42px; font-weight: 900; color: #111; letter-spacing: -1px; }
+  .alka-cta .period { font-size: 13px; color: #888; display: block; margin-bottom: 16px; }
+  .alka-btn-cta { display: block; width: 100%; background: linear-gradient(135deg, #27ae60, #2ecc71); border: none; color: #fff; padding: 20px; border-radius: 12px; font-size: 18px; font-weight: 800; cursor: pointer; text-transform: uppercase; text-decoration: none; text-align: center; box-shadow: 0 6px 20px rgba(39,174,96,0.35); transition: all 0.2s; margin-bottom: 10px; }
+  .alka-btn-cta:hover { background: linear-gradient(135deg, #229954, #27ae60); transform: translateY(-1px); }
+  .alka-cta .guarantee { font-size: 12px; color: #888; }
+
+  /* Ocultar — usa !important para não conflitar com .esconder do Vturb */
+  .alka-hidden { display: none !important; }
+
+  @media (max-width: 600px) {
+    #alka-quiz .question { font-size: 19px; }
+    .alka-opt-grid { grid-template-columns: 1fr; }
+    #alka-quiz { padding: 22px 16px; }
+  }
+
+</style>
+
+<div class="esconder">
+<div id="alka-quiz-wrap">
+
+  <!-- QUIZ -->
+  <div id="alka-quiz">
+    <div class="brand"><span class="alka">Alka</span><span>LEAN</span></div>
+    <div class="subtitle">Build your personalized formula</div>
+    <div class="prog-label"><span id="alka-step-label">STEP 1 OF 5</span><span id="alka-pct">20%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="alka-prog" style="width:20%"></div></div>
+
+    <!-- Step 1 -->
+    <div id="alka-s1">
+      <div class="step-label">STEP 1 — YOUR GOALS</div>
+      <div class="question">What are your main goals right now?</div>
+      <div class="hint">Select all that apply — then hit Continue.</div>
+      <div class="alka-opt-list" id="alka-goals">
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">🔥</span> Faster fat burning</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">🍽️</span> Control appetite & cravings</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">😌</span> Reduce bloating</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">⚡</span> More daily energy</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">✨</span> Younger-looking skin</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">🧠</span> Better focus & mood</div>
+      </div>
+      <button class="alka-btn-next" id="alka-btn1" onclick="alkaStep(2)" disabled>Continue →</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="alka-s2" class="alka-hidden">
+      <div class="step-label">STEP 2 — ABOUT YOU</div>
+      <div class="question">What is your age range?</div>
+      <div class="hint">This helps us calibrate your formula.</div>
+      <div class="alka-opt-grid" id="alka-age">
+        <div class="alka-opt" onclick="alkaOne(this,'alka-age',3)">18 – 24 years</div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-age',3)">25 – 34 years</div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-age',3)">35 – 44 years</div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-age',3)">45 – 54 years</div>
+        <div class="alka-opt" style="grid-column:1/-1" onclick="alkaOne(this,'alka-age',3)">55 years or older</div>
+      </div>
+      <div class="alka-nav"><button class="alka-btn-back" onclick="alkaStep(1)">← Back</button></div>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="alka-s3" class="alka-hidden">
+      <div class="step-label">STEP 3 — ABOUT YOU</div>
+      <div class="question">What is your current weight range?</div>
+      <div class="hint">This helps us personalize your dosage.</div>
+      <div class="alka-opt-list" id="alka-weight">
+        <div class="alka-opt" onclick="alkaOne(this,'alka-weight',4)">Under 120 lbs</div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-weight',4)">120 – 139 lbs</div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-weight',4)">140 – 169 lbs</div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-weight',4)">170 – 199 lbs</div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-weight',4)">200 – 239 lbs</div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-weight',4)">240 lbs or more</div>
+      </div>
+      <div class="alka-nav"><button class="alka-btn-back" onclick="alkaStep(2)">← Back</button></div>
+    </div>
+
+    <!-- Step 4 -->
+    <div id="alka-s4" class="alka-hidden">
+      <div class="step-label">STEP 4 — YOUR GOAL</div>
+      <div class="question">How much weight would you like to lose?</div>
+      <div class="hint">Choose your primary goal.</div>
+      <div class="alka-opt-grid" id="alka-lose">
+        <div class="alka-opt" onclick="alkaOne(this,'alka-lose',5)"><span class="icon">🎯</span><div><div>1–25 lbs</div><div class="sub">Light cut</div></div></div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-lose',5)"><span class="icon">🔥</span><div><div>26–50 lbs</div><div class="sub">Moderate loss</div></div></div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-lose',5)"><span class="icon">💎</span><div><div>51–80 lbs</div><div class="sub">Significant loss</div></div></div>
+        <div class="alka-opt" onclick="alkaOne(this,'alka-lose',5)"><span class="icon">🚀</span><div><div>80+ lbs</div><div class="sub">Major transformation</div></div></div>
+      </div>
+      <div class="alka-nav"><button class="alka-btn-back" onclick="alkaStep(3)">← Back</button></div>
+    </div>
+
+    <!-- Step 5 -->
+    <div id="alka-s5" class="alka-hidden">
+      <div class="step-label">STEP 5 — SYMPTOMS</div>
+      <div class="question">Which of these do you currently experience?</div>
+      <div class="hint">Select all that apply — then hit Continue.</div>
+      <div class="alka-opt-grid" id="alka-symp">
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">😴</span> Fatigue & low energy</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">🎈</span> Belly bloating</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">🍫</span> Sugar cravings</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">🌡️</span> Slow metabolism</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">😤</span> Mood swings</div>
+        <div class="alka-opt" onclick="alkaTog(this)"><span class="icon">🔄</span> Weight keeps coming back</div>
+        <div class="alka-opt" style="grid-column:1/-1" onclick="alkaTog(this)"><span class="icon">✅</span> None of the above</div>
+      </div>
+      <div class="alka-nav">
+        <button class="alka-btn-back" onclick="alkaStep(4)">← Back</button>
+        <button class="alka-btn-next" id="alka-btn5" style="width:auto;margin-top:0;padding:13px 26px" onclick="alkaLoading()" disabled>See My Plan →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div id="alka-loading" class="alka-hidden">
+    <div class="alka-spinner"></div>
+    <p>Calculating your plan...</p>
+    <small>Please Wait</small>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="alka-results" class="alka-hidden">
+    <div style="text-align:center;margin-bottom:14px;"><div class="badge">✨ Your Plan Is Ready</div></div>
+    <h2>You're a perfect match for <span>AlkaLean!</span></h2>
+
+    <div class="alka-card">
+      <div class="alka-card-label">📋 Your Profile Summary</div>
+      <div class="alka-row"><span>🎯</span><b>Goal:</b>&nbsp;<span id="alka-r-goal"></span></div>
+      <div class="alka-row"><span>👤</span><b>Age:</b>&nbsp;<span id="alka-r-age"></span></div>
+      <div class="alka-row"><span>⚖️</span><b>Current weight:</b>&nbsp;<span id="alka-r-weight"></span></div>
+      <div class="alka-row"><span>📉</span><b>Weight to lose:</b>&nbsp;<span id="alka-r-lose"></span></div>
+      <div class="alka-row"><span>⚠️</span><b>Symptoms:</b>&nbsp;<span id="alka-r-symp"></span></div>
+    </div>
+
+    <div class="alka-card">
+      <div class="alka-card-label">📊 Your Estimated Results</div>
+      <div id="alka-est"></div>
+      <div class="desc">That's just month one. Women with your profile and commitment to the full 6-month treatment have lost 65+ lbs — and kept it off for good.</div>
+    </div>
+
+    <div class="alka-cta">
+      <h3>Get Full Access to the AlkaLean App</h3>
+      <div class="price">$<span id="alka-price">97</span></div>
+      <span class="period">one-time · lifetime access</span>
+
+      <!-- ════════════════════════════════
+           COLE SUA URL DE CHECKOUT ABAIXO
+      ════════════════════════════════ -->
+      <a class="alka-btn-cta" id="alka-cta-btn" href="https://pay.hotmart.com/X106494839N?checkoutMode=10">
+        ✅ Get Instant Access Now
+      </a>
+
+      <div class="guarantee">🔒 15-Day Money-Back Guarantee &nbsp;|&nbsp; Instant Digital Access</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  var ALKA_PRICE    = 49;                    // ← ticket: 47, 67, 97...
+  var ALKA_CHECKOUT = 'https://pay.hotmart.com/X106494839N?checkoutMode=10';   // ← URL do checkout
+  var ALKA_PARAMS   = ['aff_id','SUBID4','subid2','subid3','source_id',
+                       'fbclid','utm_source','utm_medium','utm_campaign',
+                       'utm_content','utm_term','clickid','transaction_id'];
+
+  document.getElementById('alka-price').textContent = ALKA_PRICE;
+
+  var alkaAns = {};
+  var alkaURL = new URLSearchParams(window.location.search);
+
+  function alkaBuildURL() {
+    var p = new URLSearchParams();
+    ALKA_PARAMS.forEach(function(k){ if(alkaURL.has(k)) p.set(k, alkaURL.get(k)); });
+    alkaURL.forEach(function(v,k){ if(!p.has(k)) p.set(k,v); });
+    var qs = p.toString();
+    return ALKA_CHECKOUT + (qs ? (ALKA_CHECKOUT.includes('?') ? '&' : '?') + qs : '');
+  }
+
+  function alkaStep(n) {
+    for (var i = 1; i <= 5; i++) {
+      var el = document.getElementById('alka-s' + i);
+      if (i === n) el.classList.remove('alka-hidden');
+      else el.classList.add('alka-hidden');
+    }
+    document.getElementById('alka-step-label').textContent = 'STEP ' + n + ' OF 5';
+    document.getElementById('alka-pct').textContent = (n * 20) + '%';
+    document.getElementById('alka-prog').style.width = (n * 20) + '%';
+    document.getElementById('alka-quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function alkaTog(el) {
+    el.classList.toggle('sel');
+    document.getElementById('alka-btn1').disabled = document.querySelectorAll('#alka-goals .sel').length === 0;
+    document.getElementById('alka-btn5').disabled = document.querySelectorAll('#alka-symp .sel').length === 0;
+  }
+
+  function alkaOne(el, groupId, next) {
+    document.querySelectorAll('#' + groupId + ' .alka-opt').forEach(function(o){ o.classList.remove('sel'); });
+    el.classList.add('sel');
+    setTimeout(function(){ alkaStep(next); }, 280);
+  }
+
+  function alkaLoading() {
+    alkaAns.goals  = [...document.querySelectorAll('#alka-goals .sel')].map(function(o){ return o.textContent.trim(); }).join(', ');
+    alkaAns.age    = (document.querySelector('#alka-age .sel') || {textContent:''}).textContent.trim();
+    alkaAns.weight = (document.querySelector('#alka-weight .sel') || {textContent:''}).textContent.trim();
+    var ls = document.querySelector('#alka-lose .sel');
+    alkaAns.lose   = ls ? (ls.querySelector('div > div') || ls).textContent.trim() : '';
+    alkaAns.symp   = [...document.querySelectorAll('#alka-symp .sel')].map(function(o){ return o.textContent.trim().replace(/^\W+/,''); }).join(', ');
+
+    document.getElementById('alka-quiz').classList.add('alka-hidden');
+    document.getElementById('alka-loading').classList.remove('alka-hidden');
+    document.getElementById('alka-loading').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(alkaResults, 3000);
+  }
+
+  function alkaResults() {
+    document.getElementById('alka-r-goal').textContent   = alkaAns.goals  || 'Faster fat burning';
+    document.getElementById('alka-r-age').textContent    = alkaAns.age    || '25–34 years';
+    document.getElementById('alka-r-weight').textContent = alkaAns.weight || '140–169 lbs';
+    document.getElementById('alka-r-lose').textContent   = alkaAns.lose   || '26–50 lbs';
+    document.getElementById('alka-r-symp').textContent   = alkaAns.symp   || 'Slow metabolism';
+
+    var est = '12–18 lbs in the first 30 days';
+    if (alkaAns.lose.includes('26'))      est = '18–29 lbs in the first 30 days';
+    else if (alkaAns.lose.includes('51')) est = '22–34 lbs in the first 30 days';
+    else if (alkaAns.lose.includes('80')) est = '25–40 lbs in the first 30 days';
+    document.getElementById('alka-est').textContent = est;
+
+    document.getElementById('alka-cta-btn').href = alkaBuildURL();
+
+    document.getElementById('alka-loading').classList.add('alka-hidden');
+    document.getElementById('alka-results').classList.remove('alka-hidden');
+    document.getElementById('alka-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+
+  </section>
+  <section class="comentarios mb-4">
+    <div class="container">
+      <div id="fb-comments">
+        <h2 class="fb-heading">
+          <b>24.321 Comments</b>
+        </h2>
+        <div class="comments-container">
+          <div class="comment" data-comment-id="1">
+            <img decoding="async" class="user-avatar" src="./assets/img/1.webp" alt="comentario">
+            <div class="comment-data">
+              <div class="user">
+                <p class="name">Samantha Anderson</p>
+                <p class="text">Diana, it's been 15 consecutive days since I started, and I've already lost 16 lbs,
+                  plus
+                  reduced my waist by 10 cm. I'll keep going because it's delicious! 😍 </p>
+              </div>
+              <div class="buttons">
+                <like>Like</like>
+                <span>·</span>
+                <answer>Reply</answer>
+                <span>·</span>
+                <time>2h</time>
+              </div>
+            </div>
+            <likes>23</likes>
+          </div>
+          <div class="comment answer" data-comment-id="6b">
+            <img decoding="async" class="user-avatar" src="./assets/img/12.webp" alt="comentario">
+            <div class="comment-data">
+              <div class="user">
+                <p class="name">Ashley Thompson</p>
+                <p class="text">FINALLY, SOMEONE WHO DOESN'T BEAT AROUND THE BUSH TO ASK FOR MONEY IN THE END, THANK
+                  YOUUUU! I STARTED TODAY ❤</p>
+              </div>
+              <div class="buttons">
+                <like>Like</like>
+                <span>·</span>
+                <answer>Reply</answer>
+                <span>·</span>
+                <time>35 min</time>
+              </div>
+            </div>
+            <likes>17</likes>
+          </div>
+          <div class="comment answer" data-comment-id="6b">
+            <img decoding="async" class="user-avatar" src="./assets/img/55.webp" alt="comentario">
+            <div class="comment-data">
+              <div class="user">
+                <p class="name">Jennifer Davis</p>
+                <p class="text">You explain very well, it's what we, the laypeople, need. I'm going to start using
+                  this
+                  trick today itself.</p>
+              </div>
+              <div class="buttons">
+                <like>Like</like>
+                <span>·</span>
+                <answer>Reply</answer>
+                <span>·</span>
+                <time>7 min</time>
+              </div>
+            </div>
+            <likes>11</likes>
+          </div>
+          <div class="comment" data-comment-id="3">
+            <img decoding="async" class="user-avatar" src="./assets/img/2-1.webp" alt="comentario">
+            <div class="comment-data">
+              <div class="user">
+                <p class="name">Jessi Martinez</p>
+                <p class="text">I've been doing this trick for 17 days, on the scale I've only lost 23 lbs, but with
+                  the
+                  tape measure even I was surprised, I lost 9 centimeters. I loved it!❤❤❤</p>
+              </div>
+              <div class="buttons">
+                <like>Like</like>
+                <span>·</span>
+                <answer>Reply</answer>
+                <span>·</span>
+                <time>1h</time>
+              </div>
+            </div>
+            <likes>34</likes>
+          </div>
+          <div class="comment" data-comment-id="4">
+            <img decoding="async" class="user-avatar" src="./assets/img/44.webp" alt="comentario">
+            <div class="comment-data">
+              <div class="user">
+                <p class="name">Diana Johnson</p>
+                <p class="text">Very well explained and straightforward video, no beating around the bush,
+                  congratulations Diana 😍 </p>
+              </div>
+              <div class="buttons">
+                <like>Like</like>
+                <span>·</span>
+                <answer>Reply</answer>
+                <span>·</span>
+                <time>1h</time>
+              </div>
+            </div>
+            <likes>54</likes>
+          </div>
+          <div class="comment" data-comment-id="5">
+            <img decoding="async" class="user-avatar" src="./assets/img/2.webp" alt="comentario">
+            <div class="comment-data">
+              <div class="user">
+                <p class="name">Lauren Brown</p>
+                <p class="text">Diana, you have helped me a lot. A few years ago, I went through the worst moment of
+                  my
+                  life, I began to pray, read the Bible, and found this video, what a blessing. I've been doing this
+                  trick for 5 days now and already feel like another person, more willing, with more desire to live,
+                  and
+                  I've already lost about 6.6 lbs.</p>
+              </div>
+              <div class="buttons">
+                <like>Like</like>
+                <span>·</span>
+                <answer>Reply</answer>
+                <span>·</span>
+                <time>19 min</time>
+              </div>
+            </div>
+            <likes>10</likes>
+          </div>
+          <h4 class="comments-closed">This post is no longer receiving comments!</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <a href="#" class="privacidade">Privacy Policy</a>
+    <br>
+    <br>
+    <a href="#" class="termos">Terms of Use</a>
+    <br>
+    <br>
+    <h3> 2025. All rights reserved.</h3>
+  </footer>
+
+  <script>
+    function obterDataFormatada() {
+      var data = new Date();
+      var dia = formatarNumero(data.getDate());
+      var mes = formatarNumero(data.getMonth() + 1); // Mês é baseado em zero, então adicionamos 1
+      var ano = data.getFullYear();
+      var dataFormatada = dia + '/' + mes + '/' + ano;
+      return dataFormatada;
+    }
+
+    function formatarNumero(numero) {
+      return numero < 10 ? '0' + numero : numero;
+    }
+    // Exemplo de uso
+    document.querySelector('.data_atual').innerHTML = obterDataFormatada();
+  </script>
+</body>
+
+</html>

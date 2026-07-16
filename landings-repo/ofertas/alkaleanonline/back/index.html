@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Wait! Special One-Time Offer</title>
+<style>
+  :root{
+    --red:#D91E2A;
+    --red-dark:#B01521;
+    --green:#1FA84C;
+    --green-dark:#178A3D;
+    --ink:#1C1C1E;
+    --muted:#5A5A5E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    display:flex;flex-direction:column;
+    min-height:100dvh;
+    background:#fff;color:var(--ink);
+    text-align:center;
+  }
+
+  /* ===== TOP (RED) ===== */
+  .hero{
+    background:linear-gradient(180deg,var(--red) 0%,var(--red-dark) 100%);
+    color:#fff;
+    padding:22px 20px 26px;
+  }
+  .hero h1{
+    font-size:clamp(1.35rem,5.5vw,2rem);
+    font-weight:800;
+    line-height:1.2;
+    letter-spacing:-.01em;
+  }
+  .hero h2{
+    margin-top:10px;
+    font-size:clamp(1rem,4.2vw,1.3rem);
+    font-weight:600;
+    line-height:1.35;
+    opacity:.95;
+  }
+  .pulse{display:inline-block;animation:pulse 1.2s infinite;}
+  @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.18);}}
+  @media (prefers-reduced-motion:reduce){.pulse{animation:none;}}
+
+  /* ===== BODY (WHITE) ===== */
+  .content{
+    flex:1;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    padding:18px 22px;
+    max-width:560px;margin:0 auto;width:100%;
+  }
+  .content p{
+    font-size:clamp(.95rem,3.9vw,1.1rem);
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .content p + p{margin-top:10px;}
+  .price-row{
+    display:flex;align-items:baseline;justify-content:center;gap:12px;
+    margin:14px 0 6px;
+  }
+  .old-price{
+    font-size:clamp(1.2rem,5vw,1.6rem);
+    color:var(--muted);
+    text-decoration:line-through;
+    font-weight:600;
+  }
+  .new-price{
+    font-size:clamp(2.2rem,10vw,3rem);
+    color:var(--green);
+    font-weight:800;
+    letter-spacing:-.02em;
+  }
+  .badge{
+    display:inline-block;
+    background:#FFF3CD;color:#8A6100;
+    border:1px solid #F0DFA0;
+    border-radius:999px;
+    font-size:.85rem;font-weight:700;
+    padding:6px 14px;
+    margin-top:6px;
+  }
+  .timer{
+    margin-top:10px;
+    font-size:.95rem;color:var(--red);
+    font-weight:700;
+  }
+  .timer span{font-variant-numeric:tabular-nums;}
+
+  /* ===== CTA ===== */
+  .cta-wrap{padding:0 20px 22px;max-width:560px;margin:0 auto;width:100%;}
+  .cta{
+    display:block;width:100%;
+    background:linear-gradient(180deg,var(--green) 0%,var(--green-dark) 100%);
+    color:#fff;text-decoration:none;
+    font-size:clamp(1.05rem,4.5vw,1.25rem);
+    font-weight:800;text-transform:uppercase;letter-spacing:.02em;
+    padding:18px 16px;border-radius:14px;
+    box-shadow:0 6px 18px rgba(31,168,76,.35);
+    animation:glow 1.6s ease-in-out infinite;
+  }
+  .cta:active{transform:scale(.98);}
+  @keyframes glow{0%,100%{box-shadow:0 6px 18px rgba(31,168,76,.35);}50%{box-shadow:0 6px 26px rgba(31,168,76,.6);}}
+  @media (prefers-reduced-motion:reduce){.cta{animation:none;}}
+  .guarantee{
+    margin-top:10px;font-size:.8rem;color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+  <!-- TOP / RED SECTION -->
+  <header class="hero">
+    <h1><span class="pulse">⚠️</span> Wait! Don't close this page yet</h1>
+    <h2>🎁You've unlocked an exclusive one-time discount 🎁</h2>
+  </header>
+
+  <!-- WHITE SECTION -->
+  <main class="content">
+    <p><strong>This is your only chance to get full access for less.</strong></p>
+    <p>Right now and only on this page you can get everything included in the app for <strong>$10 off</strong>. Same complete access, all the benefits, all the bonuses. Nothing removed.</p>
+
+    <div class="price-row">
+      <span class="old-price">$49</span>
+      <span class="new-price">$27</span>
+    </div>
+
+    <span class="badge">One-time offer not available anywhere else</span>
+
+    <p style="margin-top:14px;">If you leave this page, this discount disappears for good and the price returns to $49. There is no way to get back to this offer later.</p>
+
+    <div class="timer">⏳ Offer expires in <span id="countdown">10:00</span></div>
+  </main>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <!-- Replace # with your checkout URL -->
+    <a href="https://go.centerpag.com/PPU38CQE9AU" class="cta">👉 Tap here to secure your access to the APP</a>
+    <p class="guarantee">🔒 Secure checkout · Instant access</p>
+  </div>
+
+<script>
+  // Simple 10-minute countdown (visual urgency)
+  (function(){
+    var total = 10 * 60; // seconds
+    var el = document.getElementById('countdown');
+    var t = setInterval(function(){
+      total--;
+      if(total <= 0){ total = 0; clearInterval(t); }
+      var m = Math.floor(total/60), s = total%60;
+      el.textContent = m + ':' + (s<10?'0':'') + s;
+    },1000);
+  })();
+</script>
+
+</body>
+</html>

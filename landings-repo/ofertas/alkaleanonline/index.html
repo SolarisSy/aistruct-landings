@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlkaLean App — Lose Weight Naturally, Starting Today</title>
+<style>
+  :root{
+    --gold:#c9962b;
+    --gold-dark:#b8831f;
+    --gold-light:#e6c477;
+    --cream:#fdf6e9;
+    --card:#fffdf8;
+    --ink:#1c1c1e;
+    --muted:#6b6b6f;
+    --red:#e2452c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+
+  /* HEADER */
+  header.topbar{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:16px 20px;
+    background:#fff;
+    box-shadow:0 1px 0 rgba(0,0,0,.06);
+  }
+  .logo-badge{
+    width:34px;height:34px;border-radius:9px;
+    background:linear-gradient(160deg,var(--gold-light),var(--gold));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 6px rgba(201,150,43,.4);
+  }
+  .logo-badge span{color:#fff;font-weight:900;font-size:15px;}
+  header.topbar .brand{font-size:20px;font-weight:800;letter-spacing:-.01em;}
+  header.topbar .brand .alka{color:var(--gold);}
+
+  /* HERO */
+  .hero{
+    max-width:1080px;margin:0 auto;
+    padding:44px 20px 30px;
+    display:flex;align-items:center;gap:52px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .hero-copy{flex:1 1 380px;max-width:440px;}
+  .eyebrow{
+    display:flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:800;letter-spacing:2px;color:var(--gold-dark);
+    text-transform:uppercase;margin-bottom:14px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";flex:1;height:1px;background:var(--gold-light);}
+  h1{
+    font-size:clamp(2rem,5.2vw,2.7rem);
+    line-height:1.12;font-weight:800;letter-spacing:-.02em;
+    margin-bottom:6px;
+  }
+  h1 .accent{color:var(--gold);}
+  .hero-copy p.sub{
+    font-size:1.05rem;color:var(--muted);margin:14px 0 26px;line-height:1.5;
+  }
+  .feature-list{display:flex;flex-direction:column;gap:18px;}
+  .feature{display:flex;align-items:center;gap:14px;}
+  .feature .icon{
+    width:44px;height:44px;flex-shrink:0;border-radius:50%;
+    border:1.5px solid var(--gold-light);
+    display:flex;align-items:center;justify-content:center;font-size:19px;
+    background:#fff;
+  }
+  .feature .txt{font-size:.98rem;font-weight:600;line-height:1.3;}
+  .feature .txt .hl{color:var(--gold-dark);}
+
+  /* PHONE MOCKUP */
+  .hero-visual{
+    flex:1 1 300px;max-width:340px;
+    position:relative;
+    display:flex;justify-content:center;
+  }
+  .glow{
+    position:absolute;inset:-40px;
+    background:radial-gradient(circle, rgba(201,150,43,.25), transparent 65%);
+    z-index:0;
+  }
+  .phone{
+    position:relative;z-index:1;
+    width:280px;
+    background:#111;
+    border-radius:38px;
+    padding:12px;
+    box-shadow:0 25px 50px rgba(0,0,0,.25);
+  }
+  .phone::before{
+    content:"";
+    position:absolute;top:12px;left:50%;transform:translateX(-50%);
+    width:90px;height:22px;background:#111;border-radius:0 0 16px 16px;
+  }
+  .screen{
+    background:#fffdf8;
+    border-radius:28px;
+    padding:20px 16px 16px;
+    min-height:420px;
+  }
+  .screen .s-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .screen .s-head .s-brand{font-weight:800;font-size:14px;}
+  .screen .s-head .s-brand .alka{color:var(--gold);}
+  .screen .s-plan-label{font-size:11px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+  .screen .s-plan-sub{font-size:10px;color:var(--gold-dark);font-weight:600;margin-bottom:14px;}
+  .ring{
+    width:150px;height:150px;margin:0 auto 16px;
+    border-radius:50%;
+    background:conic-gradient(var(--gold) 96%, #f0e6cf 0);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ring-inner{
+    width:118px;height:118px;border-radius:50%;background:#fffdf8;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .ring-inner .label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+  .ring-inner .pct{font-size:26px;font-weight:800;}
+  .ring-inner .status{font-size:9px;color:var(--gold-dark);font-weight:700;}
+  .stats-row{display:flex;gap:8px;margin-bottom:14px;}
+  .stat-box{
+    flex:1;background:#f7f1e2;border-radius:10px;padding:8px 6px;text-align:center;
+  }
+  .stat-box .n{font-size:13px;font-weight:800;}
+  .stat-box .l{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+  .recipe-label{font-size:11px;font-weight:700;margin-bottom:2px;}
+  .recipe-sub{font-size:9px;color:var(--gold-dark);font-weight:600;margin-bottom:8px;}
+  .recipe-card{
+    background:#f7f1e2;border-radius:12px;padding:10px;display:flex;gap:10px;align-items:center;
+  }
+  .recipe-thumb{
+    width:44px;height:44px;border-radius:8px;flex-shrink:0;
+    background:linear-gradient(160deg,#a8d08d,#6fa85c);
+  }
+  .recipe-meta{font-size:9px;color:var(--ink);line-height:1.6;}
+
+  /* FLOATING BADGES */
+  .badge-float{
+    position:absolute;z-index:2;
+    background:#fff;border-radius:12px;padding:9px 14px;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+    font-weight:800;font-size:12px;display:flex;align-items:center;gap:6px;
+  }
+  .badge-spots{
+    top:14px;right:-14px;
+    background:linear-gradient(135deg,var(--red),#c8351f);
+    color:#fff;text-transform:uppercase;font-size:10.5px;letter-spacing:.3px;
+    text-align:left;line-height:1.25;
+  }
+  .badge-price{
+    bottom:110px;right:-30px;
+    border:1.5px solid var(--gold-light);
+    text-align:center;padding:12px 18px;
+  }
+  .badge-price .amt{font-size:26px;color:var(--gold-dark);font-weight:900;}
+  .badge-price .amt small{font-size:13px;color:var(--ink);}
+  .badge-price .per{display:block;font-size:9px;color:var(--muted);font-weight:600;margin-top:2px;}
+  .badge-guarantee{
+    bottom:8px;left:-22px;
+    border-radius:50%;width:78px;height:78px;
+    flex-direction:column;text-align:center;justify-content:center;
+    font-size:9px;font-weight:800;color:var(--gold-dark);
+    border:2px solid var(--gold-light);
+    line-height:1.2;
+  }
+  .badge-guarantee .big{font-size:15px;color:var(--ink);}
+
+  @media (max-width:900px){
+    .badge-float{position:static;box-shadow:none;border-radius:10px;margin:8px auto 0;width:fit-content;}
+    .hero-visual{margin-top:24px;flex-direction:column;align-items:center;}
+    .badge-guarantee{width:auto;height:auto;border-radius:12px;padding:10px 16px;flex-direction:row;gap:8px;}
+  }
+
+  /* CTA */
+  .cta-wrap{
+    max-width:560px;margin:10px auto 0;
+    padding:8px 20px 24px;
+    text-align:center;
+  }
+  .cta{
+    display:block;width:100%;
+    background:linear-gradient(180deg,var(--gold) 0%,var(--gold-dark) 100%);
+    color:#fff;text-decoration:none;
+    font-size:clamp(1.05rem,4.5vw,1.3rem);
+    font-weight:800;text-transform:uppercase;letter-spacing:.02em;
+    padding:20px 16px;border-radius:14px;
+    box-shadow:0 6px 18px rgba(201,150,43,.4);
+    animation:glow 1.6s ease-in-out infinite;
+  }
+  .cta:active{transform:scale(.98);}
+  @keyframes glow{0%,100%{box-shadow:0 6px 18px rgba(201,150,43,.4);}50%{box-shadow:0 6px 26px rgba(201,150,43,.65);}}
+  @media (prefers-reduced-motion:reduce){.cta{animation:none;}}
+  .guarantee-txt{margin-top:12px;font-size:.85rem;color:var(--muted);}
+
+  /* TRUST BADGES */
+  .trust{
+    max-width:560px;margin:0 auto;
+    padding:0 20px 40px;
+    display:flex;justify-content:center;gap:22px;flex-wrap:wrap;
+    text-align:center;
+  }
+  .trust div{font-size:.78rem;color:var(--muted);font-weight:600;max-width:110px;}
+  .trust div span{display:block;font-size:20px;margin-bottom:4px;}
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="logo-badge"><span>A</span></div>
+    <span class="brand"><span class="alka">Alka</span>LEAN</span>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">AlkaLean App</div>
+      <h1>Lose Weight Naturally.<br><span class="accent">Starting Today.</span></h1>
+      <p class="sub">Your personalized alkaline recipe, built for your body.</p>
+
+      <div class="feature-list">
+        <div class="feature">
+          <div class="icon">🥣</div>
+          <div class="txt">Personalized daily <span class="hl">recipe — just for you</span></div>
+        </div>
+        <div class="feature">
+          <div class="icon">🌿</div>
+          <div class="txt">No injections.<br>No prescriptions. No starvation.</div>
+        </div>
+        <div class="feature">
+          <div class="icon">📈</div>
+          <div class="txt">Results from <span class="hl">day one</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="glow"></div>
+      <div class="badge-float badge-spots">⚡ LAST SPOTS<br>AVAILABLE</div>
+      <div class="badge-float badge-price">
+        <div class="amt"><small>$</small>49</div>
+        <span class="per">one-time access</span>
+      </div>
+      <div class="badge-float badge-guarantee">
+        <span class="big">100%</span>
+        15-DAY<br>GUARANTEE
+      </div>
+
+      <div class="phone">
+        <div class="screen">
+          <div class="s-head">
+            <span class="s-brand"><span class="alka">Alka</span>LEAN</span>
+            <span>🔔</span>
+          </div>
+          <div class="s-plan-label">Today's Plan</div>
+          <div class="s-plan-sub">🔥 Personalized for You</div>
+
+          <div class="ring">
+            <div class="ring-inner">
+              <span class="label">Daily Score</span>
+              <span class="pct">96%</span>
+              <span class="status">On Track</span>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-box"><div class="n">🍽️ 3/3</div><div class="l">Meals</div></div>
+            <div class="stat-box"><div class="n">💧 2.1L</div><div class="l">Hydration</div></div>
+            <div class="stat-box"><div class="n">🏃 30m</div><div class="l">Movement</div></div>
+          </div>
+
+          <div class="recipe-label">Today's Recipe</div>
+          <div class="recipe-sub">Made for your body</div>
+          <div class="recipe-card">
+            <div class="recipe-thumb"></div>
+            <div class="recipe-meta">
+              🍳 Breakfast — Green Energy Smoothie<br>
+              🥗 Lunch — Alkaline Power Bowl<br>
+              🍲 Dinner — Detox Veggie Soup
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-wrap">
+    <a class="cta" href="https://go.centerpag.com/PPU38CQE9AD">🔒 Get Instant Access</a>
+    <p class="guarantee-txt">🔒 Secure checkout · Instant access · 15-Day Money-Back Guarantee</p>
+  </div>
+
+  <div class="trust">
+    <div><span>🛡️</span>Secure Payment</div>
+    <div><span>📱</span>Access on Any Device</div>
+    <div><span>🔄</span>Cancel Anytime, No Hidden Fees</div>
+  </div>
+
+</body>
+</html>
