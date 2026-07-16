@@ -1,10 +1,4 @@
-FROM richarvey/nginx-php-fpm:latest
-
-# Site estático multipágina (index + pre/ + vsl/ + back/)
-COPY . /var/www/html
-
-# vhost estático servindo /var/www/html (index.html)
-COPY nginx-site.conf /etc/nginx/sites-available/default.conf
-
-RUN chown -R nginx:nginx /var/www/html \
- && rm -f /var/www/html/Dockerfile /var/www/html/nginx-site.conf
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+RUN rm -f /usr/share/nginx/html/Dockerfile /usr/share/nginx/html/.dockerignore
+RUN sed -i 's|server_tokens on|server_tokens off|' /etc/nginx/nginx.conf || true
