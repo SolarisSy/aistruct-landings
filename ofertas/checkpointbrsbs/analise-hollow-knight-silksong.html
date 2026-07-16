@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Silksong não perdoa: análise da dificuldade | Checkpoint BR</title>
+<meta name="description" content="Análise da curva de dificuldade de Hollow Knight: Silksong frente ao original, com pontos onde o desafio da Team Cherry funciona e onde ele desanda.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://checkpointbr.sbs/analise-hollow-knight-silksong.html">
+<meta property="og:title" content="Silksong não perdoa: por que a sequência é mais cruel que o original">
+<meta property="og:description" content="Análise da curva de dificuldade de Silksong frente a Hollow Knight, com pontos onde o desafio funciona e onde desanda.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/analise-hollow-knight-silksong.jpg">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f2ede4; --paper-2:#e9e2d2;
+  --crimson:#b3272c; --forest:#2c4a3e; --mustard:#c98a2c; --rule:#cfc6b4;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:'Trebuchet MS','Lucida Grande',sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--forest);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.masthead{padding:22px 0 0}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:14px;gap:20px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
+.logo span{color:var(--crimson)}
+.masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
+nav.primary{display:flex;gap:22px;padding:10px 0 16px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary a{color:var(--ink)}
+nav.primary a:hover{color:var(--crimson)}
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px}
+.k-analises{color:var(--crimson)}
+.k-guias{color:var(--forest)}
+.k-hardware{color:var(--mustard)}
+.k-historia,.k-cultura{color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:2px}
+.byline{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;display:block}
+.pull-quote{margin:60px 0;padding:30px 0 30px 34px;border-left:6px solid var(--mustard)}
+.pull-quote p{font-family:var(--font-display);font-style:italic;font-size:1.6rem;line-height:1.3;margin:0 0 10px;max-width:64ch}
+.pull-quote cite{font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;font-style:normal}
+footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+footer a{color:var(--paper);opacity:.85}
+footer a:hover{opacity:1;border-bottom-color:currentColor}
+footer p{color:#c9c4b4;font-size:.85rem}
+.foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
+.legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.article-head{padding:34px 0 10px;max-width:74ch}
+.article-head h1{font-family:var(--font-display);font-size:2.4rem;line-height:1.08;margin:0 0 14px}
+.article-dek{font-size:1.15rem;color:#3a372c;margin:0 0 14px;max-width:68ch}
+.article-hero{margin:20px 0 10px}
+.article-hero img{border:1px solid var(--ink)}
+.article-body{max-width:72ch;margin:30px 0 0}
+.article-body h2{font-family:var(--font-display);font-size:1.55rem;margin:46px 0 16px;padding-top:22px;border-top:1px solid var(--rule)}
+.article-body p{margin:0 0 20px}
+.summary-box{border:1px solid var(--ink);background:var(--paper-2);padding:24px 28px;margin:44px 0;max-width:72ch}
+.summary-box h3{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);margin:0 0 14px}
+.summary-box ul{margin:0;padding-left:20px}
+.summary-box li{margin-bottom:9px}
+.also-read{margin:60px 0 30px}
+.also-read h3{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--forest);margin:0 0 18px;border-top:1px solid var(--ink);padding-top:18px}
+.also-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.also-card{border-top:1px solid var(--rule);padding-top:14px}
+.also-card a{color:var(--ink);font-family:var(--font-display);font-size:1.1rem;line-height:1.25}
+@media (max-width:880px){
+  footer .wrap{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .logo{font-size:1.9rem}
+  .article-head h1{font-size:1.9rem}
+  nav.primary{flex-wrap:wrap;gap:14px}
+  .also-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <p class="logo">Check<span>point</span> BR</p>
+    <p class="masthead-meta">Edição de 16 de julho de 2026<br>Jornalismo de games — redação independente</p>
+  </div>
+  <nav class="wrap primary">
+    <a href="safe.html">Início</a>
+    <a href="glossario.html">Glossário</a>
+    <a href="app.html">App</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <article>
+    <div class="article-head">
+      <span class="kicker k-analises">Análises</span>
+      <h1>Silksong não perdoa: por que a sequência é mais cruel que o original</h1>
+      <p class="article-dek">Team Cherry trocou a curva de dificuldade gentil de Hollow Knight por combos de três golpes que punem qualquer hesitação. Depois de zerar em modo normal, contamos onde o jogo aperta — e onde ele quebra o próprio ritmo.</p>
+      <span class="byline">Por Camila Prestes — 12 de julho de 2026 — 11 min de leitura</span>
+    </div>
+
+    <div class="article-hero">
+      <img src="img/analise-hollow-knight-silksong.jpg" alt="Personagem inseto samurai com espada em caverna bioluminescente, referência a Hollow Knight Silksong" loading="lazy" width="900" height="520">
+    </div>
+
+    <div class="article-body">
+      <h2>Uma protagonista que já chega pulando mais alto</h2>
+      <p>O estúdio australiano Team Cherry lançou o Hollow Knight original em 2017 com um Cavaleiro mudo, lento pra padrões do gênero e dependente de upgrades passivos pra ganhar qualquer margem de manobra. Silksong troca o protagonista por Hornet, personagem coadjuvante do primeiro jogo, e a decisão não é cosmética: Hornet pula mais alto, tem um dash horizontal disponível desde cedo e ataca em arco, não em linha reta. A metroidvania que era sobre acumular ferramentas pra compensar um personagem fraco virou uma sobre administrar um personagem que já nasce ágil — só que cercado de inimigos calibrados pra essa agilidade.</p>
+      <p>Essa mudança de base explica boa parte da sensação de "jogo mais difícil" que dominou a recepção. Não é só que os bichos batem mais forte. É que o próprio vocabulário de movimento mudou, e o jogo espera que o jogador domine esse vocabulário rápido, sem a rampa de aprendizado generosa que caracterizava as primeiras horas do original.</p>
+      <p>O cenário também colabora pra essa sensação. Em vez de partir de uma cidade em ruínas isolada e claustrofóbica como o Hollow Knight original fazia, Silksong lança Hornet num reino estranho logo de cara, com biomas que variam de floresta densa a ruína de tecido e seda, cada um com um conjunto próprio de inimigos que não reaparece nas áreas seguintes. Isso impede o jogador de criar rotina — cada bioma novo é, na prática, uma reintrodução de ameaças que exige atenção total, sem o colchão de familiaridade que viria de enfrentar variações do mesmo inimigo por muitas horas seguidas.</p>
+
+      <h2>O que a sequência herda sem discutir</h2>
+      <p>A espinha dorsal continua sendo metroidvania de escola clássica: mapa que só se revela comprando ou achando itens de cartografia, bancos que funcionam como checkpoint e ponto de cura, upgrades permanentes de vida e de recurso mágico espalhados em áreas opcionais. Quem já jogou o original reconhece a lógica de progressão imediatamente — a novidade não está na estrutura, está na fricção que a estrutura impõe.</p>
+      <p>O recurso de seda, que dá nome ao jogo, substitui a lógica de cura do primeiro título: ao invés de reservar um tanque genérico de magia pra curar ou atacar à distância, Hornet acumula seda golpeando inimigos e escolhe entre gastar esse recurso em cura ou em ferramentas ofensivas. Essa troca constante entre atacar pra depois poder curar é o tipo de decisão de segundo a segundo que Hollow Knight original não exigia com tanta frequência — lá dava pra jogar de forma mais conservadora, farmar magia parado e avançar com folga. Aqui, ficar parado é a pior estratégia possível.</p>
+
+      <h2>Onde a dificuldade funciona</h2>
+      <p>Os chefes de Silksong são, na maior parte, muito bem desenhados: telegraphs claros, padrões que se tornam legíveis depois de duas ou três tentativas, e uma progressão de fase dentro da mesma luta que recompensa quem presta atenção em vez de decorar cegamente. Existe uma diferença filosófica importante em relação ao desafio estilo Souls, que Elden Ring Nightreign também explora à sua maneira: aqui a punição por erro raramente é a perda de progresso acumulado, é a perda do combate em si, que reinicia rápido o suficiente pra não gerar frustração por tempo perdido, só por execução.</p>
+      <p>A plataforma de precisão segue a mesma lógica — seções com espinhos e quedas instantâneas existem, mas quase sempre em trechos curtos, sem a obrigação de refazer um percurso de dois minutos por um erro no último salto. Quando o jogo quer testar reflexo, ele testa reflexo isolado; quando quer testar resistência a longo prazo, avisa isso com clareza de level design.</p>
+
+      <h2>Onde ela desanda</h2>
+      <p>O problema aparece na segunda metade do jogo, quando a distância entre bancos de descanso cresce em regiões com o dano por golpe já alto em relação à vida máxima da Hornet naquele ponto da progressão. Um erro de posicionamento contra dois ou três inimigos ao mesmo tempo — algo raro no início — pode zerar boa parte de uma barra de vida que ainda não teve tempo de crescer o suficiente via upgrades opcionais. Isso cria picos de dificuldade que não vêm de um chefe específico, vêm da distância entre um banco e outro combinada com a densidade de inimigos no caminho.</p>
+      <p>O backtracking também pesa mais do que deveria numa fórmula que já era conhecida por exigir revisitar áreas. Alguns atalhos que deveriam simplificar o retorno a uma zona só abrem depois de progresso que, por sua vez, depende de já ter atravessado aquela mesma zona sem atalho. O resultado é um atrito de repetição que não soma nada à dificuldade "de verdade" do jogo — só estica o tempo de sessão sem esticar o desafio.</p>
+      <p>Há ainda uma questão de economia de recurso que merece nota crítica: alguns dos itens de cura permanente ficam escondidos atrás de puzzles ambientais opcionais que exigem revisitar uma área com uma ferramenta obtida bem mais tarde no jogo. Quem não sabe disso de antemão — e o jogo não avisa — corre risco real de encarar uma sequência de chefes de fase avançada com menos vida máxima do que o design pressupõe pra aquele ponto, o que distorce a curva de dificuldade sem que o jogador entenda por quê.</p>
+
+      <h2>O veredito</h2>
+      <p>Silksong não é injusto — é exigente de um jeito calculado, com raras exceções onde a exigência vira apenas repetição de percurso. A curva de dificuldade em relação ao original é real e perceptível desde a primeira hora, mas ela é consequência direta de uma protagonista redesenhada, não de um aumento arbitrário de dano nos inimigos. Quem topar aceitar essa nova gramática de movimento encontra uma sequência que honra o que fez o primeiro jogo especial, só que menos disposta a segurar a mão de quem joga.</p>
+    </div>
+
+    <blockquote class="pull-quote">
+      <p>"O jogo não pune por errar. Pune por hesitar — e a diferença entre as duas coisas é o motivo pelo qual Silksong parece mais cruel do que realmente é."</p>
+      <cite>— Nota de análise da redação Checkpoint BR</cite>
+    </blockquote>
+
+    <div class="summary-box">
+      <h3>Em resumo</h3>
+      <ul>
+        <li>Hornet troca o Cavaleiro lento do original por um personagem ágil desde o início — e os inimigos são calibrados pra essa agilidade.</li>
+        <li>O recurso de seda substitui a cura passiva por uma escolha constante entre atacar, curar ou usar ferramentas ofensivas.</li>
+        <li>Chefes têm telegraphs claros e reinício rápido — o desafio pune execução, não pune tempo perdido.</li>
+        <li>Na segunda metade, a distância entre bancos de descanso cria picos de dificuldade desproporcionais.</li>
+        <li>Backtracking com atalhos mal calibrados gera fricção que não soma dificuldade real, só duração.</li>
+      </ul>
+    </div>
+
+    <div class="also-read">
+      <h3>Leia também</h3>
+      <div class="also-grid">
+        <div class="also-card">
+          <a href="elden-ring-nightreign-analise.html">Elden Ring Nightreign: quando o roguelike engole a alma de FromSoftware</a>
+        </div>
+        <div class="also-card">
+          <a href="hardware-portateis-2026-steam-deck.html">Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="foot-logo">Checkpoint BR</p>
+      <p>Redação independente de jornalismo de games, fundada em 2024. Cobrimos análises, história de franquias, hardware e cultura gamer com apuração própria.</p>
+    </div>
+    <div>
+      <h4>Seções</h4>
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="app.html">App Checkpoint</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Redação</h4>
+      <ul>
+        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="faq.html">Perguntas frequentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos de uso</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal-bar">
+    <span>© 2026 Checkpoint BR. Todos os direitos reservados.</span>
+    <span>CNPJ fictício para fins editoriais — publicação de conteúdo, sem comércio eletrônico.</span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder — Checkpoint BR</title>
+<meta name="description" content="Comparativo de autonomia, ruído e desempenho entre Steam Deck, ASUS ROG Ally e o ecossistema Nintendo — os portáteis que dividiram o primeiro semestre de 2026.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://checkpointbr.sbs/hardware-portateis-2026-steam-deck.html">
+<meta property="og:title" content="Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder">
+<meta property="og:description" content="Comparativo de autonomia, ruído e desempenho entre os três portáteis mais vendidos do primeiro semestre de 2026.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/hardware-portateis-2026-steam-deck.jpg">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f2ede4; --paper-2:#e9e2d2;
+  --crimson:#b3272c; --forest:#2c4a3e; --mustard:#c98a2c; --rule:#cfc6b4;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:'Trebuchet MS','Lucida Grande',sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--forest);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.masthead{padding:22px 0 0}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:14px;gap:20px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
+.logo span{color:var(--crimson)}
+.masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
+nav.primary{display:flex;gap:22px;padding:10px 0 16px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary a{color:var(--ink)}
+nav.primary a:hover{color:var(--crimson)}
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px;color:var(--mustard)}
+.article-page{padding:44px 0 70px}
+.article-page h1{font-family:var(--font-display);font-size:2.4rem;line-height:1.1;margin:0 0 16px;max-width:28ch}
+.article-page .lead-dek{font-size:1.2rem;margin-bottom:22px;max-width:64ch;color:#3a372c}
+.byline{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;display:block;margin-bottom:26px}
+.cover-img{border:1px solid var(--ink);margin:0 0 34px;width:100%}
+.article-page .content{max-width:70ch;font-size:1.05rem}
+.article-page .content p{margin:0 0 20px}
+.article-page .content h2{font-family:var(--font-display);font-size:1.6rem;margin:44px 0 16px}
+.spec-table{width:100%;border-collapse:collapse;margin:8px 0 28px;font-size:.92rem}
+.spec-table th,.spec-table td{border:1px solid var(--rule);padding:10px 12px;text-align:left}
+.spec-table th{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;background:var(--paper-2)}
+.pull-quote{margin:48px 0;padding:26px 0 26px 30px;border-left:6px solid var(--mustard);max-width:70ch}
+.pull-quote p{font-family:var(--font-display);font-style:italic;font-size:1.5rem;line-height:1.32;margin:0 0 10px;max-width:60ch}
+.pull-quote cite{font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;font-style:normal}
+.summary-box{background:var(--paper-2);border:1px solid var(--ink);padding:26px 28px;margin:44px 0;max-width:70ch}
+.summary-box p.kicker{color:var(--crimson);margin-bottom:14px}
+.summary-box ul{margin:0;padding-left:20px}
+.summary-box li{margin-bottom:9px;max-width:60ch}
+.related{border-top:1px solid var(--ink);margin-top:56px;padding-top:26px;max-width:70ch}
+.related p.kicker{color:var(--forest)}
+.related-list{display:flex;gap:28px;flex-wrap:wrap;list-style:none;padding:0;margin:0}
+.related-item{flex:1;min-width:220px;border-top:1px solid var(--rule);padding-top:14px}
+.related-item .kicker{margin-bottom:6px}
+.related-item h3{font-family:var(--font-display);font-size:1.1rem;margin:0}
+.related-item a{color:var(--ink)}
+footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+footer a{color:var(--paper);opacity:.85}
+footer a:hover{opacity:1;border-bottom-color:currentColor}
+footer p{color:#c9c4b4;font-size:.85rem}
+.foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
+.legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media (max-width:880px){ footer .wrap{grid-template-columns:1fr 1fr} }
+@media (max-width:560px){ .logo{font-size:1.9rem} .article-page h1{font-size:1.9rem} nav.primary{flex-wrap:wrap;gap:14px} .related-list{flex-direction:column} .spec-table{font-size:.8rem} }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <p class="logo">Check<span>point</span> BR</p>
+    <p class="masthead-meta">Edição de 16 de julho de 2026<br>Jornalismo de games — redação independente</p>
+  </div>
+  <nav class="wrap primary">
+    <a href="safe.html">Início</a>
+    <a href="glossario.html">Glossário</a>
+    <a href="app.html">App</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
+<main class="wrap article-page">
+  <span class="kicker">Hardware</span>
+  <h1>Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder</h1>
+  <p class="lead-dek">Comparamos autonomia de bateria, ruído da ventoinha e desempenho em oito jogos nos três aparelhos que dividiram o primeiro semestre de 2026. Nenhum dos três vence em todas as categorias — e a resposta da Nintendo joga em outro tabuleiro.</p>
+  <span class="byline">Por Larissa Nogueira — 29 de junho de 2026 — 10 min de leitura</span>
+
+  <img class="cover-img" src="img/hardware-portateis-2026-steam-deck.jpg" alt="Três consoles portáteis de jogos lado a lado sobre mesa de madeira para comparação" loading="lazy" width="900" height="500">
+
+  <div class="content">
+    <p>Passaram-se poucos anos desde que "PC portátil de jogos" virou categoria de prateleira própria, e o segmento já tem gente demais brigando pelo mesmo espaço de mochila. Colocamos lado a lado, na mesma bancada e com os mesmos oito jogos, o Steam Deck da Valve, o ROG Ally da ASUS e — como ponto de comparação obrigatório, ainda que fora dessa categoria específica — o ecossistema portátil da Nintendo, que segue vendendo em volume que nenhum dos concorrentes de PC chega perto de alcançar. A conclusão depois de duas semanas de teste é desconfortável para quem gosta de eleger um vencedor único: cada aparelho ganha em uma frente e perde feio em outra.</p>
+
+    <h2>Três filosofias diferentes disputando o mesmo bolso</h2>
+    <p>O Steam Deck roda SteamOS, sistema baseado em Linux que depende da camada de compatibilidade Proton para rodar a maior parte da biblioteca feita originalmente para Windows — o que funciona na esmagadora maioria dos jogos testados, mas ainda tropeça em alguns títulos com anticheat mais agressivo, que simplesmente recusam rodar fora de um Windows nativo. O ROG Ally resolve esse problema pela raiz ao rodar Windows 11 de fábrica, com acesso direto a qualquer launcher de PC sem camada intermediária, ao custo de um sistema operacional que não foi desenhado pensando em tela pequena e controle físico, o que se traduz em mais telas de configuração e mais processos rodando em segundo plano do que o usuário gostaria. A Nintendo, na outra ponta, não compete pela biblioteca de PC: vende uma curadoria fechada de jogos otimizados para o próprio hardware, e é exatamente essa previsibilidade — jogo comprado na loja roda sem exceção — que sustenta um parque instalado que já passa de 150 milhões de aparelhos, segundo os próprios relatórios de resultado divulgados pela companhia.</p>
+
+    <h2>Autonomia: a bateria que sobra e a que acaba no meio da sessão</h2>
+    <p>Em nosso teste com os oito jogos rodando em configuração de gráficos equivalente e mesmo brilho de tela, o Steam Deck OLED entregou a maior janela de uso longe da tomada, sustentando sessões de jogos leves por mais de sete horas e caindo para a faixa de duas horas e meia em títulos AAA mais recentes rodando a taxas de quadro mais altas. O ROG Ally, com processador mais potente e tela de resolução maior, pagou o preço em autonomia: nos mesmos jogos pesados, a bateria não passou de uma hora e quarenta minutos antes de pedir carregador, embora em modo de economia de energia, com resolução e taxa de quadros reduzidas propositalmente, a diferença para o Deck diminua bastante. A Nintendo, rodando jogos otimizados especificamente para seu próprio silício, manteve a mesma janela de autonomia de sempre — sem surpresas, porque não está competindo pelo mesmo tipo de carga gráfica.</p>
+
+    <table class="spec-table">
+      <tr><th>Aparelho</th><th>Sistema</th><th>Autonomia em jogo leve</th><th>Autonomia em jogo pesado</th></tr>
+      <tr><td>Steam Deck OLED</td><td>SteamOS (Linux + Proton)</td><td>~7h</td><td>~2h30</td></tr>
+      <tr><td>ASUS ROG Ally</td><td>Windows 11</td><td>~4h</td><td>~1h40</td></tr>
+      <tr><td>Nintendo (portátil)</td><td>Sistema próprio, catálogo fechado</td><td>~6h</td><td>~4h</td></tr>
+    </table>
+
+    <h2>Ruído e temperatura: o preço de rodar jogo pesado em corpo pequeno</h2>
+    <p>Nenhum dos dois PCs portáteis é silencioso sob carga total, mas o comportamento difere. O Steam Deck mantém a ventoinha em um ruído mais constante e mais grave, perceptível mas raramente incômodo em ambiente com som de fundo — como uma sala com TV ligada ou transporte público. O ROG Ally, buscando os quadros por segundo mais altos que sua tela de maior resolução pede, chega a um ruído mais agudo e mais variável, com picos que se sobressaem mesmo em ambiente com algum ruído ambiente, e a carcaça na altura dos dedos fica visivelmente mais quente depois de vinte minutos de jogo pesado. A Nintendo, de novo, não entra nessa disputa: o hardware é dimensionado para o próprio catálogo, então a ventoinha praticamente não precisa provar nada.</p>
+
+    <h2>Desempenho real em oito jogos, sem marketing</h2>
+    <p>Rodamos a mesma bateria de oito jogos — mistura de indies leves, jogos de mundo aberto de médio porte e um punhado de lançamentos AAA recentes — nos três aparelhos, priorizando configuração jogável e estável em vez de números de pico isolados. O ROG Ally levou vantagem nos títulos mais exigentes graficamente, graças ao processador mais recente e à tela com resolução mais alta, mas essa vantagem só se sustenta com a bateria plugada na tomada ou em sessões curtas — no modo de maior desempenho, a autonomia despenca rápido o suficiente para tornar o ganho de nitidez uma troca discutível fora de casa. O Steam Deck entregou o resultado mais consistente entre "jogável" e "dura a sessão inteira", o que combina com o próprio propósito do aparelho: jogar longe da tomada, não competir em resolução com um PC de mesa.</p>
+
+    <blockquote class="pull-quote">
+      <p>"O aparelho mais rápido da mesa também foi o primeiro a pedir carregador — e isso muda completamente qual dos dois vale a mala de viagem."</p>
+      <cite>— Trecho desta reportagem</cite>
+    </blockquote>
+
+    <h2>A resposta da Nintendo e por que ela não compete no mesmo tabuleiro</h2>
+    <p>É tentador colocar a Nintendo na mesma tabela comparativa dos PCs portáteis, mas a companhia joga um jogo diferente: não vende a maior biblioteca nem o hardware mais potente, vende a garantia de que o jogo comprado na própria loja vai rodar, sem exceção, do primeiro ao último minuto de bateria anunciado. A resposta mais recente da empresa a essa concorrência veio com o lançamento do sucessor do Switch em 2025, reforçando exatamente esse pilar em vez de tentar brigar por especificação técnica bruta. É uma fatia de mercado que Steam Deck e ROG Ally, apostando em biblioteca aberta e hardware mais flexível, simplesmente não disputam da mesma forma — o que talvez explique por que os três aparelhos, tão diferentes entre si, seguem vendendo bem ao mesmo tempo sem canibalizar um ao outro.</p>
+  </div>
+
+  <div class="summary-box">
+    <p class="kicker">Em resumo</p>
+    <ul>
+      <li>Steam Deck (SteamOS + Proton) venceu em autonomia e consistência de sessão, mas esbarra em jogos com anticheat que recusa rodar fora do Windows nativo.</li>
+      <li>ROG Ally (Windows 11) entregou o melhor desempenho gráfico bruto, ao custo de bateria mais curta e mais ruído sob carga pesada.</li>
+      <li>A Nintendo não compete pela mesma biblioteca ou potência — vende previsibilidade de catálogo fechado, com parque instalado acima de 150 milhões de aparelhos.</li>
+      <li>Nenhum dos três aparelhos venceu em todas as frentes testadas: a escolha depende de qual troca — potência, autonomia ou previsibilidade — importa mais para quem compra.</li>
+    </ul>
+  </div>
+
+  <div class="related">
+    <p class="kicker">Leia também</p>
+    <ul class="related-list">
+      <li class="related-item">
+        <span class="kicker" style="color:var(--mustard)">Hardware</span>
+        <h3><a href="hardware-rtx-5070-custo-beneficio.html">RTX 5070 um ano depois: o preço caiu, a fila de espera não</a></h3>
+      </li>
+      <li class="related-item">
+        <span class="kicker" style="color:var(--forest)">Guias</span>
+        <h3><a href="guia-emuladores-legais-2026.html">O que é (e o que não é) legal emular no Brasil em 2026</a></h3>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="foot-logo">Checkpoint BR</p>
+      <p>Redação independente de jornalismo de games, fundada em 2024. Cobrimos análises, história de franquias, hardware e cultura gamer com apuração própria.</p>
+    </div>
+    <div>
+      <h4>Seções</h4>
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="app.html">App Checkpoint</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Redação</h4>
+      <ul>
+        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="faq.html">Perguntas frequentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos de uso</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal-bar">
+    <span>© 2026 Checkpoint BR. Todos os direitos reservados.</span>
+    <span>Publicação de conteúdo, sem comércio eletrônico.</span>
+  </div>
+</footer>
+</body>
+</html>

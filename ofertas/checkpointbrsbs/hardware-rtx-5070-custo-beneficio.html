@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>RTX 5070 um ano depois: preço caiu, fila não | Checkpoint BR</title>
+<meta name="description" content="Um ano após o lançamento, a RTX 5070 ficou mais barata e continua difícil de achar em prateleira no Brasil. Análise de arquitetura, consumo e para quem a placa realmente compensa.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://checkpointbr.sbs/hardware-rtx-5070-custo-beneficio.html">
+<meta property="og:title" content="RTX 5070 um ano depois: o preço caiu, a fila de espera não">
+<meta property="og:description" content="Revisão de custo-benefício da RTX 5070 um ano após o lançamento: arquitetura, desempenho relativo, consumo e disponibilidade no varejo brasileiro.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/hardware-rtx-5070-custo-beneficio.jpg">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f2ede4; --paper-2:#e9e2d2;
+  --crimson:#b3272c; --forest:#2c4a3e; --mustard:#c98a2c; --rule:#cfc6b4;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:'Trebuchet MS','Lucida Grande',sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--forest);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.masthead{padding:22px 0 0}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:14px;gap:20px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
+.logo span{color:var(--crimson)}
+.masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
+nav.primary{display:flex;gap:22px;padding:10px 0 16px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary a{color:var(--ink)}
+nav.primary a:hover{color:var(--crimson)}
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px}
+.k-analises{color:var(--crimson)}
+.k-guias{color:var(--forest)}
+.k-hardware{color:var(--mustard)}
+.k-historia,.k-cultura{color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:2px}
+.byline{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;display:block}
+.pull-quote{margin:60px 0;padding:30px 0 30px 34px;border-left:6px solid var(--mustard)}
+.pull-quote p{font-family:var(--font-display);font-style:italic;font-size:1.6rem;line-height:1.3;margin:0 0 10px;max-width:64ch}
+.pull-quote cite{font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;font-style:normal}
+footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+footer a{color:var(--paper);opacity:.85}
+footer a:hover{opacity:1;border-bottom-color:currentColor}
+footer p{color:#c9c4b4;font-size:.85rem}
+.foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
+.legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.article-head{padding:34px 0 10px;max-width:74ch}
+.article-head h1{font-family:var(--font-display);font-size:2.4rem;line-height:1.08;margin:0 0 14px}
+.article-dek{font-size:1.15rem;color:#3a372c;margin:0 0 14px;max-width:68ch}
+.article-hero{margin:20px 0 10px}
+.article-hero img{border:1px solid var(--ink)}
+.article-body{max-width:72ch;margin:30px 0 0}
+.article-body h2{font-family:var(--font-display);font-size:1.55rem;margin:46px 0 16px;padding-top:22px;border-top:1px solid var(--rule)}
+.article-body p{margin:0 0 20px}
+.summary-box{border:1px solid var(--ink);background:var(--paper-2);padding:24px 28px;margin:44px 0;max-width:72ch}
+.summary-box h3{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);margin:0 0 14px}
+.summary-box ul{margin:0;padding-left:20px}
+.summary-box li{margin-bottom:9px}
+.also-read{margin:60px 0 30px}
+.also-read h3{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--forest);margin:0 0 18px;border-top:1px solid var(--ink);padding-top:18px}
+.also-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.also-card{border-top:1px solid var(--rule);padding-top:14px}
+.also-card a{color:var(--ink);font-family:var(--font-display);font-size:1.1rem;line-height:1.25}
+@media (max-width:880px){
+  footer .wrap{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .logo{font-size:1.9rem}
+  .article-head h1{font-size:1.9rem}
+  nav.primary{flex-wrap:wrap;gap:14px}
+  .also-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <p class="logo">Check<span>point</span> BR</p>
+    <p class="masthead-meta">Edição de 16 de julho de 2026<br>Jornalismo de games — redação independente</p>
+  </div>
+  <nav class="wrap primary">
+    <a href="safe.html">Início</a>
+    <a href="glossario.html">Glossário</a>
+    <a href="app.html">App</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <article>
+    <div class="article-head">
+      <span class="kicker k-hardware">Hardware</span>
+      <h1>RTX 5070 um ano depois: o preço caiu, a fila de espera não</h1>
+      <p class="article-dek">Doze meses após o lançamento, a placa da Nvidia amadureceu no quesito preço e ficou mais fácil de justificar numericamente. O que não mudou foi a irregularidade de estoque nas grandes redes brasileiras — e isso muda a conta de custo-benefício mais do que qualquer benchmark.</p>
+      <span class="byline">Por Vinícius Andrade — 14 de julho de 2026 — 9 min de leitura</span>
+    </div>
+
+    <div class="article-hero">
+      <img src="img/hardware-rtx-5070-custo-beneficio.jpg" alt="Placa de vídeo RTX 5070 iluminada por RGB em bancada escura, close nos coolers" loading="lazy" width="900" height="520">
+    </div>
+
+    <div class="article-body">
+      <h2>Blackwell no segmento médio, sem revolução de silício</h2>
+      <p>A RTX 5070 usa o die GB205, fabricado num processo de 4 nanômetros da TSMC — a mesma família de litografia da geração anterior, batizada Ada Lovelace. Isso já diz muito sobre o que esperar: não é um salto de arquitetura, é um refinamento. A placa roda com algo perto de 6.144 núcleos CUDA, 12 GB de memória GDDR7 num barramento de 192 bits e um TDP de referência na casa dos 250 W. Comparada à RTX 4070 original, o ganho de núcleos é modesto; o que puxa o desempenho pra cima é o salto de memória GDDR7, que entrega bem mais largura de banda efetiva do que o GDDR6X da geração passada, mesmo com barramento do mesmo tamanho.</p>
+      <p>Na prática, isso significa que a 5070 não é uma placa que redefine o que dá pra rodar em 1440p — é uma placa que roda o que a 4070 já rodava, só que com menos gargalo de memória em cargas pesadas de ray tracing e em texturas de alta resolução. Pra quem vinha de gerações mais antigas (GTX 10 ou 20 série), o salto continua expressivo. Pra quem já tem uma 4070 ou 4070 Super, a atualização não paga a troca.</p>
+      <p>Vale registrar também a mudança nos núcleos dedicados de ray tracing e nos núcleos tensor usados pra inferência de IA — a geração Blackwell trouxe uma quarta iteração de cada um desses blocos, com ganho de eficiência por núcleo maior do que o ganho de contagem bruta. É um detalhe que passa longe do usuário final na hora de decidir a compra, mas explica por que o salto de desempenho em ray tracing pesado é proporcionalmente maior do que o salto em rasterização pura — os blocos que fazem esse trabalho específico evoluíram mais do que o resto do chip.</p>
+
+      <h2>Desempenho real: onde o ganho aparece e onde ele desaparece</h2>
+      <p>Em jogos sem ray tracing, rodando nativamente sem upscaling, a diferença geracional gira entre 8% e 15% a favor da 5070 na maioria dos títulos testados em 1440p ultra. É um ganho real, mas não é motivo pra fila. Onde a placa realmente separa das antecessoras é em cargas com ray tracing pesado — path tracing em Cyberpunk 2077 modo Overdrive, por exemplo — e, principalmente, quando o DLSS 4 entra em cena com o modelo de geração de quadros baseado em transformer, que substitui a rede convolucional usada até a geração Ada.</p>
+      <p>O detalhe que a maioria das análises de lançamento não enfatizou o suficiente: o ganho do DLSS 4 é mais sensível à qualidade de implementação de cada jogo do que ao hardware em si. Em títulos com suporte nativo bem calibrado a diferença de fluidez percebida é grande; em jogos com suporte remendado via mod ou patch tardio, o ganho cai bastante e ainda aparecem artefatos de fantasma em cenas com muito movimento de câmera.</p>
+
+      <h2>Consumo, dissipação e o PSU que ninguém troca</h2>
+      <p>Com TDP de referência próximo de 250 W, a recomendação da própria fabricante para a fonte do sistema gira em torno de 650 W — o que, na prática, exclui uma fatia de gente que ainda roda fonte de 500 W ou 550 W comprada junto com um gabinete de entrada há alguns anos. Não é um consumo assustador para o segmento, mas também não é irrelevante: comparado a placas da faixa anterior, o ganho de eficiência por watt existe, só que é incremental, não estrutural.</p>
+      <p>Undervolt funciona bem nessa arquitetura — é possível cortar consumo sem perda perceptível de desempenho ajustando curva de voltagem manualmente, algo que virou rotina entre quem monta PC e presta atenção em ruído de ventoinha. Isso não é exclusividade da 5070, mas vale reforçar porque muita gente ainda compra a placa e roda tudo no perfil padrão de fábrica, que prioriza margem de segurança térmica acima de eficiência.</p>
+
+      <h2>O gargalo não é a placa, é a prateleira</h2>
+      <p>Um ano depois do lançamento, o preço de tabela caiu — isso é fato e é bom pro consumidor. O problema é que "preço de tabela" e "preço que você encontra no site da loja às dez da noite" continuam sendo coisas diferentes no varejo brasileiro. Câmbio, imposto de importação sobre componente eletrônico e a distribuição desigual entre capitais e interior seguem empurrando o preço final pra cima do que a conversão direta do dólar sugere. Fora isso, lotes inteiros ainda somem da prateleira em poucas horas quando chegam, sinal de que a demanda represada de quem queria comprar no lançamento e não conseguiu continua parcialmente insatisfeita.</p>
+      <p>Esse descompasso é o motivo pelo qual "a placa ficou mais barata" não se traduz automaticamente em "a placa ficou mais fácil de comprar". São dois problemas diferentes, e o segundo pesa mais na decisão de compra do que qualquer benchmark de frames por segundo.</p>
+
+      <h2>Pra quem faz sentido — e pra quem não faz</h2>
+      <p>Faz sentido pra quem joga em 1440p, quer usar ray tracing sem depender só de upscaling agressivo, e está vindo de uma geração com pelo menos três anos de idade. Também faz sentido pra quem monta um PC novo do zero e não tem placa antiga pra comparar meses de uso — nesse caso a decisão é sobre o presente, não sobre upgrade.</p>
+      <p>Não faz sentido pra quem já tem uma 4070 ou 4070 Super rodando bem — o ganho geracional não compensa o custo de revender a placa atual e trocar. Também não é a escolha certa pra quem mira 4K nativo de forma consistente: a memória e a banda disponíveis nessa faixa de produto favorecem 1440p como resolução de conforto, não 4K. E criadores de conteúdo que dependem de VRAM alta pra edição e renderização em paralelo com o jogo tendem a esbarrar no limite de 12 GB antes de esbarrar no limite de processamento.</p>
+      <p>Há ainda um recorte que a maioria das análises ignora: quem joga majoritariamente em Linux via Proton. O suporte a DLSS 4 e ao conjunto de recursos de ray tracing chegou nesse ambiente com atraso em relação ao Windows, e parte dos jogos com melhor implementação de upscaling ainda depende de camada de tradução que introduz uma perda de desempenho perceptível frente ao driver nativo. Não é motivo pra descartar a placa nesse cenário, mas é um fator que muda a equação de custo-benefício pra um público que só cresce.</p>
+    </div>
+
+    <blockquote class="pull-quote">
+      <p>"Comparar geração com geração faz a 5070 parecer só um ajuste fino. Comparar com o que estava na sua mesa há quatro anos é que muda a conversa."</p>
+      <cite>— Nota de bancada da redação Checkpoint BR</cite>
+    </blockquote>
+
+    <div class="summary-box">
+      <h3>Em resumo</h3>
+      <ul>
+        <li>Ganho geracional real, mas incremental — 8% a 15% sem ray tracing, mais expressivo com DLSS 4 bem implementado.</li>
+        <li>12 GB de GDDR7 em barramento de 192 bits: confortável em 1440p, limitado pra quem mira 4K nativo ou renderização pesada.</li>
+        <li>TDP em torno de 250 W pede fonte de pelo menos 650 W — atenção pra quem ainda roda PSU antiga.</li>
+        <li>O maior obstáculo de compra no Brasil não é o preço de tabela, é a irregularidade de estoque no varejo.</li>
+        <li>Vale a troca pra quem vem de gerações antigas; não vale pra quem já tem 4070 ou 4070 Super.</li>
+      </ul>
+    </div>
+
+    <div class="also-read">
+      <h3>Leia também</h3>
+      <div class="also-grid">
+        <div class="also-card">
+          <a href="hardware-portateis-2026-steam-deck.html">Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder</a>
+        </div>
+        <div class="also-card">
+          <a href="cultura-esports-cs2-brasil.html">Do fliperama ao Major: a geração que profissionalizou o CS no Brasil</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="foot-logo">Checkpoint BR</p>
+      <p>Redação independente de jornalismo de games, fundada em 2024. Cobrimos análises, história de franquias, hardware e cultura gamer com apuração própria.</p>
+    </div>
+    <div>
+      <h4>Seções</h4>
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="app.html">App Checkpoint</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Redação</h4>
+      <ul>
+        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="faq.html">Perguntas frequentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos de uso</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal-bar">
+    <span>© 2026 Checkpoint BR. Todos os direitos reservados.</span>
+    <span>CNPJ fictício para fins editoriais — publicação de conteúdo, sem comércio eletrônico.</span>
+  </div>
+</footer>
+</body>
+</html>

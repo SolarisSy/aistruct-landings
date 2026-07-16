@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Elden Ring Nightreign: quando o roguelike engole a alma de FromSoftware — Checkpoint BR</title>
+<meta name="description" content="Análise de Elden Ring Nightreign após 40 horas de expedições: a estrutura roguelike de rodadas cronometradas troca o ritmo contemplativo da série por outra coisa — e nem todo mundo vai aceitar a troca.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://checkpointbr.sbs/elden-ring-nightreign-analise.html">
+<meta property="og:title" content="Elden Ring Nightreign: quando o roguelike engole a alma de FromSoftware">
+<meta property="og:description" content="Depois de 40 horas testando o spin-off cooperativo, a conclusão é dividida: a estrutura de rodadas de 40 minutos aposenta o ritmo contemplativo da série original.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/elden-ring-nightreign-analise.jpg">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f2ede4; --paper-2:#e9e2d2;
+  --crimson:#b3272c; --forest:#2c4a3e; --mustard:#c98a2c; --rule:#cfc6b4;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:'Trebuchet MS','Lucida Grande',sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--forest);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.masthead{padding:22px 0 0}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:14px;gap:20px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
+.logo span{color:var(--crimson)}
+.masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
+nav.primary{display:flex;gap:22px;padding:10px 0 16px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary a{color:var(--ink)}
+nav.primary a:hover{color:var(--crimson)}
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px}
+.k-analises{color:var(--crimson)}
+.k-guias{color:var(--forest)}
+.k-hardware{color:var(--mustard)}
+.k-historia,.k-cultura{color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:2px}
+.section-head{display:flex;align-items:baseline;gap:16px;margin:56px 0 26px}
+.section-head h2{font-family:var(--font-display);font-size:1.5rem;white-space:nowrap;margin:0}
+.section-head .rule{flex:1;border-top:1px solid var(--ink)}
+.section-head .count{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;white-space:nowrap}
+.pull-quote{margin:60px 0;padding:30px 0 30px 34px;border-left:6px solid var(--mustard)}
+.pull-quote p{font-family:var(--font-display);font-style:italic;font-size:1.6rem;line-height:1.3;margin:0 0 10px;max-width:64ch}
+.pull-quote cite{font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;font-style:normal}
+footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+footer a{color:var(--paper);opacity:.85}
+footer a:hover{opacity:1;border-bottom-color:currentColor}
+footer p{color:#c9c4b4;font-size:.85rem}
+.foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
+.legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.article-head{padding:34px 0 0;max-width:900px}
+.article-head h1{font-family:var(--font-display);font-size:2.5rem;line-height:1.08;margin:0 0 16px}
+.article-dek{font-size:1.2rem;color:#3a372c;margin:0 0 16px;max-width:62ch}
+.byline{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;display:block}
+.article-hero{margin:26px 0 8px}
+.article-hero img{border:1px solid var(--ink)}
+.article-body{max-width:720px;margin-top:36px}
+.article-body h2{font-family:var(--font-display);font-size:1.6rem;margin:44px 0 16px}
+.article-body p{margin:0 0 18px}
+.summary-box{border:1px solid var(--ink);background:var(--paper-2);padding:26px 30px;margin:44px 0;max-width:720px}
+.summary-box .kicker{color:var(--forest);margin-bottom:10px}
+.summary-box ul{margin:0;padding-left:20px}
+.summary-box li{margin-bottom:8px}
+.read-also-list{display:flex;gap:28px;flex-wrap:wrap;list-style:none;padding:0;margin:0;max-width:900px}
+.read-also-list li{flex:1;min-width:240px;border-top:1px solid var(--rule);padding-top:14px}
+.read-also-list .kicker{display:block;margin-bottom:6px}
+@media (max-width:560px){
+  .logo{font-size:1.9rem}
+  .article-head h1{font-size:1.9rem}
+  nav.primary{flex-wrap:wrap;gap:14px}
+}
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <p class="logo">Check<span>point</span> BR</p>
+    <p class="masthead-meta">Edição de 16 de julho de 2026<br>Jornalismo de games — redação independente</p>
+  </div>
+  <nav class="wrap primary">
+    <a href="safe.html">Início</a>
+    <a href="glossario.html">Glossário</a>
+    <a href="app.html">App</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <article class="article-head">
+    <span class="kicker k-analises">Análises</span>
+    <h1>Elden Ring Nightreign: quando o roguelike engole a alma de FromSoftware</h1>
+    <p class="article-dek">Depois de 40 horas testando o spin-off cooperativo, a conclusão é dividida: a estrutura de rodadas de 40 minutos aposenta o ritmo contemplativo da série original — e nem todo mundo vai aceitar a troca.</p>
+    <span class="byline">Por Rafael Meireles — 15 de julho de 2026 — 9 min de leitura</span>
+  </article>
+
+  <figure class="article-hero">
+    <img src="img/elden-ring-nightreign-analise.jpg" alt="Personagem em armadura escura enfrenta uma criatura colossal em campo de batalha ao entardecer, estilo Elden Ring Nightreign" loading="lazy" width="1180" height="600">
+  </figure>
+
+  <div class="article-body">
+    <h2>Uma Terra Intermédia que cabe em 40 minutos</h2>
+    <p>Nightreign não pede que o jogador aprenda o mapa de Elden Ring outra vez — pede que ele esqueça o mapa. A FromSoftware fatiou o Interregno original em ilhas de expedição menores, encolheu a distância entre pontos de interesse e amarrou tudo a um relógio que não perdoa: cada partida dura, em média, quarenta minutos, divididos em três dias de jogo comprimidos, com uma tempestade que fecha o cerco do mapa jogável a cada fase. Rodei mais de trinta expedições ao longo de duas semanas, sozinho e em squads de três, e o que ficou mais evidente não foi a dificuldade dos chefes, mas a insistência do jogo em tirar o jogador do estado que a série sempre cultivou: parar, olhar a paisagem, decidir se aquele caminho vale o risco.</p>
+
+    <h2>O que sobra do design FromSoftware</h2>
+    <p>A herança mecânica está toda lá. Parry ainda pune o excesso de confiança, poise ainda existe como conceito escondido atrás da barra de stance, e os chefes reciclados do jogo-base — reimaginados em papéis de Nightlord — continuam exigindo leitura de padrão de ataque em vez de dano bruto. A diferença é o contexto em que essas regras operam. Em Elden Ring, cada morte contra um chefe era um convite a voltar mais preparado: subir de nível, trocar de talismã, procurar um item que mudasse a equação. Em Nightreign, a preparação acontece dentro da própria partida, num sistema de relíquias e bênçãos que se acumula rodada a rodada e evapora no fim da expedição. É roguelike no sentido estrito — progressão temporária, fim de sessão a cada derrota —, mas o atrito psicológico é outro: perder não dói pela perda de investimento de longo prazo, dói pelo tempo que aquela tentativa específica consumiu.</p>
+
+    <h2>Nightlord é chefe de expedição, não chefe de arco narrativo</h2>
+    <p>Os Nightlords que encerram cada expedição são, tecnicamente, alguns dos melhores encontros que a equipe de design de bosses da FromSoftware já produziu em termos de coreografia — fases de ataque legíveis, telegraphs generosos o bastante para times de três jogadores lerem em tempo real, transições de arena que forçam reposicionamento constante. O problema é que eles chegam sem o peso dramático que a série sempre usou para justificar o esforço. Malenia carregava um arco de perda, ambição e doença espalhado em descrição de item, diálogo de NPC e cenário ambiental. Um Nightlord de tempestade chega ao fim de quarenta minutos como obstáculo de sistema, não como personagem. A textura narrativa que os fãs de Elden Ring aprenderam a garimpar em fragmentos de texto item por item simplesmente não tem espaço para respirar num formato de sessão curta.</p>
+
+    <h2>Cooperação obrigatória muda o cálculo de risco</h2>
+    <p>Jogar em trio é a experiência pretendida, e é onde Nightreign funciona melhor: a divisão de papéis entre quem tanca, quem cura e quem executa dano de pico dá ao spin-off uma identidade própria, mais perto de um raid de MMO comprimido do que de um Souls tradicional. Jogar sozinho, por outro lado, expõe o quanto o balanceamento de vida e agressividade dos Nightlords foi calibrado pensando em três corpos na arena — o modo solo existe, mas pune qualquer erro de posicionamento com uma severidade que não parece intencional, só residual. Testei as duas configurações à exaustão e a conclusão incomoda quem prefere jogar sozinho por hábito: este não é um Souls solitário com fachada nova, é um jogo de grupo que tolera o modo solo como reserva técnica.</p>
+    <p>O matchmaking com desconhecidos reforça essa leitura. Entrar numa expedição com dois jogadores aleatórios costuma funcionar melhor do que se esperaria de um jogo sem chat de voz nativo obrigatório — os oito arquétipos de classe têm papel claro o suficiente para que a divisão de função aconteça por instinto, sem combinado prévio. Ainda assim, encontrei runs inteiras arruinadas por um terceiro jogador que insistia em jogar Nightreign como se fosse Elden Ring solo, ignorando marcações de item e recusando reviver companheiro caído para completar mais um combate secundário. A fricção não é bug, é sintoma: o jogo pede um tipo de leitura coletiva de risco que a base de fãs da série, historicamente treinada para desconfiar de qualquer ajuda externa, ainda está aprendendo a aceitar.</p>
+
+    <h2>O problema é estrutural, não de execução</h2>
+    <p>Nada aqui é malfeito. A direção de arte reaproveita ativos do jogo-base com competência, a trilha sonora original assina passagens tensas nos últimos minutos de cada tempestade, e a curva de aprendizado do sistema de classes — cada arquétipo com kit próprio — está bem calibrada para tentativas sucessivas. A ressalva que sobra depois de trinta expedições é outra: o roguelike, como estrutura, exige repetição rápida e recompensa builds emergentes; a linguagem de Elden Ring, como construiu sua identidade nos últimos quinze anos, sempre recompensou lentidão, memorização de espaço e ruminação sobre lore. Nightreign tenta ocupar as duas cadeiras ao mesmo tempo e, na maior parte do tempo, escolhe a cadeira do roguelike. É uma escolha de design legítima — e bem executada dentro da própria lógica —, mas quem foi atrás deste spin-off esperando mais Elden Ring vai sair da primeira expedição com a sensação de ter jogado outra coisa com a pele emprestada.</p>
+    <p>Isso não invalida o produto — invalida a expectativa que boa parte do público carregou para ele. Quem chega sem bagagem de Souls, ou disposto a tratar Nightreign como um jogo de sessão curta entre amigos, provavelmente vai extrair dele o que o roguelike promete: partidas que terminam rápido, builds que mudam a cada tentativa, motivo concreto para voltar amanhã. Quem chega esperando a sensação de solidão e escala de Elden Ring vai sentir, rodada após rodada, que o relógio venceu antes da paisagem convencer.</p>
+  </div>
+
+  <blockquote class="pull-quote">
+    <p>"Perder num Nightlord não dói pela progressão perdida — dói pelos quarenta minutos que acabaram de virar fumaça."</p>
+    <cite>— Trecho desta análise</cite>
+  </blockquote>
+
+  <div class="summary-box">
+    <span class="kicker">Em resumo</span>
+    <ul>
+      <li>Nightreign troca o ritmo contemplativo de Elden Ring por expedições cronometradas de cerca de 40 minutos.</li>
+      <li>O design dos Nightlords é tecnicamente elogiável, mas carece do peso narrativo que a série cultivou.</li>
+      <li>Cooperação em trio é o modo pretendido; o modo solo funciona, mas pune desproporcionalmente qualquer erro.</li>
+      <li>Veredito: um roguelike bem construído que se afasta da identidade que consagrou a franquia.</li>
+    </ul>
+  </div>
+
+  <div class="section-head">
+    <h2>Leia também</h2>
+    <div class="rule"></div>
+  </div>
+  <ul class="read-also-list">
+    <li>
+      <span class="kicker k-guias">Guias</span>
+      <a href="guia-builds-baldurs-gate-3-2026.html">Sete builds de Baldur's Gate 3 que ainda quebram o jogo em 2026</a>
+    </li>
+    <li>
+      <span class="kicker k-historia">História</span>
+      <a href="historia-secreta-chrono-trigger.html">A sala dos fundos da Square: como quatro gênios criaram Chrono Trigger em 14 meses</a>
+    </li>
+  </ul>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="foot-logo">Checkpoint BR</p>
+      <p>Redação independente de jornalismo de games, fundada em 2024. Cobrimos análises, história de franquias, hardware e cultura gamer com apuração própria.</p>
+    </div>
+    <div>
+      <h4>Seções</h4>
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="app.html">App Checkpoint</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Redação</h4>
+      <ul>
+        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="faq.html">Perguntas frequentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos de uso</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal-bar">
+    <span>© 2026 Checkpoint BR. Todos os direitos reservados.</span>
+    <span>CNPJ fictício para fins editoriais — publicação de conteúdo, sem comércio eletrônico.</span>
+  </div>
+</footer>
+</body>
+</html>

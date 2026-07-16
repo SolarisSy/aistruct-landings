@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>App Checkpoint — leitura offline e alerta de matéria nova</title>
+<meta name="description" content="Conheça o app Checkpoint: organização por categoria, leitura offline e aviso de matéria nova, sem custo e sem coleta de dado além do e-mail de aviso.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://checkpointbr.sbs/app.html">
+<meta property="og:title" content="App Checkpoint — leitura offline e alerta de matéria nova">
+<meta property="og:description" content="Organização por categoria, leitura offline e aviso de matéria nova.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/_app.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f2ede4; --paper-2:#e9e2d2;
+  --crimson:#b3272c; --forest:#2c4a3e; --mustard:#c98a2c; --rule:#cfc6b4;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:'Trebuchet MS','Lucida Grande',sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--forest);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.masthead{padding:22px 0 0}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:14px;gap:20px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
+.logo span{color:var(--crimson)}
+.masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
+nav.primary{display:flex;gap:22px;padding:10px 0 16px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary a{color:var(--ink)}
+nav.primary a:hover{color:var(--crimson)}
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px;color:var(--crimson)}
+.article-page{padding:44px 0 70px}
+.article-page h1{font-family:var(--font-display);font-size:2.6rem;line-height:1.05;margin:0 0 18px;max-width:18ch}
+.article-page .lead-dek{font-size:1.15rem;margin-bottom:8px;max-width:52ch;color:#3a372c}
+.app-hero{display:grid;grid-template-columns:1.2fr 1fr;gap:44px;align-items:start;margin-top:30px}
+.app-hero img{border:1px solid var(--ink)}
+.app-hero figcaption{font-family:var(--font-mono);font-size:.72rem;color:#6b6752;padding-top:8px;text-transform:uppercase}
+.section-head{display:flex;align-items:baseline;gap:16px;margin:56px 0 20px}
+.section-head h2{font-family:var(--font-display);font-size:1.5rem;white-space:nowrap;margin:0}
+.section-head .rule{flex:1;border-top:1px solid var(--ink)}
+.feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--ink)}
+.feature-list div{border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);padding:22px 26px 22px 0}
+.feature-list div:nth-child(even){border-right:none;padding-left:26px}
+.feature-list h3{font-family:var(--font-display);font-size:1.15rem;margin:0 0 8px}
+.feature-list .fnum{font-family:var(--font-mono);color:var(--crimson);font-size:.8rem}
+.feature-list p{margin:0;color:#3a372c}
+.newsletter-box{border:2px solid var(--ink);padding:30px;margin:50px 0}
+.newsletter-box h2{font-family:var(--font-display);font-size:1.5rem;margin:0 0 8px}
+.newsletter-box p{margin:0 0 16px;color:#3a372c;max-width:60ch}
+.newsletter-box form{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap}
+.newsletter-box input[type=email]{flex:1;min-width:220px;padding:12px 14px;border:1px solid var(--ink);background:var(--paper);font-family:var(--font-body);font-size:.95rem}
+.newsletter-box button{padding:12px 26px;background:var(--ink);color:var(--paper);border:none;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;font-size:.8rem;cursor:pointer}
+.newsletter-box button:hover{background:var(--crimson)}
+.newsletter-note{font-size:.78rem;color:#6b6752;margin-top:10px}
+.newsletter-status{font-family:var(--font-mono);font-size:.8rem;color:var(--forest);margin-top:12px;display:none}
+@media (max-width:880px){ .app-hero{grid-template-columns:1fr} .feature-list{grid-template-columns:1fr} .feature-list div{border-right:none;padding-left:0} .feature-list div:nth-child(even){padding-left:0} }
+@media (max-width:560px){ .logo{font-size:1.9rem} .article-page h1{font-size:2rem} nav.primary{flex-wrap:wrap;gap:14px} }
+footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+footer a{color:var(--paper);opacity:.85}
+footer a:hover{opacity:1;border-bottom-color:currentColor}
+footer p{color:#c9c4b4;font-size:.85rem}
+.foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
+.legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media (max-width:880px){ footer .wrap{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <p class="logo">Check<span>point</span> BR</p>
+    <p class="masthead-meta">Edição de 16 de julho de 2026<br>Jornalismo de games — redação independente</p>
+  </div>
+  <nav class="wrap primary">
+    <a href="safe.html">Início</a>
+    <a href="glossario.html">Glossário</a>
+    <a href="app.html">App</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
+<main class="wrap article-page">
+  <span class="kicker">Produto da redação</span>
+  <h1>App Checkpoint</h1>
+  <p class="lead-dek">A mesma redação, organizada por categoria, com leitura offline e aviso quando sai matéria nova — sem anúncio dentro do texto e sem coleta de dado que a gente não precisa.</p>
+
+  <div class="app-hero">
+    <figure>
+      <img src="img/_app.jpg" alt="Tela do aplicativo Checkpoint mostrando lista de matérias organizadas por categoria em smartphone" loading="lazy" width="640" height="420">
+      <figcaption>Tela inicial do app, versão de julho de 2026</figcaption>
+    </figure>
+    <div>
+      <p>O app nasceu de um pedido recorrente de leitor: acompanhar a redação sem depender de feed de rede social, que corta alcance e mistura pauta de games com o resto do algoritmo. A versão atual guarda as últimas cinquenta matérias para leitura sem conexão e separa o conteúdo por Análises, Guias, História e Hardware — o mesmo recorte que usamos no site.</p>
+      <p>Não existe notificação por engajamento nem gamificação de leitura. O único aviso configurável é "matéria nova publicada", e pode ser desligado a qualquer momento nas preferências.</p>
+    </div>
+  </div>
+
+  <div class="section-head"><h2>O que o app faz</h2><div class="rule"></div></div>
+  <div class="feature-list">
+    <div><span class="fnum">01</span><h3>Leitura offline</h3><p>As últimas cinquenta matérias ficam salvas no aparelho, incluindo imagem, para consulta sem internet.</p></div>
+    <div><span class="fnum">02</span><h3>Organização por categoria</h3><p>Análises, Guias, História e Hardware em abas separadas, com filtro por data de publicação.</p></div>
+    <div><span class="fnum">03</span><h3>Aviso de matéria nova</h3><p>Notificação única por publicação, sem repetição e sem promoção cruzada de outros produtos.</p></div>
+    <div><span class="fnum">04</span><h3>Modo leitura noturna</h3><p>Paleta de contraste reduzido para leitura em ambiente escuro, mantendo a tipografia do site.</p></div>
+  </div>
+
+  <div class="newsletter-box">
+    <h2>Aviso por e-mail (opcional)</h2>
+    <p>Quem prefere não instalar o app pode receber um resumo semanal das matérias publicadas. É um envio por semana, sem outro uso do endereço além desse aviso — sem cadastro, sem senha, cancelamento em um clique.</p>
+    <form id="app-newsletter-form" onsubmit="event.preventDefault(); document.getElementById('nl-status').style.display='block'; this.reset();">
+      <input type="email" placeholder="seu-email@exemplo.com" aria-label="E-mail para aviso semanal">
+      <button type="submit">Quero receber</button>
+    </form>
+    <p class="newsletter-status" id="nl-status">Recebido. (Demonstração — nenhum dado foi enviado ou armazenado.)</p>
+    <p class="newsletter-note">Este formulário é apenas ilustrativo nesta página e não coleta nem transmite nenhum dado real.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="foot-logo">Checkpoint BR</p>
+      <p>Redação independente de jornalismo de games, fundada em 2024. Cobrimos análises, história de franquias, hardware e cultura gamer com apuração própria.</p>
+    </div>
+    <div>
+      <h4>Seções</h4>
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="app.html">App Checkpoint</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Redação</h4>
+      <ul>
+        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="faq.html">Perguntas frequentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos de uso</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal-bar">
+    <span>© 2026 Checkpoint BR. Todos os direitos reservados.</span>
+    <span>Publicação de conteúdo, sem comércio eletrônico.</span>
+  </div>
+</footer>
+</body>
+</html>

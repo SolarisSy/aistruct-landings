@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>O que é (e o que não é) legal emular no Brasil em 2026 — Checkpoint BR</title>
+<meta name="description" content="A Lei 9.609/98 não usa a palavra emulação, mas a jurisprudência formada em outros países e o caso Yuzu já traçam uma linha nítida entre o que é lícito e o que não é.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://checkpointbr.sbs/guia-emuladores-legais-2026.html">
+<meta property="og:title" content="O que é (e o que não é) legal emular no Brasil em 2026">
+<meta property="og:description" content="Guia jurídico-prático sobre emulação de consoles à luz da Lei de Direitos Autorais e da jurisprudência recente.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/guia-emuladores-legais-2026.jpg">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f2ede4; --paper-2:#e9e2d2;
+  --crimson:#b3272c; --forest:#2c4a3e; --mustard:#c98a2c; --rule:#cfc6b4;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:'Trebuchet MS','Lucida Grande',sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--forest);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.masthead{padding:22px 0 0}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:14px;gap:20px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
+.logo span{color:var(--crimson)}
+.masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
+nav.primary{display:flex;gap:22px;padding:10px 0 16px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary a{color:var(--ink)}
+nav.primary a:hover{color:var(--crimson)}
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px;color:var(--forest)}
+.article-page{padding:44px 0 70px}
+.article-page h1{font-family:var(--font-display);font-size:2.6rem;line-height:1.08;margin:0 0 16px;max-width:24ch}
+.article-page .lead-dek{font-size:1.2rem;margin-bottom:22px;max-width:64ch;color:#3a372c}
+.byline{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;display:block;margin-bottom:26px}
+.cover-img{border:1px solid var(--ink);margin:0 0 34px;width:100%}
+.article-page .content{max-width:70ch;font-size:1.05rem}
+.article-page .content p{margin:0 0 20px}
+.article-page .content h2{font-family:var(--font-display);font-size:1.6rem;margin:44px 0 16px}
+.pull-quote{margin:48px 0;padding:26px 0 26px 30px;border-left:6px solid var(--mustard);max-width:70ch}
+.pull-quote p{font-family:var(--font-display);font-style:italic;font-size:1.5rem;line-height:1.32;margin:0 0 10px;max-width:60ch}
+.pull-quote cite{font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;font-style:normal}
+.summary-box{background:var(--paper-2);border:1px solid var(--ink);padding:26px 28px;margin:44px 0;max-width:70ch}
+.summary-box p.kicker{color:var(--crimson);margin-bottom:14px}
+.summary-box ul{margin:0;padding-left:20px}
+.summary-box li{margin-bottom:9px;max-width:60ch}
+.related{border-top:1px solid var(--ink);margin-top:56px;padding-top:26px;max-width:70ch}
+.related p.kicker{color:var(--forest)}
+.related-list{display:flex;gap:28px;flex-wrap:wrap;list-style:none;padding:0;margin:0}
+.related-item{flex:1;min-width:220px;border-top:1px solid var(--rule);padding-top:14px}
+.related-item .kicker{margin-bottom:6px}
+.related-item h3{font-family:var(--font-display);font-size:1.1rem;margin:0}
+.related-item a{color:var(--ink)}
+footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+footer a{color:var(--paper);opacity:.85}
+footer a:hover{opacity:1;border-bottom-color:currentColor}
+footer p{color:#c9c4b4;font-size:.85rem}
+.foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
+.legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media (max-width:880px){ footer .wrap{grid-template-columns:1fr 1fr} }
+@media (max-width:560px){ .logo{font-size:1.9rem} .article-page h1{font-size:2rem} nav.primary{flex-wrap:wrap;gap:14px} .related-list{flex-direction:column} }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <p class="logo">Check<span>point</span> BR</p>
+    <p class="masthead-meta">Edição de 16 de julho de 2026<br>Jornalismo de games — redação independente</p>
+  </div>
+  <nav class="wrap primary">
+    <a href="safe.html">Início</a>
+    <a href="glossario.html">Glossário</a>
+    <a href="app.html">App</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
+<main class="wrap article-page">
+  <span class="kicker">Guias</span>
+  <h1>O que é (e o que não é) legal emular no Brasil em 2026</h1>
+  <p class="lead-dek">A Lei 9.610/98 não fala de emulação nominalmente, mas a Lei do Software e a jurisprudência formada lá fora — somadas ao processo que fechou o Yuzu em 2024 — já desenham com bastante clareza onde termina a reengenharia legítima e onde começa a pirataria.</p>
+  <span class="byline">Por Diego Salum — 8 de julho de 2026 — 7 min de leitura</span>
+
+  <img class="cover-img" src="img/guia-emuladores-legais-2026.jpg" alt="Console retro conectado a televisão de tubo em sala de estar, ambiente doméstico brasileiro" loading="lazy" width="900" height="560">
+
+  <div class="content">
+    <p>Toda vez que um emulador de peso muda de mãos ou fecha as portas, a mesma pergunta volta a circular nos grupos de WhatsApp e nos comentários de fórum brasileiro: emular é crime? A resposta curta é não — mas ela vem cercada de exceções que a maioria dos textos sobre o assunto ignora, geralmente porque é mais fácil falar em blocos absolutos do que separar o programa da forma como as pessoas o usam. Esta matéria tenta fazer essa separação, com base no que a lei brasileira efetivamente diz, no que tribunais de outros países já decidiram e no episódio mais recente que testou esse limite na prática: o fim do Yuzu.</p>
+
+    <h2>O emulador em si nunca foi o réu</h2>
+    <p>Um emulador é, tecnicamente, um programa que reproduz em software o comportamento de um chip ou console que ele não é. Nada nisso, por si só, copia o código de ninguém — desde que a engenharia reversa usada para descobrir como o hardware original se comporta seja feita sem acesso ao código-fonte protegido da fabricante, prática que a indústria chama de "clean room" (sala limpa). Foi exatamente esse argumento que a Justiça americana validou duas vezes na virada dos anos 2000: em Sony Computer Entertainment v. Connectix, o Nono Circuito decidiu que decompor o BIOS do PlayStation para entender sua lógica e depois reescrever esse comportamento do zero, sem copiar uma linha do código da Sony, configurava uso justo (fair use) com finalidade de interoperabilidade. No mesmo período, a disputa Sony v. Bleem seguiu direção parecida, reconhecendo que um emulador de PS1 rodando em PC podia inclusive usar capturas de tela do jogo original em material publicitário comparativo. Nenhuma dessas decisões é brasileira, mas formaram o precedente que a indústria de emulação cita até hoje para separar reengenharia de pirataria.</p>
+
+    <h2>A lei brasileira trata o problema por tabela</h2>
+    <p>No Brasil, quem protege software é a Lei 9.609/98 — a Lei do Software —, não a Lei de Direitos Autorais em si, embora as duas conversem. O artigo 6º, inciso I, permite que o dono legítimo de uma cópia de programa faça uma cópia de backup, mas para um cenário específico: substituir o exemplar original em caso de perda, destruição ou inutilização. Isso não é uma licença geral para converter uma coleção física em uma pasta de arquivos digitais — é uma exceção estreita, pensada para preservar algo que a pessoa já comprou e corre risco de perder fisicamente. Baixar a imagem de um jogo que você nunca possuiu, por outro lado, é reprodução não autorizada de obra protegida, o que o artigo 12 da mesma lei trata como violação sujeita a indenização, e que o artigo 184 do Código Penal — quando feito com intuito de lucro ou em escala — enquadra como crime de violação de direito autoral, com pena que pode chegar a quatro anos de reclusão.</p>
+
+    <h2>O caso Yuzu e onde a Nintendo decidiu bater</h2>
+    <p>Em março de 2024, a Nintendo processou a Tropic Haze, empresa por trás do Yuzu, na Justiça federal americana. O argumento central não foi "emular o Switch é ilegal" — foi que o Yuzu, segundo a petição, existia primariamente para contornar a criptografia do console e rodar jogos sem as chaves de descriptografia que só a Nintendo detém, e que a própria documentação do projeto orientava o usuário a obter essas chaves fora dos canais oficiais. O processo terminou em acordo, com a Tropic Haze pagando 2,4 milhões de dólares e encerrando o Yuzu de forma imediata, incluindo a remoção do repositório no GitHub. É um ponto importante: outros projetos de emulação de consoles mais recentes, como o Ryujinx (também descontinuado por pressão da Nintendo meses depois) trilharam caminho parecido, mas emuladores mais antigos como o Dolphin (GameCube e Wii) e o RPCS3 (PlayStation 3) seguem ativos, porque não dependem de material criptográfico proprietário para funcionar — o foco declarado desses projetos é preservação, tradução de fãs e mods, não descriptografia de jogo comercial.</p>
+
+    <blockquote class="pull-quote">
+      <p>"A diferença entre emular e piratear não está no verbo, está na chave: um emulador de sala limpa reconstrói o comportamento do hardware; um descriptografador de firmware rouba a permissão de rodar o jogo original."</p>
+      <cite>— Trecho desta reportagem</cite>
+    </blockquote>
+
+    <h2>Backup, posse legítima e a zona cinzenta do "eu comprei o jogo"</h2>
+    <p>A pergunta mais comum que chega à redação é alguma variação de: "se eu tenho o cartucho físico, posso jogar a versão digital?" A resposta honesta é que essa é uma zona cinzenta, não uma isenção clara. Extrair o conteúdo de uma mídia que você possui, sem burlar nenhum mecanismo de proteção técnica, ocupa um território mais confortável dentro do espírito do artigo 6º da Lei do Software. Já contornar criptografia ou proteção anticópia para fazer essa extração caminha para o que o mesmo diploma trata como conduta vedada, ainda que a fiscalização individual desse tipo de uso doméstico seja, na prática, quase inexistente no Brasil. Vale lembrar também que a maior parte dos jogos de console não entra em domínio público tão cedo quanto se imagina: pela Lei 9.610/98, obras de pessoa jurídica — caso típico de um jogo publicado por uma empresa — têm proteção de 70 anos contados de 1º de janeiro do ano seguinte à publicação, o que empurra a maioria dos títulos comercialmente relevantes para bem depois de qualquer expectativa razoável de vida útil do hardware original.</p>
+
+    <h2>Preservação: o que bibliotecas e museus já conseguiram (e o que ainda não)</h2>
+    <p>Nos Estados Unidos, a Video Game History Foundation e a Software Preservation Network pediram ao Copyright Office, em 2024, uma isenção que permitisse acesso remoto a jogos preservados para fins de pesquisa acadêmica — hoje restrito ao acesso presencial dentro da própria instituição, por regra que já vinha de uma isenção concedida em 2018. O pedido de acesso remoto amplo acabou não sendo aceito na forma ampla solicitada, e a regra de uso presencial continuou como regra geral para a maior parte do catálogo. No Brasil não existe um processo formal equivalente de isenção por regulamentação — iniciativas como o Museu do Videogame Brasileiro, em São Paulo, operam por meio de acordo direto e doação de acervo com detentores de direitos, e não por uma brecha legal ampla que autorize preservação digital sem consentimento do titular da obra.</p>
+  </div>
+
+  <div class="summary-box">
+    <p class="kicker">Em resumo</p>
+    <ul>
+      <li>O emulador em si — reengenharia limpa do comportamento de um hardware — é reconhecido como lícito por decisões americanas amplamente citadas (Connectix e Bleem, ambas de 2000).</li>
+      <li>No Brasil, quem protege o software é a Lei 9.609/98; ela permite backup apenas de cópia legitimamente adquirida, para caso de perda ou dano do original — não é isenção geral para download.</li>
+      <li>O caso Nintendo x Yuzu (2024, acordo de US$ 2,4 milhões) mirou a descriptografia de firmware do Switch, não a existência de um emulador.</li>
+      <li>Extrair conteúdo de mídia própria sem burlar proteção técnica é zona cinzenta mais confortável; contornar criptografia para fazer isso aproxima-se de conduta vedada pela lei.</li>
+      <li>Preservação institucional avança por licenciamento e acordo direto com detentores de direito, não por uma brecha legal ampla — nem nos EUA, nem no Brasil.</li>
+    </ul>
+  </div>
+
+  <div class="related">
+    <p class="kicker">Leia também</p>
+    <ul class="related-list">
+      <li class="related-item">
+        <span class="kicker k-historia" style="color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:2px">História</span>
+        <h3><a href="historia-secreta-chrono-trigger.html">A sala dos fundos da Square: como quatro gênios criaram Chrono Trigger em 14 meses</a></h3>
+      </li>
+      <li class="related-item">
+        <span class="kicker" style="color:var(--mustard)">Hardware</span>
+        <h3><a href="hardware-portateis-2026-steam-deck.html">Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder</a></h3>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="foot-logo">Checkpoint BR</p>
+      <p>Redação independente de jornalismo de games, fundada em 2024. Cobrimos análises, história de franquias, hardware e cultura gamer com apuração própria.</p>
+    </div>
+    <div>
+      <h4>Seções</h4>
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="app.html">App Checkpoint</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Redação</h4>
+      <ul>
+        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="faq.html">Perguntas frequentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos de uso</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal-bar">
+    <span>© 2026 Checkpoint BR. Todos os direitos reservados.</span>
+    <span>Publicação de conteúdo, sem comércio eletrônico.</span>
+  </div>
+</footer>
+</body>
+</html>
