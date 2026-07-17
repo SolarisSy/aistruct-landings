@@ -8,12 +8,14 @@
 (function () {
   "use strict";
 
-  var GW = null;
+  /* SITE DE TESTE: Shopify é o DEFAULT em TODO dispositivo (desktop e celular),
+     sem precisar de ?gw. ?gw=paggins desliga (opt-out, persiste); ?gw=shopify religa. */
+  var GW = "shopify";
   try {
     var qs = new URLSearchParams(location.search);
-    if (qs.get("gw") === "shopify") localStorage.setItem("hyu-gw", "shopify");
-    if (qs.get("gw") === "paggins") localStorage.removeItem("hyu-gw");
-    GW = localStorage.getItem("hyu-gw");
+    if (qs.get("gw") === "paggins") localStorage.setItem("hyu-gw", "paggins");
+    if (qs.get("gw") === "shopify") localStorage.removeItem("hyu-gw");
+    if (localStorage.getItem("hyu-gw") === "paggins") GW = "paggins";
   } catch (e) {}
   if (GW !== "shopify") return;
 
