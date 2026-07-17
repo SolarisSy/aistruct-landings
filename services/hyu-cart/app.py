@@ -1516,19 +1516,23 @@ async def shopify_checkout(request: Request):
     code, pct = _coupon_discount(payload.get("coupon"))
     li: list[dict[str, Any]] = []
     for ln in lines:
-        vid = SHOPIFY_VARIANTS.get(ln["sku"].replace("HYU-", ""))
-        if vid:
-            li.append({"variant_id": vid, "quantity": ln["qty"]})
+        sku = ln["sku"].replace("HYU-", "")   # ex: SUPERKIT, MACAVERDE-K6, MIXK12-MV4TP4
+        if sku.startswith("MIXK6"):
+            vid = SHOPIFY_VARIANTS.get("MIXK6")
+        elif sku.startswith("MIXK12"):
+            vid = SHOPIFY_VARIANTS.get("MIXK12")
         else:
-            item: dict[str, Any] = {"title": ln["name"], "price": _reais(ln["cents"]),
-                                    "quantity": ln["qty"]}
-            props = []
+            vid = SHOPIFY_VARIANTS.get(sku)
+        if vid:  # produto real -> imagem no checkout
+            item: dict[str, Any] = {"variant_id": vid, "quantity": ln["qty"]}
+            if "MIX" in sku:  # composição de sabores do mix
+                comp = ln["name"].split("—", 1)[1].strip() if "—" in ln["name"] else ln["name"]
+                item["properties"] = [{"name": "Sabores", "value": comp[:255]}]
+            li.append(item)
+        else:  # fallback custom (sem imagem) p/ item sem produto cadastrado
+            item = {"title": ln["name"], "price": _reais(ln["cents"]), "quantity": ln["qty"]}
             if ln.get("desc"):
-                props.append({"name": "Info", "value": ln["desc"][:200]})
-            if "Personalizado" in ln.get("name", ""):
-                props.append({"name": "Montagem", "value": "mix lata a lata"})
-            if props:
-                item["properties"] = props
+                item["properties"] = [{"name": "Info", "value": ln["desc"][:200]}]
             li.append(item)
     draft: dict[str, Any] = {"line_items": li, "tags": "site-hyu",
                              "note": "Pedido do site HYU (checkout Shopify)."}
