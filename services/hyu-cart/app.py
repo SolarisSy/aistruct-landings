@@ -1466,10 +1466,91 @@ async def stripe_csession(cs_id: str):
             "totalAmount": s.get("amount_total"), "currency": s.get("currency")}
 
 
+# ═══════════════════ SHOPIFY (checkout hospedado via Draft Order) ═══════════
+# Fluxo alternativo (gate ?gw=shopify no site de teste): o bridge cria um DRAFT
+# ORDER com os itens do carrinho e devolve a invoice_url = checkout hospedado da
+# Shopify (alta conversão; ela coleta endereço/frete/pagamento). Combos viram
+# variantes reais (imagem no checkout); flavor×tier e MIX viram custom line items
+# (preço do catálogo + composição). Inerte sem SHOPIFY_ADMIN_TOKEN (503).
+SHOPIFY_STORE = os.environ.get("SHOPIFY_STORE", "").strip()
+SHOPIFY_ADMIN_TOKEN = os.environ.get("SHOPIFY_ADMIN_TOKEN", "").strip()
+SHOPIFY_API_VERSION = os.environ.get("SHOPIFY_API_VERSION", "2026-07")
+try:
+    SHOPIFY_VARIANTS = {str(k): int(v) for k, v in json.loads(
+        os.environ.get("SHOPIFY_VARIANTS_JSON", "{}")).items()}
+except Exception:
+    SHOPIFY_VARIANTS = {}
+SHOPIFY_VARIANTS = SHOPIFY_VARIANTS or {   # SKU do combo -> variant_id na loja (imagem)
+    "KITENERGY": 43669515239514, "KITSODA": 43669515272282,
+    "SUPERKIT": 43669515305050, "KIT24": 43669515370586,
+}
+
+
+def _reais(cents: int) -> str:
+    return f"{cents / 100:.2f}"
+
+
+async def _shopify_call(method: str, path: str, data: dict | None = None) -> dict:
+    if not (SHOPIFY_STORE and SHOPIFY_ADMIN_TOKEN):
+        raise HTTPException(503, "shopify nao configurado (SHOPIFY_ADMIN_TOKEN ausente)")
+    url = f"https://{SHOPIFY_STORE}/admin/api/{SHOPIFY_API_VERSION}{path}"
+    try:
+        async with httpx.AsyncClient(timeout=30) as c:
+            r = await c.request(method, url, json=data, headers={
+                "X-Shopify-Access-Token": SHOPIFY_ADMIN_TOKEN,
+                "Content-Type": "application/json", "Accept": "application/json"})
+    except httpx.HTTPError as e:
+        raise HTTPException(502, f"shopify indisponivel: {str(e)[:80]}")
+    if r.status_code >= 400:
+        log.error("shopify %s %s -> %s: %s", method, path, r.status_code, r.text[:200])
+        raise HTTPException(502, f"shopify {r.status_code}")
+    return r.json()
+
+
+@app.post("/shopify/checkout")
+async def shopify_checkout(request: Request):
+    """Carrinho -> draft order -> invoice_url (checkout hospedado da Shopify)."""
+    payload = await request.json()
+    lines = _cart_lines(payload.get("items"))
+    code, pct = _coupon_discount(payload.get("coupon"))
+    li: list[dict[str, Any]] = []
+    for ln in lines:
+        vid = SHOPIFY_VARIANTS.get(ln["sku"].replace("HYU-", ""))
+        if vid:
+            li.append({"variant_id": vid, "quantity": ln["qty"]})
+        else:
+            item: dict[str, Any] = {"title": ln["name"], "price": _reais(ln["cents"]),
+                                    "quantity": ln["qty"]}
+            props = []
+            if ln.get("desc"):
+                props.append({"name": "Info", "value": ln["desc"][:200]})
+            if "Personalizado" in ln.get("name", ""):
+                props.append({"name": "Montagem", "value": "mix lata a lata"})
+            if props:
+                item["properties"] = props
+            li.append(item)
+    draft: dict[str, Any] = {"line_items": li, "tags": "site-hyu",
+                             "note": "Pedido do site HYU (checkout Shopify)."}
+    meta = _build_metadata(payload.get("meta"))
+    if meta:
+        draft["note_attributes"] = [{"name": k, "value": v} for k, v in meta.items()]
+    if pct > 0:
+        draft["applied_discount"] = {"title": code, "description": f"Cupom {code}",
+                                     "value_type": "percentage", "value": str(pct)}
+    resp = await _shopify_call("POST", "/draft_orders.json", {"draft_order": draft})
+    do = resp.get("draft_order", {})
+    url = do.get("invoice_url")
+    if not url:
+        raise HTTPException(502, "shopify sem invoice_url")
+    log.info("shopify draft %s total=%s", do.get("id"), do.get("total_price"))
+    return {"url": url}
+
+
 @app.get("/healthz")
 async def healthz():
     return {"ok": True, "has_key": bool(PAGGINS_API_KEY),
-            "stripe": bool(STRIPE_SECRET_KEY and STRIPE_PUBLISHABLE_KEY)}
+            "stripe": bool(STRIPE_SECRET_KEY and STRIPE_PUBLISHABLE_KEY),
+            "shopify": bool(SHOPIFY_STORE and SHOPIFY_ADMIN_TOKEN)}
 
 
 @app.get("/")
