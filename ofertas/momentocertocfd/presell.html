@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Momento Certo</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-size='13' text-anchor='middle' fill='%23fff' font-family='Georgia,serif' font-weight='bold'%3EMC%3C/text%3E%3C/svg%3E">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --teal:#0f766e;
+      --teal-dk:#115e59;
+      --amber:#d97706;
+      --cream:#faf7f0;
+      --ink:#1c1917;
+      --muted:#78716c;
+      --line:#e7e0d3;
+      --ok:#15803d;
+    }
+    html,body{height:100%}
+    body{
+      font-family:Georgia,"Times New Roman",serif;color:var(--ink);
+      background:var(--cream);
+      -webkit-font-smoothing:antialiased;
+      display:flex;flex-direction:column;min-height:100%;
+    }
+    .top{padding:20px 22px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--line)}
+    .logo{width:34px;height:34px;border-radius:9px;background:var(--teal);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:15px;letter-spacing:.5px}
+    .brand{font-weight:bold;font-size:18px;color:var(--ink);letter-spacing:-.2px}
+    .brand small{display:block;font-size:11px;color:var(--muted);font-family:system-ui,-apple-system,sans-serif;font-weight:400;letter-spacing:.3px;text-transform:uppercase}
+
+    main{flex:1;display:flex;align-items:center;justify-content:center;padding:34px 20px}
+    .card{
+      background:#fff;border:1px solid var(--line);border-radius:14px;
+      box-shadow:0 14px 40px rgba(28,25,23,.09);
+      padding:36px 28px;width:100%;max-width:460px;
+    }
+    .eyebrow{font-family:system-ui,-apple-system,sans-serif;font-size:12px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+    h1{font-size:26px;line-height:1.28;font-weight:bold;letter-spacing:-.4px;margin-bottom:12px}
+    .sub{font-size:15.5px;color:var(--muted);margin-bottom:26px;line-height:1.65;font-family:system-ui,-apple-system,sans-serif}
+    .cta{
+      width:100%;border:0;cursor:pointer;font-family:system-ui,-apple-system,sans-serif;font-weight:700;font-size:17px;
+      color:#fff;padding:17px;border-radius:10px;background:var(--teal);
+      display:flex;align-items:center;justify-content:center;gap:9px;
+      transition:background .14s,transform .12s;
+    }
+    .cta:hover{background:var(--teal-dk);transform:translateY(-1px)}
+    .cta:active{transform:translateY(0)}
+    .arw{font-size:19px}
+    .secure{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12.5px;color:var(--muted);margin-top:18px;font-family:system-ui,-apple-system,sans-serif}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(21,128,61,.15)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+    footer{padding:22px 22px 28px;text-align:center;border-top:1px solid var(--line);font-family:system-ui,-apple-system,sans-serif}
+    footer a{color:var(--teal);text-decoration:none;font-size:12.5px;margin:0 8px}
+    footer p{color:var(--muted);font-size:11.5px;line-height:1.65;max-width:480px;margin:12px auto 0}
+  </style>
+</head>
+<body>
+
+  <div class="top">
+    <div class="logo">MC</div>
+    <div class="brand">Momento Certo<small>Educação financeira</small></div>
+  </div>
+
+  <main>
+    <!-- GATE: pergunta genérica sim/não. É um <form> com submit (não link):
+         o botão POSTA para go/ e carrega gclid/campaignid. Prerender do
+         Gmail não submete formulário → cloaker só dispara no clique real. -->
+    <form id="gate" class="card" action="go/" method="get" autocomplete="off">
+      <div class="eyebrow">Conteúdo para adultos no Brasil</div>
+      <h1>Você é maior de 18 anos e mora no Brasil?</h1>
+      <div class="sub">Confirme para acessar nosso conteúdo de organização financeira e planejamento pessoal.</div>
+
+      <input type="hidden" name="step" value="2">
+      <input type="hidden" name="ref" value="gate">
+      <label for="s_id" class="sr-only">Sessão</label>
+      <input type="text" id="s_id" name="s_id" class="sr-only" tabindex="-1" aria-hidden="true">
+
+      <button type="submit" class="cta">Sim, continuar <span class="arw">→</span></button>
+
+      <div class="secure"><span class="dot"></span> Leva menos de 1 minuto</div>
+    </form>
+  </main>
+
+  <footer>
+    <a href="termos.html">Termos</a>
+    <a href="privacidade.html">Privacidade</a>
+    <p>Momento Certo é um conteúdo informativo independente sobre educação financeira. Não somos instituição financeira e não concedemos crédito. Não há garantia de resultados. Não endossado por bancos ou marcas de terceiros.</p>
+  </footer>
+
+  <script>
+    // Carrega os parâmetros do anúncio (gclid, campaignid...) para dentro do form
+    // → o cloaker /go/ recebe {p:gclid}/{p:campaignid}.
+    (function(){
+      var params=new URLSearchParams(window.location.search);
+      var f=document.getElementById('gate');
+      params.forEach(function(v,k){
+        if(!k||f.querySelector('[name="'+CSS.escape(k)+'"]'))return;
+        var i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i);
+      });
+    })();
+  </script>
+</body>
+</html>

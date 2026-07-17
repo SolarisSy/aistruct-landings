@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prumo — o app de organização financeira do Momento Certo</title>
+<meta name="description" content="Conheça o Prumo: app de organização financeira que registra contas a pagar, lembra vencimentos, acompanha metas de economia e categoriza gastos automaticamente.">
+<link rel="canonical" href="https://momentocerto.cfd/app.html">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Prumo — o app de organização financeira do Momento Certo">
+<meta property="og:description" content="Organize contas, metas e gastos no seu tempo certo.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-size='13' text-anchor='middle' fill='%23fff' font-family='Georgia,serif' font-weight='bold'%3EMC%3C/text%3E%3C/svg%3E">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#0f766e;
+  --teal-dk:#0b5b54;
+  --amber:#d97706;
+  --amber-dk:#b45f04;
+  --cream:#faf7f0;
+  --cream-2:#f2ece0;
+  --ink:#1c1917;
+  --gray:#78716c;
+  --line:#e7e0d3;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:var(--teal);text-decoration:none}
+a:hover{color:var(--amber)}
+h1,h2,h3,h4{
+  font-family:Georgia,"Times New Roman",serif;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  line-height:1.15;
+}
+ul,ol{list-style:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.wrap-narrow{max-width:760px;margin:0 auto;padding:0 24px}
+.site-header{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--line);}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;gap:16px;flex-wrap:wrap;}
+.brand-lockup{display:flex;align-items:center;gap:10px}
+.brand-mark{width:36px;height:36px;border-radius:9px;background:var(--teal);display:flex;align-items:center;justify-content:center;color:#fff;font-family:Georgia,serif;font-weight:700;font-size:15px;flex:none;}
+.brand-name{font-family:Georgia,serif;font-weight:700;font-size:1.28rem;color:var(--ink)}
+.brand-name span{color:var(--teal)}
+.main-nav ul{display:flex;gap:6px;flex-wrap:wrap}
+.main-nav a{display:inline-block;padding:8px 14px;border-radius:8px;font-size:.94rem;font-weight:600;color:var(--ink);border:1px solid transparent;}
+.main-nav a:hover{color:var(--teal);border-color:var(--line);background:var(--cream-2)}
+.main-nav a.is-cta{background:var(--amber);color:#fff;border-color:var(--amber)}
+.main-nav a.is-cta:hover{background:var(--amber-dk);color:#fff}
+.breadcrumb{font-size:.85rem;color:var(--gray);padding:16px 0 0;}
+.breadcrumb a{color:var(--gray);font-weight:600}
+.breadcrumb a:hover{color:var(--teal)}
+.breadcrumb .sep{margin:0 6px;color:var(--line)}
+.hero{padding:56px 0 64px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1.35fr .9fr;gap:48px;align-items:center;}
+.hero-eyebrow{font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;display:block;}
+.hero h1{font-size:2.7rem;margin-bottom:18px}
+.hero p.lede{font-size:1.14rem;color:var(--gray);max-width:52ch;margin-bottom:26px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-panel{background:var(--teal);border-radius:16px;padding:34px 28px;color:#fff;min-height:230px;display:flex;flex-direction:column;justify-content:center;gap:14px;border:1px solid var(--teal-dk);}
+.hero-panel .stat{font-family:Georgia,serif;font-size:2.3rem;font-weight:700;letter-spacing:-0.02em}
+.hero-panel .stat-label{font-size:.92rem;opacity:.88;max-width:32ch}
+.hero-panel hr{border:none;border-top:1px solid rgba(255,255,255,.25);margin:6px 0}
+.hero-media{margin-top:28px;border-radius:16px;overflow:hidden;height:260px;border:1px solid var(--line)}
+.hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+.band{background:var(--ink);color:var(--cream);padding:40px 0}
+.band .wrap{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;}
+.band-tag{font-family:Georgia,serif;font-size:1.6rem;color:var(--amber);white-space:nowrap;}
+.band p{color:#d6d0c4;font-size:1rem;max-width:70ch}
+.band-amber{background:var(--amber);color:#fff}
+.band-amber .band-tag{color:var(--ink)}
+.band-amber p{color:#fff2e0}
+.section{padding:64px 0}
+.section-tight{padding:44px 0}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:32px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:14px;}
+.section-head h2{font-size:1.9rem}
+.section-head .kicker{font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:6px;}
+.section-head a.see-all{font-weight:600;font-size:.92rem;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.grid.grid-2{grid-template-columns:repeat(2,1fr)}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s ease,transform .15s ease;}
+.card:hover{border-color:var(--amber);transform:translateY(-3px)}
+.card-media{height:108px;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:1.6rem;font-weight:700;color:#fff;position:relative;}
+.card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.18));}
+.card:nth-child(9n+1) .card-media,.card:nth-child(9n+4) .card-media{background:var(--teal)}
+.card:nth-child(9n+2) .card-media,.card:nth-child(9n+5) .card-media{background:var(--amber)}
+.card:nth-child(9n+3) .card-media,.card:nth-child(9n+6) .card-media{background:var(--ink)}
+.card:nth-child(9n+7) .card-media{background:var(--teal-dk)}
+.card:nth-child(9n+8) .card-media{background:#a8571f}
+.card:nth-child(9n+9) .card-media{background:#3f3a34}
+.card-body{padding:18px 18px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-meta{display:flex;gap:10px;align-items:center;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.card-cat{color:var(--teal)}
+.card-date{color:var(--gray);font-weight:600;text-transform:none;letter-spacing:0}
+.card h3{font-size:1.14rem;margin:0}
+.card h3 a{color:var(--ink)}
+.card:hover h3 a{color:var(--teal)}
+.card p{color:var(--gray);font-size:.92rem;flex:1}
+.card .read-more{font-size:.86rem;font-weight:700;color:var(--amber);margin-top:auto}
+.app-section{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.app-section .wrap{display:grid;grid-template-columns:.95fr 1.15fr;gap:52px;align-items:center;}
+.app-section.reverse .wrap{grid-template-columns:1.15fr .95fr}
+.app-section.reverse .app-copy{order:2}
+.app-section.reverse .app-mock{order:1}
+.app-copy .kicker{font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:10px;}
+.app-copy h2{font-size:2.1rem;margin-bottom:16px}
+.app-copy p{color:var(--gray);margin-bottom:20px;max-width:52ch}
+.app-features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+.app-feature{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;}
+.app-feature .icon{font-size:1.3rem;display:block;margin-bottom:6px}
+.app-feature strong{display:block;font-size:.94rem;margin-bottom:3px}
+.app-feature span{font-size:.84rem;color:var(--gray)}
+.app-mock{display:flex;justify-content:center}
+.phone{width:270px;border:2px solid var(--ink);border-radius:28px;background:#fff;padding:14px;box-shadow:8px 8px 0 var(--line);}
+.phone-notch{width:60px;height:6px;background:var(--line);border-radius:4px;margin:0 auto 12px}
+.phone-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.phone-header strong{font-family:Georgia,serif;font-size:1rem;color:var(--teal)}
+.phone-header span{font-size:.72rem;color:var(--gray)}
+.phone-balance{background:var(--teal);border-radius:10px;padding:14px;color:#fff;margin-bottom:14px;}
+.phone-balance .lbl{font-size:.7rem;opacity:.85;text-transform:uppercase;letter-spacing:.05em}
+.phone-balance .val{font-family:Georgia,serif;font-size:1.5rem;font-weight:700}
+.phone-bar{background:var(--cream-2);border-radius:6px;height:8px;margin-top:10px;overflow:hidden}
+.phone-bar i{display:block;height:100%;background:var(--amber);border-radius:6px}
+.phone-list{display:flex;flex-direction:column;gap:8px}
+.phone-row{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:.82rem;}
+.phone-row .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:8px}
+.phone-row .due{color:var(--amber);font-weight:700;font-size:.74rem}
+.newsletter{background:var(--ink);color:var(--cream);padding:56px 0}
+.newsletter .wrap{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;}
+.newsletter h2{color:#fff;font-size:1.7rem;margin-bottom:8px}
+.newsletter p{color:#c9c2b4;max-width:46ch}
+.newsletter form{display:flex;gap:10px;flex-wrap:wrap}
+.newsletter input[type=email]{padding:13px 16px;border-radius:8px;border:1px solid #4a453e;background:#2a2622;color:#fff;font-size:.95rem;min-width:230px;}
+.newsletter input[type=email]::placeholder{color:#948d80}
+.newsletter .fine{font-size:.78rem;color:#948d80;margin-top:8px;width:100%}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:700;font-size:.94rem;border:1px solid transparent;cursor:pointer;font-family:system-ui,sans-serif;}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-teal:hover{background:var(--teal-dk);color:#fff}
+.btn-amber{background:var(--amber);color:#fff}
+.btn-amber:hover{background:var(--amber-dk);color:#fff}
+.btn-outline{background:transparent;border-color:var(--ink);color:var(--ink)}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal)}
+.btn-outline-light{background:transparent;border-color:#605a50;color:#fff}
+.btn-outline-light:hover{border-color:var(--amber);color:var(--amber)}
+.post-head{padding:20px 0 8px}
+.post-head .card-meta{margin-bottom:14px}
+.post-head h1{font-size:2.3rem;margin-bottom:14px}
+.post-head .dek{font-size:1.1rem;color:var(--gray);max-width:62ch}
+.post{max-width:700px;margin:0 auto;padding:28px 24px 72px;}
+.post h2{font-size:1.5rem;margin:36px 0 14px;color:var(--teal-dk)}
+.post h3{font-size:1.18rem;margin:26px 0 10px}
+.post p{margin-bottom:16px;font-size:1.02rem}
+.post ul,.post ol{margin:0 0 18px 0}
+.post ul li,.post ol li{margin-bottom:9px;padding-left:22px;position:relative;font-size:1rem;}
+.post ul li::before{content:"—";position:absolute;left:0;color:var(--amber);font-weight:700}
+.post ol{counter-reset:item}
+.post ol li{counter-increment:item}
+.post ol li::before{content:counter(item)".";position:absolute;left:0;color:var(--amber);font-weight:700}
+.post blockquote{border-left:3px solid var(--amber);background:var(--cream-2);padding:16px 20px;margin:24px 0;font-style:italic;color:var(--ink);border-radius:0 12px 12px 0;}
+.post table{width:100%;border-collapse:collapse;margin:22px 0;font-size:.92rem}
+.post table caption{text-align:left;font-size:.82rem;color:var(--gray);margin-bottom:8px}
+.post th{background:var(--teal);color:#fff;text-align:left;padding:10px 12px;font-weight:700}
+.post td{padding:10px 12px;border-bottom:1px solid var(--line)}
+.post tr:nth-child(even) td{background:var(--cream-2)}
+.post .callout{border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0;background:#fff;}
+.post .callout strong{color:var(--teal-dk)}
+.post hr{border:none;border-top:1px solid var(--line);margin:36px 0}
+.post-share{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+.related{max-width:700px;margin:0 auto;padding:0 24px 72px}
+.related h2{font-size:1.3rem;margin-bottom:18px;border-top:2px solid var(--ink);padding-top:24px}
+.related .grid{grid-template-columns:repeat(3,1fr)}
+.page-head{padding:48px 0 8px;border-bottom:1px solid var(--line)}
+.page-head h1{font-size:2.4rem;margin-bottom:12px}
+.page-head p{color:var(--gray);max-width:60ch;font-size:1.06rem}
+.terms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+dl.glossary{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.gloss-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;scroll-margin-top:90px;}
+.gloss-card dt{font-family:Georgia,serif;font-weight:700;color:var(--teal-dk);font-size:1.05rem;margin-bottom:6px}
+.gloss-card dt a{color:inherit}
+.gloss-card dd{color:var(--gray);font-size:.94rem}
+.gloss-jump{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 8px}
+.gloss-jump a{border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:.86rem;font-weight:600;color:var(--ink);}
+.gloss-jump a:hover{border-color:var(--amber);color:var(--amber)}
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px;}
+.faq-item h3{font-size:1.08rem;margin-bottom:8px;color:var(--teal-dk)}
+.faq-item p{color:var(--gray)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}
+.team-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;text-align:left}
+.team-avatar{width:52px;height:52px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;margin-bottom:12px;}
+.team-card h3{font-size:1rem;margin-bottom:2px}
+.team-card .role{font-size:.8rem;color:var(--amber);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;display:block}
+.team-card p{font-size:.88rem;color:var(--gray)}
+.site-footer{background:var(--ink);color:#c9c2b4;padding:52px 0 24px}
+.site-footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:36px;}
+.footer-brand .brand-name{color:#fff}
+.footer-brand .brand-name span{color:var(--amber)}
+.footer-brand p{color:#948d80;font-size:.9rem;margin-top:12px;max-width:34ch}
+.site-footer h4{color:#fff;font-family:system-ui,sans-serif;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.site-footer ul li{margin-bottom:9px}
+.site-footer a{color:#c9c2b4;font-size:.92rem}
+.site-footer a:hover{color:var(--amber)}
+.footer-bottom{border-top:1px solid #3a352e;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#7d766a;}
+.footer-bottom a{color:#7d766a}
+.footer-bottom a:hover{color:var(--amber)}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-panel{min-height:auto}
+  .band .wrap{grid-template-columns:1fr}
+  .app-section .wrap,.app-section.reverse .wrap{grid-template-columns:1fr}
+  .app-section.reverse .app-copy,.app-section.reverse .app-mock{order:0}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .related .grid{grid-template-columns:repeat(2,1fr)}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .terms-grid{grid-template-columns:1fr}
+  dl.glossary{grid-template-columns:1fr}
+  .newsletter .wrap{grid-template-columns:1fr}
+  .site-footer .wrap{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  .hero h1{font-size:2.05rem}
+  .grid{grid-template-columns:1fr}
+  .related .grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .app-features{grid-template-columns:1fr}
+  .site-header .wrap{padding:14px 20px}
+  .main-nav ul{gap:2px}
+  .main-nav a{padding:7px 10px;font-size:.86rem}
+  .site-footer .wrap{grid-template-columns:1fr}
+  .post-head h1{font-size:1.7rem}
+  .section-head h2{font-size:1.5rem}
+}
+@media (prefers-color-scheme:dark){
+  body{background:var(--cream);color:var(--ink)}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a href="safe.html" class="brand-lockup" style="text-decoration:none">
+      <span class="brand-mark">MC</span>
+      <span class="brand-name">Momento <span>Certo</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="app.html">App</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="faq.html">Dúvidas</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="app.html" class="is-cta">Conhecer o Prumo</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap"><nav class="breadcrumb"><a href="safe.html">Início</a><span class="sep">/</span>App</nav></div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">O app do Momento Certo</span>
+      <h1>Prumo: organize suas contas sem esforço</h1>
+      <p class="lede">Prumo é o aplicativo de organização financeira que registra contas a pagar, avisa antes do vencimento, acompanha suas metas de economia mensal e categoriza os gastos sozinho. Uma ferramenta pra você enxergar o seu dinheiro com clareza — não um empréstimo, não um cartão, não uma promessa de renda.</p>
+      <div class="hero-actions">
+        <a href="#como-funciona" class="btn btn-teal">Ver como funciona</a>
+        <a href="#faq" class="btn btn-outline">Tirar dúvidas</a>
+      </div>
+      <div class="hero-media">
+        <img src="img/_app.jpg" alt="Pessoa usando o aplicativo Prumo no celular para organizar contas e metas financeiras" loading="lazy">
+      </div>
+    </div>
+    <div class="hero-panel">
+      <span class="stat-label">Em uma frase</span>
+      <span class="stat">Contas em dia, mente em paz.</span>
+      <hr>
+      <p class="stat-label">O Prumo não empresta, não financia e não promete rendimento. Ele organiza o que já é seu.</p>
+    </div>
+  </div>
+</section>
+
+<div class="band band-amber">
+  <div class="wrap">
+    <span class="band-tag">Deixe claro</span>
+    <p>O Prumo é uma ferramenta de organização e educação financeira — não concede crédito, não empresta dinheiro e não promete ganhos. Ele existe pra te dar clareza sobre o que entra, o que sai e o que vence.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="kicker">O que o app faz por você</span>
+        <h2>Recursos do Prumo</h2>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="card-body">
+        <span style="font-size:1.4rem">🧾</span>
+        <h3>Contas a pagar centralizadas</h3>
+        <p>Cadastre boletos, assinaturas e contas recorrentes num único painel, sem precisar abrir vários aplicativos de banco.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <span style="font-size:1.4rem">⏰</span>
+        <h3>Lembretes de vencimento</h3>
+        <p>O Prumo avisa antes do prazo, com o tempo de antecedência que você escolher — sem depender da memória.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <span style="font-size:1.4rem">🎯</span>
+        <h3>Metas de economia mensal</h3>
+        <p>Defina quanto quer guardar por mês pra sua reserva ou objetivo, e acompanhe o progresso em tempo real.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <span style="font-size:1.4rem">🏷️</span>
+        <h3>Categorização automática de gastos</h3>
+        <p>Moradia, transporte, alimentação, lazer: os lançamentos se organizam sozinhos, sem planilha manual.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <span style="font-size:1.4rem">📊</span>
+        <h3>Visão mensal clara</h3>
+        <p>Um resumo simples de quanto entrou, quanto saiu e quanto sobrou — pra decisão informada, não achismo.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <span style="font-size:1.4rem">🔔</span>
+        <h3>Alertas de gasto fora do padrão</h3>
+        <p>Quando uma categoria foge do que é comum pra você, o Prumo sinaliza — sem julgamento, só informação.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section class="app-section" id="como-funciona">
+  <div class="wrap">
+    <div class="app-mock">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-header"><strong>Prumo</strong><span>Passo 3 de 3</span></div>
+        <div class="phone-balance">
+          <div class="lbl">Meta: reserva de emergência</div>
+          <div class="val">R$ 340 guardados</div>
+          <div class="phone-bar"><i style="width:41%"></i></div>
+        </div>
+        <div class="phone-list">
+          <div class="phone-row"><span><span class="dot" style="background:#0f766e"></span>Aluguel</span><span class="due">vence dia 05</span></div>
+          <div class="phone-row"><span><span class="dot" style="background:#d97706"></span>Streaming</span><span class="due">vence dia 12</span></div>
+          <div class="phone-row"><span><span class="dot" style="background:#1c1917"></span>Mercado</span><span class="due">categorizado</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="app-copy">
+      <span class="kicker">Como funciona</span>
+      <h2>Três passos, sem complicação</h2>
+      <p>Você não precisa entender de finanças pra usar o Prumo — ele foi pensado justamente pra quem está começando a se organizar.</p>
+      <ol style="max-width:52ch">
+        <li><strong>Cadastre suas contas:</strong> lance boletos e assinaturas recorrentes uma vez; o Prumo lembra do resto.</li>
+        <li><strong>Defina sua meta:</strong> escolha quanto quer guardar por mês e acompanhe a barra de progresso.</li>
+        <li><strong>Acompanhe as categorias:</strong> veja pra onde o dinheiro está indo, sem precisar montar planilha nenhuma.</li>
+      </ol>
+      <a href="#faq" class="btn btn-teal">Ver perguntas frequentes</a>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="wrap">
+    <span class="band-tag">Por que existe</span>
+    <p>Criamos o Prumo porque grande parte do estresse financeiro não vem de ganhar pouco — vem de não saber pra onde o dinheiro vai. Resolver isso é o primeiro passo de tudo o que ensinamos aqui no Momento Certo.</p>
+  </div>
+</div>
+
+<section class="section" id="faq">
+  <div class="wrap-narrow">
+    <div class="section-head" style="border-bottom:none;padding-bottom:0">
+      <div>
+        <span class="kicker">Antes de baixar</span>
+        <h2>Perguntas sobre o Prumo</h2>
+      </div>
+    </div>
+    <div class="faq-item">
+      <h3>O Prumo empresta dinheiro ou libera crédito?</h3>
+      <p>Não. O Prumo é uma ferramenta de organização e educação financeira. Ele não concede empréstimo, não oferece linha de crédito e não promete rendimento — ele ajuda você a enxergar e planejar o seu próprio dinheiro.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Preciso conectar minha conta bancária?</h3>
+      <p>Não é obrigatório. Você pode cadastrar contas e metas manualmente, no seu ritmo, sem precisar vincular nenhuma instituição financeira.</p>
+    </div>
+    <div class="faq-item">
+      <h3>O app cobra alguma coisa pra usar as funções básicas?</h3>
+      <p>As funções de organização — contas a pagar, lembretes e categorização — são pensadas pra uso no dia a dia sem barreira de entrada.</p>
+    </div>
+    <div class="faq-item">
+      <h3>O Prumo substitui o app do meu banco?</h3>
+      <p>Não. Ele complementa: enquanto o banco processa seu dinheiro, o Prumo organiza a visão geral das suas contas, prazos e metas num só lugar.</p>
+    </div>
+    <p style="margin-top:20px;color:var(--gray)">Mais dúvidas gerais sobre finanças? Veja nossa <a href="faq.html">página de Dúvidas Frequentes</a> ou o <a href="glossario.html">Glossário financeiro</a>.</p>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="wrap">
+    <div>
+      <h2>Quer saber quando o Prumo tiver novidades?</h2>
+      <p>Assine a newsletter do Momento Certo e receba atualizações do app junto com nossos artigos.</p>
+    </div>
+    <form onsubmit="sub(event)">
+      <input type="email" name="email" placeholder="seu@email.com" required aria-label="Seu e-mail">
+      <button type="submit" class="btn btn-amber">Quero receber</button>
+      <span class="fine">Veja nossa <a href="privacidade.html" style="color:#c9c2b4;text-decoration:underline">política de privacidade</a>.</span>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-brand">
+      <span class="brand-name">Momento <span>Certo</span></span>
+      <p>Educação financeira prática para organizar as contas, entender o sistema financeiro e tomar decisões no seu tempo — sem promessas vazias.</p>
+    </div>
+    <div>
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="glossario.html">Glossário financeiro</a></li>
+        <li><a href="faq.html">Dúvidas frequentes</a></li>
+        <li><a href="sobre.html">Sobre o Momento Certo</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Artigos</h4>
+      <ul>
+        <li><a href="reserva-de-emergencia-primeiro-passo.html">Reserva de emergência</a></li>
+        <li><a href="orcamento-domestico-metodo-50-30-20.html">Orçamento doméstico</a></li>
+        <li><a href="pix-automatico-2026.html">Pix Automático</a></li>
+        <li><a href="golpe-do-pix-como-se-proteger.html">Segurança e golpes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Prumo (app)</h4>
+      <ul>
+        <li><a href="app.html">Conheça o app</a></li>
+        <li><a href="app.html#faq">Perguntas sobre o app</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>&copy; 2026 Momento Certo. Todos os direitos reservados. Conteúdo educativo — não é recomendação financeira individualizada.</span>
+    <span><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos de uso</a></span>
+  </div>
+</footer>
+
+<script>
+function sub(e){
+  e.preventDefault();
+  if (typeof gtag === 'function') {
+    gtag('event', 'sign_up', { method: 'newsletter' });
+  }
+  var form = e.target;
+  var btn = form.querySelector('button[type=submit]');
+  if (btn) { btn.textContent = 'Inscrito!'; btn.disabled = true; }
+  return false;
+}
+</script>
+</body>
+</html>

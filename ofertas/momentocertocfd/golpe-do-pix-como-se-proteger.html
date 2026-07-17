@@ -1,0 +1,551 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Golpe do Pix: os sinais mais comuns e como se proteger · Momento Certo</title>
+  <meta name="description" content="Golpistas mudam de tática o tempo todo — conheça os sinais de alerta mais comuns nos golpes envolvendo Pix e hábitos simples que reduzem o risco.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://momentocerto.cfd/golpe-do-pix-como-se-proteger.html">
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#0f766e;
+  --teal-dk:#0b5b54;
+  --amber:#d97706;
+  --amber-dk:#b45f04;
+  --cream:#faf7f0;
+  --cream-2:#f2ece0;
+  --ink:#1c1917;
+  --gray:#78716c;
+  --line:#e7e0d3;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:var(--teal);text-decoration:none}
+a:hover{color:var(--amber)}
+h1,h2,h3,h4{
+  font-family:Georgia,"Times New Roman",serif;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  line-height:1.15;
+}
+ul,ol{list-style:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.wrap-narrow{max-width:760px;margin:0 auto;padding:0 24px}
+
+/* ---------- header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:100;
+  background:var(--cream);
+  border-bottom:1px solid var(--line);
+}
+.site-header .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;gap:16px;flex-wrap:wrap;
+}
+.brand-lockup{display:flex;align-items:center;gap:10px}
+.brand-mark{
+  width:36px;height:36px;border-radius:9px;background:var(--teal);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-family:Georgia,serif;font-weight:700;font-size:15px;flex:none;
+}
+.brand-name{font-family:Georgia,serif;font-weight:700;font-size:1.28rem;color:var(--ink)}
+.brand-name span{color:var(--teal)}
+.main-nav ul{display:flex;gap:6px;flex-wrap:wrap}
+.main-nav a{
+  display:inline-block;padding:8px 14px;border-radius:8px;
+  font-size:.94rem;font-weight:600;color:var(--ink);
+  border:1px solid transparent;
+}
+.main-nav a:hover{color:var(--teal);border-color:var(--line);background:var(--cream-2)}
+.main-nav a.is-cta{background:var(--amber);color:#fff;border-color:var(--amber)}
+.main-nav a.is-cta:hover{background:var(--amber-dk);color:#fff}
+
+/* ---------- breadcrumb ---------- */
+.breadcrumb{
+  font-size:.85rem;color:var(--gray);padding:16px 0 0;
+}
+.breadcrumb a{color:var(--gray);font-weight:600}
+.breadcrumb a:hover{color:var(--teal)}
+.breadcrumb .sep{margin:0 6px;color:var(--line)}
+
+/* ---------- hero (asymmetric) ---------- */
+.hero{padding:56px 0 64px;border-bottom:1px solid var(--line)}
+.hero .wrap{
+  display:grid;grid-template-columns:1.35fr .9fr;gap:48px;align-items:center;
+}
+.hero-eyebrow{
+  font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--amber);margin-bottom:14px;display:block;
+}
+.hero h1{font-size:2.7rem;margin-bottom:18px}
+.hero p.lede{font-size:1.14rem;color:var(--gray);max-width:52ch;margin-bottom:26px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-panel{
+  background:var(--teal);border-radius:16px;padding:34px 28px;color:#fff;
+  min-height:230px;display:flex;flex-direction:column;justify-content:center;gap:14px;
+  border:1px solid var(--teal-dk);
+}
+.hero-panel .stat{font-family:Georgia,serif;font-size:2.3rem;font-weight:700;letter-spacing:-0.02em}
+.hero-panel .stat-label{font-size:.92rem;opacity:.88;max-width:32ch}
+.hero-panel hr{border:none;border-top:1px solid rgba(255,255,255,.25);margin:6px 0}
+
+/* ---------- faixa de destaque (full-bleed band) ---------- */
+.band{background:var(--ink);color:var(--cream);padding:40px 0}
+.band .wrap{
+  display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;
+}
+.band-tag{
+  font-family:Georgia,serif;font-size:1.6rem;color:var(--amber);white-space:nowrap;
+}
+.band p{color:#d6d0c4;font-size:1rem;max-width:70ch}
+.band-amber{background:var(--amber);color:#fff}
+.band-amber .band-tag{color:var(--ink)}
+.band-amber p{color:#fff2e0}
+
+/* ---------- sections ---------- */
+.section{padding:64px 0}
+.section-tight{padding:44px 0}
+.section-head{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
+  margin-bottom:32px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:14px;
+}
+.section-head h2{font-size:1.9rem}
+.section-head .kicker{
+  font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--teal);display:block;margin-bottom:6px;
+}
+.section-head a.see-all{font-weight:600;font-size:.92rem;white-space:nowrap}
+
+/* ---------- grid + card ---------- */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.grid.grid-2{grid-template-columns:repeat(2,1fr)}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .15s ease,transform .15s ease;
+}
+.card:hover{border-color:var(--amber);transform:translateY(-3px)}
+.card-media{
+  height:108px;display:flex;align-items:center;justify-content:center;
+  font-family:Georgia,serif;font-size:1.6rem;font-weight:700;color:#fff;position:relative;
+}
+.card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.18));}
+.card:nth-child(9n+1) .card-media,.card:nth-child(9n+4) .card-media{background:var(--teal)}
+.card:nth-child(9n+2) .card-media,.card:nth-child(9n+5) .card-media{background:var(--amber)}
+.card:nth-child(9n+3) .card-media,.card:nth-child(9n+6) .card-media{background:var(--ink)}
+.card:nth-child(9n+7) .card-media{background:var(--teal-dk)}
+.card:nth-child(9n+8) .card-media{background:#a8571f}
+.card:nth-child(9n+9) .card-media{background:#3f3a34}
+.card-body{padding:18px 18px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-meta{
+  display:flex;gap:10px;align-items:center;font-size:.76rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;
+}
+.card-cat{color:var(--teal)}
+.card-date{color:var(--gray);font-weight:600;text-transform:none;letter-spacing:0}
+.card h3{font-size:1.14rem;margin:0}
+.card h3 a{color:var(--ink)}
+.card:hover h3 a{color:var(--teal)}
+.card p{color:var(--gray);font-size:.92rem;flex:1}
+.card .read-more{font-size:.86rem;font-weight:700;color:var(--amber);margin-top:auto}
+
+/* ---------- app section (alternating image/text) ---------- */
+.app-section{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.app-section .wrap{
+  display:grid;grid-template-columns:.95fr 1.15fr;gap:52px;align-items:center;
+}
+.app-section.reverse .wrap{grid-template-columns:1.15fr .95fr}
+.app-section.reverse .app-copy{order:2}
+.app-section.reverse .app-mock{order:1}
+.app-copy .kicker{
+  font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--amber);display:block;margin-bottom:10px;
+}
+.app-copy h2{font-size:2.1rem;margin-bottom:16px}
+.app-copy p{color:var(--gray);margin-bottom:20px;max-width:52ch}
+.app-features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+.app-feature{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;
+}
+.app-feature .icon{font-size:1.3rem;display:block;margin-bottom:6px}
+.app-feature strong{display:block;font-size:.94rem;margin-bottom:3px}
+.app-feature span{font-size:.84rem;color:var(--gray)}
+
+/* phone mockup, pure CSS */
+.app-mock{display:flex;justify-content:center}
+.phone{
+  width:270px;border:2px solid var(--ink);border-radius:28px;background:#fff;
+  padding:14px;box-shadow:8px 8px 0 var(--line);
+}
+.phone-notch{width:60px;height:6px;background:var(--line);border-radius:4px;margin:0 auto 12px}
+.phone-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.phone-header strong{font-family:Georgia,serif;font-size:1rem;color:var(--teal)}
+.phone-header span{font-size:.72rem;color:var(--gray)}
+.phone-balance{
+  background:var(--teal);border-radius:10px;padding:14px;color:#fff;margin-bottom:14px;
+}
+.phone-balance .lbl{font-size:.7rem;opacity:.85;text-transform:uppercase;letter-spacing:.05em}
+.phone-balance .val{font-family:Georgia,serif;font-size:1.5rem;font-weight:700}
+.phone-bar{background:var(--cream-2);border-radius:6px;height:8px;margin-top:10px;overflow:hidden}
+.phone-bar i{display:block;height:100%;background:var(--amber);border-radius:6px}
+.phone-list{display:flex;flex-direction:column;gap:8px}
+.phone-row{
+  display:flex;justify-content:space-between;align-items:center;
+  border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:.82rem;
+}
+.phone-row .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:8px}
+.phone-row .due{color:var(--amber);font-weight:700;font-size:.74rem}
+
+/* ---------- newsletter ---------- */
+.newsletter{background:var(--ink);color:var(--cream);padding:56px 0}
+.newsletter .wrap{
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;
+}
+.newsletter h2{color:#fff;font-size:1.7rem;margin-bottom:8px}
+.newsletter p{color:#c9c2b4;max-width:46ch}
+.newsletter form{display:flex;gap:10px;flex-wrap:wrap}
+.newsletter input[type=email]{
+  padding:13px 16px;border-radius:8px;border:1px solid #4a453e;background:#2a2622;
+  color:#fff;font-size:.95rem;min-width:230px;
+}
+.newsletter input[type=email]::placeholder{color:#948d80}
+.newsletter .fine{font-size:.78rem;color:#948d80;margin-top:8px;width:100%}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-block;padding:12px 22px;border-radius:8px;font-weight:700;
+  font-size:.94rem;border:1px solid transparent;cursor:pointer;font-family:system-ui,sans-serif;
+}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-teal:hover{background:var(--teal-dk);color:#fff}
+.btn-amber{background:var(--amber);color:#fff}
+.btn-amber:hover{background:var(--amber-dk);color:#fff}
+.btn-outline{background:transparent;border-color:var(--ink);color:var(--ink)}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal)}
+.btn-outline-light{background:transparent;border-color:#605a50;color:#fff}
+.btn-outline-light:hover{border-color:var(--amber);color:var(--amber)}
+
+/* ---------- article (.post) ---------- */
+.post-head{padding:20px 0 8px}
+.post-head .card-meta{margin-bottom:14px}
+.post-head h1{font-size:2.3rem;margin-bottom:14px}
+.post-head .dek{font-size:1.1rem;color:var(--gray);max-width:62ch}
+.post-cover{width:100%;border-radius:12px;margin:8px 0 28px;display:block}
+.post{
+  max-width:700px;margin:0 auto;padding:28px 24px 72px;
+}
+.post h2{font-size:1.5rem;margin:36px 0 14px;color:var(--teal-dk)}
+.post h3{font-size:1.18rem;margin:26px 0 10px}
+.post p{margin-bottom:16px;font-size:1.02rem}
+.post ul,.post ol{margin:0 0 18px 0}
+.post ul li,.post ol li{
+  margin-bottom:9px;padding-left:22px;position:relative;font-size:1rem;
+}
+.post ul li::before{content:"—";position:absolute;left:0;color:var(--amber);font-weight:700}
+.post ol{counter-reset:item}
+.post ol li{counter-increment:item}
+.post ol li::before{content:counter(item)".";position:absolute;left:0;color:var(--amber);font-weight:700}
+.post blockquote{
+  border-left:3px solid var(--amber);background:var(--cream-2);
+  padding:16px 20px;margin:24px 0;font-style:italic;color:var(--ink);border-radius:0 12px 12px 0;
+}
+.post table{width:100%;border-collapse:collapse;margin:22px 0;font-size:.92rem}
+.post table caption{text-align:left;font-size:.82rem;color:var(--gray);margin-bottom:8px}
+.post th{background:var(--teal);color:#fff;text-align:left;padding:10px 12px;font-weight:700}
+.post td{padding:10px 12px;border-bottom:1px solid var(--line)}
+.post tr:nth-child(even) td{background:var(--cream-2)}
+.post .callout{
+  border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:0 12px 12px 0;
+  padding:16px 20px;margin:24px 0;background:#fff;
+}
+.post .callout strong{color:var(--teal-dk)}
+.post hr{border:none;border-top:1px solid var(--line);margin:36px 0}
+.post-share{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+
+/* related */
+.related{max-width:700px;margin:0 auto;padding:0 24px 72px}
+.related h2{font-size:1.3rem;margin-bottom:18px;border-top:2px solid var(--ink);padding-top:24px}
+.related .grid{grid-template-columns:repeat(3,1fr)}
+
+/* ---------- simple content pages (glossario/faq/sobre) ---------- */
+.page-head{padding:48px 0 8px;border-bottom:1px solid var(--line)}
+.page-head h1{font-size:2.4rem;margin-bottom:12px}
+.page-head p{color:var(--gray);max-width:60ch;font-size:1.06rem}
+.terms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+dl.glossary{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.gloss-card{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;
+  scroll-margin-top:90px;
+}
+.gloss-card dt{font-family:Georgia,serif;font-weight:700;color:var(--teal-dk);font-size:1.05rem;margin-bottom:6px}
+.gloss-card dt a{color:inherit}
+.gloss-card dd{color:var(--gray);font-size:.94rem}
+.gloss-jump{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 8px}
+.gloss-jump a{
+  border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:.86rem;font-weight:600;color:var(--ink);
+}
+.gloss-jump a:hover{border-color:var(--amber);color:var(--amber)}
+.faq-item{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px;
+}
+.faq-item h3{font-size:1.08rem;margin-bottom:8px;color:var(--teal-dk)}
+.faq-item p{color:var(--gray)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}
+.team-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;text-align:left}
+.team-avatar{
+  width:52px;height:52px;border-radius:50%;background:var(--teal);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;margin-bottom:12px;
+}
+.team-card h3{font-size:1rem;margin-bottom:2px}
+.team-card .role{font-size:.8rem;color:var(--amber);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;display:block}
+.team-card p{font-size:.88rem;color:var(--gray)}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--ink);color:#c9c2b4;padding:52px 0 24px}
+.site-footer .wrap{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:36px;
+}
+.footer-brand .brand-name{color:#fff}
+.footer-brand .brand-name span{color:var(--amber)}
+.footer-brand p{color:#948d80;font-size:.9rem;margin-top:12px;max-width:34ch}
+.site-footer h4{color:#fff;font-family:system-ui,sans-serif;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.site-footer ul li{margin-bottom:9px}
+.site-footer a{color:#c9c2b4;font-size:.92rem}
+.site-footer a:hover{color:var(--amber)}
+.footer-bottom{
+  border-top:1px solid #3a352e;padding-top:20px;display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;font-size:.82rem;color:#7d766a;
+}
+.footer-bottom a{color:#7d766a}
+.footer-bottom a:hover{color:var(--amber)}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-panel{min-height:auto}
+  .band .wrap{grid-template-columns:1fr}
+  .app-section .wrap,.app-section.reverse .wrap{grid-template-columns:1fr}
+  .app-section.reverse .app-copy,.app-section.reverse .app-mock{order:0}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .related .grid{grid-template-columns:repeat(2,1fr)}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .terms-grid{grid-template-columns:1fr}
+  dl.glossary{grid-template-columns:1fr}
+  .newsletter .wrap{grid-template-columns:1fr}
+  .site-footer .wrap{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  .hero h1{font-size:2.05rem}
+  .grid{grid-template-columns:1fr}
+  .related .grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .app-features{grid-template-columns:1fr}
+  .site-header .wrap{padding:14px 20px}
+  .main-nav ul{gap:2px}
+  .main-nav a{padding:7px 10px;font-size:.86rem}
+  .site-footer .wrap{grid-template-columns:1fr}
+  .post-head h1{font-size:1.7rem}
+  .section-head h2{font-size:1.5rem}
+}
+@media (prefers-color-scheme:dark){
+  body{background:var(--cream);color:var(--ink)}
+}
+  </style>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-size='13' text-anchor='middle' fill='%23fff' font-family='Georgia,serif' font-weight='bold'%3EMC%3C/text%3E%3C/svg%3E">
+  <meta property="og:image" content="https://momentocerto.cfd/img/golpe-do-pix-como-se-proteger.jpg">
+</head><body>
+  <header class="site-header">
+    <div class="wrap">
+      <a href="safe.html" class="brand-lockup" style="text-decoration:none">
+        <span class="brand-mark">MC</span>
+        <span class="brand-name">Momento <span>Certo</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="app.html">App</a></li>
+          <li><a href="glossario.html">Glossário</a></li>
+          <li><a href="faq.html">Dúvidas</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="app.html" class="is-cta">Conhecer o Prumo</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <article class="post">
+    <p class="breadcrumb wrap-narrow" style="padding:0 0 8px">
+      <a href="safe.html">Início</a><span class="sep">/</span><a href="safe.html">Segurança</a><span class="sep">/</span>Golpe do Pix
+    </p>
+
+    <header class="post-head">
+      <div class="card-meta">
+        <span class="card-cat">Segurança</span>
+        <span class="card-date">02 jul 2026 · por Equipe Momento Certo</span>
+      </div>
+      <h1>Golpe do Pix: os sinais mais comuns e como se proteger</h1>
+      <p class="dek">Golpistas mudam de tática o tempo todo — conheça os sinais de alerta mais frequentes e hábitos que reduzem o risco.</p>
+    </header>
+
+    <img class="post-cover" src="img/golpe-do-pix-como-se-proteger.jpg" alt="Pessoa desconfiada verificando no celular uma mensagem suspeita de Pix" loading="lazy">
+
+    <p>O Pix mudou a forma como o brasileiro movimenta dinheiro: transferência instantânea, disponível 24 horas por dia, sem burocracia. Essa mesma agilidade, no entanto, virou terreno fértil para golpes. Como a transação é irreversível na maioria dos casos e acontece em segundos, o golpista aposta justamente na pressa e na falta de tempo pra pensar. Não existe uma lista fechada de "golpes do Pix" — as táticas mudam de nome, de roupagem e de pretexto o tempo todo. Mas os sinais de alerta se repetem. Este artigo reúne, de forma educativa e genérica, os padrões mais comuns e o que fazer antes, durante e depois de um episódio suspeito.</p>
+
+    <h2>Os formatos mais recorrentes</h2>
+    <p>Apesar da variedade de disfarces, a maioria dos golpes envolvendo Pix se encaixa em algumas categorias amplas. Reconhecer o formato ajuda a identificar a armadilha antes de cair nela.</p>
+
+    <h3>O "funcionário do banco"</h3>
+    <p>Um contato por telefone, SMS ou aplicativo de mensagens se apresenta como atendente do seu banco, alegando uma movimentação suspeita na conta. Para "proteger" o dinheiro, pede que você confirme dados, informe códigos recebidos por SMS ou até faça uma transferência para uma "conta segura". Nenhum banco de verdade pede senha, código de token ou transferência para resolver fraude — esse é o núcleo do golpe, disfarçado de mil formas diferentes.</p>
+
+    <h3>O familiar em apuros (WhatsApp clonado ou falsificado)</h3>
+    <p>Uma mensagem chega de um número novo, ou até do número real de um parente com o aplicativo clonado, contando uma história de emergência — perda do celular, acidente, dívida urgente — e pedindo um Pix imediato. O tom é sempre de urgência extrema, para não dar tempo de checar a informação com calma.</p>
+
+    <h3>Phishing por link</h3>
+    <p>Mensagens ou e-mails com links que imitam páginas de bancos, promoções, encomendas ou órgãos públicos. Ao clicar, a vítima é levada a uma página falsa que captura login, senha e, em alguns casos, induz a própria vítima a autorizar uma transferência "sem perceber". Vale reforçar: instituições sérias não enviam links pedindo login urgente por SMS ou WhatsApp.</p>
+
+    <h3>O falso motoboy ou entregador</h3>
+    <p>Comum em vendas por marketplace ou redes sociais: o "comprador" alega já ter pago e envia um comprovante falso, pedindo que o produto seja liberado antes da confirmação real na conta. Em outra variação, um suposto entregador cobra uma "taxa extra" via Pix para concluir a entrega. A regra de ouro aqui é simples — comprovante de imagem não é confirmação de recebimento; o dinheiro só está confirmado quando aparece no extrato.</p>
+
+    <div class="callout">
+      <strong>Ponto em comum entre quase todos os golpes:</strong> pressa artificial. O golpista cria um cenário em que parece que qualquer segundo de hesitação vai causar um prejuízo maior — e é exatamente esse desconforto que faz a vítima pular a etapa de checar.
+    </div>
+
+    <h2>Sinais de alerta que se repetem</h2>
+    <ul>
+      <li>Contato não solicitado pedindo confirmação de dados, senha ou código recebido por SMS</li>
+      <li>Sensação de urgência extrema — "é agora ou nunca", "a conta vai ser bloqueada", "o pedido vai ser cancelado"</li>
+      <li>Pedido de pagamento por Pix para resolver um problema que, em circunstâncias normais, teria outros canais formais</li>
+      <li>Link recebido por mensagem que leva a uma página de login fora do aplicativo oficial</li>
+      <li>Comprovante de pagamento em imagem, sem confirmação no próprio extrato ou aplicativo do banco</li>
+      <li>Erros de português, domínios estranhos ou número de telefone desconhecido se passando por contato conhecido</li>
+    </ul>
+
+    <p>Um hábito simples reduz boa parte do risco: sempre que uma mensagem pedir dinheiro ou dados com urgência, faça uma pausa deliberada e confirme por outro canal — uma ligação de voz para o número já salvo, não para o número que mandou a mensagem, por exemplo. Golpes contam com a resposta automática; a checagem por um segundo canal quebra esse automatismo.</p>
+
+    <blockquote>Nenhuma instituição financeira séria pede senha, código de verificação ou transferência via Pix para "proteger" a sua conta. Se alguém pede isso, é sinal de golpe — sem exceção.</blockquote>
+
+    <h2>Comparativo rápido dos formatos mais comuns</h2>
+    <table>
+      <caption>Visão geral educativa — características aproximadas de cada formato</caption>
+      <thead>
+        <tr><th>Formato</th><th>Canal típico</th><th>Isca principal</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Falso funcionário de banco</td><td>Ligação, SMS</td><td>"Movimentação suspeita" na conta</td></tr>
+        <tr><td>WhatsApp clonado/falsificado</td><td>Mensagem de app</td><td>Emergência de um familiar</td></tr>
+        <tr><td>Phishing por link</td><td>SMS, e-mail, rede social</td><td>Promoção, encomenda, cobrança falsa</td></tr>
+        <tr><td>Falso motoboy/entregador</td><td>Marketplace, chat de venda</td><td>Comprovante falso ou taxa extra</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Se você já caiu no golpe: o que fazer agora</h2>
+    <p>Perceber o golpe depois da transferência é frustrante, mas agir rápido pode fazer diferença — inclusive porque instituições financeiras têm mecanismos específicos para tentar bloquear valores em casos de fraude comprovada.</p>
+    <ol>
+      <li>Contate o banco ou a instituição de pagamento imediatamente pelo canal oficial (aplicativo, central de atendimento) e relate a fraude, pedindo o bloqueio ou tentativa de devolução do valor</li>
+      <li>Registre um Boletim de Ocorrência, presencial ou pela delegacia eletrônica — é o documento formal que embasa qualquer disputa posterior</li>
+      <li>Troque imediatamente as senhas de aplicativos financeiros, e-mail e redes sociais, principalmente se você chegou a clicar em algum link suspeito</li>
+      <li>Ative a verificação em duas etapas em todos os aplicativos que oferecem essa opção</li>
+      <li>Avise contatos próximos, caso o golpe tenha envolvido o seu número ou perfil — para que ninguém mais caia usando a sua identidade</li>
+    </ol>
+
+    <h2>Hábitos permanentes de proteção</h2>
+    <p>Prevenção não é um ato único, é uma rotina. Alguns hábitos simples, mantidos com constância, cortam a maior parte do risco:</p>
+    <ul>
+      <li>Confirmar qualquer pedido de dinheiro por um segundo canal, nunca pelo mesmo em que a mensagem chegou</li>
+      <li>Desconfiar de qualquer situação que combine urgência + pedido de dados ou dinheiro</li>
+      <li>Nunca clicar em links recebidos por SMS ou mensagem sem verificar o remetente com cuidado</li>
+      <li>Usar limites de valor e horário para Pix no próprio aplicativo do banco, reduzindo o estrago em caso de erro</li>
+      <li>Acompanhar o próprio orçamento de perto — quem tem visão clara do fluxo de entradas e saídas percebe uma movimentação estranha muito mais rápido</li>
+    </ul>
+    <p>É justamente nesse último ponto que ferramentas de organização financeira ajudam bastante. Ter os lançamentos organizados e visíveis facilita notar qualquer transferência fora do padrão quase na hora em que ela acontece. Se você ainda não tem um jeito estruturado de acompanhar isso, vale conhecer o <a href="app.html">Prumo</a>, o aplicativo do Momento Certo pensado pra dar essa visão clara do seu dinheiro no dia a dia.</p>
+
+    <p>Segurança financeira caminha junto com organização. Entender como funciona o sistema por trás dos pagamentos também ajuda a identificar quando algo foge do padrão — veja como isso se conecta com o <a href="pix-automatico-2026.html">Pix Automático</a> e com as mudanças trazidas pelo <a href="open-finance-o-que-muda-no-dia-a-dia.html">Open Finance</a>. E se a preocupação é começar do zero a organizar as finanças, o primeiro passo costuma ser montar uma <a href="reserva-de-emergencia-primeiro-passo.html">reserva de emergência</a>.</p>
+
+    <h2>Conclusão</h2>
+    <p>Os golpes envolvendo Pix vão continuar mudando de forma — novos pretextos, novas mensagens, novos disfarces. O que não muda é o padrão por trás deles: pressa artificial, pedido de dado sensível e um canal de contato não verificado. Cultivar o hábito de pausar, confirmar por um segundo canal e desconfiar de urgência é, hoje, a defesa mais eficaz que existe — mais do que qualquer ferramenta isolada. Proteger o próprio dinheiro é, no fim, uma extensão natural de organizar bem a vida financeira como um todo.</p>
+
+    <div class="post-share">
+      <a href="glossario.html" class="btn btn-outline">Ver glossário financeiro</a>
+      <a href="app.html" class="btn btn-teal">Conhecer o Prumo</a>
+    </div>
+  </article>
+
+  <section class="related">
+    <h2>Leia também</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-media">PA</div>
+        <div class="card-body">
+          <div class="card-meta"><span class="card-cat">Pagamentos</span></div>
+          <h3><a href="pix-automatico-2026.html">Pix Automático: como funciona a nova forma de pagar contas recorrentes</a></h3>
+          <p>Entenda como funciona a modalidade que promete automatizar pagamentos recorrentes via Pix.</p>
+          <span class="read-more">Ler artigo →</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-media">RE</div>
+        <div class="card-body">
+          <div class="card-meta"><span class="card-cat">Planejamento</span></div>
+          <h3><a href="reserva-de-emergencia-primeiro-passo.html">Reserva de emergência: o primeiro passo antes de qualquer investimento</a></h3>
+          <p>Por que montar uma reserva é a base de qualquer plano financeiro sólido.</p>
+          <span class="read-more">Ler artigo →</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-media">OF</div>
+        <div class="card-body">
+          <div class="card-meta"><span class="card-cat">Sistema financeiro</span></div>
+          <h3><a href="open-finance-o-que-muda-no-dia-a-dia.html">Open Finance: o que muda no seu dia a dia financeiro</a></h3>
+          <p>O compartilhamento de dados entre instituições e o que isso representa na prática.</p>
+          <span class="read-more">Ler artigo →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-brand">
+        <span class="brand-name">Momento <span>Certo</span></span>
+        <p>Educação financeira prática para organizar as contas, entender o sistema financeiro e tomar decisões no seu tempo — sem promessas vazias.</p>
+      </div>
+      <div>
+        <h4>Conteúdo</h4>
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="glossario.html">Glossário financeiro</a></li>
+          <li><a href="faq.html">Dúvidas frequentes</a></li>
+          <li><a href="sobre.html">Sobre o Momento Certo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Artigos</h4>
+        <ul>
+          <li><a href="reserva-de-emergencia-primeiro-passo.html">Reserva de emergência</a></li>
+          <li><a href="orcamento-domestico-metodo-50-30-20.html">Orçamento doméstico</a></li>
+          <li><a href="pix-automatico-2026.html">Pix Automático</a></li>
+          <li><a href="golpe-do-pix-como-se-proteger.html">Segurança e golpes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Prumo (app)</h4>
+        <ul>
+          <li><a href="app.html">Conheça o app</a></li>
+          <li><a href="app.html#faq">Perguntas sobre o app</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>&copy; 2026 Momento Certo. Todos os direitos reservados. Conteúdo educativo — não é recomendação financeira individualizada.</span>
+      <span><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos de uso</a></span>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>
