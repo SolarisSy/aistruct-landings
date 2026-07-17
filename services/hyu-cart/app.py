@@ -89,6 +89,7 @@ PLACEHOLDER_EMAIL = os.environ.get("CHECKOUT_PLACEHOLDER_EMAIL", "comprador@hyuo
 HYU_ORIGINS = [
     "https://hyudrinks.com", "https://www.hyudrinks.com",
     "https://hyuoficial.com", "https://www.hyuoficial.com",
+    "https://teste.hyuoficial.com",  # site de teste (checkout Shopify gateado)
 ]
 LEADS_PASSWORD = os.environ.get("LEADS_PASSWORD", "").strip()
 PAGGINS_WEBHOOK_SECRET = os.environ.get("PAGGINS_WEBHOOK_SECRET", "").strip()
