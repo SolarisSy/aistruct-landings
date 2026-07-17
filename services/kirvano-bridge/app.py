@@ -42,7 +42,15 @@ KIRVANO_SECRET   = os.environ.get("KIRVANO_SECRET", "").strip() or None
 CLICKID_FIELD    = os.environ.get("CLICKID_FIELD", "src").strip()
 REDTRACK_POSTBACK = os.environ.get("REDTRACK_POSTBACK", "https://ohjzb.ttrk.io/postback").rstrip("/")
 
-app = FastAPI(title="Kirvano -> RedTrack Bridge", version="1.4.0")
+# --- UTMify (ofertas migradas do RedTrack: ganhabr.lat) -----------------------
+# A UTMify NÃO tem receiver nativo de Kirvano (os receivers são Cartpanda, Clickbank,
+# Eduzz, Hotmart, Kiwify, Payt). Sem este POST, oferta em UTMify mostra clique/gasto e
+# NUNCA a venda. Doc: https://docs.utmify.com.br/envio-de-vendas
+UTMIFY_ORDERS_URL = os.environ.get(
+    "UTMIFY_ORDERS_URL", "https://api.utmify.com.br/api-credentials/orders").rstrip("/")
+UTMIFY_API_TOKEN  = os.environ.get("UTMIFY_API_TOKEN", "").strip() or None
+
+app = FastAPI(title="Kirvano -> RedTrack/UTMify Bridge", version="1.5.0")
 
 # rtkcid do RedTrack = ObjectId de 24 hex. Usado pra aceitar SO o trafego do
 # fluxo Google/RedTrack e ignorar vendas de outras fontes (ex: Facebook de
@@ -59,6 +67,9 @@ STATS = {
     "forwarded": 0,      # postback disparado pro RedTrack
     "attributed": 0,     # RedTrack respondeu 200 (status:1 OK)
     "rt_error": 0,       # RedTrack respondeu != 200 ou exception
+    "utmify_sent": 0,    # venda postada na UTMify (oferta migrada, sem rtkcid)
+    "utmify_ok": 0,      # UTMify respondeu 2xx
+    "utmify_error": 0,   # UTMify respondeu != 2xx ou exception
 }
 
 # Deduplicação de webhooks: guarda order_ids já processados por DEDUP_TTL segundos.
@@ -171,6 +182,102 @@ def _extract_amount(payload: dict) -> float | None:
     return None
 
 
+def _cents(v: float | None) -> int:
+    return int(round((v or 0.0) * 100))
+
+
+def _kirvano_to_utmify(payload: dict, amount: float | None) -> dict:
+    """Mapeia o webhook da Kirvano pro schema da Orders API da UTMify.
+
+    Schema oficial: https://docs.utmify.com.br/envio-de-vendas
+    Tudo com .get()/fallback: a Kirvano varia o payload por evento e não versiona.
+    Campos obrigatórios da UTMify que a Kirvano pode não mandar recebem default seguro
+    (ex.: customer.email vazio) — melhor mandar a venda com campo pobre do que perder a
+    venda inteira por KeyError.
+    """
+    cust = payload.get("customer") or {}
+    utm = payload.get("utm") or {}
+
+    # A Kirvano manda "PIX"/"CREDIT_CARD"/"BOLETO"; a UTMify aceita um enum minúsculo.
+    pm_raw = str(payload.get("payment_method") or payload.get("payment") or "").lower()
+    if "pix" in pm_raw:
+        payment = "pix"
+    elif "boleto" in pm_raw or "bank_slip" in pm_raw:
+        payment = "boleto"
+    elif "card" in pm_raw or "cartao" in pm_raw or "cartão" in pm_raw:
+        payment = "credit_card"
+    else:
+        payment = "pix"   # a oferta vende por PIX; default menos errado que abortar
+
+    now = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+    created = str(payload.get("created_at") or payload.get("createdAt") or now)[:19]
+    approved = str(payload.get("approved_at") or payload.get("paid_at") or now)[:19]
+
+    produtos = []
+    for p in (payload.get("products") or []):
+        if not isinstance(p, dict):
+            continue
+        preco = _parse_brl(p.get("price"))
+        produtos.append({
+            "id": str(p.get("id") or p.get("offer_id") or p.get("name") or "produto"),
+            "name": str(p.get("name") or "produto"),
+            "planId": None,
+            "planName": None,
+            "quantity": int(p.get("quantity") or 1),
+            "priceInCents": _cents(preco if preco is not None else amount),
+        })
+    if not produtos:
+        produtos = [{"id": "kirvano", "name": str(payload.get("product_name") or "produto"),
+                     "planId": None, "planName": None, "quantity": 1,
+                     "priceInCents": _cents(amount)}]
+
+    total_cents = _cents(amount)
+    return {
+        "orderId": str(payload.get("order_id") or payload.get("id") or ""),
+        "platform": "Kirvano",
+        "paymentMethod": payment,
+        "status": "paid",          # só chega aqui evento aprovado (whitelist acima)
+        "createdAt": created,
+        "approvedDate": approved,
+        "refundedAt": None,
+        "customer": {
+            "name": str(cust.get("name") or ""),
+            "email": str(cust.get("email") or ""),
+            "phone": cust.get("phone_number") or cust.get("phone"),
+            "document": cust.get("document") or cust.get("cpf"),
+            "country": "BR",
+            "ip": cust.get("ip"),
+        },
+        "products": produtos,
+        # É daqui que a UTMify liga a venda ao clique (e ao gclid que o utms/latest.js
+        # carimbou no checkout). Sem os utm_*, a venda entra como orgânica.
+        "trackingParameters": {
+            "src": utm.get("src"),
+            "sck": utm.get("sck"),
+            "utm_source": utm.get("utm_source"),
+            "utm_campaign": utm.get("utm_campaign"),
+            "utm_medium": utm.get("utm_medium"),
+            "utm_content": utm.get("utm_content"),
+            "utm_term": utm.get("utm_term"),
+        },
+        "commission": {
+            "totalPriceInCents": total_cents,
+            "gatewayFeeInCents": 0,      # a Kirvano não manda a fee no webhook
+            "userCommissionInCents": total_cents,
+        },
+        "isTest": False,
+    }
+
+
+async def _send_utmify(payload: dict, amount: float | None) -> tuple[int, str]:
+    body = _kirvano_to_utmify(payload, amount)
+    async with httpx.AsyncClient(timeout=20) as c:
+        r = await c.post(UTMIFY_ORDERS_URL, json=body,
+                         headers={"x-api-token": UTMIFY_API_TOKEN or "",
+                                  "Content-Type": "application/json"})
+    return r.status_code, r.text[:200]
+
+
 @app.get("/")
 def root():
     return {
@@ -259,16 +366,46 @@ async def postback(request: Request,
         _seen_orders[order_id] = now
 
     clickid = _extract_clickid(payload)
-    if not clickid:
-        STATS["no_clickid"] += 1
-        _record("no_clickid", payload, content_type=ctype, event=event)
-        log.warning("no clickid found in payload (field=%s)", CLICKID_FIELD)
-        return JSONResponse(
-            {"ok": False, "error": "clickid_not_found", "field": CLICKID_FIELD},
-            status_code=200,
-        )
-
     amount = _extract_amount(payload) or 0.0
+
+    # ------------------------------------------------------------------
+    # ROTEAMENTO RedTrack x UTMify — MUTUAMENTE EXCLUSIVO (de propósito).
+    #
+    #   TEM rtkcid  -> oferta no fluxo RedTrack  -> postback RedTrack (como sempre)
+    #   NÃO tem     -> oferta migrada p/ UTMify  -> Orders API da UTMify
+    #
+    # ⚠️ NUNCA mandar pros DOIS: o RedTrack importa a conversão pro Google Ads pelo
+    # gclid E a UTMify também manda pro Google (pixel-google.js + conta conectada).
+    # Postar nos dois = conversão CONTADA EM DOBRO no Google -> smart bidding aprende
+    # errado e o ROI aparece inflado. O rtkcid é o discriminador natural: a página em
+    # UTMify não tem unilpclick, logo nunca gera rtkcid.
+    # ------------------------------------------------------------------
+    if not clickid:
+        if not UTMIFY_API_TOKEN:
+            # Sem token não há como marcar a venda. Falha RUIDOSA: antes um alerta aqui
+            # do que "clique sobe, venda some" descoberto no fim do mês.
+            STATS["no_clickid"] += 1
+            _record("no_clickid_no_utmify", payload, content_type=ctype, event=event)
+            log.error("venda SEM rtkcid e UTMIFY_API_TOKEN ausente -> venda NAO marcada "
+                      "em lugar nenhum (order_id=%s)", order_id)
+            return JSONResponse(
+                {"ok": False, "error": "no_clickid_and_no_utmify_token"}, status_code=200)
+
+        try:
+            status_code, body = await _send_utmify(payload, amount)
+            STATS["utmify_sent"] += 1
+            ok = 200 <= status_code < 300
+            STATS["utmify_ok" if ok else "utmify_error"] += 1
+            _record("utmify_forwarded", payload, content_type=ctype, event=event,
+                    amount=amount, utmify_status=status_code, utmify_body=body)
+            log.info("utmify order: order_id=%s sum=%s -> %s", order_id, amount, status_code)
+            return {"ok": ok, "route": "utmify", "order_id": order_id,
+                    "payout": amount, "utmify_status": status_code, "utmify_body": body}
+        except Exception as e:
+            STATS["utmify_error"] += 1
+            _record("utmify_exception", payload, content_type=ctype, error=str(e))
+            log.error("utmify order failed: %s", e)
+            raise HTTPException(status_code=502, detail=f"utmify order failed: {e!s}")
 
     # Dispara GET pro RedTrack
     # Param name OBRIGATORIO: 'clickid' (nao 'cid'); endpoint no tracking domain.
