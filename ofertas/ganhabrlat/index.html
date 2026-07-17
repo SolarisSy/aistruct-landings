@@ -435,11 +435,11 @@
   </script>
 
   
-  <!-- RedTrack Universal script /click support (no-redirect, Google Ads compliant).
-       OBRIGATÓRIO no FIM do <body>. Gera clickid em cookie 1st-party (.ganhabr.lat),
-       registra o clique lendo cmpid da URL. CTA de checkout (no player vTurb) =
-       https://trk.ganhabr.lat/click — o cookie viaja same-site automático. -->
-  <script src="https://trk.ganhabr.lat/unilpclick.js?attribution=lastpaid&cookiedomain=ganhabr.lat&cookieduration=30&defaultcampaignid=6a18c7f28dcdad10abc5510e&regviewonce=false"></script>
+  <!-- 16/07: RedTrack REMOVIDO — esta oferta migrou p/ o método UTMify (igual ganhosbr.lat).
+       A marcação de clique é 100% UTMify (utms/latest.js + pixel-google.js, no <head>) e o
+       CTA do player vTurb aponta DIRETO pro checkout (pay.kirvano.com/07ed1b99…), sem passar
+       por trk.ganhabr.lat/click. Manifest: variant ganhabrlat -> tracker: utmify.
+       Ver SETUPS/SETUP_UTMIFY.md. -->
   
 
 </body>
