@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Portal Certo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --violet:#6d28d9;
+      --violet-2:#7c3aed;
+      --violet-dk:#4c1d95;
+      --ink:#1e1b2e;
+      --muted:#7a7690;
+      --ok:#16a34a;
+    }
+    html,body{height:100%}
+    body{
+      font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);
+      background:linear-gradient(165deg,var(--violet) 0%,var(--violet-dk) 100%);
+      -webkit-font-smoothing:antialiased;
+      display:flex;flex-direction:column;min-height:100%;
+    }
+    .top{padding:22px 20px;display:flex;align-items:center;gap:10px;justify-content:center}
+    .logo{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px}
+    .brand{font-weight:800;font-size:17px;color:#fff;letter-spacing:-.3px}
+
+    main{flex:1;display:flex;align-items:center;justify-content:center;padding:8px 20px 30px}
+    .card{
+      background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(30,20,60,.35);
+      padding:32px 24px;width:100%;max-width:440px;text-align:center;
+    }
+    h1{font-size:23px;line-height:1.3;font-weight:800;letter-spacing:-.4px;margin-bottom:10px}
+    .sub{font-size:15px;color:var(--muted);margin-bottom:24px}
+    .cta{
+      width:100%;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:18px;
+      color:#fff;padding:18px;border-radius:13px;
+      background:linear-gradient(135deg,var(--violet),var(--violet-2));
+      box-shadow:0 10px 26px rgba(109,40,217,.4);
+      display:flex;align-items:center;justify-content:center;gap:9px;
+      transition:transform .12s,box-shadow .12s;
+    }
+    .cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(109,40,217,.5)}
+    .cta:active{transform:translateY(0)}
+    .arw{font-size:20px}
+    .secure{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12.5px;color:var(--muted);margin-top:16px}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(22,163,74,.15)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+    footer{padding:18px 20px 24px;text-align:center}
+    footer a{color:rgba(255,255,255,.8);text-decoration:none;font-size:12px;margin:0 8px}
+    footer p{color:rgba(255,255,255,.55);font-size:11px;line-height:1.6;max-width:460px;margin:10px auto 0}
+  </style>
+</head>
+<body>
+
+  <main>
+    <!-- GATE: pergunta genérica sim/não. É um <form> com submit (não link):
+         o botão POSTA para go/ e carrega gclid/campaignid. Prerender do
+         Gmail não submete formulário → cloaker só dispara no clique real. -->
+    <form id="gate" class="card" action="go/" method="get" autocomplete="off">
+      <h1>Você é maior de 18 anos e mora no Brasil?</h1>
+      <div class="sub">Confirme para continuar.</div>
+
+      <input type="hidden" name="step" value="2">
+      <input type="hidden" name="ref" value="gate">
+      <label for="s_id" class="sr-only">Sessão</label>
+      <input type="text" id="s_id" name="s_id" class="sr-only" tabindex="-1" aria-hidden="true">
+
+      <button type="submit" class="cta">Sim, continuar <span class="arw">→</span></button>
+
+      <div class="secure"><span class="dot"></span> Leva menos de 1 minuto</div>
+    </form>
+  </main>
+
+  <footer>
+    <a href="termos.html">Termos</a>
+    <a href="privacidade.html">Privacidade</a>
+    <p>Portal Certo é um conteúdo informativo independente. Não somos instituição financeira e não concedemos crédito. Não há garantia de aprovação. Não endossado por bancos ou marcas de terceiros.</p>
+  </footer>
+
+  <script>
+    // Carrega os parâmetros do anúncio (gclid, campaignid...) para dentro do form
+    // → o cloaker /go/ recebe {p:gclid}/{p:campaignid}.
+    (function(){
+      var params=new URLSearchParams(window.location.search);
+      var f=document.getElementById('gate');
+      params.forEach(function(v,k){
+        if(!k||f.querySelector('[name="'+CSS.escape(k)+'"]'))return;
+        var i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i);
+      });
+    })();
+  </script>
+</body>
+</html>
