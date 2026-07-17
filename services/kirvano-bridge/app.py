@@ -285,14 +285,19 @@ async def _send_utmify(payload: dict, amount: float | None) -> tuple[int, str]:
 
 @app.get("/")
 def root():
+    # ⚠️ version vem do app (FastAPI), NÃO hardcoded: a string fixa aqui já ficou pra trás
+    # do código e me fez caçar um deploy que já tinha subido (17/07).
     return {
-        "service": "kirvano-redtrack-bridge",
-        "version": "1.4.0",
+        "service": "kirvano-redtrack-utmify-bridge",
+        "version": app.version,
         "secret_required": KIRVANO_SECRET is not None,
         "clickid_field": CLICKID_FIELD,
         "clickid_validation": "24-hex rtkcid only (ignora trafego nao-Google, ex: FB)",
         "amount_source": "total_price (BRL) — NAO usa bloco fiscal",
+        "routing": "com rtkcid -> RedTrack | sem rtkcid -> UTMify (mutuamente exclusivo)",
         "redtrack_postback": REDTRACK_POSTBACK,
+        "utmify_orders_url": UTMIFY_ORDERS_URL,
+        "utmify_token_set": bool(UTMIFY_API_TOKEN),
     }
 
 
