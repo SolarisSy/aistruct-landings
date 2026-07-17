@@ -246,7 +246,12 @@ def _kirvano_to_utmify(payload: dict, amount: float | None) -> dict:
             "phone": cust.get("phone_number") or cust.get("phone"),
             "document": cust.get("document") or cust.get("cpf"),
             "country": "BR",
-            "ip": cust.get("ip"),
+            # ⚠️ customer.ip é OBRIGATÓRIO na Orders API, apesar de a doc listar como
+            # opcional. Provado 17/07: com ip=null → 400 SCHEMA_VALIDATION_FAILED
+            # ("customer.ip cannot be null"); com ip → 200 SUCCESS. A Kirvano nem sempre
+            # manda o IP, então o fallback 0.0.0.0 evita perder a venda inteira por causa
+            # de um campo que não afeta atribuição.
+            "ip": cust.get("ip") or _walk_find(payload, "ip") or "0.0.0.0",
         },
         "products": produtos,
         # É daqui que a UTMify liga a venda ao clique (e ao gclid que o utms/latest.js
