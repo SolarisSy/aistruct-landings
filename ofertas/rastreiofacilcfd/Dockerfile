@@ -5,7 +5,10 @@ FROM php:8.2-fpm-alpine
 #   mbstring -> functions.php (mb_strtolower)
 #   opcache  -> performance
 # (json/session/openssl ja vem embutidos no php:8.2-fpm-alpine)
-RUN apk add --no-cache nginx \
+# Deps Alpine necessarias pra compilar as exts:
+#   libcurl-dev  -> ext curl (nao basta docker-php-ext-install, precisa da lib)
+#   oniguruma-dev -> ext mbstring
+RUN apk add --no-cache nginx libcurl-dev oniguruma-dev \
     && docker-php-ext-install -j$(nproc) opcache curl mbstring
 
 COPY nginx-php.conf /etc/nginx/http.d/default.conf
