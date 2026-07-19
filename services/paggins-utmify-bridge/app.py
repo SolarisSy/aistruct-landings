@@ -46,6 +46,10 @@ UTMIFY_API_TOKEN = os.environ.get("UTMIFY_API_TOKEN", "").strip()
 UTMIFY_ORDERS_URL = os.environ.get("UTMIFY_ORDERS_URL", "https://api.utmify.com.br/api-credentials/orders").rstrip("/")
 PAGGINS_WEBHOOK_SECRET = os.environ.get("PAGGINS_WEBHOOK_SECRET", "").strip() or None
 PLATFORM_NAME = os.environ.get("PLATFORM_NAME", "Paggins").strip()
+# ⚠️ o webhook do Paggins é a NÍVEL DE LOJA (recebe TODOS os pedidos, incl. HYU bebidas).
+# PRODUCT_ID_FILTER = só encaminha pedidos que referenciem este productId (a oferta loto).
+# Sem isso, pedidos de OUTROS produtos da loja iriam parar no UTMify do loto (contaminação).
+PRODUCT_ID_FILTER = os.environ.get("PRODUCT_ID_FILTER", "").strip() or None
 
 app = FastAPI(title="Paggins -> UTMify Bridge", version="1.0.0")
 
@@ -232,6 +236,15 @@ async def postback(request: Request,
         _record("skipped_event", payload, content_type=ctype, event=event)
         log.info("ignored event=%r", event)
         return {"ok": True, "skipped": "event", "event": event}
+
+    # filtro de produto: webhook é da LOJA inteira — só encaminha a oferta loto
+    if PRODUCT_ID_FILTER:
+        import json as _j
+        if PRODUCT_ID_FILTER not in _j.dumps(payload):
+            STATS["skipped_product"] = STATS.get("skipped_product", 0) + 1
+            _record("skipped_product", payload, content_type=ctype, event=event)
+            log.info("pedido de outro produto (nao %s) — ignorado", PRODUCT_ID_FILTER[:8])
+            return {"ok": True, "skipped": "product_filter"}
 
     now = time.time()
     global _seen
