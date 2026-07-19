@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Privacidade">
-  <g fill="none" stroke="#00416b" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="30" y="58" width="68" height="52" rx="10"/>
-    <path d="M42 58V44c0-14 10-26 22-26s22 12 22 26v14"/>
-    <path d="M64 82v10"/>
-  </g>
-</svg>
-
