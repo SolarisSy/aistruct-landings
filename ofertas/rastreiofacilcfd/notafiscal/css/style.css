@@ -1,0 +1,109 @@
+body {
+	display: flex;
+	min-height: 100vh;
+	align-items: center;
+	flex-direction: column;
+	background-color: #000;
+}
+
+#main {
+	width: 100%;
+	display: flex;
+	padding: 0px 20px;
+	box-sizing: border-box;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.navbar {
+	padding: 10px 0px 0px 0px;
+	background-color: #000;
+}
+
+#ad1, #ad2 {
+	width: 100%;
+	margin: 0px;
+	max-width: 900px;
+	box-sizing: border-box;
+	margin-bottom: 30px;
+}
+
+#ad1 > p, #ad2 > p {
+	margin: 10px 0px 20px 5px !important;
+}
+
+.ad1, .ad2 {
+	width: 100%;
+	margin: 0px;
+	padding: 20px 30px;
+	box-sizing: border-box;
+}
+
+.ad2 {
+	height: 100%;
+	padding: 20px;
+	min-height: 25vh;
+}
+
+.styled-button {
+	padding: 0px;
+}
+
+.entrega-container {
+	width: 100%;
+	margin-top: 20px;
+}
+
+.icon-container {background-color: #000 !important;}
+
+.entrega-header {
+	padding: 12.5px 15px;
+	background-color: #000 !important;
+}
+
+.button-title {color: #000 !important;}
+
+.button-container {
+	width: 100%;
+	max-width: 100%;
+}
+
+.styled-button2 {
+	display: flex;
+	padding: 20px 50px 20px 20px;
+	user-select: none;
+	align-items: center;
+	justify-content: center;
+	background-color: #000 !important;
+}
+
+.button-container .material-symbols-outlined {
+	right: 15px;
+	position: absolute;
+}
+
+#popup-content h2 {
+	color: #000 !important;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#popup-content p {
+	color: rgb(33, 33, 33);
+	margin-top: 10px;
+}
+
+@media screen and (max-width: 468px) {
+	#main {padding: 0px 15px;}
+
+	.ad1, .ad2 {padding: 20px;}
+
+	.styled-button2 {justify-content: start;}
+}
+
+@media screen and (max-width: 368px) {
+	#main {padding: 0px 10px;}
+
+	.ad1, .ad2 {padding: 15px 10px;}
+}

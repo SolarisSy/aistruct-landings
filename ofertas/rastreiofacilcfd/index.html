@@ -1,0 +1,352 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rastreamento</title>
+    <link href="./css/animate.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css" id="bootstrap-css">
+    <link rel="shortcut icon" href="images/logonovo.png" />
+    <link rel="stylesheet" href="./css/bunker.css">
+    <link rel="stylesheet" href="./css/global.css">
+
+    <!-- <link rel="stylesheet" href="/app/lib/fontawesome/font-awesome.min.css'> -->
+
+    <link rel="stylesheet" href="./css/rastroUnico.css">
+<link rel="stylesheet" href="./css/rastroMulti.css">
+<link rel="stylesheet" href="./css/contrast.css">
+<link rel="stylesheet" href="./index.css">
+<link rel="stylesheet" href="./carrossel.css">
+   
+</head>
+
+<body>
+<div id="acess-drop-down">
+    <header>
+        <a class="close" tabindex="1"></a>
+    </header>
+</div>
+<section id="menu">
+    <a class="hamburger" tabindex="1"></a>
+    <a class="logo" href=""></a>
+    <a class="pesquisar"></a>
+    
+  
+</section>
+<main>
+        <input type="hidden" id="documento" name="documento" value="">
+<div class="container">
+    <nav aria-label="breadcrumb">
+      <div id="trilha">
+            <a>Portal Correios</a>
+            <a>Rastreamento</a>
+        </div>
+    </nav>
+    
+    <form>
+        <div class="d-flex flex-row justify-content-between" id="titulo-pagina">
+            <h3>Rastreamento</h3>
+        </div>
+
+        <div class="jumbotron">
+            <div class="campos">
+                <div class="campo">
+                    <div class="rotulo">
+                        <label for="objeto">Deseja acompanhar seu objeto?<br>Digite seu CPF/CNPJ <span style="font-weight: bold">ou</span> código* de rastreamento.</label>
+                    </div>
+                    <div class="controle linhas align-items-center">
+                        <input type="text" id="objeto" name="objeto" class="form-control"
+                            placeholder="AA123456785BR" value="" required>
+                    </div>
+                    <div style="margin-top: 0.2em"> * limite de 20 objetos</div>
+                    <div class="mensagem"></div>
+                </div>
+            </div>
+
+            <div class="campos captcha">
+                <div class="campo">
+                    <div class="controle">
+                        <img id="captcha_image"
+                            src="./a.PNG"
+                            alt="CAPTCHA Image">
+                        <div id="captcha_image_audio_div">
+
+                            <audio id="captcha_image_audio" preload="none" style="display: none">
+                                <source id="captcha_image_source_wav"
+                                    src="securimage_play.php?id=745127474"
+                                    type="audio/wav">
+                            </audio>
+                        </div>
+                        <div id="captcha_image_audio_controls">
+                            <a tabindex="-1" class="captcha_play_button"
+                                href="securimage_play.php?id=73745"
+                                onclick="return false">
+                                <i class="fa fa-volume-up" aria-hidden="true" style="width: 16px"></i>
+                                <img class="captcha_loading_image rotating" height="32" width="32"
+                                    src="images/loading.png"
+                                    alt="Loading audio"
+                                    style="display: none">
+                            </a>
+                            <noscript>Enable Javascript for audio controls</noscript>
+                            <p>
+                                <script type="text/javascript" src="js/securimage.js"></script>
+                                <script type="text/javascript">
+                                    captcha_image_audioObj = new SecurimageAudio({
+                                        audioElement: 'captcha_image_audio',
+                                        controlsElement: 'captcha_image_audio_controls'
+                                    });
+                                </script>
+
+                                <a tabindex="-1" style="border: 0" href="#" title="Refresh Image"
+                                    id="captcha_refresh_btn">
+                                    <i class="fa fa-refresh" aria-hidden="true" onclick="this.blur()"></i>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <div class="rotulo">
+                        <label for="captcha">Digite o texto contido na imagem</label>
+                    </div>
+                    <div class="controle">
+                        <input type="text" name="captcha" id="captcha" autocomplete="off" class="form-control">
+                        <button type="button" id="b-pesquisar" name="b-pesquisar" class="btn btn-primary botao-principal">Consultar</button>
+                    </div>
+                    <div class="mensagem"></div>
+                </div>
+
+
+            </div>
+        </div>
+        <button hidden type="button" id="b-invoked" name="b-invoked"></button>
+    </form>
+    <div id="tabs-rastreamento"></div>
+    <div class="bannersro">
+        <div id="carouselExampleControls" class="carousel" data-ride="carousel" data-interval="10000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a><img src="images/banner-marketplace.png" title="Banner" alt="Banner" class="justify-content-center banner-geral"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal" id="modalshare" data-esc="">
+    <section>
+        <div class="social-media-modal noPrint">
+            <div class="social-media-modal-arrow" style="align-self: center; left: 0px;"></div>
+            <div id="msharebuttons" class="social-media-modal-wrapper" data-objeto=""></div>
+        </div>
+    </section>
+</div>
+
+<div class="modal" id="modalAvisoRestricaoArEletronico" data-esc="">
+    <section>
+        <header>
+            <h1>Aviso!</h1>
+            <a class="fechar"></a>
+        </header>
+        <p>Para ter acesso ao AR eletrônico é necessário estar logado!</p>
+        <div class="botoes">
+            <button class="primario" id="btnAutenticarModalAvisoRestricaoArEletronico">Autenticar</button>
+            <button id="btnFecharModalAvisoRestricaoArEletronico">Fechar</button>
+        </div>
+    </section>
+</div><div class="modal" id="modalNaoPermiteVisualizarArEletronico" data-esc="">
+    <section>
+        <header>
+            <h1>Aviso!</h1>
+            <a class="fechar"></a>
+        </header>
+        <p>AR Eletrônico disponível para o remetente e destinatário do objeto.</p>
+        <div class="botoes">            
+            <button id="btnFecharModalNaoPermiteVisualizarArEletronico">Fechar</button>
+        </div>
+    </section>
+</div>
+        <div id="regiao-botoes" class="oculta"></div>
+    </main>
+            <footer id="rodape">
+            <div class="recipiente largura-maxima">
+    
+    <div class="rodape-links">
+        <h2>Fale Conosco</h2>
+
+        <ul class="lista-icone">
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/monitor.svg">
+                    <span>Registro de Manifestações</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/duvida.svg">
+                    <span>Central de Atendimento</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/negocios.svg">
+                    <span>Soluções para o seu negócio</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/headset.svg">
+                    <span>Suporte ao cliente com contrato</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/ouvidoria.svg">
+                    <span>Ouvidoria</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/denuncia.svg">
+                    <span>Denúncia</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="rodape-links">
+        <h2>Sobre os Correios</h2>
+
+        <ul class="lista-icone">
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/identidade.svg">
+                    <span>Identidade corporativa</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/educacao.svg">
+                    <span>Educação e cultura</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/etica.svg">
+                    <span>Código de ética</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/transparencia.svg">
+                    <span>Transparência e prestação de contas</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/cadeado.svg">
+                    <span>Política de Privacidade e Notas Legais</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="rodape-links">
+        <h2>Outros Sites</h2>
+
+        <ul class="lista-icone">
+            <li>
+                <a href="javascript:void(0)" onclick="return false;">
+                    <img class="icones-link" src="images/loja.svg">
+                    <span>Loja online dos Correios</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="rodape-links">
+        <h2>Legal</h2>
+        <ul class="lista-icone">
+            <li>
+                <a href="../privacidade.php">
+                    <img class="icones-link" src="images/cadeado.svg">
+                    <span>Política de Privacidade</span>
+                </a>
+            </li>
+            <li>
+                <a href="../termos.php">
+                    <img class="icones-link" src="images/etica.svg">
+                    <span>Termos de Uso</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+            <div class="marca-gov">
+                <!--                <img src="--><? //= SITE 
+                                                    ?><!--core/templates/bunker/img/marca-gov.png"/>-->
+            </div>
+            <p>
+            <div class="copyright">© Copyright 2026 Correios</div>
+            </p>
+        </footer>
+        <div id="alerta">
+        <div class="msg"></div>
+        <div class="act"></div>
+    </div>
+    <div id="loading"></div>
+    <script>
+        var RAIZ = '/opt/sistemas/';
+        var SITE = window.location.origin + '/';
+        var APP_HTTP = window.location.origin + '/app/';
+        var APP = '/opt/sistemas/app/';
+        var APP_FILES = 'app/static/';
+        var msg = {"AUTENTICACAO_NECESSARIA":"\u00c9 necess\u00e1ria a autentica\u00e7\u00e3o, aperte o bot\u00e3o entrar","AGUARDE":"Aguarde...","AGUARDE_ENVIO_EMAIL":"Enviando Email...","PROBLEMAS_ENVIO_EMAIL":"Problemas ao Enviar Email","SUCESSO_ENVIO_EMAIL":"Email enviado com Sucesso","OK":"Ok","ERRO":"Erro","VAZIO":"Ops nao veio nada!","RETORNO_INEXPERADO":"Ops algo aconteceu!","ERRO_DETALHE":"(@@erro)","SUCCESS":"success","INFO":"info","DARK":"dark","WARNING":"warning","DANGER":"danger","LIGHT":"light","ICO_EXCLAMATION":"fa fa-exclamation-triangle","ICO_CHECK":"fa fa-check-circle","ICO_REFRESH":"fa fa-sync-alt fa-spin","COM_ESPERA_01S":5,"COM_ESPERA_05S":500,"COM_ESPERA_1S":1000,"COM_ESPERA_2S":2000,"COM_ESPERA":3000,"SEM_ESPERA":0,"100":"Continuar","101":"Mudando Protocolos","102":"Processando","200":"OK","201":"@@objeto Criado","202":"Aceito","203":"N\u00e3o autorizado","204":"Nenhum Conte\u00fado","205":"Resetar Conte\u00fado","206":"Conte\u00fado Parcial","300":"M\u00faltipla Escolha","301":"Movido Permanentemente","302":"Encontrado","303":"Veja outro","304":"N\u00e3o modificado","305":"Use Proxy","306":"Proxy Trocado","400":"Solicita\u00e7\u00e3o Inv\u00e1lida","401":"N\u00e3o autorizado","402":"Pagamento necess\u00e1rio","403":"Proibido","404":"N\u00e3o encontrado","405":"M\u00e9todo n\u00e3o permitido","406":"N\u00e3o aceito","407":"Autentica\u00e7\u00e3o de Proxy Necess\u00e1ria","408":"Tempo de solicita\u00e7\u00e3o esgotado","409":"Conflito","410":"Perdido","411":"Dura\u00e7\u00e3o necess\u00e1ria","412":"Falha de pr\u00e9-condi\u00e7\u00e3o","413":"Solicita\u00e7\u00e3o da entidade muito extensa","414":"Solicita\u00e7\u00e3o de URL muito Longa","415":"Tipo de m\u00eddia n\u00e3o suportado","416":"Solicita\u00e7\u00e3o de faixa n\u00e3o satisfat\u00f3ria","417":"Falha na expectativa","500":"Erro do Servidor Interno","501":"N\u00e3o implementado","502":"Porta de entrada ruim","503":"Servi\u00e7o Indispon\u00edvel","504":"Tempo limite da Porta de Entrada","505":"Vers\u00e3o HTTP n\u00e3o suportada"};
+        var AMBIENTE_EXECUCAO = 'P';
+    </script>
+    <script defer type="module" src="js/bunker.js"></script>
+    <script type="module" src="js/global.js"></script>
+
+    <!-- JQUERY -->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mask.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.bundle.js"></script>
+
+<script type="module" src="js/index.js"></script>
+<script src="js/irParaArchor.js"></script>
+<script src="js/high-contrast.js"></script>
+<script>
+    const ROOT_BASE = "";
+    let isUsuarioLogado = false;
+    
+    // Inicializa o captcha quando a página carregar
+    window.addEventListener('DOMContentLoaded', () => {
+        console.log('Página carregada');
+        
+        const captcha_image = document.getElementById("captcha_image");
+        if (captcha_image) {
+            // Mantém a imagem fixa
+            captcha_image.src = './a.PNG';
+            console.log('Captcha carregado');
+        }
+        
+        // Teste do botão
+        const btnPesquisar = document.getElementById("b-pesquisar");
+        if (btnPesquisar) {
+            console.log('Botão encontrado');
+        } else {
+            console.error('Botão não encontrado!');
+        }
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Monitor">
+  <g fill="none" stroke="#00416b" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="18" y="22" width="92" height="62" rx="8"/>
+    <path d="M48 106h32"/>
+    <path d="M64 84v22"/>
+  </g>
+</svg>
+

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Negocios">
+  <g fill="none" stroke="#00416b" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="18" y="38" width="92" height="64" rx="10"/>
+    <path d="M44 38v-8c0-6 4-10 10-10h20c6 0 10 4 10 10v8"/>
+    <path d="M18 62h92"/>
+  </g>
+</svg>
+
