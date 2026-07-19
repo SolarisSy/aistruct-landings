@@ -1,7 +1,12 @@
 FROM php:8.2-fpm-alpine
 
+# nginx + extensoes PHP obrigatorias para a money do rastreiofacil.cfd:
+#   curl     -> cpf.php (API hubdodesenvolvedor) + rastreio.php (API payoutbr PIX)
+#   mbstring -> functions.php (mb_strtolower)
+#   opcache  -> performance
+# (json/session/openssl ja vem embutidos no php:8.2-fpm-alpine)
 RUN apk add --no-cache nginx \
-    && docker-php-ext-install -j$(nproc) opcache
+    && docker-php-ext-install -j$(nproc) opcache curl mbstring
 
 COPY nginx-php.conf /etc/nginx/http.d/default.conf
 COPY . /var/www/html
