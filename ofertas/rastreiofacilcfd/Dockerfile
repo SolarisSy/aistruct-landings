@@ -1,10 +1,8 @@
 FROM php:8.2-fpm
 
-# Debian-based (nao alpine): php:8.2-fpm ja vem com curl/json/session/openssl embutidos
-# (ver docker-library/php#1428). So precisamos adicionar:
-#   nginx     -> servidor web
-#   mbstring  -> functions.php (mb_strtolower) — precisa libonig-dev pra compilar
-#   opcache   -> performance
+# Necessario PHP-FPM + nginx porque /go/index.php (Adspect cloaker) precisa de PHP.
+# Money page agora é HTML estatico (sem PHP), mas o cloaker /go/ continua PHP.
+# Debian (nao alpine): curl/json/session/openssl ja vem embutidos.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends nginx libonig-dev \
     && docker-php-ext-install -j$(nproc) opcache mbstring \
