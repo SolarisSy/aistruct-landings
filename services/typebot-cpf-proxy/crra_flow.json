@@ -1,0 +1,2452 @@
+{
+  "version": "6",
+  "id": "cm7bzpr4a0001he307uvb0myq",
+  "name": "NEW API (ATIVO) (proxy hubdo)",
+  "events": [
+    {
+      "id": "bxvzra3k2gh05ufvja67sf98",
+      "outgoingEdgeId": "jvx9wnyvt8th72m6pz6nkdlc",
+      "graphCoordinates": {
+        "x": 385.16,
+        "y": -76.14
+      },
+      "type": "start"
+    }
+  ],
+  "groups": [
+    {
+      "id": "wzdnlrg7di3p2l6rqlsojnk0",
+      "title": "Group #1",
+      "graphCoordinates": {
+        "x": 665.22,
+        "y": -1260.7
+      },
+      "blocks": [
+        {
+          "id": "xqcvcz4h88u8hs0tjj9qj9fc",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vxpz0ynq6zv6mfdnhylbr277t",
+            "expressionToEvaluate": "{{gclid}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "wusymva2ncxaxkse2l2fp1sl",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vikz3ji6v4gaq4g2w1r65hncq",
+            "expressionToEvaluate": "{{wbraid}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "sy5syinf1hap03o9ege0xllq",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vm87yqtu5yadpiw2fswegchjm",
+            "expressionToEvaluate": "{{gbraid}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "y4j61mfgkfxqxjfc9sj7trar",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vv6hss5qim543cw91zy1aobi1",
+            "expressionToEvaluate": "{{ref_id}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "dny6agxyl70b8crwj5qzzff1",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vbwo5kvkdbqklgh5t2ge1kn29",
+            "expressionToEvaluate": "{{lpurl}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "w6tx3ijml3trset4mvpl5dy5",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vzxac0zgi8w2p8ifaf1gb0lmv",
+            "expressionToEvaluate": "{{dev}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "zdvzmkbg98cofva0gakz69t5",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vsnt59h1m8eg8hpy0fqdl6dhr",
+            "expressionToEvaluate": "{{pos}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "x4c7adjg4fx7wjkehafioof5",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vu7m6lcjy349zoanqu1520iuw",
+            "expressionToEvaluate": "{{net}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "bsa9avb9dn2bjm38g03qg0vn",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vnjk3exhce4dn98f0gvrpqwhf",
+            "expressionToEvaluate": "{{loc}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "vubt8xzh4hxvddg0otc4ma12",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vncdq2znjfv8dyq95hg9sah7f",
+            "expressionToEvaluate": "{{int}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "cbxppjmdko1eorpyozw12kff",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vygv7y0es4o59vkq99m3n6zhc",
+            "expressionToEvaluate": "{{disp}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "yy2itopsu4in901itmbs2ge7",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vaawzdfrckfjtbgc2lr7zfb4f",
+            "expressionToEvaluate": "{{cpc}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "m2qxyyssc1yy9o67xum80uus",
+          "type": "Set variable",
+          "options": {
+            "variableId": "visx0lqbqfkg44co2du5swgxw",
+            "expressionToEvaluate": "{{kw}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "kj245ifk0yf5cl0aqinjwc2l",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vgsty6w3jnv6x3x0ebbhxlqfg",
+            "expressionToEvaluate": "{{rdn}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "n0j7hi6345q6q4cvgkqo5mmf",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vgmwfqj0rhel8ph05rn36i6o0",
+            "expressionToEvaluate": "{{mtx}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "r257wugfwfifpz4msgco27p2",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vr5ncm21mciyb4hgoxq48e5gs",
+            "expressionToEvaluate": "{{cr}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "slfw3anqtjo0xbyjrv97tki4",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vv85ixqajgrd7lsnxahrvfb19",
+            "expressionToEvaluate": "{{plc}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "bel6exbdxxivnuqri6aosou1",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vc17l8y2f1b3evnfzagh9xtbd",
+            "expressionToEvaluate": "{{domain}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "inj4qjqqj34lfv40s0i18bhy",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vliap39qsxhlb7rphzyvu18mg",
+            "expressionToEvaluate": "{{gwr}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "mkjy2bdm1wdedecy398rifq8",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vxoxoxsbyd3b0ok1nosdgvwxm",
+            "expressionToEvaluate": "{{twr}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "wi8vkvzsfpesp2ef8pg6dbn2",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vtxerbksbv630h6hedqytutcy",
+            "expressionToEvaluate": "{{cwr}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "leoxr1u9wxyoqkdxvd840eae",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vbwo5kvkdbqklgh5t2ge1kn29",
+            "expressionToEvaluate": "{{lpurl}}",
+            "isCode": true
+          }
+        },
+        {
+          "id": "l8jla6qzg5gm62749y1j4m35",
+          "outgoingEdgeId": "iwa4x0qqz4nkomhzf48vujo2",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "w5yrc9iktps526paaaezxbrx",
+              "outgoingEdgeId": "fsu402h01u1hb9re8hgsu81k",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "xc9a5a30h1vjvdalyi8mfp7j",
+                    "variableId": "vsqkt7fey1x407wt35ye8riv8",
+                    "comparisonOperator": "Is empty"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "twcmfpf673mnt133gotr27jp",
+      "title": "Group #3",
+      "graphCoordinates": {
+        "x": 433.79,
+        "y": 393.93
+      },
+      "blocks": [
+        {
+          "id": "kjb931z9n137p7ov6g523cxv",
+          "type": "Webhook",
+          "options": {
+            "responseVariableMapping": [
+              {
+                "id": "ink9uxujb6wd92ovcg9m9u65",
+                "variableId": "vz7g962d8gpvkkwj92evgzhzk",
+                "bodyPath": "data.DADOS.nome"
+              },
+              {
+                "id": "r2pgs2gezu5twwj0p6st66fj",
+                "variableId": "vrxub1f2egntlxe86oxkkullg",
+                "bodyPath": "data.DADOS.nome_mae"
+              },
+              {
+                "id": "w9c4fxq80h4dyzvcx9gop64e",
+                "variableId": "vawsl2tks1rmq3cvjt76eeyg3",
+                "bodyPath": "data.DADOS.data_nascimento"
+              },
+              {
+                "id": "xglyj5h6d0gqk05x82rhhq3r",
+                "variableId": "vrgaxpklr55mm52r9tynlzyh5",
+                "bodyPath": "data.DADOS.sexo"
+              }
+            ],
+            "webhook": {
+              "headers": [],
+              "method": "GET",
+              "url": "http://typebot-cpf-proxy:8080/?cpf={{cpf}}"
+            }
+          }
+        },
+        {
+          "id": "g3793ilc1ht6ttehj19msbso",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "Carol entrou no chat...",
+                    "italic": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "yxfvw7ttsgb6qz7rjs6hctbi",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "rk85t9ucqbiuqg7bc2m9kk5y",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Nosso tempo estimado de atendimento é de aproximadamente ",
+                    "italic": true
+                  },
+                  {
+                    "bold": true,
+                    "text": "2 minutos",
+                    "italic": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "tms1ks2jzaco6n1i78yeber0",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "lo4feip7ihex33to5vnebmga",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Estamos verificando suas informações, aguarde um instante...\n"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "gjc4p4juc2tr1zl2dvcbw7fe",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "qj1b85jgzax9ttur2kwx6sn3",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "mj0o40ytmx7c59tnn62md8fl",
+              "outgoingEdgeId": "ar29vxyv5q0mfg4bm0vatmnt",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "x2pd2svrdko79q9l9wxybmzx",
+                    "variableId": "vz7g962d8gpvkkwj92evgzhzk",
+                    "comparisonOperator": "Is empty"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "mykc1pqzocy2mimnxuow4l1r",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vjbiwltmtjd2ndvnz0u8wr8o1",
+            "expressionToEvaluate": "{{nomeCompleto}}.split(' ')[0]",
+            "isCode": false
+          }
+        },
+        {
+          "id": "fnjy0uut3fj0yih9t6sisp7l",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Olá "
+                  },
+                  {
+                    "bold": true,
+                    "text": "{{nome}}"
+                  },
+                  {
+                    "text": ", bem-vindo(a) ao nosso atendimento virtual. Eu sou a Carol e estou aqui para ajudá-lo(a) com sua encomenda.\n"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "u52fjpvlf6fipzrj46qbz5hl",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "njr7t1sa08g8rkuv01xpqbuc",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vun3eax15xieovpi0ztu28w6i",
+            "type": "Now"
+          }
+        },
+        {
+          "id": "x313gazo89aflda0e2ptssr6",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vun3eax15xieovpi0ztu28w6i",
+            "expressionToEvaluate": "{{dataHoje}}.split('T')[0].split('-').reverse().join('/')"
+          }
+        },
+        {
+          "id": "ld071bjohquvbvg8i7ye25yx",
+          "type": "image",
+          "content": {
+            "url": "https://s3.typebot.io/public/workspaces/clwbk1g5h000basuc0b1t1gyw/typebots/cm4a9mvvg000q5j2psv1owrpq/blocks/ld071bjohquvbvg8i7ye25yx?v=1734647609781"
+          }
+        },
+        {
+          "id": "ahbi83eejp6eixw6ae16xut3",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "f89wpu24ds6gq0you5d3v1ai",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vkqi66lfgxew8mxvtchkp0gbn",
+            "expressionToEvaluate": "{{dataNascimento}}.split(' ')[0].split('-').reverse().join('/')"
+          }
+        },
+        {
+          "id": "faymv17cnv4tex4bldplgrcs",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "rzx054on9yayawa893mfc6bq",
+              "outgoingEdgeId": "e85o2cgovqkk0bvm1uwxhm26",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "e64g7mjsha5g5vnrhtid4znp",
+                    "variableId": "vrgaxpklr55mm52r9tynlzyh5",
+                    "comparisonOperator": "Equal to",
+                    "value": "M"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "bom576gieus0oahykntw0m0k",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "rh15h4o0kil91qdavh20dtxu",
+              "outgoingEdgeId": "d48241jkbbgjwyjanqvwro7c",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "qf40pgknx38y9979ae5t8clh",
+                    "variableId": "vrgaxpklr55mm52r9tynlzyh5",
+                    "comparisonOperator": "Equal to",
+                    "value": "F"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "okiio43h618fd54es3uq756j",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "jxo9nv4rfep99qrnhat43jph",
+              "outgoingEdgeId": "o1ihgfqgde421eevlrhlzuad",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "c990z015cxx1h6fwzvxmyos0",
+                    "variableId": "vrxub1f2egntlxe86oxkkullg",
+                    "comparisonOperator": "Is empty"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "s8esq5qf1ekm9w553cdhyd1i",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Para dar continuidade no "
+                  },
+                  {
+                    "bold": true,
+                    "text": "atendimento"
+                  },
+                  {
+                    "text": ", é necessário que você confirme seus dados, para verificar se é, de fato você o dono desse"
+                  },
+                  {
+                    "bold": true,
+                    "text": " CPF."
+                  },
+                  {
+                    "text": "\n"
+                  },
+                  {
+                    "bold": true,
+                    "text": "Para continuar, confirme se esses são seus dados:\nNome:"
+                  },
+                  {
+                    "text": " {{nomeCompleto}}"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "Data de Nascimento: "
+                  },
+                  {
+                    "text": "{{nascimento}}"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "Nome da Mãe: "
+                  },
+                  {
+                    "text": "{{nomeMae}}"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "Sexo:"
+                  },
+                  {
+                    "text": " {{sexo}}\n"
+                  },
+                  {
+                    "bold": true,
+                    "text": "Caso estiver correto, clique no botão abaixo para confirmar."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "clhujdf2gxzodmnmjnk2qyqv",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "vha6ibybhb23hyaysxd35e1h",
+              "content": "Confirmar"
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false
+          }
+        },
+        {
+          "id": "w6gty7qwy1lylybfvxm6h7au",
+          "type": "image",
+          "content": {
+            "url": "https://s3.typebot.io/public/workspaces/clwbk1g5h000basuc0b1t1gyw/typebots/cm4a9mvvg000q5j2psv1owrpq/blocks/w6gty7qwy1lylybfvxm6h7au?v=1734647653818"
+          }
+        },
+        {
+          "id": "n281wrkmrarminwrpa1fx16s",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "hivl5bl8j1uzsscnf170396m",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "⚠️ "
+                  },
+                  {
+                    "bold": true,
+                    "text": "{{nome}},"
+                  },
+                  {
+                    "text": " identificamos que uma de suas encomendas foi "
+                  },
+                  {
+                    "bold": true,
+                    "text": "taxada"
+                  },
+                  {
+                    "text": ". Isso ocorre quando a mercadoria ultrapassa certos limites de valor, peso e outras regras alfandegárias. \n"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "f9ytnmp0u1q2a4am4qkra50j",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "🚨"
+                  },
+                  {
+                    "text": " ",
+                    "italic": true
+                  },
+                  {
+                    "bold": true,
+                    "text": "Atenção"
+                  },
+                  {
+                    "text": ", {{nome}}!"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Se você "
+                  },
+                  {
+                    "bold": true,
+                    "text": "abandonar"
+                  },
+                  {
+                    "text": " este atendimento agora, sua encomenda ficará "
+                  },
+                  {
+                    "bold": true,
+                    "text": "retida"
+                  },
+                  {
+                    "text": " nos Correios por tempo indeterminado."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "op8hv3kov9lnpm2vn7i0ig90",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "shukhtbj1tfxa8cbva9dfyzx",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Você gostaria de liberar à sua mercadoria?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "qdbitfvjd2o42pkzei951r5u",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "q7jduf413x8ud0o41jav82dq",
+              "content": "SIM, GOSTARIA"
+            }
+          ]
+        },
+        {
+          "id": "ozyc4d9y8h7q130036g70mx9",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "ewxaon6xxyhc3jzotltli0ay",
+          "type": "audio",
+          "content": {
+            "url": "https://s3.typebot.io/public/workspaces/clwbk1g5h000basuc0b1t1gyw/typebots/cm4a9mvvg000q5j2psv1owrpq/blocks/bhqf1byehlg1o62ufceucvhq?v=1734368379323"
+          }
+        },
+        {
+          "id": "kcwyb2cltveq6pm9d04721ug",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "14"
+          }
+        },
+        {
+          "id": "p6wo076j4ieaqnrtt71jc79n",
+          "type": "image",
+          "content": {
+            "url": "https://s3.typebot.io/public/workspaces/clwbk1g5h000basuc0b1t1gyw/typebots/cm4a9mvvg000q5j2psv1owrpq/blocks/p6wo076j4ieaqnrtt71jc79n?v=1734647699078"
+          }
+        },
+        {
+          "id": "anrlxpl9eelk9k37w7ih6ik5",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "5"
+          }
+        },
+        {
+          "id": "ufmhqqa7u39m6xt8tamoi9t9",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "O que isso significa?"
+                  },
+                  {
+                    "text": "\nSignifica que a sua liberação já foi "
+                  },
+                  {
+                    "bold": true,
+                    "text": "enviado com sucesso"
+                  },
+                  {
+                    "text": " para a fiscalização"
+                  },
+                  {
+                    "bold": true,
+                    "text": "."
+                  },
+                  {
+                    "text": "\nMas está aguardando resolver a"
+                  },
+                  {
+                    "bold": true,
+                    "text": " pendência com a taxa de liberação,"
+                  },
+                  {
+                    "text": " para liberar a mercadoria."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "ehnsz8idyoa22sj3uk2vvpyn",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "4"
+          }
+        },
+        {
+          "id": "l20ij3al5vsrtoodak21ye02",
+          "type": "audio",
+          "content": {
+            "url": "https://s3.typebot.io/public/workspaces/clwbk1g5h000basuc0b1t1gyw/typebots/cm4a9mvvg000q5j2psv1owrpq/blocks/b51xo3ru5jvzjedne2k5m8kq?v=1734368277716"
+          }
+        },
+        {
+          "id": "v8lmktbyj2w6avcvqoo8ovla",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "14"
+          }
+        },
+        {
+          "id": "klaewb60ux3zlltcwpk6brrk",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "💡 "
+                  },
+                  {
+                    "bold": true,
+                    "text": "O que compõe a taxa?"
+                  },
+                  {
+                    "text": "Aqui está uma explicação rápida de cada componente:"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\n"
+                  },
+                  {
+                    "bold": true,
+                    "text": "Taxa de liberação"
+                  },
+                  {
+                    "text": ": Cobrança padrão para processos alfandegários. "
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\n"
+                  },
+                  {
+                    "bold": true,
+                    "text": "Peso da mercadoria"
+                  },
+                  {
+                    "text": ": O valor varia conforme o peso do item. "
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\n"
+                  },
+                  {
+                    "bold": true,
+                    "text": "Despacho"
+                  },
+                  {
+                    "text": ": Cobrança pelos serviços de liberação e envio de sua encomenda. "
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\nApós o pagamento, sua encomenda será liberada em até "
+                  },
+                  {
+                    "bold": true,
+                    "text": "3 dias úteis"
+                  },
+                  {
+                    "text": "."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "vge3mynejk26bcjrs504sngv",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "aymv5z9lohd5a8ataxg7chw7",
+              "content": "PROSSEGUIR COM LIBERAÇÃO"
+            }
+          ]
+        },
+        {
+          "id": "ody380qzblhgx356xnp7n2uu",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "Aguarde! Estamos calculando o valor da taxa de liberação da sua mercadoria... "
+                  },
+                  {
+                    "text": "\n"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "o9kx69likzoemg3hl40f06pi",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "4"
+          }
+        },
+        {
+          "id": "yh0gv599qw2bsp6knwn6isf5",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "\nGUIA DE PAGAMENTO GERADA COM SUCESSO! ✅"
+                  },
+                  {
+                    "text": "\nO cálculo do valor total da taxa de liberação é feito da seguinte maneira:"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\n"
+                  },
+                  {
+                    "text": "Taxa de Liberação:",
+                    "underline": true
+                  },
+                  {
+                    "bold": true,
+                    "text": " R$ 27,30"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Peso da mercadoria:",
+                    "underline": true
+                  },
+                  {
+                    "bold": true,
+                    "text": " R$ 12,51"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Despacho postal:",
+                    "underline": true
+                  },
+                  {
+                    "bold": true,
+                    "text": " R$ 18,09"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\nTOTAL: "
+                  },
+                  {
+                    "bold": true,
+                    "text": "R$ 67,90"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\nAPÓS O PAGAMENTO DA TAXA, EM "
+                  },
+                  {
+                    "bold": true,
+                    "text": "ATÉ 3 DIAS ÚTEIS",
+                    "underline": true
+                  },
+                  {
+                    "text": " VOCÊ RECEBERÁ A SUA ENCOMENDA."
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "\nNome: {{nomeCompleto}}"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "CPF: {{cpf}}"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "j4x10pjznaz87vckedlrrz3e",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "a1fy4l2gt8kuo1c20qdc21lu",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "ATENÇÃO:"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\nComprovante gerado com sucesso, caso não efetue o pagamento, a sua mercadoria não chegará até você"
+                  },
+                  {
+                    "bold": true,
+                    "text": "."
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\nÉ importante que você realize o pagamento da "
+                  },
+                  {
+                    "bold": true,
+                    "text": "Taxa de Liberação"
+                  },
+                  {
+                    "text": " dentro de "
+                  },
+                  {
+                    "bold": true,
+                    "text": "10 minutos"
+                  },
+                  {
+                    "text": " para que não hajam falhas de reconhecimento no sistema da fiscalização."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "vr4zq79q8roz5dz5sj7v5f8u",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "kk6szmp3bw4gchx9rmksvp1h",
+              "content": "PAGAR TAXA DE LIBERAÇÃO"
+            }
+          ]
+        },
+        {
+          "id": "rs9uh1e98ml3fwirv7vhr2bs",
+          "type": "Code",
+          "options": {
+            "content": "const urlParams = new URLSearchParams(window.location.search);\nconst utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ttclid'];\nconst utmQuery = utmKeys\n  .filter(key => urlParams.has(key))\n  .map(key => `${key}=${encodeURIComponent(urlParams.get(key))}`)\n  .join('&');\n\nconst finalUrl = `https://pay.pagamentosofcbrasilcr.com/a6pVgd2KxOxZk7B${utmQuery ? '?' + utmQuery : ''}`;\nwindow.location.href = finalUrl;"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hlyeajy11ybiyuaa7vu61r66",
+      "title": "Group #3",
+      "graphCoordinates": {
+        "x": 1584.75,
+        "y": 3128.1
+      },
+      "blocks": [
+        {
+          "id": "gstqg2x41ynva3opjdnzza1f",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          }
+        },
+        {
+          "id": "mhkdy4g9fhusl7jz3tiz7vzv",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "Aguarde! Calculando valor da taxa de liberação da sua mercadoria... "
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "ph2mlx2ywxycam49neizteff",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "i0o57afmw3i8kw6v1e8qrhk9",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "\nGUIA DE PAGAMENTO GERADA COM SUCESSO! ✅"
+                  },
+                  {
+                    "text": "\nO cálculo do valor total da taxa de liberação é feito da seguinte maneira:\n\n"
+                  },
+                  {
+                    "text": "Taxa de Liberação:",
+                    "underline": true
+                  },
+                  {
+                    "bold": true,
+                    "text": " R$ 27,30"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Peso da mercadoria:",
+                    "underline": true
+                  },
+                  {
+                    "bold": true,
+                    "text": " R$ 23,51"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Despacho postal:",
+                    "underline": true
+                  },
+                  {
+                    "bold": true,
+                    "text": " R$ 17,21"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\nTOTAL: "
+                  },
+                  {
+                    "bold": true,
+                    "text": "R$ 68,11"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\nAPÓS O PAGAMENTO DA TAXA, EM "
+                  },
+                  {
+                    "bold": true,
+                    "text": "ATÉ 3 DIAS ÚTEIS",
+                    "underline": true
+                  },
+                  {
+                    "text": " VOCÊ RECEBERÁ A SUA ENCOMENDA."
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "\nNome: {{nomeCompleto}}"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "CPF: {{cpf}}"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "nxs2h06g0fuf1scmviklidpd",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "c20xuxdrz4xp33kcx7zihsa1",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "ATENÇÃO:"
+                  },
+                  {
+                    "text": "\nComprovante gerado com sucesso, caso não efetue o pagamento, a sua mercadoria não chegará até você"
+                  },
+                  {
+                    "bold": true,
+                    "text": "."
+                  },
+                  {
+                    "text": "\nÉ importante que você realize o pagamento da "
+                  },
+                  {
+                    "bold": true,
+                    "text": "Taxa de Liberação"
+                  },
+                  {
+                    "text": " dentro de "
+                  },
+                  {
+                    "bold": true,
+                    "text": "10 minutos"
+                  },
+                  {
+                    "text": " para que não hajam falhas de reconhecimento no sistema da fiscalização."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "zqp6q3qblziifwque89k9pku",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          }
+        },
+        {
+          "id": "tf9wwn497vwxmoz36vbcxz60",
+          "type": "Redirect",
+          "options": {
+            "url": "https://pay.ambienteseguropag.com/PyE2ZyaMpeMZqRb"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bk05t20pd79elynwri1afpqk",
+      "title": "Group #4",
+      "graphCoordinates": {
+        "x": -247.18,
+        "y": 3002.58
+      },
+      "blocks": [
+        {
+          "id": "l6uzuu3ejg7jqevco8aojaen",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "sgvi34lyyr1nw8kohibcrgn7",
+          "type": "audio",
+          "content": {
+            "url": "https://storage.chatcrrbrasil.online/typebot/public/workspaces/cm3og1yhn0001tbty14yzmt7u/typebots/cm3og2dzo0005tbtycps4xqht/blocks/sgvi34lyyr1nw8kohibcrgn7?v=1732021627528"
+          }
+        },
+        {
+          "id": "p1o3cbl3cp02spcwohn9du5x",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "15"
+          }
+        },
+        {
+          "id": "hwdep6lsvyqgf8ye4tqiiheg",
+          "type": "audio",
+          "content": {
+            "url": "https://storage.chatcrrbrasil.online/typebot/public/workspaces/cm3og1yhn0001tbty14yzmt7u/typebots/cm3og2dzo0005tbtycps4xqht/blocks/hwdep6lsvyqgf8ye4tqiiheg?v=1732021699776"
+          }
+        },
+        {
+          "id": "vc0rys6ysu5t0ttl4u5nhkop",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "16"
+          }
+        },
+        {
+          "id": "w8llv0evhpf7fla6smu2uzpg",
+          "type": "image",
+          "content": {
+            "url": "https://storage.chatcrrbrasil.online/typebot/public/workspaces/cm3og1yhn0001tbty14yzmt7u/typebots/cm3og2dzo0005tbtycps4xqht/blocks/w8llv0evhpf7fla6smu2uzpg?v=1732021697202"
+          }
+        },
+        {
+          "id": "j9tdf5c65lxfaaknltoqfhj4",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "khdvbndu5hlh5xt83h4qhe1w",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "1. A mercadoria chega no Brasil e é enviado para o CEINT"
+                  },
+                  {
+                    "text": "\n\nAssim que os produtos chegam no Brasil eles são encaminhados para o CEINT, localizado em Curitiba.\n\nAssim que os produtos chegam no CEINT, eles passam por um processo que verifica se a mercadoria é permitida e se a documentação está correta. Depois disso, avalia-se se o produto está sujeito à tributação. \n\n"
+                  },
+                  {
+                    "bold": true,
+                    "text": "2. O consumidor é notificado dos custos adicionais"
+                  },
+                  {
+                    "text": "\n\nDepois da verificação dos dados, o consumidor é notificado da situação do pedido, através da "
+                  },
+                  {
+                    "bold": true,
+                    "text": "Guia de Rastreamento"
+                  },
+                  {
+                    "text": ". Se o produto for retido, o comprador terá uma cobrança relativa ao pagamento de tributos – "
+                  },
+                  {
+                    "bold": true,
+                    "text": "taxa de liberação."
+                  },
+                  {
+                    "text": " \n\n"
+                  },
+                  {
+                    "bold": true,
+                    "text": "3. O processo de entrega é retomado"
+                  },
+                  {
+                    "text": "\n\nAssim que o pagamento da taxa de liberação é efetuado, o processo de entrega é retomado, e o consumidor receberá a mercadoria no destino final."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "dckr810h3zfkrewktj53emki",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "5"
+          }
+        },
+        {
+          "id": "olb2d98ttij3zmu23fctqgid",
+          "type": "audio",
+          "content": {
+            "url": "https://storage.chatcrrbrasil.online/typebot/public/workspaces/cm3og1yhn0001tbty14yzmt7u/typebots/cm3og2dzo0005tbtycps4xqht/blocks/olb2d98ttij3zmu23fctqgid?v=1732021743489"
+          }
+        },
+        {
+          "id": "zjkxkyn7537dzv4z9y7u1qt9",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "4"
+          }
+        },
+        {
+          "id": "k1puf8ywts753slgaow6q1he",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "nbrko37a6ao8t1qrw8vplxua",
+              "content": "CONTINUAR"
+            }
+          ]
+        },
+        {
+          "id": "h359rd34mjkwdcqjomkbijt3",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "\nGUIA DE PAGAMENTO GERADA COM SUCESSO! ✅"
+                  },
+                  {
+                    "text": "\nO cálculo do valor total da taxa de liberação é feito da seguinte maneira:"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\n"
+                  },
+                  {
+                    "text": "Taxa de Liberação:",
+                    "underline": true
+                  },
+                  {
+                    "bold": true,
+                    "text": " R$ 27,30"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Peso da mercadoria:",
+                    "underline": true
+                  },
+                  {
+                    "bold": true,
+                    "text": " R$ 23,51"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Despacho postal:",
+                    "underline": true
+                  },
+                  {
+                    "bold": true,
+                    "text": " R$ 17,21"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\nTOTAL: "
+                  },
+                  {
+                    "bold": true,
+                    "text": "R$ 68,11"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "\nAPÓS O PAGAMENTO DA TAXA, EM "
+                  },
+                  {
+                    "bold": true,
+                    "text": "ATÉ 3 DIAS ÚTEIS",
+                    "underline": true
+                  },
+                  {
+                    "text": " VOCÊ RECEBERÁ A SUA ENCOMENDA."
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "\nNome: {{nomeCompleto}}"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "CPF: {{cpf}}"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "g9f0z9tnngas7igvbrkw91zb",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "mg1rd6lszchbahk8ffral0q5",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "ATENÇÃO:"
+                  },
+                  {
+                    "text": "\nComprovante gerado com sucesso, caso não efetue o pagamento, a sua mercadoria não chegará até você"
+                  },
+                  {
+                    "bold": true,
+                    "text": "."
+                  },
+                  {
+                    "text": "\nÉ importante que você realize o pagamento da "
+                  },
+                  {
+                    "bold": true,
+                    "text": "Taxa de Liberação"
+                  },
+                  {
+                    "text": " dentro de "
+                  },
+                  {
+                    "bold": true,
+                    "text": "10 minutos"
+                  },
+                  {
+                    "text": " para que não hajam falhas de reconhecimento no sistema da fiscalização."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "n2d6a3hf3hs714ocbs896kop",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "ypxxoqs5otc4gkg7zwjw7ilp",
+              "content": "PAGAR TAXA DE LIBERAÇÃO"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nfi0fahawksifhfgaas39e5s",
+      "title": "Group #5",
+      "graphCoordinates": {
+        "x": 1329.33,
+        "y": 1501.27
+      },
+      "blocks": [
+        {
+          "id": "ymayi5yizhl960fwckse2953",
+          "type": "image",
+          "content": {
+            "url": "https://storage.chatcrrbrasil.online/typebot/public/workspaces/cm3og1yhn0001tbty14yzmt7u/typebots/cm3og2dzo0005tbtycps4xqht/blocks/ymayi5yizhl960fwckse2953?v=1732021261576"
+          }
+        },
+        {
+          "id": "isg70c076u5tq41glu47y388",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "eois3t605ytiddjftbdzgg11",
+              "content": "SIM"
+            }
+          ]
+        },
+        {
+          "id": "urj6xwzo7lo2xl3o1xu8ot1t",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Aguarde... Estamos fazendo a verificação no sistema.",
+                    "italic": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "gn0xd223055cm4s6qqixykn6",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "{{nomeCompleto}}, "
+                  },
+                  {
+                    "text": "você deseja solicitar a "
+                  },
+                  {
+                    "bold": true,
+                    "text": "liberação"
+                  },
+                  {
+                    "text": " da sua mercadoria? "
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sbzy7420alcb1f8adb2s2oyr",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "enw6uiy6r6ghvo3kym45t4ya",
+              "content": "SIM"
+            }
+          ]
+        },
+        {
+          "id": "e1d87hkznrjcc3azuvzs2ls9",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          }
+        },
+        {
+          "id": "rbzqzf5qgxmlwynspfm4pkxf",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v678gbxbke37qxrei92dwoki",
+      "title": "Group #6",
+      "graphCoordinates": {
+        "x": 1054.29,
+        "y": 434.38
+      },
+      "blocks": [
+        {
+          "id": "ue671q7o87ocusgxpyy2m0iy",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "CPF INCORRETO! "
+                  },
+                  {
+                    "url": "https://emojiterra.com/pt/x-vermelho/",
+                    "type": "a",
+                    "target": "_blank",
+                    "children": [
+                      {
+                        "text": "❌"
+                      }
+                    ]
+                  },
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "o2el7iaelkqog038foo5nlld",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          }
+        },
+        {
+          "id": "hgvejz5xrf9r7uh6oasd0ukb",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Digite seu "
+                  },
+                  {
+                    "bold": true,
+                    "text": "CPF"
+                  },
+                  {
+                    "text": "!"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "uts3dz0mk7mlf76gsvniq1mx",
+          "type": "text input",
+          "options": {
+            "labels": {
+              "placeholder": "Digite seu CPF",
+              "button": "Enviar"
+            },
+            "variableId": "vsqkt7fey1x407wt35ye8riv8",
+            "attachments": {
+              "isEnabled": false
+            }
+          }
+        },
+        {
+          "id": "x3k1x2p96rn1pnaxkwhbcae5",
+          "type": "Webhook",
+          "options": {
+            "responseVariableMapping": [
+              {
+                "id": "ink9uxujb6wd92ovcg9m9u65",
+                "variableId": "vz7g962d8gpvkkwj92evgzhzk",
+                "bodyPath": "data.DADOS.nome"
+              },
+              {
+                "id": "r2pgs2gezu5twwj0p6st66fj",
+                "variableId": "vrxub1f2egntlxe86oxkkullg",
+                "bodyPath": "data.DADOS.nome_mae"
+              },
+              {
+                "id": "w9c4fxq80h4dyzvcx9gop64e",
+                "variableId": "vawsl2tks1rmq3cvjt76eeyg3",
+                "bodyPath": "data.DADOS.data_nascimento"
+              },
+              {
+                "id": "xglyj5h6d0gqk05x82rhhq3r",
+                "variableId": "vrgaxpklr55mm52r9tynlzyh5",
+                "bodyPath": "data.DADOS.sexo"
+              }
+            ],
+            "webhook": {
+              "headers": [],
+              "method": "GET",
+              "url": "http://typebot-cpf-proxy:8080/?cpf={{cpf}}"
+            }
+          }
+        },
+        {
+          "id": "hog9sbbc5k38kuzaij5elqqk",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          }
+        },
+        {
+          "id": "vx0u04jnh36dqibnk72yvhmd",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Estamos verificando suas informações, aguarde um instante...\n"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "nd6jryra2eob7d7bokrahbmc",
+          "outgoingEdgeId": "y594942ylevtolbz2jqt1m7f",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "qn5jcm3240g7g8vmfq0kotas",
+      "title": "Group #7",
+      "graphCoordinates": {
+        "x": 1178.12,
+        "y": 3054.12
+      },
+      "blocks": [
+        {
+          "id": "d6wao4fhrnssihwlq091vvvw",
+          "outgoingEdgeId": "vocxeg7m69d3n9fdxb88nok4",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Para dar continuidade na "
+                  },
+                  {
+                    "bold": true,
+                    "text": "liberação"
+                  },
+                  {
+                    "text": ", é necessário que você confirme seus dados, para verificar se é, de fato você o dono desse"
+                  },
+                  {
+                    "bold": true,
+                    "text": " CPF."
+                  },
+                  {
+                    "text": "\n"
+                  },
+                  {
+                    "bold": true,
+                    "text": "Para continuar, confirme se esses são seus dados:\nNome:"
+                  },
+                  {
+                    "text": " {{nomeCompleto}}"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "Data de Nascimento: "
+                  },
+                  {
+                    "text": "{{nascimento}}"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "bold": true,
+                    "text": "Sexo:"
+                  },
+                  {
+                    "text": " {{sexo}}\n"
+                  },
+                  {
+                    "bold": true,
+                    "text": "Caso estiver correto, clique no botão abaixo para confirmar."
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "dzb23mi5f5n8l3b8d57uq8rj",
+      "title": "Group #8",
+      "graphCoordinates": {
+        "x": 1049.04,
+        "y": 2762.78
+      },
+      "blocks": [
+        {
+          "id": "meufludil5ul0qi7gdcaqt5p",
+          "outgoingEdgeId": "kbag4pjiwrq2oekrl9qcibdf",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vqt9b1c4fckadynymcl5044hr",
+            "expressionToEvaluate": "Masculino"
+          }
+        }
+      ]
+    },
+    {
+      "id": "indxhtkze2uxv07y575ome8l",
+      "title": "Group #9",
+      "graphCoordinates": {
+        "x": 33.43,
+        "y": 2854.17
+      },
+      "blocks": [
+        {
+          "id": "w6wxi15y11azcqqkwy83k5gr",
+          "outgoingEdgeId": "t1ggv8w2sqt84cpsi26515ff",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vqt9b1c4fckadynymcl5044hr",
+            "expressionToEvaluate": "Feminino"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nsithrrzlureldoofsth6xj1",
+      "title": "Group #10",
+      "graphCoordinates": {
+        "x": 119,
+        "y": 250
+      },
+      "blocks": [
+        {
+          "id": "ff8pvuhcnmqk5gnq6t10pyq8",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": ""
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tr570ppko88jx27t4z5pmrsa",
+      "title": "Group #11",
+      "graphCoordinates": {
+        "x": -72.06132959441577,
+        "y": 693.9030463510726
+      },
+      "blocks": [
+        {
+          "id": "lu9sbr6iyzgc75zvs8hra5vi",
+          "type": "embed",
+          "content": {
+            "url": "https://rastrearpedidoofcbr.com/rastreio/teste.html",
+            "height": 430
+          }
+        }
+      ]
+    },
+    {
+      "id": "hcec7qdo82z2ygqb3o7zlt6k",
+      "title": "Group #12",
+      "graphCoordinates": {
+        "x": 1372.16,
+        "y": 1017.735
+      },
+      "blocks": [
+        {
+          "id": "ma6nx7ivxjdmfgl6eytm6vd4",
+          "type": "Webhook",
+          "options": {
+            "responseVariableMapping": [
+              {
+                "id": "ink9uxujb6wd92ovcg9m9u65",
+                "variableId": "vz7g962d8gpvkkwj92evgzhzk",
+                "bodyPath": "data.DADOS.nome"
+              },
+              {
+                "id": "r2pgs2gezu5twwj0p6st66fj",
+                "variableId": "vrxub1f2egntlxe86oxkkullg",
+                "bodyPath": "data.DADOS.nome_mae"
+              },
+              {
+                "id": "w9c4fxq80h4dyzvcx9gop64e",
+                "variableId": "vawsl2tks1rmq3cvjt76eeyg3",
+                "bodyPath": "data.DADOS.data_nascimento"
+              },
+              {
+                "id": "xglyj5h6d0gqk05x82rhhq3r",
+                "variableId": "vrgaxpklr55mm52r9tynlzyh5",
+                "bodyPath": "data.DADOS.sexo"
+              }
+            ],
+            "webhook": {
+              "headers": [],
+              "method": "GET",
+              "url": "http://typebot-cpf-proxy:8080/?cpf={{cpf}}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "icwo1kfjyefsujavfoqcc1ez",
+      "title": "Group #13",
+      "graphCoordinates": {
+        "x": 1432.16,
+        "y": 760.86
+      },
+      "blocks": [
+        {
+          "id": "b8dyivmwgdiqmhsek2fat6dl",
+          "type": "Webhook",
+          "options": {
+            "responseVariableMapping": [
+              {
+                "id": "ink9uxujb6wd92ovcg9m9u65",
+                "variableId": "vz7g962d8gpvkkwj92evgzhzk",
+                "bodyPath": "data.DADOS.nome"
+              },
+              {
+                "id": "r2pgs2gezu5twwj0p6st66fj",
+                "variableId": "vrxub1f2egntlxe86oxkkullg",
+                "bodyPath": "data.DADOS.nome_mae"
+              },
+              {
+                "id": "w9c4fxq80h4dyzvcx9gop64e",
+                "variableId": "vawsl2tks1rmq3cvjt76eeyg3",
+                "bodyPath": "data.DADOS.data_nascimento"
+              },
+              {
+                "id": "xglyj5h6d0gqk05x82rhhq3r",
+                "variableId": "vrgaxpklr55mm52r9tynlzyh5",
+                "bodyPath": "data.DADOS.sexo"
+              }
+            ],
+            "webhook": {
+              "headers": [],
+              "method": "GET",
+              "url": "http://typebot-cpf-proxy:8080/?cpf={{cpf}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "jvx9wnyvt8th72m6pz6nkdlc",
+      "from": {
+        "eventId": "bxvzra3k2gh05ufvja67sf98"
+      },
+      "to": {
+        "groupId": "wzdnlrg7di3p2l6rqlsojnk0"
+      }
+    },
+    {
+      "id": "iwa4x0qqz4nkomhzf48vujo2",
+      "from": {
+        "blockId": "l8jla6qzg5gm62749y1j4m35"
+      },
+      "to": {
+        "groupId": "twcmfpf673mnt133gotr27jp"
+      }
+    },
+    {
+      "id": "ar29vxyv5q0mfg4bm0vatmnt",
+      "from": {
+        "blockId": "qj1b85jgzax9ttur2kwx6sn3",
+        "itemId": "mj0o40ytmx7c59tnn62md8fl"
+      },
+      "to": {
+        "groupId": "v678gbxbke37qxrei92dwoki",
+        "blockId": "ue671q7o87ocusgxpyy2m0iy"
+      }
+    },
+    {
+      "id": "o1ihgfqgde421eevlrhlzuad",
+      "from": {
+        "blockId": "okiio43h618fd54es3uq756j",
+        "itemId": "jxo9nv4rfep99qrnhat43jph"
+      },
+      "to": {
+        "groupId": "qn5jcm3240g7g8vmfq0kotas",
+        "blockId": "d6wao4fhrnssihwlq091vvvw"
+      }
+    },
+    {
+      "id": "e85o2cgovqkk0bvm1uwxhm26",
+      "from": {
+        "blockId": "faymv17cnv4tex4bldplgrcs",
+        "itemId": "rzx054on9yayawa893mfc6bq"
+      },
+      "to": {
+        "groupId": "dzb23mi5f5n8l3b8d57uq8rj",
+        "blockId": "meufludil5ul0qi7gdcaqt5p"
+      }
+    },
+    {
+      "id": "kbag4pjiwrq2oekrl9qcibdf",
+      "from": {
+        "blockId": "meufludil5ul0qi7gdcaqt5p"
+      },
+      "to": {
+        "groupId": "twcmfpf673mnt133gotr27jp",
+        "blockId": "okiio43h618fd54es3uq756j"
+      }
+    },
+    {
+      "id": "d48241jkbbgjwyjanqvwro7c",
+      "from": {
+        "blockId": "bom576gieus0oahykntw0m0k",
+        "itemId": "rh15h4o0kil91qdavh20dtxu"
+      },
+      "to": {
+        "groupId": "indxhtkze2uxv07y575ome8l",
+        "blockId": "w6wxi15y11azcqqkwy83k5gr"
+      }
+    },
+    {
+      "id": "t1ggv8w2sqt84cpsi26515ff",
+      "from": {
+        "blockId": "w6wxi15y11azcqqkwy83k5gr"
+      },
+      "to": {
+        "groupId": "twcmfpf673mnt133gotr27jp",
+        "blockId": "okiio43h618fd54es3uq756j"
+      }
+    },
+    {
+      "id": "vocxeg7m69d3n9fdxb88nok4",
+      "from": {
+        "blockId": "d6wao4fhrnssihwlq091vvvw"
+      },
+      "to": {
+        "groupId": "twcmfpf673mnt133gotr27jp",
+        "blockId": "clhujdf2gxzodmnmjnk2qyqv"
+      }
+    },
+    {
+      "id": "fsu402h01u1hb9re8hgsu81k",
+      "from": {
+        "blockId": "l8jla6qzg5gm62749y1j4m35",
+        "itemId": "w5yrc9iktps526paaaezxbrx"
+      },
+      "to": {
+        "groupId": "v678gbxbke37qxrei92dwoki",
+        "blockId": "hgvejz5xrf9r7uh6oasd0ukb"
+      }
+    },
+    {
+      "id": "y594942ylevtolbz2jqt1m7f",
+      "from": {
+        "blockId": "nd6jryra2eob7d7bokrahbmc"
+      },
+      "to": {
+        "groupId": "twcmfpf673mnt133gotr27jp",
+        "blockId": "qj1b85jgzax9ttur2kwx6sn3"
+      }
+    }
+  ],
+  "variables": [
+    {
+      "id": "vun3eax15xieovpi0ztu28w6i",
+      "name": "dataHoje",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vf1c9p4f47qhgvkq6x8ir7xv0",
+      "name": "dataa",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vv6hss5qim543cw91zy1aobi1",
+      "name": "ref_id",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vm87yqtu5yadpiw2fswegchjm",
+      "name": "gbraid",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vikz3ji6v4gaq4g2w1r65hncq",
+      "name": "wbraid",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vxpz0ynq6zv6mfdnhylbr277t",
+      "name": "gclid",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vzxac0zgi8w2p8ifaf1gb0lmv",
+      "name": "dev",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vsnt59h1m8eg8hpy0fqdl6dhr",
+      "name": "pos",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vu7m6lcjy349zoanqu1520iuw",
+      "name": "net",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vnjk3exhce4dn98f0gvrpqwhf",
+      "name": "loc",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vncdq2znjfv8dyq95hg9sah7f",
+      "name": "int",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vygv7y0es4o59vkq99m3n6zhc",
+      "name": "disp",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vaawzdfrckfjtbgc2lr7zfb4f",
+      "name": "cpc",
+      "isSessionVariable": true
+    },
+    {
+      "id": "visx0lqbqfkg44co2du5swgxw",
+      "name": "kw",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vgsty6w3jnv6x3x0ebbhxlqfg",
+      "name": "rdn",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vgmwfqj0rhel8ph05rn36i6o0",
+      "name": "mtx",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vv85ixqajgrd7lsnxahrvfb19",
+      "name": "plc",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vr5ncm21mciyb4hgoxq48e5gs",
+      "name": "cr",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vc17l8y2f1b3evnfzagh9xtbd",
+      "name": "domain",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vliap39qsxhlb7rphzyvu18mg",
+      "name": "gwr",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vxoxoxsbyd3b0ok1nosdgvwxm",
+      "name": "twr",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vtxerbksbv630h6hedqytutcy",
+      "name": "cwr",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vbwo5kvkdbqklgh5t2ge1kn29",
+      "name": "lpurl",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vqt9b1c4fckadynymcl5044hr",
+      "name": "sexo",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vkqi66lfgxew8mxvtchkp0gbn",
+      "name": "nascimento",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vjbiwltmtjd2ndvnz0u8wr8o1",
+      "name": "nome",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vrgaxpklr55mm52r9tynlzyh5",
+      "name": "dataSexo",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vawsl2tks1rmq3cvjt76eeyg3",
+      "name": "dataNascimento",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vrxub1f2egntlxe86oxkkullg",
+      "name": "nomeMae",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vz7g962d8gpvkkwj92evgzhzk",
+      "name": "nomeCompleto",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vsqkt7fey1x407wt35ye8riv8",
+      "name": "cpf",
+      "isSessionVariable": false
+    }
+  ],
+  "theme": {
+    "general": {
+      "background": {
+        "type": "None"
+      }
+    },
+    "chat": {
+      "hostAvatar": {
+        "isEnabled": true,
+        "url": "https://s3.typebot.io/public/workspaces/clwbk1g5h000basuc0b1t1gyw/typebots/cm4a9mvvg000q5j2psv1owrpq/hostAvatar?v=1734647504649"
+      },
+      "guestBubbles": {
+        "backgroundColor": "#31446f"
+      },
+      "buttons": {
+        "backgroundColor": "#2459d6"
+      }
+    }
+  },
+  "selectedThemeTemplateId": null,
+  "settings": {
+    "general": {
+      "isBrandingEnabled": false,
+      "isHideQueryParamsEnabled": false
+    },
+    "typingEmulation": {
+      "maxDelay": 5
+    },
+    "metadata": {
+      "title": "Atendimento Correios",
+      "description": "Central de Atendimento Correios",
+      "imageUrl": "https://storage.chatcrrbrasil.online/typebot/public/workspaces/cm3ohdgf50008tbtysa6mss0z/typebots/cm3ohdlnl000ctbtyo6wzxw3b/ogImage?v=1732022831806",
+      "favIconUrl": "https://storage.chatcrrbrasil.online/typebot/public/workspaces/cm3ohdgf50008tbtysa6mss0z/typebots/cm3ohdlnl000ctbtyo6wzxw3b/favIcon?v=1732022810313",
+      "customHeadCode": "<script\n  src=\"https://cdn.utmify.com.br/scripts/utms/latest.js\"\n  data-utmify-prevent-xcod-sck\n  data-utmify-prevent-subids\n  async\n  defer\n></script>\n<script>\n  window.googlePixelId = \"69456a75797f8fc1bf5ac180\";\n  var a = document.createElement(\"script\");\n  a.setAttribute(\"async\", \"\");\n  a.setAttribute(\"defer\", \"\");\n  a.setAttribute(\"src\", \"https://cdn.utmify.com.br/scripts/pixel/pixel-google.js\");\n  document.head.appendChild(a);\n</script>"
+    }
+  },
+  "createdAt": "2025-02-19T14:10:02.503Z",
+  "updatedAt": "2026-07-20T04:59:29.000Z",
+  "icon": null,
+  "folderId": null,
+  "publicId": "crra",
+  "customDomain": null,
+  "workspaceId": "cm70fgj3b0001l939hv6d6q3g",
+  "resultsTablePreferences": null,
+  "isArchived": false,
+  "isClosed": false,
+  "whatsAppCredentialsId": null,
+  "riskLevel": null
+}
