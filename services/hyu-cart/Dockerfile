@@ -5,7 +5,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app.py bling.py .
+COPY app.py bling.py shopify_store.py .
 
 EXPOSE 8000
 
