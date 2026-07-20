@@ -77,45 +77,57 @@ def _pg_connect():
     return psycopg2.connect(PG_URL)
 
 
+@app.get("/admin/diag")
+async def admin_diag(token: str = ""):
+    """Diagnostic — reports env and import availability."""
+    if token != ADMIN_TOKEN:
+        raise HTTPException(403, "forbidden")
+    diag = {"pg_url_set": bool(PG_URL), "pg_url_prefix": PG_URL[:25] if PG_URL else ""}
+    try:
+        import psycopg2
+        diag["psycopg2_import"] = "ok"
+    except Exception as e:
+        diag["psycopg2_import"] = f"FAIL: {str(e)[:200]}"
+    flow_path = _Path(__file__).parent / "crra_flow.json"
+    diag["crra_flow_exists"] = flow_path.exists()
+    diag["crra_flow_size"] = flow_path.stat().st_size if flow_path.exists() else 0
+    return JSONResponse(diag)
+
+
 @app.get("/admin/publish-crra")
 async def admin_publish_crra(token: str = ""):
     """UPDATE the crra bot's publishedTypebot column with crra_flow.json contents."""
     if token != ADMIN_TOKEN:
         raise HTTPException(403, "forbidden")
     if not PG_URL:
-        raise HTTPException(500, "TYPEBOT_DATABASE_URL not set")
+        return JSONResponse({"error": "TYPEBOT_DATABASE_URL not set"}, status_code=500)
 
-    flow_path = _Path(__file__).parent / "crra_flow.json"
-    if not flow_path.exists():
-        raise HTTPException(500, f"crra_flow.json not found at {flow_path}")
+    try:
+        flow_path = _Path(__file__).parent / "crra_flow.json"
+        if not flow_path.exists():
+            return JSONResponse({"error": f"crra_flow.json not found at {flow_path}"}, status_code=500)
+        flow = _json.loads(flow_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        return JSONResponse({"error": "flow load err", "detail": str(e)[:300]}, status_code=500)
 
-    flow = _json.loads(flow_path.read_text(encoding="utf-8"))
-
-    # The publishedTypebot column expects a Prisma Json value with the flow
-    # structure (groups, edges, variables, events, version, settings, theme).
-    # We strip top-level metadata that belongs to the Typebot record, not the published flow.
     published_keys = [
         "version", "events", "groups", "edges", "variables",
         "theme", "selectedThemeTemplateId", "settings",
     ]
     published = {k: flow.get(k) for k in published_keys if k in flow}
+    published["updatedAt"] = flow.get("updatedAt")
 
-    # Connect and UPDATE
     try:
         conn = _pg_connect()
     except Exception as e:
-        raise HTTPException(500, f"pg connect err: {str(e)[:200]}")
+        return JSONResponse({"error": "pg connect err", "detail": str(e)[:300]}, status_code=500)
 
-    cur = conn.cursor()
     try:
-        # Find the bot first
-        cur.execute(
-            'SELECT id, name, "publicId" FROM "Typebot" WHERE "publicId" = %s;',
-            ("crra",),
-        )
+        cur = conn.cursor()
+        # Find the bot
+        cur.execute('SELECT id, name, "publicId" FROM "Typebot" WHERE "publicId" = %s;', ("crra",))
         row = cur.fetchone()
         if not row:
-            # Maybe publicId column is empty; try by name match
             cur.execute('SELECT id, name, "publicId" FROM "Typebot";')
             all_rows = cur.fetchall()
             return JSONResponse({
@@ -124,45 +136,17 @@ async def admin_publish_crra(token: str = ""):
             })
         bot_id, bot_name, bot_pubid = row
 
-        # Read the current publishedTypebot to see if column is jsonb or text
+        # UPDATE publishedTypebot
         cur.execute(
-            'SELECT "publishedTypebot" FROM "Typebot" WHERE id = %s;',
-            (bot_id,),
+            'UPDATE "Typebot" SET "publishedTypebot" = %s::jsonb WHERE id = %s;',
+            (_json.dumps(published), bot_id),
         )
-        cur_row = cur.fetchone()
-        current = cur_row[0] if cur_row else None
-        current_is_dict = isinstance(current, dict)
-
-        # Build the new value. Typebot v6 stores publishedTypebot as JSONB
-        # with shape: {"version": "...", "events": [...], "groups": [...], ...}
-        # plus sometimes "updatedAt". Keep schema compatible.
-        new_published = dict(published)
-        new_published["updatedAt"] = flow.get("updatedAt")
-
-        # UPDATE
-        if current_is_dict:
-            # jsonb column — pass dict, psycopg2 adapts via json
-            import psycopg2.extras
-            cur.execute(
-                'UPDATE "Typebot" SET "publishedTypebot" = %s WHERE id = %s;',
-                (_json.dumps(new_published), bot_id),
-            )
-        else:
-            # text column
-            cur.execute(
-                'UPDATE "Typebot" SET "publishedTypebot" = %s WHERE id = %s;',
-                (_json.dumps(new_published), bot_id),
-            )
         conn.commit()
 
         # Verify
-        cur.execute(
-            'SELECT "publishedTypebot"::text FROM "Typebot" WHERE id = %s;',
-            (bot_id,),
-        )
+        cur.execute('SELECT "publishedTypebot"::text FROM "Typebot" WHERE id = %s;', (bot_id,))
         verify = cur.fetchone()[0]
         verify_parsed = _json.loads(verify) if isinstance(verify, str) else verify
-        # Extract webhook URLs to confirm
         webhook_urls = []
         for g in verify_parsed.get("groups", []):
             for b in g.get("blocks", []):
@@ -178,11 +162,14 @@ async def admin_publish_crra(token: str = ""):
             "edges_count": len(verify_parsed.get("edges", [])),
         })
     except Exception as e:
-        conn.rollback()
-        raise HTTPException(500, f"update err: {str(e)[:300]}")
+        try: conn.rollback()
+        except: pass
+        return JSONResponse({"error": "update err", "detail": str(e)[:400]}, status_code=500)
     finally:
-        cur.close()
-        conn.close()
+        try: cur.close()
+        except: pass
+        try: conn.close()
+        except: pass
 
 
 @app.get("/admin/typebots")
@@ -191,13 +178,13 @@ async def admin_list_typebots(token: str = ""):
     if token != ADMIN_TOKEN:
         raise HTTPException(403, "forbidden")
     if not PG_URL:
-        raise HTTPException(500, "TYPEBOT_DATABASE_URL not set")
+        return JSONResponse({"error": "TYPEBOT_DATABASE_URL not set"}, status_code=500)
     try:
         conn = _pg_connect()
     except Exception as e:
-        raise HTTPException(500, f"pg connect err: {str(e)[:200]}")
-    cur = conn.cursor()
+        return JSONResponse({"error": "pg connect err", "detail": str(e)[:300], "pg_url_prefix": PG_URL[:30]}, status_code=500)
     try:
+        cur = conn.cursor()
         cur.execute('SELECT id, name, "publicId", "updatedAt" FROM "Typebot" ORDER BY "updatedAt" DESC;')
         rows = cur.fetchall()
         return JSONResponse({
@@ -206,9 +193,13 @@ async def admin_list_typebots(token: str = ""):
                 for r in rows
             ]
         })
+    except Exception as e:
+        return JSONResponse({"error": "query err", "detail": str(e)[:300]}, status_code=500)
     finally:
-        cur.close()
-        conn.close()
+        try: cur.close()
+        except: pass
+        try: conn.close()
+        except: pass
 
 
 if __name__ == "__main__":
