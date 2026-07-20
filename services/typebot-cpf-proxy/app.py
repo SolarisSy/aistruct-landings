@@ -185,14 +185,48 @@ async def admin_list_typebots(token: str = ""):
         return JSONResponse({"error": "pg connect err", "detail": str(e)[:300], "pg_url_prefix": PG_URL[:30]}, status_code=500)
     try:
         cur = conn.cursor()
-        cur.execute('SELECT id, name, "publicId", "updatedAt" FROM "Typebot" ORDER BY "updatedAt" DESC;')
-        rows = cur.fetchall()
-        return JSONResponse({
-            "typebots": [
-                {"id": r[0], "name": r[1], "publicId": r[2], "updatedAt": str(r[3])}
-                for r in rows
-            ]
-        })
+        # Discover table names first (Prisma uses PascalCase by default)
+        cur.execute("""
+            SELECT table_schema, table_name
+            FROM information_schema.tables
+            WHERE table_schema NOT IN ('pg_catalog','information_schema')
+            ORDER BY table_schema, table_name;
+        """)
+        tables = [{"schema": r[0], "table": r[1]} for r in cur.fetchall()]
+        # Find typebot-like tables
+        typebot_tables = [t for t in tables if 'typebot' in t['table'].lower()]
+        result = {"all_tables_count": len(tables), "typebot_tables": typebot_tables, "first_20_tables": tables[:20]}
+
+        # If we found a Typebot table, list its rows
+        for t in typebot_tables:
+            schema = t['schema']
+            table = t['table']
+            try:
+                # Detect columns
+                cur.execute("""
+                    SELECT column_name FROM information_schema.columns
+                    WHERE table_schema=%s AND table_name=%s
+                    ORDER BY ordinal_position;
+                """, (schema, table))
+                cols = [r[0] for r in cur.fetchall()]
+                result[f"{table}_cols"] = cols
+                # Try to select id/name/publicId-like columns
+                id_col = next((c for c in cols if c.lower() == 'id'), 'id')
+                name_col = next((c for c in cols if c.lower() == 'name'), None)
+                pubid_col = next((c for c in cols if 'publicid' in c.lower() or 'public_id' in c.lower()), None)
+                if name_col:
+                    select_cols = [id_col, name_col]
+                    if pubid_col: select_cols.append(pubid_col)
+                    cur.execute(f'SELECT {",".join(chr(34)+c+chr(34) for c in select_cols)} FROM {chr(34)+schema+chr(34)}.{chr(34)+table+chr(34)} LIMIT 20;')
+                    rows = cur.fetchall()
+                    result[f"{table}_rows"] = [
+                        {"id": r[0], "name": r[1], "publicId": r[2] if pubid_col else None}
+                        for r in rows
+                    ]
+            except Exception as e:
+                result[f"{table}_err"] = str(e)[:200]
+
+        return JSONResponse(result)
     except Exception as e:
         return JSONResponse({"error": "query err", "detail": str(e)[:300]}, status_code=500)
     finally:
