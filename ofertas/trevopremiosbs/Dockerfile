@@ -1,9 +1,6 @@
-FROM php:8.2-fpm-alpine
-RUN apk add --no-cache nginx \
-    && install -d /run/nginx
-COPY nginx.conf /etc/nginx/http.d/default.conf
-COPY . /var/www/html/
-RUN rm -f /var/www/html/Dockerfile /var/www/html/nginx.conf
-RUN sed -i 's|server_tokens on|server_tokens off|' /etc/nginx/nginx.conf 2>/dev/null || true
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY . /usr/share/nginx/html/
+RUN rm -f /usr/share/nginx/html/Dockerfile /usr/share/nginx/html/nginx.conf \
+    && sed -i 's|server_tokens on|server_tokens off|' /etc/nginx/nginx.conf 2>/dev/null || true
 EXPOSE 80
-CMD sh -c "php-fpm81 -D 2>/dev/null || php-fpm -D; nginx -g 'daemon off;'"

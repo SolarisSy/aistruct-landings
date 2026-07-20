@@ -1,2 +1,0 @@
-# Pasta dummy — o Dockerfile injetado pelo builder faz `cp -r white/home home`.
-# Sem TWR não precisamos de safe page, mas mantemos a pasta vazia pro build não falhar.

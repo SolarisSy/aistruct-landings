@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Framework Ministry Solutions LLC · Auburndale, FL · Ministry & Community Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0f08;
+  --dark:#0d1309;
+  --forest:#12200e;
+  --green:#2e6b1e;
+  --green-light:#4a9432;
+  --sage:#8ab87a;
+  --cream:#f8f4ec;
+  --warm:#f0ead8;
+  --gold:#c8922a;
+  --gold-light:#e0a83c;
+  --linen:#e8dfc8;
+  --ink:#f0eddc;
+  --muted:rgba(240,237,220,.32);
+  --border:rgba(200,146,42,.12);
+  --card:rgba(200,146,42,.04);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+
+/* ── BG ── */
+.bg-wrap{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.o{position:absolute;border-radius:50%;mix-blend-mode:screen;filter:blur(130px);animation:of ease-in-out infinite}
+.o1{width:800px;height:800px;background:radial-gradient(circle,rgba(46,107,30,.42),transparent 70%);top:-20%;left:-16%;animation-duration:26s}
+.o2{width:600px;height:600px;background:radial-gradient(circle,rgba(200,146,42,.2),transparent 70%);bottom:-18%;right:-12%;animation-duration:30s;animation-delay:-10s}
+.o3{width:420px;height:420px;background:radial-gradient(circle,rgba(74,148,50,.22),transparent 70%);top:45%;right:5%;animation-duration:24s;animation-delay:-15s}
+.o4{width:300px;height:300px;background:radial-gradient(circle,rgba(200,146,42,.15),transparent 70%);bottom:22%;left:8%;animation-duration:32s;animation-delay:-7s}
+@keyframes of{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(35px,-50px) scale(1.06)}66%{transform:translate(-28px,42px) scale(.94)}}
+
+/* Cross pattern subtle */
+.cross-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;
+  background-image:
+    linear-gradient(rgba(200,146,42,.5) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,146,42,.5) 1px,transparent 1px);
+  background-size:80px 80px}
+
+.noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+
+/* Gold beam top */
+.topbeam{position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent);
+  animation:tb 6s ease-in-out infinite}
+@keyframes tb{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ── NAV ── */
+nav{position:fixed;top:2px;width:100%;z-index:999;transition:all .5s}
+nav.on{background:rgba(10,15,8,.97);backdrop-filter:blur(50px);border-bottom:1px solid var(--border)}
+.ni{max-width:1380px;margin:0 auto;padding:1.5rem 3.5rem;display:flex;justify-content:space-between;align-items:center}
+.logo{text-decoration:none;display:flex;align-items:center;gap:1.2rem}
+.logo-cross{width:46px;height:46px;border:1.5px solid rgba(200,146,42,.4);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--gold);box-shadow:0 0 20px rgba(200,146,42,.2);animation:lp 4s ease-in-out infinite;position:relative}
+.logo-cross::before{content:'✦';color:var(--gold)}
+@keyframes lp{0%,100%{box-shadow:0 0 20px rgba(200,146,42,.2)}50%{box-shadow:0 0 35px rgba(200,146,42,.4)}}
+.logo-txt{display:flex;flex-direction:column}
+.logo-name{font-family:'Cinzel',serif;font-size:.85rem;font-weight:600;color:var(--ink);letter-spacing:1.5px;line-height:1.2}
+.logo-sub{font-family:'Lato',sans-serif;font-size:.38rem;font-weight:300;color:var(--muted);letter-spacing:4px;text-transform:uppercase;margin-top:.1rem}
+.nl{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nl a{font-family:'Cinzel',serif;font-size:.58rem;font-weight:400;color:var(--muted);text-decoration:none;transition:all .3s;letter-spacing:2px;text-transform:uppercase}
+.nl a:hover{color:var(--ink)}
+.nc{background:transparent!important;color:var(--gold)!important;border:1px solid rgba(200,146,42,.4)!important;opacity:1!important;padding:.5rem 1.6rem;font-size:.58rem!important;font-weight:600!important;letter-spacing:2px;transition:all .4s}
+.nc:hover{background:rgba(200,146,42,.1)!important;border-color:var(--gold)!important;transform:translateY(-2px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.ham span{width:22px;height:1px;background:var(--ink)}
+.mmenu{display:none;position:fixed;inset:0;z-index:998;background:rgba(10,15,8,.98);backdrop-filter:blur(50px);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mmenu.open{display:flex}
+.mmenu a{font-family:'EB Garamond',serif;font-size:3rem;font-style:italic;color:var(--ink);text-decoration:none;opacity:.2;transition:all .4s}
+.mmenu a:hover{opacity:1;color:var(--gold)}
+.xbtn{position:absolute;top:1.5rem;right:2rem;font-size:1.8rem;cursor:pointer;color:var(--muted);background:none;border:none}
+
+/* ── HERO ── */
+.hero{min-height:100vh;position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 3rem 5rem;overflow:hidden}
+.hc{max-width:880px;margin:0 auto;position:relative;z-index:2}
+
+/* Ornament row */
+.h-orn{display:flex;align-items:center;gap:1.2rem;justify-content:center;margin-bottom:2.5rem}
+.h-orn-line{height:1px;width:60px;background:linear-gradient(90deg,transparent,var(--gold))}
+.h-orn-cross{font-size:1rem;color:var(--gold);opacity:.7;animation:dp 3s ease-in-out infinite}
+@keyframes dp{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+.h-orn-text{font-family:'Lato',sans-serif;font-size:.48rem;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:var(--gold);opacity:.65}
+
+.h-over{font-family:'Lato',sans-serif;font-size:.48rem;font-weight:300;letter-spacing:7px;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;display:block;opacity:.5}
+h1{font-family:'EB Garamond',serif;font-size:clamp(3rem,7vw,8.5rem);font-weight:500;line-height:.95;margin-bottom:.6rem}
+h1 .w1{display:block;font-style:italic;color:var(--cream)}
+h1 .w2{display:block;font-style:normal;font-weight:700;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light),var(--gold));
+  background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gs 5s ease-in-out infinite}
+h1 .w3{display:block;font-style:italic;font-size:.45em;font-weight:400;color:rgba(240,237,220,.25);letter-spacing:3px;font-family:'Cinzel',serif;margin-top:.3rem;-webkit-text-fill-color:rgba(240,237,220,.25)}
+@keyframes gs{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.h-verse{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(.95rem,1.5vw,1.15rem);color:var(--muted);letter-spacing:1px;margin:.9rem 0 3.5rem;opacity:.5;max-width:600px;margin-left:auto;margin-right:auto}
+
+.h-pills{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4.5rem}
+.hp{display:flex;flex-direction:column;align-items:center;gap:.22rem;padding:.75rem 1.5rem;border:1px solid var(--border);background:var(--card);backdrop-filter:blur(10px);transition:all .35s}
+.hp:hover{border-color:rgba(200,146,42,.28);background:rgba(200,146,42,.07);transform:translateY(-3px)}
+.hp strong{font-family:'Cinzel',serif;font-size:.65rem;font-weight:600;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hp span{font-size:.5rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;opacity:.4}
+.cta-row{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;text-decoration:none;transition:all .4s;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;padding:.85rem 2.2rem}
+.bp{background:linear-gradient(135deg,var(--green),var(--green-light));color:var(--cream);box-shadow:0 6px 25px rgba(46,107,30,.35)}
+.bp:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(74,148,50,.4)}
+.bs{background:transparent;color:var(--ink);border:1px solid rgba(240,237,220,.12)!important}
+.bs:hover{border-color:rgba(200,146,42,.35)!important;background:rgba(200,146,42,.06);transform:translateY(-3px)}
+
+/* ── BANNER (Scripture-style) ── */
+.banner{position:relative;z-index:2;background:linear-gradient(135deg,var(--forest),var(--dark));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 3.5rem;overflow:hidden}
+.banner::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:1px;background:linear-gradient(90deg,transparent,rgba(200,146,42,.2),transparent)}
+.ban-inner{max-width:1380px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:2rem}
+.ban-text{font-family:'EB Garamond',serif;font-style:italic;font-size:1rem;color:rgba(240,237,220,.45);text-align:center;letter-spacing:.5px}
+.ban-text span{color:var(--gold-light);opacity:.7}
+
+/* ── ABOUT ── */
+.about{position:relative;z-index:2;padding:9rem 3.5rem;background:var(--dark)}
+.about-inner{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center}
+.ak{font-family:'Cinzel',serif;font-size:.52rem;font-weight:400;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem;opacity:.7}
+.ak::before{content:'✦';font-size:.4rem;color:var(--gold)}
+h2{font-family:'EB Garamond',serif;font-size:clamp(2rem,4vw,4rem);font-weight:500;color:var(--cream);line-height:1.1;margin-bottom:1.3rem}
+h2 em{font-style:italic;color:var(--gold)}
+.ab-p{font-family:'EB Garamond',serif;font-size:1rem;color:var(--muted);line-height:1.95;font-weight:400;margin-bottom:1.2rem}
+.ab-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.38rem 1rem;border:1px solid rgba(74,148,50,.25);background:rgba(74,148,50,.07);font-family:'Cinzel',serif;font-size:.5rem;font-weight:500;color:var(--sage);letter-spacing:1.5px;margin-top:1.5rem}
+.abd{width:5px;height:5px;border-radius:50%;background:var(--sage);box-shadow:0 0 8px var(--sage);animation:dp 1.5s infinite}
+
+.ab-cards{display:flex;flex-direction:column;gap:1px;background:rgba(200,146,42,.07)}
+.ac{background:var(--dark);padding:2rem;transition:all .4s;position:relative;overflow:hidden;border-left:2px solid transparent}
+.ac:hover{background:rgba(200,146,42,.04);border-left-color:var(--gold)}
+.ac-ico{font-size:1.4rem;margin-bottom:.6rem;display:block}
+.ac h4{font-family:'EB Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--cream);margin-bottom:.35rem}
+.ac p{font-size:.82rem;color:var(--muted);line-height:1.7;font-weight:300}
+
+/* ── REG ── */
+.reg{position:relative;z-index:2;padding:6rem 3.5rem;background:var(--bg)}
+.reg-inner{max-width:1380px;margin:0 auto}
+.reg-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.reg-hd h2{font-size:clamp(1.8rem,3vw,3.2rem)}
+.reg-hd p{font-family:'Lato',sans-serif;font-size:.42rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--muted);opacity:.35}
+.reg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(200,146,42,.07)}
+.rg{background:var(--bg);padding:1.6rem;transition:background .3s}
+.rg:hover{background:rgba(200,146,42,.07)}
+.rgl{font-family:'Lato',sans-serif;font-size:.42rem;font-weight:300;letter-spacing:3.5px;text-transform:uppercase;color:var(--muted);opacity:.32;margin-bottom:.4rem;display:block}
+.rgv{font-family:'EB Garamond',serif;font-size:.95rem;font-weight:400;color:rgba(240,237,220,.8);line-height:1.4}
+.rgv-a{color:var(--sage)!important;font-weight:600}
+.rgv-h{color:var(--gold)!important;font-weight:600}
+.reg-ft{margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(200,146,42,.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.reg-ft span{font-family:'Lato',sans-serif;font-size:.42rem;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--muted);opacity:.28}
+
+/* ── MINISTRIES ── */
+.ministries{position:relative;z-index:2;padding:9rem 3.5rem;background:var(--dark)}
+.ministries-inner{max-width:1380px;margin:0 auto}
+.m-hd{text-align:center;margin-bottom:5rem}
+.m-hd .kk{font-family:'Cinzel',serif;font-size:.52rem;font-weight:400;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;opacity:.7}
+.m-hd h2{margin-bottom:.75rem}
+.m-hd p{font-family:'EB Garamond',serif;font-style:italic;font-size:1rem;color:var(--muted);max-width:520px;margin:0 auto}
+.m-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.mc{border:1px solid var(--border);background:var(--card);overflow:hidden;transition:all .4s;position:relative}
+.mc:hover{transform:translateY(-7px);border-color:rgba(200,146,42,.28);box-shadow:0 24px 60px rgba(200,146,42,.08)}
+.mc-top{padding:2.5rem 2rem 1.5rem;position:relative}
+.mc-accent{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--gold),transparent)}
+.mc-ico{font-size:1.8rem;margin-bottom:.8rem;display:block}
+.mc h4{font-family:'EB Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--cream);margin-bottom:.5rem}
+.mc p{font-size:.82rem;color:var(--muted);line-height:1.7;font-weight:300}
+.mc-bot{padding:.85rem 2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.mc-bot span{font-family:'Cinzel',serif;font-size:.48rem;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.6}
+.mc-arr{color:var(--gold);font-size:.85rem;opacity:.4;transition:transform .3s}
+.mc:hover .mc-arr{transform:translateX(5px);opacity:1}
+
+/* ── LEADERSHIP ── */
+.team{position:relative;z-index:2;padding:9rem 3.5rem;background:var(--bg)}
+.team-inner{max-width:700px;margin:0 auto;text-align:center}
+.team-hd{margin-bottom:4.5rem}
+.tc{border:1px solid var(--border);background:var(--card);padding:3rem;position:relative;overflow:hidden;transition:all .4s;max-width:500px;margin:0 auto}
+.tc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.tc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent)}
+.tc:hover{border-color:rgba(200,146,42,.22);box-shadow:0 20px 50px rgba(200,146,42,.07);transform:translateY(-5px)}
+.tc-deco{font-family:'EB Garamond',serif;font-size:7rem;font-style:italic;color:rgba(200,146,42,.04);position:absolute;bottom:-20px;right:10px;user-select:none;line-height:1}
+.tc-role{font-family:'Cinzel',serif;font-size:.5rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;display:block;opacity:.7}
+.tc-name{font-family:'EB Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--cream);margin-bottom:.5rem}
+.tc-addr{font-family:'Lato',sans-serif;font-size:.5rem;font-weight:300;color:var(--muted);letter-spacing:1.5px;margin-bottom:.7rem;opacity:.4}
+.tc-desc{font-family:'EB Garamond',serif;font-style:italic;font-size:.92rem;color:var(--muted);line-height:1.8}
+
+/* ── CONTACT ── */
+.contact{position:relative;z-index:2;padding:9rem 3.5rem;background:var(--dark)}
+.contact-inner{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:7rem;align-items:start}
+.contact h2{color:var(--cream)}
+.contact .sub{font-family:'EB Garamond',serif;font-style:italic;font-size:1rem;color:var(--muted);line-height:1.9;margin:.8rem 0 2.8rem}
+.ct-items{display:flex;flex-direction:column;gap:.8rem}
+.ct-item{display:flex;gap:1.2rem;align-items:flex-start;padding:1.2rem;border:1px solid var(--border);background:var(--card);transition:all .3s}
+.ct-item:hover{border-color:rgba(200,146,42,.22);background:rgba(200,146,42,.05)}
+.ct-ico{width:38px;height:38px;border:1px solid rgba(200,146,42,.2);background:rgba(200,146,42,.07);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.ct-body h5{font-family:'Cinzel',serif;font-size:.44rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.28rem;opacity:.7}
+.ct-body p,.ct-body a{font-family:'EB Garamond',serif;font-size:.95rem;color:var(--ink);font-weight:400;text-decoration:none;line-height:1.5}
+.ct-body a:hover{color:var(--gold)}
+.act-pill{display:inline-flex;align-items:center;gap:.35rem;font-family:'Cinzel',serif;font-size:.46rem;font-weight:500;color:var(--sage);letter-spacing:2px;margin-top:.3rem}
+.apd{width:5px;height:5px;border-radius:50%;background:var(--sage);box-shadow:0 0 8px var(--sage);animation:dp 1.5s infinite}
+
+.cform{border:1px solid var(--border);background:var(--card);padding:2.8rem;position:relative;overflow:hidden}
+.cform::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),transparent)}
+.cf-pre{font-family:'Cinzel',serif;font-size:.46rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem;display:block;opacity:.7}
+.cf-title{font-family:'EB Garamond',serif;font-size:1.5rem;font-weight:500;font-style:italic;color:var(--cream);margin-bottom:1.8rem}
+.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.fg label{font-family:'Cinzel',serif;font-size:.44rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.03);border:none;border-bottom:1px solid rgba(240,237,220,.08);padding:.68rem 0;color:var(--ink);font-size:.88rem;font-family:'EB Garamond',serif;font-weight:400;transition:all .3s;outline:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-bottom-color:var(--gold);color:var(--cream)}
+.fg select option{background:var(--dark)}
+.fg textarea{border:1px solid rgba(240,237,220,.07);padding:.68rem .8rem;min-height:100px;resize:none}
+.fg textarea:focus{border-color:rgba(200,146,42,.3)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.sub-btn{width:100%;margin-top:1.5rem;padding:.9rem;background:transparent;border:1px solid rgba(200,146,42,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .4s;display:flex;align-items:center;justify-content:center;gap:.6rem}
+.sub-btn:hover{background:rgba(200,146,42,.08);border-color:var(--gold);transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:2;background:var(--bg);border-top:1px solid var(--border);padding:5rem 3.5rem 2.5rem}
+.footer-inner{max-width:1380px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem;padding-bottom:4rem;border-bottom:1px solid var(--border)}
+.ft-brand-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem}
+.ft-cross{width:32px;height:32px;border:1px solid rgba(200,146,42,.3);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:.8rem}
+.ft-name{font-family:'Cinzel',serif;font-size:.85rem;font-weight:600;color:var(--cream);letter-spacing:1px}
+.ft-sub{font-family:'Lato',sans-serif;font-size:.42rem;font-weight:300;letter-spacing:4.5px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;opacity:.35}
+.ft-p{font-family:'EB Garamond',serif;font-size:.9rem;color:var(--muted);line-height:1.85;font-weight:400;opacity:.5}
+.fc h5{font-family:'Cinzel',serif;font-size:.46rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;opacity:.55}
+.fc ul{list-style:none}
+.fc ul li{margin-bottom:.55rem}
+.fc ul a{font-size:.82rem;color:var(--muted);text-decoration:none;transition:.3s;font-weight:300}
+.fc ul a:hover{color:var(--cream)}
+.fc ul span{font-size:.82rem;color:var(--muted);font-weight:300;opacity:.38}
+.fbot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.fbot p{font-family:'Lato',sans-serif;font-size:.44rem;font-weight:300;color:var(--muted);opacity:.2;letter-spacing:.5px}
+.fbot a{font-family:'Lato',sans-serif;font-size:.44rem;font-weight:300;color:var(--gold);text-decoration:none;opacity:.4}
+.fbot a:hover{opacity:1}
+
+/* ── DIVIDER ── */
+.divider{position:relative;z-index:2;display:flex;align-items:center;padding:0 3.5rem;margin:.5rem 0}
+.dl{flex:1;height:1px;background:var(--border)}
+.dlb{padding:.35rem 2rem;font-family:'Cinzel',serif;font-size:.46rem;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+
+.fi{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+.fi.v{opacity:1;transform:translateY(0)}
+
+@media(max-width:1024px){.about-inner,.contact-inner{grid-template-columns:1fr;gap:4rem}.m-grid{grid-template-columns:1fr 1fr}.ft-top{grid-template-columns:1fr 1fr}.reg-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.ni{padding:1.2rem 1.5rem}.nl{display:none}.ham{display:flex}.about,.ministries,.team,.contact,.reg{padding:5rem 1.5rem}.m-grid{grid-template-columns:1fr}.r2{grid-template-columns:1fr}.ft-top{grid-template-columns:1fr}.fbot{flex-direction:column;text-align:center}.divider{padding:0 1.5rem}.reg-grid{grid-template-columns:1fr}.cform{padding:2rem 1.5rem}}
+</style>
+</head>
+<body>
+
+<div class="bg-wrap"><div class="o o1"></div><div class="o o2"></div><div class="o o3"></div><div class="o o4"></div></div>
+<div class="cross-bg"></div>
+<div class="noise"></div>
+<div class="topbeam"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="ni">
+    <a class="logo" href="index.html">
+      <div class="logo-cross"></div>
+      <div class="logo-txt">
+        <span class="logo-name">Framework Ministry Solutions</span>
+        <span class="logo-sub">LLC · Auburndale, Florida</span>
+      </div>
+    </a>
+    <ul class="nl">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#ministries">Ministries</a></li>
+      <li><a href="#team">Leadership</a></li>
+      <li><a href="#contact" class="nc">Connect</a></li>
+    </ul>
+    <div class="ham" onclick="document.querySelector('.mmenu').classList.add('open')"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mmenu">
+  <button class="xbtn" onclick="document.querySelector('.mmenu').classList.remove('open')">✕</button>
+  <a href="#home" onclick="document.querySelector('.mmenu').classList.remove('open')">Home</a>
+  <a href="#about" onclick="document.querySelector('.mmenu').classList.remove('open')">About</a>
+  <a href="#ministries" onclick="document.querySelector('.mmenu').classList.remove('open')">Ministries</a>
+  <a href="#team" onclick="document.querySelector('.mmenu').classList.remove('open')">Leadership</a>
+  <a href="frameworkministry-privacy.html">Privacy</a>
+  <a href="#contact" onclick="document.querySelector('.mmenu').classList.remove('open')">Connect</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hc">
+    <div class="h-orn">
+      <div class="h-orn-line"></div>
+      <span class="h-orn-cross">✦</span>
+      <span class="h-orn-text">Active LLC · Auburndale · Florida · Annual Report 2025</span>
+      <span class="h-orn-cross">✦</span>
+      <div class="h-orn-line" style="background:linear-gradient(90deg,var(--gold),transparent)"></div>
+    </div>
+    <span class="h-over">Auburndale · Polk County · Florida</span>
+    <h1>
+      <span class="w1">Framework</span>
+      <span class="w2">Ministry</span>
+      <span class="w3">Solutions LLC · Auburndale, Florida</span>
+    </h1>
+    <p class="h-verse">"Building solutions that strengthen communities, empower purpose, and advance the mission."</p>
+    <div class="h-pills">
+      <div class="hp"><strong>L24000361672</strong><span>Document #</span></div>
+      <div class="hp"><strong>Active LLC ✓</strong><span>AR Filed Apr 2025</span></div>
+      <div class="hp"><strong>Auburndale, FL</strong><span>Polk County</span></div>
+      <div class="hp"><strong>FEI 99-4958057</strong><span>Federal Tax ID</span></div>
+    </div>
+    <div class="cta-row">
+      <a href="#contact" class="btn bp">Connect With Us →</a>
+      <a href="#about" class="btn bs">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+  <div class="ban-inner">
+    <div class="ban-text">"For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do." <span>— Ephesians 2:10</span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="fi">
+      <p class="ak">Our Mission</p>
+      <h2>Building the <em>framework</em> for lasting impact</h2>
+      <p class="ab-p">Framework Ministry Solutions LLC is a Florida Limited Liability Company headquartered in Auburndale, FL — dedicated to providing comprehensive ministry and organizational solutions that strengthen faith communities, empower leaders and advance purposeful mission work.</p>
+      <p class="ab-p">Registered under Document # L24000361672 and with our 2025 Annual Report filed April 21, 2025, we are led by Asher T Thompson, whose commitment to excellence in ministry solutions defines everything we do.</p>
+      <div class="ab-badge"><span class="abd"></span>DOC # L24000361672 · ACTIVE</div>
+    </div>
+    <div class="ab-cards fi">
+      <div class="ac"><span class="ac-ico">⛪</span><h4>Ministry-Centered</h4><p>Every solution we build is rooted in purpose-driven ministry values — designed to serve, equip and multiply Kingdom impact.</p></div>
+      <div class="ac"><span class="ac-ico">🏗️</span><h4>Solutions-Focused</h4><p>We build practical frameworks that solve real challenges — organizational, operational and relational — for ministry leaders.</p></div>
+      <div class="ac"><span class="ac-ico">🌿</span><h4>Community-Rooted</h4><p>Headquartered in Auburndale, FL, we serve Polk County and beyond with solutions grounded in local relationship and trust.</p></div>
+      <div class="ac"><span class="ac-ico">📋</span><h4>Florida LLC</h4><p>Registered under Chapter 605, Florida Statutes — a compliant, professional structure that reflects our commitment to integrity.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REG DETAILS -->
+<section class="reg fi">
+  <div class="reg-inner">
+    <div class="reg-hd">
+      <h2>Corporate <em style="font-style:italic;color:var(--gold)">Registration</em></h2>
+      <p>Florida Dept. of State · Division of Corporations · AR Filed Apr 21, 2025</p>
+    </div>
+    <div class="reg-grid">
+      <div class="rg"><span class="rgl">Entity Name</span><div class="rgv">Framework Ministry Solutions LLC</div></div>
+      <div class="rg"><span class="rgl">Status</span><div class="rgv rgv-a">ACTIVE ✓</div></div>
+      <div class="rg"><span class="rgl">Document #</span><div class="rgv rgv-h">L24000361672</div></div>
+      <div class="rg"><span class="rgl">FEI / Tax ID</span><div class="rgv rgv-h">99-4958057</div></div>
+      <div class="rg"><span class="rgl">Entity Type</span><div class="rgv">Florida Limited Liability Company</div></div>
+      <div class="rg"><span class="rgl">AR Filed</span><div class="rgv">April 21, 2025</div></div>
+      <div class="rg"><span class="rgl">Filing Reference</span><div class="rgv">9062900372CC</div></div>
+      <div class="rg"><span class="rgl">State</span><div class="rgv">Florida, USA</div></div>
+      <div class="rg"><span class="rgl">Principal Address</span><div class="rgv">2217 W Pilaklakaha Ave</div></div>
+      <div class="rg"><span class="rgl">City / ZIP</span><div class="rgv">Auburndale, FL 33823</div></div>
+      <div class="rg"><span class="rgl">Mailing Address</span><div class="rgv">2217 W Pilaklakaha Ave · Auburndale FL 33823 US</div></div>
+      <div class="rg"><span class="rgl">Registered Agent</span><div class="rgv">Asher T Thompson</div></div>
+      <div class="rg"><span class="rgl">Agent Address</span><div class="rgv">2217 W Pilaklakaha Ave · Auburndale FL 33823</div></div>
+      <div class="rg"><span class="rgl">Authorized Rep. (AR)</span><div class="rgv">Asher T Thompson</div></div>
+      <div class="rg"><span class="rgl">Signed</span><div class="rgv">Asher Thompson · 04/21/2025</div></div>
+      <div class="rg"><span class="rgl">Chapter</span><div class="rgv">605 · Florida Statutes</div></div>
+    </div>
+    <div class="reg-ft">
+      <span>Principal & Agent: 2217 W Pilaklakaha Ave · Auburndale FL 33823</span>
+      <span>Filing Ref: 9062900372CC · Signed 04/21/2025</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dlb">✦ ministries ✦</div><div class="dl"></div></div>
+
+<!-- MINISTRIES -->
+<section class="ministries" id="ministries">
+  <div class="ministries-inner">
+    <div class="m-hd fi">
+      <span class="kk">What We Build</span>
+      <h2>Our <em>Ministry Solutions</em></h2>
+      <p>Comprehensive frameworks that equip, empower and expand Kingdom impact</p>
+    </div>
+    <div class="m-grid">
+      <div class="mc fi"><div class="mc-top"><div class="mc-accent"></div><span class="mc-ico">⛪</span><h4>Church Organization</h4><p>Structural and operational frameworks that help churches function effectively, grow sustainably and serve their communities well.</p></div><div class="mc-bot"><span>Church Solutions</span><span class="mc-arr">→</span></div></div>
+      <div class="mc fi"><div class="mc-top"><div class="mc-accent"></div><span class="mc-ico">👤</span><h4>Leadership Development</h4><p>Equipping ministry leaders with the frameworks, tools and mentorship they need to lead with clarity, integrity and vision.</p></div><div class="mc-bot"><span>Leadership</span><span class="mc-arr">→</span></div></div>
+      <div class="mc fi"><div class="mc-top"><div class="mc-accent"></div><span class="mc-ico">🤝</span><h4>Community Outreach</h4><p>Building community engagement frameworks that connect ministry missions to real local needs with measurable, lasting impact.</p></div><div class="mc-bot"><span>Community</span><span class="mc-arr">→</span></div></div>
+      <div class="mc fi"><div class="mc-top"><div class="mc-accent"></div><span class="mc-ico">📖</span><h4>Biblical Education</h4><p>Curriculum frameworks and educational resources that ground communities in Scripture and grow disciples with depth.</p></div><div class="mc-bot"><span>Education</span><span class="mc-arr">→</span></div></div>
+      <div class="mc fi"><div class="mc-top"><div class="mc-accent"></div><span class="mc-ico">💼</span><h4>Administrative Solutions</h4><p>Professional administrative systems and compliance frameworks that allow ministry leaders to focus on mission, not management.</p></div><div class="mc-bot"><span>Administration</span><span class="mc-arr">→</span></div></div>
+      <div class="mc fi"><div class="mc-top"><div class="mc-accent"></div><span class="mc-ico">🌐</span><h4>Digital Ministry</h4><p>Modern digital frameworks that amplify ministry reach — online presence, digital giving, communication and media strategies.</p></div><div class="mc-bot"><span>Digital</span><span class="mc-arr">→</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dlb">✦ leadership ✦</div><div class="dl"></div></div>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="team-inner">
+    <div class="team-hd fi">
+      <p class="ak" style="justify-content:center">Authorized Representative</p>
+      <h2 style="text-align:center">Our <em>Leadership</em></h2>
+    </div>
+    <div class="tc fi">
+      <div class="tc-deco">A</div>
+      <span class="tc-role">✦ Registered Agent · Authorized Representative</span>
+      <div class="tc-name">Asher T Thompson</div>
+      <div class="tc-addr">2217 W Pilaklakaha Ave · Auburndale, FL 33823</div>
+      <p class="tc-desc">Founder, Registered Agent and Authorized Representative of Framework Ministry Solutions LLC. Asher Thompson is committed to building the organizational infrastructure that empowers ministries and faith communities across Florida and beyond.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dlb">✦ contact ✦</div><div class="dl"></div></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="fi">
+      <p class="ak">Get In Touch</p>
+      <h2>Let us <em>serve</em> your ministry</h2>
+      <p class="sub">Ready to build a stronger framework for your ministry or organization? Reach out and let's explore how we can serve your mission together.</p>
+      <div class="ct-items">
+        <div class="ct-item"><div class="ct-ico">✦</div><div class="ct-body"><h5>Organization</h5><p>Framework Ministry Solutions LLC</p><div class="act-pill"><span class="apd"></span>ACTIVE LLC · L24000361672</div></div></div>
+        <div class="ct-item"><div class="ct-ico">📍</div><div class="ct-body"><h5>Address</h5><p>2217 W Pilaklakaha Avenue<br>Auburndale, FL 33823<br>United States</p></div></div>
+        <div class="ct-item"><div class="ct-ico">⚖️</div><div class="ct-body"><h5>Registered Agent</h5><p>Asher T Thompson<br>2217 W Pilaklakaha Ave · Auburndale, FL 33823</p></div></div>
+        <div class="ct-item"><div class="ct-ico">🗂️</div><div class="ct-body"><h5>Registration</h5><p>Doc # L24000361672 · FEI 99-4958057<br>AR Filed April 21, 2025</p></div></div>
+      </div>
+    </div>
+    <div class="cform fi">
+      <span class="cf-pre">✦ Begin the Conversation</span>
+      <div class="cf-title">Send a Message</div>
+      <div class="r2">
+        <div class="fg"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+        <div class="fg"><label>Phone</label><input type="tel" placeholder="+1 (___) ___-____"></div>
+      </div>
+      <div class="fg"><label>Email Address</label><input type="email" placeholder="you@email.com"></div>
+      <div class="fg"><label>Area of Interest</label>
+        <select>
+          <option value="">Select a service</option>
+          <option>Church Organization</option>
+          <option>Leadership Development</option>
+          <option>Community Outreach</option>
+          <option>Biblical Education</option>
+          <option>Administrative Solutions</option>
+          <option>Digital Ministry</option>
+          <option>General Inquiry</option>
+        </select>
+      </div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell us about your ministry and how we can help..."></textarea></div>
+      <button class="sub-btn">✦ Send Message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="ft-top">
+      <div>
+        <div class="ft-brand-row"><div class="ft-cross">✦</div><span class="ft-name">Framework Ministry Solutions LLC</span></div>
+        <div class="ft-sub">Ministry Solutions · Auburndale · Florida · USA</div>
+        <p class="ft-p">Framework Ministry Solutions LLC is an active Florida Limited Liability Company headquartered in Auburndale, FL. Document # L24000361672, FEI 99-4958057. 2025 Annual Report filed April 21, 2025. Led by Asher T Thompson.</p>
+      </div>
+      <div class="fc"><h5>Navigate</h5><ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#ministries">Ministries</a></li>
+        <li><a href="#team">Leadership</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="frameworkministry-privacy.html">Privacy Policy</a></li>
+      </ul></div>
+      <div class="fc"><h5>Address</h5><ul>
+        <li><span>2217 W Pilaklakaha Ave</span></li>
+        <li><span>Auburndale, FL 33823</span></li>
+        <li><span>United States</span></li>
+      </ul></div>
+      <div class="fc"><h5>Legal</h5><ul>
+        <li><span>Doc #: L24000361672</span></li>
+        <li><span>FEI: 99-4958057</span></li>
+        <li><span>Status: Active ✓</span></li>
+        <li><span>AR: Apr 21, 2025</span></li>
+      </ul></div>
+    </div>
+    <div class="fbot">
+      <p>© 2026 Framework Ministry Solutions LLC. All rights reserved.</p>
+      <a href="frameworkministry-privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>60));
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}})},{threshold:.1});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
