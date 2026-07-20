@@ -1,0 +1,559 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pix Automático: como programar as contas fixas sem esquecer nenhuma · Meu Rendimento</title>
+  <meta name="description" content="O Pix Automático chegou pra valer em 2026. Veja a diferença pro débito automático, o passo a passo de configuração e os riscos antes de programar aluguel e assinaturas.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://meurendimento.cfd/pix-automatico-contas-fixas.html">
+  <meta property="og:image" content="img/pix-automatico-contas-fixas.jpg">
+  <style>
+/* ===== Meu Rendimento — sistema editorial ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --terracota: #b4532a;
+  --terracota-dark: #8a3f1f;
+  --creme: #f4efe6;
+  --creme-2: #eae1cf;
+  --creme-3: #ddd0b3;
+  --grafite: #2b2b2b;
+  --grafite-2: #4a4a48;
+  --oliva: #6b7a52;
+  --oliva-dark: #4f5b3c;
+  --border: #cbbb98;
+  --serif: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, 'Times New Roman', serif;
+  --sans: Verdana, Tahoma, Geneva, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--creme);
+  color: var(--grafite);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--terracota-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3, h4 { font-family: var(--serif); color: var(--grafite); line-height: 1.18; font-weight: 700; }
+
+ul, ol { padding-left: 1.3em; }
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+.container-narrow { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+.filete { border: 0; border-top: 3px solid var(--terracota); margin: 0; }
+.filete-fina { border: 0; border-top: 1px solid var(--border); }
+
+.eyebrow {
+  display: block; font-family: var(--sans); font-size: 12px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--oliva-dark); font-weight: bold; margin-bottom: 6px;
+}
+
+/* ---------- HEADER ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 60;
+  background: var(--creme);
+  border-bottom: 3px solid var(--terracota);
+}
+.site-header .container {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px; padding-bottom: 16px; gap: 20px; flex-wrap: wrap;
+}
+.brand { display: flex; flex-direction: column; }
+.brand a { text-decoration: none; }
+.brand-mark {
+  font-family: var(--serif); font-weight: 700; font-size: 26px; color: var(--grafite);
+  letter-spacing: 0.3px;
+}
+.brand-mark span { color: var(--terracota); }
+.brand-tag {
+  font-family: var(--sans); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--oliva-dark); margin-top: 2px;
+}
+.site-nav ul { list-style: none; display: flex; gap: 26px; padding: 0; flex-wrap: wrap; }
+.site-nav a {
+  font-family: var(--sans); font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--grafite); font-weight: bold; padding-bottom: 4px; border-bottom: 2px solid transparent;
+}
+.site-nav a:hover, .site-nav a.active {
+  color: var(--terracota-dark); border-bottom-color: var(--terracota); text-decoration: none;
+}
+
+/* ---------- HERO (assimétrico) ---------- */
+.hero {
+  padding: 72px 0 56px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--creme) 0%, var(--creme-2) 100%);
+}
+.hero .container {
+  display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: start;
+}
+.hero-content h1 {
+  font-size: 44px; margin-bottom: 18px; max-width: 15ch;
+}
+.hero-content p { font-size: 17px; max-width: 52ch; color: var(--grafite-2); margin-bottom: 10px; }
+.hero-content p + p { margin-top: 10px; }
+
+.hero-index {
+  border-left: 3px solid var(--terracota); padding-left: 24px;
+}
+.hero-index h2 {
+  font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--oliva-dark);
+  font-family: var(--sans); font-weight: bold; margin-bottom: 16px;
+}
+.hero-index ol { list-style: none; padding: 0; counter-reset: idx; }
+.hero-index li {
+  counter-increment: idx; display: flex; gap: 14px; align-items: baseline;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.hero-index li:first-child { padding-top: 0; }
+.hero-index li::before {
+  content: counter(idx, decimal-leading-zero); font-family: var(--serif); font-size: 22px;
+  color: var(--terracota); font-weight: 700; flex-shrink: 0;
+}
+.hero-index li span { font-size: 14px; color: var(--grafite); }
+
+/* ---------- SECTION HEADS ---------- */
+.section-head {
+  padding: 36px 0 8px; display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.section-head h2 { font-size: 30px; }
+.section-head .count {
+  font-family: var(--sans); font-size: 13px; color: var(--grafite-2);
+  border: 1px solid var(--border); padding: 4px 10px;
+}
+
+/* ---------- GRID DE CARDS (larguras variadas) ---------- */
+.grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+  border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+}
+.grid .card:nth-child(1) { grid-column: span 3; }
+.grid .card:nth-child(2) { grid-column: span 3; }
+.grid .card:nth-child(3) { grid-column: span 2; }
+.grid .card:nth-child(4) { grid-column: span 2; }
+.grid .card:nth-child(5) { grid-column: span 2; }
+.grid .card:nth-child(6) { grid-column: span 4; }
+.grid .card:nth-child(7) { grid-column: span 2; }
+.grid .card:nth-child(8) { grid-column: span 3; }
+.grid .card:nth-child(9) { grid-column: span 3; }
+
+.card {
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 28px 26px; display: flex; flex-direction: column; position: relative;
+  background: var(--creme); transition: background 0.15s ease;
+}
+.card:hover { background: var(--creme-2); }
+.card:hover h3 a { text-decoration: underline; }
+.card .num {
+  font-family: var(--serif); font-size: 46px; color: var(--creme-3); font-weight: 700;
+  position: absolute; top: 14px; right: 20px; line-height: 1; z-index: 0; user-select: none;
+}
+.card .cat {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--oliva-dark);
+  font-weight: bold; margin-bottom: 10px; position: relative; z-index: 1;
+}
+.card h3 { font-size: 20px; margin-bottom: 10px; position: relative; z-index: 1; }
+.card h3 a { color: var(--grafite); }
+.card .dek { font-size: 14px; color: var(--grafite-2); flex-grow: 1; margin-bottom: 14px; position: relative; z-index: 1; }
+.card .meta { font-size: 12px; color: var(--grafite-2); border-top: 1px solid var(--border); padding-top: 10px; position: relative; z-index: 1; }
+
+/* ---------- BOTOES ---------- */
+.btn {
+  display: inline-block; font-family: var(--sans); font-weight: bold; font-size: 14px;
+  letter-spacing: 0.5px; text-transform: uppercase; padding: 13px 26px; border: 2px solid var(--terracota);
+  border-radius: 2px; cursor: pointer; text-decoration: none !important;
+}
+.btn-primary { background: var(--terracota); color: var(--creme); }
+.btn-primary:hover { background: var(--terracota-dark); border-color: var(--terracota-dark); }
+.btn-outline { background: transparent; color: var(--terracota-dark); }
+.btn-outline:hover { background: var(--terracota); color: var(--creme); }
+.btn-oliva { border-color: var(--oliva); background: var(--oliva); color: var(--creme); }
+.btn-oliva:hover { background: var(--oliva-dark); border-color: var(--oliva-dark); }
+
+/* ---------- SECAO APP ---------- */
+.app-section { padding: 64px 0; background: var(--grafite); color: var(--creme); }
+.app-section .container { display: grid; grid-template-columns: 1fr 0.9fr; gap: 56px; align-items: center; }
+.app-section .eyebrow { color: var(--creme-3); }
+.app-section h2 { color: var(--creme); font-size: 34px; margin-bottom: 16px; }
+.app-section p { color: #cfc7b8; margin-bottom: 14px; max-width: 50ch; }
+.app-features { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 26px 0; border-top: 1px solid #4a4a48; border-left: 1px solid #4a4a48; }
+.app-features .feat { border-right: 1px solid #4a4a48; border-bottom: 1px solid #4a4a48; padding: 16px 18px; }
+.app-features .feat b { display: block; font-family: var(--serif); color: var(--creme); font-size: 15px; margin-bottom: 4px; }
+.app-features .feat span { font-size: 13px; color: #b9b2a3; }
+
+/* mockup de tela do app em CSS puro */
+.mockup {
+  border: 2px solid var(--creme-3); background: var(--creme); color: var(--grafite);
+  max-width: 300px; margin: 0 auto; box-shadow: 8px 8px 0 var(--terracota-dark);
+}
+.mockup-bar {
+  background: var(--terracota); color: var(--creme); padding: 10px 14px; font-size: 13px;
+  font-weight: bold; display: flex; justify-content: space-between; align-items: center;
+}
+.mockup-body { padding: 16px; }
+.mockup-balance { text-align: center; padding: 10px 0 16px; border-bottom: 1px dashed var(--border); margin-bottom: 14px; }
+.mockup-balance .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--grafite-2); }
+.mockup-balance .val { font-family: var(--serif); font-size: 30px; font-weight: 700; color: var(--oliva-dark); }
+.mockup-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; border-bottom: 1px solid var(--creme-2); }
+.mockup-row .dot { width: 10px; height: 10px; display: inline-block; margin-right: 8px; border-radius: 50%; }
+.mockup-bars { margin-top: 14px; }
+.mockup-bars .bl { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 4px; color: var(--grafite-2); }
+.mockup-bars .track { height: 8px; background: var(--creme-2); margin-bottom: 12px; border: 1px solid var(--border); }
+.mockup-bars .fill { height: 100%; background: var(--oliva); }
+.mockup-bars .fill.alert { background: var(--terracota); }
+
+/* ---------- COMO FUNCIONA ---------- */
+.steps { padding: 56px 0; }
+.steps ol { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; border-top: 1px solid var(--border); }
+.steps li { counter-increment: step; padding: 24px 20px 0; border-right: 1px solid var(--border); }
+.steps li:last-child { border-right: none; }
+.steps li::before {
+  content: counter(step, decimal-leading-zero); display: block; font-family: var(--serif);
+  font-size: 40px; color: var(--terracota); font-weight: 700; margin-bottom: 8px;
+}
+.steps li h4 { font-size: 16px; margin-bottom: 6px; }
+.steps li p { font-size: 13px; color: var(--grafite-2); }
+
+/* ---------- NEWSLETTER ---------- */
+.newsletter { background: var(--oliva-dark); color: var(--creme); padding: 48px 0; }
+.newsletter .container { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.newsletter h2 { color: var(--creme); font-size: 24px; max-width: 30ch; }
+.newsletter p { font-size: 14px; color: #dbe0d1; margin-top: 6px; max-width: 44ch; }
+.newsletter form { display: flex; gap: 0; flex-wrap: wrap; min-width: 320px; }
+.newsletter input[type="email"] {
+  font-family: var(--sans); font-size: 14px; padding: 13px 16px; border: 2px solid var(--creme);
+  background: var(--creme); color: var(--grafite); min-width: 220px; flex: 1; border-radius: 0;
+}
+.newsletter button {
+  font-family: var(--sans); font-weight: bold; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 0 22px; border: 2px solid var(--terracota); background: var(--terracota); color: var(--creme); cursor: pointer;
+}
+.newsletter button:hover { background: var(--terracota-dark); }
+.newsletter .ok-msg { font-size: 13px; margin-top: 8px; color: var(--creme); display: none; }
+
+/* ---------- SOBRE (trecho na home) ---------- */
+.about-snippet { padding: 56px 0; border-top: 1px solid var(--border); }
+.about-snippet .container { display: grid; grid-template-columns: 0.9fr 1.6fr; gap: 40px; }
+.about-snippet .avatar {
+  width: 96px; height: 96px; border-radius: 50%; background: var(--oliva); color: var(--creme);
+  font-family: var(--serif); font-size: 34px; display: flex; align-items: center; justify-content: center;
+  border: 3px solid var(--terracota); font-weight: 700;
+}
+.about-snippet h2 { font-size: 24px; margin-bottom: 10px; }
+.about-snippet p { color: var(--grafite-2); margin-bottom: 10px; max-width: 65ch; }
+
+/* ---------- FOOTER ---------- */
+.site-footer { background: var(--grafite); color: #c9c3b6; padding: 56px 0 0; margin-top: 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid #48453f; }
+.footer-grid h5 { font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--creme); margin-bottom: 16px; }
+.footer-grid ul { list-style: none; padding: 0; }
+.footer-grid li { margin-bottom: 8px; font-size: 13px; }
+.footer-grid a { color: #c9c3b6; }
+.footer-grid a:hover { color: var(--creme); }
+.footer-brand .brand-mark { color: var(--creme); font-size: 22px; }
+.footer-brand .brand-mark span { color: var(--terracota); }
+.footer-brand p { font-size: 13px; margin-top: 12px; max-width: 34ch; color: #a8a294; }
+.footer-bottom {
+  display: flex; justify-content: space-between; padding: 20px 0; font-size: 12px; color: #8b8676;
+  flex-wrap: wrap; gap: 10px;
+}
+
+/* ---------- BREADCRUMB ---------- */
+.breadcrumb { font-size: 12px; padding: 18px 0; color: var(--grafite-2); }
+.breadcrumb a { color: var(--oliva-dark); }
+.breadcrumb span { margin: 0 6px; color: var(--border); }
+
+/* ---------- POST (artigo) ---------- */
+.post-header { padding: 10px 0 30px; border-bottom: 1px solid var(--border); }
+.post-header .cat { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--oliva-dark); font-weight: bold; }
+.post-header h1 { font-size: 38px; margin: 12px 0 14px; max-width: 20ch; }
+.post-header .dek { font-size: 18px; color: var(--grafite-2); max-width: 60ch; margin-bottom: 14px; }
+.post-header .meta { font-size: 13px; color: var(--grafite-2); }
+.post-header .meta b { color: var(--grafite); }
+
+.post { padding: 36px 0 20px; max-width: 760px; margin: 0 auto; }
+.post h2 { font-size: 26px; margin: 36px 0 14px; }
+.post h3 { font-size: 20px; margin: 26px 0 10px; color: var(--terracota-dark); }
+.post p { margin-bottom: 16px; font-size: 16px; color: var(--grafite); }
+.post ul, .post ol { margin-bottom: 18px; }
+.post li { margin-bottom: 8px; }
+.post strong { color: var(--terracota-dark); }
+
+.post .cols {
+  columns: 2; column-gap: 36px; column-rule: 1px solid var(--border);
+}
+.post .cols p { break-inside: avoid-column; }
+
+.post blockquote {
+  border-left: 4px solid var(--terracota); padding: 6px 0 6px 26px; margin: 26px 0;
+  font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--grafite-2);
+  position: relative;
+}
+
+.post table { width: 100%; border-collapse: collapse; margin: 20px 0 26px; font-size: 14px; }
+.post table caption { text-align: left; font-size: 12px; color: var(--grafite-2); margin-bottom: 8px; caption-side: top; }
+.post th { background: var(--terracota); color: var(--creme); text-align: left; padding: 10px 12px; font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.post td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.post tr:nth-child(even) td { background: var(--creme-2); }
+
+.post .callout {
+  border: 1px solid var(--oliva); background: #eef0e7; padding: 18px 20px; margin: 24px 0; font-size: 14px;
+}
+.post .callout b { color: var(--oliva-dark); display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+
+.related { padding: 40px 0 60px; border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; }
+.related h2 { font-size: 22px; margin-bottom: 20px; }
+.related .grid { grid-template-columns: repeat(3, 1fr); }
+.related .card:nth-child(n) { grid-column: span 1; }
+
+/* ---------- GLOSSARIO ---------- */
+.glossary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border); border-left: 1px solid var(--border); margin: 30px 0 60px; }
+.glossary-grid dt { border-right: 1px solid var(--border); border-bottom: none; padding: 20px 22px 4px; font-family: var(--serif); font-size: 17px; color: var(--terracota-dark); font-weight: 700; }
+.glossary-grid dd { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0 22px 20px; font-size: 14px; color: var(--grafite-2); }
+
+/* ---------- FAQ ---------- */
+.faq-list { margin: 30px 0 60px; max-width: 820px; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+.faq-item summary {
+  font-family: var(--serif); font-size: 18px; font-weight: 700; cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: baseline; color: var(--grafite);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-family: var(--sans); font-size: 22px; color: var(--terracota); flex-shrink: 0; margin-left: 14px; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { margin-top: 12px; font-size: 15px; color: var(--grafite-2); max-width: 68ch; }
+
+/* ---------- SOBRE / EQUIPE ---------- */
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 30px 0 50px; }
+.team-card { border: 1px solid var(--border); padding: 24px; text-align: center; }
+.team-card .avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--terracota); color: var(--creme); font-family: var(--serif); font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.team-card h3 { font-size: 17px; margin-bottom: 4px; }
+.team-card .role { font-size: 12px; color: var(--oliva-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.team-card p { font-size: 13px; color: var(--grafite-2); }
+
+/* ---------- PAGE HERO simples (app/sobre/glossario/faq) ---------- */
+.page-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--border); }
+.page-hero h1 { font-size: 40px; margin: 10px 0 14px; }
+.page-hero p { font-size: 17px; color: var(--grafite-2); max-width: 60ch; }
+
+/* ---------- FOTOS ---------- */
+.thumb { position: relative; overflow: hidden; }
+.thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-photo { aspect-ratio: 16 / 10; margin: 22px 0 4px; border: 1px solid var(--border); }
+.page-hero-photo { aspect-ratio: 21 / 9; margin: 26px 0 0; border: 1px solid var(--border); }
+.post-photo { aspect-ratio: 16 / 9; margin: 22px 0 30px; border: 1px solid var(--border); }
+.card .thumb { aspect-ratio: 16 / 10; margin: -28px -26px 16px; }
+
+/* ---------- RESPONSIVO ---------- */
+@media (max-width: 980px) {
+  .hero .container { grid-template-columns: 1fr; }
+  .app-section .container { grid-template-columns: 1fr; }
+  .app-section .mockup { margin-top: 30px; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .grid .card { grid-column: span 1 !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .steps ol { grid-template-columns: 1fr 1fr; }
+  .steps li { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 4px; }
+  .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .related .grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .site-header .container { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .site-nav ul { gap: 14px 18px; }
+  .hero-content h1 { font-size: 32px; }
+  .post-header h1 { font-size: 28px; }
+  .post .cols { columns: 1; }
+  .grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .steps ol { grid-template-columns: 1fr; }
+  .steps li { border-right: none; }
+  .glossary-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .related .grid { grid-template-columns: 1fr; }
+  .newsletter .container { flex-direction: column; align-items: flex-start; }
+  .newsletter form { width: 100%; }
+  .about-snippet .container { grid-template-columns: 1fr; }
+}
+  </style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%278%27%20fill%3D%27%23b4532a%27/%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2730%27%20font-weight%3D%27bold%27%20fill%3D%27%23ffffff%27%20text-anchor%3D%27middle%27%3EMR%3C/text%3E%3C/svg%3E"></head><body>
+  <header class="site-header">
+    <div class="container">
+      <div class="brand">
+        <a href="safe.html"><div class="brand-mark">Meu <span>Rendimento</span></div></a>
+        <div class="brand-tag">Organização financeira doméstica</div>
+      </div>
+      <nav class="site-nav" aria-label="Navegação principal">
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="app.html">App</a></li>
+          <li><a href="glossario.html">Glossário</a></li>
+          <li><a href="faq.html">Dúvidas</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <article class="post">
+    <nav class="breadcrumb container-narrow" aria-label="Breadcrumb" style="max-width:760px;margin:0 auto;padding:18px 0;">
+      <a href="safe.html">Início</a><span>/</span><a href="safe.html">Meios de Pagamento</a><span>/</span>Pix Automático: como programar as contas fixas
+    </nav>
+
+    <header class="post-header">
+      <div class="cat">Meios de Pagamento</div>
+      <h1>Pix Automático: como programar as contas fixas sem esquecer nenhuma</h1>
+      <p class="dek">O agendamento chegou pra valer em 2026 — veja como usá-lo pra tirar aluguel, condomínio e assinatura da sua cabeça sem perder o controle.</p>
+      <p class="meta">Meios de Pagamento · 20 jan 2026 · por <b>Equipe Meu Rendimento</b></p>
+    </header>
+
+    <div class="post-photo thumb"><img src="img/pix-automatico-contas-fixas.jpg" alt="Ilustração de dois celulares ao lado de uma nota de dinheiro, representando uma transação automática entre contas" loading="lazy"></div>
+
+    <p>Tem uma cena que se repete todo mês na casa de muita gente: o boleto do condomínio vence dia 10, o aluguel dia 5, a assinatura de streaming debita no cartão no dia 15, e em algum momento uma dessas datas escapa. Não por falta de dinheiro — por falta de lembrança. O Pix Automático nasceu justamente pra resolver esse tipo de esquecimento, e ao longo de 2026 ele deixou de ser novidade de banco grande pra virar uma opção disponível na maioria dos aplicativos.</p>
+
+    <p>A ideia central é simples: você autoriza, uma única vez, que um valor recorrente saia da sua conta em uma data combinada, direto pra um recebedor específico — a imobiliária, o condomínio, o serviço de assinatura. A partir daí, o pagamento acontece sozinho, mês após mês, sem que você precise abrir o aplicativo, ler o boleto ou copiar código nenhum.</p>
+
+    <h2>Pix Automático não é débito automático "com nome novo"</h2>
+
+    <p>É tentador achar que é a mesma coisa com marketing diferente, mas a mecânica por trás muda em pontos que valem a pena entender antes de configurar qualquer coisa. O débito automático tradicional depende de um convênio prévio entre o seu banco e a empresa que vai cobrar — por isso ele historicamente ficou restrito a contas de consumo (água, luz, telefone) e a instituições grandes, que tinham estrutura pra negociar esse convênio banco a banco.</p>
+
+    <p>O Pix Automático usa a própria infraestrutura do Pix, que já conecta praticamente qualquer banco e qualquer instituição de pagamento no país. Isso abre a porta pra recebedores menores — a imobiliária local, o síndico do prédio, um profissional autônomo que cobra mensalidade — configurarem cobrança recorrente sem precisar de convênio bancário nenhum. Na prática, o alcance é maior e a configuração é mais rápida, mas a lógica de "autorizar e esquecer" é parecida.</p>
+
+    <h3>Uma diferença que importa: quem manda cancelar</h3>
+
+    <p>No débito automático tradicional, cancelar às vezes exigia contato com a empresa cobradora, e há relatos antigos de cobranças que insistiam em continuar mesmo após o pedido de cancelamento. O desenho do Pix Automático foi pensado pra devolver esse controle pra quem paga: o cancelamento pode ser feito diretamente pelo aplicativo do banco pagador, sem depender da boa vontade de quem recebe. Isso não elimina 100% os atritos — vale sempre conferir a política de cada instituição — mas reduz o cenário de "cobrança fantasma" que ninguém consegue parar.</p>
+
+    <div class="callout">
+      <b>Antes de configurar</b>
+      Confirme, dentro do aplicativo do seu banco, se a função aparece como "Pix Automático" ou "Recorrência Pix" — os nomes variam entre instituições, mas a mecânica de autorização e cancelamento costuma seguir o mesmo padrão regulatório.
+    </div>
+
+    <h2>Passo a passo pra programar uma conta fixa</h2>
+
+    <p>O fluxo tende a ser parecido independente do banco, ainda que a tela mude de lugar em cada aplicativo. Em geral, o caminho segue esta ordem:</p>
+
+    <ol>
+      <li><strong>Peça a chave de recorrência ao recebedor.</strong> Quem cobra (imobiliária, condomínio, serviço) precisa gerar um identificador de cobrança recorrente — parecido com um QR code, mas específico pra Pix Automático.</li>
+      <li><strong>Escaneie ou insira o código no seu app bancário.</strong> A tela deve mostrar o nome do recebedor, o valor (fixo ou variável, dependendo do contrato) e a data de vencimento sugerida.</li>
+      <li><strong>Confira o teto de valor.</strong> A maioria dos aplicativos permite definir um valor máximo autorizado por cobrança — útil quando o valor da conta pode variar mês a mês, como no caso de condomínio com rateio extra.</li>
+      <li><strong>Autorize e guarde o comprovante.</strong> A autorização vira um registro dentro do próprio app, geralmente numa aba de "recorrências" ou "pagamentos automáticos", onde dá pra consultar e cancelar quando quiser.</li>
+      <li><strong>Acompanhe o primeiro ciclo de perto.</strong> No primeiro mês, vale conferir se o valor debitado bateu com o esperado antes de deixar rodando no piloto automático de fato.</li>
+    </ol>
+
+    <p>Quem já usa uma <a href="planilha-4-colunas-mes.html">planilha de controle mensal</a> ganha um aliado extra aqui: mesmo com o pagamento automatizado, lançar a saída na planilha (ou deixar o <a href="app.html">Fecha Mês</a> puxar do extrato) evita que a conta fixa "suma" do seu radar de orçamento só porque parou de exigir atenção manual.</p>
+
+    <h2>Os riscos que vale ter no radar</h2>
+
+    <h3>Saldo insuficiente na data certa</h3>
+    <p>Se a cobrança automática cair num dia em que a conta está zerada, o pagamento simplesmente falha — e dependendo do contrato, isso pode gerar multa por atraso do lado de quem deveria receber. A prevenção mais simples é alinhar a data do Pix Automático com a data em que o salário (ou a maior entrada do mês) já está na conta, e não com a data "de calendário" que consta no boleto antigo.</p>
+
+    <h3>Cancelamento indevido ou por engano</h3>
+    <p>Como o cancelamento fica na mão de quem paga, existe também o risco inverso: cancelar sem querer uma recorrência importante (aluguel, por exemplo) e só perceber no mês seguinte, quando a cobrança não aparece. Vale o hábito de revisar a lista de recorrências ativas de tempos em tempos, principalmente depois de qualquer atualização do aplicativo do banco.</p>
+
+    <h3>Golpes que imitam a tela de autorização</h3>
+    <p>Como qualquer novidade envolvendo dinheiro, o Pix Automático também virou terreno pra golpe — telas falsas pedindo pra "reativar" uma recorrência, ou links fora do aplicativo oficial prometendo economia em contas fixas. A regra de ouro continua a mesma: autorização de recorrência se faz dentro do aplicativo do seu próprio banco, nunca por link recebido em mensagem. Se esse tema te interessa, vale complementar com nosso texto sobre <a href="golpe-pix-familiar-em-apuros.html">golpes de Pix que miram quem está em apuros</a>.</p>
+
+    <blockquote>"Automatizar a conta fixa tira o esquecimento da equação — mas não substitui o hábito de revisar o extrato pelo menos uma vez por mês."</blockquote>
+
+    <h2>Pix Automático x débito automático x boleto</h2>
+
+    <table>
+      <caption>Comparativo educativo — características gerais de cada modalidade (podem variar por banco e recebedor)</caption>
+      <thead>
+        <tr><th>Característica</th><th>Pix Automático</th><th>Débito automático</th><th>Boleto</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Depende de convênio banco-empresa</td><td>Não, em geral</td><td>Sim, normalmente</td><td>Não</td></tr>
+        <tr><td>Cancelamento pelo pagador</td><td>Direto no app do banco</td><td>Às vezes precisa contato com a empresa</td><td>Não se aplica (pagamento avulso)</td></tr>
+        <tr><td>Alcance de recebedores</td><td>Amplo (pequenos e grandes)</td><td>Mais restrito a grandes empresas</td><td>Amplo</td></tr>
+        <tr><td>Risco de esquecimento</td><td>Baixo (automático)</td><td>Baixo (automático)</td><td>Alto (exige ação manual)</td></tr>
+        <tr><td>Falha por saldo insuficiente</td><td>Pagamento não ocorre</td><td>Pagamento não ocorre</td><td>Vira atraso/juros se não pago</td></tr>
+        <tr><td>Visibilidade do valor antes do débito</td><td>Costuma mostrar teto/valor combinado</td><td>Geralmente sem aviso prévio</td><td>Alta — valor impresso no documento</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Quando vale a pena usar em contas domésticas</h2>
+
+    <p>Faz sentido considerar o Pix Automático justamente nas contas que são <strong>fixas em valor e em data</strong> — aluguel com reajuste anual previsível, mensalidade de assinatura, plano de academia. Contas que variam bastante mês a mês (como uma conta de consumo com tarifa flutuante) exigem mais atenção ao teto de valor configurado, pra não autorizar um débito muito acima do esperado sem perceber.</p>
+
+    <p>Também vale pensar em conjunto com o resto da sua organização financeira: se você está estruturando uma <a href="reserva-emergencia-3000-reais.html">reserva de emergência</a> ou revisando onde entra e sai dinheiro todo mês, automatizar as contas fixas ajuda a enxergar com mais clareza quanto realmente sobra pra guardar, sem o ruído de "esqueci de pagar isso e agora preciso resolver às pressas".</p>
+
+    <p>Quem quer ir além do controle manual pode usar o <a href="app.html">Fecha Mês</a> pra visualizar as recorrências automáticas lado a lado com o restante do orçamento, incluindo alertas quando um débito programado se aproxima e o saldo projetado fica apertado.</p>
+
+    <h2>Conclusão</h2>
+
+    <p>O Pix Automático resolve um problema real — o esquecimento de contas fixas — com uma solução mais aberta e mais fácil de cancelar do que o débito automático tradicional. Ele não substitui, porém, o acompanhamento do orçamento como um todo: automatizar o pagamento não é o mesmo que automatizar o controle. Vale configurar as contas que realmente são estáveis, manter o teto de valor revisado e continuar de olho no extrato — a tecnologia tira o trabalho repetitivo da sua cabeça, mas a decisão de quanto e onde gastar continua sendo sua.</p>
+  </article>
+
+  <section class="related">
+    <h2>Leia também</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb"><img src="img/open-finance-o-que-muda.jpg" alt="Celular com aplicativo de pagamento aberto apoiado no teclado de um notebook exibindo uma loja virtual" loading="lazy"></div>
+        <div class="cat">Meios de Pagamento</div>
+        <h3><a href="open-finance-o-que-muda.html">Open Finance: o que muda quando você deixa um banco conversar com o outro</a></h3>
+        <div class="dek">Entenda como a troca de dados entre instituições financeiras pode simplificar a organização das suas contas.</div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="img/golpe-pix-familiar-em-apuros.jpg" alt="Peças de jogo de letras formando a palavra 'phishing' sobre uma mesa de madeira com plantas desfocadas ao fundo" loading="lazy"></div>
+        <div class="cat">Segurança</div>
+        <h3><a href="golpe-pix-familiar-em-apuros.html">O golpe do "parente em apuros" pelo Pix</a></h3>
+        <div class="dek">Como reconhecer a armadilha antes de digitar a senha e transferir qualquer valor.</div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="img/planilha-4-colunas-mes.jpg" alt="Mão segurando uma lupa sobre uma planilha impressa de orçamento ao lado de uma calculadora sobre a mesa de madeira" loading="lazy"></div>
+        <div class="cat">Orçamento</div>
+        <h3><a href="planilha-4-colunas-mes.html">A planilha de 4 colunas que sobrevive ao mês</a></h3>
+        <div class="dek">Um jeito simples de acompanhar entradas, saídas fixas, saídas variáveis e o que sobra — mesmo com conta atrasada.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-mark">Meu <span>Rendimento</span></div>
+          <p>Conteúdo educativo sobre organização financeira doméstica, orçamento e economia no dia a dia. Não somos instituição financeira e não vendemos crédito.</p>
+        </div>
+        <div>
+          <h5>Conteúdo</h5>
+          <ul>
+            <li><a href="safe.html">Início</a></li>
+            <li><a href="glossario.html">Glossário financeiro</a></li>
+            <li><a href="faq.html">Perguntas frequentes</a></li>
+            <li><a href="sobre.html">Sobre o Meu Rendimento</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Artigos recentes</h5>
+          <ul>
+            <li><a href="pix-automatico-contas-fixas.html">Pix Automático e contas fixas</a></li>
+            <li><a href="reserva-emergencia-3000-reais.html">Reserva de emergência</a></li>
+            <li><a href="score-credito-o-que-pesa.html">Score de crédito</a></li>
+            <li><a href="golpe-pix-familiar-em-apuros.html">Golpes do Pix</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Institucional</h5>
+          <ul>
+            <li><a href="app.html">Fecha Mês (app)</a></li>
+            <li><a href="privacidade.html">Política de Privacidade</a></li>
+            <li><a href="termos.html">Termos de Uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Meu Rendimento. Conteúdo educativo, sem recomendação de investimento.</span>
+        <span>meurendimento.cfd</span>
+      </div>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>

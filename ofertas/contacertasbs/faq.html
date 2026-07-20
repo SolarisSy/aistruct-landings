@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dúvidas frequentes — Conta Certa</title>
+<meta name="description" content="13 perguntas frequentes sobre finanças pessoais, o site Conta Certa e o app Vencerto: reserva de emergência, Pix Automático, score, Open Finance e mais." />
+<link rel="canonical" href="https://contacerta.sbs/faq.html" />
+<style>
+/* ===================================================================
+   CONTA CERTA — sistema de design
+   Arquétipo: mono-minimalista estrutural (tipografia grande, quase
+   nenhuma cor, blocos delimitados por linha fina, navegação tipo índice,
+   tabela como elemento visual principal, zero sombra).
+   Fontes: Trebuchet MS (títulos) + Georgia (corpo). Web-safe, sem CDN.
+=================================================================== */
+
+:root{
+  --verde: #2f5d50;
+  --verde-escuro: #23453b;
+  --areia: #e8e2d4;
+  --areia-clara: #f3efe6;
+  --tinta: #1a1f1d;
+  --mostarda: #c08a2e;
+  --linha: rgba(26,31,29,0.18);
+  --linha-forte: rgba(26,31,29,0.4);
+
+  --f-display: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  --f-corpo: Georgia, "Times New Roman", serif;
+
+  --radius-btn: 4px;
+  --radius-card: 0px;
+  --radius-avatar: 50%;
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; }
+body{
+  margin: 0;
+  background: var(--areia);
+  color: var(--tinta);
+  font-family: var(--f-corpo);
+  font-size: 17px;
+  line-height: 1.6;
+}
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+a:hover{ text-decoration: underline; text-decoration-color: var(--mostarda); text-underline-offset: 3px; }
+h1,h2,h3,h4{
+  font-family: var(--f-display);
+  color: var(--tinta);
+  font-weight: bold;
+  line-height: 1.12;
+  margin: 0 0 .5em;
+  letter-spacing: -0.01em;
+}
+p{ margin: 0 0 1.1em; }
+ul, ol{ margin: 0 0 1.1em; padding-left: 1.3em; }
+li{ margin-bottom: .4em; }
+hr{ border: none; border-top: 1px solid var(--linha); margin: 2.5em 0; }
+.container{ max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+.small-caps{ font-family: var(--f-display); text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; }
+.tag{
+  display: inline-block;
+  font-family: var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: .72rem;
+  color: var(--mostarda);
+  border-bottom: 1px solid var(--mostarda);
+  padding-bottom: 2px;
+}
+.n{ font-family: var(--f-display); color: var(--linha-forte); }
+
+/* ---------------- HEADER / NAV (índice horizontal) ---------------- */
+.site-header{
+  position: sticky; top: 0; z-index: 50;
+  background: var(--areia);
+  border-bottom: 1px solid var(--tinta);
+}
+.header-inner{
+  max-width: 1160px; margin: 0 auto; padding: 18px 28px;
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
+}
+.brand{
+  font-family: var(--f-display);
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.brand small{
+  display: block;
+  font-family: var(--f-display);
+  font-weight: normal;
+  font-size: .62rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-top: 2px;
+}
+.site-nav{
+  display: flex; flex-wrap: wrap; gap: 0;
+  font-family: var(--f-display);
+  font-size: .86rem;
+}
+.site-nav a{
+  padding: 6px 16px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-left: 1px solid var(--linha);
+}
+.site-nav a:first-child{ border-left: none; padding-left: 0; }
+.site-nav a:hover{ color: var(--verde-escuro); text-decoration: none; background: var(--areia-clara); }
+
+/* ---------------- HERO (grid assimétrico) ---------------- */
+.hero{
+  padding: 72px 0 56px;
+  border-bottom: 1px solid var(--tinta);
+}
+.hero-grid{
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 48px;
+  align-items: end;
+}
+.hero-eyebrow{ margin-bottom: 18px; }
+.hero h1{
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+  max-width: 14ch;
+}
+.hero-lead{
+  font-size: 1.12rem;
+  max-width: 52ch;
+  color: var(--verde-escuro);
+}
+.hero-index{
+  border-left: 1px solid var(--tinta);
+  padding-left: 28px;
+  margin-right: -28px;
+}
+.hero-index-title{ margin-bottom: 14px; }
+.hero-index ol{ list-style: none; padding: 0; margin: 0; }
+.hero-index li{
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--linha);
+  font-family: var(--f-display);
+  font-size: .88rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.hero-index li:first-child{ border-top: none; }
+.hero-index li span:last-child{ color: var(--linha-forte); font-family: var(--f-corpo); text-transform: none; letter-spacing: 0; }
+
+/* ---------------- SEÇÕES ---------------- */
+.section{ padding: 56px 0; border-bottom: 1px solid var(--linha); }
+.section-tight{ padding: 36px 0; }
+.section-loose{ padding: 80px 0; }
+.section-head{
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 24px; margin-bottom: 32px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--tinta);
+  padding-bottom: 14px;
+}
+.section-head h2{ font-size: 1.8rem; margin: 0; }
+.section-head .count{ font-family: var(--f-display); font-size: .82rem; color: var(--verde-escuro); text-transform: uppercase; letter-spacing: .08em; }
+
+/* ---------------- GRID + CARD (posts) ---------------- */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--tinta);
+  border-left: 1px solid var(--tinta);
+}
+.card{
+  border-right: 1px solid var(--tinta);
+  border-bottom: 1px solid var(--tinta);
+  padding: 26px 24px 24px;
+  background: var(--areia);
+  display: flex; flex-direction: column;
+  min-height: 230px;
+  transition: background .15s ease;
+}
+.card:hover{ background: var(--areia-clara); }
+.card:hover h3{ text-decoration: underline; text-decoration-color: var(--mostarda); }
+.card .n{ font-size: 1.6rem; display: block; margin-bottom: 14px; }
+.card .tag{ margin-bottom: 10px; }
+.card h3{ font-size: 1.14rem; margin-bottom: 10px; }
+.card p{ font-size: .93rem; color: var(--verde-escuro); margin-bottom: 12px; flex-grow: 1; }
+.card .meta{ font-family: var(--f-display); font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--linha-forte); margin-top: auto; }
+
+@media (max-width: 900px){ .grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 620px){ .grid{ grid-template-columns: 1fr; } .hero-grid{ grid-template-columns: 1fr; } .hero-index{ border-left: none; border-top: 1px solid var(--tinta); padding-left: 0; padding-top: 22px; margin-right: 0; } }
+
+/* ---------------- BOTÕES ---------------- */
+.btn{
+  display: inline-block;
+  font-family: var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .84rem;
+  padding: 13px 26px;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--tinta);
+  background: var(--verde);
+  color: var(--areia-clara);
+  cursor: pointer;
+}
+.btn:hover{ background: var(--verde-escuro); text-decoration: none; }
+.btn-outline{
+  background: transparent;
+  color: var(--tinta);
+  border: 1px solid var(--tinta);
+}
+.btn-outline:hover{ background: var(--tinta); color: var(--areia); }
+.btn-mostarda{ background: var(--mostarda); border-color: var(--mostarda); color: var(--tinta); }
+.btn-mostarda:hover{ background: #a7761f; }
+
+/* ---------------- APP (mockup CSS) ---------------- */
+.app-section{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 56px;
+  align-items: center;
+}
+.app-section.reverse{ grid-template-columns: .9fr 1.1fr; }
+.app-section.reverse .app-copy{ order: 2; }
+.app-section.reverse .app-mockup-wrap{ order: 1; }
+.app-copy h2{ font-size: 2rem; margin-bottom: 18px; }
+.app-features{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--linha-forte);
+  border-left: 1px solid var(--linha-forte);
+  margin-top: 8px;
+}
+.app-feature{
+  border-right: 1px solid var(--linha-forte);
+  border-bottom: 1px solid var(--linha-forte);
+  padding: 18px 20px;
+}
+.app-feature h4{ font-size: .98rem; margin-bottom: 6px; }
+.app-feature p{ font-size: .86rem; color: var(--verde-escuro); margin-bottom: 0; }
+
+.app-mockup-wrap{ display: flex; justify-content: center; }
+.app-mockup{
+  width: 280px;
+  border: 2px solid var(--tinta);
+  background: var(--verde);
+  color: var(--areia-clara);
+  padding: 0;
+  font-family: var(--f-display);
+}
+.app-mockup-bar{
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(232,226,212,0.35);
+  font-size: .68rem; text-transform: uppercase; letter-spacing: .1em;
+}
+.app-mockup-month{ padding: 16px 16px 8px; font-size: 1.1rem; font-weight: bold; }
+.app-mockup-grid{
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 2px; padding: 0 14px 14px;
+}
+.app-mockup-grid span{
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: .68rem; background: rgba(232,226,212,0.08); border: 1px solid rgba(232,226,212,0.14);
+}
+.app-mockup-grid span.due{ background: var(--mostarda); color: var(--tinta); font-weight: bold; border-color: var(--mostarda); }
+.app-mockup-grid span.paid{ background: rgba(232,226,212,0.28); }
+.app-mockup-list{ border-top: 1px solid rgba(232,226,212,0.35); }
+.app-mockup-item{
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px; font-size: .78rem;
+  border-bottom: 1px solid rgba(232,226,212,0.2);
+}
+.app-mockup-item .st{ font-size: .64rem; text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px; border: 1px solid rgba(232,226,212,0.5); }
+.app-mockup-item .st.late{ background: var(--mostarda); color: var(--tinta); border-color: var(--mostarda); }
+
+/* ---------------- COMO FUNCIONA (steps) ---------------- */
+.steps{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--tinta);
+}
+.step{ padding: 22px 22px 22px 0; border-right: 1px solid var(--linha); position: relative; }
+.step:last-child{ border-right: none; }
+.step .n{ font-size: 2rem; display:block; margin-bottom: 10px; }
+.step h4{ font-size: 1rem; }
+.step p{ font-size: .88rem; color: var(--verde-escuro); margin-bottom: 0; }
+@media (max-width: 800px){ .steps{ grid-template-columns: 1fr 1fr; } .app-section, .app-section.reverse{ grid-template-columns: 1fr; } .app-section.reverse .app-copy{ order: 1; } .app-section.reverse .app-mockup-wrap{ order: 2; margin-bottom: 24px; } }
+@media (max-width: 520px){ .steps{ grid-template-columns: 1fr; } .step{ border-right: none; border-bottom: 1px solid var(--linha); } }
+
+/* ---------------- NEWSLETTER ---------------- */
+.newsletter{
+  background: var(--verde);
+  color: var(--areia-clara);
+  padding: 48px 0;
+}
+.newsletter-inner{
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 32px; flex-wrap: wrap;
+}
+.newsletter h2{ color: var(--areia-clara); font-size: 1.5rem; margin-bottom: 6px; }
+.newsletter p{ margin-bottom: 0; color: rgba(232,226,212,0.82); max-width: 44ch; }
+.newsletter-form{ display: flex; gap: 0; flex-wrap: wrap; min-width: 320px; }
+.newsletter-form input[type=email]{
+  font-family: var(--f-corpo);
+  font-size: .95rem;
+  padding: 13px 16px;
+  border: 1px solid var(--areia-clara);
+  background: transparent;
+  color: var(--areia-clara);
+  flex: 1;
+  min-width: 200px;
+}
+.newsletter-form input[type=email]::placeholder{ color: rgba(232,226,212,0.6); }
+.newsletter-form button{
+  border-left: none;
+}
+.newsletter-note{ font-size: .74rem; color: rgba(232,226,212,0.65); margin-top: 10px; }
+
+/* ---------------- ARTIGO ---------------- */
+.breadcrumb{
+  font-family: var(--f-display);
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--verde-escuro);
+  padding: 18px 0;
+  border-bottom: 1px solid var(--linha);
+}
+.breadcrumb a:hover{ color: var(--mostarda); }
+.post-head{ padding: 40px 0 32px; border-bottom: 1px solid var(--tinta); }
+.post-head .tag{ margin-bottom: 16px; }
+.post-head h1{ font-size: clamp(1.9rem, 3.6vw, 2.7rem); max-width: 20ch; }
+.post-dek{ font-size: 1.08rem; color: var(--verde-escuro); max-width: 58ch; margin-top: 10px; }
+.post-meta{ font-family: var(--f-display); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--linha-forte); margin-top: 18px; }
+.post-layout{
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 56px;
+  padding: 44px 0;
+}
+.post h2{ font-size: 1.5rem; margin-top: 1.6em; }
+.post h3{ font-size: 1.18rem; margin-top: 1.3em; }
+.post p{ max-width: 68ch; }
+.post ul, .post ol{ max-width: 68ch; }
+.post blockquote{
+  margin: 1.6em 0;
+  padding: 4px 0 4px 22px;
+  border-left: 3px solid var(--mostarda);
+  font-family: var(--f-display);
+  font-size: 1.12rem;
+  font-style: normal;
+  max-width: 56ch;
+  color: var(--verde-escuro);
+}
+.post table{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.8em 0;
+  font-size: .92rem;
+}
+.post table caption{
+  text-align: left;
+  font-family: var(--f-display);
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--verde-escuro);
+  margin-bottom: 10px;
+}
+.post table th, .post table td{
+  text-align: left;
+  padding: 11px 14px;
+  border-top: 1px solid var(--linha);
+  border-bottom: 1px solid var(--linha);
+}
+.post table thead th{
+  font-family: var(--f-display);
+  text-transform: uppercase;
+  font-size: .72rem;
+  letter-spacing: .06em;
+  border-top: 2px solid var(--tinta);
+  border-bottom: 1px solid var(--tinta);
+  color: var(--tinta);
+}
+.post table tbody tr:last-child td{ border-bottom: 2px solid var(--tinta); }
+.post table td.num{ font-family: var(--f-display); }
+.post-aside{ border-left: 1px solid var(--linha); padding-left: 24px; }
+.post-aside .small-caps{ display: block; margin-bottom: 12px; color: var(--verde-escuro); }
+.post-aside ul{ list-style: none; padding: 0; }
+.post-aside li{ border-top: 1px solid var(--linha); padding: 10px 0; font-size: .88rem; }
+.post-aside li:first-child{ border-top: none; }
+@media (max-width: 780px){ .post-layout{ grid-template-columns: 1fr; } .post-aside{ border-left: none; border-top: 1px solid var(--tinta); padding-left: 0; padding-top: 20px; } }
+
+.related{ padding: 40px 0 56px; border-top: 1px solid var(--tinta); }
+.related h2{ font-size: 1.3rem; margin-bottom: 20px; }
+.related-list{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--linha-forte); border-left: 1px solid var(--linha-forte); }
+.related-list a{ display: block; padding: 18px 20px; border-right: 1px solid var(--linha-forte); border-bottom: 1px solid var(--linha-forte); font-family: var(--f-display); font-size: .92rem; }
+.related-list a:hover{ background: var(--areia-clara); text-decoration: none; color: var(--mostarda); }
+@media (max-width: 700px){ .related-list{ grid-template-columns: 1fr; } }
+
+/* ---------------- GLOSSÁRIO ---------------- */
+.glossary-grid{
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+  border-top: 1px solid var(--tinta); border-left: 1px solid var(--tinta);
+}
+.gloss-item{ border-right: 1px solid var(--tinta); border-bottom: 1px solid var(--tinta); padding: 22px 24px; scroll-margin-top: 90px; }
+.gloss-item dt{ font-family: var(--f-display); font-weight: bold; font-size: 1.05rem; margin-bottom: 8px; }
+.gloss-item dd{ margin: 0; font-size: .93rem; color: var(--verde-escuro); }
+.gloss-index{ display: flex; flex-wrap: wrap; gap: 8px; padding: 20px 0 36px; border-bottom: 1px solid var(--linha); margin-bottom: 8px; }
+.gloss-index a{ font-family: var(--f-display); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; border: 1px solid var(--linha-forte); padding: 6px 12px; }
+.gloss-index a:hover{ background: var(--tinta); color: var(--areia); text-decoration: none; }
+@media (max-width: 700px){ .glossary-grid{ grid-template-columns: 1fr; } }
+
+/* ---------------- FAQ ---------------- */
+.faq-list{ border-top: 1px solid var(--tinta); }
+.faq-item{ border-bottom: 1px solid var(--tinta); padding: 4px 0; }
+.faq-item summary{
+  cursor: pointer;
+  list-style: none;
+  padding: 20px 0;
+  font-family: var(--f-display);
+  font-size: 1.08rem;
+  font-weight: bold;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+}
+.faq-item summary::-webkit-details-marker{ display: none; }
+.faq-item summary::after{ content: "+"; font-size: 1.3rem; color: var(--mostarda); }
+.faq-item[open] summary::after{ content: "–"; }
+.faq-item p{ padding-bottom: 20px; max-width: 68ch; color: var(--verde-escuro); }
+
+/* ---------------- EQUIPE / SOBRE ---------------- */
+.team-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--tinta); border-left: 1px solid var(--tinta); }
+.team-card{ border-right: 1px solid var(--tinta); border-bottom: 1px solid var(--tinta); padding: 26px 22px; }
+.team-avatar{
+  width: 56px; height: 56px; border-radius: var(--radius-avatar);
+  background: var(--verde); color: var(--areia-clara);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display); font-weight: bold; font-size: 1.2rem;
+  margin-bottom: 14px;
+}
+.team-card h4{ font-size: 1rem; margin-bottom: 2px; }
+.team-role{ font-family: var(--f-display); font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; color: var(--verde-escuro); margin-bottom: 10px; }
+.team-card p{ font-size: .88rem; margin-bottom: 0; }
+@media (max-width: 780px){ .team-grid{ grid-template-columns: 1fr; } }
+
+.policy-list{ counter-reset: policy; border-top: 1px solid var(--linha-forte); }
+.policy-list li{ list-style: none; counter-increment: policy; border-bottom: 1px solid var(--linha); padding: 16px 0; margin: 0; display: flex; gap: 18px; }
+.policy-list li::before{ content: counter(policy, decimal-leading-zero); font-family: var(--f-display); color: var(--mostarda); font-weight: bold; }
+
+/* ---------------- FOOTER ---------------- */
+.site-footer{
+  background: var(--tinta);
+  color: var(--areia);
+  padding: 56px 0 28px;
+}
+.footer-grid{
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(232,226,212,0.2);
+}
+.footer-grid h5{
+  font-family: var(--f-display); text-transform: uppercase; letter-spacing: .08em;
+  font-size: .74rem; color: rgba(232,226,212,0.6); margin-bottom: 14px;
+}
+.footer-grid ul{ list-style: none; padding: 0; margin: 0; }
+.footer-grid li{ margin-bottom: 9px; font-size: .92rem; }
+.footer-grid a:hover{ color: var(--mostarda); text-decoration: none; }
+.footer-brand{ font-family: var(--f-display); font-size: 1.3rem; font-weight: bold; margin-bottom: 10px; }
+.footer-brand + p{ font-size: .88rem; color: rgba(232,226,212,0.7); max-width: 34ch; }
+.footer-bottom{
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  padding-top: 24px;
+  font-size: .78rem; color: rgba(232,226,212,0.55);
+  font-family: var(--f-display);
+}
+.footer-bottom a{ color: rgba(232,226,212,0.75); }
+.footer-bottom a:hover{ color: var(--mostarda); }
+@media (max-width: 800px){ .footer-grid{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px){ .footer-grid{ grid-template-columns: 1fr; } }
+
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%278%27%20fill%3D%27%232f5d50%27/%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2730%27%20font-weight%3D%27bold%27%20fill%3D%27%23ffffff%27%20text-anchor%3D%27middle%27%3ECC%3C/text%3E%3C/svg%3E"></head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="safe.html" class="brand">Conta Certa<small>Planejamento &amp; orçamento doméstico</small></a>
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a href="safe.html">Início</a>
+      <a href="app.html">App</a>
+      <a href="glossario.html">Glossário</a>
+      <a href="faq.html">Dúvidas</a>
+      <a href="sobre.html">Sobre</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="safe.html">Início</a> / Dúvidas frequentes</nav>
+</div>
+
+<section class="hero" style="padding:56px 0 24px;">
+  <div class="container">
+    <div class="hero-eyebrow tag">Dúvidas frequentes</div>
+    <h1 style="max-width:20ch;">13 perguntas que chegam por e-mail toda semana</h1>
+    <p class="hero-lead">Reunimos aqui o que os leitores mais perguntam sobre os textos, o app Vencerto e finanças pessoais em geral.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:16px;">
+  <div class="container">
+    <div class="section-head"><h2>Sobre o site</h2></div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>O Conta Certa vende algum produto financeiro?</summary>
+        <p>Não. Somos um editorial independente. Não vendemos cartão, empréstimo, seguro ou curso, e nenhum texto tem comissão por indicação de instituição financeira.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Os artigos recomendam onde investir meu dinheiro?</summary>
+        <p>Não. Comparamos características de produtos (liquidez, garantia do FGC, tributação) para que a escolha final seja do leitor, considerando o próprio perfil e prazo.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Por que os textos usam faixas ("costuma ficar entre") em vez de número fechado?</summary>
+        <p>Porque tarifa de banco, taxa de score e regra tributária variam por instituição, por perfil e mudam ao longo do ano. Preferimos indicar uma faixa realista a citar um número que pode estar desatualizado quando você ler.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Posso sugerir um tema para a redação?</summary>
+        <p>Sim. Envie a sugestão para redacao@contacerta.sbs — pautas sobre negociação de dívida e comparação de tarifa costumam ser priorizadas.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Como faço para corrigir um erro que encontrei num texto?</summary>
+        <p>Escreva para redacao@contacerta.sbs com o link do artigo e o trecho. Erros de fato confirmados são corrigidos com data de atualização visível no rodapé do texto.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><h2>Sobre o app Vencerto</h2></div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>O Vencerto acessa minha conta bancária?</summary>
+        <p>Não. O cadastro de contas é manual — nome, valor e data de vencimento. O app não pede senha de banco, número de cartão nem integração com instituição financeira.</p>
+      </details>
+      <details class="faq-item">
+        <summary>O app cobra alguma coisa se eu atrasar uma conta?</summary>
+        <p>Não. O Vencerto apenas organiza e avisa. Ele não processa pagamento nem cobra multa — a relação de pagamento continua sendo diretamente com o credor de cada conta.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><h2>Sobre finanças pessoais</h2></div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Quanto devo guardar de reserva de emergência?</summary>
+        <p>A faixa mais citada vai de três a doze meses de despesas essenciais, variando com a estabilidade da renda: quem tem renda variável ou é autônomo tende a mirar o topo da faixa. Detalhamos o cálculo no artigo sobre reserva de emergência.</p>
+      </details>
+      <details class="faq-item">
+        <summary>O que muda com o Pix Automático em relação ao débito automático?</summary>
+        <p>A autorização e o cancelamento acontecem dentro do próprio aplicativo bancário, com visibilidade maior do que no débito tradicional, que às vezes só aparece na fatura já descontada. Veja o comparativo completo no artigo sobre Pix Automático.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Preciso me preocupar com o Open Finance se eu não pretendo compartilhar dados?</summary>
+        <p>Não é obrigatório compartilhar nada — o consentimento é opcional, tem prazo e pode ser revogado a qualquer momento pelo próprio app do banco. Quem não autoriza continua exatamente como antes.</p>
+      </details>
+      <details class="faq-item">
+        <summary>O que pesa mais no score de crédito?</summary>
+        <p>Histórico de pagamento recente e uso do limite disponível costumam pesar mais do que o volume de consulta ao CPF. Detalhamos a separação entre fator real e mito no artigo sobre score de crédito.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Como reconhecer um boleto falso antes de pagar uma conta atrasada?</summary>
+        <p>Conferir o CNPJ do beneficiário, o valor original e evitar boleto recebido por link de mensagem não solicitada são os três primeiros filtros. O artigo sobre o golpe do boleto falso traz o passo a passo completo.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="border-bottom:none;">
+  <div class="container">
+    <p style="max-width:60ch;">Não encontrou sua dúvida? Consulte o <a href="glossario.html">glossário financeiro</a> ou escreva para redacao@contacerta.sbs.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Conta Certa</div>
+        <p>Editorial independente sobre controle de contas, calendário de vencimentos, negociação de dívida e uso do crédito. Sem promessa de dinheiro fácil.</p>
+      </div>
+      <div>
+        <h5>Conteúdo</h5>
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="glossario.html">Glossário financeiro</a></li>
+          <li><a href="faq.html">Dúvidas frequentes</a></li>
+          <li><a href="sobre.html">Sobre a redação</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Artigos recentes</h5>
+        <ul>
+          <li><a href="pix-automatico-2026.html">Pix Automático 2026</a></li>
+          <li><a href="reserva-de-emergencia-quanto-guardar.html">Reserva de emergência</a></li>
+          <li><a href="score-de-credito-o-que-realmente-pesa.html">Score de crédito</a></li>
+          <li><a href="golpe-boleto-falso-conta-atrasada.html">Golpe do boleto falso</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>App</h5>
+        <ul>
+          <li><a href="app.html">Vencerto — calendário de contas</a></li>
+          <li><a href="app.html#funcionalidades">Funcionalidades</a></li>
+          <li><a href="app.html#faq">Perguntas sobre o app</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Conta Certa. Conteúdo educativo — não constitui recomendação de investimento.</span>
+      <span><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos de uso</a></span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

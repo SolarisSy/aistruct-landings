@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://meurendimento.cfd/sitemap.xml

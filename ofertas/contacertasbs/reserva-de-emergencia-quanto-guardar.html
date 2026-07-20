@@ -1,0 +1,686 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reserva de emergência: quanto guardar antes de pensar em investir · Conta Certa</title>
+  <meta name="description" content="A faixa entre 3 e 12 meses de despesas não é igual para todo perfil de renda. Veja como calcular a sua reserva sem travar o orçamento.">
+  <meta property="og:image" content="img/reserva-de-emergencia-quanto-guardar.jpg">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://contacerta.sbs/reserva-de-emergencia-quanto-guardar.html">
+  <style>
+:root{
+  --verde: #2f5d50;
+  --verde-escuro: #23453b;
+  --areia: #e8e2d4;
+  --areia-clara: #f3efe6;
+  --tinta: #1a1f1d;
+  --mostarda: #c08a2e;
+  --linha: rgba(26,31,29,0.18);
+  --linha-forte: rgba(26,31,29,0.4);
+
+  --f-display: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  --f-corpo: Georgia, "Times New Roman", serif;
+
+  --radius-btn: 4px;
+  --radius-card: 0px;
+  --radius-avatar: 50%;
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; }
+body{
+  margin: 0;
+  background: var(--areia);
+  color: var(--tinta);
+  font-family: var(--f-corpo);
+  font-size: 17px;
+  line-height: 1.6;
+}
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+a:hover{ text-decoration: underline; text-decoration-color: var(--mostarda); text-underline-offset: 3px; }
+h1,h2,h3,h4{
+  font-family: var(--f-display);
+  color: var(--tinta);
+  font-weight: bold;
+  line-height: 1.12;
+  margin: 0 0 .5em;
+  letter-spacing: -0.01em;
+}
+p{ margin: 0 0 1.1em; }
+ul, ol{ margin: 0 0 1.1em; padding-left: 1.3em; }
+li{ margin-bottom: .4em; }
+hr{ border: none; border-top: 1px solid var(--linha); margin: 2.5em 0; }
+.container{ max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+.small-caps{ font-family: var(--f-display); text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; }
+.tag{
+  display: inline-block;
+  font-family: var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: .72rem;
+  color: var(--mostarda);
+  border-bottom: 1px solid var(--mostarda);
+  padding-bottom: 2px;
+}
+.n{ font-family: var(--f-display); color: var(--linha-forte); }
+
+/* ---------------- HEADER / NAV (índice horizontal) ---------------- */
+.site-header{
+  position: sticky; top: 0; z-index: 50;
+  background: var(--areia);
+  border-bottom: 1px solid var(--tinta);
+}
+.header-inner{
+  max-width: 1160px; margin: 0 auto; padding: 18px 28px;
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
+}
+.brand{
+  font-family: var(--f-display);
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.brand small{
+  display: block;
+  font-family: var(--f-display);
+  font-weight: normal;
+  font-size: .62rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-top: 2px;
+}
+.site-nav{
+  display: flex; flex-wrap: wrap; gap: 0;
+  font-family: var(--f-display);
+  font-size: .86rem;
+}
+.site-nav a{
+  padding: 6px 16px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-left: 1px solid var(--linha);
+}
+.site-nav a:first-child{ border-left: none; padding-left: 0; }
+.site-nav a:hover{ color: var(--verde-escuro); text-decoration: none; background: var(--areia-clara); }
+
+/* ---------------- HERO (grid assimétrico) ---------------- */
+.hero{
+  padding: 72px 0 56px;
+  border-bottom: 1px solid var(--tinta);
+}
+.hero-grid{
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 48px;
+  align-items: end;
+}
+.hero-eyebrow{ margin-bottom: 18px; }
+.hero h1{
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+  max-width: 14ch;
+}
+.hero-lead{
+  font-size: 1.12rem;
+  max-width: 52ch;
+  color: var(--verde-escuro);
+}
+.hero-index{
+  border-left: 1px solid var(--tinta);
+  padding-left: 28px;
+  margin-right: -28px;
+}
+.hero-index-title{ margin-bottom: 14px; }
+.hero-index ol{ list-style: none; padding: 0; margin: 0; }
+.hero-index li{
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--linha);
+  font-family: var(--f-display);
+  font-size: .88rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.hero-index li:first-child{ border-top: none; }
+.hero-index li span:last-child{ color: var(--linha-forte); font-family: var(--f-corpo); text-transform: none; letter-spacing: 0; }
+
+/* ---------------- SEÇÕES ---------------- */
+.section{ padding: 56px 0; border-bottom: 1px solid var(--linha); }
+.section-tight{ padding: 36px 0; }
+.section-loose{ padding: 80px 0; }
+.section-head{
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 24px; margin-bottom: 32px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--tinta);
+  padding-bottom: 14px;
+}
+.section-head h2{ font-size: 1.8rem; margin: 0; }
+.section-head .count{ font-family: var(--f-display); font-size: .82rem; color: var(--verde-escuro); text-transform: uppercase; letter-spacing: .08em; }
+
+/* ---------------- GRID + CARD (posts) ---------------- */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--tinta);
+  border-left: 1px solid var(--tinta);
+}
+.card{
+  border-right: 1px solid var(--tinta);
+  border-bottom: 1px solid var(--tinta);
+  padding: 26px 24px 24px;
+  background: var(--areia);
+  display: flex; flex-direction: column;
+  min-height: 230px;
+  transition: background .15s ease;
+}
+.card:hover{ background: var(--areia-clara); }
+.card:hover h3{ text-decoration: underline; text-decoration-color: var(--mostarda); }
+.card .n{ font-size: 1.6rem; display: block; margin-bottom: 14px; }
+.card .tag{ margin-bottom: 10px; }
+.card h3{ font-size: 1.14rem; margin-bottom: 10px; }
+.card p{ font-size: .93rem; color: var(--verde-escuro); margin-bottom: 12px; flex-grow: 1; }
+.card .meta{ font-family: var(--f-display); font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--linha-forte); margin-top: auto; }
+
+@media (max-width: 900px){ .grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 620px){ .grid{ grid-template-columns: 1fr; } .hero-grid{ grid-template-columns: 1fr; } .hero-index{ border-left: none; border-top: 1px solid var(--tinta); padding-left: 0; padding-top: 22px; margin-right: 0; } }
+
+/* ---------------- BOTÕES ---------------- */
+.btn{
+  display: inline-block;
+  font-family: var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .84rem;
+  padding: 13px 26px;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--tinta);
+  background: var(--verde);
+  color: var(--areia-clara);
+  cursor: pointer;
+}
+.btn:hover{ background: var(--verde-escuro); text-decoration: none; }
+.btn-outline{
+  background: transparent;
+  color: var(--tinta);
+  border: 1px solid var(--tinta);
+}
+.btn-outline:hover{ background: var(--tinta); color: var(--areia); }
+.btn-mostarda{ background: var(--mostarda); border-color: var(--mostarda); color: var(--tinta); }
+.btn-mostarda:hover{ background: #a7761f; }
+
+/* ---------------- APP (mockup CSS) ---------------- */
+.app-section{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 56px;
+  align-items: center;
+}
+.app-section.reverse{ grid-template-columns: .9fr 1.1fr; }
+.app-section.reverse .app-copy{ order: 2; }
+.app-section.reverse .app-mockup-wrap{ order: 1; }
+.app-copy h2{ font-size: 2rem; margin-bottom: 18px; }
+.app-features{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--linha-forte);
+  border-left: 1px solid var(--linha-forte);
+  margin-top: 8px;
+}
+.app-feature{
+  border-right: 1px solid var(--linha-forte);
+  border-bottom: 1px solid var(--linha-forte);
+  padding: 18px 20px;
+}
+.app-feature h4{ font-size: .98rem; margin-bottom: 6px; }
+.app-feature p{ font-size: .86rem; color: var(--verde-escuro); margin-bottom: 0; }
+
+.app-mockup-wrap{ display: flex; justify-content: center; }
+.app-mockup{
+  width: 280px;
+  border: 2px solid var(--tinta);
+  background: var(--verde);
+  color: var(--areia-clara);
+  padding: 0;
+  font-family: var(--f-display);
+}
+.app-mockup-bar{
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(232,226,212,0.35);
+  font-size: .68rem; text-transform: uppercase; letter-spacing: .1em;
+}
+.app-mockup-month{ padding: 16px 16px 8px; font-size: 1.1rem; font-weight: bold; }
+.app-mockup-grid{
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 2px; padding: 0 14px 14px;
+}
+.app-mockup-grid span{
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: .68rem; background: rgba(232,226,212,0.08); border: 1px solid rgba(232,226,212,0.14);
+}
+.app-mockup-grid span.due{ background: var(--mostarda); color: var(--tinta); font-weight: bold; border-color: var(--mostarda); }
+.app-mockup-grid span.paid{ background: rgba(232,226,212,0.28); }
+.app-mockup-list{ border-top: 1px solid rgba(232,226,212,0.35); }
+.app-mockup-item{
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px; font-size: .78rem;
+  border-bottom: 1px solid rgba(232,226,212,0.2);
+}
+.app-mockup-item .st{ font-size: .64rem; text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px; border: 1px solid rgba(232,226,212,0.5); }
+.app-mockup-item .st.late{ background: var(--mostarda); color: var(--tinta); border-color: var(--mostarda); }
+
+/* ---------------- COMO FUNCIONA (steps) ---------------- */
+.steps{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--tinta);
+}
+.step{ padding: 22px 22px 22px 0; border-right: 1px solid var(--linha); position: relative; }
+.step:last-child{ border-right: none; }
+.step .n{ font-size: 2rem; display:block; margin-bottom: 10px; }
+.step h4{ font-size: 1rem; }
+.step p{ font-size: .88rem; color: var(--verde-escuro); margin-bottom: 0; }
+@media (max-width: 800px){ .steps{ grid-template-columns: 1fr 1fr; } .app-section, .app-section.reverse{ grid-template-columns: 1fr; } .app-section.reverse .app-copy{ order: 1; } .app-section.reverse .app-mockup-wrap{ order: 2; margin-bottom: 24px; } }
+@media (max-width: 520px){ .steps{ grid-template-columns: 1fr; } .step{ border-right: none; border-bottom: 1px solid var(--linha); } }
+
+/* ---------------- NEWSLETTER ---------------- */
+.newsletter{
+  background: var(--verde);
+  color: var(--areia-clara);
+  padding: 48px 0;
+}
+.newsletter-inner{
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 32px; flex-wrap: wrap;
+}
+.newsletter h2{ color: var(--areia-clara); font-size: 1.5rem; margin-bottom: 6px; }
+.newsletter p{ margin-bottom: 0; color: rgba(232,226,212,0.82); max-width: 44ch; }
+.newsletter-form{ display: flex; gap: 0; flex-wrap: wrap; min-width: 320px; }
+.newsletter-form input[type=email]{
+  font-family: var(--f-corpo);
+  font-size: .95rem;
+  padding: 13px 16px;
+  border: 1px solid var(--areia-clara);
+  background: transparent;
+  color: var(--areia-clara);
+  flex: 1;
+  min-width: 200px;
+}
+.newsletter-form input[type=email]::placeholder{ color: rgba(232,226,212,0.6); }
+.newsletter-form button{
+  border-left: none;
+}
+.newsletter-note{ font-size: .74rem; color: rgba(232,226,212,0.65); margin-top: 10px; }
+
+/* ---------------- ARTIGO ---------------- */
+.breadcrumb{
+  font-family: var(--f-display);
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--verde-escuro);
+  padding: 18px 0;
+  border-bottom: 1px solid var(--linha);
+}
+.breadcrumb a:hover{ color: var(--mostarda); }
+.post-head{ padding: 40px 0 32px; border-bottom: 1px solid var(--tinta); }
+.post-head .tag{ margin-bottom: 16px; }
+.post-head h1{ font-size: clamp(1.9rem, 3.6vw, 2.7rem); max-width: 20ch; }
+.post-dek{ font-size: 1.08rem; color: var(--verde-escuro); max-width: 58ch; margin-top: 10px; }
+.post-meta{ font-family: var(--f-display); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--linha-forte); margin-top: 18px; }
+.post-layout{
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 56px;
+  padding: 44px 0;
+}
+.post h2{ font-size: 1.5rem; margin-top: 1.6em; }
+.post h3{ font-size: 1.18rem; margin-top: 1.3em; }
+.post p{ max-width: 68ch; }
+.post ul, .post ol{ max-width: 68ch; }
+.post blockquote{
+  margin: 1.6em 0;
+  padding: 4px 0 4px 22px;
+  border-left: 3px solid var(--mostarda);
+  font-family: var(--f-display);
+  font-size: 1.12rem;
+  font-style: normal;
+  max-width: 56ch;
+  color: var(--verde-escuro);
+}
+.post table{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.8em 0;
+  font-size: .92rem;
+}
+.post table caption{
+  text-align: left;
+  font-family: var(--f-display);
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--verde-escuro);
+  margin-bottom: 10px;
+}
+.post table th, .post table td{
+  text-align: left;
+  padding: 11px 14px;
+  border-top: 1px solid var(--linha);
+  border-bottom: 1px solid var(--linha);
+}
+.post table thead th{
+  font-family: var(--f-display);
+  text-transform: uppercase;
+  font-size: .72rem;
+  letter-spacing: .06em;
+  border-top: 2px solid var(--tinta);
+  border-bottom: 1px solid var(--tinta);
+  color: var(--tinta);
+}
+.post table tbody tr:last-child td{ border-bottom: 2px solid var(--tinta); }
+.post table td.num{ font-family: var(--f-display); }
+.post-aside{ border-left: 1px solid var(--linha); padding-left: 24px; }
+.post-aside .small-caps{ display: block; margin-bottom: 12px; color: var(--verde-escuro); }
+.post-aside ul{ list-style: none; padding: 0; }
+.post-aside li{ border-top: 1px solid var(--linha); padding: 10px 0; font-size: .88rem; }
+.post-aside li:first-child{ border-top: none; }
+@media (max-width: 780px){ .post-layout{ grid-template-columns: 1fr; } .post-aside{ border-left: none; border-top: 1px solid var(--tinta); padding-left: 0; padding-top: 20px; } }
+
+.related{ padding: 40px 0 56px; border-top: 1px solid var(--tinta); }
+.related h2{ font-size: 1.3rem; margin-bottom: 20px; }
+.related-list{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--linha-forte); border-left: 1px solid var(--linha-forte); }
+.related-list a{ display: block; padding: 0; border-right: 1px solid var(--linha-forte); border-bottom: 1px solid var(--linha-forte); font-family: var(--f-display); font-size: .92rem; }
+.related-list a:hover{ background: var(--areia-clara); text-decoration: none; color: var(--mostarda); }
+@media (max-width: 700px){ .related-list{ grid-template-columns: 1fr; } }
+
+/* ---------------- FOTOS EDITORIAIS ---------------- */
+.photo{ position:relative; overflow:hidden; background:var(--areia-clara); display:block; }
+.photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; margin:0; }
+.hero-photo{ aspect-ratio:16/9; margin-top:36px; border:1px solid var(--tinta); }
+.card-thumb{ aspect-ratio:4/3; margin:-26px -24px 20px; border-bottom:1px solid var(--tinta); }
+.post-cover{ aspect-ratio:21/9; margin-top:28px; border:1px solid var(--tinta); }
+.related-thumb{ aspect-ratio:16/10; border-bottom:1px solid var(--linha-forte); }
+.related-text{ display:block; padding:14px 20px 18px; }
+
+/* ---------------- GLOSSÁRIO ---------------- */
+.glossary-grid{
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+  border-top: 1px solid var(--tinta); border-left: 1px solid var(--tinta);
+}
+.gloss-item{ border-right: 1px solid var(--tinta); border-bottom: 1px solid var(--tinta); padding: 22px 24px; scroll-margin-top: 90px; }
+.gloss-item dt{ font-family: var(--f-display); font-weight: bold; font-size: 1.05rem; margin-bottom: 8px; }
+.gloss-item dd{ margin: 0; font-size: .93rem; color: var(--verde-escuro); }
+.gloss-index{ display: flex; flex-wrap: wrap; gap: 8px; padding: 20px 0 36px; border-bottom: 1px solid var(--linha); margin-bottom: 8px; }
+.gloss-index a{ font-family: var(--f-display); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; border: 1px solid var(--linha-forte); padding: 6px 12px; }
+.gloss-index a:hover{ background: var(--tinta); color: var(--areia); text-decoration: none; }
+@media (max-width: 700px){ .glossary-grid{ grid-template-columns: 1fr; } }
+
+/* ---------------- FAQ ---------------- */
+.faq-list{ border-top: 1px solid var(--tinta); }
+.faq-item{ border-bottom: 1px solid var(--tinta); padding: 4px 0; }
+.faq-item summary{
+  cursor: pointer;
+  list-style: none;
+  padding: 20px 0;
+  font-family: var(--f-display);
+  font-size: 1.08rem;
+  font-weight: bold;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+}
+.faq-item summary::-webkit-details-marker{ display: none; }
+.faq-item summary::after{ content: "+"; font-size: 1.3rem; color: var(--mostarda); }
+.faq-item[open] summary::after{ content: "–"; }
+.faq-item p{ padding-bottom: 20px; max-width: 68ch; color: var(--verde-escuro); }
+
+/* ---------------- EQUIPE / SOBRE ---------------- */
+.team-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--tinta); border-left: 1px solid var(--tinta); }
+.team-card{ border-right: 1px solid var(--tinta); border-bottom: 1px solid var(--tinta); padding: 26px 22px; }
+.team-avatar{
+  width: 56px; height: 56px; border-radius: var(--radius-avatar);
+  background: var(--verde); color: var(--areia-clara);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display); font-weight: bold; font-size: 1.2rem;
+  margin-bottom: 14px;
+}
+.team-card h4{ font-size: 1rem; margin-bottom: 2px; }
+.team-role{ font-family: var(--f-display); font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; color: var(--verde-escuro); margin-bottom: 10px; }
+.team-card p{ font-size: .88rem; margin-bottom: 0; }
+@media (max-width: 780px){ .team-grid{ grid-template-columns: 1fr; } }
+
+.policy-list{ counter-reset: policy; border-top: 1px solid var(--linha-forte); }
+.policy-list li{ list-style: none; counter-increment: policy; border-bottom: 1px solid var(--linha); padding: 16px 0; margin: 0; display: flex; gap: 18px; }
+.policy-list li::before{ content: counter(policy, decimal-leading-zero); font-family: var(--f-display); color: var(--mostarda); font-weight: bold; }
+
+/* ---------------- FOOTER ---------------- */
+.site-footer{
+  background: var(--tinta);
+  color: var(--areia);
+  padding: 56px 0 28px;
+}
+.footer-grid{
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(232,226,212,0.2);
+}
+.footer-grid h5{
+  font-family: var(--f-display); text-transform: uppercase; letter-spacing: .08em;
+  font-size: .74rem; color: rgba(232,226,212,0.6); margin-bottom: 14px;
+}
+.footer-grid ul{ list-style: none; padding: 0; margin: 0; }
+.footer-grid li{ margin-bottom: 9px; font-size: .92rem; }
+.footer-grid a:hover{ color: var(--mostarda); text-decoration: none; }
+.footer-brand{ font-family: var(--f-display); font-size: 1.3rem; font-weight: bold; margin-bottom: 10px; }
+.footer-brand + p{ font-size: .88rem; color: rgba(232,226,212,0.7); max-width: 34ch; }
+.footer-bottom{
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  padding-top: 24px;
+  font-size: .78rem; color: rgba(232,226,212,0.55);
+  font-family: var(--f-display);
+}
+.footer-bottom a{ color: rgba(232,226,212,0.75); }
+.footer-bottom a:hover{ color: var(--mostarda); }
+@media (max-width: 800px){ .footer-grid{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px){ .footer-grid{ grid-template-columns: 1fr; } }
+  </style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%278%27%20fill%3D%27%232f5d50%27/%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2730%27%20font-weight%3D%27bold%27%20fill%3D%27%23ffffff%27%20text-anchor%3D%27middle%27%3ECC%3C/text%3E%3C/svg%3E"></head><body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="safe.html" class="brand">Conta Certa<small>Planejamento &amp; orçamento doméstico</small></a>
+      <nav class="site-nav" aria-label="Navegação principal">
+        <a href="safe.html">Início</a>
+        <a href="app.html">App</a>
+        <a href="glossario.html">Glossário</a>
+        <a href="faq.html">Dúvidas</a>
+        <a href="sobre.html">Sobre</a>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="breadcrumb">
+    <div class="container">
+      <a href="safe.html">Início</a> / <a href="safe.html">Planejamento</a> / Reserva de emergência: quanto guardar antes de pensar em investir
+    </div>
+  </nav>
+
+  <article class="post">
+    <div class="post-head">
+      <div class="container">
+        <span class="tag">Planejamento</span>
+        <h1>Reserva de emergência: quanto guardar antes de pensar em investir</h1>
+        <p class="post-dek">A faixa entre 3 e 12 meses de despesas não é igual para todo perfil de renda. Como calcular a sua sem paralisar o orçamento.</p>
+        <p class="post-meta">Planejamento · 15 de janeiro de 2026 · por Equipe Conta Certa</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="photo post-cover"><img src="img/reserva-de-emergencia-quanto-guardar.jpg" alt="Pessoa fecha a tampa de um pote de vidro com notas de dinheiro guardadas dentro." loading="lazy"></div>
+    </div>
+
+    <div class="container">
+      <div class="post-layout">
+        <div class="post-body">
+
+          <p>Toda conversa sobre investir esbarra, mais cedo ou mais tarde, numa pergunta que costuma ser respondida de forma genérica: quanto eu preciso ter guardado antes de arriscar qualquer coisa? A resposta padrão — "de 3 a 12 meses de despesas" — está correta, mas é grande demais pra ser útil sozinha. Pra quem vive de salário fixo, 3 meses pode ser confortável. Pra quem fatura por projeto ou por comissão, mesmo 12 meses pode não cobrir um trimestre ruim. O problema não é a regra: é aplicá-la sem ajustar pro seu próprio risco de renda.</p>
+
+          <p>Este artigo detalha como estimar o número certo pra você, sem cair em dois erros comuns: guardar de menos e ficar exposto no primeiro imprevisto, ou guardar de mais e travar o orçamento tentando atingir uma meta inflada que não condiz com sua realidade.</p>
+
+          <h2>O primeiro passo não é a meta — é a base de cálculo</h2>
+          <p>Antes de decidir "quantos meses", é preciso decidir "meses de quê". A reserva de emergência cobre <strong>despesas essenciais</strong>, não o seu padrão de vida inteiro. Isso muda bastante o número final.</p>
+          <ul>
+            <li><strong>Entra na conta:</strong> moradia (aluguel/financiamento + condomínio), contas de consumo (água, luz, internet, celular), alimentação básica, transporte pro trabalho, remédios de uso contínuo, plano de saúde e parcelas de dívida já assumidas.</li>
+            <li><strong>Fica de fora, em geral:</strong> streaming, lazer, roupas novas, viagens, jantar fora. Numa emergência de verdade, esses itens costumam ser os primeiros a serem cortados — então não faz sentido reservar dinheiro pra mantê-los.</li>
+          </ul>
+          <p>Somar essas contas por 1 mês e chamar de "despesa essencial mensal" é o número que multiplica pela quantidade de meses da sua meta. Ignorar essa separação é o motivo pelo qual boa parte das pessoas acha a meta de reserva "impossível" — na prática, estavam calculando em cima do custo de vida completo, não do essencial.</p>
+
+          <blockquote>Reserva de emergência não é poupança de sonho. É o dinheiro que existe pra você não precisar recorrer a cartão de crédito rotativo, cheque especial ou empréstimo consignado quando o imprevisto acontece — e o custo desse crédito emergencial costuma ser desproporcional ao problema original, como mostramos em <a href="selic-e-custo-do-parcelamento.html">como a Selic entra na conta do parcelamento e do cheque especial</a>.</blockquote>
+
+          <h2>Quantos meses guardar — e por que o número muda por perfil de renda</h2>
+          <p>A variação de 3 a 12 meses existe porque o risco de interrupção de renda não é igual pra todo mundo. Uma forma simples de pensar isso:</p>
+
+          <h3>CLT com estabilidade razoável</h3>
+          <p>Quem tem carteira assinada, setor estável e pouca chance de demissão em massa costuma trabalhar bem com uma meta entre <strong>3 e 6 meses</strong> de despesas essenciais. O acesso a FGTS e seguro-desemprego (quando aplicável) também reduz um pouco a pressão, já que funcionam como uma camada extra de proteção — não substituem a reserva, mas encurtam o tempo em que ela precisa segurar a barra sozinha.</p>
+
+          <h3>Autônomo, PJ ou renda variável</h3>
+          <p>Quem fatura por contrato, comissão ou projeto tem renda mais instável mês a mês, mesmo que a média anual seja boa. Nesse perfil, a meta sobe pra faixa de <strong>9 a 12 meses</strong>, porque não existe seguro-desemprego, e um cliente grande que atrasa ou cancela pode derrubar o caixa de um trimestre inteiro sem aviso.</p>
+
+          <h3>Renda mista ou setor cíclico</h3>
+          <p>Comissionados de vendas em setores sazonais, freelancers com poucos clientes fixos ou quem tem uma parte da renda em CLT e outra variável costuma ficar no meio do caminho: algo entre <strong>6 e 9 meses</strong>, ajustando pra baixo se a parte fixa da renda já cobrir a maior parte das despesas essenciais.</p>
+
+          <table>
+            <caption>Referência aproximada por perfil de renda</caption>
+            <thead>
+              <tr><th>Perfil</th><th>Meses de despesas essenciais</th><th>Por quê</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>CLT, setor estável</td><td class="num">3 a 6</td><td>Renda previsível + FGTS/seguro-desemprego como colchão extra</td></tr>
+              <tr><td>Renda mista / comissionado</td><td class="num">6 a 9</td><td>Parte da renda oscila mês a mês</td></tr>
+              <tr><td>Autônomo / PJ / freelancer</td><td class="num">9 a 12</td><td>Sem rede de proteção formal, renda depende de poucos clientes</td></tr>
+            </tbody>
+          </table>
+
+          <p>Esses números são pontos de partida, não fórmulas fechadas. Quem tem dependentes, dívida ativa ou mora em imóvel financiado (risco de perder o bem em atraso prolongado) tende a puxar a própria meta pra cima da faixa do seu perfil.</p>
+
+          <h2>Onde guardar: liquidez primeiro, rendimento depois</h2>
+          <p>O erro mais caro na hora de guardar a reserva é escolher o produto pelo rendimento e esquecer da liquidez. Reserva de emergência precisa estar disponível <em>quando a emergência acontece</em> — não em 30, 60 ou 90 dias.</p>
+
+          <table>
+            <caption>Onde guardar a reserva — comparativo por liquidez</caption>
+            <thead>
+              <tr><th>Onde guardar</th><th>Liquidez</th><th>Rendimento aproximado</th><th>Indicado para</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Poupança</td><td class="num">Imediata</td><td class="num">Baixo, abaixo do CDI</td><td>Quem prioriza simplicidade acima de tudo</td></tr>
+              <tr><td>Tesouro Selic</td><td class="num">D+1 (próximo dia útil)</td><td class="num">Próximo de 100% do CDI</td><td>Reserva principal, valor médio a alto</td></tr>
+              <tr><td>CDB liquidez diária (banco sólido)</td><td class="num">Imediata a D+1</td><td class="num">100% do CDI ou perto disso</td><td>Quem já tem conta em banco/corretora com CDB de liquidez diária</td></tr>
+            </tbody>
+          </table>
+
+          <p>Na prática, muita gente divide a reserva em duas camadas: uma fatia pequena (o equivalente a 1 mês) na conta corrente ou poupança pra acesso imediato, e o restante em Tesouro Selic ou CDB de liquidez diária, que rende mais e ainda assim libera o dinheiro em menos de 2 dias úteis. Se depois disso você quiser entender as opções de baixo risco pra além da reserva, o comparativo entre <a href="tesouro-direto-ou-cdb-para-comecar.html">Tesouro Direto ou CDB para os primeiros R$ 1.000</a> é o próximo passo natural.</p>
+
+          <h2>Como montar a reserva sem sacrificar o orçamento mensal</h2>
+          <p>Tentar juntar 6 meses de despesas de uma vez é o motivo pelo qual muita gente desiste no meio do caminho. O caminho mais sustentável é fatiar a meta:</p>
+          <ol>
+            <li><strong>Comece pela primeira parcela pequena.</strong> A primeira meta real não é "6 meses" — é o equivalente a 1 mês de despesas essenciais. Esse valor já cobre boa parte dos imprevistos do dia a dia (conserto de carro, consulta médica, conta atrasada).</li>
+            <li><strong>Automatize um valor fixo todo mês.</strong> Um valor pequeno e automático (mesmo que seja modesto) supera, ao longo do ano, uma "sobra" que depende de disciplina manual. Separar o valor no dia em que o salário cai evita que ele se dissolva no restante do orçamento.</li>
+            <li><strong>Reveja o orçamento essencial antes de aumentar a meta.</strong> Se as despesas essenciais couberem em um método claro de divisão de renda, sobra mais previsibilidade pra destinar à reserva — o <a href="metodo-orcamento-50-30-20-adaptado.html">método 50-30-20 adaptado ao seu salário</a> ajuda a enxergar quanto dá pra reservar sem pressão.</li>
+            <li><strong>Suba a meta em etapas.</strong> De 1 mês, vá pra 3, depois 6, depois a meta final do seu perfil. Cada etapa concluída já reduz uma fatia real de risco — não é preciso esperar chegar ao número ideal pra já estar mais protegido do que estava antes.</li>
+          </ol>
+
+          <p>Um ponto que passa despercebido: acompanhar as datas de vencimento das próprias contas essenciais ajuda a não recorrer à reserva por desorganização, e não por emergência de verdade. Um boleto esquecido que vira juros e multa é, no fim das contas, dinheiro saindo da reserva por falta de aviso — o tipo de vazamento que um calendário de vencimentos, como o oferecido pelo <a href="app.html">app Vencerto</a>, existe justamente para evitar.</p>
+
+          <h2>Quando a reserva está pronta, o que muda</h2>
+          <p>Atingir a meta da reserva não é o fim do planejamento — é o que libera a próxima etapa com menos ansiedade. Com a reserva formada, decisões como trocar de emprego, negociar uma dívida à vista com desconto, ou começar a investir em produtos de prazo mais longo deixam de depender de "e se der errado no meio do caminho". A reserva é o que permite errar sem que o erro vire crise.</p>
+
+          <p>Vale reforçar: a reserva de emergência não compete com investimento de longo prazo, ela é o que vem antes. Só depois de ter esse colchão formado — e não antes — costuma fazer sentido migrar parte do orçamento pra objetivos de prazo mais longo, exposição a renda variável ou aportes recorrentes fora da liquidez diária.</p>
+
+        </div>
+
+        <aside class="post-aside">
+          <span class="small-caps">Roteiro de leitura</span>
+          <ul>
+            <li><a href="#">A base de cálculo certa</a></li>
+            <li><a href="#">Quantos meses por perfil</a></li>
+            <li><a href="#">Onde guardar</a></li>
+            <li><a href="#">Como montar sem sacrificar o orçamento</a></li>
+          </ul>
+          <span class="small-caps" style="margin-top:24px;">Leitura relacionada</span>
+          <ul>
+            <li><a href="open-finance-compartilhar-dados-bancarios.html">Open Finance na prática</a></li>
+            <li><a href="score-de-credito-o-que-realmente-pesa.html">Score de crédito: o que trava na prática</a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="related">
+        <h2>Leia também</h2>
+        <div class="related-list">
+          <a href="metodo-orcamento-50-30-20-adaptado.html">
+            <div class="photo related-thumb"><img src="img/metodo-orcamento-50-30-20-adaptado.jpg" alt="Mulher usa calculadora e organiza recibos e notas de dinheiro numa mesa de escritório em casa." loading="lazy"></div>
+            <div class="related-text">O método 50-30-20 não fecha no seu salário? Veja como adaptar</div>
+          </a>
+          <a href="tesouro-direto-ou-cdb-para-comecar.html">
+            <div class="photo related-thumb"><img src="img/tesouro-direto-ou-cdb-para-comecar.jpg" alt="Telas escuras exibindo gráficos de candles e cotações financeiras num ambiente de monitoramento de investimentos." loading="lazy"></div>
+            <div class="related-text">Tesouro Direto ou CDB: qual escolher para os primeiros R$ 1.000</div>
+          </a>
+          <a href="selic-e-custo-do-parcelamento.html">
+            <div class="photo related-thumb"><img src="img/selic-e-custo-do-parcelamento.jpg" alt="Calculadora com um valor alto na tela ao lado de gráficos financeiros impressos e uma lupa." loading="lazy"></div>
+            <div class="related-text">Como a Selic entra na conta do parcelamento e do cheque especial</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Conta Certa</div>
+          <p>Editorial independente sobre controle de contas, calendário de vencimentos, negociação de dívida e uso do crédito. Sem promessa de dinheiro fácil.</p>
+        </div>
+        <div>
+          <h5>Conteúdo</h5>
+          <ul>
+            <li><a href="safe.html">Início</a></li>
+            <li><a href="glossario.html">Glossário financeiro</a></li>
+            <li><a href="faq.html">Dúvidas frequentes</a></li>
+            <li><a href="sobre.html">Sobre a redação</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Artigos recentes</h5>
+          <ul>
+            <li><a href="pix-automatico-2026.html">Pix Automático 2026</a></li>
+            <li><a href="reserva-de-emergencia-quanto-guardar.html">Reserva de emergência</a></li>
+            <li><a href="score-de-credito-o-que-realmente-pesa.html">Score de crédito</a></li>
+            <li><a href="golpe-boleto-falso-conta-atrasada.html">Golpe do boleto falso</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>App</h5>
+          <ul>
+            <li><a href="app.html">Vencerto — calendário de contas</a></li>
+            <li><a href="app.html#funcionalidades">Funcionalidades</a></li>
+            <li><a href="app.html#faq">Perguntas sobre o app</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Conta Certa. Conteúdo educativo — não constitui recomendação de investimento.</span>
+        <span><a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos de uso</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Perguntas frequentes sobre finanças pessoais | Meu Rendimento</title>
+<meta name="description" content="14 perguntas frequentes sobre orçamento doméstico, reserva de emergência, investimento, crédito e sobre o site e o app Fecha Mês do Meu Rendimento." />
+<link rel="canonical" href="https://meurendimento.cfd/faq.html" />
+<style>
+/* ===== Meu Rendimento — sistema editorial ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --terracota: #b4532a;
+  --terracota-dark: #8a3f1f;
+  --creme: #f4efe6;
+  --creme-2: #eae1cf;
+  --creme-3: #ddd0b3;
+  --grafite: #2b2b2b;
+  --grafite-2: #4a4a48;
+  --oliva: #6b7a52;
+  --oliva-dark: #4f5b3c;
+  --border: #cbbb98;
+  --serif: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, 'Times New Roman', serif;
+  --sans: Verdana, Tahoma, Geneva, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--creme);
+  color: var(--grafite);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--terracota-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3, h4 { font-family: var(--serif); color: var(--grafite); line-height: 1.18; font-weight: 700; }
+
+ul, ol { padding-left: 1.3em; }
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+.container-narrow { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+.filete { border: 0; border-top: 3px solid var(--terracota); margin: 0; }
+.filete-fina { border: 0; border-top: 1px solid var(--border); }
+
+.eyebrow {
+  display: block; font-family: var(--sans); font-size: 12px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--oliva-dark); font-weight: bold; margin-bottom: 6px;
+}
+
+/* ---------- HEADER ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 60;
+  background: var(--creme);
+  border-bottom: 3px solid var(--terracota);
+}
+.site-header .container {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px; padding-bottom: 16px; gap: 20px; flex-wrap: wrap;
+}
+.brand { display: flex; flex-direction: column; }
+.brand a { text-decoration: none; }
+.brand-mark {
+  font-family: var(--serif); font-weight: 700; font-size: 26px; color: var(--grafite);
+  letter-spacing: 0.3px;
+}
+.brand-mark span { color: var(--terracota); }
+.brand-tag {
+  font-family: var(--sans); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--oliva-dark); margin-top: 2px;
+}
+.site-nav ul { list-style: none; display: flex; gap: 26px; padding: 0; flex-wrap: wrap; }
+.site-nav a {
+  font-family: var(--sans); font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--grafite); font-weight: bold; padding-bottom: 4px; border-bottom: 2px solid transparent;
+}
+.site-nav a:hover, .site-nav a.active {
+  color: var(--terracota-dark); border-bottom-color: var(--terracota); text-decoration: none;
+}
+
+/* ---------- HERO (assimétrico) ---------- */
+.hero {
+  padding: 72px 0 56px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--creme) 0%, var(--creme-2) 100%);
+}
+.hero .container {
+  display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: start;
+}
+.hero-content h1 {
+  font-size: 44px; margin-bottom: 18px; max-width: 15ch;
+}
+.hero-content p { font-size: 17px; max-width: 52ch; color: var(--grafite-2); margin-bottom: 10px; }
+.hero-content p + p { margin-top: 10px; }
+
+.hero-index {
+  border-left: 3px solid var(--terracota); padding-left: 24px;
+}
+.hero-index h2 {
+  font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--oliva-dark);
+  font-family: var(--sans); font-weight: bold; margin-bottom: 16px;
+}
+.hero-index ol { list-style: none; padding: 0; counter-reset: idx; }
+.hero-index li {
+  counter-increment: idx; display: flex; gap: 14px; align-items: baseline;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.hero-index li:first-child { padding-top: 0; }
+.hero-index li::before {
+  content: counter(idx, decimal-leading-zero); font-family: var(--serif); font-size: 22px;
+  color: var(--terracota); font-weight: 700; flex-shrink: 0;
+}
+.hero-index li span { font-size: 14px; color: var(--grafite); }
+
+/* ---------- SECTION HEADS ---------- */
+.section-head {
+  padding: 36px 0 8px; display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.section-head h2 { font-size: 30px; }
+.section-head .count {
+  font-family: var(--sans); font-size: 13px; color: var(--grafite-2);
+  border: 1px solid var(--border); padding: 4px 10px;
+}
+
+/* ---------- GRID DE CARDS (larguras variadas) ---------- */
+.grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+  border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+}
+.grid .card:nth-child(1) { grid-column: span 3; }
+.grid .card:nth-child(2) { grid-column: span 3; }
+.grid .card:nth-child(3) { grid-column: span 2; }
+.grid .card:nth-child(4) { grid-column: span 2; }
+.grid .card:nth-child(5) { grid-column: span 2; }
+.grid .card:nth-child(6) { grid-column: span 4; }
+.grid .card:nth-child(7) { grid-column: span 2; }
+.grid .card:nth-child(8) { grid-column: span 3; }
+.grid .card:nth-child(9) { grid-column: span 3; }
+
+.card {
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 28px 26px; display: flex; flex-direction: column; position: relative;
+  background: var(--creme); transition: background 0.15s ease;
+}
+.card:hover { background: var(--creme-2); }
+.card:hover h3 a { text-decoration: underline; }
+.card .num {
+  font-family: var(--serif); font-size: 46px; color: var(--creme-3); font-weight: 700;
+  position: absolute; top: 14px; right: 20px; line-height: 1; z-index: 0; user-select: none;
+}
+.card .cat {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--oliva-dark);
+  font-weight: bold; margin-bottom: 10px; position: relative; z-index: 1;
+}
+.card h3 { font-size: 20px; margin-bottom: 10px; position: relative; z-index: 1; }
+.card h3 a { color: var(--grafite); }
+.card .dek { font-size: 14px; color: var(--grafite-2); flex-grow: 1; margin-bottom: 14px; position: relative; z-index: 1; }
+.card .meta { font-size: 12px; color: var(--grafite-2); border-top: 1px solid var(--border); padding-top: 10px; position: relative; z-index: 1; }
+
+/* ---------- BOTOES ---------- */
+.btn {
+  display: inline-block; font-family: var(--sans); font-weight: bold; font-size: 14px;
+  letter-spacing: 0.5px; text-transform: uppercase; padding: 13px 26px; border: 2px solid var(--terracota);
+  border-radius: 2px; cursor: pointer; text-decoration: none !important;
+}
+.btn-primary { background: var(--terracota); color: var(--creme); }
+.btn-primary:hover { background: var(--terracota-dark); border-color: var(--terracota-dark); }
+.btn-outline { background: transparent; color: var(--terracota-dark); }
+.btn-outline:hover { background: var(--terracota); color: var(--creme); }
+.btn-oliva { border-color: var(--oliva); background: var(--oliva); color: var(--creme); }
+.btn-oliva:hover { background: var(--oliva-dark); border-color: var(--oliva-dark); }
+
+/* ---------- SECAO APP ---------- */
+.app-section { padding: 64px 0; background: var(--grafite); color: var(--creme); }
+.app-section .container { display: grid; grid-template-columns: 1fr 0.9fr; gap: 56px; align-items: center; }
+.app-section .eyebrow { color: var(--creme-3); }
+.app-section h2 { color: var(--creme); font-size: 34px; margin-bottom: 16px; }
+.app-section p { color: #cfc7b8; margin-bottom: 14px; max-width: 50ch; }
+.app-features { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 26px 0; border-top: 1px solid #4a4a48; border-left: 1px solid #4a4a48; }
+.app-features .feat { border-right: 1px solid #4a4a48; border-bottom: 1px solid #4a4a48; padding: 16px 18px; }
+.app-features .feat b { display: block; font-family: var(--serif); color: var(--creme); font-size: 15px; margin-bottom: 4px; }
+.app-features .feat span { font-size: 13px; color: #b9b2a3; }
+
+/* mockup de tela do app em CSS puro */
+.mockup {
+  border: 2px solid var(--creme-3); background: var(--creme); color: var(--grafite);
+  max-width: 300px; margin: 0 auto; box-shadow: 8px 8px 0 var(--terracota-dark);
+}
+.mockup-bar {
+  background: var(--terracota); color: var(--creme); padding: 10px 14px; font-size: 13px;
+  font-weight: bold; display: flex; justify-content: space-between; align-items: center;
+}
+.mockup-body { padding: 16px; }
+.mockup-balance { text-align: center; padding: 10px 0 16px; border-bottom: 1px dashed var(--border); margin-bottom: 14px; }
+.mockup-balance .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--grafite-2); }
+.mockup-balance .val { font-family: var(--serif); font-size: 30px; font-weight: 700; color: var(--oliva-dark); }
+.mockup-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; border-bottom: 1px solid var(--creme-2); }
+.mockup-row .dot { width: 10px; height: 10px; display: inline-block; margin-right: 8px; border-radius: 50%; }
+.mockup-bars { margin-top: 14px; }
+.mockup-bars .bl { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 4px; color: var(--grafite-2); }
+.mockup-bars .track { height: 8px; background: var(--creme-2); margin-bottom: 12px; border: 1px solid var(--border); }
+.mockup-bars .fill { height: 100%; background: var(--oliva); }
+.mockup-bars .fill.alert { background: var(--terracota); }
+
+/* ---------- COMO FUNCIONA ---------- */
+.steps { padding: 56px 0; }
+.steps ol { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; border-top: 1px solid var(--border); }
+.steps li { counter-increment: step; padding: 24px 20px 0; border-right: 1px solid var(--border); }
+.steps li:last-child { border-right: none; }
+.steps li::before {
+  content: counter(step, decimal-leading-zero); display: block; font-family: var(--serif);
+  font-size: 40px; color: var(--terracota); font-weight: 700; margin-bottom: 8px;
+}
+.steps li h4 { font-size: 16px; margin-bottom: 6px; }
+.steps li p { font-size: 13px; color: var(--grafite-2); }
+
+/* ---------- NEWSLETTER ---------- */
+.newsletter { background: var(--oliva-dark); color: var(--creme); padding: 48px 0; }
+.newsletter .container { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.newsletter h2 { color: var(--creme); font-size: 24px; max-width: 30ch; }
+.newsletter p { font-size: 14px; color: #dbe0d1; margin-top: 6px; max-width: 44ch; }
+.newsletter form { display: flex; gap: 0; flex-wrap: wrap; min-width: 320px; }
+.newsletter input[type="email"] {
+  font-family: var(--sans); font-size: 14px; padding: 13px 16px; border: 2px solid var(--creme);
+  background: var(--creme); color: var(--grafite); min-width: 220px; flex: 1; border-radius: 0;
+}
+.newsletter button {
+  font-family: var(--sans); font-weight: bold; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 0 22px; border: 2px solid var(--terracota); background: var(--terracota); color: var(--creme); cursor: pointer;
+}
+.newsletter button:hover { background: var(--terracota-dark); }
+.newsletter .ok-msg { font-size: 13px; margin-top: 8px; color: var(--creme); display: none; }
+
+/* ---------- SOBRE (trecho na home) ---------- */
+.about-snippet { padding: 56px 0; border-top: 1px solid var(--border); }
+.about-snippet .container { display: grid; grid-template-columns: 0.9fr 1.6fr; gap: 40px; }
+.about-snippet .avatar {
+  width: 96px; height: 96px; border-radius: 50%; background: var(--oliva); color: var(--creme);
+  font-family: var(--serif); font-size: 34px; display: flex; align-items: center; justify-content: center;
+  border: 3px solid var(--terracota); font-weight: 700;
+}
+.about-snippet h2 { font-size: 24px; margin-bottom: 10px; }
+.about-snippet p { color: var(--grafite-2); margin-bottom: 10px; max-width: 65ch; }
+
+/* ---------- FOOTER ---------- */
+.site-footer { background: var(--grafite); color: #c9c3b6; padding: 56px 0 0; margin-top: 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid #48453f; }
+.footer-grid h5 { font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--creme); margin-bottom: 16px; }
+.footer-grid ul { list-style: none; padding: 0; }
+.footer-grid li { margin-bottom: 8px; font-size: 13px; }
+.footer-grid a { color: #c9c3b6; }
+.footer-grid a:hover { color: var(--creme); }
+.footer-brand .brand-mark { color: var(--creme); font-size: 22px; }
+.footer-brand .brand-mark span { color: var(--terracota); }
+.footer-brand p { font-size: 13px; margin-top: 12px; max-width: 34ch; color: #a8a294; }
+.footer-bottom {
+  display: flex; justify-content: space-between; padding: 20px 0; font-size: 12px; color: #8b8676;
+  flex-wrap: wrap; gap: 10px;
+}
+
+/* ---------- BREADCRUMB ---------- */
+.breadcrumb { font-size: 12px; padding: 18px 0; color: var(--grafite-2); }
+.breadcrumb a { color: var(--oliva-dark); }
+.breadcrumb span { margin: 0 6px; color: var(--border); }
+
+/* ---------- POST (artigo) ---------- */
+.post-header { padding: 10px 0 30px; border-bottom: 1px solid var(--border); }
+.post-header .cat { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--oliva-dark); font-weight: bold; }
+.post-header h1 { font-size: 38px; margin: 12px 0 14px; max-width: 20ch; }
+.post-header .dek { font-size: 18px; color: var(--grafite-2); max-width: 60ch; margin-bottom: 14px; }
+.post-header .meta { font-size: 13px; color: var(--grafite-2); }
+.post-header .meta b { color: var(--grafite); }
+
+.post { padding: 36px 0 20px; max-width: 760px; margin: 0 auto; }
+.post h2 { font-size: 26px; margin: 36px 0 14px; }
+.post h3 { font-size: 20px; margin: 26px 0 10px; color: var(--terracota-dark); }
+.post p { margin-bottom: 16px; font-size: 16px; color: var(--grafite); }
+.post ul, .post ol { margin-bottom: 18px; }
+.post li { margin-bottom: 8px; }
+.post strong { color: var(--terracota-dark); }
+
+.post .cols {
+  columns: 2; column-gap: 36px; column-rule: 1px solid var(--border);
+}
+.post .cols p { break-inside: avoid-column; }
+
+.post blockquote {
+  border-left: 4px solid var(--terracota); padding: 6px 0 6px 26px; margin: 26px 0;
+  font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--grafite-2);
+  position: relative;
+}
+
+.post table { width: 100%; border-collapse: collapse; margin: 20px 0 26px; font-size: 14px; }
+.post table caption { text-align: left; font-size: 12px; color: var(--grafite-2); margin-bottom: 8px; caption-side: top; }
+.post th { background: var(--terracota); color: var(--creme); text-align: left; padding: 10px 12px; font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.post td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.post tr:nth-child(even) td { background: var(--creme-2); }
+
+.post .callout {
+  border: 1px solid var(--oliva); background: #eef0e7; padding: 18px 20px; margin: 24px 0; font-size: 14px;
+}
+.post .callout b { color: var(--oliva-dark); display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+
+.related { padding: 40px 0 60px; border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; }
+.related h2 { font-size: 22px; margin-bottom: 20px; }
+.related .grid { grid-template-columns: repeat(3, 1fr); }
+.related .card:nth-child(n) { grid-column: span 1; }
+
+/* ---------- GLOSSARIO ---------- */
+.glossary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border); border-left: 1px solid var(--border); margin: 30px 0 60px; }
+.glossary-grid dt { border-right: 1px solid var(--border); border-bottom: none; padding: 20px 22px 4px; font-family: var(--serif); font-size: 17px; color: var(--terracota-dark); font-weight: 700; }
+.glossary-grid dd { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0 22px 20px; font-size: 14px; color: var(--grafite-2); }
+
+/* ---------- FAQ ---------- */
+.faq-list { margin: 30px 0 60px; max-width: 820px; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+.faq-item summary {
+  font-family: var(--serif); font-size: 18px; font-weight: 700; cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: baseline; color: var(--grafite);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-family: var(--sans); font-size: 22px; color: var(--terracota); flex-shrink: 0; margin-left: 14px; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { margin-top: 12px; font-size: 15px; color: var(--grafite-2); max-width: 68ch; }
+
+/* ---------- SOBRE / EQUIPE ---------- */
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 30px 0 50px; }
+.team-card { border: 1px solid var(--border); padding: 24px; text-align: center; }
+.team-card .avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--terracota); color: var(--creme); font-family: var(--serif); font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.team-card h3 { font-size: 17px; margin-bottom: 4px; }
+.team-card .role { font-size: 12px; color: var(--oliva-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.team-card p { font-size: 13px; color: var(--grafite-2); }
+
+/* ---------- PAGE HERO simples (app/sobre/glossario/faq) ---------- */
+.page-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--border); }
+.page-hero h1 { font-size: 40px; margin: 10px 0 14px; }
+.page-hero p { font-size: 17px; color: var(--grafite-2); max-width: 60ch; }
+
+/* ---------- RESPONSIVO ---------- */
+@media (max-width: 980px) {
+  .hero .container { grid-template-columns: 1fr; }
+  .app-section .container { grid-template-columns: 1fr; }
+  .app-section .mockup { margin-top: 30px; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .grid .card { grid-column: span 1 !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .steps ol { grid-template-columns: 1fr 1fr; }
+  .steps li { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 4px; }
+  .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .related .grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .site-header .container { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .site-nav ul { gap: 14px 18px; }
+  .hero-content h1 { font-size: 32px; }
+  .post-header h1 { font-size: 28px; }
+  .post .cols { columns: 1; }
+  .grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .steps ol { grid-template-columns: 1fr; }
+  .steps li { border-right: none; }
+  .glossary-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .related .grid { grid-template-columns: 1fr; }
+  .newsletter .container { flex-direction: column; align-items: flex-start; }
+  .newsletter form { width: 100%; }
+  .about-snippet .container { grid-template-columns: 1fr; }
+}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%278%27%20fill%3D%27%23b4532a%27/%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2730%27%20font-weight%3D%27bold%27%20fill%3D%27%23ffffff%27%20text-anchor%3D%27middle%27%3EMR%3C/text%3E%3C/svg%3E"></head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <div class="brand">
+      <a href="safe.html"><div class="brand-mark">Meu <span>Rendimento</span></div></a>
+      <div class="brand-tag">Organização financeira doméstica</div>
+    </div>
+    <nav class="site-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="app.html">App</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="faq.html">Dúvidas</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<nav class="breadcrumb container"><a href="safe.html">Início</a><span>/</span>Dúvidas frequentes</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Antes de perguntar</span>
+    <h1>Perguntas que a redação recebe toda semana</h1>
+    <p>Separamos as dúvidas mais comuns sobre orçamento doméstico, investimento básico, crédito e sobre o próprio site e o app Fecha Mês.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Por quanto tempo dá pra manter a reserva de emergência parada sem perder valor pra inflação?</summary>
+        <p>Uma reserva costuma ficar em aplicações de liquidez diária (Tesouro Selic, CDB de liquidez diária), que em geral acompanham de perto a Selic — isso ajuda a proteger o valor da inflação no curto prazo. Não é o lugar pra buscar o rendimento máximo; é o lugar pra ter o dinheiro disponível quando precisar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Vale a pena fechar o cartão de crédito pra parar de gastar demais?</summary>
+        <p>Fechar resolve o sintoma, não a causa. Costuma funcionar melhor definir um limite de gasto por categoria (como no orçamento de 4 colunas) e revisar a fatura toda semana, em vez de eliminar a ferramenta.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Preciso ter um "score alto" pra conseguir qualquer crédito?</summary>
+        <p>Não necessariamente. O score é um dos fatores que o banco olha, mas renda comprovada, relacionamento com a instituição e tipo de crédito pedido também pesam. Um score baixo dificulta, mas não é a única variável.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Open Finance é obrigatório? Meu banco pode me forçar a autorizar?</summary>
+        <p>Não. É uma autorização voluntária, que você concede (e pode revogar) quando quer usar um serviço que dependa dela — como um agregador de contas ou uma simulação de crédito em outra instituição.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Recebi um Pix "por engano" de um desconhecido, o que eu faço?</summary>
+        <p>Não devolva por conta própria e não gaste o valor. Avise seu banco pelo canal oficial — esse é um golpe comum, em que o valor "errado" costuma ser revertido de outra forma depois que você devolve manualmente pra um Pix diferente do que recebeu.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Investimento de renda fixa pode dar prejuízo?</summary>
+        <p>Em títulos pós-fixados levados até o vencimento, dificilmente. Já títulos prefixados ou atrelados à inflação podem oscilar de valor se vendidos antes do prazo — o risco existe, só é menor do que na renda variável.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Como funciona a declaração do Imposto de Renda pra quem só tem salário e uma reserva em CDB?</summary>
+        <p>Em geral entra na declaração quem recebeu rendimento tributável acima do teto de isenção anual, além de quem tem bens acima de um determinado valor. Rendimento de CDB entra como rendimento sujeito à tributação na fonte — o próprio banco costuma informar o valor anual pra declarar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>O Meu Rendimento vende algum curso ou consultoria financeira?</summary>
+        <p>Não. Somos um blog editorial com artigos originais e o app Fecha Mês, gratuito para uso pessoal. Não vendemos curso, consultoria, sinal de investimento nem indicamos corretora específica.</p>
+      </details>
+      <details class="faq-item">
+        <summary>O Fecha Mês precisa de acesso à minha conta bancária?</summary>
+        <p>Não. O lançamento de gastos é manual — você decide o que registrar, sem conectar senha de banco a nenhum aplicativo terceiro.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Com que frequência vocês publicam artigo novo?</summary>
+        <p>Em geral, mais de um artigo por mês, alternando entre temas de atualidade (Selic, Pix Automático, IR) e conteúdo evergreen (orçamento, reserva, investimento básico). A assinatura por e-mail avisa quando sai um novo.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Consigo montar reserva de emergência ganhando pouco mais que um salário mínimo?</summary>
+        <p>Sim, embora demore mais. A estratégia costuma ser dividir a meta total em parcelas pequenas e automatizar um valor fixo (mesmo que baixo) logo depois do salário cair, antes que o dinheiro seja gasto em outra coisa.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Qual a diferença entre CDB e Tesouro Direto na prática?</summary>
+        <p>O CDB é um empréstimo pro banco; o Tesouro Direto é um empréstimo pro governo federal. Ambos podem ter liquidez diária, mas a garantia é diferente: o CDB conta com o FGC até um teto, e o Tesouro tem a garantia do Tesouro Nacional.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Como identifico se um site de "empréstimo fácil" é golpe?</summary>
+        <p>Sinais de alerta comuns: pedido de pagamento antecipado pra "liberar" o crédito, pressa excessiva, canal de contato só por WhatsApp pessoal e ausência de CNPJ verificável. Instituição financeira regulada nunca cobra taxa antecipada pra "destravar" um empréstimo aprovado.</p>
+      </details>
+    </div>
+    <p style="max-width:70ch; margin-bottom:60px; color:var(--grafite-2);">Não achou sua dúvida aqui? Veja o <a href="glossario.html">glossário financeiro</a> ou escreva pra redação em <strong>redacao@meurendimento.cfd</strong> — detalhes em <a href="sobre.html">Sobre</a>.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-mark">Meu <span>Rendimento</span></div>
+        <p>Conteúdo educativo sobre organização financeira doméstica, orçamento e economia no dia a dia. Não somos instituição financeira e não vendemos crédito.</p>
+      </div>
+      <div>
+        <h5>Conteúdo</h5>
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="glossario.html">Glossário financeiro</a></li>
+          <li><a href="faq.html">Perguntas frequentes</a></li>
+          <li><a href="sobre.html">Sobre o Meu Rendimento</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Artigos recentes</h5>
+        <ul>
+          <li><a href="pix-automatico-contas-fixas.html">Pix Automático e contas fixas</a></li>
+          <li><a href="reserva-emergencia-3000-reais.html">Reserva de emergência</a></li>
+          <li><a href="score-credito-o-que-pesa.html">Score de crédito</a></li>
+          <li><a href="golpe-pix-familiar-em-apuros.html">Golpes do Pix</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Institucional</h5>
+        <ul>
+          <li><a href="app.html">Fecha Mês (app)</a></li>
+          <li><a href="privacidade.html">Política de Privacidade</a></li>
+          <li><a href="termos.html">Termos de Uso</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Meu Rendimento. Conteúdo educativo, sem recomendação de investimento.</span>
+      <span>meurendimento.cfd</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A planilha de 4 colunas que sobrevive ao mês (mesmo com conta atrasada) · Meu Rendimento</title>
+<meta name="description" content="Fixo, variável, parcelado e imprevisto: separar o gasto em 4 categorias evita que uma conta atrasada derrube o orçamento inteiro. Veja como montar a sua." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://meurendimento.cfd/planilha-4-colunas-mes.html" />
+<meta property="og:image" content="img/planilha-4-colunas-mes.jpg" />
+<style>
+/* ===== Meu Rendimento — sistema editorial ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --terracota: #b4532a;
+  --terracota-dark: #8a3f1f;
+  --creme: #f4efe6;
+  --creme-2: #eae1cf;
+  --creme-3: #ddd0b3;
+  --grafite: #2b2b2b;
+  --grafite-2: #4a4a48;
+  --oliva: #6b7a52;
+  --oliva-dark: #4f5b3c;
+  --border: #cbbb98;
+  --serif: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, 'Times New Roman', serif;
+  --sans: Verdana, Tahoma, Geneva, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--creme);
+  color: var(--grafite);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--terracota-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3, h4 { font-family: var(--serif); color: var(--grafite); line-height: 1.18; font-weight: 700; }
+
+ul, ol { padding-left: 1.3em; }
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+.container-narrow { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+.filete { border: 0; border-top: 3px solid var(--terracota); margin: 0; }
+.filete-fina { border: 0; border-top: 1px solid var(--border); }
+
+.eyebrow {
+  display: block; font-family: var(--sans); font-size: 12px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--oliva-dark); font-weight: bold; margin-bottom: 6px;
+}
+
+/* ---------- HEADER ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 60;
+  background: var(--creme);
+  border-bottom: 3px solid var(--terracota);
+}
+.site-header .container {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px; padding-bottom: 16px; gap: 20px; flex-wrap: wrap;
+}
+.brand { display: flex; flex-direction: column; }
+.brand a { text-decoration: none; }
+.brand-mark {
+  font-family: var(--serif); font-weight: 700; font-size: 26px; color: var(--grafite);
+  letter-spacing: 0.3px;
+}
+.brand-mark span { color: var(--terracota); }
+.brand-tag {
+  font-family: var(--sans); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--oliva-dark); margin-top: 2px;
+}
+.site-nav ul { list-style: none; display: flex; gap: 26px; padding: 0; flex-wrap: wrap; }
+.site-nav a {
+  font-family: var(--sans); font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--grafite); font-weight: bold; padding-bottom: 4px; border-bottom: 2px solid transparent;
+}
+.site-nav a:hover, .site-nav a.active {
+  color: var(--terracota-dark); border-bottom-color: var(--terracota); text-decoration: none;
+}
+
+/* ---------- HERO (assimétrico) ---------- */
+.hero {
+  padding: 72px 0 56px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--creme) 0%, var(--creme-2) 100%);
+}
+.hero .container {
+  display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: start;
+}
+.hero-content h1 {
+  font-size: 44px; margin-bottom: 18px; max-width: 15ch;
+}
+.hero-content p { font-size: 17px; max-width: 52ch; color: var(--grafite-2); margin-bottom: 10px; }
+.hero-content p + p { margin-top: 10px; }
+
+.hero-index {
+  border-left: 3px solid var(--terracota); padding-left: 24px;
+}
+.hero-index h2 {
+  font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--oliva-dark);
+  font-family: var(--sans); font-weight: bold; margin-bottom: 16px;
+}
+.hero-index ol { list-style: none; padding: 0; counter-reset: idx; }
+.hero-index li {
+  counter-increment: idx; display: flex; gap: 14px; align-items: baseline;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.hero-index li:first-child { padding-top: 0; }
+.hero-index li::before {
+  content: counter(idx, decimal-leading-zero); font-family: var(--serif); font-size: 22px;
+  color: var(--terracota); font-weight: 700; flex-shrink: 0;
+}
+.hero-index li span { font-size: 14px; color: var(--grafite); }
+
+/* ---------- SECTION HEADS ---------- */
+.section-head {
+  padding: 36px 0 8px; display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.section-head h2 { font-size: 30px; }
+.section-head .count {
+  font-family: var(--sans); font-size: 13px; color: var(--grafite-2);
+  border: 1px solid var(--border); padding: 4px 10px;
+}
+
+/* ---------- GRID DE CARDS (larguras variadas) ---------- */
+.grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+  border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+}
+.grid .card:nth-child(1) { grid-column: span 3; }
+.grid .card:nth-child(2) { grid-column: span 3; }
+.grid .card:nth-child(3) { grid-column: span 2; }
+.grid .card:nth-child(4) { grid-column: span 2; }
+.grid .card:nth-child(5) { grid-column: span 2; }
+.grid .card:nth-child(6) { grid-column: span 4; }
+.grid .card:nth-child(7) { grid-column: span 2; }
+.grid .card:nth-child(8) { grid-column: span 3; }
+.grid .card:nth-child(9) { grid-column: span 3; }
+
+.card {
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 28px 26px; display: flex; flex-direction: column; position: relative;
+  background: var(--creme); transition: background 0.15s ease;
+}
+.card:hover { background: var(--creme-2); }
+.card:hover h3 a { text-decoration: underline; }
+.card .num {
+  font-family: var(--serif); font-size: 46px; color: var(--creme-3); font-weight: 700;
+  position: absolute; top: 14px; right: 20px; line-height: 1; z-index: 0; user-select: none;
+}
+.card .cat {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--oliva-dark);
+  font-weight: bold; margin-bottom: 10px; position: relative; z-index: 1;
+}
+.card h3 { font-size: 20px; margin-bottom: 10px; position: relative; z-index: 1; }
+.card h3 a { color: var(--grafite); }
+.card .dek { font-size: 14px; color: var(--grafite-2); flex-grow: 1; margin-bottom: 14px; position: relative; z-index: 1; }
+.card .meta { font-size: 12px; color: var(--grafite-2); border-top: 1px solid var(--border); padding-top: 10px; position: relative; z-index: 1; }
+
+/* ---------- BOTOES ---------- */
+.btn {
+  display: inline-block; font-family: var(--sans); font-weight: bold; font-size: 14px;
+  letter-spacing: 0.5px; text-transform: uppercase; padding: 13px 26px; border: 2px solid var(--terracota);
+  border-radius: 2px; cursor: pointer; text-decoration: none !important;
+}
+.btn-primary { background: var(--terracota); color: var(--creme); }
+.btn-primary:hover { background: var(--terracota-dark); border-color: var(--terracota-dark); }
+.btn-outline { background: transparent; color: var(--terracota-dark); }
+.btn-outline:hover { background: var(--terracota); color: var(--creme); }
+.btn-oliva { border-color: var(--oliva); background: var(--oliva); color: var(--creme); }
+.btn-oliva:hover { background: var(--oliva-dark); border-color: var(--oliva-dark); }
+
+/* ---------- SECAO APP ---------- */
+.app-section { padding: 64px 0; background: var(--grafite); color: var(--creme); }
+.app-section .container { display: grid; grid-template-columns: 1fr 0.9fr; gap: 56px; align-items: center; }
+.app-section .eyebrow { color: var(--creme-3); }
+.app-section h2 { color: var(--creme); font-size: 34px; margin-bottom: 16px; }
+.app-section p { color: #cfc7b8; margin-bottom: 14px; max-width: 50ch; }
+.app-features { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 26px 0; border-top: 1px solid #4a4a48; border-left: 1px solid #4a4a48; }
+.app-features .feat { border-right: 1px solid #4a4a48; border-bottom: 1px solid #4a4a48; padding: 16px 18px; }
+.app-features .feat b { display: block; font-family: var(--serif); color: var(--creme); font-size: 15px; margin-bottom: 4px; }
+.app-features .feat span { font-size: 13px; color: #b9b2a3; }
+
+/* mockup de tela do app em CSS puro */
+.mockup {
+  border: 2px solid var(--creme-3); background: var(--creme); color: var(--grafite);
+  max-width: 300px; margin: 0 auto; box-shadow: 8px 8px 0 var(--terracota-dark);
+}
+.mockup-bar {
+  background: var(--terracota); color: var(--creme); padding: 10px 14px; font-size: 13px;
+  font-weight: bold; display: flex; justify-content: space-between; align-items: center;
+}
+.mockup-body { padding: 16px; }
+.mockup-balance { text-align: center; padding: 10px 0 16px; border-bottom: 1px dashed var(--border); margin-bottom: 14px; }
+.mockup-balance .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--grafite-2); }
+.mockup-balance .val { font-family: var(--serif); font-size: 30px; font-weight: 700; color: var(--oliva-dark); }
+.mockup-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; border-bottom: 1px solid var(--creme-2); }
+.mockup-row .dot { width: 10px; height: 10px; display: inline-block; margin-right: 8px; border-radius: 50%; }
+.mockup-bars { margin-top: 14px; }
+.mockup-bars .bl { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 4px; color: var(--grafite-2); }
+.mockup-bars .track { height: 8px; background: var(--creme-2); margin-bottom: 12px; border: 1px solid var(--border); }
+.mockup-bars .fill { height: 100%; background: var(--oliva); }
+.mockup-bars .fill.alert { background: var(--terracota); }
+
+/* ---------- COMO FUNCIONA ---------- */
+.steps { padding: 56px 0; }
+.steps ol { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; border-top: 1px solid var(--border); }
+.steps li { counter-increment: step; padding: 24px 20px 0; border-right: 1px solid var(--border); }
+.steps li:last-child { border-right: none; }
+.steps li::before {
+  content: counter(step, decimal-leading-zero); display: block; font-family: var(--serif);
+  font-size: 40px; color: var(--terracota); font-weight: 700; margin-bottom: 8px;
+}
+.steps li h4 { font-size: 16px; margin-bottom: 6px; }
+.steps li p { font-size: 13px; color: var(--grafite-2); }
+
+/* ---------- NEWSLETTER ---------- */
+.newsletter { background: var(--oliva-dark); color: var(--creme); padding: 48px 0; }
+.newsletter .container { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.newsletter h2 { color: var(--creme); font-size: 24px; max-width: 30ch; }
+.newsletter p { font-size: 14px; color: #dbe0d1; margin-top: 6px; max-width: 44ch; }
+.newsletter form { display: flex; gap: 0; flex-wrap: wrap; min-width: 320px; }
+.newsletter input[type="email"] {
+  font-family: var(--sans); font-size: 14px; padding: 13px 16px; border: 2px solid var(--creme);
+  background: var(--creme); color: var(--grafite); min-width: 220px; flex: 1; border-radius: 0;
+}
+.newsletter button {
+  font-family: var(--sans); font-weight: bold; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 0 22px; border: 2px solid var(--terracota); background: var(--terracota); color: var(--creme); cursor: pointer;
+}
+.newsletter button:hover { background: var(--terracota-dark); }
+.newsletter .ok-msg { font-size: 13px; margin-top: 8px; color: var(--creme); display: none; }
+
+/* ---------- SOBRE (trecho na home) ---------- */
+.about-snippet { padding: 56px 0; border-top: 1px solid var(--border); }
+.about-snippet .container { display: grid; grid-template-columns: 0.9fr 1.6fr; gap: 40px; }
+.about-snippet .avatar {
+  width: 96px; height: 96px; border-radius: 50%; background: var(--oliva); color: var(--creme);
+  font-family: var(--serif); font-size: 34px; display: flex; align-items: center; justify-content: center;
+  border: 3px solid var(--terracota); font-weight: 700;
+}
+.about-snippet h2 { font-size: 24px; margin-bottom: 10px; }
+.about-snippet p { color: var(--grafite-2); margin-bottom: 10px; max-width: 65ch; }
+
+/* ---------- FOOTER ---------- */
+.site-footer { background: var(--grafite); color: #c9c3b6; padding: 56px 0 0; margin-top: 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid #48453f; }
+.footer-grid h5 { font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--creme); margin-bottom: 16px; }
+.footer-grid ul { list-style: none; padding: 0; }
+.footer-grid li { margin-bottom: 8px; font-size: 13px; }
+.footer-grid a { color: #c9c3b6; }
+.footer-grid a:hover { color: var(--creme); }
+.footer-brand .brand-mark { color: var(--creme); font-size: 22px; }
+.footer-brand .brand-mark span { color: var(--terracota); }
+.footer-brand p { font-size: 13px; margin-top: 12px; max-width: 34ch; color: #a8a294; }
+.footer-bottom {
+  display: flex; justify-content: space-between; padding: 20px 0; font-size: 12px; color: #8b8676;
+  flex-wrap: wrap; gap: 10px;
+}
+
+/* ---------- BREADCRUMB ---------- */
+.breadcrumb { font-size: 12px; padding: 18px 0; color: var(--grafite-2); }
+.breadcrumb a { color: var(--oliva-dark); }
+.breadcrumb span { margin: 0 6px; color: var(--border); }
+
+/* ---------- POST (artigo) ---------- */
+.post-header { padding: 10px 0 30px; border-bottom: 1px solid var(--border); }
+.post-header .cat { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--oliva-dark); font-weight: bold; }
+.post-header h1 { font-size: 38px; margin: 12px 0 14px; max-width: 20ch; }
+.post-header .dek { font-size: 18px; color: var(--grafite-2); max-width: 60ch; margin-bottom: 14px; }
+.post-header .meta { font-size: 13px; color: var(--grafite-2); }
+.post-header .meta b { color: var(--grafite); }
+
+.post { padding: 36px 0 20px; max-width: 760px; margin: 0 auto; }
+.post h2 { font-size: 26px; margin: 36px 0 14px; }
+.post h3 { font-size: 20px; margin: 26px 0 10px; color: var(--terracota-dark); }
+.post p { margin-bottom: 16px; font-size: 16px; color: var(--grafite); }
+.post ul, .post ol { margin-bottom: 18px; }
+.post li { margin-bottom: 8px; }
+.post strong { color: var(--terracota-dark); }
+
+.post .cols {
+  columns: 2; column-gap: 36px; column-rule: 1px solid var(--border);
+}
+.post .cols p { break-inside: avoid-column; }
+
+.post blockquote {
+  border-left: 4px solid var(--terracota); padding: 6px 0 6px 26px; margin: 26px 0;
+  font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--grafite-2);
+  position: relative;
+}
+
+.post table { width: 100%; border-collapse: collapse; margin: 20px 0 26px; font-size: 14px; }
+.post table caption { text-align: left; font-size: 12px; color: var(--grafite-2); margin-bottom: 8px; caption-side: top; }
+.post th { background: var(--terracota); color: var(--creme); text-align: left; padding: 10px 12px; font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.post td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.post tr:nth-child(even) td { background: var(--creme-2); }
+
+.post .callout {
+  border: 1px solid var(--oliva); background: #eef0e7; padding: 18px 20px; margin: 24px 0; font-size: 14px;
+}
+.post .callout b { color: var(--oliva-dark); display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+
+.related { padding: 40px 0 60px; border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; }
+.related h2 { font-size: 22px; margin-bottom: 20px; }
+.related .grid { grid-template-columns: repeat(3, 1fr); }
+.related .card:nth-child(n) { grid-column: span 1; }
+
+/* ---------- GLOSSARIO ---------- */
+.glossary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border); border-left: 1px solid var(--border); margin: 30px 0 60px; }
+.glossary-grid dt { border-right: 1px solid var(--border); border-bottom: none; padding: 20px 22px 4px; font-family: var(--serif); font-size: 17px; color: var(--terracota-dark); font-weight: 700; }
+.glossary-grid dd { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0 22px 20px; font-size: 14px; color: var(--grafite-2); }
+
+/* ---------- FAQ ---------- */
+.faq-list { margin: 30px 0 60px; max-width: 820px; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+.faq-item summary {
+  font-family: var(--serif); font-size: 18px; font-weight: 700; cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: baseline; color: var(--grafite);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-family: var(--sans); font-size: 22px; color: var(--terracota); flex-shrink: 0; margin-left: 14px; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { margin-top: 12px; font-size: 15px; color: var(--grafite-2); max-width: 68ch; }
+
+/* ---------- SOBRE / EQUIPE ---------- */
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 30px 0 50px; }
+.team-card { border: 1px solid var(--border); padding: 24px; text-align: center; }
+.team-card .avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--terracota); color: var(--creme); font-family: var(--serif); font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.team-card h3 { font-size: 17px; margin-bottom: 4px; }
+.team-card .role { font-size: 12px; color: var(--oliva-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.team-card p { font-size: 13px; color: var(--grafite-2); }
+
+/* ---------- PAGE HERO simples (app/sobre/glossario/faq) ---------- */
+.page-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--border); }
+.page-hero h1 { font-size: 40px; margin: 10px 0 14px; }
+.page-hero p { font-size: 17px; color: var(--grafite-2); max-width: 60ch; }
+
+/* ---------- FOTOS ---------- */
+.thumb { position: relative; overflow: hidden; }
+.thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-photo { aspect-ratio: 16 / 10; margin: 22px 0 4px; border: 1px solid var(--border); }
+.page-hero-photo { aspect-ratio: 21 / 9; margin: 26px 0 0; border: 1px solid var(--border); }
+.post-photo { aspect-ratio: 16 / 9; margin: 22px 0 30px; border: 1px solid var(--border); }
+.card .thumb { aspect-ratio: 16 / 10; margin: -28px -26px 16px; }
+
+/* ---------- RESPONSIVO ---------- */
+@media (max-width: 980px) {
+  .hero .container { grid-template-columns: 1fr; }
+  .app-section .container { grid-template-columns: 1fr; }
+  .app-section .mockup { margin-top: 30px; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .grid .card { grid-column: span 1 !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .steps ol { grid-template-columns: 1fr 1fr; }
+  .steps li { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 4px; }
+  .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .related .grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .site-header .container { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .site-nav ul { gap: 14px 18px; }
+  .hero-content h1 { font-size: 32px; }
+  .post-header h1 { font-size: 28px; }
+  .post .cols { columns: 1; }
+  .grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .steps ol { grid-template-columns: 1fr; }
+  .steps li { border-right: none; }
+  .glossary-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .related .grid { grid-template-columns: 1fr; }
+  .newsletter .container { flex-direction: column; align-items: flex-start; }
+  .newsletter form { width: 100%; }
+  .about-snippet .container { grid-template-columns: 1fr; }
+}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%278%27%20fill%3D%27%23b4532a%27/%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2730%27%20font-weight%3D%27bold%27%20fill%3D%27%23ffffff%27%20text-anchor%3D%27middle%27%3EMR%3C/text%3E%3C/svg%3E"></head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <div class="brand">
+      <a href="safe.html"><div class="brand-mark">Meu <span>Rendimento</span></div></a>
+      <div class="brand-tag">Organização financeira doméstica</div>
+    </div>
+    <nav class="site-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="app.html">App</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="faq.html">Dúvidas</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<article class="post">
+  <nav class="breadcrumb container-narrow" aria-label="Trilha">
+    <a href="safe.html">Início</a><span>/</span><a href="safe.html">Orçamento</a><span>/</span>A planilha de 4 colunas
+  </nav>
+
+  <div class="post-header container-narrow">
+    <div class="cat">Orçamento</div>
+    <h1>A planilha de 4 colunas que sobrevive ao mês (mesmo com conta atrasada)</h1>
+    <p class="dek">Fixo, variável, parcelado e imprevisto: separar o gasto em 4 categorias evita que uma conta atrasada derrube o orçamento inteiro.</p>
+    <p class="meta">Orçamento · 22 de fevereiro de 2026 · por <b>Equipe Meu Rendimento</b></p>
+  </div>
+
+  <div class="post-photo thumb container-narrow"><img src="img/planilha-4-colunas-mes.jpg" alt="Mão segurando uma lupa sobre uma planilha impressa de orçamento ao lado de uma calculadora sobre a mesa de madeira" loading="lazy"></div>
+
+  <p>A maioria das planilhas de orçamento doméstico quebra no mesmo ponto: o mês vinha indo bem, até que uma conta atrasa, um boleto some da caixa de e-mail ou o conserto do carro aparece do nada — e de repente a planilha inteira parece mentira. Não é que o método esteja errado. É que ele só tem uma coluna de "gastos", como se uma parcela do celular e um imprevisto de farmácia fossem o mesmo tipo de despesa. Não são.</p>
+
+  <p>A planilha de 4 colunas resolve isso separando o gasto por <strong>natureza</strong>, não por categoria de consumo. Em vez de "moradia", "lazer" e "saúde", você organiza tudo em <strong>fixo</strong>, <strong>variável</strong>, <strong>parcelado</strong> e <strong>imprevisto</strong>. É uma mudança pequena na estrutura que muda bastante o resultado, porque cada coluna se comporta de um jeito diferente quando o mês aperta.</p>
+
+  <h2>Por que separar por natureza (e não por categoria)</h2>
+  <p>Quando todo gasto cai no mesmo balaio, um imprevisto de R$ 300 parece do mesmo tamanho que um aumento de R$ 300 no aluguel — mas não é. O aluguel se repete todo mês e dá pra planejar; o imprevisto é, por definição, o que você não viu vindo. Tratar os dois como a mesma linha é o motivo pelo qual tanta gente sente que "o dinheiro simplesmente sumiu" sem saber exatamente onde.</p>
+
+  <ul>
+    <li><strong>Fixo</strong> — valor que não muda (ou muda pouco) todo mês: aluguel, condomínio, internet, mensalidade escolar, seguro. Você já sabe o número antes mesmo de o mês começar.</li>
+    <li><strong>Variável</strong> — muda de mês pra mês, mas está sob seu controle direto: mercado, combustível, delivery, lazer. É onde geralmente sobra gordura pra cortar.</li>
+    <li><strong>Parcelado</strong> — compromisso assumido no passado que ainda está "rodando": parcela do celular, do móvel, do curso. Tem data pra acabar, mas até lá é praticamente fixo.</li>
+    <li><strong>Imprevisto</strong> — o que não estava no plano: remédio, conserto, multa, presente de última hora. A coluna que, se não tiver um espaço reservado, acaba indo pro cartão de crédito.</li>
+  </ul>
+
+  <p>A lógica por trás dessa divisão tem relação direta com a <a href="reserva-emergencia-3000-reais.html">reserva de emergência</a>: se você já separa um espaço mensal pro imprevisto dentro do próprio orçamento, a reserva vira o plano B — não o plano A que se esgota no primeiro susto.</p>
+
+  <h2>Um exemplo de orçamento aplicado</h2>
+  <p>Para deixar concreto, veja como a divisão fica na prática num orçamento fictício de quem recebe por volta de R$ 3.200 líquidos por mês. Os valores são aproximados, só para ilustrar a proporção entre as colunas — o seu vai variar de acordo com a sua realidade.</p>
+
+  <table>
+    <caption>Exemplo educativo de orçamento mensal dividido em 4 colunas (valores aproximados)</caption>
+    <thead>
+      <tr><th>Coluna</th><th>Itens típicos</th><th>Valor aproximado</th><th>% da renda</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Fixo</td><td>Aluguel, condomínio, internet, energia</td><td>R$ 1.400</td><td>~44%</td></tr>
+      <tr><td>Variável</td><td>Mercado, transporte, lazer</td><td>R$ 900</td><td>~28%</td></tr>
+      <tr><td>Parcelado</td><td>Celular em 10x, móvel em 6x</td><td>R$ 380</td><td>~12%</td></tr>
+      <tr><td>Imprevisto</td><td>Reserva do mês para o inesperado</td><td>R$ 220</td><td>~7%</td></tr>
+      <tr><td>Sobra / poupança</td><td>O que fica depois das 4 colunas</td><td>R$ 300</td><td>~9%</td></tr>
+    </tbody>
+  </table>
+
+  <p>Repare que a coluna de imprevisto não é "o que sobrar" — ela entra no planejamento como se fosse uma conta fixa, só que com um destino diferente: se o mês passar tranquilo, esse valor pode ir direto pra reserva de emergência. Se aparecer uma conta atrasada ou um gasto de última hora, já existe um espaço para isso sem precisar mexer nas outras três colunas.</p>
+
+  <blockquote>O objetivo da coluna de imprevisto não é adivinhar o que vai dar errado — é garantir que, quando alguma coisa der errado (e sempre dá, em algum mês), o resto do orçamento continue de pé.</blockquote>
+
+  <h2>Como montar a sua planilha em 4 passos</h2>
+  <h3>1. Liste tudo o que é fixo primeiro</h3>
+  <p>Comece pelo que não muda: aluguel ou financiamento, condomínio, internet, mensalidades. Esse é o "chão" do seu orçamento — o valor mínimo que sai todo mês independentemente de qualquer coisa.</p>
+
+  <h3>2. Separe os parcelamentos em uma coluna própria</h3>
+  <p>Aqui entra um erro comum: misturar parcelado com variável. A diferença importa porque o parcelado tem data para acabar — vale anotar em qual mês cada parcela termina, porque isso libera espaço no orçamento dos meses seguintes sem que você precise "sentir" a diferença.</p>
+
+  <h3>3. Estime o variável com base no mês anterior, não no que você gostaria de gastar</h3>
+  <p>Use o extrato do mês passado como referência, não uma meta otimista. Planilha que assume um valor de mercado ou combustível menor do que a realidade só empurra o furo pro imprevisto — e aí a coluna que deveria proteger o orçamento vira só mais uma fonte de estouro.</p>
+
+  <h3>4. Reserve o imprevisto como se fosse conta fixa</h3>
+  <p>Esse é o passo que a maioria pula. Trate a coluna de imprevisto como uma "conta" que você paga todo mês — de preferência transferindo o valor pra uma conta separada assim que o salário cai, antes mesmo de pensar nas outras despesas. Isso conecta direto com a ideia por trás do <a href="pix-automatico-contas-fixas.html">Pix Automático para contas fixas</a>: quanto menos essa decisão depender de lembrança ou disciplina no meio do mês, menor a chance de ela não acontecer.</p>
+
+  <div class="callout">
+    <b>Onde entra o app</b>
+    O <a href="app.html">Fecha Mês</a> foi pensado justamente pra essa lógica de 4 colunas: você categoriza o gasto uma vez (fixo, variável, parcelado ou imprevisto) e o app mostra o quanto já foi consumido de cada faixa antes do fim do mês — em vez de descobrir o estouro só quando a fatura fecha.
+  </div>
+
+  <h2>O que fazer quando uma conta atrasa</h2>
+  <p>Mesmo com a planilha organizada, contas atrasam — boleto que não chegou, data que passou despercebida, um mês mais apertado que o normal. A diferença de quem usa a divisão em 4 colunas é que o atraso fica isolado: você sabe exatamente em qual categoria ele nasceu e não precisa recalcular o orçamento inteiro pra entender o impacto.</p>
+
+  <ol>
+    <li>Verifique se a conta atrasada é fixa ou parcelada — isso muda a urgência, porque conta fixa costuma ter multa e juros que crescem rápido.</li>
+    <li>Use primeiro o que sobrou da coluna de imprevisto do mês, antes de considerar o cartão de crédito ou o cheque especial.</li>
+    <li>Se a coluna de imprevisto não cobrir, corte da coluna variável do mês seguinte — não da fixa nem da parcelada, que já estão comprometidas.</li>
+    <li>Registre o atraso como um evento pontual, não como um novo "normal" do orçamento — isso evita normalizar juros recorrentes.</li>
+  </ol>
+
+  <p>Vale lembrar que esse tipo de organização também facilita entender como as mudanças de cenário econômico chegam no seu bolso — por exemplo, quando a <a href="selic-subiu-e-agora.html">Selic sobe</a>, o parcelamento novo custa mais caro e o rotativo do cartão fica ainda mais perigoso, o que torna a coluna de imprevisto ainda mais importante como primeira linha de defesa antes do cartão.</p>
+
+  <h2>Conclusão</h2>
+  <p>A planilha de 4 colunas não é sobre ter uma ferramenta mais bonita — é sobre parar de tratar todo gasto como se fosse igual. Fixo, variável, parcelado e imprevisto se comportam de formas diferentes, e um orçamento que reconhece essa diferença consegue absorver um susto sem precisar recomeçar do zero todo mês. O primeiro passo é simples: pegue o próximo boleto ou gasto que aparecer e pergunte em qual das 4 colunas ele realmente pertence. É a partir dessa pergunta, repetida todo mês, que o orçamento para de quebrar na primeira conta atrasada.</p>
+</article>
+
+<div class="related container-narrow">
+  <h2>Leia também</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="thumb"><img src="img/pix-automatico-contas-fixas.jpg" alt="Ilustração de dois celulares ao lado de uma nota de dinheiro, representando uma transação automática entre contas" loading="lazy"></div>
+      <div class="cat">Orçamento</div>
+      <h3><a href="pix-automatico-contas-fixas.html">Pix Automático: como programar as contas fixas sem esquecer nenhuma</a></h3>
+      <p class="dek">A coluna fixa da sua planilha fica mais segura quando o pagamento não depende de lembrança.</p>
+    </div>
+    <div class="card">
+      <div class="thumb"><img src="img/reserva-emergencia-3000-reais.jpg" alt="Mão guardando uma nota de dinheiro enrolada dentro de um pote de vidro com tampa de trava" loading="lazy"></div>
+      <div class="cat">Reserva</div>
+      <h3><a href="reserva-emergencia-3000-reais.html">Reserva de emergência de R$ 3.000: por onde começar</a></h3>
+      <p class="dek">O destino natural da coluna de imprevisto quando o mês passa sem sustos.</p>
+    </div>
+    <div class="card">
+      <div class="thumb"><img src="img/selic-subiu-e-agora.jpg" alt="Moedas, um símbolo de percentual e um celular com gráfico de cotação sobre uma superfície laranja" loading="lazy"></div>
+      <div class="cat">Economia</div>
+      <h3><a href="selic-subiu-e-agora.html">Selic subiu, e agora? O que muda no CDB, no cartão e no financiamento</a></h3>
+      <p class="dek">Por que o parcelamento e o rotativo do cartão pesam mais em ciclos de juros altos.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-mark">Meu <span>Rendimento</span></div>
+        <p>Conteúdo educativo sobre organização financeira doméstica, orçamento e economia no dia a dia. Não somos instituição financeira e não vendemos crédito.</p>
+      </div>
+      <div>
+        <h5>Conteúdo</h5>
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="glossario.html">Glossário financeiro</a></li>
+          <li><a href="faq.html">Perguntas frequentes</a></li>
+          <li><a href="sobre.html">Sobre o Meu Rendimento</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Artigos recentes</h5>
+        <ul>
+          <li><a href="pix-automatico-contas-fixas.html">Pix Automático e contas fixas</a></li>
+          <li><a href="reserva-emergencia-3000-reais.html">Reserva de emergência</a></li>
+          <li><a href="score-credito-o-que-pesa.html">Score de crédito</a></li>
+          <li><a href="golpe-pix-familiar-em-apuros.html">Golpes do Pix</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Institucional</h5>
+        <ul>
+          <li><a href="app.html">Fecha Mês (app)</a></li>
+          <li><a href="privacidade.html">Política de Privacidade</a></li>
+          <li><a href="termos.html">Termos de Uso</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Meu Rendimento. Conteúdo educativo, sem recomendação de investimento.</span>
+      <span>meurendimento.cfd</span>
+    </div>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body>
+</html>
