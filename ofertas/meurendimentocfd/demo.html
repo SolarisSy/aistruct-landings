@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LotoApp — Demonstração</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Utmify Pixel Google -->
+  <script>
+    window.googlePixelId = "6a079de24b406979824cd6ac";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+
+  <!-- Utmify UTM capture -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
+
+  <!-- Vturb SmartPlayer v4 — WHITE VSL (vertical 9:16, sem CTA, conteúdo limpo) -->
+  <script src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" id="vturb-smartplayer-js" fetchpriority="high"></script>
+  <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/9dfc9d7c-755b-43bf-80b8-658e261ab44b/players/6a48469f21f63577ceb9c41c/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
+
+  <style>
+    vturb-smartplayer template, vturb-smartplayer pre,
+    vturb-anchor-button > style, vturb-anchor-button > template, vturb-anchor-button > pre,
+    vturb-call-action > style, vturb-call-action > template, vturb-call-action > pre,
+    vturb-player > style, vturb-player > template, vturb-player > pre,
+    vturb-headline > template, vturb-bezel > template, vturb-resume > template,
+    vturb-controls > template, vturb-fakebar > template, vturb-thumbsniper > template,
+    vturb-context-menu > template, vturb-license > template, vturb-smallplay > template,
+    vturb-bigplay > template, vturb-minihook > template, vturb-smartautoplay > template { display: none !important; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand: #0b7a45; --brand-dark: #075c34; --brand-soft: #e7f6ee;
+      --bg: #ffffff; --surface: #f7f9f8; --text: #17211c; --text-muted: #5b6b62; --border: #e4eae6;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; }
+    .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+    .site-header { background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .site-header .wrap { display: flex; align-items: center; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 9px; font-weight: 800; font-size: 19px; color: var(--text); letter-spacing: -0.01em; text-decoration: none; }
+    .logo .mark { width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg, var(--brand), #16c46a); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .logo b { color: var(--brand); }
+    .back { margin-left: auto; color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .back:hover { color: var(--brand); }
+
+    main { flex: 1; padding: 40px 0 52px; }
+    .sec-head { text-align: center; max-width: 620px; margin: 0 auto 30px; }
+    .sec-head .kicker { font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand); margin-bottom: 10px; }
+    .sec-head h1 { font-size: clamp(24px, 5.5vw, 34px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px; }
+    .sec-head p { color: var(--text-muted); font-size: 15.5px; }
+
+    .video-live { display: inline-flex; align-items: center; gap: 7px; margin: 0 auto 16px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; }
+    .video-live .dot { width: 8px; height: 8px; border-radius: 50%; background: #e11d48; animation: blink 1.2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+    .video-wrap { max-width: 400px; margin: 0 auto; }
+    .video-frame { position: relative; background: #000; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 50px rgba(11,122,69,0.18); border: 1px solid var(--border); }
+    .video-frame vturb-smartplayer { width: 100%; display: block; }
+
+    .home-link { display: block; text-align: center; margin-top: 34px; }
+    .home-link a { display: inline-flex; align-items: center; gap: 8px; color: var(--brand); font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid var(--border); border-radius: 10px; padding: 12px 22px; background: var(--brand-soft); }
+    .home-link a:hover { background: #daf0e4; }
+
+    footer { background: #101a14; color: #9fb2a7; padding: 34px 0 28px; font-size: 13px; margin-top: auto; }
+    footer .compliance { font-size: 11.5px; line-height: 1.7; color: #78887e; text-align: center; }
+    footer .compliance strong { color: #9fb2a7; }
+    footer .compliance p { margin-bottom: 9px; }
+    footer .compliance a { color: #78887e; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="safe.html" class="logo"><span class="mark">🍀</span> Loto<b>App</b></a>
+      <a href="safe.html" class="back">&larr; Voltar</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Como funciona</div>
+        <h1>Veja como consultar seus resultados</h1>
+        <p>Assista ao vídeo e veja como é simples acompanhar os resultados e conferir seus jogos.</p>
+      </div>
+      <div style="text-align:center"><span class="video-live"><span class="dot"></span> Vídeo explicativo</span></div>
+      <div class="video-wrap">
+        <div class="video-frame">
+          <vturb-smartplayer id="vid-6a48469f21f63577ceb9c41c" style="display:block;margin:0 auto;width:100%;"></vturb-smartplayer>
+        </div>
+      </div>
+      <div class="home-link"><a href="safe.html">&larr; Voltar para o início</a></div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="compliance">
+        <p><strong>Aviso:</strong> O LotoApp é um aplicativo informativo e independente, sem qualquer vínculo, parceria ou endosso da Caixa Econômica Federal ou de órgãos oficiais de loteria. Os resultados exibidos têm caráter exclusivamente informativo.</p>
+        
+        <p>&copy; <span id="year"></span> LotoApp. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    });
+  </script>
+
+</body>
+</html>
