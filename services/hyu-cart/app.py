@@ -75,6 +75,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, StreamingResponse
 
 from bling import BlingClient, BlingError
+import shopify_store
 
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
                     format="%(asctime)s %(levelname)s %(message)s")
@@ -1485,6 +1486,50 @@ SHOPIFY_VARIANTS = SHOPIFY_VARIANTS or {   # SKU do combo -> variant_id na loja 
     "KITENERGY": 43669515239514, "KITSODA": 43669515272282,
     "SUPERKIT": 43669515305050, "KIT24": 43669515370586,
 }
+SHOPIFY_API_SECRET = os.environ.get("SHOPIFY_API_SECRET", "").strip()  # HMAC do webhook
+
+
+def _variant_id_for_line(ln: dict[str, Any]) -> int | None:
+    """SKU normalizado da linha -> variant_id da Shopify (mix colapsa no MIXK6/MIXK12)."""
+    sku = ln["sku"].replace("HYU-", "")
+    if sku.startswith("MIXK6"):
+        return SHOPIFY_VARIANTS.get("MIXK6")
+    if sku.startswith("MIXK12"):
+        return SHOPIFY_VARIANTS.get("MIXK12")
+    return SHOPIFY_VARIANTS.get(sku)
+
+
+def _cans_from_variant_sku(sku: str) -> int:
+    """Nº de latas a partir do SKU da VARIANTE Shopify (usado no Carrier Service)."""
+    s = (sku or "").upper()
+    for c in COMBOS.values():
+        if c["sku"] == s:
+            return c["cans"]
+    if "K12" in s:   # MIXK12 / *-K12
+        return 12
+    if "K6" in s:    # MIXK6 / *-K6
+        return 6
+    return 0
+
+
+def _split_street_number(line1: str, line2: str = "") -> tuple[str, str, str]:
+    """"Rua X, 123" -> (rua, numero, complemento). Bling exige numero separado."""
+    line1, line2 = (line1 or "").strip(), (line2 or "").strip()
+    m = re.match(r"^(.*?)[,\s]+(\d+\s*[A-Za-z0-9/\-]*)$", line1)
+    street, number = (m.group(1).strip(" ,"), m.group(2).strip()) if m else (line1, "")
+    if not number and line2:
+        m2 = re.match(r"^[Nn]?[ºo°.]?\s*(\d+\S*)\s*[,\-]?\s*(.*)$", line2)
+        if m2:
+            number, line2 = m2.group(1), m2.group(2).strip()
+    return street, (number or ("S/N" if street else "")), line2
+
+
+def _shopify_webhook_verified(raw: bytes, hmac_header: str) -> bool:
+    if not (SHOPIFY_API_SECRET and hmac_header):
+        return False
+    digest = base64.b64encode(
+        hmac.new(SHOPIFY_API_SECRET.encode(), raw, hashlib.sha256).digest()).decode()
+    return hmac.compare_digest(digest, hmac_header)
 
 
 def _reais(cents: int) -> str:
@@ -1551,11 +1596,177 @@ async def shopify_checkout(request: Request):
     return {"url": url}
 
 
+@app.post("/shopify/cart")
+async def shopify_cart(request: Request):
+    """Carrinho -> Storefront Cart -> checkoutUrl (checkout PADRÃO da Shopify, onde o
+    Carrier Service coteia o frete Mandaê em tempo real — ao contrário do draft order).
+    Substitui o /shopify/checkout no site de teste. Composição do mix vai em line item
+    properties; CPF/utm vão em cart attributes (viram note_attributes na order -> Bling)."""
+    if not shopify_store.configured():
+        raise HTTPException(503, "shopify storefront nao configurado (SHOPIFY_STOREFRONT_TOKEN)")
+    try:
+        payload = await request.json()
+    except Exception:
+        raise HTTPException(400, "JSON invalido")
+    lines = _cart_lines(payload.get("items"))
+    code, _pct = _coupon_discount(payload.get("coupon"))
+    sf_lines: list[dict[str, Any]] = []
+    for ln in lines:
+        vid = _variant_id_for_line(ln)
+        if not vid:
+            raise HTTPException(502, f"variante Shopify ausente p/ {ln['sku']} "
+                                     "(rodar _shopify_seed_all.py + SHOPIFY_VARIANTS_JSON)")
+        item: dict[str, Any] = {"merchandiseId": shopify_store.variant_gid(vid),
+                                "quantity": ln["qty"]}
+        if "MIX" in ln["sku"] and "—" in ln["name"]:
+            item["attributes"] = [{"key": "Sabores", "value": ln["name"].split("—", 1)[1].strip()[:255]}]
+        sf_lines.append(item)
+    attrs = _build_metadata(payload.get("meta"))
+    cust = payload.get("customer") or {}
+    cpf = re.sub(r"\D", "", str(cust.get("document") or payload.get("cpf") or ""))
+    if cpf:
+        attrs["cpf"] = cpf
+    if code:
+        attrs["coupon"] = code
+    buyer: dict[str, str] = {}
+    if cust.get("email"):
+        buyer["email"] = str(cust["email"]).strip()[:160]
+    if cust.get("phone"):
+        buyer["phone"] = "+55" + re.sub(r"\D", "", str(cust["phone"]))[-11:]
+    try:
+        url = await shopify_store.create_cart(
+            sf_lines, discount_codes=[code] if code else None,
+            attributes=attrs, buyer=buyer or None)
+    except shopify_store.StorefrontError as e:
+        log.error("shopify cart: %s", str(e)[:200])
+        raise HTTPException(502, "checkout indisponivel")
+    log.info("shopify cart -> %s… (lines=%d coupon=%s)", url[:48], len(sf_lines), code or "-")
+    return {"url": url}
+
+
+@app.post("/shopify/rates")
+async def shopify_rates(request: Request):
+    """Callback do Carrier Service da Shopify: rate request (destino + itens) ->
+    opções Mandaê (grátis >=12 latas). Registrado por _shopify_carrier_register.py.
+    Formato de resposta: rates[].{service_name,service_code,total_price(cents str),currency}."""
+    try:
+        payload = await request.json()
+    except Exception:
+        raise HTTPException(400, "JSON invalido")
+    rate = payload.get("rate") or {}
+    cep = re.sub(r"\D", "", str((rate.get("destination") or {}).get("postal_code", "")))
+    cans, declared = 0, 0
+    for it in rate.get("items") or []:
+        qty = int(it.get("quantity") or 1)
+        cans += _cans_from_variant_sku(str(it.get("sku") or "")) * qty
+        declared += int(it.get("price") or 0) * qty   # price já em cents (Shopify)
+    if len(cep) != 8 or cans <= 0:
+        return {"rates": []}
+    free = cans >= FREE_SHIPPING_CANS
+    try:
+        options = await _mandae_rates(cep, cans, declared)
+    except HTTPException:
+        if not free:
+            return {"rates": []}   # sem cotação e não-grátis: Shopify usa fallback rate
+        options = [{"service": "economico", "name": "Frete Grátis", "days": 7, "cents": 0}]
+    rates = []
+    for o in options:
+        days = o.get("days") or 0
+        rates.append({
+            "service_name": "Frete Grátis" if free else o["name"],
+            "service_code": "MANDAE_" + str(o["service"]).upper(),
+            "total_price": str(0 if free else o["cents"]),   # cents
+            "currency": "BRL",
+            "description": f"Entrega em ~{days} dia(s) úteis" if days else "",
+        })
+    return {"rates": rates}
+
+
+@app.post("/shopify/webhook")
+async def shopify_webhook(request: Request):
+    """orders/paid da Shopify -> cria contato+pedido de venda no Bling (NF-e/etiqueta/
+    rastreio, via integração nativa Bling↔Mandaê). HMAC via SHOPIFY_API_SECRET.
+    Registrado por _shopify_webhook_register.py. Idempotente por order_id."""
+    raw = await request.body()
+    STATS["webhook_received"] = STATS.get("webhook_received", 0) + 1
+    if not _shopify_webhook_verified(raw, request.headers.get("x-shopify-hmac-sha256", "")):
+        STATS["webhook_bad_sig"] = STATS.get("webhook_bad_sig", 0) + 1
+        raise HTTPException(401, "assinatura invalida")
+    try:
+        o = json.loads(raw or b"{}")
+    except Exception:
+        raise HTTPException(400, "JSON invalido")
+    order_id = "shopify-" + str(o.get("id") or o.get("order_number") or "")
+    conn = _db()
+    try:
+        dup = conn.execute("SELECT id FROM pedidos WHERE order_id=? LIMIT 1",
+                           (order_id,)).fetchone()
+    finally:
+        conn.close()
+    if dup:
+        return {"ok": True, "pedido": dup[0], "dup": True}
+
+    ship = o.get("shipping_address") or o.get("billing_address") or {}
+    cust = o.get("customer") or {}
+    attrs = {a.get("name"): a.get("value")
+             for a in (o.get("note_attributes") or []) if a.get("name")}
+    cpf = re.sub(r"\D", "", str(attrs.get("cpf") or ""))
+    name = str(ship.get("name")
+               or f"{cust.get('first_name', '')} {cust.get('last_name', '')}").strip()[:120]
+    phone = re.sub(r"\D", "", str(ship.get("phone") or o.get("phone") or cust.get("phone") or ""))
+    if phone.startswith("55") and len(phone) > 11:
+        phone = phone[2:]
+    email = str(o.get("email") or cust.get("email") or "").strip()[:160].lower()
+    street, number, complement = _split_street_number(
+        str(ship.get("address1") or ""), str(ship.get("address2") or ""))
+    ship_lines = o.get("shipping_lines") or []
+    frete_cents = int(round(float((ship_lines[0].get("price") if ship_lines else 0) or 0) * 100))
+    frete_service = ((ship_lines[0].get("title") if ship_lines else "") or "")[:60]
+    disc = o.get("discount_codes") or []
+    coupon = ((disc[0].get("code") if disc else "") or "")[:40]
+    itens = [{"sku": (li.get("sku") or li.get("title") or "")[:60],
+              "name": (li.get("title") or "")[:120],
+              "qty": int(li.get("quantity") or 1),
+              "cents": int(round(float(li.get("price") or 0) * 100))}
+             for li in (o.get("line_items") or [])]
+    subtotal = sum(i["cents"] * i["qty"] for i in itens)
+    total = int(round(float(o.get("total_price") or 0) * 100))
+    ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    conn = _db()
+    try:
+        cur = conn.execute(
+            "INSERT INTO pedidos (ts, order_id, session_id, status, paid_ts, "
+            "name, document, email, phone, cep, street, number, complement, "
+            "neighborhood, city, state, items, subtotal_cents, frete_cents, "
+            "frete_service, total_cents, coupon, meta, bling_status) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (ts, order_id, order_id, "paid", ts,
+             name, cpf if _valid_cpf(cpf) else "", email, phone[:13],
+             re.sub(r"\D", "", str(ship.get("zip") or ""))[:8], street[:120], number[:12],
+             complement[:100], "", str(ship.get("city") or "").strip()[:80],
+             str(ship.get("province_code") or "")[:2].upper(),
+             json.dumps(itens, ensure_ascii=False), subtotal, frete_cents,
+             frete_service, total, coupon,
+             json.dumps({"gw": "shopify",
+                         **{k: v for k, v in attrs.items() if k != "cpf"}}, ensure_ascii=False),
+             ""))
+        pid = cur.lastrowid
+        conn.commit()
+    finally:
+        conn.close()
+    STATS["webhook_paid"] = STATS.get("webhook_paid", 0) + 1
+    log.info("shopify webhook PAGO order=%s pedido=%s total=%s", order_id, pid, total)
+    asyncio.create_task(_bling_dispatch(pid))
+    return {"ok": True, "pedido": pid}
+
+
 @app.get("/healthz")
 async def healthz():
     return {"ok": True, "has_key": bool(PAGGINS_API_KEY),
             "stripe": bool(STRIPE_SECRET_KEY and STRIPE_PUBLISHABLE_KEY),
-            "shopify": bool(SHOPIFY_STORE and SHOPIFY_ADMIN_TOKEN)}
+            "shopify": bool(SHOPIFY_STORE and SHOPIFY_ADMIN_TOKEN),
+            "shopify_storefront": shopify_store.configured(),
+            "shopify_webhook": bool(SHOPIFY_API_SECRET)}
 
 
 @app.get("/")
