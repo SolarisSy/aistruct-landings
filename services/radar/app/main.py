@@ -7,13 +7,13 @@ from datetime import datetime
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, Form, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, select
 from starlette.middleware.sessions import SessionMiddleware
 
-from . import stats
+from . import assistant, stats
 from .auth import authenticate, current_user, hash_password
 from .db import get_session, init_db
 from .models import (CORES, PLATAFORMAS, STATUS, STATUS_ORDEM, Campanha,
@@ -287,6 +287,42 @@ def gestor_novo(request: Request, nome: str = Form(...), email: str = Form(...),
                          cor=CORES[len(n) % len(CORES)]))
         session.commit()
     return RedirectResponse("/gestores", status_code=303)
+
+
+@app.get("/assistente")
+def assistente_page(request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    return _render(request, user, "assistente.html", "assistente",
+                   habilitado=assistant.habilitado())
+
+
+@app.post("/assistente/mensagem")
+async def assistente_mensagem(request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return JSONResponse({"reply": "Sessão expirada.", "pending": None}, status_code=401)
+    body = await request.json()
+    return JSONResponse(assistant.responder(session, user, body.get("texto", "")))
+
+
+@app.post("/assistente/confirmar")
+async def assistente_confirmar(request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return JSONResponse({"ok": False, "reply": "Sessão expirada."}, status_code=401)
+    body = await request.json()
+    return JSONResponse(assistant.confirmar(session, user, int(body.get("id", 0))))
+
+
+@app.post("/assistente/cancelar")
+async def assistente_cancelar(request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return JSONResponse({"ok": False, "reply": "Sessão expirada."}, status_code=401)
+    body = await request.json()
+    return JSONResponse(assistant.cancelar(session, user, int(body.get("id", 0))))
 
 
 @app.get("/gestor/{gestor_id}/editar")

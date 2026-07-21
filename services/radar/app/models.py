@@ -19,7 +19,7 @@ STATUS: dict[str, tuple[str, str, str]] = {
 }
 STATUS_ORDEM = ["tes", "esc", "est", "pau"]
 
-PLATAFORMAS = ["Google", "Meta", "TikTok", "Outra"]
+PLATAFORMAS = ["Google", "Meta", "TikTok", "Taboola", "Outra"]
 
 # paleta de avatar por gestor (fallback ciclado no cadastro)
 CORES = ["#3b6ef5", "#7c53e6", "#d23b47", "#12a150", "#c07a13", "#0e9bb5", "#c2410c"]
@@ -94,6 +94,21 @@ class Dominio(SQLModel, table=True):
     ativo: bool = True
 
     campanha: Optional[Campanha] = Relationship(back_populates="dominios")
+
+
+class AcaoPendente(SQLModel, table=True):
+    """Ação proposta pela IA, aguardando confirmação humana explícita.
+
+    Nada é aplicado enquanto isto existir — o gate de execução é o endpoint
+    /assistente/confirmar (código determinístico), NÃO a IA.
+    """
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="user.id", index=True)
+    tipo: str            # criar_campanha | atualizar_numeros
+    payload: str         # JSON dos argumentos JÁ validados
+    resumo: str          # o que vai mudar (humano)
+    aviso: str = ""      # alerta de atenção
+    criado_em: datetime = Field(default_factory=datetime.utcnow)
 
 
 # --- helpers de apresentação -------------------------------------------------

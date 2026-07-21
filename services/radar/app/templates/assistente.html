@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-h"><h1>Assistente</h1><div class="s">Escreva uma atualização, suba uma campanha ou peça dados — em linguagem natural</div></div>
+
+{% if not habilitado %}
+<div class="panel card" style="border-color:var(--amber)">
+  <h3 style="color:var(--amber)">⚠ Assistente desativado</h3>
+  <div class="cap" style="margin:0">Falta configurar a chave da API (variável <code>ANTHROPIC_API_KEY</code> no Easypanel). Assim que ela estiver setada, o chat funciona.</div>
+</div>
+{% endif %}
+
+<div class="panel chat">
+  <div class="chat-log" id="chat-log">
+    <div class="msg bot">
+      Oi{{ ', ' + user.nome if user }}. Me diz o que rolou — por exemplo:
+      <div class="chat-ex">“gastei 500 e fiz 12 vendas, faturei 1.164 na campanha 3”<br>“sobe campanha nova AlkaLean no Taboola, domínio nourishdaily.sbs”<br>“qual campanha tá no prejuízo?”</div>
+      Toda alteração passa por <b>sua confirmação</b> antes de gravar.
+    </div>
+  </div>
+  <form class="chat-input" id="chat-form" autocomplete="off">
+    <input type="text" id="chat-text" placeholder="Escreva aqui…" {{ 'disabled' if not habilitado }}>
+    <button class="btn pri" type="submit" data-noloading {{ 'disabled' if not habilitado }}>Enviar</button>
+  </form>
+</div>
+
+<div class="note"><b>Como é o tratamento:</b> a IA <b>propõe</b> a mudança e o servidor a <b>estagia</b> — nada é gravado sem você clicar em <b>Confirmar</b>. Os números são validados (não aceita valor negativo/absurdo nem campanha que não é sua); se a IA erra o formato, ela é obrigada a refazer. Não há exclusão nem ação destrutiva pelo chat.</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const log = document.getElementById('chat-log');
+  const form = document.getElementById('chat-form');
+  const input = document.getElementById('chat-text');
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+  function add(role, html){
+    const el = document.createElement('div');
+    el.className = 'msg ' + role;
+    el.innerHTML = html;
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+    return el;
+  }
+  async function post(url, body){
+    const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+    return r.json();
+  }
+
+  function renderPending(p){
+    const card = document.createElement('div');
+    card.className = 'confirm-card';
+    card.innerHTML =
+      '<div class="cc-h">⚠ Confirmar alteração</div>' +
+      '<div class="cc-resumo">' + esc(p.resumo) + '</div>' +
+      (p.aviso ? '<div class="cc-aviso">' + esc(p.aviso) + ' Confira antes de gravar.</div>' : '') +
+      '<div class="cc-acts"><button class="btn pri cc-ok">Confirmar e gravar</button>' +
+      '<button class="btn cc-no">Cancelar</button></div>';
+    log.appendChild(card); log.scrollTop = log.scrollHeight;
+    card.querySelector('.cc-ok').addEventListener('click', async () => {
+      card.querySelector('.cc-acts').innerHTML = '<span style="color:var(--ink-3);font-size:12px">Gravando…</span>';
+      const res = await post('/assistente/confirmar', {id: p.id});
+      card.remove();
+      add('bot', esc(res.reply));
+      if (res.ok) toast('Gravado', 'ok');
+    });
+    card.querySelector('.cc-no').addEventListener('click', async () => {
+      await post('/assistente/cancelar', {id: p.id});
+      card.remove();
+      add('bot', 'Cancelado. Sem alterações.');
+    });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const txt = input.value.trim();
+    if (!txt) return;
+    add('user', esc(txt));
+    input.value = '';
+    const wait = add('bot typing', '…');
+    try {
+      const res = await post('/assistente/mensagem', {texto: txt});
+      wait.remove();
+      add('bot', esc(res.reply));
+      if (res.pending) renderPending(res.pending);
+    } catch (err) {
+      wait.remove();
+      add('bot', 'Falhei ao responder. Tente de novo.');
+    }
+  });
+  input.focus();
+</script>
+{% endblock %}
