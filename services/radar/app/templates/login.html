@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-br" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Radar — Entrar</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div class="login-wrap">
+  <form class="panel login-card" method="post" action="/login">
+    <div class="dot"></div>
+    <h1>Radar</h1>
+    <div class="s">Painel de operação de tráfego</div>
+    {% if erro %}<div class="erro">{{ erro }}</div>{% endif %}
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" name="email" placeholder="voce@radar.local" required autofocus>
+    </div>
+    <div class="field">
+      <label>Senha</label>
+      <input type="password" name="senha" placeholder="••••••••" required>
+    </div>
+    <button class="btn pri" type="submit">Entrar</button>
+    <div class="demo-hint">Demo: <b>admin@radar.local</b> / a senha do <code>.env</code> ·<br>gestores: marcos@radar.local … / <b>demo123</b></div>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-br" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Radar — {{ titulo or 'Operação' }}</title>
+<link rel="stylesheet" href="/static/app.css">
+<script>
+  // aplica tema salvo antes do paint
+  (function(){var t=localStorage.getItem('radar-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+</script>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <div class="dot"></div>
+      <div><b>Radar</b><small>Operação de Tráfego</small></div>
+    </div>
+    <div class="navlab">Dashboard</div>
+    <nav class="nav">
+      <a href="/" class="{{ 'active' if active=='home' }}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Visão Geral</a>
+      <a href="/campanhas" class="{{ 'active' if active=='kanban' }}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="9.5" y="3" width="5" height="12" rx="1"/><rect x="16" y="3" width="5" height="15" rx="1"/></svg>Campanhas</a>
+      <a href="/ofertas" class="{{ 'active' if active=='offers' }}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 12.6 12 4H4v8l8.6 8.6a1.4 1.4 0 0 0 2 0l6-6a1.4 1.4 0 0 0 0-2z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Ofertas</a>
+      <a href="/gestores" class="{{ 'active' if active=='team' }}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M17 11.2A3 3 0 0 0 17 6M20.5 20a4.5 4.5 0 0 0-3-4.2"/></svg>Gestores</a>
+    </nav>
+    <div class="foot">
+      <div class="who">
+        {% if user %}<div class="av" style="width:32px;height:32px;background:{{ user.cor }}">{{ user.iniciais }}</div>
+        <div><div class="n">{{ user.nome }}</div><div class="r">{{ 'Admin · vê tudo' if user.is_admin else 'Gestor' }}</div></div>{% endif %}
+      </div>
+      <nav class="nav"><a href="/logout"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sair</a></nav>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <div class="seg">
+        <button type="button">Hoje</button><button type="button">7d</button><button type="button" class="on">30d</button><button type="button">Mês</button>
+      </div>
+      <div class="spacer"></div>
+      <button class="chip theme" type="button" id="theme" title="Alternar tema">◐</button>
+      <a class="chip pri" href="/campanha/nova"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Nova campanha</a>
+    </header>
+    <div class="wrap">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</div>
+<script>
+  document.getElementById('theme').addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    var next=cur==='light'?'dark':'light';
+    document.documentElement.setAttribute('data-theme',next);
+    localStorage.setItem('radar-theme',next);
+  });
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

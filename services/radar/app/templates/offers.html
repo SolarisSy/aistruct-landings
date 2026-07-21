@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "macros.html" import roasx %}
+{% block content %}
+<div class="page-h"><h1>Ofertas</h1><div class="s">Agrupado por oferta — domínios e gestores rodando cada uma</div></div>
+<div class="offers">
+  {% for o in ofertas %}
+  <a class="panel ocard" href="/oferta/{{ o.oferta_id }}">
+    <div class="oh"><b>{{ o.nome }}</b><span class="roas {{ o.roas_cls }}" style="font-size:16px">{{ '%.2f'|format(o.roas) }}x</span></div>
+    <div style="color:var(--ink-3);font-size:12px">{{ o.gestores|join(', ') }}</div>
+    <div class="ochips">
+      <div class="ochip"><span class="cn">Domínios</span><span class="cv">{{ o.dominios|length }}</span></div>
+      <div class="ochip"><span class="cn">Gestores</span><span class="cv">{{ o.gestores|length }}</span></div>
+      <div class="ochip"><span class="cn">Campanhas</span><span class="cv">{{ o.n }}</span></div>
+      <div class="ochip"><span class="cn">Vendas</span><span class="cv">{{ o.vendas }}</span></div>
+    </div>
+    <div class="doms" style="margin-bottom:15px">{% for d in o.dominios %}<span class="dom">{{ d }}</span>{% endfor %}</div>
+    <div class="ogrid">
+      <div><div class="l">Faturamento</div><div class="v">{{ o.fat|brl }}</div></div>
+      <div><div class="l">Lucro</div><div class="v" style="color:{{ 'var(--green)' if o.lucro>=0 else 'var(--pink)' }}">{{ '' if o.lucro>=0 else '−' }}{{ o.lucro|abs|brl }}</div></div>
+    </div>
+  </a>
+  {% else %}
+  <div class="note">Nenhuma oferta ainda. Crie uma campanha para começar.</div>
+  {% endfor %}
+</div>
+<div class="note"><b>O diferencial que você pediu:</b> a mesma oferta agrupa <b>todos os domínios</b> que a equipe roda e quantos gestores estão nela — sem caçar campanha por campanha.</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% from "macros.html" import av, pill, roasx, lucro_val %}
+{% block content %}
+<div class="page-h"><h1>{{ oferta.nome }}</h1>
+  <div class="s">{% if agg %}{{ agg.n }} campanhas · {{ agg.gestores|length }} gestores · {{ agg.dominios|length }} domínios{% endif %}</div></div>
+
+{% if agg %}
+<div class="row a">
+  <div class="panel card">
+    <h3>Resultado da oferta</h3>
+    <div class="cap">Somado de todas as campanhas nesta oferta</div>
+    <div class="ogrid" style="border:0;padding:0;grid-template-columns:repeat(4,1fr)">
+      <div><div class="l">Faturamento</div><div class="v">{{ agg.fat|brl }}</div></div>
+      <div><div class="l">Gasto</div><div class="v">{{ agg.gasto|brl }}</div></div>
+      <div><div class="l">Lucro</div><div class="v" style="color:{{ 'var(--green)' if agg.lucro>=0 else 'var(--pink)' }}">{{ '' if agg.lucro>=0 else '−' }}{{ agg.lucro|abs|brl }}</div></div>
+      <div><div class="l">ROAS</div><div class="v">{{ '%.2f'|format(agg.roas) }}x</div></div>
+    </div>
+  </div>
+  <div class="panel card">
+    <h3>Domínios rodando ({{ agg.dominios|length }})</h3>
+    <div class="cap">Todos os domínios desta oferta na operação</div>
+    <div class="doms">{% for d in agg.dominios %}<span class="dom">{{ d }}</span>{% endfor %}</div>
+  </div>
+</div>
+{% endif %}
+
+<div class="row b">
+  <div class="panel card">
+    <h3>Campanhas nesta oferta</h3>
+    <div class="cap">Clique para abrir e editar</div>
+    <div class="scroll"><table>
+      <thead><tr><th>Gestor</th><th>Plataforma</th><th>Domínios</th><th>Status</th>
+        <th class="r">Gasto</th><th class="r">Vendas</th><th class="r">Faturamento</th><th class="r">Lucro</th><th class="r">ROAS</th></tr></thead>
+      <tbody>
+        {% for c in camps %}
+        <tr class="clk" onclick="location='/campanha/{{ c.id }}'">
+          <td><div class="who-cell">{% if c.gestor %}{{ av(c.gestor.nome, c.gestor.cor) }}{{ c.gestor.nome }}{% endif %}</div></td>
+          <td>{{ c.plataforma }}</td>
+          <td>{% for d in c.dominios %}<span class="dom">{{ d.url }}</span>{% endfor %}</td>
+          <td>{{ pill(c.status) }}</td>
+          <td class="r">{{ c.gasto|brl }}</td><td class="r">{{ c.vendas }}</td><td class="r">{{ c.faturamento|brl }}</td>
+          <td class="r">{{ lucro_val(c.lucro) }}</td><td class="r">{{ roasx(c.roas) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+  </div>
+</div>
+{% endblock %}

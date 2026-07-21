@@ -1,0 +1,16 @@
+{% macro av(nome, cor, size=26) -%}
+<div class="av" style="width:{{size}}px;height:{{size}}px;background:{{cor}}">{{ (nome or '?')[:2]|upper }}</div>
+{%- endmacro %}
+
+{% macro pill(status) -%}
+{% set info = STATUS.get(status, STATUS['tes']) %}
+<span class="pill {{ info[1] }}">{{ info[0] }}</span>
+{%- endmacro %}
+
+{% macro roasx(valor) -%}
+<span class="roas {{ roas_cls(valor) }}">{{ '%.2f'|format(valor) }}x</span>
+{%- endmacro %}
+
+{% macro lucro_val(v) -%}
+<b style="color:{{ 'var(--green)' if v>=0 else 'var(--pink)' }}">{{ '' if v>=0 else '−' }}{{ v|abs|brl }}</b>
+{%- endmacro %}

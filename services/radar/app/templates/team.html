@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% from "macros.html" import av, roasx, lucro_val %}
+{% block content %}
+<div class="page-h"><h1>Gestores</h1><div class="s">Cada gestor loga e edita só as próprias campanhas; o admin vê e edita tudo</div></div>
+
+<div class="row b">
+  <div class="panel card">
+    <h3>Equipe</h3>
+    <div class="cap">Resultado por gestor no período</div>
+    <div class="scroll"><table>
+      <thead><tr><th>Gestor</th><th>Papel</th><th class="r">Campanhas</th><th class="r">Gasto</th><th class="r">Vendas</th><th class="r">Faturamento</th><th class="r">Lucro</th><th class="r">ROAS</th></tr></thead>
+      <tbody>
+        {% for u in usuarios %}
+        {% set g = aggs.get(u.nome) %}
+        <tr>
+          <td><div class="who-cell">{{ av(u.nome, u.cor) }}<b>{{ u.nome }}</b></div></td>
+          <td style="color:var(--ink-2)">{{ 'Admin' if u.is_admin else 'Gestor de tráfego' }}</td>
+          <td class="r">{{ g.n if g else 0 }}</td>
+          <td class="r">{{ (g.gasto if g else 0)|brl }}</td>
+          <td class="r">{{ g.vendas if g else 0 }}</td>
+          <td class="r">{{ (g.fat if g else 0)|brl }}</td>
+          <td class="r">{{ lucro_val(g.lucro if g else 0) }}</td>
+          <td class="r">{{ roasx(g.roas if g else 0) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+{% if user.is_admin %}
+<div class="row b">
+  <div class="panel card">
+    <h3>Adicionar gestor</h3>
+    <div class="cap">Cria um login novo — o gestor entra e vê só as campanhas dele</div>
+    <form method="post" action="/gestor/novo" class="form-grid">
+      <div class="field"><label>Nome</label><input name="nome" required></div>
+      <div class="field"><label>E-mail</label><input type="email" name="email" required></div>
+      <div class="field"><label>Senha</label><input name="senha" required></div>
+      <div class="field"><label>Papel</label><select name="papel"><option value="gestor">Gestor</option><option value="admin">Admin</option></select></div>
+      <div class="full"><button class="btn pri" type="submit">Criar gestor</button></div>
+    </form>
+  </div>
+</div>
+{% endif %}
+<div class="note"><b>Controle de acesso:</b> login por gestor garante o "quem anunciou o quê" — ninguém edita o número do outro. O papel Admin (o chefe) tem a visão consolidada de todas as telas.</div>
+{% endblock %}
