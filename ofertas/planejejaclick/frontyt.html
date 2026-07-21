@@ -181,9 +181,11 @@
        integração nativa Kirvano. Sem trk.<dom>, sem bridge, sem RedTrack. -->
   <script>
   (function () {
-    var CO = "https://www.paggins.com/checkout/2f13dd61-d0cc-4600-9b53-26380e7ddb27";
+    var CO = "https://www.paggins.com/checkout/d0c1cd2c-b36f-4d85-8975-7f81c6a8514b";
     if (!CO) return;
     var COBASE = CO.split('?')[0];
+    // migracao Paggins Fisico->Digital: repontar o botao do checkout velho p/ o novo
+    var OLDBASE = "https://www.paggins.com/checkout/2f13dd61-d0cc-4600-9b53-26380e7ddb27";
     var KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','src','cmpid'];
     function params() {
       var out = {};
@@ -196,7 +198,9 @@
     }
     function withUtms(url) {
       try {
-        if (typeof url !== 'string' || url.indexOf(COBASE) !== 0) return url;
+        if (typeof url !== 'string') return url;
+        if (url.indexOf(OLDBASE) === 0) { url = COBASE + url.slice(OLDBASE.length); }
+        if (url.indexOf(COBASE) !== 0) return url;
         var u = new URL(url);
         var pr = params();
         Object.keys(pr).forEach(function(k){ if(!u.searchParams.has(k)) u.searchParams.set(k, pr[k]); });
