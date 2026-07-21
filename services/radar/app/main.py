@@ -37,7 +37,16 @@ def _brl(n) -> str:
         return "R$ 0"
 
 
+def _num(v) -> str:
+    """Número limpo p/ inputs: inteiro sem '.0', senão o valor; None -> ''."""
+    if v is None or v == "":
+        return ""
+    f = float(v)
+    return str(int(f)) if f == int(f) else str(f)
+
+
 templates.env.filters["brl"] = _brl
+templates.env.filters["num"] = _num
 templates.env.globals.update(STATUS=STATUS, roas_cls=roas_cls, PLATAFORMAS=PLATAFORMAS)
 
 
@@ -191,7 +200,16 @@ def campanha_salvar(
     if not user:
         return RedirectResponse("/login", status_code=303)
 
-    # oferta: get-or-create por nome
+    # autorizar ANTES de tocar no banco (senão POST bloqueado cria oferta-fantasma)
+    dono = int(gestor_id) if (user.is_admin and gestor_id) else user.id
+    if camp_id:
+        camp = session.get(Campanha, int(camp_id))
+        if not camp or not _can_edit(user, camp):
+            return RedirectResponse("/", status_code=303)
+    else:
+        camp = None
+
+    # oferta: get-or-create por nome (só depois de autorizado)
     nome = oferta_nome.strip()
     oferta = session.exec(select(Oferta).where(Oferta.nome == nome)).first()
     if not oferta:
@@ -200,13 +218,7 @@ def campanha_salvar(
         session.commit()
         session.refresh(oferta)
 
-    dono = int(gestor_id) if (user.is_admin and gestor_id) else user.id
-
-    if camp_id:
-        camp = session.get(Campanha, int(camp_id))
-        if not camp or not _can_edit(user, camp):
-            return RedirectResponse("/", status_code=303)
-    else:
+    if camp is None:
         camp = Campanha(gestor_id=dono, oferta_id=oferta.id)
         session.add(camp)
 

@@ -40,11 +40,11 @@
 
   <div class="field">
     <label>Budget diário (opcional)</label>
-    <input type="number" step="0.01" name="budget" value="{{ camp.budget if camp and camp.budget is not none else '' }}" placeholder="R$ por dia">
+    <input type="number" step="0.01" name="budget" value="{{ (camp.budget if camp else None)|num }}" placeholder="R$ por dia">
   </div>
   <div class="field">
     <label>Gasto acumulado da conta</label>
-    <input type="number" step="0.01" id="gasto" name="gasto" value="{{ camp.gasto if camp else 0 }}">
+    <input type="number" step="0.01" id="gasto" name="gasto" value="{{ (camp.gasto if camp else 0)|num }}">
   </div>
   <div class="field">
     <label>Vendas</label>
@@ -52,7 +52,7 @@
   </div>
   <div class="field">
     <label>Faturamento</label>
-    <input type="number" step="0.01" id="fat" name="faturamento" value="{{ camp.faturamento if camp else 0 }}">
+    <input type="number" step="0.01" id="fat" name="faturamento" value="{{ (camp.faturamento if camp else 0)|num }}">
   </div>
 
   <div class="full calc-row">
