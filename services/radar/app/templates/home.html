@@ -49,7 +49,7 @@
     <h3>Precisa de atenção</h3>
     <div class="cap">Gerado dos números que os gestores lançam</div>
     {% for a in alertas %}
-    <a class="alert" href="/campanha/{{ a.camp_id }}">
+    <a class="alert {{ 'w' if a.tipo == 'w' }}" href="/campanha/{{ a.camp_id }}">
       <svg class="ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
       <div><div class="t">{{ a.titulo }}</div><div class="s">{{ a.sub }}</div></div>
     </a>
@@ -79,7 +79,7 @@
         {% for c in camps %}
         <tr class="clk" onclick="location='/campanha/{{ c.id }}'">
           <td><div class="who-cell">{% if c.gestor %}{{ av(c.gestor.nome, c.gestor.cor) }}{{ c.gestor.nome }}{% endif %}</div></td>
-          <td><b>{{ c.oferta.nome if c.oferta }}</b><br><span style="color:var(--ink-3);font-size:11px">{{ c.plataforma }}</span></td>
+          <td><b>{% if c.observacao %}<span title="{{ c.observacao }}" style="color:var(--amber)">⚠</span> {% endif %}{{ c.oferta.nome if c.oferta }}</b><br><span style="color:var(--ink-3);font-size:11px">{{ c.plataforma }}</span></td>
           <td>{% for d in c.dominios %}<span class="dom">{{ d.url }}</span>{% endfor %}</td>
           <td>{{ pill(c.status) }}</td>
           <td class="r">{{ c.budget|brl if c.budget else '—' }}</td>

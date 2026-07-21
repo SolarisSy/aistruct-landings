@@ -124,8 +124,18 @@ def por_gestor(camps: list[Campanha]) -> list[GestorAgg]:
 
 
 def alertas(camps: list[Campanha]) -> list[dict]:
-    """Gera alertas dos números que os gestores lançam."""
+    """Alertas do painel: avisos manuais (observação) + prejuízo detectado."""
     out: list[dict] = []
+    # avisos manuais primeiro (reprovação, pendência etc.)
+    for c in camps:
+        if c.observacao and c.observacao.strip():
+            out.append({
+                "tipo": "w",
+                "camp_id": c.id,
+                "titulo": f"{c.oferta.nome if c.oferta else '—'} ({c.gestor.nome if c.gestor else '?'}) — aviso",
+                "sub": c.observacao.strip(),
+            })
+    # prejuízo (ROAS < 1)
     for c in camps:
         if c.status != "pau" and c.gasto > 0 and c.roas < 1.0:
             out.append({

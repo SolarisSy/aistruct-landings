@@ -67,6 +67,12 @@
     <span class="hint">Quantos domínios você está rodando desta oferta.</span>
   </div>
 
+  <div class="field full">
+    <label>⚠ Aviso / observação (opcional)</label>
+    <textarea name="observacao" placeholder="Ex.: reprovado por figura pública; criativos novos pedidos pros editores">{{ camp.observacao if camp else '' }}</textarea>
+    <span class="hint">Aparece em destaque no painel, em "Precisa de atenção".</span>
+  </div>
+
   <div class="full actions">
     <button class="btn pri" type="submit">{{ 'Salvar lançamento' if camp else 'Criar campanha' }}</button>
     <a class="btn" href="/">Cancelar</a>

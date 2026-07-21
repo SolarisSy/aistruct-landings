@@ -12,6 +12,15 @@ engine = create_engine(DB_URL, echo=False, connect_args={"check_same_thread": Fa
 
 def init_db() -> None:
     SQLModel.metadata.create_all(engine)
+    _migrate()
+
+
+def _migrate() -> None:
+    """Migrações leves p/ bancos já existentes (SQLite ALTER TABLE idempotente)."""
+    with engine.begin() as conn:
+        cols = [r[1] for r in conn.exec_driver_sql("PRAGMA table_info(campanha)").fetchall()]
+        if "observacao" not in cols:
+            conn.exec_driver_sql("ALTER TABLE campanha ADD COLUMN observacao VARCHAR DEFAULT ''")
 
 
 def get_session():

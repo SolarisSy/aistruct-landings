@@ -194,7 +194,7 @@ def campanha_salvar(
     camp_id: str = Form(""), oferta_nome: str = Form(...), plataforma: str = Form("Google"),
     status: str = Form("tes"), gestor_id: str = Form(""), budget: str = Form(""),
     gasto: float = Form(0), vendas: int = Form(0), faturamento: float = Form(0),
-    dominios: str = Form(""),
+    dominios: str = Form(""), observacao: str = Form(""),
 ):
     user = current_user(request, session)
     if not user:
@@ -231,6 +231,7 @@ def campanha_salvar(
     camp.gasto = gasto
     camp.vendas = vendas
     camp.faturamento = faturamento
+    camp.observacao = observacao.strip()
     camp.atualizado_em = datetime.utcnow()
     session.commit()
     session.refresh(camp)

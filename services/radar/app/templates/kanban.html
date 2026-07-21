@@ -10,6 +10,7 @@
     {% for c in colunas[st] %}
     <a class="kcard" href="/campanha/{{ c.id }}">
       <div class="kt">{{ c.oferta.nome if c.oferta }}<span class="plat">{{ c.plataforma }}</span></div>
+      {% if c.observacao %}<div class="kwarn">⚠ {{ c.observacao|truncate(70) }}</div>{% endif %}
       <div class="kmeta">{% if c.gestor %}{{ av(c.gestor.nome, c.gestor.cor, 20) }}{{ c.gestor.nome }}{% endif %}</div>
       <div class="doms">{% for d in c.dominios %}<span class="dom">{{ d.url }}</span>{% endfor %}</div>
       <div class="kstats">

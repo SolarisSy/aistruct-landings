@@ -62,6 +62,7 @@ class Campanha(SQLModel, table=True):
     gasto: float = 0.0
     vendas: int = 0
     faturamento: float = 0.0
+    observacao: str = ""  # aviso/nota livre (ex.: reprovação, pendência)
     criado_em: datetime = Field(default_factory=datetime.utcnow)
     atualizado_em: datetime = Field(default_factory=datetime.utcnow)
 
