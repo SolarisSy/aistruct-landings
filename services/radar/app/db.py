@@ -21,6 +21,8 @@ def _migrate() -> None:
         cols = [r[1] for r in conn.exec_driver_sql("PRAGMA table_info(campanha)").fetchall()]
         if "observacao" not in cols:
             conn.exec_driver_sql("ALTER TABLE campanha ADD COLUMN observacao VARCHAR DEFAULT ''")
+        if "moeda" not in cols:
+            conn.exec_driver_sql("ALTER TABLE campanha ADD COLUMN moeda VARCHAR DEFAULT 'BRL'")
 
 
 def get_session():

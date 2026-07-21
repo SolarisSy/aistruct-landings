@@ -11,6 +11,6 @@
 <span class="roas {{ roas_cls(valor) }}">{{ '%.2f'|format(valor) }}x</span>
 {%- endmacro %}
 
-{% macro lucro_val(v) -%}
-<b style="color:{{ 'var(--green)' if v>=0 else 'var(--pink)' }}">{{ '' if v>=0 else '−' }}{{ v|abs|brl }}</b>
+{% macro lucro_val(v, moeda="BRL") -%}
+<b style="color:{{ 'var(--green)' if v>=0 else 'var(--pink)' }}">{{ '' if v>=0 else '−' }}{{ v|abs|money(moeda) }}</b>
 {%- endmacro %}

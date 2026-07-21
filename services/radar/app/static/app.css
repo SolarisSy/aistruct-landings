@@ -277,6 +277,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .toast.err{border-color:color-mix(in srgb,var(--pink) 55%,var(--line))}
 .toast.err::before{content:"✕ ";color:var(--pink)}
 
+/* faixa de câmbio / moeda */
+.fx-strip{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin-top:14px;padding:11px 18px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+.fx-break{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px}
+.fx-lb{color:var(--ink-3);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.fx-chip{color:var(--ink-2);background:var(--panel-3);border:1px solid var(--line-2);border-radius:8px;padding:5px 10px}
+.fx-chip b{color:var(--ink)}
+.fx-rate{display:flex;align-items:center;gap:8px;font-size:12.5px;flex-wrap:wrap}
+.fx-rate .fx-cur{color:var(--ink-3)}
+.fx-rate input{width:72px;background:var(--panel-3);border:1px solid var(--line);border-radius:8px;padding:7px 9px;
+  color:var(--ink);font:inherit;font-weight:700;text-align:right;outline:none}
+.fx-rate input:focus{border-color:var(--pink)}
+.fx-rate .btn{padding:7px 12px}
+.fx-hint{color:var(--ink-3);font-size:11px}
+
 /* assistente / chat */
 .chat{display:flex;flex-direction:column;height:min(62vh,560px);overflow:hidden;padding:0}
 .chat-log{flex:1;overflow-y:auto;padding:20px 22px;display:flex;flex-direction:column;gap:12px}

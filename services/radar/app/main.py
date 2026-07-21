@@ -16,8 +16,8 @@ from starlette.middleware.sessions import SessionMiddleware
 from . import assistant, stats
 from .auth import authenticate, current_user, hash_password
 from .db import get_session, init_db
-from .models import (CORES, PLATAFORMAS, STATUS, STATUS_ORDEM, Campanha,
-                     Dominio, Oferta, User, roas_cls)
+from .models import (CORES, MOEDAS, PLATAFORMAS, STATUS, STATUS_ORDEM, Campanha,
+                     Dominio, Oferta, User, fmt_money, roas_cls)
 from .seed import seed
 
 BASE = Path(__file__).parent
@@ -47,7 +47,14 @@ def _num(v) -> str:
 
 templates.env.filters["brl"] = _brl
 templates.env.filters["num"] = _num
-templates.env.globals.update(STATUS=STATUS, roas_cls=roas_cls, PLATAFORMAS=PLATAFORMAS)
+templates.env.filters["money"] = lambda v, moeda="BRL": fmt_money(v, moeda)
+templates.env.globals.update(STATUS=STATUS, roas_cls=roas_cls, PLATAFORMAS=PLATAFORMAS,
+                             MOEDAS=MOEDAS)
+
+
+def _view_moeda(request: Request) -> str:
+    v = request.session.get("view_moeda", "BRL")
+    return v if v in MOEDAS else "BRL"
 
 
 @app.on_event("startup")
@@ -57,6 +64,8 @@ def _startup() -> None:
 
 
 def _render(request: Request, user: User, template: str, active: str, **ctx):
+    ctx.setdefault("view_moeda", _view_moeda(request))
+    ctx.setdefault("view_sym", MOEDAS[ctx["view_moeda"]][0])
     return templates.TemplateResponse(
         template, {"request": request, "user": user, "active": active,
                    "assistente_on": assistant.habilitado(), **ctx})
@@ -112,11 +121,13 @@ def home(request: Request, session: Session = Depends(get_session)):
     if not user:
         return RedirectResponse("/login", status_code=303)
     camps = stats.all_campaigns(session)
-    offs = stats.por_oferta(camps)
+    rate, view = stats.get_rate(session), _view_moeda(request)
+    offs = stats.por_oferta(camps, rate, view)
     max_fat = max((o.fat for o in offs), default=1) or 1
     return _render(request, user, "home.html", "home",
-                   totais=stats.totais(camps), ofertas=offs, max_fat=max_fat,
-                   gestores=stats.por_gestor(camps), alertas=stats.alertas(camps),
+                   totais=stats.totais(camps, rate, view), ofertas=offs, max_fat=max_fat,
+                   gestores=stats.por_gestor(camps, rate, view), alertas=stats.alertas(camps),
+                   rate=rate,
                    camps=sorted(camps, key=lambda c: c.faturamento, reverse=True))
 
 
@@ -135,7 +146,8 @@ def ofertas(request: Request, session: Session = Depends(get_session)):
     user = current_user(request, session)
     if not user:
         return RedirectResponse("/login", status_code=303)
-    offs = stats.por_oferta(stats.all_campaigns(session))
+    rate, view = stats.get_rate(session), _view_moeda(request)
+    offs = stats.por_oferta(stats.all_campaigns(session), rate, view)
     return _render(request, user, "offers.html", "offers", ofertas=offs)
 
 
@@ -147,8 +159,9 @@ def oferta_detalhe(oferta_id: int, request: Request, session: Session = Depends(
     oferta = session.get(Oferta, oferta_id)
     if not oferta:
         return RedirectResponse("/ofertas", status_code=303)
+    rate, view = stats.get_rate(session), _view_moeda(request)
     camps = [c for c in stats.all_campaigns(session) if c.oferta_id == oferta_id]
-    agg = stats.por_oferta(camps)
+    agg = stats.por_oferta(camps, rate, view)
     return _render(request, user, "oferta_detalhe.html", "offers",
                    oferta=oferta, agg=agg[0] if agg else None, camps=camps)
 
@@ -158,8 +171,9 @@ def gestores(request: Request, session: Session = Depends(get_session)):
     user = current_user(request, session)
     if not user:
         return RedirectResponse("/login", status_code=303)
+    rate, view = stats.get_rate(session), _view_moeda(request)
     users = list(session.exec(select(User)).all())
-    aggs = {g.nome: g for g in stats.por_gestor(stats.all_campaigns(session))}
+    aggs = {g.nome: g for g in stats.por_gestor(stats.all_campaigns(session), rate, view)}
     return _render(request, user, "team.html", "team", usuarios=users, aggs=aggs)
 
 
@@ -195,7 +209,7 @@ def campanha_salvar(
     camp_id: str = Form(""), oferta_nome: str = Form(...), plataforma: str = Form("Google"),
     status: str = Form("tes"), gestor_id: str = Form(""), budget: str = Form(""),
     gasto: float = Form(0), vendas: int = Form(0), faturamento: float = Form(0),
-    dominios: str = Form(""), observacao: str = Form(""),
+    dominios: str = Form(""), observacao: str = Form(""), moeda: str = Form("BRL"),
 ):
     user = current_user(request, session)
     if not user:
@@ -225,6 +239,7 @@ def campanha_salvar(
 
     camp.oferta_id = oferta.id
     camp.plataforma = plataforma
+    camp.moeda = moeda if moeda in MOEDAS else "BRL"
     camp.status = status if status in STATUS else "tes"
     if user.is_admin and gestor_id:
         camp.gestor_id = dono
@@ -380,6 +395,27 @@ def gestor_deletar(gestor_id: int, request: Request, session: Session = Depends(
         session.delete(g)
         session.commit()
     return RedirectResponse("/gestores", status_code=303)
+
+
+@app.get("/config/moeda")
+def config_moeda(request: Request, session: Session = Depends(get_session)):
+    if not current_user(request, session):
+        return RedirectResponse("/login", status_code=303)
+    cur = _view_moeda(request)
+    request.session["view_moeda"] = "USD" if cur == "BRL" else "BRL"
+    return RedirectResponse(request.headers.get("referer") or "/", status_code=303)
+
+
+@app.post("/config/cambio")
+def config_cambio(request: Request, taxa: str = Form(...), session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user or not user.is_admin:
+        return RedirectResponse("/login", status_code=303)
+    try:
+        stats.set_rate(session, float(taxa.replace(",", ".")))
+    except (TypeError, ValueError):
+        pass
+    return RedirectResponse(request.headers.get("referer") or "/", status_code=303)
 
 
 @app.get("/healthz")

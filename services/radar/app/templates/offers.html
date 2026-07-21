@@ -15,8 +15,8 @@
     </div>
     <div class="doms" style="margin-bottom:15px">{% for d in o.dominios %}<span class="dom">{{ d }}</span>{% endfor %}</div>
     <div class="ogrid">
-      <div><div class="l">Faturamento</div><div class="v">{{ o.fat|brl }}</div></div>
-      <div><div class="l">Lucro</div><div class="v" style="color:{{ 'var(--green)' if o.lucro>=0 else 'var(--pink)' }}">{{ '' if o.lucro>=0 else '−' }}{{ o.lucro|abs|brl }}</div></div>
+      <div><div class="l">Faturamento ({{ view_moeda }})</div><div class="v">{{ o.fat|money(view_moeda) }}</div></div>
+      <div><div class="l">Lucro ({{ view_moeda }})</div><div class="v" style="color:{{ 'var(--green)' if o.lucro>=0 else 'var(--pink)' }}">{{ '' if o.lucro>=0 else '−' }}{{ o.lucro|abs|money(view_moeda) }}</div></div>
     </div>
   </a>
   {% else %}

@@ -39,6 +39,14 @@
   </div>
 
   <div class="field">
+    <label>Moeda</label>
+    <select name="moeda" id="moeda">
+      {% for code, mo in MOEDAS.items() %}<option value="{{ code }}" {{ 'selected' if (camp and camp.moeda==code) or (not camp and code=='BRL') }}>{{ mo[0] }} {{ mo[1] }}</option>{% endfor %}
+    </select>
+    <span class="hint">Moeda dos valores desta campanha (gasto/faturamento/budget).</span>
+  </div>
+
+  <div class="field">
     <label>Budget diário (opcional)</label>
     <input type="number" step="0.01" name="budget" value="{{ (camp.budget if camp else None)|num }}" placeholder="R$ por dia">
   </div>
@@ -89,16 +97,18 @@
 
 {% block scripts %}
 <script>
-  var BRL = function(n){return "R$ " + Math.round(n).toLocaleString("pt-BR");};
+  var SYM = {BRL:"R$", USD:"US$"};
+  function money(n){ var m=(document.getElementById('moeda')||{}).value||"BRL"; return (SYM[m]||"R$")+" "+Math.round(n).toLocaleString("pt-BR"); }
   function recalc(){
     var g=+document.getElementById('gasto').value||0, f=+document.getElementById('fat').value||0;
     var l=f-g, r=g?f/g:0, lo=document.getElementById('o-lucro');
-    lo.textContent=(l<0?"−":"")+BRL(Math.abs(l));
+    lo.textContent=(l<0?"−":"")+money(Math.abs(l));
     lo.style.color=l>=0?"var(--green)":"var(--pink)";
     document.getElementById('o-roas').textContent=r.toFixed(2)+"x";
   }
   document.getElementById('gasto').addEventListener('input',recalc);
   document.getElementById('fat').addEventListener('input',recalc);
+  document.getElementById('moeda').addEventListener('change',recalc);
   recalc();
 </script>
 {% endblock %}

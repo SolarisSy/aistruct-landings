@@ -7,8 +7,8 @@
     <div class="toprow">
       <div>
         <div class="lab">Lucro</div>
-        <div class="big {{ 'neg' if totais.lucro < 0 }}">{{ totais.lucro|brl }}</div>
-        <div class="sub-lab">faturamento − gasto em ads</div>
+        <div class="big {{ 'neg' if totais.lucro < 0 }}">{{ totais.lucro|money(view_moeda) }}</div>
+        <div class="sub-lab">consolidado em {{ view_moeda }} · faturamento − gasto</div>
       </div>
       <div>
         <div class="lab">Margem</div>
@@ -18,28 +18,44 @@
     </div>
   </div>
   <div class="hero-r">
-    <div class="metric head"><div class="grp">Receita</div><div class="lab">Faturamento</div><div class="v">{{ totais.fat|brl }}</div></div>
-    <div class="metric head" style="border:0;padding:0;margin:0"><div class="grp">&nbsp;</div><div class="lab">Gasto em ads</div><div class="v">{{ totais.gasto|brl }}</div><div class="d">ROAS <b style="color:var(--green)">{{ '%.2f'|format(totais.roas) }}x</b></div></div>
+    <div class="metric head"><div class="grp">Receita</div><div class="lab">Faturamento</div><div class="v">{{ totais.fat|money(view_moeda) }}</div></div>
+    <div class="metric head" style="border:0;padding:0;margin:0"><div class="grp">&nbsp;</div><div class="lab">Gasto em ads</div><div class="v">{{ totais.gasto|money(view_moeda) }}</div><div class="d">ROAS <b style="color:var(--green)">{{ '%.2f'|format(totais.roas) }}x</b></div></div>
     <div class="metric head"><div class="grp">Volume</div><div class="lab">Vendas</div><div class="v">{{ totais.vendas }}</div></div>
-    <div class="metric head" style="border:0;padding:0;margin:0"><div class="grp">&nbsp;</div><div class="lab">Ticket médio</div><div class="v">{{ ((totais.fat / totais.vendas) if totais.vendas else 0) | brl }}</div><div class="d">faturamento ÷ vendas</div></div>
+    <div class="metric head" style="border:0;padding:0;margin:0"><div class="grp">&nbsp;</div><div class="lab">Ticket médio</div><div class="v">{{ ((totais.fat / totais.vendas) if totais.vendas else 0) | money(view_moeda) }}</div><div class="d">faturamento ÷ vendas</div></div>
     <div class="metric head"><div class="grp">Operação</div><div class="lab">Campanhas ativas</div><div class="v">{{ totais.ativas }}<span style="font-size:15px;color:var(--ink-3);font-weight:500"> / {{ totais.total }}</span></div></div>
     <div class="metric head" style="border:0;padding:0;margin:0"><div class="grp">&nbsp;</div><div class="lab">Ofertas rodando</div><div class="v">{{ ofertas|length }}</div></div>
   </div>
 </div>
 
+<div class="fx-strip">
+  <div class="fx-break">
+    <span class="fx-lb">Por moeda (nativo):</span>
+    {% for m, vals in totais.por_moeda.items() %}
+    <span class="fx-chip">{{ MOEDAS[m][0] }} <b>{{ vals.fat|money(m) }}</b> fat · {{ vals.gasto|money(m) }} gasto</span>
+    {% endfor %}
+  </div>
+  <form class="fx-rate" method="post" action="/config/cambio">
+    <span class="fx-lb">US$ 1 =</span>
+    <span class="fx-cur">R$</span>
+    <input type="text" name="taxa" value="{{ '%.2f'|format(rate) }}" {{ '' if user.is_admin else 'readonly' }} inputmode="decimal">
+    {% if user.is_admin %}<button class="btn" type="submit">Salvar câmbio</button>{% endif %}
+    <span class="fx-hint">exibindo em <b>{{ view_moeda }}</b> — troque no topo</span>
+  </form>
+</div>
+
 <div class="row a">
   <div class="panel card">
     <h3>Faturamento por oferta</h3>
-    <div class="cap">Clique numa oferta para ver domínios e gestores rodando</div>
+    <div class="cap">Consolidado em {{ view_moeda }} · clique para ver domínios e gestores</div>
     <div class="goals">
       {% for o in ofertas %}
       {% set cls = 'g' if o.roas>=1.8 else ('a' if o.roas>=1 else 'p') %}
       <a class="goal" href="/oferta/{{ o.oferta_id }}">
         <div class="gh"><div class="gn">{{ o.nome }} <small>· {{ o.dominios|length }} domínios · {{ o.gestores|length }} gestores</small></div>
-          <div class="gv">{{ o.fat|brl }}</div></div>
+          <div class="gv">{{ o.fat|money(view_moeda) }}</div></div>
         <div class="prog"><i class="{{ cls }}" style="width:{{ [o.fat / max_fat * 100, 6]|max }}%"></i></div>
         <div class="foot"><span class="roasx roas {{ o.roas_cls }}">{{ '%.2f'|format(o.roas) }}x ROAS</span>
-          <span style="color:{{ 'var(--green)' if o.lucro>=0 else 'var(--pink)' }}">{{ '+' if o.lucro>=0 else '−' }}{{ o.lucro|abs|brl }} lucro</span></div>
+          <span style="color:{{ 'var(--green)' if o.lucro>=0 else 'var(--pink)' }}">{{ '+' if o.lucro>=0 else '−' }}{{ o.lucro|abs|money(view_moeda) }} lucro</span></div>
       </a>
       {% endfor %}
     </div>
@@ -57,12 +73,12 @@
     <div class="s" style="color:var(--ink-3);font-size:12.5px">Nenhum alerta — todas as campanhas ativas com ROAS ≥ 1.</div>
     {% endfor %}
     <h3 style="margin-top:20px">Ranking de gestores</h3>
-    <div class="cap">Por lucro no período</div>
+    <div class="cap">Por lucro (consolidado em {{ view_moeda }})</div>
     <div class="scroll"><table><tbody>
       {% for g in gestores %}
       <tr><td><div class="who-cell">{{ av(g.nome, g.cor) }}{{ g.nome }}<span style="color:var(--ink-3);font-size:11px">· {{ g.n }}</span></div></td>
         <td class="r">{{ roasx(g.roas) }}</td>
-        <td class="r"><b>{{ g.lucro|brl }}</b></td></tr>
+        <td class="r"><b>{{ g.lucro|money(view_moeda) }}</b></td></tr>
       {% endfor %}
     </tbody></table></div>
   </div>
@@ -71,7 +87,7 @@
 <div class="row b">
   <div class="panel card">
     <h3>Todas as campanhas</h3>
-    <div class="cap">Clique numa linha para lançar gasto, vendas e faturamento</div>
+    <div class="cap">Valores na moeda de cada campanha · clique para lançar</div>
     <div class="scroll"><table>
       <thead><tr><th>Gestor</th><th>Oferta</th><th>Domínios</th><th>Status</th>
         <th class="r">Budget/dia</th><th class="r">Gasto</th><th class="r">Vendas</th><th class="r">Faturamento</th><th class="r">Lucro</th><th class="r">ROAS</th></tr></thead>
@@ -79,14 +95,14 @@
         {% for c in camps %}
         <tr class="clk" onclick="location='/campanha/{{ c.id }}'">
           <td><div class="who-cell">{% if c.gestor %}{{ av(c.gestor.nome, c.gestor.cor) }}{{ c.gestor.nome }}{% endif %}</div></td>
-          <td><b>{% if c.observacao %}<span title="{{ c.observacao }}" style="color:var(--amber)">⚠</span> {% endif %}{{ c.oferta.nome if c.oferta }}</b><br><span style="color:var(--ink-3);font-size:11px">{{ c.plataforma }}</span></td>
+          <td><b>{% if c.observacao %}<span title="{{ c.observacao }}" style="color:var(--amber)">⚠</span> {% endif %}{{ c.oferta.nome if c.oferta }}</b><br><span style="color:var(--ink-3);font-size:11px">{{ c.plataforma }} · {{ c.moeda }}</span></td>
           <td>{% for d in c.dominios %}<span class="dom">{{ d.url }}</span>{% endfor %}</td>
           <td>{{ pill(c.status) }}</td>
-          <td class="r">{{ c.budget|brl if c.budget else '—' }}</td>
-          <td class="r">{{ c.gasto|brl }}</td>
+          <td class="r">{{ c.budget|money(c.moeda) if c.budget else '—' }}</td>
+          <td class="r">{{ c.gasto|money(c.moeda) }}</td>
           <td class="r">{{ c.vendas }}</td>
-          <td class="r">{{ c.faturamento|brl }}</td>
-          <td class="r">{{ lucro_val(c.lucro) }}</td>
+          <td class="r">{{ c.faturamento|money(c.moeda) }}</td>
+          <td class="r">{{ lucro_val(c.lucro, c.moeda) }}</td>
           <td class="r">{{ roasx(c.roas) }}</td>
         </tr>
         {% endfor %}

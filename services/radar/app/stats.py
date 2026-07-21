@@ -5,16 +5,43 @@ from dataclasses import dataclass, field
 
 from sqlmodel import Session, select
 
-from .models import Campanha, roas_cls
+from .models import Campanha, Config, DEFAULT_USD_BRL, roas_cls
+
+
+def get_rate(session: Session) -> float:
+    c = session.exec(select(Config).where(Config.chave == "usd_brl")).first()
+    try:
+        return float(c.valor) if c else DEFAULT_USD_BRL
+    except (TypeError, ValueError):
+        return DEFAULT_USD_BRL
+
+
+def set_rate(session: Session, v) -> float:
+    v = max(0.01, float(v))
+    c = session.exec(select(Config).where(Config.chave == "usd_brl")).first()
+    if c:
+        c.valor = str(v)
+    else:
+        session.add(Config(chave="usd_brl", valor=str(v)))
+    session.commit()
+    return v
+
+
+def em_view(valor: float, moeda: str, rate: float, view: str) -> float:
+    """Converte um valor NATIVO para a moeda de exibição (view).
+    Passo 1: nativo -> BRL (USD * taxa). Passo 2: BRL -> view (÷ taxa se USD)."""
+    brl = valor * rate if moeda == "USD" else valor
+    return brl if view == "BRL" else brl / rate
 
 
 @dataclass
 class Totais:
-    fat: float = 0.0
-    gasto: float = 0.0
+    fat: float = 0.0        # consolidado em BRL
+    gasto: float = 0.0      # consolidado em BRL
     vendas: int = 0
     ativas: int = 0
     total: int = 0
+    por_moeda: dict = field(default_factory=dict)  # moeda -> {fat, gasto} nativos
 
     @property
     def lucro(self) -> float:
@@ -83,24 +110,27 @@ def all_campaigns(session: Session) -> list[Campanha]:
     return list(session.exec(select(Campanha)).all())
 
 
-def totais(camps: list[Campanha]) -> Totais:
+def totais(camps: list[Campanha], rate: float, view: str = "BRL") -> Totais:
     t = Totais(total=len(camps))
     for c in camps:
-        t.fat += c.faturamento
-        t.gasto += c.gasto
+        t.fat += em_view(c.faturamento, c.moeda, rate, view)
+        t.gasto += em_view(c.gasto, c.moeda, rate, view)
         t.vendas += c.vendas
         if c.status != "pau":
             t.ativas += 1
+        m = t.por_moeda.setdefault(c.moeda, {"fat": 0.0, "gasto": 0.0})
+        m["fat"] += c.faturamento
+        m["gasto"] += c.gasto
     return t
 
 
-def por_oferta(camps: list[Campanha]) -> list[OfertaAgg]:
+def por_oferta(camps: list[Campanha], rate: float, view: str = "BRL") -> list[OfertaAgg]:
     m: dict[str, OfertaAgg] = {}
     for c in camps:
         nome = c.oferta.nome if c.oferta else "—"
         o = m.setdefault(nome, OfertaAgg(nome=nome, oferta_id=c.oferta_id))
-        o.fat += c.faturamento
-        o.gasto += c.gasto
+        o.fat += em_view(c.faturamento, c.moeda, rate, view)
+        o.gasto += em_view(c.gasto, c.moeda, rate, view)
         o.vendas += c.vendas
         o.n += 1
         for d in c.dominios:
@@ -110,14 +140,14 @@ def por_oferta(camps: list[Campanha]) -> list[OfertaAgg]:
     return sorted(m.values(), key=lambda o: o.fat, reverse=True)
 
 
-def por_gestor(camps: list[Campanha]) -> list[GestorAgg]:
+def por_gestor(camps: list[Campanha], rate: float, view: str = "BRL") -> list[GestorAgg]:
     m: dict[str, GestorAgg] = {}
     for c in camps:
         if not c.gestor:
             continue
         g = m.setdefault(c.gestor.nome, GestorAgg(nome=c.gestor.nome, cor=c.gestor.cor))
-        g.fat += c.faturamento
-        g.gasto += c.gasto
+        g.fat += em_view(c.faturamento, c.moeda, rate, view)
+        g.gasto += em_view(c.gasto, c.moeda, rate, view)
         g.vendas += c.vendas
         g.n += 1
     return sorted(m.values(), key=lambda g: g.lucro, reverse=True)

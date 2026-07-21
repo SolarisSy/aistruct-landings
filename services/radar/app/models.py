@@ -21,6 +21,19 @@ STATUS_ORDEM = ["tes", "esc", "est", "pau"]
 
 PLATAFORMAS = ["Google", "Meta", "TikTok", "Taboola", "Outra"]
 
+# moeda -> (símbolo, nome). Valores guardados na moeda NATIVA da campanha;
+# os totais do painel consolidam em BRL via taxa manual (Config usd_brl).
+MOEDAS = {"BRL": ("R$", "Real"), "USD": ("US$", "Dólar")}
+DEFAULT_USD_BRL = 5.40
+
+
+def fmt_money(v, moeda: str = "BRL") -> str:
+    sym = MOEDAS.get(moeda, MOEDAS["BRL"])[0]
+    try:
+        return sym + " " + f"{round(float(v)):,}".replace(",", ".")
+    except (TypeError, ValueError):
+        return sym + " 0"
+
 # paleta de avatar por gestor (fallback ciclado no cadastro)
 CORES = ["#3b6ef5", "#7c53e6", "#d23b47", "#12a150", "#c07a13", "#0e9bb5", "#c2410c"]
 
@@ -59,6 +72,7 @@ class Campanha(SQLModel, table=True):
     plataforma: str = "Google"
     status: str = "tes"
     budget: Optional[float] = None  # diário, opcional
+    moeda: str = "BRL"   # BRL | USD — moeda em que gasto/faturamento/budget são lançados
     gasto: float = 0.0
     vendas: int = 0
     faturamento: float = 0.0
@@ -86,6 +100,10 @@ class Campanha(SQLModel, table=True):
     def status_info(self) -> tuple[str, str, str]:
         return STATUS.get(self.status, STATUS["tes"])
 
+    @property
+    def simbolo(self) -> str:
+        return MOEDAS.get(self.moeda, MOEDAS["BRL"])[0]
+
 
 class Dominio(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -94,6 +112,13 @@ class Dominio(SQLModel, table=True):
     ativo: bool = True
 
     campanha: Optional[Campanha] = Relationship(back_populates="dominios")
+
+
+class Config(SQLModel, table=True):
+    """Configurações chave-valor (ex.: taxa de câmbio usd_brl)."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    chave: str = Field(index=True, unique=True)
+    valor: str
 
 
 class AcaoPendente(SQLModel, table=True):

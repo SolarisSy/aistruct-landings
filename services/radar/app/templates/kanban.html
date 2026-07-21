@@ -15,7 +15,7 @@
         <div class="kmeta">{% if c.gestor %}{{ av(c.gestor.nome, c.gestor.cor, 20) }}{{ c.gestor.nome }}{% endif %}</div>
         <div class="doms">{% for d in c.dominios %}<span class="dom">{{ d.url }}</span>{% endfor %}</div>
         <div class="kstats">
-          <div class="kstat"><div class="kl">Gasto</div><div class="kv">{{ c.gasto|brl }}</div></div>
+          <div class="kstat"><div class="kl">Gasto</div><div class="kv">{{ c.gasto|money(c.moeda) }}</div></div>
           <div class="kstat"><div class="kl">Vendas</div><div class="kv">{{ c.vendas }}</div></div>
           <div class="kstat"><div class="kl">ROAS</div><div class="kv">{{ roasx(c.roas) }}</div></div>
         </div>

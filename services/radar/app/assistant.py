@@ -22,8 +22,8 @@ import time
 
 from sqlmodel import Session, select
 
-from .models import (PLATAFORMAS, STATUS, AcaoPendente, Campanha, Dominio,
-                     Oferta, User)
+from .models import (MOEDAS, PLATAFORMAS, STATUS, AcaoPendente, Campanha,
+                     Dominio, Oferta, User, fmt_money)
 
 MODEL = "claude-haiku-4-5"
 MAX_TOKENS = 700
@@ -65,11 +65,13 @@ def _tools() -> list[dict]:
                     "plataforma": {"type": "string", "enum": PLATAFORMAS},
                     "status": {"type": "string", "enum": list(STATUS.keys()),
                                "description": "tes=testando, esc=escalando, est=estável, pau=pausado"},
+                    "moeda": {"type": "string", "enum": list(MOEDAS.keys()),
+                              "description": "BRL (real) ou USD (dólar). Se ele falar dólar/US$, use USD; senão BRL."},
                     "dominios": {"type": "array", "items": {"type": "string"},
                                  "description": "Domínios anunciados (sem http)"},
-                    "budget": {"type": ["number", "null"], "description": "Budget diário em R$ (opcional)"},
+                    "budget": {"type": ["number", "null"], "description": "Budget diário (na moeda escolhida, opcional)"},
                 },
-                "required": ["oferta", "plataforma", "status", "dominios", "budget"],
+                "required": ["oferta", "plataforma", "status", "moeda", "dominios", "budget"],
                 "additionalProperties": False,
             },
         },
@@ -99,8 +101,8 @@ def _contexto_campanhas(session: Session, user: User) -> str:
     for c in session.exec(q).all():
         doms = ", ".join(d.url for d in c.dominios) or "—"
         linhas.append(f"  id={c.id} | {c.oferta.nome if c.oferta else '—'} | {c.plataforma} | "
-                      f"status={c.status} | gasto={c.gasto:.0f} vendas={c.vendas} "
-                      f"fat={c.faturamento:.0f} | domínios: {doms}")
+                      f"status={c.status} | moeda={c.moeda} | gasto={c.simbolo}{c.gasto:.0f} "
+                      f"vendas={c.vendas} fat={c.simbolo}{c.faturamento:.0f} | domínios: {doms}")
     return "\n".join(linhas) or "  (nenhuma campanha ainda)"
 
 
@@ -115,6 +117,8 @@ def _system(session: Session, user: User) -> str:
         "- Números são sempre >= 0 e realistas. Não aceite valores absurdos.\n"
         "- Para perguntas/consultas, responda em texto usando os dados abaixo — NÃO chame ferramenta.\n"
         "- Só chame ferramenta quando ele claramente pedir para CRIAR ou ATUALIZAR algo.\n"
+        "- MOEDA: se ele falar dólar/US$/dolar, a campanha é USD; senão BRL. Ao atualizar números, "
+        "eles estão na moeda da campanha (mostrada no contexto). Ao mostrar valores, use o símbolo certo (R$/US$).\n"
         "- Budget é OPCIONAL: se ele não mencionar, use null e siga — NÃO pergunte por budget.\n"
         "- Não fique pedindo detalhes que dá para inferir; monte a proposta e deixe ele confirmar/ajustar.\n"
         "ESTILO: curto e escaneável. Use **negrito** só no essencial. Não repita campo zerado item a item — "
@@ -151,6 +155,8 @@ def validar_criar(args: dict, user: User) -> tuple[dict | None, str]:
         return None, f"'plataforma' inválida; use uma de {PLATAFORMAS}."
     if args.get("status") not in STATUS:
         return None, f"'status' inválido; use um de {list(STATUS.keys())}."
+    if args.get("moeda") not in MOEDAS:
+        return None, f"'moeda' inválida; use {list(MOEDAS.keys())}."
     doms = _norm_doms(args.get("dominios"))
     if len(doms) > 20:
         return None, "domínios demais (máximo 20)."
@@ -161,7 +167,7 @@ def validar_criar(args: dict, user: User) -> tuple[dict | None, str]:
     if budget is not None and not _num_ok(budget, _LIMITE_VALOR):
         return None, "'budget' deve ser um número >= 0 (ou nulo)."
     return {"oferta": oferta, "plataforma": args["plataforma"], "status": args["status"],
-            "dominios": doms, "budget": budget}, ""
+            "moeda": args["moeda"], "dominios": doms, "budget": budget}, ""
 
 
 def validar_atualizar(args: dict, user: User, session: Session) -> tuple[dict | None, str]:
@@ -196,29 +202,24 @@ def _validar(nome: str, args: dict, user: User, session: Session):
 
 # --- resumo humano da proposta (o que o gestor vê antes de confirmar) -------
 
-def _brl(n) -> str:
-    try:
-        return "R$ " + f"{round(float(n)):,}".replace(",", ".")
-    except (TypeError, ValueError):
-        return "R$ 0"
-
-
 def _resumo(tipo: str, dados: dict, session: Session) -> tuple[str, str]:
     if tipo == "criar_campanha":
+        moeda = dados.get("moeda", "BRL")
         doms = ", ".join(dados["dominios"]) or "nenhum"
-        resumo = (f"Criar campanha “{dados['oferta']}” · {dados['plataforma']} · "
+        resumo = (f"Criar campanha “{dados['oferta']}” · {dados['plataforma']} · {moeda} · "
                   f"status {STATUS[dados['status']][0]} · domínios: {doms}"
-                  + (f" · budget {_brl(dados['budget'])}/dia" if dados.get("budget") else ""))
+                  + (f" · budget {fmt_money(dados['budget'], moeda)}/dia" if dados.get("budget") else ""))
         return resumo, "Isto adiciona uma campanha nova ao painel."
     camp = session.get(Campanha, dados["campanha_id"])
     nome = camp.oferta.nome if camp and camp.oferta else f"id={dados['campanha_id']}"
+    mo = camp.moeda if camp else "BRL"
     partes = []
     if "gasto" in dados:
-        partes.append(f"gasto {_brl(camp.gasto)} → {_brl(dados['gasto'])}")
+        partes.append(f"gasto {fmt_money(camp.gasto, mo)} → {fmt_money(dados['gasto'], mo)}")
     if "vendas" in dados:
         partes.append(f"vendas {camp.vendas} → {dados['vendas']}")
     if "faturamento" in dados:
-        partes.append(f"faturamento {_brl(camp.faturamento)} → {_brl(dados['faturamento'])}")
+        partes.append(f"faturamento {fmt_money(camp.faturamento, mo)} → {fmt_money(dados['faturamento'], mo)}")
     return (f"Atualizar “{nome}”: " + " · ".join(partes),
             "Isto sobrescreve os números atuais da campanha.")
 
@@ -315,7 +316,7 @@ def confirmar(session: Session, user: User, acao_id: int) -> dict:
             session.refresh(oferta)
         camp = Campanha(gestor_id=user.id, oferta_id=oferta.id,
                         plataforma=dados2["plataforma"], status=dados2["status"],
-                        budget=dados2.get("budget"))
+                        moeda=dados2.get("moeda", "BRL"), budget=dados2.get("budget"))
         session.add(camp)
         session.commit()
         session.refresh(camp)

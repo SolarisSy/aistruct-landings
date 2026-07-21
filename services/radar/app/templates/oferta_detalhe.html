@@ -8,11 +8,11 @@
 <div class="row a">
   <div class="panel card">
     <h3>Resultado da oferta</h3>
-    <div class="cap">Somado de todas as campanhas nesta oferta</div>
+    <div class="cap">Somado de todas as campanhas · consolidado em {{ view_moeda }}</div>
     <div class="ogrid" style="border:0;padding:0;grid-template-columns:repeat(4,1fr)">
-      <div><div class="l">Faturamento</div><div class="v">{{ agg.fat|brl }}</div></div>
-      <div><div class="l">Gasto</div><div class="v">{{ agg.gasto|brl }}</div></div>
-      <div><div class="l">Lucro</div><div class="v" style="color:{{ 'var(--green)' if agg.lucro>=0 else 'var(--pink)' }}">{{ '' if agg.lucro>=0 else '−' }}{{ agg.lucro|abs|brl }}</div></div>
+      <div><div class="l">Faturamento</div><div class="v">{{ agg.fat|money(view_moeda) }}</div></div>
+      <div><div class="l">Gasto</div><div class="v">{{ agg.gasto|money(view_moeda) }}</div></div>
+      <div><div class="l">Lucro</div><div class="v" style="color:{{ 'var(--green)' if agg.lucro>=0 else 'var(--pink)' }}">{{ '' if agg.lucro>=0 else '−' }}{{ agg.lucro|abs|money(view_moeda) }}</div></div>
       <div><div class="l">ROAS</div><div class="v">{{ '%.2f'|format(agg.roas) }}x</div></div>
     </div>
   </div>
@@ -38,8 +38,8 @@
           <td>{{ c.plataforma }}</td>
           <td>{% for d in c.dominios %}<span class="dom">{{ d.url }}</span>{% endfor %}</td>
           <td>{{ pill(c.status) }}</td>
-          <td class="r">{{ c.gasto|brl }}</td><td class="r">{{ c.vendas }}</td><td class="r">{{ c.faturamento|brl }}</td>
-          <td class="r">{{ lucro_val(c.lucro) }}</td><td class="r">{{ roasx(c.roas) }}</td>
+          <td class="r">{{ c.gasto|money(c.moeda) }}</td><td class="r">{{ c.vendas }}</td><td class="r">{{ c.faturamento|money(c.moeda) }}</td>
+          <td class="r">{{ lucro_val(c.lucro, c.moeda) }}</td><td class="r">{{ roasx(c.roas) }}</td>
         </tr>
         {% endfor %}
       </tbody>
