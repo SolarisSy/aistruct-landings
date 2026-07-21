@@ -31,7 +31,7 @@
   <div class="fx-break">
     <span class="fx-lb">Por moeda (nativo):</span>
     {% for m, vals in totais.por_moeda.items() %}
-    <span class="fx-chip">{{ MOEDAS[m][0] }} <b>{{ vals.fat|money(m) }}</b> fat · {{ vals.gasto|money(m) }} gasto</span>
+    <span class="fx-chip"><b>{{ vals.fat|money(m) }}</b> fat · {{ vals.gasto|money(m) }} gasto</span>
     {% endfor %}
   </div>
   <form class="fx-rate" method="post" action="/config/cambio">
