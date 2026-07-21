@@ -114,6 +114,16 @@ class Dominio(SQLModel, table=True):
     campanha: Optional[Campanha] = Relationship(back_populates="dominios")
 
 
+class Backlog(SQLModel, table=True):
+    """Esteira — ofertas/ideias a testar que ainda NÃO viraram campanha. Lista da equipe."""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    texto: str
+    nota: str = ""
+    feito: bool = False
+    autor: str = ""
+    criado_em: datetime = Field(default_factory=datetime.utcnow)
+
+
 class Config(SQLModel, table=True):
     """Configurações chave-valor (ex.: taxa de câmbio usd_brl)."""
     id: Optional[int] = Field(default=None, primary_key=True)

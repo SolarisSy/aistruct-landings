@@ -2,6 +2,28 @@
 {% from "macros.html" import av, roasx %}
 {% block content %}
 <div class="page-h"><h1>Campanhas</h1><div class="s">Quadro por estágio — estilo Trello</div></div>
+
+<div class="panel card" style="margin-bottom:16px">
+  <h3>🧪 Esteira — ofertas a testar</h3>
+  <div class="cap">Ofertas/ideias que ainda precisam passar pela esteira (não feitas). Lista compartilhada da equipe.</div>
+  <form method="post" action="/backlog/novo" class="bl-add">
+    <input name="texto" placeholder="Ex.: nova loto no Taboola · clone do concorrente X · testar VSL nova…" required>
+    <input name="nota" placeholder="nota (opcional)">
+    <button class="btn pri" type="submit" data-noloading>Adicionar</button>
+  </form>
+  <div class="bl-list">
+    {% for b in backlog %}
+    <div class="bl-item {{ 'done' if b.feito }}">
+      <form method="post" action="/backlog/{{ b.id }}/toggle"><button class="bl-check" title="{{ 'reabrir' if b.feito else 'marcar como feito' }}">{{ '✓' if b.feito else '○' }}</button></form>
+      <div class="bl-txt"><b>{{ b.texto }}</b>{% if b.nota %}<span class="bl-nota"> · {{ b.nota }}</span>{% endif %}{% if b.autor %}<span class="bl-meta">{{ b.autor }}</span>{% endif %}</div>
+      <form method="post" action="/backlog/{{ b.id }}/deletar" onsubmit="return confirm('Remover da esteira?')"><button class="bl-del" title="remover">✕</button></form>
+    </div>
+    {% else %}
+    <div class="cap" style="margin:0;padding:6px 0">Nada na esteira ainda — adicione a primeira oferta a testar.</div>
+    {% endfor %}
+  </div>
+</div>
+
 <div class="kan">
   {% for st, info in STATUS.items() %}
   <div class="col" data-status="{{ st }}" data-label="{{ info[0] }}">

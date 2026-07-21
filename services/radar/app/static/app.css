@@ -291,6 +291,24 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .toast.err{border-color:color-mix(in srgb,var(--pink) 55%,var(--line))}
 .toast.err::before{content:"✕ ";color:var(--pink)}
 
+/* esteira / backlog */
+.bl-add{display:flex;gap:9px;margin:14px 0 4px;flex-wrap:wrap}
+.bl-add input{flex:1;min-width:170px;background:var(--panel-3);border:1px solid var(--line);border-radius:10px;padding:10px 13px;color:var(--ink);font:inherit;font-size:13.5px;outline:none}
+.bl-add input:first-of-type{flex:2}
+.bl-add input:focus{border-color:var(--pink)}
+.bl-list{display:flex;flex-direction:column;gap:7px;margin-top:11px}
+.bl-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--panel-3);border:1px solid var(--line-2);border-radius:10px}
+.bl-item form{display:flex;margin:0}
+.bl-check{border:0;background:transparent;color:var(--ink-3);cursor:pointer;font-size:16px;width:24px;height:24px;border-radius:50%;line-height:1}
+.bl-check:hover{color:var(--pink)}
+.bl-item.done .bl-check{color:var(--green)}
+.bl-txt{flex:1;font-size:13.5px;min-width:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.bl-nota{color:var(--ink-2);font-size:12px}
+.bl-meta{color:var(--ink-3);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-left:auto}
+.bl-item.done .bl-txt b{text-decoration:line-through;color:var(--ink-3)}
+.bl-del{border:0;background:transparent;color:var(--ink-3);cursor:pointer;font-size:12px;padding:2px 6px}
+.bl-del:hover{color:var(--pink)}
+
 /* faixa de câmbio / moeda */
 .fx-strip{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
   margin-top:14px;padding:11px 18px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}

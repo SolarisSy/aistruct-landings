@@ -16,8 +16,8 @@ from starlette.middleware.sessions import SessionMiddleware
 from . import assistant, stats
 from .auth import authenticate, current_user, hash_password
 from .db import get_session, init_db
-from .models import (CORES, MOEDAS, PLATAFORMAS, STATUS, STATUS_ORDEM, Campanha,
-                     Dominio, Oferta, User, fmt_money, roas_cls)
+from .models import (CORES, MOEDAS, PLATAFORMAS, STATUS, STATUS_ORDEM, Backlog,
+                     Campanha, Dominio, Oferta, User, fmt_money, roas_cls)
 from .seed import seed
 
 BASE = Path(__file__).parent
@@ -138,7 +138,8 @@ def kanban(request: Request, session: Session = Depends(get_session)):
         return RedirectResponse("/login", status_code=303)
     camps = stats.all_campaigns(session)
     colunas = {st: [c for c in camps if c.status == st] for st in STATUS_ORDEM}
-    return _render(request, user, "kanban.html", "kanban", colunas=colunas)
+    backlog = list(session.exec(select(Backlog).order_by(Backlog.feito, Backlog.criado_em.desc())).all())
+    return _render(request, user, "kanban.html", "kanban", colunas=colunas, backlog=backlog)
 
 
 @app.get("/ofertas")
@@ -404,6 +405,43 @@ def gestor_deletar(gestor_id: int, request: Request, session: Session = Depends(
         session.delete(g)
         session.commit()
     return RedirectResponse("/gestores", status_code=303)
+
+
+@app.post("/backlog/novo")
+def backlog_novo(request: Request, texto: str = Form(...), nota: str = Form(""),
+                 session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    t = texto.strip()
+    if t:
+        session.add(Backlog(texto=t[:200], nota=nota.strip()[:300], autor=user.nome))
+        session.commit()
+    return RedirectResponse("/campanhas", status_code=303)
+
+
+@app.post("/backlog/{bid}/toggle")
+def backlog_toggle(bid: int, request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    b = session.get(Backlog, bid)
+    if b:
+        b.feito = not b.feito
+        session.commit()
+    return RedirectResponse("/campanhas", status_code=303)
+
+
+@app.post("/backlog/{bid}/deletar")
+def backlog_deletar(bid: int, request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    b = session.get(Backlog, bid)
+    if b:
+        session.delete(b)
+        session.commit()
+    return RedirectResponse("/campanhas", status_code=303)
 
 
 @app.get("/config/moeda")
