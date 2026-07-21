@@ -342,8 +342,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .asst-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--line)}
 .asst-title{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
 .asst-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
-.asst-close{border:0;background:var(--panel-3);width:28px;height:28px;border-radius:8px;color:var(--ink-2);cursor:pointer;font-size:13px}
-.asst-close:hover{color:var(--ink)}
+.asst-acts{display:flex;align-items:center;gap:7px}
+.asst-mini,.asst-close{border:0;background:var(--panel-3);width:28px;height:28px;border-radius:8px;color:var(--ink-2);cursor:pointer;font-size:13px;display:grid;place-items:center}
+.asst-mini:hover,.asst-close:hover{color:var(--ink)}
+.asst-mini:hover{color:var(--pink)}
 .asst-pop .chat-log{flex:1;min-height:0;padding:16px}
 .asst-pop .msg{max-width:88%}
 .asst-pop .chat-input{padding:12px 13px}

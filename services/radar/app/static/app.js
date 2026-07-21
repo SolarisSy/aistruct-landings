@@ -99,6 +99,14 @@ function initAssistant() {
   document.getElementById("asst-close").addEventListener("click", close);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !pop.hidden) close(); });
 
+  const greeting = log.innerHTML;  // guarda a saudação inicial
+  const clearBtn = document.getElementById("asst-clear");
+  if (clearBtn) clearBtn.addEventListener("click", async () => {
+    try { await fetch("/assistente/limpar", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" }); } catch (e) {}
+    log.innerHTML = greeting;
+    if (window.toast) toast("Nova conversa", "ok");
+  });
+
   const esc = (s) => { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; };
   function md(s) {  // markdown seguro: escapa, depois negrito/itálico/bullets/quebras
     s = esc(s);

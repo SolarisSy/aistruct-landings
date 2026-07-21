@@ -53,7 +53,12 @@
 <div class="asst-pop" id="asst-pop" hidden>
   <div class="asst-head">
     <div class="asst-title"><span class="asst-dot"></span> Assistente</div>
-    <button class="asst-close" id="asst-close" aria-label="Fechar">✕</button>
+    <div class="asst-acts">
+      <button class="asst-mini" id="asst-clear" title="Nova conversa (limpa a memória)" aria-label="Nova conversa">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>
+      </button>
+      <button class="asst-close" id="asst-close" aria-label="Fechar">✕</button>
+    </div>
   </div>
   <div class="chat-log" id="chat-log">
     <div class="msg bot">Oi{{ ', ' + user.nome if user }} 👋 Me diz o que rolou — ex.: <i>“gastei 500 e fiz 12 vendas na campanha 3”</i> ou <i>“sobe campanha nova no Taboola”</i>. Toda alteração passa pela sua confirmação.</div>

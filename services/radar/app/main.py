@@ -353,6 +353,15 @@ async def assistente_cancelar(request: Request, session: Session = Depends(get_s
     return JSONResponse(assistant.cancelar(session, user, _as_int(body.get("id"))))
 
 
+@app.post("/assistente/limpar")
+def assistente_limpar(request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return JSONResponse({"ok": False}, status_code=401)
+    assistant.reset(user.id)
+    return JSONResponse({"ok": True})
+
+
 @app.get("/gestor/{gestor_id}/editar")
 def gestor_editar(gestor_id: int, request: Request, session: Session = Depends(get_session)):
     user = current_user(request, session)

@@ -35,6 +35,20 @@ _DOM_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9-]+)*\.[
 
 _hits: dict[int, list[float]] = {}
 
+# memória de conversa por gestor (texto; efêmera, zera no restart). Cap p/ custo.
+_HIST: dict[int, list[dict]] = {}
+HIST_MAX = 16  # ~8 trocas
+
+
+def _remember(user_id: int, role: str, content: str) -> None:
+    h = _HIST.setdefault(user_id, [])
+    h.append({"role": role, "content": content})
+    del h[:-HIST_MAX]
+
+
+def reset(user_id: int) -> None:
+    _HIST.pop(user_id, None)
+
 
 def habilitado() -> bool:
     return bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
@@ -252,7 +266,8 @@ def responder(session: Session, user: User, texto: str) -> dict:
         return {"reply": "Manda a sua atualização ou pergunta.", "pending": None}
 
     system = _system(session, user)
-    messages = [{"role": "user", "content": texto[:2000]}]
+    _remember(user.id, "user", texto[:2000])          # memória: guarda a fala do gestor
+    messages = list(_HIST.get(user.id, []))            # envia o histórico inteiro (multi-turn)
 
     for _ in range(MAX_RETRIES + 1):
         try:
@@ -266,6 +281,7 @@ def responder(session: Session, user: User, texto: str) -> dict:
                            if getattr(b, "type", None) == "text").strip()
 
         if not tool_uses:  # leitura / conversa
+            _remember(user.id, "assistant", texto_ia or "Ok.")
             return {"reply": texto_ia or "Ok.", "pending": None}
 
         tu = tool_uses[0]
@@ -280,15 +296,17 @@ def responder(session: Session, user: User, texto: str) -> dict:
             session.add(pa)
             session.commit()
             session.refresh(pa)
+            _remember(user.id, "assistant", (texto_ia + " ").strip() + f"[proposta: {resumo}]")
             return {"reply": texto_ia or "Preparei a alteração abaixo.",
                     "pending": {"id": pa.id, "resumo": resumo, "aviso": aviso}}
 
-        # inválido → devolve o erro e pede regerar (padrão de retry do mercado)
+        # inválido → devolve o erro e pede regerar (retry transitório, fora do histórico)
         messages.append({"role": "assistant", "content": resp.content})
         messages.append({"role": "user", "content": [{
             "type": "tool_result", "tool_use_id": tu.id, "is_error": True,
             "content": f"Rejeitado pela validação: {erro} Corrija e chame a ferramenta de novo."}]})
 
+    _remember(user.id, "assistant", "(não consegui montar algo válido)")
     return {"reply": "Não consegui montar uma alteração válida e segura a partir disso. "
                      "Pode reformular com os dados certos (ex.: “gasto 500, 12 vendas, faturei 1.164 na campanha 3”)?",
             "pending": None}
@@ -337,6 +355,7 @@ def confirmar(session: Session, user: User, acao_id: int) -> dict:
 
     session.delete(pa)
     session.commit()
+    _remember(user.id, "assistant", msg)
     return {"ok": True, "reply": msg}
 
 
@@ -345,4 +364,5 @@ def cancelar(session: Session, user: User, acao_id: int) -> dict:
     if pa and pa.user_id == user.id:
         session.delete(pa)
         session.commit()
+    _remember(user.id, "assistant", "(proposta cancelada pelo gestor)")
     return {"ok": True, "reply": "Proposta cancelada."}
