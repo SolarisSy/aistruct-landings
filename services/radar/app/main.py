@@ -298,13 +298,28 @@ def assistente_page(request: Request, session: Session = Depends(get_session)):
                    habilitado=assistant.habilitado())
 
 
+async def _body(request: Request) -> dict:
+    try:
+        b = await request.json()
+        return b if isinstance(b, dict) else {}
+    except Exception:
+        return {}
+
+
+def _as_int(v) -> int:
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return 0
+
+
 @app.post("/assistente/mensagem")
 async def assistente_mensagem(request: Request, session: Session = Depends(get_session)):
     user = current_user(request, session)
     if not user:
         return JSONResponse({"reply": "Sessão expirada.", "pending": None}, status_code=401)
-    body = await request.json()
-    return JSONResponse(assistant.responder(session, user, body.get("texto", "")))
+    body = await _body(request)
+    return JSONResponse(assistant.responder(session, user, str(body.get("texto", ""))))
 
 
 @app.post("/assistente/confirmar")
@@ -312,8 +327,8 @@ async def assistente_confirmar(request: Request, session: Session = Depends(get_
     user = current_user(request, session)
     if not user:
         return JSONResponse({"ok": False, "reply": "Sessão expirada."}, status_code=401)
-    body = await request.json()
-    return JSONResponse(assistant.confirmar(session, user, int(body.get("id", 0))))
+    body = await _body(request)
+    return JSONResponse(assistant.confirmar(session, user, _as_int(body.get("id"))))
 
 
 @app.post("/assistente/cancelar")
@@ -321,8 +336,8 @@ async def assistente_cancelar(request: Request, session: Session = Depends(get_s
     user = current_user(request, session)
     if not user:
         return JSONResponse({"ok": False, "reply": "Sessão expirada."}, status_code=401)
-    body = await request.json()
-    return JSONResponse(assistant.cancelar(session, user, int(body.get("id", 0))))
+    body = await _body(request)
+    return JSONResponse(assistant.cancelar(session, user, _as_int(body.get("id"))))
 
 
 @app.get("/gestor/{gestor_id}/editar")
