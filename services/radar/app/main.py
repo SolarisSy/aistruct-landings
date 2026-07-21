@@ -148,8 +148,74 @@ def ofertas(request: Request, session: Session = Depends(get_session)):
     if not user:
         return RedirectResponse("/login", status_code=303)
     rate, view = stats.get_rate(session), _view_moeda(request)
-    offs = stats.por_oferta(stats.all_campaigns(session), rate, view)
-    return _render(request, user, "offers.html", "offers", ofertas=offs)
+    aggs = {o.nome: o for o in stats.por_oferta(stats.all_campaigns(session), rate, view)}
+    todas = list(session.exec(select(Oferta).order_by(Oferta.nome)).all())
+    return _render(request, user, "offers.html", "offers", ofertas=todas, aggs=aggs)
+
+
+@app.get("/oferta/nova")
+def oferta_nova(request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    return _render(request, user, "oferta_form.html", "offers", oferta=None)
+
+
+@app.post("/oferta/salvar")
+def oferta_salvar(request: Request, session: Session = Depends(get_session),
+                  oid: str = Form(""), nome: str = Form(...), nicho: str = Form("")):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    nome = nome.strip()
+    if not nome:
+        return RedirectResponse("/ofertas", status_code=303)
+    if oid:
+        o = session.get(Oferta, int(oid))
+        if o and not session.exec(select(Oferta).where(Oferta.nome == nome, Oferta.id != o.id)).first():
+            o.nome = nome[:100]
+            o.nicho = nicho.strip()[:60]
+            session.commit()
+    elif not session.exec(select(Oferta).where(Oferta.nome == nome)).first():
+        session.add(Oferta(nome=nome[:100], nicho=nicho.strip()[:60]))
+        session.commit()
+    return RedirectResponse("/ofertas", status_code=303)
+
+
+@app.get("/oferta/{oid}/editar")
+def oferta_editar(oid: int, request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    o = session.get(Oferta, oid)
+    if not o:
+        return RedirectResponse("/ofertas", status_code=303)
+    return _render(request, user, "oferta_form.html", "offers", oferta=o)
+
+
+@app.post("/oferta/{oid}/esteira")
+def oferta_esteira(oid: int, request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    o = session.get(Oferta, oid)
+    if o:
+        session.add(Backlog(texto=o.nome, autor=user.nome))
+        session.commit()
+    return RedirectResponse("/campanhas", status_code=303)
+
+
+@app.post("/oferta/{oid}/deletar")
+def oferta_deletar(oid: int, request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    o = session.get(Oferta, oid)
+    tem_camp = session.exec(select(Campanha).where(Campanha.oferta_id == oid)).first() is not None
+    if o and not tem_camp:
+        session.delete(o)
+        session.commit()
+    return RedirectResponse("/ofertas", status_code=303)
 
 
 @app.get("/oferta/{oferta_id}")
@@ -457,6 +523,41 @@ def backlog_editar(bid: int, request: Request, session: Session = Depends(get_se
     if not b:
         return RedirectResponse("/campanhas", status_code=303)
     return _render(request, user, "backlog_form.html", "kanban", item=b)
+
+
+@app.post("/backlog/{bid}/promover")
+def backlog_promover(bid: int, request: Request, novo: str = Form("tes"),
+                     session: Session = Depends(get_session)):
+    """Esteira → vira campanha (arrastar pra uma coluna de status)."""
+    user = current_user(request, session)
+    if not user:
+        return JSONResponse({"ok": False}, status_code=401)
+    b = session.get(Backlog, bid)
+    if not b:
+        return JSONResponse({"ok": False}, status_code=404)
+    status = novo if novo in STATUS else "tes"
+    nome = (b.texto or "").strip() or "Oferta"
+    oferta = session.exec(select(Oferta).where(Oferta.nome == nome)).first()
+    if not oferta:
+        oferta = Oferta(nome=nome)
+        session.add(oferta)
+        session.commit()
+        session.refresh(oferta)
+    # leva o plano (criativo/público/config/obs) pra observação da campanha
+    extras = [x for x in [b.observacao,
+                          ("Criativo: " + b.criativo) if b.criativo else "",
+                          ("Público: " + b.publico) if b.publico else "",
+                          ("Config: " + b.config) if b.config else ""] if x]
+    camp = Campanha(gestor_id=user.id, oferta_id=oferta.id, plataforma=b.plataforma,
+                    moeda=b.moeda, status=status, observacao=(" · ".join(extras))[:2000])
+    session.add(camp)
+    session.commit()
+    session.refresh(camp)
+    for url in _parse_domains(b.dominios):
+        session.add(Dominio(campanha_id=camp.id, url=url))
+    session.delete(b)
+    session.commit()
+    return JSONResponse({"ok": True})
 
 
 @app.post("/backlog/{bid}/toggle")

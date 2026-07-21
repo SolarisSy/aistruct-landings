@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-h">
+  <h1>{{ 'Editar oferta' if oferta else 'Nova oferta' }}</h1>
+  <div class="s">Catálogo de ofertas — o nome vale em todo o painel (campanhas que usam esta oferta)</div>
+</div>
+
+<form method="post" action="/oferta/salvar" class="form-grid">
+  {% if oferta %}<input type="hidden" name="oid" value="{{ oferta.id }}">{% endif %}
+  <div class="field">
+    <label>Nome da oferta</label>
+    <input name="nome" required value="{{ oferta.nome if oferta else '' }}" placeholder="Ex.: Loto BR · AlkaLean · Crédito Ágil">
+  </div>
+  <div class="field">
+    <label>Nicho</label>
+    <input name="nicho" value="{{ oferta.nicho if oferta else '' }}" placeholder="Ex.: loteria · nutra · crédito">
+  </div>
+  <div class="full actions">
+    <button class="btn pri" type="submit">{{ 'Salvar' if oferta else 'Criar oferta' }}</button>
+    <a class="btn" href="/ofertas">Cancelar</a>
+  </div>
+</form>
+
+{% if oferta %}
+<div class="actions">
+  <form method="post" action="/oferta/{{ oferta.id }}/esteira" style="margin:0"><button class="btn pri" type="submit">→ Jogar na esteira</button></form>
+  <form method="post" action="/oferta/{{ oferta.id }}/deletar" style="margin:0" onsubmit="return confirm('Excluir esta oferta? (só se não tiver campanha usando)')"><button class="btn danger" type="submit">Excluir oferta</button></form>
+</div>
+<div class="cap" style="margin-top:10px">Renomear troca o nome em todas as campanhas desta oferta. Excluir só funciona se nenhuma campanha estiver usando.</div>
+{% endif %}
+{% endblock %}

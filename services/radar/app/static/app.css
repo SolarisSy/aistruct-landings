@@ -209,8 +209,9 @@ tbody tr:last-child td{border-bottom:0}
 /* offers */
 .offers{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:860px){.offers{grid-template-columns:1fr}}
-.ocard{padding:20px;cursor:pointer;display:block}
-.ocard:hover{border-color:var(--pink)}
+.ocard{padding:20px;display:flex;flex-direction:column}
+.ocard-acts{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line-2);padding-top:14px;margin-top:auto}
+.ocard-acts .btn{padding:8px 13px;font-size:12.5px}
 .ocard .oh{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
 .ocard .oh b{font-size:17px;font-weight:800}
 .ochips{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0 16px}

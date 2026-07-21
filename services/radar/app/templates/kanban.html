@@ -14,7 +14,7 @@
     </div>
     <div class="col-body">
       {% for b in backlog %}
-      <div class="kcard bl-card {{ 'done' if b.feito }}" onclick="location='/backlog/{{ b.id }}'">
+      <div class="kcard bl-card {{ 'done' if b.feito }}" draggable="true" data-bid="{{ b.id }}" data-href="/backlog/{{ b.id }}">
         <div class="kt">{{ b.texto }}<span class="plat">{{ b.plataforma }}</span></div>
         {% if b.dominios %}<div class="doms">{% for d in b.dominios.replace(',', '\n').split('\n') %}{% if d.strip() %}<span class="dom">{{ d.strip() }}</span>{% endif %}{% endfor %}</div>{% endif %}
         {% set snip = b.criativo or b.publico or b.config or b.observacao %}
@@ -56,5 +56,5 @@
   </div>
   {% endfor %}
 </div>
-<div class="note"><b>Estilo Trello:</b> a 1ª coluna <b>🧪 Esteira</b> é o backlog do que ainda vai ser testado (clique no ＋). As outras são os estágios da campanha no ar — <b>arraste o card</b> entre elas pra mudar o status (salva na hora), ou clique pra abrir e editar.</div>
+<div class="note"><b>Estilo Trello:</b> a 1ª coluna <b>🧪 Esteira</b> é o backlog do que vai ser testado. <b>Arraste um card da Esteira</b> pra uma coluna (Testando/Escalando/…) e ele <b>vira campanha</b> naquele estágio. As campanhas você arrasta entre as colunas pra mudar o status, ou clica pra editar.</div>
 {% endblock %}

@@ -38,38 +38,51 @@ function initKanban() {
   let dragEl = null;
 
   board.querySelectorAll(".kcard").forEach((card) => {
-    if (card.classList.contains("bl-card")) return;  // esteira: navega pelo onclick inline, fora do drag
     card.addEventListener("dragstart", (e) => {
       dragEl = card; card.classList.add("dragging");
       e.dataTransfer.effectAllowed = "move";
-      e.dataTransfer.setData("text/plain", card.dataset.id);
+      e.dataTransfer.setData("text/plain", card.dataset.id || card.dataset.bid || "");
     });
     card.addEventListener("dragend", () => {
       card.classList.remove("dragging"); dragEl = null;
       board.querySelectorAll(".col.over").forEach((c) => c.classList.remove("over"));
     });
-    // clicar abre a campanha — a não ser que tenha acabado de arrastar
+    // clicar abre (campanha ou rascunho da esteira) — a não ser que tenha acabado de arrastar
     card.addEventListener("click", () => {
       if (card.dataset.dragged) { card.dataset.dragged = ""; return; }
-      location = card.dataset.href;
+      if (card.dataset.href) location = card.dataset.href;
     });
   });
 
   board.querySelectorAll(".col").forEach((col) => {
-    if (!col.dataset.status) return;  // esteira não é alvo de drop de campanha
+    if (!col.dataset.status) return;  // esteira não recebe drop (só a origem)
     col.addEventListener("dragover", (e) => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; col.classList.add("over"); });
     col.addEventListener("dragleave", (e) => { if (!col.contains(e.relatedTarget)) col.classList.remove("over"); });
     col.addEventListener("drop", (e) => {
       e.preventDefault(); col.classList.remove("over");
       if (!dragEl) return;
+      const status = col.dataset.status, label = col.dataset.label;
+      const body = new URLSearchParams(); body.set("novo", status);
+
+      // ESTEIRA → vira campanha na coluna solta
+      if (dragEl.classList.contains("bl-card")) {
+        dragEl.dataset.dragged = "1";
+        fetch("/backlog/" + dragEl.dataset.bid + "/promover", {
+          method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body.toString(),
+        }).then((r) => {
+          if (r.ok) { toast("Virou campanha em " + label, "ok"); setTimeout(() => location.reload(), 450); }
+          else toast("Não consegui promover", "err");
+        }).catch(() => toast("Sem conexão", "err"));
+        return;
+      }
+
+      // campanha muda de status
       const from = dragEl.closest(".col");
       if (from === col) return;
       col.querySelector(".col-body").appendChild(dragEl);
-      dragEl.dataset.dragged = "1"; // evita disparar o clique de navegação
+      dragEl.dataset.dragged = "1";
       refreshColumns();
-      const id = dragEl.dataset.id, status = col.dataset.status, label = col.dataset.label;
-      const body = new URLSearchParams(); body.set("novo", status);
-      fetch("/campanha/" + id + "/status", {
+      fetch("/campanha/" + dragEl.dataset.id + "/status", {
         method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body.toString(),
       }).then((r) => toast(r.ok ? "Movido para " + label : "Não consegui mover", r.ok ? "ok" : "err"))
         .catch(() => toast("Sem conexão", "err"));
