@@ -83,3 +83,76 @@ function initKanban() {
   }
 }
 document.addEventListener("DOMContentLoaded", initKanban);
+
+// ---- assistente (balão flutuante) ----
+function initAssistant() {
+  const fab = document.getElementById("asst-fab");
+  const pop = document.getElementById("asst-pop");
+  if (!fab || !pop) return;
+  const log = document.getElementById("chat-log");
+  const form = document.getElementById("chat-form");
+  const input = document.getElementById("chat-text");
+
+  function open() { pop.hidden = false; fab.classList.add("open"); setTimeout(() => input.focus(), 60); }
+  function close() { pop.hidden = true; fab.classList.remove("open"); }
+  fab.addEventListener("click", () => pop.hidden ? open() : close());
+  document.getElementById("asst-close").addEventListener("click", close);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !pop.hidden) close(); });
+
+  const esc = (s) => { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; };
+  function md(s) {  // markdown seguro: escapa, depois negrito/itálico/bullets/quebras
+    s = esc(s);
+    s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    s = s.replace(/(^|<br>|\n)\s*[-*•]\s+/g, "$1• ");
+    s = s.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
+    s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
+    return s.replace(/\n/g, "<br>");
+  }
+  function add(role, html) {
+    const el = document.createElement("div");
+    el.className = "msg " + role;
+    el.innerHTML = html;
+    log.appendChild(el); log.scrollTop = log.scrollHeight;
+    return el;
+  }
+  async function post(url, body) {
+    const r = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    return r.json();
+  }
+
+  function renderPending(p) {
+    const card = document.createElement("div");
+    card.className = "confirm-card";
+    card.innerHTML =
+      '<div class="cc-h">⚠ Confirmar alteração</div>' +
+      '<div class="cc-resumo">' + esc(p.resumo) + "</div>" +
+      (p.aviso ? '<div class="cc-aviso">' + esc(p.aviso) + " Confira antes de gravar.</div>" : "") +
+      '<div class="cc-acts"><button class="btn pri cc-ok">Confirmar e gravar</button>' +
+      '<button class="btn cc-no">Cancelar</button></div>';
+    log.appendChild(card); log.scrollTop = log.scrollHeight;
+    card.querySelector(".cc-ok").addEventListener("click", async () => {
+      card.querySelector(".cc-acts").innerHTML = '<span style="color:var(--ink-3);font-size:12px">Gravando…</span>';
+      const res = await post("/assistente/confirmar", { id: p.id });
+      card.remove(); add("bot", md(res.reply));
+      if (res.ok) toast("Gravado", "ok");
+    });
+    card.querySelector(".cc-no").addEventListener("click", async () => {
+      await post("/assistente/cancelar", { id: p.id });
+      card.remove(); add("bot", "Cancelado. Sem alterações.");
+    });
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const txt = input.value.trim();
+    if (!txt) return;
+    add("user", esc(txt)); input.value = "";
+    const wait = add("bot typing", "•••");
+    try {
+      const res = await post("/assistente/mensagem", { texto: txt });
+      wait.remove(); add("bot", md(res.reply));
+      if (res.pending) renderPending(res.pending);
+    } catch (err) { wait.remove(); add("bot", "Falhei ao responder. Tente de novo."); }
+  });
+}
+document.addEventListener("DOMContentLoaded", initAssistant);

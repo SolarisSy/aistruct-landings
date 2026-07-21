@@ -58,7 +58,8 @@ def _startup() -> None:
 
 def _render(request: Request, user: User, template: str, active: str, **ctx):
     return templates.TemplateResponse(
-        template, {"request": request, "user": user, "active": active, **ctx})
+        template, {"request": request, "user": user, "active": active,
+                   "assistente_on": assistant.habilitado(), **ctx})
 
 
 def _can_edit(user: User, camp: Campanha) -> bool:
@@ -290,12 +291,9 @@ def gestor_novo(request: Request, nome: str = Form(...), email: str = Form(...),
 
 
 @app.get("/assistente")
-def assistente_page(request: Request, session: Session = Depends(get_session)):
-    user = current_user(request, session)
-    if not user:
-        return RedirectResponse("/login", status_code=303)
-    return _render(request, user, "assistente.html", "assistente",
-                   habilitado=assistant.habilitado())
+def assistente_page(request: Request):
+    # agora é um balão flutuante global (base.html), não uma aba
+    return RedirectResponse("/", status_code=303)
 
 
 async def _body(request: Request) -> dict:

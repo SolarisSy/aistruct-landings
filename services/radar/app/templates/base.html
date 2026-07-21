@@ -23,7 +23,6 @@
       <a href="/campanhas" class="{{ 'active' if active=='kanban' }}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="9.5" y="3" width="5" height="12" rx="1"/><rect x="16" y="3" width="5" height="15" rx="1"/></svg>Campanhas</a>
       <a href="/ofertas" class="{{ 'active' if active=='offers' }}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 12.6 12 4H4v8l8.6 8.6a1.4 1.4 0 0 0 2 0l6-6a1.4 1.4 0 0 0 0-2z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Ofertas</a>
       <a href="/gestores" class="{{ 'active' if active=='team' }}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M17 11.2A3 3 0 0 0 17 6M20.5 20a4.5 4.5 0 0 0-3-4.2"/></svg>Gestores</a>
-      <a href="/assistente" class="{{ 'active' if active=='assistente' }}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 0 0-9 9v4a3 3 0 0 0 3 3h1v-6H5a7 7 0 0 1 14 0h-2v6h1a3 3 0 0 0 3-3v-4a9 9 0 0 0-9-9z"/></svg>Assistente</a>
     </nav>
     <div class="foot">
       <div class="who">
@@ -45,6 +44,27 @@
     </div>
   </main>
 </div>
+{% if assistente_on %}
+<button class="fab" id="asst-fab" title="Assistente" aria-label="Abrir assistente">
+  <svg class="fab-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 9.9 9.9 0 0 1-3.8-.7L3 21l1.3-4a8 8 0 0 1-1-3.5A8.4 8.4 0 0 1 11.5 3 8.4 8.4 0 0 1 21 11.5z"/><circle cx="9" cy="12" r="1"/><circle cx="12.5" cy="12" r="1"/><circle cx="16" cy="12" r="1"/></svg>
+  <svg class="fab-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
+<div class="asst-pop" id="asst-pop" hidden>
+  <div class="asst-head">
+    <div class="asst-title"><span class="asst-dot"></span> Assistente</div>
+    <button class="asst-close" id="asst-close" aria-label="Fechar">✕</button>
+  </div>
+  <div class="chat-log" id="chat-log">
+    <div class="msg bot">Oi{{ ', ' + user.nome if user }} 👋 Me diz o que rolou — ex.: <i>“gastei 500 e fiz 12 vendas na campanha 3”</i> ou <i>“sobe campanha nova no Taboola”</i>. Toda alteração passa pela sua confirmação.</div>
+  </div>
+  <form class="chat-input" id="chat-form" autocomplete="off">
+    <input type="text" id="chat-text" placeholder="Escreva aqui…">
+    <button class="btn pri" type="submit" data-noloading aria-label="Enviar">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </form>
+</div>
+{% endif %}
 <script>
   document.getElementById('theme').addEventListener('click',function(){
     var cur=document.documentElement.getAttribute('data-theme');
