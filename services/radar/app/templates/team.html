@@ -8,7 +8,7 @@
     <h3>Equipe</h3>
     <div class="cap">Resultado por gestor no período</div>
     <div class="scroll"><table>
-      <thead><tr><th>Gestor</th><th>Papel</th><th class="r">Campanhas</th><th class="r">Gasto</th><th class="r">Vendas</th><th class="r">Faturamento</th><th class="r">Lucro</th><th class="r">ROAS</th></tr></thead>
+      <thead><tr><th>Gestor</th><th>Papel</th><th class="r">Campanhas</th><th class="r">Gasto</th><th class="r">Vendas</th><th class="r">Faturamento</th><th class="r">Lucro</th><th class="r">ROAS</th>{% if user.is_admin %}<th class="r">Ações</th>{% endif %}</tr></thead>
       <tbody>
         {% for u in usuarios %}
         {% set g = aggs.get(u.nome) %}
@@ -21,6 +21,7 @@
           <td class="r">{{ (g.fat if g else 0)|brl }}</td>
           <td class="r">{{ lucro_val(g.lucro if g else 0) }}</td>
           <td class="r">{{ roasx(g.roas if g else 0) }}</td>
+          {% if user.is_admin %}<td class="r"><a href="/gestor/{{ u.id }}/editar" style="color:var(--pink);font-weight:600">Editar</a></td>{% endif %}
         </tr>
         {% endfor %}
       </tbody>

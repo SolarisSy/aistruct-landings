@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-h"><h1>Editar gestor</h1><div class="s">{{ g.nome }} · {{ g.email }}</div></div>
+
+<form method="post" action="/gestor/{{ g.id }}/editar" class="form-grid">
+  <div class="field"><label>Nome</label><input name="nome" required value="{{ g.nome }}"></div>
+  <div class="field"><label>E-mail</label><input type="email" name="email" required value="{{ g.email }}"></div>
+  <div class="field">
+    <label>Papel</label>
+    <select name="papel">
+      <option value="gestor" {{ 'selected' if not g.is_admin }}>Gestor</option>
+      <option value="admin" {{ 'selected' if g.is_admin }}>Admin</option>
+    </select>
+  </div>
+  <div class="field"><label>Cor do avatar</label><input type="color" name="cor" value="{{ g.cor }}" style="height:44px;padding:4px"></div>
+  <div class="full actions">
+    <button class="btn pri" type="submit">Salvar</button>
+    <a class="btn" href="/gestores">Cancelar</a>
+  </div>
+</form>
+
+{% if not g.is_admin %}
+<form method="post" action="/gestor/{{ g.id }}/deletar" class="actions" onsubmit="return confirm('Excluir este gestor?')">
+  <button class="btn danger" type="submit" {{ 'disabled title=\"Reatribua as campanhas antes de excluir\"' if tem_camp }}>Excluir gestor</button>
+  {% if tem_camp %}<span class="hint">Este gestor tem campanhas — reatribua-as (editando cada campanha) antes de excluir.</span>{% endif %}
+</form>
+{% endif %}
+{% endblock %}

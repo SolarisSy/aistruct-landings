@@ -289,6 +289,50 @@ def gestor_novo(request: Request, nome: str = Form(...), email: str = Form(...),
     return RedirectResponse("/gestores", status_code=303)
 
 
+@app.get("/gestor/{gestor_id}/editar")
+def gestor_editar(gestor_id: int, request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user or not user.is_admin:
+        return RedirectResponse("/login", status_code=303)
+    g = session.get(User, gestor_id)
+    if not g:
+        return RedirectResponse("/gestores", status_code=303)
+    tem_camp = session.exec(select(Campanha).where(Campanha.gestor_id == gestor_id)).first() is not None
+    return _render(request, user, "gestor_form.html", "team", g=g, tem_camp=tem_camp)
+
+
+@app.post("/gestor/{gestor_id}/editar")
+def gestor_editar_post(gestor_id: int, request: Request, nome: str = Form(...),
+                       email: str = Form(...), papel: str = Form("gestor"), cor: str = Form(""),
+                       session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user or not user.is_admin:
+        return RedirectResponse("/login", status_code=303)
+    g = session.get(User, gestor_id)
+    if g:
+        g.nome = nome.strip()
+        g.email = email.strip().lower()
+        g.papel = papel if papel in ("gestor", "admin") else "gestor"
+        if cor.strip():
+            g.cor = cor.strip()
+        session.commit()
+    return RedirectResponse("/gestores", status_code=303)
+
+
+@app.post("/gestor/{gestor_id}/deletar")
+def gestor_deletar(gestor_id: int, request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user or not user.is_admin:
+        return RedirectResponse("/login", status_code=303)
+    g = session.get(User, gestor_id)
+    tem_camp = session.exec(select(Campanha).where(Campanha.gestor_id == gestor_id)).first() is not None
+    # não apaga admin, nem gestor com campanhas (reatribua antes)
+    if g and not g.is_admin and not tem_camp and g.id != user.id:
+        session.delete(g)
+        session.commit()
+    return RedirectResponse("/gestores", status_code=303)
+
+
 @app.get("/healthz")
 def healthz():
     return {"ok": True}
