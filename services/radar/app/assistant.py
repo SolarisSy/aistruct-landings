@@ -91,16 +91,17 @@ def _tools() -> list[dict]:
         },
         {
             "name": "atualizar_numeros",
-            "description": "Atualiza gasto, vendas e/ou faturamento de UMA campanha existente do "
-                           "gestor logado. Use quando ele passar números novos de uma campanha dele.",
+            "description": "Atualiza gasto, vendas e/ou faturamento de UMA campanha existente do gestor logado. "
+                           "CRÍTICO: só preencha os campos que o gestor MENCIONOU; nos outros passe null "
+                           "(nunca 0 — 0 zeraria o valor real). Ex.: se ele só falou o gasto, vendas=null e faturamento=null.",
             "strict": True,
             "input_schema": {
                 "type": "object",
                 "properties": {
                     "campanha_id": {"type": "integer", "description": "ID da campanha (mostrado no contexto)"},
-                    "gasto": {"type": ["number", "null"]},
-                    "vendas": {"type": ["integer", "null"]},
-                    "faturamento": {"type": ["number", "null"]},
+                    "gasto": {"type": ["number", "null"], "description": "novo gasto; null se ele não mencionou"},
+                    "vendas": {"type": ["integer", "null"], "description": "novas vendas; null se ele não mencionou"},
+                    "faturamento": {"type": ["number", "null"], "description": "novo faturamento; null se ele não mencionou"},
                 },
                 "required": ["campanha_id", "gasto", "vendas", "faturamento"],
                 "additionalProperties": False,
@@ -131,6 +132,8 @@ def _system(session: Session, user: User) -> str:
         "- Números são sempre >= 0 e realistas. Não aceite valores absurdos.\n"
         "- Para perguntas/consultas, responda em texto usando os dados abaixo — NÃO chame ferramenta.\n"
         "- Só chame ferramenta quando ele claramente pedir para CRIAR ou ATUALIZAR algo.\n"
+        "- AO ATUALIZAR: mude só o que ele falou. Os campos não mencionados vão como null (NÃO 0), "
+        "senão você zera valores reais da campanha.\n"
         "- MOEDA: se ele falar dólar/US$/dolar, a campanha é USD; senão BRL. Ao atualizar números, "
         "eles estão na moeda da campanha (mostrada no contexto). Ao mostrar valores, use o símbolo certo (R$/US$).\n"
         "- Budget é OPCIONAL: se ele não mencionar, use null e siga — NÃO pergunte por budget.\n"
