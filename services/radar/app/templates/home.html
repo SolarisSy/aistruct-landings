@@ -4,26 +4,36 @@
 
 <div class="panel hero">
   <div class="hero-l">
-    <div class="toprow">
-      <div>
-        <div class="lab">Lucro</div>
-        <div class="big {{ 'neg' if totais.lucro < 0 }}">{{ totais.lucro|money(view_moeda) }}</div>
-        <div class="sub-lab">consolidado em {{ view_moeda }} · faturamento − gasto</div>
-      </div>
-      <div>
-        <div class="lab">Margem</div>
-        <div class="mid {{ 'neg' if totais.lucro < 0 }}" style="{{ 'color:var(--pink)' if totais.lucro<0 }}">{{ totais.margem }}%</div>
-        <div class="sub-lab">do faturamento</div>
-      </div>
+    <div class="lab">Lucro · consolidado em {{ view_moeda }}</div>
+    <div class="big {{ 'neg' if totais.lucro < 0 }}">{{ totais.lucro|money(view_moeda) }}</div>
+    <div class="hero-sub">
+      <div><div class="lab">Margem</div><div class="mid-inline {{ 'neg' if totais.lucro < 0 }}">{{ totais.margem }}%</div></div>
+      <div><div class="lab">ROAS geral</div><div class="mid-inline" style="color:var(--green)">{{ '%.2f'|format(totais.roas) }}x</div></div>
     </div>
+    <div class="sub-lab" style="margin-top:16px">faturamento − gasto em ads · {{ totais.ativas }}/{{ totais.total }} campanhas ativas</div>
   </div>
   <div class="hero-r">
-    <div class="metric head"><div class="grp">Receita</div><div class="lab">Faturamento</div><div class="v">{{ totais.fat|money(view_moeda) }}</div></div>
-    <div class="metric head" style="border:0;padding:0;margin:0"><div class="grp">&nbsp;</div><div class="lab">Gasto em ads</div><div class="v">{{ totais.gasto|money(view_moeda) }}</div><div class="d">ROAS <b style="color:var(--green)">{{ '%.2f'|format(totais.roas) }}x</b></div></div>
-    <div class="metric head"><div class="grp">Volume</div><div class="lab">Vendas</div><div class="v">{{ totais.vendas }}</div></div>
-    <div class="metric head" style="border:0;padding:0;margin:0"><div class="grp">&nbsp;</div><div class="lab">Ticket médio</div><div class="v">{{ ((totais.fat / totais.vendas) if totais.vendas else 0) | money(view_moeda) }}</div><div class="d">faturamento ÷ vendas</div></div>
-    <div class="metric head"><div class="grp">Operação</div><div class="lab">Campanhas ativas</div><div class="v">{{ totais.ativas }}<span style="font-size:15px;color:var(--ink-3);font-weight:500"> / {{ totais.total }}</span></div></div>
-    <div class="metric head" style="border:0;padding:0;margin:0"><div class="grp">&nbsp;</div><div class="lab">Ofertas rodando</div><div class="v">{{ ofertas|length }}</div></div>
+    <div class="sec">
+      <div class="sec-label">Receita <span class="hair"></span></div>
+      <div class="sec-grid">
+        <div class="metric2"><div class="l2">Faturamento</div><div class="v2">{{ totais.fat|money(view_moeda) }}</div></div>
+        <div class="metric2"><div class="l2">Gasto em ads</div><div class="v2">{{ totais.gasto|money(view_moeda) }}</div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-label">Volume <span class="hair"></span></div>
+      <div class="sec-grid">
+        <div class="metric2"><div class="l2">Vendas</div><div class="v2">{{ totais.vendas }}</div></div>
+        <div class="metric2"><div class="l2">Ticket médio</div><div class="v2">{{ ((totais.fat / totais.vendas) if totais.vendas else 0) | money(view_moeda) }}</div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-label">Operação <span class="hair"></span></div>
+      <div class="sec-grid">
+        <div class="metric2"><div class="l2">Campanhas ativas</div><div class="v2">{{ totais.ativas }} <span class="dim">/ {{ totais.total }}</span></div></div>
+        <div class="metric2"><div class="l2">Ofertas rodando</div><div class="v2">{{ ofertas|length }}</div></div>
+      </div>
+    </div>
   </div>
 </div>
 
