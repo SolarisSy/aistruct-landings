@@ -1710,15 +1710,32 @@ async def shopify_webhook(request: Request):
     cust = o.get("customer") or {}
     attrs = {a.get("name"): a.get("value")
              for a in (o.get("note_attributes") or []) if a.get("name")}
-    cpf = re.sub(r"\D", "", str(attrs.get("cpf") or ""))
+    # a Appmax injeta CPF + endereço ESTRUTURADO nos note_attributes — preferir esses
+    cpf = re.sub(r"\D", "", str(attrs.get("cpf") or attrs.get("customer_document") or ""))
     name = str(ship.get("name")
                or f"{cust.get('first_name', '')} {cust.get('last_name', '')}").strip()[:120]
-    phone = re.sub(r"\D", "", str(ship.get("phone") or o.get("phone") or cust.get("phone") or ""))
+    phone = re.sub(r"\D", "", str(ship.get("phone") or o.get("phone")
+                                  or attrs.get("shipping_phone") or cust.get("phone") or ""))
     if phone.startswith("55") and len(phone) > 11:
         phone = phone[2:]
     email = str(o.get("email") or cust.get("email") or "").strip()[:160].lower()
-    street, number, complement = _split_street_number(
-        str(ship.get("address1") or ""), str(ship.get("address2") or ""))
+    # endereço: Appmax (shipping_* estruturado, JÁ com bairro) > shipping_address do Shopify
+    # (o Shopify junta rua+bairro em address1/2 e não tem campo de bairro — Bling exige bairro)
+    if attrs.get("shipping_street_name"):
+        street = str(attrs.get("shipping_street_name") or "")
+        number = str(attrs.get("shipping_street_number") or "S/N")
+        complement = str(attrs.get("shipping_street_complement") or "")
+        neighborhood = str(attrs.get("shipping_neighborhood") or "")
+        city = str(attrs.get("shipping_city") or ship.get("city") or "")
+        state = str(attrs.get("shipping_province") or ship.get("province_code") or "")[:2].upper()
+        cep = re.sub(r"\D", "", str(attrs.get("shipping_postcode") or ship.get("zip") or ""))
+    else:
+        street, number, complement = _split_street_number(
+            str(ship.get("address1") or ""), str(ship.get("address2") or ""))
+        neighborhood = ""
+        city = str(ship.get("city") or "")
+        state = str(ship.get("province_code") or "")[:2].upper()
+        cep = re.sub(r"\D", "", str(ship.get("zip") or ""))
     ship_lines = o.get("shipping_lines") or []
     frete_cents = int(round(float((ship_lines[0].get("price") if ship_lines else 0) or 0) * 100))
     frete_service = ((ship_lines[0].get("title") if ship_lines else "") or "")[:60]
@@ -1742,9 +1759,8 @@ async def shopify_webhook(request: Request):
             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (ts, order_id, order_id, "paid", ts,
              name, cpf if _valid_cpf(cpf) else "", email, phone[:13],
-             re.sub(r"\D", "", str(ship.get("zip") or ""))[:8], street[:120], number[:12],
-             complement[:100], "", str(ship.get("city") or "").strip()[:80],
-             str(ship.get("province_code") or "")[:2].upper(),
+             cep[:8], street[:120], number[:12],
+             complement[:100], neighborhood[:80], city.strip()[:80], state,
              json.dumps(itens, ensure_ascii=False), subtotal, frete_cents,
              frete_service, total, coupon,
              json.dumps({"gw": "shopify",
