@@ -38,6 +38,7 @@ function initKanban() {
   let dragEl = null;
 
   board.querySelectorAll(".kcard").forEach((card) => {
+    if (card.classList.contains("bl-card")) return;  // esteira: navega pelo onclick inline, fora do drag
     card.addEventListener("dragstart", (e) => {
       dragEl = card; card.classList.add("dragging");
       e.dataTransfer.effectAllowed = "move";
@@ -55,6 +56,7 @@ function initKanban() {
   });
 
   board.querySelectorAll(".col").forEach((col) => {
+    if (!col.dataset.status) return;  // esteira não é alvo de drop de campanha
     col.addEventListener("dragover", (e) => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; col.classList.add("over"); });
     col.addEventListener("dragleave", (e) => { if (!col.contains(e.relatedTarget)) col.classList.remove("over"); });
     col.addEventListener("drop", (e) => {

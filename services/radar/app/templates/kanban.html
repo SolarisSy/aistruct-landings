@@ -1,42 +1,38 @@
 {% extends "base.html" %}
 {% from "macros.html" import av, roasx %}
 {% block content %}
-<div class="page-h"><h1>Campanhas</h1><div class="s">Quadro por estágio — estilo Trello</div></div>
+<div class="page-h"><h1>Campanhas</h1><div class="s">Quadro por estágio — estilo Trello · a Esteira é o que ainda vai ser testado</div></div>
 
-<div class="panel card" style="margin-bottom:16px">
-  <div class="bl-head">
-    <div>
-      <h3>🧪 Esteira — ofertas a testar</h3>
-      <div class="cap" style="margin:0">Rascunhos de anúncio que ainda precisam passar pela esteira (não feitos). Clique num card pra detalhar.</div>
-    </div>
-    <a class="btn pri" href="/backlog/nova"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg> Nova oferta a testar</a>
-  </div>
-  {% if backlog %}
-  <div class="bl-grid">
-    {% for b in backlog %}
-    <div class="kcard bl-card {{ 'done' if b.feito }}" onclick="location='/backlog/{{ b.id }}'">
-      <div class="kt">{{ b.texto }}<span class="plat">{{ b.plataforma }}</span></div>
-      {% if b.dominios %}<div class="doms">{% for d in b.dominios.replace(',', '\n').split('\n') %}{% if d.strip() %}<span class="dom">{{ d.strip() }}</span>{% endif %}{% endfor %}</div>{% endif %}
-      {% set snip = b.criativo or b.publico or b.config or b.observacao %}
-      {% if snip %}<div class="bl-snip">{{ snip[:96] }}{{ '…' if snip|length > 96 }}</div>{% endif %}
-      <div class="bl-foot">
-        <form method="post" action="/backlog/{{ b.id }}/toggle" onclick="event.stopPropagation()">
-          <button class="bl-badge {{ 'on' if b.feito }}" type="submit" data-noloading>{{ '✓ feito' if b.feito else '○ a fazer' }}</button>
-        </form>
-        {% if b.autor %}<span class="bl-meta">{{ b.autor }}</span>{% endif %}
-        <form method="post" action="/backlog/{{ b.id }}/deletar" onclick="event.stopPropagation()" onsubmit="return confirm('Remover da esteira?')">
-          <button class="bl-del" type="submit" title="remover">✕</button>
-        </form>
+<div class="kan kan5">
+  <div class="col col-esteira">
+    <div class="col-h">
+      <b><span class="sw" style="background:var(--pink);color:var(--pink)"></span>🧪 Esteira</b>
+      <div class="col-h-r">
+        <span class="cnt">{{ backlog|length }}</span>
+        <a class="col-add" href="/backlog/nova" title="Nova oferta a testar" aria-label="Nova oferta a testar">＋</a>
       </div>
     </div>
-    {% endfor %}
+    <div class="col-body">
+      {% for b in backlog %}
+      <div class="kcard bl-card {{ 'done' if b.feito }}" onclick="location='/backlog/{{ b.id }}'">
+        <div class="kt">{{ b.texto }}<span class="plat">{{ b.plataforma }}</span></div>
+        {% if b.dominios %}<div class="doms">{% for d in b.dominios.replace(',', '\n').split('\n') %}{% if d.strip() %}<span class="dom">{{ d.strip() }}</span>{% endif %}{% endfor %}</div>{% endif %}
+        {% set snip = b.criativo or b.publico or b.config or b.observacao %}
+        {% if snip %}<div class="bl-snip">{{ snip[:90] }}{{ '…' if snip|length > 90 }}</div>{% endif %}
+        <div class="bl-foot">
+          <form method="post" action="/backlog/{{ b.id }}/toggle" onclick="event.stopPropagation()">
+            <button class="bl-badge {{ 'on' if b.feito }}" type="submit" data-noloading>{{ '✓ feito' if b.feito else '○ a fazer' }}</button>
+          </form>
+          <form method="post" action="/backlog/{{ b.id }}/deletar" onclick="event.stopPropagation()" onsubmit="return confirm('Remover da esteira?')">
+            <button class="bl-del" type="submit" title="remover">✕</button>
+          </form>
+        </div>
+      </div>
+      {% else %}
+      <div class="col-empty">Nada aqui — clique no ＋ pra planejar um teste</div>
+      {% endfor %}
+    </div>
   </div>
-  {% else %}
-  <div class="cap" style="margin:14px 0 0">Nada na esteira ainda — clique em "Nova oferta a testar".</div>
-  {% endif %}
-</div>
-
-<div class="kan">
   {% for st, info in STATUS.items() %}
   <div class="col" data-status="{{ st }}" data-label="{{ info[0] }}">
     <div class="col-h"><b><span class="sw" style="background:{{ info[2] }};color:{{ info[2] }}"></span>{{ info[0] }}</b>
@@ -60,5 +56,5 @@
   </div>
   {% endfor %}
 </div>
-<div class="note"><b>Estilo Trello:</b> cada card é uma campanha; as colunas são o estágio. <b>Arraste o card</b> entre as colunas pra mudar o status (salva na hora), ou clique pra abrir e editar. Gestor mexe nos dele; chefe em todos.</div>
+<div class="note"><b>Estilo Trello:</b> a 1ª coluna <b>🧪 Esteira</b> é o backlog do que ainda vai ser testado (clique no ＋). As outras são os estágios da campanha no ar — <b>arraste o card</b> entre elas pra mudar o status (salva na hora), ou clique pra abrir e editar.</div>
 {% endblock %}
