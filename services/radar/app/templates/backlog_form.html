@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-h">
+  <h1>{{ 'Editar oferta da esteira' if item else 'Nova oferta a testar' }}</h1>
+  <div class="s">Rascunho do anúncio — planeje aqui tudo o que o teste vai ter antes de subir</div>
+</div>
+
+<form method="post" action="/backlog/salvar" class="form-grid">
+  {% if item %}<input type="hidden" name="bid" value="{{ item.id }}">{% endif %}
+
+  <div class="field full">
+    <label>Oferta / título</label>
+    <input name="texto" required value="{{ item.texto if item else '' }}" placeholder="Ex.: Loto nova no Taboola · clone do concorrente X">
+  </div>
+
+  <div class="field">
+    <label>Plataforma</label>
+    <select name="plataforma">
+      {% for p in PLATAFORMAS %}<option value="{{ p }}" {{ 'selected' if item and item.plataforma==p }}>{{ p }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label>Moeda</label>
+    <select name="moeda">
+      {% for code, mo in MOEDAS.items() %}<option value="{{ code }}" {{ 'selected' if (item and item.moeda==code) or (not item and code=='BRL') }}>{{ mo[0] }} {{ mo[1] }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label>Budget planejado</label>
+    <input name="budget" value="{{ item.budget if item else '' }}" placeholder="Ex.: R$ 100/dia">
+  </div>
+
+  <div class="field full">
+    <label>Domínios planejados</label>
+    <textarea name="dominios" placeholder="Um por linha — os domínios que pretende usar">{{ item.dominios if item else '' }}</textarea>
+  </div>
+
+  <div class="field full">
+    <label>🎬 Criativo</label>
+    <textarea name="criativo" placeholder="Qual criativo/VSL usar, ângulo, link do material, quem edita…">{{ item.criativo if item else '' }}</textarea>
+  </div>
+
+  <div class="field full">
+    <label>🎯 Público / segmentação</label>
+    <textarea name="publico" placeholder="País, device, idade, interesses, exclusões…">{{ item.publico if item else '' }}</textarea>
+  </div>
+
+  <div class="field full">
+    <label>⚙️ Configuração</label>
+    <textarea name="config" placeholder="Cloaker, tracker, checkout/gateway, pixel, filtros…">{{ item.config if item else '' }}</textarea>
+  </div>
+
+  <div class="field full">
+    <label>📝 Observações / detalhes</label>
+    <textarea name="observacao" placeholder="Qualquer detalhe do teste, pendências, referências…">{{ item.observacao if item else '' }}</textarea>
+  </div>
+
+  <div class="full actions">
+    <button class="btn pri" type="submit">{{ 'Salvar' if item else 'Adicionar à esteira' }}</button>
+    <a class="btn" href="/campanhas">Cancelar</a>
+  </div>
+</form>
+
+{% if item %}
+<form method="post" action="/backlog/{{ item.id }}/deletar" class="actions" onsubmit="return confirm('Remover da esteira?')">
+  <button class="btn danger" type="submit">Remover da esteira</button>
+</form>
+{% endif %}
+{% endblock %}

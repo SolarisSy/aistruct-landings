@@ -4,24 +4,36 @@
 <div class="page-h"><h1>Campanhas</h1><div class="s">Quadro por estágio — estilo Trello</div></div>
 
 <div class="panel card" style="margin-bottom:16px">
-  <h3>🧪 Esteira — ofertas a testar</h3>
-  <div class="cap">Ofertas/ideias que ainda precisam passar pela esteira (não feitas). Lista compartilhada da equipe.</div>
-  <form method="post" action="/backlog/novo" class="bl-add">
-    <input name="texto" placeholder="Ex.: nova loto no Taboola · clone do concorrente X · testar VSL nova…" required>
-    <input name="nota" placeholder="nota (opcional)">
-    <button class="btn pri" type="submit" data-noloading>Adicionar</button>
-  </form>
-  <div class="bl-list">
-    {% for b in backlog %}
-    <div class="bl-item {{ 'done' if b.feito }}">
-      <form method="post" action="/backlog/{{ b.id }}/toggle"><button class="bl-check" title="{{ 'reabrir' if b.feito else 'marcar como feito' }}">{{ '✓' if b.feito else '○' }}</button></form>
-      <div class="bl-txt"><b>{{ b.texto }}</b>{% if b.nota %}<span class="bl-nota"> · {{ b.nota }}</span>{% endif %}{% if b.autor %}<span class="bl-meta">{{ b.autor }}</span>{% endif %}</div>
-      <form method="post" action="/backlog/{{ b.id }}/deletar" onsubmit="return confirm('Remover da esteira?')"><button class="bl-del" title="remover">✕</button></form>
+  <div class="bl-head">
+    <div>
+      <h3>🧪 Esteira — ofertas a testar</h3>
+      <div class="cap" style="margin:0">Rascunhos de anúncio que ainda precisam passar pela esteira (não feitos). Clique num card pra detalhar.</div>
     </div>
-    {% else %}
-    <div class="cap" style="margin:0;padding:6px 0">Nada na esteira ainda — adicione a primeira oferta a testar.</div>
+    <a class="btn pri" href="/backlog/nova"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg> Nova oferta a testar</a>
+  </div>
+  {% if backlog %}
+  <div class="bl-grid">
+    {% for b in backlog %}
+    <div class="kcard bl-card {{ 'done' if b.feito }}" onclick="location='/backlog/{{ b.id }}'">
+      <div class="kt">{{ b.texto }}<span class="plat">{{ b.plataforma }}</span></div>
+      {% if b.dominios %}<div class="doms">{% for d in b.dominios.replace(',', '\n').split('\n') %}{% if d.strip() %}<span class="dom">{{ d.strip() }}</span>{% endif %}{% endfor %}</div>{% endif %}
+      {% set snip = b.criativo or b.publico or b.config or b.observacao %}
+      {% if snip %}<div class="bl-snip">{{ snip[:96] }}{{ '…' if snip|length > 96 }}</div>{% endif %}
+      <div class="bl-foot">
+        <form method="post" action="/backlog/{{ b.id }}/toggle" onclick="event.stopPropagation()">
+          <button class="bl-badge {{ 'on' if b.feito }}" type="submit" data-noloading>{{ '✓ feito' if b.feito else '○ a fazer' }}</button>
+        </form>
+        {% if b.autor %}<span class="bl-meta">{{ b.autor }}</span>{% endif %}
+        <form method="post" action="/backlog/{{ b.id }}/deletar" onclick="event.stopPropagation()" onsubmit="return confirm('Remover da esteira?')">
+          <button class="bl-del" type="submit" title="remover">✕</button>
+        </form>
+      </div>
+    </div>
     {% endfor %}
   </div>
+  {% else %}
+  <div class="cap" style="margin:14px 0 0">Nada na esteira ainda — clique em "Nova oferta a testar".</div>
+  {% endif %}
 </div>
 
 <div class="kan">

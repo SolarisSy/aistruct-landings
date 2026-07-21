@@ -407,17 +407,56 @@ def gestor_deletar(gestor_id: int, request: Request, session: Session = Depends(
     return RedirectResponse("/gestores", status_code=303)
 
 
-@app.post("/backlog/novo")
-def backlog_novo(request: Request, texto: str = Form(...), nota: str = Form(""),
-                 session: Session = Depends(get_session)):
+@app.get("/backlog/nova")
+def backlog_nova(request: Request, session: Session = Depends(get_session)):
     user = current_user(request, session)
     if not user:
         return RedirectResponse("/login", status_code=303)
-    t = texto.strip()
-    if t:
-        session.add(Backlog(texto=t[:200], nota=nota.strip()[:300], autor=user.nome))
-        session.commit()
+    return _render(request, user, "backlog_form.html", "kanban", item=None)
+
+
+@app.post("/backlog/salvar")
+def backlog_salvar(
+    request: Request, session: Session = Depends(get_session), bid: str = Form(""),
+    texto: str = Form(...), plataforma: str = Form("Google"), moeda: str = Form("BRL"),
+    dominios: str = Form(""), budget: str = Form(""), criativo: str = Form(""),
+    publico: str = Form(""), config: str = Form(""), observacao: str = Form(""),
+):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    nome = texto.strip()
+    if not nome:
+        return RedirectResponse("/campanhas", status_code=303)
+    if bid:
+        b = session.get(Backlog, int(bid))
+        if not b:
+            return RedirectResponse("/campanhas", status_code=303)
+    else:
+        b = Backlog(autor=user.nome)
+        session.add(b)
+    b.texto = nome[:200]
+    b.plataforma = plataforma if plataforma in PLATAFORMAS else "Google"
+    b.moeda = moeda if moeda in MOEDAS else "BRL"
+    b.dominios = dominios.strip()[:1000]
+    b.budget = budget.strip()[:60]
+    b.criativo = criativo.strip()[:2000]
+    b.publico = publico.strip()[:2000]
+    b.config = config.strip()[:2000]
+    b.observacao = observacao.strip()[:2000]
+    session.commit()
     return RedirectResponse("/campanhas", status_code=303)
+
+
+@app.get("/backlog/{bid}")
+def backlog_editar(bid: int, request: Request, session: Session = Depends(get_session)):
+    user = current_user(request, session)
+    if not user:
+        return RedirectResponse("/login", status_code=303)
+    b = session.get(Backlog, bid)
+    if not b:
+        return RedirectResponse("/campanhas", status_code=303)
+    return _render(request, user, "backlog_form.html", "kanban", item=b)
 
 
 @app.post("/backlog/{bid}/toggle")

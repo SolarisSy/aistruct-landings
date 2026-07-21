@@ -23,6 +23,13 @@ def _migrate() -> None:
             conn.exec_driver_sql("ALTER TABLE campanha ADD COLUMN observacao VARCHAR DEFAULT ''")
         if "moeda" not in cols:
             conn.exec_driver_sql("ALTER TABLE campanha ADD COLUMN moeda VARCHAR DEFAULT 'BRL'")
+        # backlog ganhou campos de rascunho de anúncio
+        bcols = [r[1] for r in conn.exec_driver_sql("PRAGMA table_info(backlog)").fetchall()]
+        for col, default in [("plataforma", "'Google'"), ("moeda", "'BRL'"), ("dominios", "''"),
+                             ("budget", "''"), ("criativo", "''"), ("publico", "''"),
+                             ("config", "''"), ("observacao", "''")]:
+            if bcols and col not in bcols:
+                conn.exec_driver_sql(f"ALTER TABLE backlog ADD COLUMN {col} VARCHAR DEFAULT {default}")
 
 
 def get_session():

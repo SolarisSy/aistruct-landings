@@ -115,13 +115,26 @@ class Dominio(SQLModel, table=True):
 
 
 class Backlog(SQLModel, table=True):
-    """Esteira — ofertas/ideias a testar que ainda NÃO viraram campanha. Lista da equipe."""
+    """Esteira — rascunho de anúncio/oferta a testar (ainda não virou campanha).
+    Guarda todas as características de um anúncio padrão pra planejar o teste."""
     id: Optional[int] = Field(default=None, primary_key=True)
-    texto: str
-    nota: str = ""
+    texto: str                    # título / nome da oferta
+    plataforma: str = "Google"
+    moeda: str = "BRL"
+    dominios: str = ""            # texto livre (um por linha) — planejados
+    budget: str = ""             # budget planejado (texto flexível: "R$ 100/dia")
+    criativo: str = ""           # criativo a usar (descrição / link)
+    publico: str = ""            # público / segmentação (país, device, interesses)
+    config: str = ""             # configuração (cloaker, tracker, checkout, etc.)
+    observacao: str = ""         # detalhes / observações gerais
+    nota: str = ""               # legado (não usado no form novo)
     feito: bool = False
     autor: str = ""
     criado_em: datetime = Field(default_factory=datetime.utcnow)
+
+    @property
+    def simbolo(self) -> str:
+        return MOEDAS.get(self.moeda, MOEDAS["BRL"])[0]
 
 
 class Config(SQLModel, table=True):
