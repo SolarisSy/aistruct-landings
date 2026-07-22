@@ -1,0 +1,370 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marmita de cinco dias: como montar sem repetir o mesmo tempero · Panela Cheia</title>
+  <meta name="description" content="Monte 5 marmitas no domingo sem repetir o mesmo tempero: ordem de cozimento por textura, 3 bases que rendem pratos diferentes e o recipiente certo.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://panelacheia.cfd/marmita-da-semana-cinco-dias.html">
+  <style>
+:root{
+  --terracota:#B4472A;
+  --terracota-dark:#8f3820;
+  --creme:#F6F1E7;
+  --oliva:#3E4B34;
+  --marrom:#2B241E;
+  --offwhite:#FFFDF8;
+  --radius:3px;
+  --serif:"Palatino Linotype","Book Antiqua",Georgia,serif;
+  --sans:"Trebuchet MS",Tahoma,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--creme);color:var(--marrom);line-height:1.65;font-size:16px}
+img{max-width:100%;display:block}
+a{color:var(--terracota);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1140px;margin:0 auto;padding:0 20px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:normal}
+hr.rule{border:none;border-top:1px solid var(--marrom);margin:0}
+
+/* ---------- Header ---------- */
+.site-header{background:var(--offwhite);border-bottom:3px solid var(--terracota);position:sticky;top:0;z-index:20}
+.header-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;max-width:1140px;margin:0 auto;flex-wrap:wrap;gap:14px}
+.brand{font-family:var(--serif);font-size:1.65rem;font-style:italic;color:var(--terracota);letter-spacing:.3px;line-height:1.1}
+.brand small{display:block;font-family:var(--sans);font-style:normal;font-size:.6rem;letter-spacing:2px;color:var(--oliva);text-transform:uppercase;margin-top:3px}
+.site-nav ul{display:flex;gap:22px;list-style:none;flex-wrap:wrap}
+.site-nav a{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--oliva);font-weight:bold;padding-bottom:4px;border-bottom:2px solid transparent}
+.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota);text-decoration:none}
+.site-nav a.active{color:var(--terracota);border-bottom-color:var(--terracota)}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb{font-size:.78rem;color:var(--oliva);padding:16px 20px;max-width:1140px;margin:0 auto}
+.breadcrumb a{color:var(--oliva)}
+.breadcrumb a:hover{color:var(--terracota)}
+
+/* ---------- Hero editorial (home) ---------- */
+.hero{padding:46px 0 38px;border-bottom:1px solid var(--marrom)}
+.hero-grid{display:grid;grid-template-columns:2.1fr 1fr;gap:44px;max-width:1140px;margin:0 auto;padding:0 20px}
+.hero-main .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:var(--terracota);font-weight:bold}
+.hero-main h1{font-size:2.6rem;line-height:1.15;margin:12px 0 16px;color:var(--marrom)}
+.hero-main p.lead{font-size:1.08rem;max-width:580px;margin-bottom:22px;color:var(--marrom)}
+.hero-sidebar{border-left:1px solid var(--marrom);padding-left:30px}
+.hero-sidebar h2{font-size:1rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;color:var(--oliva);border-bottom:2px solid var(--oliva);padding-bottom:9px}
+.summary-list{list-style:none}
+.summary-list li{padding:9px 0;border-bottom:1px solid rgba(43,36,30,.15);font-size:.88rem;display:flex;justify-content:space-between;gap:8px}
+.summary-list li span.count{color:var(--terracota);font-weight:bold;font-family:var(--serif)}
+
+/* ---------- Page hero (páginas internas) ---------- */
+.page-hero{padding:42px 0 30px;border-bottom:1px solid var(--marrom)}
+.page-hero .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:var(--terracota);font-weight:bold}
+.page-hero h1{font-size:2.3rem;margin:10px 0 12px;color:var(--marrom)}
+.page-hero p{max-width:660px;color:var(--oliva);font-size:1.05rem}
+
+/* ---------- Sections / rhythm ---------- */
+.section{padding:58px 0}
+.section.tight{padding:34px 0}
+.section.wide{padding:74px 0}
+.section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:30px;border-bottom:1px solid var(--marrom);padding-bottom:11px;flex-wrap:wrap;gap:10px}
+.section-head h2{font-size:1.9rem;color:var(--marrom)}
+.section-head .sub{font-size:.82rem;color:var(--oliva);text-transform:uppercase;letter-spacing:1px}
+.intro-text{max-width:760px;font-size:1.02rem;margin-bottom:10px}
+.lead-lg{font-family:var(--serif);font-size:1.2rem;color:var(--marrom)}
+
+/* ---------- Grid + cards (magazine) ---------- */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.card{background:var(--offwhite);border:1px solid rgba(43,36,30,.2);display:flex;flex-direction:column}
+.card.featured{grid-column:span 2;grid-row:span 2}
+.card .thumb{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--oliva)}
+.card.featured .thumb{aspect-ratio:16/10}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card .body{padding:16px 18px 20px;display:flex;flex-direction:column;flex:1}
+.card .cat{font-size:.66rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--terracota);font-weight:bold;margin-bottom:7px}
+.card h3{font-family:var(--serif);font-size:1.12rem;line-height:1.32;margin-bottom:8px;color:var(--marrom)}
+.card.featured h3{font-size:1.5rem}
+.card p{font-size:.88rem;color:var(--marrom);flex:1;margin-bottom:12px}
+.card .meta{font-size:.7rem;color:var(--oliva);border-top:1px solid rgba(43,36,30,.14);padding-top:9px;display:flex;justify-content:space-between}
+.card .meta a{color:var(--terracota);font-weight:bold}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-block;background:var(--terracota);color:var(--offwhite);padding:13px 28px;font-family:var(--sans);font-weight:bold;font-size:.85rem;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:var(--radius);cursor:pointer}
+.btn:hover{background:var(--terracota-dark);text-decoration:none}
+.btn.outline{background:transparent;border:2px solid var(--oliva);color:var(--oliva);padding:11px 26px}
+.btn.outline:hover{background:var(--oliva);color:var(--offwhite)}
+
+/* ---------- Post / artigo ---------- */
+.post-header{max-width:1140px;margin:0 auto;padding:20px 20px 0}
+.post-header .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:var(--terracota);font-weight:bold}
+.post-header h1{font-size:2.3rem;margin:10px 0 14px;color:var(--marrom)}
+.post-header .dek{font-size:1.05rem;color:var(--oliva);margin-bottom:16px;max-width:760px}
+.post-header .meta{font-size:.8rem;color:var(--marrom);border-bottom:1px solid var(--marrom);padding-bottom:18px;margin-bottom:8px}
+.post-cover{margin:22px auto;max-width:1140px;overflow:hidden;aspect-ratio:16/9}
+.post-cover img{width:100%;height:100%;object-fit:cover}
+.post{display:grid;grid-template-columns:1fr 300px;gap:46px;padding:10px 20px 60px;max-width:1140px;margin:0 auto}
+.post-main h2{font-size:1.5rem;margin:34px 0 14px;color:var(--marrom);border-bottom:2px solid var(--terracota);padding-bottom:7px;display:inline-block}
+.post-main h3{font-size:1.2rem;margin:26px 0 10px;color:var(--oliva)}
+.post-main p{margin-bottom:16px}
+.post-main ul,.post-main ol{margin:0 0 16px 22px}
+.post-main li{margin-bottom:7px}
+blockquote{border-left:4px solid var(--terracota);padding:8px 22px;font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--marrom);margin:24px 0;background:rgba(180,71,42,.06)}
+
+table.tempos{width:100%;border-collapse:collapse;margin:22px 0;font-size:.9rem}
+table.tempos th{background:var(--oliva);color:var(--offwhite);text-align:left;padding:10px 12px;font-family:var(--sans);text-transform:uppercase;font-size:.7rem;letter-spacing:1px}
+table.tempos td{padding:10px 12px;border-bottom:1px solid rgba(43,36,30,.15)}
+table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
+
+.ingredientes{border:1px solid var(--marrom);padding:22px 24px;margin:26px 0;background:var(--offwhite)}
+.ingredientes h3{margin-bottom:12px;color:var(--terracota)}
+.ingredientes ul{list-style:none;margin:0}
+.ingredientes li{padding:7px 0;border-bottom:1px dashed rgba(43,36,30,.22);font-size:.92rem}
+
+.box{border:1px solid rgba(43,36,30,.28);padding:22px;margin-bottom:28px;background:var(--offwhite)}
+.box h4{font-size:1rem;text-transform:uppercase;letter-spacing:1px;color:var(--oliva);border-bottom:2px solid var(--oliva);padding-bottom:9px;margin-bottom:14px}
+.related-list{list-style:none}
+.related-list li{padding:11px 0;border-bottom:1px solid rgba(43,36,30,.13)}
+.related-list li:last-child{border-bottom:none}
+.related-list li a{color:var(--marrom);font-weight:bold;font-size:.92rem}
+.related-list li span{display:block;font-size:.7rem;color:var(--terracota);text-transform:uppercase;margin-bottom:3px;letter-spacing:.5px}
+.related{margin:40px 0 0}
+
+/* ---------- App section ---------- */
+.app-section{background:var(--oliva);color:var(--creme);padding:66px 0}
+.app-section .container{display:grid;grid-template-columns:1.1fr 1fr;gap:52px;align-items:center}
+.app-section h2{font-size:2rem;color:var(--creme);margin-bottom:14px}
+.app-section p{color:var(--creme);opacity:.92;margin-bottom:16px}
+.app-features{list-style:none;margin:18px 0 22px}
+.app-features li{padding:9px 0;border-bottom:1px solid rgba(246,241,231,.22);font-size:.9rem}
+.app-mock{background:var(--marrom);border:7px solid #1c1712;border-radius:22px;padding:14px;max-width:270px;margin:0 auto;box-sizing:content-box}
+.app-mock .screen{background:var(--offwhite);border-radius:10px;padding:16px;color:var(--marrom);min-height:400px}
+.app-mock .screen h5{color:var(--terracota);font-size:1rem;margin-bottom:12px;border-bottom:2px solid var(--terracota);padding-bottom:7px}
+.app-mock .day{display:flex;justify-content:space-between;font-size:.74rem;padding:7px 0;border-bottom:1px dashed rgba(43,36,30,.22)}
+.app-mock .day b{font-family:var(--serif)}
+.app-mock .tag{background:var(--oliva);color:var(--offwhite);font-size:.6rem;padding:2px 7px;border-radius:2px;text-transform:uppercase}
+.app-mock .list-title{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--oliva);margin:14px 0 6px}
+.app-mock .list-item{font-size:.74rem;padding:4px 0;display:flex;gap:7px;align-items:center;color:var(--marrom)}
+.app-mock .list-item::before{content:"☐";color:var(--terracota)}
+
+/* ---------- Como funciona (steps) ---------- */
+.steps{list-style:none;counter-reset:step}
+.steps li{counter-increment:step;position:relative;padding:18px 0 18px 52px;border-bottom:1px solid rgba(43,36,30,.15)}
+.steps li::before{content:counter(step);position:absolute;left:0;top:16px;width:34px;height:34px;border:2px solid var(--terracota);color:var(--terracota);font-family:var(--serif);font-weight:bold;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.steps li h4{color:var(--marrom);margin-bottom:5px;font-size:1.05rem}
+.steps li p{font-size:.9rem;color:var(--marrom);margin:0}
+
+/* ---------- Newsletter ---------- */
+.newsletter{background:var(--offwhite);border-top:1px solid var(--marrom);border-bottom:1px solid var(--marrom);padding:50px 0}
+.newsletter .inner{max-width:640px;margin:0 auto;text-align:center}
+.newsletter h2{font-size:1.6rem;margin-bottom:10px;color:var(--marrom)}
+.newsletter p{color:var(--oliva);font-size:.95rem}
+.newsletter form{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.newsletter input[type=email]{flex:1;min-width:230px;padding:13px 15px;border:1px solid var(--marrom);background:var(--creme);font-family:var(--sans);font-size:.9rem}
+.newsletter .thanks{display:none;color:var(--oliva);font-weight:bold;margin-top:16px;font-size:.9rem}
+
+/* ---------- Sobre / equipe ---------- */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:26px 0}
+.team-card{border:1px solid rgba(43,36,30,.22);padding:20px;background:var(--offwhite)}
+.team-card .avatar{width:64px;height:64px;border-radius:50%;background:var(--oliva);color:var(--offwhite);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.5rem;margin-bottom:14px}
+.team-card h4{font-size:1.05rem;color:var(--marrom);margin-bottom:2px}
+.team-card .role{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--terracota);margin-bottom:10px}
+.team-card p{font-size:.85rem;color:var(--marrom)}
+.policy-list{margin:14px 0 0 0}
+.policy-list li{padding:10px 0;border-bottom:1px solid rgba(43,36,30,.14);font-size:.92rem;list-style:none}
+.contact-box{border:2px solid var(--oliva);padding:26px;margin:30px 0}
+.contact-box h3{color:var(--oliva);margin-bottom:10px}
+
+/* ---------- Glossário ---------- */
+.glossary-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.glossary-nav a{border:1px solid var(--oliva);padding:5px 11px;font-size:.8rem;color:var(--oliva);border-radius:var(--radius)}
+.glossary-nav a:hover{background:var(--oliva);color:var(--offwhite);text-decoration:none}
+.term{padding:20px 0;border-bottom:1px solid rgba(43,36,30,.16)}
+.term-word{font-size:1.25rem;color:var(--terracota);font-weight:bold;margin-bottom:5px}
+.term p{font-size:.94rem;color:var(--marrom);margin:0}
+
+/* ---------- FAQ ---------- */
+.faq-group{margin-bottom:36px}
+.faq-group h2{font-size:1.4rem;color:var(--oliva);border-bottom:1px solid var(--marrom);padding-bottom:9px;margin-bottom:6px}
+.faq-item{border-bottom:1px solid rgba(43,36,30,.16);padding:18px 0}
+.faq-item summary{font-size:1.05rem;cursor:pointer;color:var(--marrom);font-weight:bold;list-style:none;font-family:var(--serif)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::before{content:"+ ";color:var(--terracota);font-weight:bold}
+.faq-item[open] summary::before{content:"– "}
+.faq-item p{margin-top:12px;font-size:.92rem}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--marrom);color:var(--creme);padding:50px 0 26px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:34px;margin-bottom:30px}
+.footer-grid h5{color:var(--terracota);margin-bottom:13px;font-size:1rem}
+.footer-grid ul{list-style:none}
+.footer-grid li{padding:4px 0;font-size:.85rem}
+.footer-grid p{font-size:.85rem;opacity:.85;max-width:340px}
+.footer-grid a{color:var(--creme);opacity:.85}
+.footer-grid a:hover{opacity:1;color:var(--terracota);text-decoration:none}
+.footer-bottom{border-top:1px solid rgba(246,241,231,.22);padding-top:18px;font-size:.78rem;opacity:.78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* ---------- Páginas específicas (opcionais por página) ---------- */
+.app-cover,.sobre-cover{overflow:hidden;aspect-ratio:16/9;margin:26px 0;border:1px solid rgba(43,36,30,.2)}
+.app-cover img,.sobre-cover img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-sidebar{border-left:none;border-top:1px solid var(--marrom);padding-left:0;padding-top:26px}
+  .post{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .card.featured{grid-column:span 2}
+  .app-section .container{grid-template-columns:1fr}
+  .app-mock{margin-top:20px}
+  .footer-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .card.featured{grid-column:span 1}
+  .hero-main h1{font-size:2rem}
+  .header-inner{flex-direction:column;align-items:flex-start}
+  .team-grid{grid-template-columns:1fr}
+  .section-head{flex-direction:column;align-items:flex-start}
+}
+  </style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23b4472a'/%3E%3Ctext x='16' y='22' font-size='13' text-anchor='middle' fill='%23fff' font-family='Georgia,serif' font-weight='bold'%3EPC%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Marmita de cinco dias: como montar sem repetir o mesmo tempero · Panela Cheia">
+<meta property="og:description" content="Monte 5 marmitas no domingo sem repetir o mesmo tempero: ordem de cozimento por textura, 3 bases que rendem pratos diferentes e o recipiente certo.">
+<meta property="og:url" content="https://panelacheia.cfd/marmita-da-semana-cinco-dias.html">
+<meta property="og:image" content="https://panelacheia.cfd/img/marmita-da-semana-cinco-dias.jpg">
+<meta property="og:site_name" content="Panela Cheia">
+</head><body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="safe.html" class="brand">Panela Cheia<small>Cozinha caseira, sem enrolação</small></a>
+    <nav class="site-nav">
+      <ul>
+        <li><a href="safe.html">Início</a></li>
+        <li><a href="app.html">App</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="faq.html">Dúvidas</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="safe.html">Início</a> / <a href="safe.html#planejamento">Planejamento da semana</a> / Marmita de cinco dias: como montar sem repetir o mesmo tempero
+</div>
+
+<article class="post">
+  <div class="post-main">
+    <div class="post-header" style="padding:0 0 0 0">
+      <span class="kicker">Planejamento da semana</span>
+      <h1>Marmita de cinco dias: como montar sem repetir o mesmo tempero</h1>
+      <p class="dek">Como montar 5 marmitas no domingo sem repetir o mesmo tempero base até quarta-feira.</p>
+      <div class="meta">Planejamento da semana · 10/03/2026 · por Equipe Panela Cheia</div>
+    </div>
+
+    <img src="img/marmita-da-semana-cinco-dias.jpg" alt="Cinco potes de marmita organizados sobre a bancada da cozinha, cada um com um prato diferente" loading="lazy" class="cover" style="margin:22px 0;aspect-ratio:16/9;object-fit:cover;overflow:hidden">
+
+    <p>Domingo à tarde, cinco potes na bancada e a mesma dúvida de sempre: como fazer o almoço da semana inteira sem comer a mesma coisa com gosto de "tempero de panela grande" todo santo dia? A resposta não está em cozinhar cinco receitas do zero — isso ninguém tem tempo pra fazer num domingo só. Está em separar o problema em duas partes: <strong>a ordem em que você cozinha</strong> (porque nem todo alimento aguenta ser reaquecido igual) e <strong>como variar o tempero</strong> sem multiplicar o trabalho.</p>
+
+    <p>Este é o roteiro que resolve as duas partes juntas, do jeito que dá pra terminar em uma tarde de domingo.</p>
+
+    <h2>Primeiro, a ordem de cozimento — por textura, não por prato</h2>
+    <p>O erro mais comum de quem monta marmita pela primeira vez é cozinhar na ordem que os pratos "fazem sentido" (arroz, depois carne, depois legume). O problema é que cada textura reage diferente ao reaquecimento de três, quatro dias depois — e se você não pensar nisso na hora de cozinhar, a marmita de quarta-feira vai chegar mole, seca ou sem graça.</p>
+    <p>A lógica certa é cozinhar primeiro o que <em>resiste melhor</em> ao reaquecimento e guardar por último o que é mais sensível:</p>
+    <table class="tempos">
+      <tr><th>Grupo</th><th>Exemplos</th><th>Resistência ao reaquecimento</th><th>Ordem de cozimento</th></tr>
+      <tr><td>Grãos e leguminosas</td><td>feijão, grão-de-bico, lentilha</td><td>Alta — melhora com o tempo</td><td>1º (pode ser o de domingo cedo)</td></tr>
+      <tr><td>Carnes de cozimento longo</td><td>carne de panela, frango desfiado</td><td>Alta — o caldo protege a fibra</td><td>2º</td></tr>
+      <tr><td>Tubérculos e raízes</td><td>batata, mandioca, cenoura em cubos</td><td>Média — pode ressecar se assada</td><td>3º</td></tr>
+      <tr><td>Arroz</td><td>branco, integral</td><td>Média — precisa de um respingo de água no reaquecimento</td><td>4º</td></tr>
+      <tr><td>Legumes verdes e crocantes</td><td>brócolis, vagem, abobrinha grelhada</td><td>Baixa — perdem textura rápido</td><td>5º, o mais próximo possível de guardar</td></tr>
+    </table>
+    <p>Na prática: você começa pelo feijão ou pela carne de panela, que ficam no fogo enquanto você prepara o resto, e deixa os legumes verdes por último, já quase na hora de distribuir nos potes. Se sua marmita de quinta-feira tiver brócolis, vale a pena até fazer esse item na véspera em vez de no domingo — a diferença de crocância no prato pronto é grande.</p>
+
+    <h3>Por que isso importa mais do que o tempero</h3>
+    <p>Comida com textura errada parece "sem sabor" mesmo com tempero perfeito, porque o cérebro associa sabor à mastigação. Um brócolis murcho reaquecido no micro-ondas dá a sensação de comida requentada mesmo que o tempero seja idêntico ao do dia em que foi feito. Resolver a textura primeiro é o que faz a marmita de quarta-feira ter gosto de "recém-feita".</p>
+
+    <h2>Depois, o tempero — três bases, cinco pratos</h2>
+    <p>Aqui está o segredo real de quem monta marmita de cinco dias sem enjoar: você não faz cinco temperos, faz <strong>três bases</strong> e distribui cada uma em dois pratos diferentes, variando o que entra por cima. Se quiser entender por que a ordem de adicionar sal muda o resultado de cada base, o texto sobre <a href="sal-quando-e-quanto.html">sal — quando e quanto colocar em cada preparo</a> ajuda a calibrar esse ponto.</p>
+
+    <h3>Base 1 — refogado de alho e cebola com louro</h3>
+    <p>É a base clássica do feijão e da carne de panela. Refogue cebola picada até dourar, junte alho amassado só no final (queima fácil), acrescente uma folha de louro no cozimento. Essa base sustenta dois pratos completamente diferentes: um feijão simples e uma carne desfiada no molho — o sabor de fundo é o mesmo, mas a proteína e o acompanhamento mudam totalmente a percepção.</p>
+
+    <h3>Base 2 — tempero seco de cominho, páprica e pimenta-do-reino</h3>
+    <p>Ideal pra frango grelhado ou assado e pra legumes que vão pro forno ou pra air fryer. É uma base "seca", sem líquido, que você pode misturar de uma vez em pote e usar em porções pros dois pratos. Se for grelhar o frango em vez de assar, o texto sobre <a href="ponto-da-carne-grelhada.html">o ponto da carne na grelha</a> mostra como saber quando virar sem cortar pra checar.</p>
+
+    <h3>Base 3 — molho de tomate com orégano e um toque de azeite</h3>
+    <p>Serve de base pro quinto prato — pode ser um arroz de forno, um filé ao molho ou até um legume gratinado. É a base mais versátil porque aceita quase qualquer proteína ou vegetal que sobrou da semana.</p>
+
+    <blockquote>O segredo não é temperar cinco vezes. É fazer três bases de fundo bem feitas e deixar que a proteína, o método de cozimento e o acompanhamento façam o trabalho de parecerem pratos diferentes.</blockquote>
+
+    <p>Com essas três bases você cobre as cinco marmitas sem repetir o gosto de segunda a sexta — e sem multiplicar o tempo de tempero, que costuma ser a parte mais chata de organizar o domingo.</p>
+
+    <h2>Recipiente e vedação: onde a marmita se perde antes de chegar na mesa</h2>
+    <p>Escolher o pote certo evita dois problemas clássicos: vazamento na bolsa térmica e comida ressecada no reaquecimento. Alguns pontos que fazem diferença real:</p>
+    <ul>
+      <li><strong>Divisórias internas para o que precisa ficar separado</strong> — arroz e feijão podem ir juntos, mas o legume crocante do último dia da lista da tabela acima deve ficar num compartimento à parte, senão ele cozinha no vapor dos outros itens e perde a textura.</li>
+      <li><strong>Tampa com trava nas quatro pontas</strong>, não só encaixe de pressão no centro — é o que evita o caldo do feijão escorrer dentro da bolsa térmica no transporte.</li>
+      <li><strong>Vidro para quem vai ao micro-ondas com frequência</strong> — aquece de forma mais uniforme que plástico e não retém odor de tempero de um dia pro outro; plástico tolerante a micro-ondas resolve se o vidro pesar demais pro transporte.</li>
+      <li><strong>Um respingo de água antes de reaquecer o arroz</strong> — meia colher de sopa por pote, direto sobre o arroz, antes de tampar frouxo e levar ao micro-ondas. É o que evita ele sair seco no dia quatro ou cinco.</li>
+      <li><strong>Potes do mesmo tamanho e formato</strong> — parece detalhe estético, mas empilha melhor na geladeira e evita abrir o pote errado com pressa de manhã.</li>
+    </ul>
+
+    <p>Se algum prato da semana sobrar em quantidade maior do que cabe nas cinco marmitas, vale considerar o congelamento em vez de forçar tudo na semana corrente — o texto sobre <a href="congelamento-correto-sobras.html">congelamento correto do que rende e do que estraga a textura</a> mostra quais preparos aguentam o freezer bem e quais perdem a graça.</p>
+
+    <h2>Roteiro de domingo, do início ao fim</h2>
+    <ol>
+      <li><strong>Manhã:</strong> deixe o feijão ou o grão-de-bico de molho enquanto organiza a bancada e separa os potes.</li>
+      <li><strong>Meio-dia:</strong> cozinhe a leguminosa e, na sequência, a carne de panela — os dois no fogo baixo enquanto você prepara o resto.</li>
+      <li><strong>Início da tarde:</strong> tubérculos e arroz, na ordem da tabela.</li>
+      <li><strong>Fim da tarde:</strong> legumes verdes por último, o mais próximo possível de montar os potes, pra chegarem crocantes na primeira mordida de cada dia.</li>
+      <li><strong>Montagem:</strong> distribua nos potes já frios (comida quente no pote gera condensação e estraga a textura mais rápido), etiquete com o dia da semana e leve à geladeira.</li>
+    </ol>
+    <p>Se preferir não decorar essa ordem de cabeça toda semana, o app Recheio deixa isso registrado — você monta o cardápio das cinco marmitas uma vez e ele guarda a ordem de cozimento e a lista de compras pra próxima vez que repetir o ciclo.</p>
+
+    <h2>Conclusão</h2>
+    <p>Marmita de cinco dias sem enjoar não depende de receita nova todo domingo — depende de organizar o que já funciona: cozinhar por ordem de resistência à geladeira, variar duas ou três bases de tempero em cinco combinações diferentes e guardar tudo num pote que não deixa a textura se perder no caminho. Feito isso uma vez, o domingo de preparo fica mais curto a cada semana, porque você já sabe exatamente por onde começar.</p>
+  </div>
+
+  <aside class="box related" style="align-self:start">
+    <h4>Leia também</h4>
+    <ul class="related-list">
+      <li><span>Técnica</span><a href="arroz-soltinho-sem-grudar.html">Arroz soltinho sem grudar: a proporção 1:2 que funciona sempre</a></li>
+      <li><span>Aproveitamento</span><a href="talos-e-cascas-caldo.html">Talos de couve, cascas de cebola e o caldo caseiro que rende 2 litros</a></li>
+      <li><span>Organização</span><a href="congelamento-correto-sobras.html">Congelamento correto: o que rende e o que estraga a textura</a></li>
+    </ul>
+  </aside>
+</article>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h5>Panela Cheia</h5>
+        <p>Blog de cozinha caseira brasileira: técnica de base, aproveitamento integral dos alimentos e planejamento das refeições da semana. Editado por quem cozinha todo dia.</p>
+      </div>
+      <div>
+        <h5>Navegue</h5>
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="app.html">App Recheio</a></li>
+          <li><a href="glossario.html">Glossário</a></li>
+          <li><a href="faq.html">Dúvidas frequentes</a></li>
+          <li><a href="sobre.html">Sobre o Panela Cheia</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Institucional</h5>
+        <ul>
+          <li><a href="privacidade.html">Política de Privacidade</a></li>
+          <li><a href="termos.html">Termos de Uso</a></li>
+          <li><a href="sobre.html#contato">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Panela Cheia. Todos os direitos reservados.</span>
+      <span>Feito por quem cozinha todo santo dia.</span>
+    </div>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Congelamento correto: o que rende e o que estraga a textura · Panela Cheia</title>
+  <meta name="description" content="O que congela bem, o que perde a textura no freezer e como descongelar sem virar caldo: guia prático de congelamento e etiquetagem para a cozinha de casa.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://panelacheia.cfd/congelamento-correto-sobras.html">
+  <style>
+:root{
+  --terracota:#B4472A;
+  --terracota-dark:#8f3820;
+  --creme:#F6F1E7;
+  --oliva:#3E4B34;
+  --marrom:#2B241E;
+  --offwhite:#FFFDF8;
+  --radius:3px;
+  --serif:"Palatino Linotype","Book Antiqua",Georgia,serif;
+  --sans:"Trebuchet MS",Tahoma,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--creme);color:var(--marrom);line-height:1.65;font-size:16px}
+img{max-width:100%;display:block}
+a{color:var(--terracota);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1140px;margin:0 auto;padding:0 20px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:normal}
+hr.rule{border:none;border-top:1px solid var(--marrom);margin:0}
+
+/* ---------- Header ---------- */
+.site-header{background:var(--offwhite);border-bottom:3px solid var(--terracota);position:sticky;top:0;z-index:20}
+.header-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;max-width:1140px;margin:0 auto;flex-wrap:wrap;gap:14px}
+.brand{font-family:var(--serif);font-size:1.65rem;font-style:italic;color:var(--terracota);letter-spacing:.3px;line-height:1.1}
+.brand small{display:block;font-family:var(--sans);font-style:normal;font-size:.6rem;letter-spacing:2px;color:var(--oliva);text-transform:uppercase;margin-top:3px}
+.site-nav ul{display:flex;gap:22px;list-style:none;flex-wrap:wrap}
+.site-nav a{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--oliva);font-weight:bold;padding-bottom:4px;border-bottom:2px solid transparent}
+.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota);text-decoration:none}
+.site-nav a.active{color:var(--terracota);border-bottom-color:var(--terracota)}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb{font-size:.78rem;color:var(--oliva);padding:16px 20px;max-width:1140px;margin:0 auto}
+.breadcrumb a{color:var(--oliva)}
+.breadcrumb a:hover{color:var(--terracota)}
+
+/* ---------- Hero editorial (home) ---------- */
+.hero{padding:46px 0 38px;border-bottom:1px solid var(--marrom)}
+.hero-grid{display:grid;grid-template-columns:2.1fr 1fr;gap:44px;max-width:1140px;margin:0 auto;padding:0 20px}
+.hero-main .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:var(--terracota);font-weight:bold}
+.hero-main h1{font-size:2.6rem;line-height:1.15;margin:12px 0 16px;color:var(--marrom)}
+.hero-main p.lead{font-size:1.08rem;max-width:580px;margin-bottom:22px;color:var(--marrom)}
+.hero-sidebar{border-left:1px solid var(--marrom);padding-left:30px}
+.hero-sidebar h2{font-size:1rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;color:var(--oliva);border-bottom:2px solid var(--oliva);padding-bottom:9px}
+.summary-list{list-style:none}
+.summary-list li{padding:9px 0;border-bottom:1px solid rgba(43,36,30,.15);font-size:.88rem;display:flex;justify-content:space-between;gap:8px}
+.summary-list li span.count{color:var(--terracota);font-weight:bold;font-family:var(--serif)}
+
+/* ---------- Page hero (páginas internas) ---------- */
+.page-hero{padding:42px 0 30px;border-bottom:1px solid var(--marrom)}
+.page-hero .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:var(--terracota);font-weight:bold}
+.page-hero h1{font-size:2.3rem;margin:10px 0 12px;color:var(--marrom)}
+.page-hero p{max-width:660px;color:var(--oliva);font-size:1.05rem}
+
+/* ---------- Sections / rhythm ---------- */
+.section{padding:58px 0}
+.section.tight{padding:34px 0}
+.section.wide{padding:74px 0}
+.section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:30px;border-bottom:1px solid var(--marrom);padding-bottom:11px;flex-wrap:wrap;gap:10px}
+.section-head h2{font-size:1.9rem;color:var(--marrom)}
+.section-head .sub{font-size:.82rem;color:var(--oliva);text-transform:uppercase;letter-spacing:1px}
+.intro-text{max-width:760px;font-size:1.02rem;margin-bottom:10px}
+.lead-lg{font-family:var(--serif);font-size:1.2rem;color:var(--marrom)}
+
+/* ---------- Grid + cards (magazine) ---------- */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.card{background:var(--offwhite);border:1px solid rgba(43,36,30,.2);display:flex;flex-direction:column}
+.card.featured{grid-column:span 2;grid-row:span 2}
+.card .thumb{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--oliva)}
+.card.featured .thumb{aspect-ratio:16/10}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card .body{padding:16px 18px 20px;display:flex;flex-direction:column;flex:1}
+.card .cat{font-size:.66rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--terracota);font-weight:bold;margin-bottom:7px}
+.card h3{font-family:var(--serif);font-size:1.12rem;line-height:1.32;margin-bottom:8px;color:var(--marrom)}
+.card.featured h3{font-size:1.5rem}
+.card p{font-size:.88rem;color:var(--marrom);flex:1;margin-bottom:12px}
+.card .meta{font-size:.7rem;color:var(--oliva);border-top:1px solid rgba(43,36,30,.14);padding-top:9px;display:flex;justify-content:space-between}
+.card .meta a{color:var(--terracota);font-weight:bold}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-block;background:var(--terracota);color:var(--offwhite);padding:13px 28px;font-family:var(--sans);font-weight:bold;font-size:.85rem;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:var(--radius);cursor:pointer}
+.btn:hover{background:var(--terracota-dark);text-decoration:none}
+.btn.outline{background:transparent;border:2px solid var(--oliva);color:var(--oliva);padding:11px 26px}
+.btn.outline:hover{background:var(--oliva);color:var(--offwhite)}
+
+/* ---------- Post / artigo ---------- */
+.post-header{max-width:1140px;margin:0 auto;padding:20px 20px 0}
+.post-header .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:var(--terracota);font-weight:bold}
+.post-header h1{font-size:2.3rem;margin:10px 0 14px;color:var(--marrom)}
+.post-header .dek{font-size:1.05rem;color:var(--oliva);margin-bottom:16px;max-width:760px}
+.post-header .meta{font-size:.8rem;color:var(--marrom);border-bottom:1px solid var(--marrom);padding-bottom:18px;margin-bottom:8px}
+.post-cover{margin:22px auto;max-width:1140px;overflow:hidden;aspect-ratio:16/9}
+.post-cover img{width:100%;height:100%;object-fit:cover}
+.post{display:grid;grid-template-columns:1fr 300px;gap:46px;padding:10px 20px 60px;max-width:1140px;margin:0 auto}
+.post-main h2{font-size:1.5rem;margin:34px 0 14px;color:var(--marrom);border-bottom:2px solid var(--terracota);padding-bottom:7px;display:inline-block}
+.post-main h3{font-size:1.2rem;margin:26px 0 10px;color:var(--oliva)}
+.post-main p{margin-bottom:16px}
+.post-main ul,.post-main ol{margin:0 0 16px 22px}
+.post-main li{margin-bottom:7px}
+blockquote{border-left:4px solid var(--terracota);padding:8px 22px;font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--marrom);margin:24px 0;background:rgba(180,71,42,.06)}
+
+table.tempos{width:100%;border-collapse:collapse;margin:22px 0;font-size:.9rem}
+table.tempos th{background:var(--oliva);color:var(--offwhite);text-align:left;padding:10px 12px;font-family:var(--sans);text-transform:uppercase;font-size:.7rem;letter-spacing:1px}
+table.tempos td{padding:10px 12px;border-bottom:1px solid rgba(43,36,30,.15)}
+table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
+
+.ingredientes{border:1px solid var(--marrom);padding:22px 24px;margin:26px 0;background:var(--offwhite)}
+.ingredientes h3{margin-bottom:12px;color:var(--terracota)}
+.ingredientes ul{list-style:none;margin:0}
+.ingredientes li{padding:7px 0;border-bottom:1px dashed rgba(43,36,30,.22);font-size:.92rem}
+
+.box{border:1px solid rgba(43,36,30,.28);padding:22px;margin-bottom:28px;background:var(--offwhite)}
+.box h4{font-size:1rem;text-transform:uppercase;letter-spacing:1px;color:var(--oliva);border-bottom:2px solid var(--oliva);padding-bottom:9px;margin-bottom:14px}
+.related-list{list-style:none}
+.related-list li{padding:11px 0;border-bottom:1px solid rgba(43,36,30,.13)}
+.related-list li:last-child{border-bottom:none}
+.related-list li a{color:var(--marrom);font-weight:bold;font-size:.92rem}
+.related-list li span{display:block;font-size:.7rem;color:var(--terracota);text-transform:uppercase;margin-bottom:3px;letter-spacing:.5px}
+.related{margin:40px 0 0}
+
+/* ---------- App section ---------- */
+.app-section{background:var(--oliva);color:var(--creme);padding:66px 0}
+.app-section .container{display:grid;grid-template-columns:1.1fr 1fr;gap:52px;align-items:center}
+.app-section h2{font-size:2rem;color:var(--creme);margin-bottom:14px}
+.app-section p{color:var(--creme);opacity:.92;margin-bottom:16px}
+.app-features{list-style:none;margin:18px 0 22px}
+.app-features li{padding:9px 0;border-bottom:1px solid rgba(246,241,231,.22);font-size:.9rem}
+.app-mock{background:var(--marrom);border:7px solid #1c1712;border-radius:22px;padding:14px;max-width:270px;margin:0 auto;box-sizing:content-box}
+.app-mock .screen{background:var(--offwhite);border-radius:10px;padding:16px;color:var(--marrom);min-height:400px}
+.app-mock .screen h5{color:var(--terracota);font-size:1rem;margin-bottom:12px;border-bottom:2px solid var(--terracota);padding-bottom:7px}
+.app-mock .day{display:flex;justify-content:space-between;font-size:.74rem;padding:7px 0;border-bottom:1px dashed rgba(43,36,30,.22)}
+.app-mock .day b{font-family:var(--serif)}
+.app-mock .tag{background:var(--oliva);color:var(--offwhite);font-size:.6rem;padding:2px 7px;border-radius:2px;text-transform:uppercase}
+.app-mock .list-title{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--oliva);margin:14px 0 6px}
+.app-mock .list-item{font-size:.74rem;padding:4px 0;display:flex;gap:7px;align-items:center;color:var(--marrom)}
+.app-mock .list-item::before{content:"☐";color:var(--terracota)}
+
+/* ---------- Como funciona (steps) ---------- */
+.steps{list-style:none;counter-reset:step}
+.steps li{counter-increment:step;position:relative;padding:18px 0 18px 52px;border-bottom:1px solid rgba(43,36,30,.15)}
+.steps li::before{content:counter(step);position:absolute;left:0;top:16px;width:34px;height:34px;border:2px solid var(--terracota);color:var(--terracota);font-family:var(--serif);font-weight:bold;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.steps li h4{color:var(--marrom);margin-bottom:5px;font-size:1.05rem}
+.steps li p{font-size:.9rem;color:var(--marrom);margin:0}
+
+/* ---------- Newsletter ---------- */
+.newsletter{background:var(--offwhite);border-top:1px solid var(--marrom);border-bottom:1px solid var(--marrom);padding:50px 0}
+.newsletter .inner{max-width:640px;margin:0 auto;text-align:center}
+.newsletter h2{font-size:1.6rem;margin-bottom:10px;color:var(--marrom)}
+.newsletter p{color:var(--oliva);font-size:.95rem}
+.newsletter form{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.newsletter input[type=email]{flex:1;min-width:230px;padding:13px 15px;border:1px solid var(--marrom);background:var(--creme);font-family:var(--sans);font-size:.9rem}
+.newsletter .thanks{display:none;color:var(--oliva);font-weight:bold;margin-top:16px;font-size:.9rem}
+
+/* ---------- Sobre / equipe ---------- */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:26px 0}
+.team-card{border:1px solid rgba(43,36,30,.22);padding:20px;background:var(--offwhite)}
+.team-card .avatar{width:64px;height:64px;border-radius:50%;background:var(--oliva);color:var(--offwhite);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.5rem;margin-bottom:14px}
+.team-card h4{font-size:1.05rem;color:var(--marrom);margin-bottom:2px}
+.team-card .role{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--terracota);margin-bottom:10px}
+.team-card p{font-size:.85rem;color:var(--marrom)}
+.policy-list{margin:14px 0 0 0}
+.policy-list li{padding:10px 0;border-bottom:1px solid rgba(43,36,30,.14);font-size:.92rem;list-style:none}
+.contact-box{border:2px solid var(--oliva);padding:26px;margin:30px 0}
+.contact-box h3{color:var(--oliva);margin-bottom:10px}
+
+/* ---------- Glossário ---------- */
+.glossary-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.glossary-nav a{border:1px solid var(--oliva);padding:5px 11px;font-size:.8rem;color:var(--oliva);border-radius:var(--radius)}
+.glossary-nav a:hover{background:var(--oliva);color:var(--offwhite);text-decoration:none}
+.term{padding:20px 0;border-bottom:1px solid rgba(43,36,30,.16)}
+.term-word{font-size:1.25rem;color:var(--terracota);font-weight:bold;margin-bottom:5px}
+.term p{font-size:.94rem;color:var(--marrom);margin:0}
+
+/* ---------- FAQ ---------- */
+.faq-group{margin-bottom:36px}
+.faq-group h2{font-size:1.4rem;color:var(--oliva);border-bottom:1px solid var(--marrom);padding-bottom:9px;margin-bottom:6px}
+.faq-item{border-bottom:1px solid rgba(43,36,30,.16);padding:18px 0}
+.faq-item summary{font-size:1.05rem;cursor:pointer;color:var(--marrom);font-weight:bold;list-style:none;font-family:var(--serif)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::before{content:"+ ";color:var(--terracota);font-weight:bold}
+.faq-item[open] summary::before{content:"– "}
+.faq-item p{margin-top:12px;font-size:.92rem}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--marrom);color:var(--creme);padding:50px 0 26px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:34px;margin-bottom:30px}
+.footer-grid h5{color:var(--terracota);margin-bottom:13px;font-size:1rem}
+.footer-grid ul{list-style:none}
+.footer-grid li{padding:4px 0;font-size:.85rem}
+.footer-grid p{font-size:.85rem;opacity:.85;max-width:340px}
+.footer-grid a{color:var(--creme);opacity:.85}
+.footer-grid a:hover{opacity:1;color:var(--terracota);text-decoration:none}
+.footer-bottom{border-top:1px solid rgba(246,241,231,.22);padding-top:18px;font-size:.78rem;opacity:.78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* ---------- Páginas específicas (opcionais por página) ---------- */
+.app-cover,.sobre-cover{overflow:hidden;aspect-ratio:16/9;margin:26px 0;border:1px solid rgba(43,36,30,.2)}
+.app-cover img,.sobre-cover img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-sidebar{border-left:none;border-top:1px solid var(--marrom);padding-left:0;padding-top:26px}
+  .post{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .card.featured{grid-column:span 2}
+  .app-section .container{grid-template-columns:1fr}
+  .app-mock{margin-top:20px}
+  .footer-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .card.featured{grid-column:span 1}
+  .hero-main h1{font-size:2rem}
+  .header-inner{flex-direction:column;align-items:flex-start}
+  .team-grid{grid-template-columns:1fr}
+  .section-head{flex-direction:column;align-items:flex-start}
+}
+  </style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23b4472a'/%3E%3Ctext x='16' y='22' font-size='13' text-anchor='middle' fill='%23fff' font-family='Georgia,serif' font-weight='bold'%3EPC%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Congelamento correto: o que rende e o que estraga a textura · Panela Cheia">
+<meta property="og:description" content="O que congela bem, o que perde a textura no freezer e como descongelar sem virar caldo: guia prático de congelamento e etiquetagem para a cozinha de casa.">
+<meta property="og:url" content="https://panelacheia.cfd/congelamento-correto-sobras.html">
+<meta property="og:image" content="https://panelacheia.cfd/img/congelamento-correto-sobras.jpg">
+<meta property="og:site_name" content="Panela Cheia">
+</head><body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="safe.html" class="brand">Panela Cheia<small>Cozinha caseira, sem enrolação</small></a>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="app.html">App</a></li>
+          <li><a href="glossario.html">Glossário</a></li>
+          <li><a href="faq.html">Dúvidas</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb">
+    <a href="safe.html">Início</a> / <a href="safe.html">Planejamento da semana</a> / Congelamento correto: o que rende e o que estraga a textura
+  </div>
+
+  <article class="post">
+    <div class="post-main">
+      <header class="post-header" style="padding:0 0 0 0;max-width:none">
+        <div class="kicker">Planejamento da semana</div>
+        <h1>Congelamento correto: o que rende e o que estraga a textura</h1>
+        <div class="meta">Planejamento da semana · 20/02/2026 · por Equipe Panela Cheia</div>
+      </header>
+
+      <img src="img/congelamento-correto-sobras.jpg" alt="Potes de vidro com sobras de comida etiquetados, organizados dentro do congelador" loading="lazy" class="cover" style="margin:18px 0 24px;aspect-ratio:16/9;object-fit:cover;width:100%">
+
+      <p>Toda casa tem aquele pote esquecido no fundo do freezer, sem etiqueta, sem data, que ninguém tem coragem de abrir. E toda casa também já passou pelo susto contrário: descongelar a batata cozida da sopa e encontrar uma pasta granulada sem graça nenhuma. O congelamento é uma ferramenta ótima para não desperdiçar comida e organizar a semana, mas ele tem regras — e ignorá-las é o motivo pelo qual tanta gente decide, na prática, que "congelado não presta". Não é o freezer que estraga a comida. É o preparo errado antes de guardar.</p>
+
+      <h2>O que não congela bem</h2>
+      <p>Antes de separar potes, vale saber o que o frio realmente destrói. O gelo forma cristais dentro dos alimentos, e alguns ingredientes não sobrevivem a esse processo sem perder a estrutura.</p>
+      <ul>
+        <li><strong>Batata cozida inteira:</strong> a água dentro das células da batata congela, expande e rompe a fibra. No descongelamento, ela solta e vira uma massa arenosa — boa para purê de emergência, péssima para servir em pedaços numa sopa ou num nhoque.</li>
+        <li><strong>Arroz com molho cremoso ou creme de leite:</strong> a gordura do creme se separa da água ao descongelar, e o resultado é uma textura talhada, quase granulada. O arroz branco simples congela bem; o arroz já misturado com molho branco, não.</li>
+        <li><strong>Maionese e preparos com maionese:</strong> a emulsão da maionese quebra no congelamento. Salada de batata com maionese, por exemplo, sai do freezer com a maionese "rala" e a água solta no fundo do pote.</li>
+        <li><strong>Alface, pepino e vegetais de alta umidade crus:</strong> ficam murchos e aguados, porque a água que compõe quase toda a folha vira cristal e depois vaza.</li>
+        <li><strong>Ovos cozidos com casca ou clara cozida isolada:</strong> a clara fica com uma textura de borracha emborrachada, quase intragável.</li>
+      </ul>
+      <p>Por outro lado, caldos, feijão, carnes cozidas em molho, sopas sem creme de leite e massas de bolo crua costumam congelar muito bem — inclusive rendem mais quando você já separa em porções, como explicamos em <a href="marmita-da-semana-cinco-dias.html">marmita de cinco dias sem repetir tempero</a>.</p>
+
+      <h3>O caldo caseiro é o campeão do congelamento</h3>
+      <p>Se tem um preparo que vale a pena fazer em lote grande só para congelar, é o caldo. Ele não perde textura porque já é líquido — o gelo não tem estrutura para quebrar. Vale reaproveitar talos e cascas exatamente para isso, como mostramos em <a href="talos-e-cascas-caldo.html">talos de couve, cascas de cebola e o caldo que rende 2 litros</a>: divide em potes de 250 ml ou 500 ml, etiqueta e usa direto na panela sem descongelar antes.</p>
+
+      <h2>Como descongelar sem virar caldo</h2>
+      <p>A maior parte da textura perdida não vem do congelamento em si — vem do jeito errado de descongelar. Isso vale principalmente para carnes e preparos com caldo.</p>
+
+      <h3>Geladeira: o método lento e correto</h3>
+      <p>Transferir o pote do freezer para a geladeira na noite anterior é o método mais seguro e o que preserva melhor a textura. O degelo lento permite que a água derretida seja reabsorvida gradualmente pela fibra do alimento, em vez de simplesmente escorrer para fora. Para um pedaço de carne de <a href="ponto-da-carne-grelhada.html">ponto da carne na grelha</a>, por exemplo, esse é o único método recomendado antes de levar à frigideira — carne descongelada rápido demais sua muito ao ser grelhada e perde suculência.</p>
+
+      <h3>Micro-ondas: rápido, mas exige atenção</h3>
+      <p>Funciona bem quando o alimento vai ser usado imediatamente — sopa, caldo, feijão já pronto. O problema é o descongelamento desigual: as bordas do pote esquentam e começam a cozinhar enquanto o centro continua congelado. Use a função de descongelar em potência baixa, pare a cada 1–2 minutos para misturar, e nunca deixe terminar o ciclo automático sem checar o centro do pote.</p>
+
+      <blockquote>Regra prática de cozinha: o que vai direto para a panela ou para o forno pode ir congelado. O que vai para a frigideira ou para a churrasqueira precisa descongelar antes, e de preferência na geladeira.</blockquote>
+
+      <table class="tempos">
+        <thead><tr><th>Alimento</th><th>Tempo de congelamento seguro</th><th>Melhor forma de descongelar</th></tr></thead>
+        <tbody>
+          <tr><td>Caldo caseiro (talos/cascas)</td><td>até 3 meses</td><td>direto na panela, sem descongelar</td></tr>
+          <tr><td>Feijão ou grão-de-bico cozido</td><td>até 3 meses</td><td>geladeira 8–12h ou direto na panela</td></tr>
+          <tr><td>Carne cozida em molho</td><td>até 2 meses</td><td>geladeira 12h</td></tr>
+          <tr><td>Carne crua para grelhar</td><td>até 2 meses</td><td>geladeira 12–24h (nunca na bancada)</td></tr>
+          <tr><td>Arroz branco simples</td><td>até 1 mês</td><td>micro-ondas com um fio de água</td></tr>
+          <tr><td>Massa de bolo crua</td><td>até 1 mês</td><td>geladeira até assar</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Etiquetagem por data: o passo que todo mundo pula</h2>
+      <p>O erro mais comum não é técnico, é organizacional: guardar sem etiqueta. Sem data, ninguém sabe se aquele pote é de duas semanas ou de quatro meses, e a decisão mais segura acaba sendo jogar fora — desperdiçando comida boa por falta de informação.</p>
+      <ul>
+        <li>Anote sempre <strong>o conteúdo e a data em que foi congelado</strong>, direto na tampa ou numa fita de papel.</li>
+        <li>Organize o freezer por ordem de chegada: o que entrou primeiro fica na frente, para ser consumido primeiro.</li>
+        <li>Prefira potes rasos e retangulares a potes fundos — congelam mais rápido e por igual, o que ajuda a preservar a textura.</li>
+        <li>Separe em porções individuais ou por refeição, para não precisar descongelar tudo de uma vez só para usar uma parte.</li>
+      </ul>
+      <p>Essa etiquetagem é justamente uma das rotinas que o app Recheio ajuda a manter: você registra o que congelou e a data, e ele avisa quando um item está perto do prazo de consumo recomendado, para entrar no cardápio da semana antes de perder qualidade. Vale conhecer em <a href="app.html">app.html</a>.</p>
+
+      <h2>Conclusão</h2>
+      <p>Congelar bem não é sobre ter um freezer grande, é sobre saber o que vai lá dentro e como vai sair. Evite guardar preparos com maionese, creme de leite ou batata cozida inteira, prefira descongelar na geladeira quando a textura importa, e nunca guarde nada sem etiqueta. Com essas três regras, o congelamento deixa de ser um risco e passa a ser exatamente o que deveria ser desde o início: a ferramenta que evita desperdício e facilita o planejamento da semana na cozinha.</p>
+
+      <div class="box related">
+        <h4>Leia também</h4>
+        <ul class="related-list">
+          <li><span>Aproveitamento</span><a href="talos-e-cascas-caldo.html">Talos de couve, cascas de cebola e o caldo caseiro que rende 2 litros</a></li>
+          <li><span>Planejamento da semana</span><a href="marmita-da-semana-cinco-dias.html">Marmita de cinco dias: como montar sem repetir o mesmo tempero</a></li>
+          <li><span>Técnica</span><a href="ponto-da-carne-grelhada.html">Ponto da carne na grelha: o teste do dedo e o termômetro de cozinha</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <aside class="post-sidebar">
+      <div class="box">
+        <h4>Nesta categoria</h4>
+        <ul class="related-list">
+          <li><span>Planejamento</span><a href="marmita-da-semana-cinco-dias.html">Marmita de cinco dias sem repetir tempero</a></li>
+          <li><span>Base da cozinha</span><a href="panela-de-pressao-guia-tempos.html">Panela de pressão: tabela de tempos</a></li>
+          <li><span>Técnica</span><a href="sal-quando-e-quanto.html">Sal: quando colocar em cada preparo</a></li>
+        </ul>
+      </div>
+    </aside>
+  </article>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h5>Panela Cheia</h5>
+          <p>Blog de cozinha caseira brasileira: técnica de base, aproveitamento integral dos alimentos e planejamento das refeições da semana. Editado por quem cozinha todo dia.</p>
+        </div>
+        <div>
+          <h5>Navegue</h5>
+          <ul>
+            <li><a href="safe.html">Início</a></li>
+            <li><a href="app.html">App Recheio</a></li>
+            <li><a href="glossario.html">Glossário</a></li>
+            <li><a href="faq.html">Dúvidas frequentes</a></li>
+            <li><a href="sobre.html">Sobre o Panela Cheia</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Institucional</h5>
+          <ul>
+            <li><a href="privacidade.html">Política de Privacidade</a></li>
+            <li><a href="termos.html">Termos de Uso</a></li>
+            <li><a href="sobre.html#contato">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Panela Cheia. Todos os direitos reservados.</span>
+        <span>Feito por quem cozinha todo santo dia.</span>
+      </div>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>

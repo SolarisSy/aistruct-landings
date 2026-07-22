@@ -1,0 +1,386 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Air fryer: temperatura e tempo para vegetais crocantes sem óleo em excesso · Panela Cheia</title>
+  <meta name="description" content="Tabela de temperatura e tempo por vegetal na air fryer, quanto óleo usar pra dar crocância sem ressecar e o erro de sobrecarregar o cesto.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://panelacheia.cfd/air-fryer-vegetais-crocantes.html">
+  <style>
+:root{
+  --terracota:#B4472A;
+  --terracota-dark:#8f3820;
+  --creme:#F6F1E7;
+  --oliva:#3E4B34;
+  --marrom:#2B241E;
+  --offwhite:#FFFDF8;
+  --radius:3px;
+  --serif:"Palatino Linotype","Book Antiqua",Georgia,serif;
+  --sans:"Trebuchet MS",Tahoma,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--creme);color:var(--marrom);line-height:1.65;font-size:16px}
+img{max-width:100%;display:block}
+a{color:var(--terracota);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1140px;margin:0 auto;padding:0 20px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:normal}
+hr.rule{border:none;border-top:1px solid var(--marrom);margin:0}
+
+/* ---------- Header ---------- */
+.site-header{background:var(--offwhite);border-bottom:3px solid var(--terracota);position:sticky;top:0;z-index:20}
+.header-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;max-width:1140px;margin:0 auto;flex-wrap:wrap;gap:14px}
+.brand{font-family:var(--serif);font-size:1.65rem;font-style:italic;color:var(--terracota);letter-spacing:.3px;line-height:1.1}
+.brand small{display:block;font-family:var(--sans);font-style:normal;font-size:.6rem;letter-spacing:2px;color:var(--oliva);text-transform:uppercase;margin-top:3px}
+.site-nav ul{display:flex;gap:22px;list-style:none;flex-wrap:wrap}
+.site-nav a{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--oliva);font-weight:bold;padding-bottom:4px;border-bottom:2px solid transparent}
+.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota);text-decoration:none}
+.site-nav a.active{color:var(--terracota);border-bottom-color:var(--terracota)}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb{font-size:.78rem;color:var(--oliva);padding:16px 20px;max-width:1140px;margin:0 auto}
+.breadcrumb a{color:var(--oliva)}
+.breadcrumb a:hover{color:var(--terracota)}
+
+/* ---------- Hero editorial (home) ---------- */
+.hero{padding:46px 0 38px;border-bottom:1px solid var(--marrom)}
+.hero-grid{display:grid;grid-template-columns:2.1fr 1fr;gap:44px;max-width:1140px;margin:0 auto;padding:0 20px}
+.hero-main .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:var(--terracota);font-weight:bold}
+.hero-main h1{font-size:2.6rem;line-height:1.15;margin:12px 0 16px;color:var(--marrom)}
+.hero-main p.lead{font-size:1.08rem;max-width:580px;margin-bottom:22px;color:var(--marrom)}
+.hero-sidebar{border-left:1px solid var(--marrom);padding-left:30px}
+.hero-sidebar h2{font-size:1rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;color:var(--oliva);border-bottom:2px solid var(--oliva);padding-bottom:9px}
+.summary-list{list-style:none}
+.summary-list li{padding:9px 0;border-bottom:1px solid rgba(43,36,30,.15);font-size:.88rem;display:flex;justify-content:space-between;gap:8px}
+.summary-list li span.count{color:var(--terracota);font-weight:bold;font-family:var(--serif)}
+
+/* ---------- Page hero (páginas internas) ---------- */
+.page-hero{padding:42px 0 30px;border-bottom:1px solid var(--marrom)}
+.page-hero .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:var(--terracota);font-weight:bold}
+.page-hero h1{font-size:2.3rem;margin:10px 0 12px;color:var(--marrom)}
+.page-hero p{max-width:660px;color:var(--oliva);font-size:1.05rem}
+
+/* ---------- Sections / rhythm ---------- */
+.section{padding:58px 0}
+.section.tight{padding:34px 0}
+.section.wide{padding:74px 0}
+.section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:30px;border-bottom:1px solid var(--marrom);padding-bottom:11px;flex-wrap:wrap;gap:10px}
+.section-head h2{font-size:1.9rem;color:var(--marrom)}
+.section-head .sub{font-size:.82rem;color:var(--oliva);text-transform:uppercase;letter-spacing:1px}
+.intro-text{max-width:760px;font-size:1.02rem;margin-bottom:10px}
+.lead-lg{font-family:var(--serif);font-size:1.2rem;color:var(--marrom)}
+
+/* ---------- Grid + cards (magazine) ---------- */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.card{background:var(--offwhite);border:1px solid rgba(43,36,30,.2);display:flex;flex-direction:column}
+.card.featured{grid-column:span 2;grid-row:span 2}
+.card .thumb{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--oliva)}
+.card.featured .thumb{aspect-ratio:16/10}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card .body{padding:16px 18px 20px;display:flex;flex-direction:column;flex:1}
+.card .cat{font-size:.66rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--terracota);font-weight:bold;margin-bottom:7px}
+.card h3{font-family:var(--serif);font-size:1.12rem;line-height:1.32;margin-bottom:8px;color:var(--marrom)}
+.card.featured h3{font-size:1.5rem}
+.card p{font-size:.88rem;color:var(--marrom);flex:1;margin-bottom:12px}
+.card .meta{font-size:.7rem;color:var(--oliva);border-top:1px solid rgba(43,36,30,.14);padding-top:9px;display:flex;justify-content:space-between}
+.card .meta a{color:var(--terracota);font-weight:bold}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-block;background:var(--terracota);color:var(--offwhite);padding:13px 28px;font-family:var(--sans);font-weight:bold;font-size:.85rem;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:var(--radius);cursor:pointer}
+.btn:hover{background:var(--terracota-dark);text-decoration:none}
+.btn.outline{background:transparent;border:2px solid var(--oliva);color:var(--oliva);padding:11px 26px}
+.btn.outline:hover{background:var(--oliva);color:var(--offwhite)}
+
+/* ---------- Post / artigo ---------- */
+.post-header{max-width:1140px;margin:0 auto;padding:20px 20px 0}
+.post-header .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:var(--terracota);font-weight:bold}
+.post-header h1{font-size:2.3rem;margin:10px 0 14px;color:var(--marrom)}
+.post-header .dek{font-size:1.05rem;color:var(--oliva);margin-bottom:16px;max-width:760px}
+.post-header .meta{font-size:.8rem;color:var(--marrom);border-bottom:1px solid var(--marrom);padding-bottom:18px;margin-bottom:8px}
+.post-cover{margin:22px auto;max-width:1140px;overflow:hidden;aspect-ratio:16/9}
+.post-cover img{width:100%;height:100%;object-fit:cover}
+.post{display:grid;grid-template-columns:1fr 300px;gap:46px;padding:10px 20px 60px;max-width:1140px;margin:0 auto}
+.post-main h2{font-size:1.5rem;margin:34px 0 14px;color:var(--marrom);border-bottom:2px solid var(--terracota);padding-bottom:7px;display:inline-block}
+.post-main h3{font-size:1.2rem;margin:26px 0 10px;color:var(--oliva)}
+.post-main p{margin-bottom:16px}
+.post-main ul,.post-main ol{margin:0 0 16px 22px}
+.post-main li{margin-bottom:7px}
+blockquote{border-left:4px solid var(--terracota);padding:8px 22px;font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--marrom);margin:24px 0;background:rgba(180,71,42,.06)}
+
+table.tempos{width:100%;border-collapse:collapse;margin:22px 0;font-size:.9rem}
+table.tempos th{background:var(--oliva);color:var(--offwhite);text-align:left;padding:10px 12px;font-family:var(--sans);text-transform:uppercase;font-size:.7rem;letter-spacing:1px}
+table.tempos td{padding:10px 12px;border-bottom:1px solid rgba(43,36,30,.15)}
+table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
+
+.ingredientes{border:1px solid var(--marrom);padding:22px 24px;margin:26px 0;background:var(--offwhite)}
+.ingredientes h3{margin-bottom:12px;color:var(--terracota)}
+.ingredientes ul{list-style:none;margin:0}
+.ingredientes li{padding:7px 0;border-bottom:1px dashed rgba(43,36,30,.22);font-size:.92rem}
+
+.box{border:1px solid rgba(43,36,30,.28);padding:22px;margin-bottom:28px;background:var(--offwhite)}
+.box h4{font-size:1rem;text-transform:uppercase;letter-spacing:1px;color:var(--oliva);border-bottom:2px solid var(--oliva);padding-bottom:9px;margin-bottom:14px}
+.related-list{list-style:none}
+.related-list li{padding:11px 0;border-bottom:1px solid rgba(43,36,30,.13)}
+.related-list li:last-child{border-bottom:none}
+.related-list li a{color:var(--marrom);font-weight:bold;font-size:.92rem}
+.related-list li span{display:block;font-size:.7rem;color:var(--terracota);text-transform:uppercase;margin-bottom:3px;letter-spacing:.5px}
+.related{margin:40px 0 0}
+
+/* ---------- App section ---------- */
+.app-section{background:var(--oliva);color:var(--creme);padding:66px 0}
+.app-section .container{display:grid;grid-template-columns:1.1fr 1fr;gap:52px;align-items:center}
+.app-section h2{font-size:2rem;color:var(--creme);margin-bottom:14px}
+.app-section p{color:var(--creme);opacity:.92;margin-bottom:16px}
+.app-features{list-style:none;margin:18px 0 22px}
+.app-features li{padding:9px 0;border-bottom:1px solid rgba(246,241,231,.22);font-size:.9rem}
+.app-mock{background:var(--marrom);border:7px solid #1c1712;border-radius:22px;padding:14px;max-width:270px;margin:0 auto;box-sizing:content-box}
+.app-mock .screen{background:var(--offwhite);border-radius:10px;padding:16px;color:var(--marrom);min-height:400px}
+.app-mock .screen h5{color:var(--terracota);font-size:1rem;margin-bottom:12px;border-bottom:2px solid var(--terracota);padding-bottom:7px}
+.app-mock .day{display:flex;justify-content:space-between;font-size:.74rem;padding:7px 0;border-bottom:1px dashed rgba(43,36,30,.22)}
+.app-mock .day b{font-family:var(--serif)}
+.app-mock .tag{background:var(--oliva);color:var(--offwhite);font-size:.6rem;padding:2px 7px;border-radius:2px;text-transform:uppercase}
+.app-mock .list-title{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--oliva);margin:14px 0 6px}
+.app-mock .list-item{font-size:.74rem;padding:4px 0;display:flex;gap:7px;align-items:center;color:var(--marrom)}
+.app-mock .list-item::before{content:"☐";color:var(--terracota)}
+
+/* ---------- Como funciona (steps) ---------- */
+.steps{list-style:none;counter-reset:step}
+.steps li{counter-increment:step;position:relative;padding:18px 0 18px 52px;border-bottom:1px solid rgba(43,36,30,.15)}
+.steps li::before{content:counter(step);position:absolute;left:0;top:16px;width:34px;height:34px;border:2px solid var(--terracota);color:var(--terracota);font-family:var(--serif);font-weight:bold;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.steps li h4{color:var(--marrom);margin-bottom:5px;font-size:1.05rem}
+.steps li p{font-size:.9rem;color:var(--marrom);margin:0}
+
+/* ---------- Newsletter ---------- */
+.newsletter{background:var(--offwhite);border-top:1px solid var(--marrom);border-bottom:1px solid var(--marrom);padding:50px 0}
+.newsletter .inner{max-width:640px;margin:0 auto;text-align:center}
+.newsletter h2{font-size:1.6rem;margin-bottom:10px;color:var(--marrom)}
+.newsletter p{color:var(--oliva);font-size:.95rem}
+.newsletter form{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.newsletter input[type=email]{flex:1;min-width:230px;padding:13px 15px;border:1px solid var(--marrom);background:var(--creme);font-family:var(--sans);font-size:.9rem}
+.newsletter .thanks{display:none;color:var(--oliva);font-weight:bold;margin-top:16px;font-size:.9rem}
+
+/* ---------- Sobre / equipe ---------- */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:26px 0}
+.team-card{border:1px solid rgba(43,36,30,.22);padding:20px;background:var(--offwhite)}
+.team-card .avatar{width:64px;height:64px;border-radius:50%;background:var(--oliva);color:var(--offwhite);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.5rem;margin-bottom:14px}
+.team-card h4{font-size:1.05rem;color:var(--marrom);margin-bottom:2px}
+.team-card .role{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--terracota);margin-bottom:10px}
+.team-card p{font-size:.85rem;color:var(--marrom)}
+.policy-list{margin:14px 0 0 0}
+.policy-list li{padding:10px 0;border-bottom:1px solid rgba(43,36,30,.14);font-size:.92rem;list-style:none}
+.contact-box{border:2px solid var(--oliva);padding:26px;margin:30px 0}
+.contact-box h3{color:var(--oliva);margin-bottom:10px}
+
+/* ---------- Glossário ---------- */
+.glossary-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.glossary-nav a{border:1px solid var(--oliva);padding:5px 11px;font-size:.8rem;color:var(--oliva);border-radius:var(--radius)}
+.glossary-nav a:hover{background:var(--oliva);color:var(--offwhite);text-decoration:none}
+.term{padding:20px 0;border-bottom:1px solid rgba(43,36,30,.16)}
+.term-word{font-size:1.25rem;color:var(--terracota);font-weight:bold;margin-bottom:5px}
+.term p{font-size:.94rem;color:var(--marrom);margin:0}
+
+/* ---------- FAQ ---------- */
+.faq-group{margin-bottom:36px}
+.faq-group h2{font-size:1.4rem;color:var(--oliva);border-bottom:1px solid var(--marrom);padding-bottom:9px;margin-bottom:6px}
+.faq-item{border-bottom:1px solid rgba(43,36,30,.16);padding:18px 0}
+.faq-item summary{font-size:1.05rem;cursor:pointer;color:var(--marrom);font-weight:bold;list-style:none;font-family:var(--serif)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::before{content:"+ ";color:var(--terracota);font-weight:bold}
+.faq-item[open] summary::before{content:"– "}
+.faq-item p{margin-top:12px;font-size:.92rem}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--marrom);color:var(--creme);padding:50px 0 26px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:34px;margin-bottom:30px}
+.footer-grid h5{color:var(--terracota);margin-bottom:13px;font-size:1rem}
+.footer-grid ul{list-style:none}
+.footer-grid li{padding:4px 0;font-size:.85rem}
+.footer-grid p{font-size:.85rem;opacity:.85;max-width:340px}
+.footer-grid a{color:var(--creme);opacity:.85}
+.footer-grid a:hover{opacity:1;color:var(--terracota);text-decoration:none}
+.footer-bottom{border-top:1px solid rgba(246,241,231,.22);padding-top:18px;font-size:.78rem;opacity:.78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* ---------- Páginas específicas (opcionais por página) ---------- */
+.app-cover,.sobre-cover{overflow:hidden;aspect-ratio:16/9;margin:26px 0;border:1px solid rgba(43,36,30,.2)}
+.app-cover img,.sobre-cover img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-sidebar{border-left:none;border-top:1px solid var(--marrom);padding-left:0;padding-top:26px}
+  .post{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .card.featured{grid-column:span 2}
+  .app-section .container{grid-template-columns:1fr}
+  .app-mock{margin-top:20px}
+  .footer-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .card.featured{grid-column:span 1}
+  .hero-main h1{font-size:2rem}
+  .header-inner{flex-direction:column;align-items:flex-start}
+  .team-grid{grid-template-columns:1fr}
+  .section-head{flex-direction:column;align-items:flex-start}
+}
+  </style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23b4472a'/%3E%3Ctext x='16' y='22' font-size='13' text-anchor='middle' fill='%23fff' font-family='Georgia,serif' font-weight='bold'%3EPC%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air fryer: temperatura e tempo para vegetais crocantes sem óleo em excesso · Panela Cheia">
+<meta property="og:description" content="Tabela de temperatura e tempo por vegetal na air fryer, quanto óleo usar pra dar crocância sem ressecar e o erro de sobrecarregar o cesto.">
+<meta property="og:url" content="https://panelacheia.cfd/air-fryer-vegetais-crocantes.html">
+<meta property="og:image" content="https://panelacheia.cfd/img/air-fryer-vegetais-crocantes.jpg">
+<meta property="og:site_name" content="Panela Cheia">
+</head><body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="safe.html" class="brand">Panela Cheia<small>Cozinha caseira, sem enrolação</small></a>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="safe.html">Início</a></li>
+          <li><a href="app.html">App</a></li>
+          <li><a href="glossario.html">Glossário</a></li>
+          <li><a href="faq.html">Dúvidas</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb">
+    <a href="safe.html">Início</a> / <a href="safe.html#destaque">Equipamento</a> / Air fryer: temperatura e tempo para vegetais crocantes sem óleo em excesso
+  </div>
+
+  <article class="post">
+    <div class="post-main">
+      <header class="post-header" style="padding:0 0 0 0">
+        <span class="kicker">Equipamento</span>
+        <h1>Air fryer: temperatura e tempo para vegetais crocantes sem óleo em excesso</h1>
+        <p class="dek">Temperatura e tempo para deixar brócolis, abobrinha e batata crocantes sem ressecar.</p>
+        <div class="meta">Equipamento · 11 jun 2026 · por Equipe Panela Cheia</div>
+      </header>
+
+      <div class="post-cover" style="margin:22px 0">
+        <img src="img/air-fryer-vegetais-crocantes.jpg" alt="Cesto de air fryer aberto com brócolis, abobrinha e batata recém-tirados, crocantes e dourados" loading="lazy" class="cover">
+      </div>
+
+      <p>Air fryer errada dá dois resultados só: o vegetal murcho e encharcado, ou o vegetal seco e duro como bucha. Os dois vêm do mesmo lugar — temperatura genérica e cesto lotado. Cada vegetal tem um teor de água diferente, e é esse teor que determina a temperatura certa e o tempo certo pra crocância por fora sem ressecar por dentro.</p>
+
+      <p>O problema não é a air fryer. É tratar brócolis, abobrinha e batata como se fossem a mesma coisa. Testamos os três junto com pimentão, cenoura e couve-flor pra fechar uma tabela que você usa direto, sem cálculo.</p>
+
+      <h2>Por que "180°C por 15 minutos" não funciona pra tudo</h2>
+      <p>A air fryer é basicamente um forno de convecção compacto: ar quente circulando em alta velocidade. Esse ar seca a superfície do alimento rápido — é o que cria a casquinha. O problema é que vegetais têm teores de água muito diferentes entre si:</p>
+      <ul>
+        <li><strong>Aboburinha e berinjela</strong> — mais de 90% água, ressecam rápido se a temperatura for alta demais</li>
+        <li><strong>Brócolis e couve-flor</strong> — florzinhas finas queimam na ponta antes do miolo cozinhar</li>
+        <li><strong>Batata e cenoura</strong> — mais densas, precisam de mais tempo e mais calor pra crocar de verdade</li>
+      </ul>
+      <p>Usar a mesma temperatura pra esse grupo todo é a raiz do "vegetal murcho" ou do "vegetal ressecado". A técnica muda por vegetal, não por preferência pessoal.</p>
+
+      <h2>Tabela de temperatura e tempo por vegetal</h2>
+      <p>Temperaturas pra air fryer padrão (cesto, não forno de air fryer maior). Se a sua air fryer for mais potente ou mais fraca, use como referência e ajuste ±2 minutos observando a cor.</p>
+      <table class="tempos">
+        <tr><th>Vegetal</th><th>Corte</th><th>Temperatura</th><th>Tempo</th></tr>
+        <tr><td>Brócolis</td><td>Floretes médios</td><td>190°C</td><td>10-12 min, virando na metade</td></tr>
+        <tr><td>Abobrinha</td><td>Rodelas de 1cm</td><td>180°C</td><td>8-10 min</td></tr>
+        <tr><td>Batata</td><td>Cubos de 2cm</td><td>200°C</td><td>18-20 min, virando 2x</td></tr>
+        <tr><td>Couve-flor</td><td>Floretes médios</td><td>190°C</td><td>12-14 min, virando na metade</td></tr>
+        <tr><td>Pimentão</td><td>Tiras largas</td><td>190°C</td><td>8-9 min</td></tr>
+        <tr><td>Cenoura</td><td>Bastões finos</td><td>190°C</td><td>14-16 min, virando na metade</td></tr>
+      </table>
+      <p>Regra prática: vegetais com mais água (abobrinha, pimentão) pedem temperatura um pouco mais baixa e tempo curto — passar do ponto tira toda a água de uma vez e sobra fibra seca. Vegetais densos (batata, cenoura) aguentam temperatura mais alta porque o miolo demora mais pra cozinhar.</p>
+
+      <h2>Quanto óleo usar (e por que "sem óleo" não é o objetivo)</h2>
+      <p>A promessa da air fryer é reduzir óleo, não eliminar. Um fio muito fino é o que carrega o calor pra superfície do vegetal e faz a casquinha dourar — sem nenhum óleo, boa parte dos vegetais fica com textura de vegetal cozido no vapor, não crocante.</p>
+      <ul>
+        <li>A medida certa é <strong>1 colher de chá de óleo pra cada 300g de vegetal</strong>, espalhada com as mãos até cobrir tudo de forma fina e uniforme</li>
+        <li>Óleo em excesso não deixa mais crocante — deixa encharcado, porque o ar quente não consegue secar a superfície com líquido sobrando no fundo do cesto</li>
+        <li>Prefira óleos que aguentam temperatura alta sem soltar sabor de queimado: óleo de girassol ou de canola funcionam melhor que azeite extravirgem, que perde qualidade acima de 190°C</li>
+      </ul>
+      <blockquote>O sinal de que o óleo está na medida certa: depois de misturado, o vegetal parece "seco" ao toque, sem gotejar. Se a tábua embaixo fica com poça de óleo, é sinal de excesso.</blockquote>
+
+      <h3>Sal e tempero: antes ou depois?</h3>
+      <p>Sal antes de assar puxa um pouco da água do vegetal pra fora, o que ajuda na crocância — mas só funciona bem em vegetais mais densos como batata e cenoura. Em abobrinha e pimentão, que já têm muita água, salgar 10 minutos antes e escorrer o líquido solto faz diferença real na textura final. Ervas secas (orégano, páprica) podem entrar antes de assar; ervas frescas (salsinha, cebolinha) só depois, porque queimam com o ar quente.</p>
+
+      <h2>O erro mais comum: sobrecarregar o cesto</h2>
+      <p>Esse é o erro que mais aparece em quem reclama que "a air fryer não deixa nada crocante". A air fryer funciona por circulação de ar — o ar quente precisa passar por todos os lados do vegetal. Quando o cesto está cheio até a borda, os pedaços do meio ficam encostados uns nos outros e cozinham no próprio vapor, em vez de assar com ar seco.</p>
+      <ul>
+        <li>Regra visual: o cesto deve ficar <strong>no máximo 2/3 cheio</strong>, com espaço pra cada pedaço "respirar"</li>
+        <li>Se a quantidade for grande, é melhor fazer duas fornadas do que uma só apertada — o tempo total quase não muda, porque a segunda fornada é mais rápida (o cesto já está quente)</li>
+        <li>Vire os vegetais na metade do tempo (ou agite o cesto) pra trocar quais lados ficam voltados pro fluxo de ar</li>
+      </ul>
+      <p>Se sua air fryer é pequena (até 3 litros), talvez você nunca tenha conseguido fazer uma porção grande de brócolis crocante de uma vez só — e o problema nunca foi o vegetal, foi o volume no cesto.</p>
+
+      <h2>Combinando vegetais na mesma fornada</h2>
+      <p>Dá pra assar mais de um vegetal junto, desde que o tempo de cozimento seja parecido. Batata e cenoura combinam bem (ambos densos, tempo similar). Brócolis e couve-flor também. Já abobrinha não deveria entrar na mesma fornada que batata: a batata ainda estaria crua quando a abobrinha já passou do ponto.</p>
+      <p>Se quiser variar as combinações da semana sem ficar decorando tempo de cada vegetal, o app <a href="app.html">Recheio</a> guarda essas referências de tempo e temperatura junto com o cardápio da semana — você marca o que tem na geladeira e ele já sugere qual vegetal assar com qual, sem misturar tempo de cozimento errado.</p>
+
+      <p>Essa mesma lógica de acertar temperatura pelo tipo de alimento vale pra outros equipamentos da cozinha — é a mesma ideia por trás da <a href="panela-de-pressao-guia-tempos.html">tabela de tempos da panela de pressão</a>, só que aplicada ao calor seco em vez do vapor sob pressão.</p>
+
+      <h2>Conclusão</h2>
+      <p>Vegetal crocante na air fryer não depende de comprar um equipamento melhor ou de usar mais óleo — depende de três ajustes simples: temperatura certa pro teor de água do vegetal, uma camada fina de óleo espalhada (não um fio jogado por cima) e um cesto com espaço pro ar circular. Comece pela tabela, ajuste ±2 minutos observando a cor na primeira vez que testar um vegetal novo, e depois disso você já sabe o tempo de cabeça.</p>
+
+      <div class="box related">
+        <h4>Leia também</h4>
+        <ul class="related-list">
+          <li><span>Equipamento</span><a href="panela-de-pressao-guia-tempos.html">Panela de pressão: tabela de tempos para feijão, grão-de-bico e mandioca</a></li>
+          <li><span>Técnica de base</span><a href="ponto-da-carne-grelhada.html">Ponto da carne na grelha: o teste do dedo e o termômetro de cozinha</a></li>
+          <li><span>Tempero</span><a href="sal-quando-e-quanto.html">Sal: quando colocar em cada preparo e por que a ordem muda o sabor</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <aside>
+      <div class="box">
+        <h4>Nesta edição</h4>
+        <ul class="summary-list">
+          <li>Técnica de base <span class="count">2</span></li>
+          <li>Aproveitamento integral <span class="count">1</span></li>
+          <li>Planejamento da semana <span class="count">2</span></li>
+          <li>Equipamento <span class="count">2</span></li>
+          <li>Tempero <span class="count">1</span></li>
+          <li>Receita de estação <span class="count">1</span></li>
+        </ul>
+      </div>
+      <div class="box">
+        <h4>O app Recheio</h4>
+        <p style="font-size:.88rem;margin-bottom:12px">Monta o cardápio da semana a partir do que já tem em casa e organiza a lista de feira.</p>
+        <a href="app.html" class="btn outline" style="display:block;text-align:center">Conhecer o app</a>
+      </div>
+    </aside>
+  </article>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h5>Panela Cheia</h5>
+          <p>Blog de cozinha caseira brasileira: técnica de base, aproveitamento integral dos alimentos e planejamento das refeições da semana. Editado por quem cozinha todo dia.</p>
+        </div>
+        <div>
+          <h5>Navegue</h5>
+          <ul>
+            <li><a href="safe.html">Início</a></li>
+            <li><a href="app.html">App Recheio</a></li>
+            <li><a href="glossario.html">Glossário</a></li>
+            <li><a href="faq.html">Dúvidas frequentes</a></li>
+            <li><a href="sobre.html">Sobre o Panela Cheia</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Institucional</h5>
+          <ul>
+            <li><a href="privacidade.html">Política de Privacidade</a></li>
+            <li><a href="termos.html">Termos de Uso</a></li>
+            <li><a href="sobre.html#contato">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Panela Cheia. Todos os direitos reservados.</span>
+        <span>Feito por quem cozinha todo santo dia.</span>
+      </div>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>
