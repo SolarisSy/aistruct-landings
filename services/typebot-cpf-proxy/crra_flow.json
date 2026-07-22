@@ -279,7 +279,7 @@
             "webhook": {
               "headers": [],
               "method": "GET",
-              "url": "http://typebot-cpf-proxy:8080/?cpf={{cpf}}"
+              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/?cpf={{cpf}}"
             }
           }
         },
@@ -1857,7 +1857,7 @@
             "webhook": {
               "headers": [],
               "method": "GET",
-              "url": "http://typebot-cpf-proxy:8080/?cpf={{cpf}}"
+              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/?cpf={{cpf}}"
             }
           }
         },
@@ -2089,7 +2089,7 @@
             "webhook": {
               "headers": [],
               "method": "GET",
-              "url": "http://typebot-cpf-proxy:8080/?cpf={{cpf}}"
+              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/?cpf={{cpf}}"
             }
           }
         }
@@ -2132,7 +2132,7 @@
             "webhook": {
               "headers": [],
               "method": "GET",
-              "url": "http://typebot-cpf-proxy:8080/?cpf={{cpf}}"
+              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/?cpf={{cpf}}"
             }
           }
         }
