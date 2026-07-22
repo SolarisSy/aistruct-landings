@@ -336,6 +336,12 @@ def _db() -> sqlite3.Connection:
         "order_id TEXT UNIQUE, base_cents INTEGER, pct REAL, valor_cents INTEGER, "
         "status TEXT, paid_ts TEXT)"
     )
+    # migracoes leves (tabelas ja criadas em producao nao ganham coluna via CREATE IF NOT EXISTS)
+    for tbl, col, decl in (("afiliados", "cupom", "TEXT"), ("comissoes", "via", "TEXT")):
+        try:
+            conn.execute(f"ALTER TABLE {tbl} ADD COLUMN {col} {decl}")
+        except sqlite3.OperationalError:
+            pass  # ja existe
     return conn
 
 
@@ -1707,31 +1713,45 @@ def _norm_tag(s: Any) -> str:
     return t[:20]
 
 
-def _credit_commission(order_id: str, pedido_id: int, ref: str, base_cents: int) -> None:
-    """Credita a comissao do afiliado dono da `ref` (tag) que veio no cart attribute.
-    Silencioso quando nao ha ref / tag desconhecida / afiliado inativo — o pedido
-    nunca pode falhar por causa do afiliado. Idempotente por order_id (UNIQUE)."""
+def _credit_commission(order_id: str, pedido_id: int, ref: str, base_cents: int,
+                       coupon: str = "") -> None:
+    """Credita a comissao do afiliado da venda. Duas vias de atribuicao, nessa ordem:
+      1. `ref`  — a tag do LINK (?ref=), que veio no cart attribute;
+      2. `coupon` — o cupom da order, casado com o campo `cupom` do afiliado
+         (cobre quem divulga so o cupom de influencer /ARTHURPC ou digita no checkout).
+    Silencioso quando nao ha nenhuma das duas / afiliado desconhecido ou inativo — o
+    pedido nunca pode falhar por causa do afiliado. Idempotente por order_id (UNIQUE)."""
+    if base_cents <= 0:
+        return
     tag = _norm_tag(ref)
-    if not tag or base_cents <= 0:
+    cup = _norm_tag(coupon)
+    if not tag and not cup:
         return
     ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
     conn = _db()
     try:
-        row = conn.execute(
-            "SELECT tag, pct FROM afiliados WHERE tag=? AND active=1", (tag,)).fetchone()
+        row = via = None
+        if tag:
+            row = conn.execute(
+                "SELECT tag, pct FROM afiliados WHERE tag=? AND active=1", (tag,)).fetchone()
+            via = "link"
+        if not row and cup:
+            row = conn.execute(
+                "SELECT tag, pct FROM afiliados WHERE cupom=? AND active=1", (cup,)).fetchone()
+            via = "cupom"
         if not row:
-            log.info("comissao IGNORADA order=%s ref=%s (tag desconhecida/inativa)",
-                     order_id, tag)
+            log.info("comissao IGNORADA order=%s ref=%s cupom=%s (afiliado desconhecido/inativo)",
+                     order_id, tag or "-", cup or "-")
             return
         pct = float(row[1] or AFILIADO_PCT)
         valor = int(round(base_cents * pct / 100))
         conn.execute(
             "INSERT OR IGNORE INTO comissoes (ts, tag, pedido_id, order_id, base_cents, "
-            "pct, valor_cents, status) VALUES (?,?,?,?,?,?,?,'pending')",
-            (ts, tag, pedido_id, order_id, base_cents, pct, valor))
+            "pct, valor_cents, status, via) VALUES (?,?,?,?,?,?,?,'pending',?)",
+            (ts, row[0], pedido_id, order_id, base_cents, pct, valor, via))
         conn.commit()
-        log.info("comissao CREDITADA order=%s tag=%s base=%s pct=%s valor=%s",
-                 order_id, tag, base_cents, pct, valor)
+        log.info("comissao CREDITADA order=%s tag=%s via=%s base=%s pct=%s valor=%s",
+                 order_id, row[0], via, base_cents, pct, valor)
     except Exception as e:                                  # nunca derruba o webhook
         log.error("comissao falhou order=%s: %s", order_id, str(e)[:200])
     finally:
@@ -1830,7 +1850,7 @@ async def shopify_webhook(request: Request):
     log.info("shopify webhook PAGO order=%s pedido=%s total=%s", order_id, pid, total)
     # comissao de afiliado: base = subtotal de PRODUTOS pos-desconto, sem frete
     base = int(round(float(o.get("current_subtotal_price") or 0) * 100)) or subtotal
-    _credit_commission(order_id, pid, attrs.get("ref") or "", base)
+    _credit_commission(order_id, pid, attrs.get("ref") or "", base, coupon)
     asyncio.create_task(_bling_dispatch(pid))
     return {"ok": True, "pedido": pid}
 
@@ -2400,7 +2420,9 @@ def _fetch_afiliados() -> list[dict[str, Any]]:
             "SUM(CASE WHEN status='pending' AND ts<? THEN valor_cents ELSE 0 END) libr, "
             "SUM(CASE WHEN status='paid' THEN valor_cents ELSE 0 END) pago, "
             "SUM(CASE WHEN status='reversed' THEN valor_cents ELSE 0 END) estr, "
-            "SUM(CASE WHEN status<>'reversed' THEN base_cents ELSE 0 END) base "
+            "SUM(CASE WHEN status<>'reversed' THEN base_cents ELSE 0 END) base, "
+            "SUM(CASE WHEN via='link' THEN 1 ELSE 0 END) v_link, "
+            "SUM(CASE WHEN via='cupom' THEN 1 ELSE 0 END) v_cupom "
             "FROM comissoes GROUP BY tag", (cut,)).fetchall()}
     finally:
         conn.close()
@@ -2412,7 +2434,10 @@ def _fetch_afiliados() -> list[dict[str, Any]]:
         a["pago_cents"] = s.get("pago") or 0
         a["estornado_cents"] = s.get("estr") or 0
         a["vendido_cents"] = s.get("base") or 0
+        a["via_link"] = s.get("v_link") or 0
+        a["via_cupom"] = s.get("v_cupom") or 0
         a["link"] = _afiliado_link(a["tag"])
+        a["link_cupom"] = f"{SITE_URL}/{a['cupom']}?ref={a['tag']}" if a.get("cupom") else ""
     return afs
 
 
@@ -2457,15 +2482,16 @@ async def afiliado_novo(request: Request):
         pct = AFILIADO_PCT
     pct = max(0.0, min(pct, 50.0))
     token = secrets.token_urlsafe(12)
+    cupom = _norm_tag(f.get("cupom"))
     ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
     conn = _db()
     try:
         conn.execute(
-            "INSERT INTO afiliados (ts, tag, name, email, phone, pix, pct, token, active) "
-            "VALUES (?,?,?,?,?,?,?,?,1)",
+            "INSERT INTO afiliados (ts, tag, name, email, phone, pix, pct, token, active, cupom) "
+            "VALUES (?,?,?,?,?,?,?,?,1,?)",
             (ts, tag, name, str(f.get("email") or "").strip()[:160],
              re.sub(r"\D", "", str(f.get("phone") or ""))[:13],
-             str(f.get("pix") or "").strip()[:140], pct, token))
+             str(f.get("pix") or "").strip()[:140], pct, token, cupom))
         conn.commit()
     except sqlite3.IntegrityError:
         return RedirectResponse(f"/afiliados?err=tag+{tag}+ja+existe", status_code=303)
@@ -2521,11 +2547,14 @@ async def afiliados_csv(request: Request):
     buf = io.StringIO()
     buf.write("﻿")
     w = csv.writer(buf, delimiter=";")
-    w.writerow(["tag", "afiliado", "pix", "email", "whatsapp", "pct", "vendas",
+    w.writerow(["tag", "cupom", "afiliado", "pix", "email", "whatsapp", "pct", "vendas",
+                "vendas_por_link", "vendas_por_cupom",
                 "vendido_reais", "pendente_reais", "liberado_reais", "pago_reais", "link"])
     for a in _fetch_afiliados():
-        w.writerow([a["tag"], a["name"], a.get("pix") or "", a.get("email") or "",
+        w.writerow([a["tag"], a.get("cupom") or "", a["name"], a.get("pix") or "",
+                    a.get("email") or "",
                     a.get("phone") or "", a.get("pct"), a["vendas"],
+                    a["via_link"], a["via_cupom"],
                     str(round(a["vendido_cents"] / 100, 2)).replace(".", ","),
                     str(round(a["pendente_cents"] / 100, 2)).replace(".", ","),
                     str(round(a["liberado_cents"] / 100, 2)).replace(".", ","),
@@ -2585,17 +2614,22 @@ async def afiliados_panel(request: Request):
     for a in afs:
         off = "" if a.get("active") else " class='off'"
         extrato = f"/a/{a['tag']}?k={a.get('token') or ''}"
+        divulga = a["link_cupom"] or a["link"]      # com cupom = desconto + comissão no mesmo link
+        cup_lbl = (f"<br><span class='muted'>cupom {_esc(a['cupom'])}</span>"
+                   if a.get("cupom") else "")
         rows.append(
             f"<tr{off}><td><span class='tag'>{_esc(a['tag'])}</span>"
-            f"{'' if a.get('active') else ' <span class=err>inativo</span>'}</td>"
+            f"{'' if a.get('active') else ' <span class=err>inativo</span>'}{cup_lbl}</td>"
             f"<td><strong>{_esc(a['name'])}</strong><br>"
             f"<span class='muted'>{_esc(a.get('email') or '')} {_esc(a.get('phone') or '')}</span></td>"
-            f"<td><span class='lnk'>{_esc(a['link'])}</span><br>"
-            f"<button class='gh' onclick=\"navigator.clipboard.writeText('{_esc(a['link'])}');"
+            f"<td><span class='lnk'>{_esc(divulga)}</span><br>"
+            f"<button class='gh' onclick=\"navigator.clipboard.writeText('{_esc(divulga)}');"
             f"this.textContent='copiado ✓'\">copiar link</button> "
             f"<a class='gh' href='{_esc(extrato)}' target='_blank'><button class='gh'>extrato</button></a></td>"
             f"<td>{_esc(a.get('pix') or '—')}</td>"
-            f"<td class='r'>{a['pct']:g}%</td><td class='r'>{a['vendas']}</td>"
+            f"<td class='r'>{a['pct']:g}%</td>"
+            f"<td class='r'>{a['vendas']}"
+            f"<br><span class='muted' style='font-weight:400'>{a['via_link']} link · {a['via_cupom']} cupom</span></td>"
             f"<td class='r'>{_brl(a['vendido_cents'])}</td>"
             f"<td class='r'><span class='pend'>{_brl(a['pendente_cents'])}</span></td>"
             f"<td class='r'><span class='ok'>{_brl(a['liberado_cents'])}</span></td>"
@@ -2623,18 +2657,23 @@ async def afiliados_panel(request: Request):
 <form class="new" method="post" action="/afiliados/novo">
  <label>Tag (o código do link)<input name="tag" placeholder="ARTHUR" required></label>
  <label>Nome<input name="name" placeholder="Arthur Silva" required></label>
+ <label>Cupom de desconto (opcional)<input name="cupom" placeholder="ARTHURPC"></label>
  <label>Chave PIX<input name="pix" placeholder="cpf/email/telefone"></label>
  <label>E-mail<input name="email" type="email"></label>
  <label>WhatsApp<input name="phone" placeholder="41999999999"></label>
  <label>%<input name="pct" value="{AFILIADO_PCT:g}" size="4"></label>
  <button type="submit">+ Criar afiliado</button>
 </form>
-<table><thead><tr><th>Tag</th><th>Afiliado</th><th>Link</th><th>PIX</th><th>%</th>
+<table><thead><tr><th>Tag</th><th>Afiliado</th><th>Link de divulgação</th><th>PIX</th><th>%</th>
 <th>Vendas</th><th>Vendido</th><th>Carência</th><th>A pagar</th><th>Pago</th><th></th></tr></thead>
 <tbody>{tbody}</tbody></table>
 <p class="muted" style="margin-top:1rem">Comissão = {AFILIADO_PCT:g}% do subtotal de produtos
 (sem frete, após cupom), creditada quando o pedido é <b>pago</b> e liberada {HOLD_DAYS} dias depois
-(janela de estorno). "✓ pagar" só dá baixa no saldo — o PIX é feito por fora.</p>
+(janela de estorno). "✓ pagar" só dá baixa no saldo — o PIX é feito por fora.<br>
+<b>Cupom × tag:</b> o cupom dá desconto ao cliente; a tag credita a comissão. Preenchendo o campo
+Cupom, o link de divulgação vira <code>/CUPOM?ref=TAG</code> (as duas coisas de uma vez) e a venda
+é atribuída mesmo quando o cliente só digita o cupom no checkout — a coluna Vendas mostra a
+quebra <i>link · cupom</i>.</p>
 </main></body></html>"""
     return HTMLResponse(html)
 
@@ -2656,14 +2695,15 @@ async def afiliado_extrato(tag: str, request: Request, k: str = ""):
     lib = sum(c["valor_cents"] for c in com if c["label"] == "liberado")
     car = sum(c["valor_cents"] for c in com if c["label"].startswith("em carência"))
     pago = sum(c["valor_cents"] for c in com if c["status"] == "paid")
-    link = _afiliado_link(t)
+    link = (f"{SITE_URL}/{a['cupom']}?ref={t}" if a.get("cupom") else _afiliado_link(t))
     rows = "".join(
         f"<tr><td>{_esc((c['ts'] or '')[:10])}</td>"
+        f"<td class='muted'>{_esc('cupom' if c.get('via') == 'cupom' else 'link')}</td>"
         f"<td class='r'>{_brl(c['base_cents'])}</td><td class='r'>{c['pct']:g}%</td>"
         f"<td class='r'>{_brl(c['valor_cents'])}</td>"
         f"<td><span class='{'ok' if c['label'] in ('liberado', 'pago') else 'err' if c['status'] == 'reversed' else 'pend'}'>"
         f"{_esc(c['label'])}</span></td></tr>" for c in com) or \
-        "<tr><td colspan='5' class='muted' style='padding:1.2rem'>Nenhuma venda ainda — divulgue seu link!</td></tr>"
+        "<tr><td colspan='6' class='muted' style='padding:1.2rem'>Nenhuma venda ainda — divulgue seu link!</td></tr>"
     html = f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
 <title>HYU · Afiliado {_esc(a['name'])}</title><style>{_AF_CSS}</style></head><body>
@@ -2680,7 +2720,7 @@ async def afiliado_extrato(tag: str, request: Request, k: str = ""):
  <p class="lnk" style="margin:.3rem 0">{_esc(link)}</p>
  <button onclick="navigator.clipboard.writeText('{_esc(link)}');this.textContent='copiado ✓'">copiar link</button>
 </div>
-<table><thead><tr><th>Data</th><th>Venda</th><th>%</th><th>Comissão</th><th>Status</th></tr></thead>
+<table><thead><tr><th>Data</th><th>Origem</th><th>Venda</th><th>%</th><th>Comissão</th><th>Status</th></tr></thead>
 <tbody>{rows}</tbody></table>
 <p class="muted" style="margin-top:1rem">Comissão sobre os produtos (sem frete), liberada
 {HOLD_DAYS} dias após o pagamento. Pedido cancelado/estornado não gera comissão.</p>
