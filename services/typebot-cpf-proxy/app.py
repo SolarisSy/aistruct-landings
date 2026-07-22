@@ -278,6 +278,109 @@ async def admin_list_typebots(token: str = ""):
         except: pass
 
 
+@app.get("/admin/schema-token")
+async def admin_schema_token(token: str = ""):
+    """Lê schema + rows de ApiToken/User/Workspace pra permitir criar token via API oficial."""
+    if token != ADMIN_TOKEN:
+        raise HTTPException(403, "forbidden")
+    if not PG_URL:
+        return JSONResponse({"error": "TYPEBOT_DATABASE_URL not set"}, status_code=500)
+    try:
+        conn = _pg_connect()
+    except Exception as e:
+        return JSONResponse({"error": "pg connect err", "detail": str(e)[:300]}, status_code=500)
+    try:
+        cur = conn.cursor()
+        out = {}
+        for t in ["ApiToken", "User", "Workspace"]:
+            cur.execute(
+                "SELECT column_name, data_type FROM information_schema.columns "
+                "WHERE table_name = %s ORDER BY ordinal_position;",
+                (t,),
+            )
+            out[f"{t}_cols"] = [{"name": r[0], "type": r[1]} for r in cur.fetchall()]
+        # sample rows (ApiToken - pode estar vazio; User/Workspace - precisamos dos IDs)
+        for t, lim in [("ApiToken", 3), ("User", 3), ("Workspace", 3)]:
+            try:
+                cur.execute(f'SELECT * FROM "{t}" LIMIT %s;', (lim,))
+                cols = [d[0] for d in cur.description]
+                rows = [dict(zip(cols, [str(v)[:80] if v is not None else None for v in r])) for r in cur.fetchall()]
+                out[f"{t}_rows"] = rows
+            except Exception as e:
+                out[f"{t}_rows_err"] = str(e)[:150]
+        return JSONResponse(out)
+    except Exception as e:
+        return JSONResponse({"error": "query err", "detail": str(e)[:300]}, status_code=500)
+    finally:
+        try: cur.close()
+        except: pass
+        try: conn.close()
+        except: pass
+
+
+@app.get("/admin/create-token")
+async def admin_create_token(token: str = "", name: str = "crra-admin"):
+    """Cria um ApiToken para o primeiro user/workspace encontrado (pra usar a API oficial)."""
+    if token != ADMIN_TOKEN:
+        raise HTTPException(403, "forbidden")
+    if not PG_URL:
+        return JSONResponse({"error": "TYPEBOT_DATABASE_URL not set"}, status_code=500)
+    try:
+        conn = _pg_connect()
+    except Exception as e:
+        return JSONResponse({"error": "pg connect err", "detail": str(e)[:300]}, status_code=500)
+    try:
+        import secrets as _secrets
+        cur = conn.cursor()
+        # achar user + workspace (tokens sao por workspace no Typebot)
+        cur.execute('SELECT id, name FROM "User" LIMIT 1;')
+        urow = cur.fetchone()
+        cur.execute('SELECT id, name FROM "Workspace" LIMIT 1;')
+        wrow = cur.fetchone()
+        if not urow or not wrow:
+            return JSONResponse({"error": "no user/workspace found", "user": urow, "workspace": wrow})
+        user_id, user_name = urow
+        ws_id, ws_name = wrow
+        # gerar token (Typebot usa ckdf_... prefix? ver schema) - usar formato random
+        tk = "tb_" + _secrets.token_urlsafe(24)
+        # ApiToken schema: id, name, userId, workspaceId, createdAt, lastUsedAt, value?
+        # inserir - pegar colunas reais primeiro
+        cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'ApiToken' ORDER BY ordinal_position;")
+        cols = [r[0] for r in cur.fetchall()]
+        out_cols = cols[:]
+        # mapear valores conhecidos
+        vals = {}
+        for c in cols:
+            cl = c.lower()
+            if cl == "id": vals[c] = _secrets.token_urlsafe(16)
+            elif cl == "name": vals[c] = name
+            elif cl == "value" or cl == "token" or cl == "apikey": vals[c] = tk
+            elif cl == "userid": vals[c] = user_id
+            elif cl == "workspaceid": vals[c] = ws_id
+            elif "created" in cl: vals[c] = "NOW()"
+            elif "token" in cl: vals[c] = tk
+        col_list = ", ".join(f'"{c}"' for c in out_cols)
+        placeholders = ", ".join("%s" if v != "NOW()" else "NOW()" for v in (vals[c] for c in out_cols))
+        params = tuple(v for v in (vals[c] for c in out_cols) if v != "NOW()")
+        cur.execute(f'INSERT INTO "ApiToken" ({col_list}) VALUES ({placeholders});', params)
+        conn.commit()
+        return JSONResponse({
+            "ok": True, "token": tk, "name": name,
+            "user": {"id": user_id, "name": user_name},
+            "workspace": {"id": ws_id, "name": ws_name},
+            "cols": cols,
+        })
+    except Exception as e:
+        try: conn.rollback()
+        except: pass
+        return JSONResponse({"error": "create err", "detail": str(e)[:400]}, status_code=500)
+    finally:
+        try: cur.close()
+        except: pass
+        try: conn.close()
+        except: pass
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8080)
