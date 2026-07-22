@@ -378,16 +378,7 @@
               }
             }
           ],
-          "options": {
-            "comparisons": [
-              {
-                "id": "mj0o40ytmx7c59tnn62md8fl",
-                "variableId": "vjbiwltmtjd2ndvnz0u8wr8o1",
-                "comparisonOperator": "Is empty"
-              }
-            ],
-            "logicalOperator": "AND"
-          }
+          "options": {}
         },
         {
           "id": "mykc1pqzocy2mimnxuow4l1r",
