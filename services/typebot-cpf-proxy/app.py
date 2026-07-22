@@ -320,7 +320,7 @@ async def admin_schema_token(token: str = ""):
 
 @app.get("/admin/create-token")
 async def admin_create_token(token: str = "", name: str = "crra-admin"):
-    """Cria um ApiToken para o primeiro user/workspace encontrado (pra usar a API oficial)."""
+    """Cria um ApiToken (schema real: id, token, name, ownerId, createdAt) p/ o 1o user."""
     if token != ADMIN_TOKEN:
         raise HTTPException(403, "forbidden")
     if not PG_URL:
@@ -332,43 +332,22 @@ async def admin_create_token(token: str = "", name: str = "crra-admin"):
     try:
         import secrets as _secrets
         cur = conn.cursor()
-        # achar user + workspace (tokens sao por workspace no Typebot)
-        cur.execute('SELECT id, name FROM "User" LIMIT 1;')
+        cur.execute('SELECT id, email FROM "User" LIMIT 1;')
         urow = cur.fetchone()
-        cur.execute('SELECT id, name FROM "Workspace" LIMIT 1;')
-        wrow = cur.fetchone()
-        if not urow or not wrow:
-            return JSONResponse({"error": "no user/workspace found", "user": urow, "workspace": wrow})
-        user_id, user_name = urow
-        ws_id, ws_name = wrow
-        # gerar token (Typebot usa ckdf_... prefix? ver schema) - usar formato random
+        if not urow:
+            return JSONResponse({"error": "no user found"})
+        user_id, user_email = urow
         tk = "tb_" + _secrets.token_urlsafe(24)
-        # ApiToken schema: id, name, userId, workspaceId, createdAt, lastUsedAt, value?
-        # inserir - pegar colunas reais primeiro
-        cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'ApiToken' ORDER BY ordinal_position;")
-        cols = [r[0] for r in cur.fetchall()]
-        out_cols = cols[:]
-        # mapear valores conhecidos
-        vals = {}
-        for c in cols:
-            cl = c.lower()
-            if cl == "id": vals[c] = _secrets.token_urlsafe(16)
-            elif cl == "name": vals[c] = name
-            elif cl == "value" or cl == "token" or cl == "apikey": vals[c] = tk
-            elif cl == "userid": vals[c] = user_id
-            elif cl == "workspaceid": vals[c] = ws_id
-            elif "created" in cl: vals[c] = "NOW()"
-            elif "token" in cl: vals[c] = tk
-        col_list = ", ".join(f'"{c}"' for c in out_cols)
-        placeholders = ", ".join("%s" if v != "NOW()" else "NOW()" for v in (vals[c] for c in out_cols))
-        params = tuple(v for v in (vals[c] for c in out_cols) if v != "NOW()")
-        cur.execute(f'INSERT INTO "ApiToken" ({col_list}) VALUES ({placeholders});', params)
+        tk_id = "tok_" + _secrets.token_urlsafe(12)
+        cur.execute(
+            'INSERT INTO "ApiToken" ("id", "token", "name", "ownerId", "createdAt") '
+            'VALUES (%s, %s, %s, %s, NOW());',
+            (tk_id, tk, name, user_id),
+        )
         conn.commit()
         return JSONResponse({
-            "ok": True, "token": tk, "name": name,
-            "user": {"id": user_id, "name": user_name},
-            "workspace": {"id": ws_id, "name": ws_name},
-            "cols": cols,
+            "ok": True, "token": tk, "token_id": tk_id, "name": name,
+            "owner": {"id": user_id, "email": user_email},
         })
     except Exception as e:
         try: conn.rollback()
