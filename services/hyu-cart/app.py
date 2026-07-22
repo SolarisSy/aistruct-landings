@@ -2175,12 +2175,29 @@ def _pedido_export_row(p: dict) -> list:
             m.get("utm_source", ""), m.get("utm_campaign", ""), m.get("gclid", "")]
 
 
+def _afiliado_cell(p: dict, com_por_order: dict) -> str:
+    """Coluna Afiliado do /pedidos: comissão creditada, ou o alerta de tag/cupom que
+    CHEGOU no pedido mas não achou dono (venda que deveria comissionar e não comissionou)."""
+    c = com_por_order.get(p.get("order_id") or "")
+    if c:
+        cls = {"paid": "ok", "reversed": "err"}.get(c["status"], "pend")
+        return (f"<span class='tag'>{_esc(c['tag'])}</span> "
+                f"<span class='{cls}'>{_brl(c['valor_cents'])}</span>"
+                f"<br><span class='muted'>{_esc(c['label'])} · via {_esc(c.get('via') or '?')}</span>")
+    orfa = _norm_tag(p.get("meta_d", {}).get("ref")) or _norm_tag(p.get("coupon"))
+    if orfa and p.get("status") == "paid":
+        return (f"<span class='pend' title='chegou no pedido mas não há afiliado com essa "
+                f"tag/cupom cadastrado — venda não comissionada'>{_esc(orfa)} sem dono</span>")
+    return "—"
+
+
 @app.get("/pedidos", response_class=HTMLResponse)
 async def pedidos_panel(request: Request):
     denied = _panel_auth(request, "/pedidos")
     if denied:
         return denied
     pedidos = _fetch_pedidos()
+    com_por_order = {c["order_id"]: c for c in _fetch_comissoes()}
     pagos = [p for p in pedidos if p["status"] == "paid"]
     n_wait = sum(1 for p in pedidos if p["status"] in ("created", "open"))
     n_err = len(pedidos) - len(pagos) - n_wait
@@ -2222,6 +2239,7 @@ async def pedidos_panel(request: Request):
             f"<td>{frete}</td>"
             f"<td class='r'>{_brl(p.get('total_cents') or 0)}</td>"
             f"<td>{_esc(p.get('coupon') or '—')}</td>"
+            f"<td>{_afiliado_cell(p, com_por_order)}</td>"
             f"<td>{bl}</td>"
             f"<td>{_esc(p.get('tracking') or '—')}</td></tr>"
         )
@@ -2255,6 +2273,7 @@ async def pedidos_panel(request: Request):
  button{{cursor:pointer;border:1px solid #ccd;border-radius:6px;background:#fff}}
 </style></head><body>
 <header><h1>📦 Pedidos HYU</h1><span class="pill">{len(pagos)} pagos</span><span class="grow"></span>
+<a class="btn" href="/afiliados">🤝 Afiliados</a>
 <a class="btn" href="/pedidos.xlsx">⬇ Excel</a><a class="btn" href="/pedidos.csv">⬇ CSV</a>
 <a class="btn out" href="/logout">Sair</a></header>
 <div class="bar">
@@ -2266,8 +2285,9 @@ async def pedidos_panel(request: Request):
 </div>
 <main><p class="total">Total pago: <strong>{_brl(total_pago)}</strong> · <span id="showing"></span></p>
 <table><thead><tr><th>#</th><th>Quando</th><th>Status</th><th>Cliente / CPF</th><th>Contato</th>
-<th>Endereço</th><th>Itens / SKU</th><th>Frete</th><th>Total</th><th>Cupom</th><th>Bling</th><th>Rastreio</th></tr></thead>
-<tbody id="tb">{''.join(rows) or '<tr><td colspan=12 style="text-align:center;padding:2rem;color:#889">Nenhum pedido ainda.</td></tr>'}</tbody></table></main>
+<th>Endereço</th><th>Itens / SKU</th><th>Frete</th><th>Total</th><th>Cupom</th><th>Afiliado</th>
+<th>Bling</th><th>Rastreio</th></tr></thead>
+<tbody id="tb">{''.join(rows) or '<tr><td colspan=13 style="text-align:center;padding:2rem;color:#889">Nenhum pedido ainda.</td></tr>'}</tbody></table></main>
 <script>
 document.querySelectorAll('[data-ts]').forEach(td=>{{
  td.textContent=new Date(td.dataset.ts).toLocaleString('pt-BR',{{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}});
@@ -2617,6 +2637,51 @@ _AF_CSS = """
  .card{background:#fff;border-radius:12px;padding:.8rem 1.1rem;box-shadow:0 1px 4px rgba(0,0,0,.08);min-width:150px}
  .card b{display:block;font-size:1.35rem;font-family:ui-monospace,monospace} .card span{font-size:.72rem;color:#778;text-transform:uppercase;font-weight:700}
 """
+
+
+@app.get("/debug/afiliados")
+async def debug_afiliados(request: Request):
+    """Saúde do banco de afiliados: colunas (prova que a migração aplicou), contagens e
+    as vendas pagas cuja tag/cupom NÃO achou dono (comissão que deixou de ser creditada)."""
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    conn = _db()
+    try:
+        conn.row_factory = sqlite3.Row
+        cols_a = [r[1] for r in conn.execute("PRAGMA table_info(afiliados)")]
+        cols_c = [r[1] for r in conn.execute("PRAGMA table_info(comissoes)")]
+        por_status = {r[0]: r[1] for r in conn.execute(
+            "SELECT status, COUNT(*) FROM comissoes GROUP BY status")}
+        por_via = {r[0] or "?": r[1] for r in conn.execute(
+            "SELECT via, COUNT(*) FROM comissoes GROUP BY via")}
+        n_af = conn.execute("SELECT COUNT(*) FROM afiliados").fetchone()[0]
+        tags = {r[0] for r in conn.execute("SELECT tag FROM afiliados")}
+        cupons = {r[0] for r in conn.execute(
+            "SELECT cupom FROM afiliados WHERE cupom IS NOT NULL AND cupom<>''")}
+        com_orders = {r[0] for r in conn.execute("SELECT order_id FROM comissoes")}
+        pagos = conn.execute(
+            "SELECT order_id, coupon, meta, ts FROM pedidos WHERE status='paid'").fetchall()
+    finally:
+        conn.close()
+    orfas = []
+    for p in pagos:
+        if p["order_id"] in com_orders:
+            continue
+        ref = _norm_tag((json.loads(p["meta"] or "{}")).get("ref"))
+        cup = _norm_tag(p["coupon"])
+        if (ref and ref not in tags) or (cup and cup not in cupons and cup not in tags):
+            orfas.append({"order_id": p["order_id"], "ts": p["ts"],
+                          "ref": ref or None, "cupom": cup or None})
+    return {
+        "schema_ok": "cupom" in cols_a and "via" in cols_c,
+        "colunas_afiliados": cols_a, "colunas_comissoes": cols_c,
+        "afiliados": n_af, "comissoes_por_status": por_status, "comissoes_por_via": por_via,
+        "pedidos_pagos": len(pagos), "pedidos_com_comissao": len(com_orders),
+        "vendas_sem_dono": orfas[:50],
+        "obs": ("vendas_sem_dono = pedido pago com tag/cupom que não tem afiliado "
+                "cadastrado; cadastrar a tag NÃO credita retroativo"),
+    }
 
 
 @app.get("/afiliados", response_class=HTMLResponse)
