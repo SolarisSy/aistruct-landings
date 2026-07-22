@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RastreioPronto — Diário sobre compras online, entregas e direitos do consumidor</title>
+<meta name="description" content="Diário editorial independente sobre consumo, e-commerce, logística de entregas e direitos do consumidor no Brasil. Reportagens práticas para acompanhar suas compras.">
+<link rel="canonical" href="https://rastreiopronto.cfd/safe.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RastreioPronto — Diário sobre compras online, entregas e direitos do consumidor">
+<meta property="og:description" content="Reportagens práticas para entender o caminho das suas compras, interpretar o rastreio e conhecer seus direitos.">
+<meta property="og:url" content="https://rastreiopronto.cfd/safe.html">
+<meta property="og:site_name" content="RastreioPronto">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%235b1a2e'/%3E%3Cpath d='M14 38 L26 38 L26 46 L38 46 L38 38 L50 38' fill='none' stroke='%23c9a227' stroke-width='3' stroke-linejoin='round'/%3E%3Crect x='20' y='20' width='24' height='18' rx='1' fill='none' stroke='%23c9a227' stroke-width='3'/%3E%3Cline x1='26' y1='28' x2='38' y2='28' stroke='%23c9a227' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root{
+  --wine-900:#3a1019;--wine-800:#4a1422;--wine:#5b1a2e;--wine-soft:#7a2a40;
+  --gold:#c9a227;--gold-dark:#a6841a;--gold-soft:#f4ecca;
+  --cream:#faf5ed;--cream-deep:#f1e8d6;
+  --paper:#ffffff;
+  --ink:#1f1416;--ink-soft:#5a4a4e;--ink-mute:#8a7a7e;
+  --line:#e2d9c8;--line-strong:#cdbfa3;
+  --font-display:Cambria,Constantia,"Hoefler Text",Georgia,"Times New Roman",serif;
+  --font-body:Verdana,Geneva,"DejaVu Sans",Tahoma,sans-serif;
+  --font-mono:"Courier New",Consolas,"Liberation Mono",monospace;
+  --container:1080px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block;height:auto}
+a{color:var(--wine);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;text-decoration-color:var(--gold)}
+a:hover{color:var(--wine-soft);text-decoration-color:var(--wine)}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--wine-900);line-height:1.22;margin:0 0 .55em;font-weight:700;letter-spacing:-.005em}
+h1{font-size:clamp(2.1rem,4vw,3.1rem)}
+h2{font-size:clamp(1.5rem,2.5vw,1.95rem)}
+h3{font-size:1.16rem}
+p{margin:0 0 1.1em}
+ul,ol{margin:0 0 1.1em;padding-left:1.4em}
+li{margin-bottom:.45em}
+.container{max-width:var(--container);margin:0 auto;padding:0 28px}
+
+.top-rule{height:3px;background:var(--wine);border-bottom:1px solid var(--gold)}
+.site-header{background:var(--paper);border-bottom:1px solid var(--line-strong);position:sticky;top:0;z-index:40}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.brand:hover{color:inherit;text-decoration:none}
+.brand-mark{width:30px;height:30px;flex-shrink:0}
+.brand-text{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--wine-900);letter-spacing:-.01em}
+.brand-text strong{color:var(--gold-dark);font-weight:700}
+.site-nav{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.site-nav a{color:var(--ink);text-decoration:none;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:6px 0;border-bottom:2px solid transparent}
+.site-nav a:hover{color:var(--wine);border-bottom-color:var(--gold)}
+.nav-toggle{display:none;background:none;border:1.5px solid var(--wine-900);font-size:1rem;padding:5px 10px;cursor:pointer;color:var(--wine-900);font-family:var(--font-body)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--font-body);font-weight:700;font-size:.9rem;padding:12px 24px;border:1.5px solid var(--wine-900);background:var(--wine-900);color:var(--cream);text-decoration:none;cursor:pointer;transition:background .15s ease}
+.btn:hover{background:var(--wine);color:var(--cream);text-decoration:none}
+.btn.btn-ghost{background:transparent;color:var(--wine-900)}
+.btn.btn-ghost:hover{background:var(--wine-900);color:var(--cream)}
+.btn.cta{background:var(--wine);border-color:var(--wine);color:var(--cream);font-size:.98rem;padding:14px 30px;border-bottom:4px solid var(--gold)}
+.btn.cta:hover{background:var(--wine-800)}
+
+/* ===== HERO EDITORIAL (coluna + barra lateral, não centralizado gigante) ===== */
+.hero{background:var(--paper);border-bottom:1px solid var(--line-strong);padding:38px 0 34px}
+.hero .container{display:grid;grid-template-columns:1fr 300px;gap:46px;align-items:start}
+.dateline{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:18px}
+.eyebrow{display:inline-block;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dark);font-weight:700;margin-bottom:.9em;border-left:3px solid var(--gold);padding-left:9px}
+.hero h1{font-size:clamp(2.2rem,4.2vw,3.2rem);margin-bottom:.3em}
+.hero p.lede{font-family:var(--font-display);font-size:1.18rem;color:var(--ink-soft);max-width:46ch;line-height:1.46}
+.topics{display:flex;flex-wrap:wrap;gap:9px;margin-top:1.3em}
+.topics a{font-family:var(--font-mono);font-size:.72rem;text-decoration:none;padding:5px 11px;border:1px solid var(--line-strong);color:var(--wine);letter-spacing:.04em;text-transform:uppercase;background:var(--cream)}
+.topics a:hover{background:var(--wine);color:var(--cream);border-color:var(--wine);text-decoration:none}
+
+.hero-aside{background:var(--wine-900);color:var(--cream);padding:24px;border-top:4px solid var(--gold)}
+.hero-aside h3{color:var(--cream);font-family:var(--font-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 1em;font-weight:700}
+.hero-aside p{color:#e8d9c0;font-size:.92rem;margin-bottom:.85em;line-height:1.5}
+.hero-aside .btn{margin-top:.5em;border-color:var(--gold);background:var(--gold);color:var(--wine-900);font-size:.84rem}
+.hero-aside .btn:hover{background:var(--gold-dark);color:var(--cream)}
+
+section{padding:52px 0}
+.section-alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;margin-bottom:28px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.section-head h2{margin:0}
+.section-head p{color:var(--ink-soft);max-width:52ch;margin:0;font-size:.92rem}
+
+/* ===== LISTA EDITORIAL (não grid de cards das irmãs) ===== */
+.story-list{display:flex;flex-direction:column}
+.story-row{display:grid;grid-template-columns:90px 1fr;gap:24px;padding:26px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.story-row:first-child{padding-top:6px}
+.story-row:hover{text-decoration:none;color:var(--ink)}
+.story-row:hover h3{color:var(--wine)}
+.story-num{font-family:var(--font-display);font-size:2.4rem;font-weight:700;color:var(--gold-dark);line-height:1;font-style:italic}
+.story-cat{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--wine);font-weight:700;margin-bottom:.4em;display:block}
+.story-row h3{font-size:1.32rem;margin-bottom:.35em;transition:color .12s ease}
+.story-row .dek{color:var(--ink-soft);font-size:.95rem;margin:0 0 .55em;max-width:62ch}
+.story-row .meta{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-mute);letter-spacing:.02em}
+
+/* ===== FEATURED LEAD ===== */
+.lead-story{background:var(--wine-900);color:var(--cream);padding:34px;margin-bottom:18px;border-left:5px solid var(--gold);text-decoration:none;display:block}
+.lead-story:hover{text-decoration:none;color:var(--cream)}
+.lead-story .story-cat{color:var(--gold)}
+.lead-story h3{color:var(--cream);font-size:1.9rem;margin-bottom:.4em;letter-spacing:-.01em}
+.lead-story .dek{color:#e8d9c0;font-size:1.02rem;max-width:62ch;margin-bottom:.6em}
+.lead-story .meta{color:#e8d9c0;opacity:.8}
+
+/* ===== APP PROMO ===== */
+.app-promo{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
+.app-feature-list{list-style:none;padding:0;margin:1.3em 0}
+.app-feature-list li{display:flex;gap:11px;margin-bottom:.65em;font-size:.95rem}
+.app-feature-list li::before{content:"■";color:var(--gold);font-size:.6em;flex-shrink:0;padding-top:.5em}
+.app-mock{background:var(--wine-900);padding:16px;box-shadow:5px 5px 0 var(--gold)}
+.app-mock-frame{background:var(--paper);overflow:hidden;color:var(--ink);border:1px solid var(--gold-dark)}
+.app-mock-bar{background:var(--cream-deep);padding:9px 13px;display:flex;gap:6px;align-items:center;border-bottom:2px solid var(--ink)}
+.app-mock-bar span{width:8px;height:8px;background:var(--ink-mute);display:inline-block}
+.app-mock-bar span:nth-child(1){background:var(--gold)}
+.app-mock-body{padding:14px}
+.app-mock-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dotted var(--line);font-size:.84rem}
+.app-mock-row:last-child{border-bottom:none}
+.app-mock-tag{font-family:var(--font-mono);font-size:.62rem;padding:3px 8px;border:1px solid var(--wine);color:var(--wine);text-transform:uppercase;letter-spacing:.04em}
+.app-mock-tag.wait{border-color:var(--gold-dark);color:var(--gold-dark)}
+.app-mock-tag.done{border-color:#3a6b2a;color:#3a6b2a}
+
+/* ===== TWO COL / SOBRE ===== */
+.two-col{display:grid;grid-template-columns:2fr 1fr;gap:42px}
+.side-box{background:var(--cream-deep);border:1px solid var(--line-strong);border-left:4px solid var(--wine);padding:22px;align-self:start;position:sticky;top:88px}
+.side-box h3{font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--wine);margin-bottom:.9em;padding-bottom:.5em;border-bottom:1px solid var(--line-strong)}
+.side-box a{display:block;font-size:.9rem;padding:8px 0;border-bottom:1px dotted var(--line);color:var(--ink);text-decoration:none}
+.side-box a:last-child{border-bottom:none}
+.side-box a:hover{color:var(--wine);text-decoration:none}
+
+.site-footer{background:var(--wine-900);color:#e8d9c0;padding:44px 0 0;margin-top:54px;border-top:3px solid var(--gold)}
+.footer-inner{display:grid;grid-template-columns:1.5fr 2fr;gap:42px;padding-bottom:32px}
+.footer-brand .brand-text{color:#fff}
+.footer-brand .brand-text strong{color:var(--gold)}
+.footer-brand p{color:#e8d9c0;opacity:.85;max-width:42ch;margin-top:.7em;font-size:.9rem}
+.footer-nav{display:flex;gap:46px}
+.footer-col h3{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:#e8d9c0;opacity:.65;margin-bottom:.9em}
+.footer-col a{display:block;color:#e8d9c0;text-decoration:none;padding:5px 0;font-size:.88rem}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid #5a2a35;padding:15px 0;font-size:.76rem;color:#e8d9c0;opacity:.65;letter-spacing:.02em}
+
+@media (max-width:920px){
+  .hero .container{grid-template-columns:1fr}
+  .app-promo{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .side-box{position:static}
+}
+@media (max-width:720px){
+  .site-nav{position:absolute;top:100%;left:0;right:0;background:var(--paper);flex-direction:column;align-items:flex-start;gap:0;border-bottom:2px solid var(--ink);padding:8px 28px 14px;display:none}
+  .site-nav.is-open{display:flex}
+  .site-nav a{width:100%;padding:10px 0}
+  .nav-toggle{display:block}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-nav{gap:30px;flex-wrap:wrap}
+  .story-row{grid-template-columns:1fr;gap:10px}
+  .lead-story{padding:24px}
+  .lead-story h3{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="top-rule"></div>
+<header class="site-header">
+  <div class="header-inner container">
+    <a href="safe.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="6" fill="#5b1a2e"/><path d="M14 38 L26 38 L26 46 L38 46 L38 38 L50 38" fill="none" stroke="#c9a227" stroke-width="3" stroke-linejoin="round"/><rect x="20" y="20" width="24" height="18" rx="1" fill="none" stroke="#c9a227" stroke-width="3"/><line x1="26" y1="28" x2="38" y2="28" stroke="#c9a227" stroke-width="2"/></svg>
+      <span class="brand-text">Rastreio<strong>Pronto</strong></span>
+    </a>
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a href="safe.html">Início</a>
+      <a href="app.html">App</a>
+      <a href="glossario.html">Glossário</a>
+      <a href="faq.html">Dúvidas</a>
+      <a href="sobre.html">Sobre</a>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Abrir menu" onclick="document.querySelector('.site-nav').classList.toggle('is-open')">Menu</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div>
+      <p class="dateline">Edição 09 · Julho de 2026 · Diário do Consumidor</p>
+      <span class="eyebrow">Capa desta edição</span>
+      <h1>O caminho de uma compra, do clique até a porta</h1>
+      <p class="lede">O RastreioPronto é um diário editorial sobre consumo, e-commerce e direitos do consumidor no Brasil. Reportagens curtas e práticas para você entender o trajeto das suas compras, interpretar o rastreio e saber o que fazer quando algo sai do combinado.</p>
+      <div class="topics">
+        <a href="presell.html">Acompanhamento</a>
+        <a href="cdc-compras-online-direitos.html">Direitos do consumidor</a>
+        <a href="centros-de-distribuicao-como-funcionam.html">Logística</a>
+        <a href="estoque-virtual-o-que-significa.html">Compras</a>
+      </div>
+    </div>
+    <aside class="hero-aside">
+      <h3>Nesta edição</h3>
+      <p>Por que o pedido para no centro de distribuição — e por que isso costuma ser normal.</p>
+      <p>A diferença entre postagem e triagem, explicada sem termos técnicos.</p>
+      <p>O que o CDC realmente garante numa compra pela internet.</p>
+      <a href="presell.html" class="btn">Ler a reportagem de capa</a>
+    </aside>
+  </div>
+</section>
+
+<section id="destaque">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Reportagens em destaque</span>
+        <h2>Guias para comprar melhor, entender o rastreio e conhecer seus direitos</h2>
+      </div>
+      <p>Conteúdo para quem compra online no dia a dia — sem juridiquês, sem promessa vazia, com o que de fato ajuda.</p>
+    </div>
+
+    <a class="lead-story" href="presell.html">
+      <span class="story-cat">Capa · Acompanhamento</span>
+      <h3>Por que um pedido para no centro de distribuição (e outras perguntas)</h3>
+      <p class="dek">Cinco perguntas que chegam à redação: o que é um CD, a diferença entre postagem e triagem, o que o CDC garante, como funciona a logística reversa e o que esperar de compras internacionais.</p>
+      <span class="meta">08 jul 2026 · 9 min de leitura · Reportagem de capa</span>
+    </a>
+
+    <div class="story-list">
+      <a class="story-row" href="centros-de-distribuicao-como-funcionam.html">
+        <span class="story-num">01</span>
+        <div>
+          <span class="story-cat">Logística</span>
+          <h3>Centros de distribuição: como funcionam por dentro</h3>
+          <p class="dek">O que acontece entre a postagem e a saída para a sua cidade — e por que uma parada no CD quase nunca é problema.</p>
+          <span class="meta">10 jul 2026 · 7 min</span>
+        </div>
+      </a>
+      <a class="story-row" href="diferenca-postagem-e-triagem.html">
+        <span class="story-num">02</span>
+        <div>
+          <span class="story-cat">Acompanhamento</span>
+          <h3>Postagem e triagem: a diferença que explica seus prazos</h3>
+          <p class="dek">Por que o rastreio muda cinco vezes antes da entrega e o que cada etapa significa na prática.</p>
+          <span class="meta">12 jul 2026 · 6 min</span>
+        </div>
+      </a>
+      <a class="story-row" href="cdc-compras-online-direitos.html">
+        <span class="story-num">03</span>
+        <div>
+          <span class="story-cat">Direitos do consumidor</span>
+          <h3>O CDC nas compras online: o que a lei garante de verdade</h3>
+          <p class="dek">Do arrependimento em 7 dias à publicidade enganosa: um panorama do Código de Defesa do Consumidor aplicado à internet.</p>
+          <span class="meta">14 jul 2026 · 8 min</span>
+        </div>
+      </a>
+      <a class="story-row" href="como-funciona-logistica-reversa-passo-a-passo.html">
+        <span class="story-num">04</span>
+        <div>
+          <span class="story-cat">Devoluções</span>
+          <h3>Logística reversa passo a passo: como devolver sem complicação</h3>
+          <p class="dek">Quem organiza o retorno, quem paga o frete e como acompanhar o caminho de volta do produto.</p>
+          <span class="meta">06 jul 2026 · 7 min</span>
+        </div>
+      </a>
+      <a class="story-row" href="rastreio-internacional-o-que-esperar.html">
+        <span class="story-num">05</span>
+        <div>
+          <span class="story-cat">Compras internacionais</span>
+          <h3>Rastreio internacional: o que esperar (e o que não esperar)</h3>
+          <p class="dek">Prazos em janela, alfândega e entrega final — como calibrar a expectativa de um pedido que vem de fora.</p>
+          <span class="meta">03 jul 2026 · 7 min</span>
+        </div>
+      </a>
+      <a class="story-row" href="transportadoras-como-identificar-a-responsavel.html">
+        <span class="story-num">06</span>
+        <div>
+          <span class="story-cat">Logística</span>
+          <h3>Transportadoras: como identificar quem está levando seu pacote</h3>
+          <p class="dek">Um pedido pode passar por várias mãos. Saber qual delas responde encurta qualquer conversa.</p>
+          <span class="meta">09 jul 2026 · 6 min</span>
+        </div>
+      </a>
+      <a class="story-row" href="codigo-de-defesa-do-consumidor-entenda.html">
+        <span class="story-num">07</span>
+        <div>
+          <span class="story-cat">Direitos do consumidor</span>
+          <h3>Código de Defesa do Consumidor: um guia para entender a base legal</h3>
+          <p class="dek">Os pontos do CDC que mais aparecem no dia a dia de quem compra pela internet, em linguagem simples.</p>
+          <span class="meta">15 jul 2026 · 8 min</span>
+        </div>
+      </a>
+      <a class="story-row" href="notificacoes-de-status-como-interpretar.html">
+        <span class="story-num">08</span>
+        <div>
+          <span class="story-cat">Rastreio</span>
+          <h3>Notificações de status: como interpretar cada mensagem</h3>
+          <p class="dek">Ler o rastreio sem pânico e sem negligência — um glossário aplicado das mensagens mais comuns.</p>
+          <span class="meta">11 jul 2026 · 6 min</span>
+        </div>
+      </a>
+      <a class="story-row" href="estoque-virtual-o-que-significa.html">
+        <span class="story-num">09</span>
+        <div>
+          <span class="story-cat">Compras</span>
+          <h3>Estoque virtual: o que significa e por que atrasa uma entrega</h3>
+          <p class="dek">Quando o produto anunciado não está no galpão da loja — e como isso afeta o prazo que você vê no checkout.</p>
+          <span class="meta">07 jul 2026 · 6 min</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="container app-promo">
+    <div>
+      <span class="eyebrow">Ferramenta gratuita do diário</span>
+      <h2>RastreioPronto: um painel pessoal para não perder nenhum pedido de vista</h2>
+      <p>Depois de escrever tantas reportagens sobre o caminho das compras, montamos uma ferramenta para resolver a parte chata: o <strong>RastreioPronto</strong> é um painel gratuito onde você anota cada compra, o prazo combinado pela loja e recebe um lembrete quando vale a pena checar o status.</p>
+      <ul class="app-feature-list">
+        <li>Cadastre pedidos de qualquer loja em poucos segundos</li>
+        <li>Lembrete automático quando o prazo estiver perto de vencer</li>
+        <li>Histórico organizado por loja, data e situação</li>
+        <li>Sem cartão, sem custo — é uma ferramenta de organização pessoal</li>
+      </ul>
+      <a href="app.html" class="btn cta">Conhecer o RastreioPronto</a>
+    </div>
+    <div class="app-mock" aria-hidden="true">
+      <div class="app-mock-frame">
+        <div class="app-mock-bar"><span></span><span></span><span></span></div>
+        <div class="app-mock-body">
+          <div class="app-mock-row"><span>Café — Torrador Vale</span><span class="app-mock-tag">No prazo</span></div>
+          <div class="app-mock-row"><span>Livro — Sebo Online</span><span class="app-mock-tag wait">Checar hoje</span></div>
+          <div class="app-mock-row"><span>Panela — Cozinha &amp; Cia</span><span class="app-mock-tag done">Entregue</span></div>
+          <div class="app-mock-row"><span>Manta — Linha Trama</span><span class="app-mock-tag">No prazo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container two-col">
+    <div>
+      <span class="eyebrow">Sobre o diário</span>
+      <h2>Um veículo editorial, não uma transportadora</h2>
+      <p>O RastreioPronto não é transportadora, não é marketplace e não faz rastreamento de encomendas. Somos um diário de conteúdo que explica, em linguagem sóbria, como funciona o processo de compra online no Brasil — do clique em "finalizar" até o produto chegar (ou, quando algo dá errado, até a solução).</p>
+      <p>Nosso trabalho é reunir informação prática sobre pedidos, frete, direitos do consumidor e organização, para que quem compra pela internet saiba o que esperar e como agir. <a href="sobre.html">Conheça a proposta editorial completa</a>.</p>
+    </div>
+    <div class="side-box">
+      <h3>Comece por aqui</h3>
+      <a href="presell.html">O caminho de uma compra online</a>
+      <a href="centros-de-distribuicao-como-funcionam.html">Como funcionam os centros de distribuição</a>
+      <a href="cdc-compras-online-direitos.html">O CDC nas compras online</a>
+      <a href="glossario.html">Glossário de logística</a>
+      <a href="faq.html">Dúvidas frequentes</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="brand-text">Rastreio<strong>Pronto</strong></span>
+      <p>Diário editorial independente sobre consumo, compras online, entregas e direitos do consumidor no Brasil.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Links do rodapé">
+      <div class="footer-col">
+        <h3>Portal</h3>
+        <a href="safe.html">Início</a>
+        <a href="app.html">App RastreioPronto</a>
+        <a href="glossario.html">Glossário</a>
+        <a href="faq.html">Dúvidas frequentes</a>
+        <a href="sobre.html">Sobre o RastreioPronto</a>
+      </div>
+      <div class="footer-col">
+        <h3>Institucional</h3>
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="mailto:contato@rastreiopronto.cfd">contato@rastreiopronto.cfd</a>
+      </div>
+    </nav>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; 2026 RastreioPronto. Conteúdo editorial independente — não somos transportadora nem marketplace.</p>
+  </div>
+</footer>
+</body>
+</html>

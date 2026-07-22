@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RastreioPronto — o painel pessoal para organizar suas compras online</title>
+<meta name="description" content="O RastreioPronto é um painel gratuito de organização pessoal de compras: cadastre pedidos, prazos e lembretes em um só lugar. Sem cartão, sem custo, sem dado sensível.">
+<link rel="canonical" href="https://rastreiopronto.cfd/app.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RastreioPronto — painel pessoal para organizar suas compras online">
+<meta property="og:description" content="Cadastre pedidos, prazos e lembretes em um só painel. Gratuito, sem cartão, sem dado sensível.">
+<meta property="og:url" content="https://rastreiopronto.cfd/app.html">
+<meta property="og:site_name" content="RastreioPronto">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%235b1a2e'/%3E%3Cpath d='M14 38 L26 38 L26 46 L38 46 L38 38 L50 38' fill='none' stroke='%23c9a227' stroke-width='3' stroke-linejoin='round'/%3E%3Crect x='20' y='20' width='24' height='18' rx='1' fill='none' stroke='%23c9a227' stroke-width='3'/%3E%3Cline x1='26' y1='28' x2='38' y2='28' stroke='%23c9a227' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root{--wine-900:#3a1019;--wine-800:#4a1422;--wine:#5b1a2e;--wine-soft:#7a2a40;--gold:#c9a227;--gold-dark:#a6841a;--gold-soft:#f4ecca;--cream:#faf5ed;--cream-deep:#f1e8d6;--paper:#ffffff;--ink:#1f1416;--ink-soft:#5a4a4e;--ink-mute:#8a7a7e;--line:#e2d9c8;--line-strong:#cdbfa3;--font-display:Cambria,Constantia,"Hoefler Text",Georgia,"Times New Roman",serif;--font-body:Verdana,Geneva,"DejaVu Sans",Tahoma,sans-serif;--font-mono:"Courier New",Consolas,"Liberation Mono",monospace;--container:1080px}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block;height:auto}
+a{color:var(--wine);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;text-decoration-color:var(--gold)}
+a:hover{color:var(--wine-soft);text-decoration-color:var(--wine)}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--wine-900);line-height:1.22;margin:0 0 .55em;font-weight:700;letter-spacing:-.005em}
+h1{font-size:clamp(2rem,3.8vw,2.7rem)}h2{font-size:clamp(1.5rem,2.5vw,1.95rem)}h3{font-size:1.16rem}
+p{margin:0 0 1.1em}ul,ol{margin:0 0 1.1em;padding-left:1.4em}li{margin-bottom:.45em}
+.container{max-width:var(--container);margin:0 auto;padding:0 28px}
+.top-rule{height:3px;background:var(--wine);border-bottom:1px solid var(--gold)}
+.site-header{background:var(--paper);border-bottom:1px solid var(--line-strong);position:sticky;top:0;z-index:40}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.brand:hover{color:inherit;text-decoration:none}
+.brand-mark{width:30px;height:30px;flex-shrink:0}
+.brand-text{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--wine-900);letter-spacing:-.01em}
+.brand-text strong{color:var(--gold-dark);font-weight:700}
+.site-nav{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.site-nav a{color:var(--ink);text-decoration:none;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:6px 0;border-bottom:2px solid transparent}
+.site-nav a:hover{color:var(--wine);border-bottom-color:var(--gold)}
+.nav-toggle{display:none;background:none;border:1.5px solid var(--wine-900);font-size:1rem;padding:5px 10px;cursor:pointer;color:var(--wine-900);font-family:var(--font-body)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--font-body);font-weight:700;font-size:.9rem;padding:12px 24px;border:1.5px solid var(--wine-900);background:var(--wine-900);color:var(--cream);text-decoration:none;cursor:pointer;transition:background .15s ease}
+.btn:hover{background:var(--wine);color:var(--cream);text-decoration:none}
+.btn.btn-ghost{background:transparent;color:var(--wine-900)}
+.btn.btn-ghost:hover{background:var(--wine-900);color:var(--cream)}
+.btn.cta{background:var(--wine);border-color:var(--wine);color:var(--cream);font-size:.98rem;padding:14px 30px;border-bottom:4px solid var(--gold)}
+.btn.cta:hover{background:var(--wine-800)}
+.breadcrumb{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-mute);padding:18px 0;letter-spacing:.02em}
+.breadcrumb a{color:var(--ink-mute);text-decoration:none}
+.eyebrow{display:inline-block;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dark);font-weight:700;margin-bottom:.9em;border-left:3px solid var(--gold);padding-left:9px}
+section{padding:52px 0}
+.section-alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;margin-bottom:28px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.section-head h2{margin:0}
+.section-head p{color:var(--ink-soft);max-width:52ch;margin:0;font-size:.92rem}
+
+/* HERO coluna + mock */
+.hero{background:var(--paper);border-bottom:1px solid var(--line-strong);padding:38px 0 34px}
+.hero .container{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
+.hero h1{font-size:clamp(2.1rem,4vw,2.95rem)}
+.hero p.lede{font-size:1.1rem;color:var(--ink-soft);max-width:46ch}
+.hero-actions{display:flex;gap:14px;margin-top:1.6em;flex-wrap:wrap}
+.app-mock{background:var(--wine-900);padding:16px;box-shadow:5px 5px 0 var(--gold)}
+.app-mock-frame{background:var(--paper);overflow:hidden;color:var(--ink);border:1px solid var(--gold-dark)}
+.app-mock-bar{background:var(--cream-deep);padding:9px 13px;display:flex;gap:6px;align-items:center;border-bottom:2px solid var(--ink)}
+.app-mock-bar span{width:8px;height:8px;background:var(--ink-mute);display:inline-block}
+.app-mock-bar span:nth-child(1){background:var(--gold)}
+.app-mock-body{padding:14px}
+.app-mock-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dotted var(--line);font-size:.84rem}
+.app-mock-row:last-child{border-bottom:none}
+.app-mock-tag{font-family:var(--font-mono);font-size:.62rem;padding:3px 8px;border:1px solid var(--wine);color:var(--wine);text-transform:uppercase;letter-spacing:.04em}
+.app-mock-tag.wait{border-color:var(--gold-dark);color:var(--gold-dark)}
+.app-mock-tag.done{border-color:#3a6b2a;color:#3a6b2a}
+
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.feature-card{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--gold);padding:22px}
+.feature-card h3{font-size:1.08rem;margin-bottom:.4em}
+.feature-card p{font-size:.92rem;color:var(--ink-soft);margin:0}
+.feature-card .num{font-family:var(--font-display);font-size:1.4rem;color:var(--gold-dark);font-style:italic;display:block;margin-bottom:.5em}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.step{padding:22px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--wine)}
+.step .step-num{font-family:var(--font-display);font-size:2.1rem;font-weight:700;color:var(--wine);font-style:italic;display:block;margin-bottom:.3em;line-height:1}
+.step h3{font-size:1.02rem;margin-bottom:.4em}
+.step p{font-size:.9rem;color:var(--ink-soft);margin:0}
+
+.disclaimer-strip{background:var(--gold-soft);border-left:4px solid var(--gold-dark);padding:18px 22px;margin:1.8em 0;font-size:.94rem;color:var(--ink)}
+.disclaimer-strip strong{color:var(--wine-900)}
+
+.two-col{display:grid;grid-template-columns:2fr 1fr;gap:42px}
+.side-box{background:var(--cream-deep);border:1px solid var(--line-strong);border-left:4px solid var(--wine);padding:22px;align-self:start;position:sticky;top:88px}
+.side-box h3{font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--wine);margin-bottom:.9em;padding-bottom:.5em;border-bottom:1px solid var(--line-strong)}
+.side-box a{display:block;font-size:.9rem;padding:8px 0;border-bottom:1px dotted var(--line);color:var(--ink);text-decoration:none}
+.side-box a:last-child{border-bottom:none}
+.side-box a:hover{color:var(--wine);text-decoration:none}
+
+.site-footer{background:var(--wine-900);color:#e8d9c0;padding:44px 0 0;margin-top:54px;border-top:3px solid var(--gold)}
+.footer-inner{display:grid;grid-template-columns:1.5fr 2fr;gap:42px;padding-bottom:32px}
+.footer-brand .brand-text{color:#fff}
+.footer-brand .brand-text strong{color:var(--gold)}
+.footer-brand p{color:#e8d9c0;opacity:.85;max-width:42ch;margin-top:.7em;font-size:.9rem}
+.footer-nav{display:flex;gap:46px}
+.footer-col h3{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:#e8d9c0;opacity:.65;margin-bottom:.9em}
+.footer-col a{display:block;color:#e8d9c0;text-decoration:none;padding:5px 0;font-size:.88rem}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid #5a2a35;padding:15px 0;font-size:.76rem;color:#e8d9c0;opacity:.65;letter-spacing:.02em}
+@media (max-width:980px){.feature-grid{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:880px){.hero .container{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.side-box{position:static}.footer-inner{grid-template-columns:1fr}.footer-nav{gap:30px;flex-wrap:wrap}.feature-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}}
+@media (max-width:720px){.site-nav{position:absolute;top:100%;left:0;right:0;background:var(--paper);flex-direction:column;align-items:flex-start;gap:0;border-bottom:2px solid var(--ink);padding:8px 28px 14px;display:none}.site-nav.is-open{display:flex}.site-nav a{width:100%;padding:10px 0}.nav-toggle{display:block}}
+</style>
+</head>
+<body>
+<div class="top-rule"></div>
+<header class="site-header">
+  <div class="header-inner container">
+    <a href="safe.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="6" fill="#5b1a2e"/><path d="M14 38 L26 38 L26 46 L38 46 L38 38 L50 38" fill="none" stroke="#c9a227" stroke-width="3" stroke-linejoin="round"/><rect x="20" y="20" width="24" height="18" rx="1" fill="none" stroke="#c9a227" stroke-width="3"/><line x1="26" y1="28" x2="38" y2="28" stroke="#c9a227" stroke-width="2"/></svg>
+      <span class="brand-text">Rastreio<strong>Pronto</strong></span>
+    </a>
+    <nav class="site-nav" aria-label="Navegação principal"><a href="safe.html">Início</a><a href="app.html" aria-current="page">App</a><a href="glossario.html">Glossário</a><a href="faq.html">Dúvidas</a><a href="sobre.html">Sobre</a></nav>
+    <button class="nav-toggle" type="button" aria-label="Abrir menu" onclick="document.querySelector('.site-nav').classList.toggle('is-open')">Menu</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div>
+      <span class="eyebrow">Ferramenta gratuita do diário</span>
+      <h1>RastreioPronto: um painel pessoal para organizar suas compras online</h1>
+      <p class="lede">Depois de escrever tantas reportagens sobre o caminho das compras, montamos uma ferramenta simples para resolver o problema mais comum de quem compra pela internet: perder o controle de quantos pedidos estão a caminho. O RastreioPronto é um painel gratuito de organização pessoal — você anota, nós lembramos.</p>
+      <div class="hero-actions">
+        <a href="#comecar" class="btn">Começar a organizar</a>
+        <a href="#como-funciona" class="btn btn-ghost">Ver como funciona</a>
+      </div>
+    </div>
+    <div class="app-mock" aria-hidden="true">
+      <div class="app-mock-frame">
+        <div class="app-mock-bar"><span></span><span></span><span></span></div>
+        <div class="app-mock-body">
+          <div class="app-mock-row"><span>Café — Torrador Vale</span><span class="app-mock-tag">No prazo</span></div>
+          <div class="app-mock-row"><span>Livro — Sebo Online</span><span class="app-mock-tag wait">Checar hoje</span></div>
+          <div class="app-mock-row"><span>Panela — Cozinha &amp; Cia</span><span class="app-mock-tag done">Entregue</span></div>
+          <div class="app-mock-row"><span>Manta — Linha Trama</span><span class="app-mock-tag">No prazo</span></div>
+          <div class="app-mock-row"><span>Fone — Áudio Manso</span><span class="app-mock-tag wait">Checar hoje</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recursos">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">O que o painel faz</span>
+        <h2>Recursos para quem compra em várias lojas ao mesmo tempo</h2>
+      </div>
+      <p>Nada de painel complicado. O RastreioPronto reúne o essencial para você não depender da memória (nem de dez abas do navegador abertas) para saber o que está para chegar.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card"><span class="num">i.</span><h3>Painel único de pedidos</h3><p>Cadastre cada compra com loja, valor e prazo de entrega em uma lista só, em vez de espalhada em e-mails e apps diferentes.</p></div>
+      <div class="feature-card"><span class="num">ii.</span><h3>Lembretes de prazo</h3><p>Você define a data combinada pela loja e recebe um lembrete de acompanhamento perto do vencimento — para checar o status onde a compra foi feita.</p></div>
+      <div class="feature-card"><span class="num">iii.</span><h3>Histórico por loja</h3><p>Veja rapidamente quantos pedidos já fez em cada loja, quais chegaram no prazo e quais precisaram de atenção extra.</p></div>
+      <div class="feature-card"><span class="num">iv.</span><h3>Etiquetas de status</h3><p>Marque cada pedido como "no prazo", "checar hoje", "entregue" ou "em devolução" — tags que você mesmo atualiza, do seu jeito.</p></div>
+      <div class="feature-card"><span class="num">v.</span><h3>Sem cartão, sem custo</h3><p>O RastreioPronto é uma ferramenta de organização pessoal, sem custo e sem pedir dado de pagamento em nenhuma etapa.</p></div>
+      <div class="feature-card"><span class="num">vi.</span><h3>Celular e computador</h3><p>O painel se adapta à tela do seu dispositivo — organize um pedido no intervalo do trabalho e revise a lista completa em casa.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Passo a passo</span>
+        <h2>Como usar o RastreioPronto</h2>
+      </div>
+      <p>Quatro passos simples, sem instalar nada e sem informar dado sensível.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="step-num">1</span><h3>Cadastre o pedido</h3><p>Digite o nome da loja, o item e o valor combinado. Leva menos de um minuto.</p></div>
+      <div class="step"><span class="step-num">2</span><h3>Informe o prazo</h3><p>Coloque a data de entrega que a própria loja informou no momento da compra.</p></div>
+      <div class="step"><span class="step-num">3</span><h3>Receba o lembrete</h3><p>Perto do prazo, o painel te avisa para checar o status direto no site ou app da loja.</p></div>
+      <div class="step"><span class="step-num">4</span><h3>Atualize o status</h3><p>Marque como entregue, em devolução ou em atraso e mantenha seu histórico sempre em dia.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="comecar">
+  <div class="container two-col">
+    <div>
+      <span class="eyebrow">Por dentro do painel</span>
+      <h2>Feito para organização, não para rastreamento de terceiros</h2>
+      <p>É importante ser direto: o RastreioPronto <strong>não é</strong> um sistema de rastreamento de encomendas. Ele não se conecta a Correios, transportadoras ou marketplaces para buscar status em tempo real. O que ele faz é te ajudar a <strong>organizar as informações que você já tem</strong> — a loja, o prazo combinado e um lembrete para você mesmo checar o andamento onde a compra foi feita.</p>
+      <p>Isso significa mais controle e menos dependência de código de rastreio perdido em e-mail antigo. E como é uma ferramenta de organização pessoal, não pedimos CPF, cartão ou qualquer dado sensível para usar.</p>
+      <div class="disclaimer-strip">
+        <strong>Importante:</strong> o RastreioPronto é gratuito e não substitui o canal oficial de acompanhamento de cada loja ou transportadora. Use-o como um lembrete pessoal — o status real do seu pedido sempre deve ser conferido diretamente com quem vendeu ou entregou o produto.
+      </div>
+      <a href="mailto:contato@rastreiopronto.cfd?subject=Quero%20usar%20o%20RastreioPronto" class="btn cta">Quero usar o RastreioPronto gratuitamente</a>
+    </div>
+    <div class="side-box">
+      <h3>Leia também</h3>
+      <a href="presell.html">O caminho de uma compra online</a>
+      <a href="estoque-virtual-o-que-significa.html">Estoque virtual: o que significa</a>
+      <a href="cdc-compras-online-direitos.html">O CDC nas compras online</a>
+      <a href="faq.html">Dúvidas frequentes</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="brand-text">Rastreio<strong>Pronto</strong></span>
+      <p>Diário editorial independente sobre consumo, compras online, entregas e direitos do consumidor no Brasil.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Links do rodapé">
+      <div class="footer-col"><h3>Portal</h3><a href="safe.html">Início</a><a href="app.html">App RastreioPronto</a><a href="glossario.html">Glossário</a><a href="faq.html">Dúvidas frequentes</a><a href="sobre.html">Sobre o RastreioPronto</a></div>
+      <div class="footer-col"><h3>Institucional</h3><a href="privacidade.html">Política de Privacidade</a><a href="termos.html">Termos de Uso</a><a href="mailto:contato@rastreiopronto.cfd">contato@rastreiopronto.cfd</a></div>
+    </nav>
+  </div>
+  <div class="container footer-bottom"><p>&copy; 2026 RastreioPronto. Conteúdo editorial independente — não somos transportadora nem marketplace.</p></div>
+</footer>
+</body>
+</html>
