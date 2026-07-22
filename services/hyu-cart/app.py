@@ -2544,6 +2544,49 @@ async def afiliado_novo(request: Request):
     return RedirectResponse(f"/afiliados?ok={tag}", status_code=303)
 
 
+@app.post("/afiliados/{tag}/editar")
+async def afiliado_editar(tag: str, request: Request):
+    """Edita o afiliado já criado. A TAG não muda (links divulgados quebrariam) —
+    campos editáveis: nome, cupom, PIX, e-mail, WhatsApp e %."""
+    from fastapi.responses import RedirectResponse
+    from urllib.parse import parse_qs
+    denied = _panel_auth(request, "/afiliados")
+    if denied:
+        return denied
+    t = _norm_tag(tag)
+    raw = (await request.body()).decode("utf-8", "replace")
+    f = {k: v[0] for k, v in parse_qs(raw, keep_blank_values=True).items()}
+    name = str(f.get("name") or "").strip()[:120]
+    if not name:
+        return RedirectResponse("/afiliados?err=nome+nao+pode+ficar+vazio", status_code=303)
+    cupom = _norm_tag(f.get("cupom"))
+    try:
+        pct = float(str(f.get("pct") or AFILIADO_PCT).replace(",", "."))
+    except ValueError:
+        pct = AFILIADO_PCT
+    pct = max(0.0, min(pct, 50.0))
+    conn = _db()
+    try:
+        if not conn.execute("SELECT 1 FROM afiliados WHERE tag=?", (t,)).fetchone():
+            return RedirectResponse(f"/afiliados?err=afiliado+{t}+nao+existe", status_code=303)
+        if cupom:
+            dono = conn.execute(
+                "SELECT tag FROM afiliados WHERE cupom=? AND tag<>?", (cupom, t)).fetchone()
+            if dono:
+                return RedirectResponse(
+                    f"/afiliados?err=cupom+{cupom}+ja+e+do+afiliado+{dono[0]}", status_code=303)
+        conn.execute(
+            "UPDATE afiliados SET name=?, cupom=?, pix=?, email=?, phone=?, pct=? WHERE tag=?",
+            (name, cupom, str(f.get("pix") or "").strip()[:140],
+             str(f.get("email") or "").strip()[:160],
+             re.sub(r"\D", "", str(f.get("phone") or ""))[:13], pct, t))
+        conn.commit()
+    finally:
+        conn.close()
+    log.info("afiliado editado tag=%s cupom=%s pct=%s", t, cupom or "-", pct)
+    return RedirectResponse(f"/afiliados?ok=afiliado+{t}+atualizado", status_code=303)
+
+
 @app.post("/afiliados/{tag}/toggle")
 async def afiliado_toggle(tag: str, request: Request):
     from fastapi.responses import RedirectResponse
@@ -2684,6 +2727,30 @@ async def debug_afiliados(request: Request):
     }
 
 
+def _edit_row(a: dict) -> str:
+    """Linha oculta com o form de edição do afiliado (a tag não é editável)."""
+    tag = _esc(a["tag"])
+    cup = (a.get("cupom") or "").upper()
+    # cupom que o SITE não conhece atribui a venda mas NÃO dá desconto ao cliente
+    aviso = ("" if not cup or cup in INFLUENCER_COUPONS else
+             f"<span class='err' title='o site não tem esse cupom em INFLUENCER_COUPONS — "
+             f"ele atribui a venda mas NÃO aplica desconto'>⚠ {_esc(cup)} não dá desconto</span>")
+    opts = "".join(f"<option value='{_esc(k)}'>" for k in sorted(INFLUENCER_COUPONS))
+    return (
+        f"<tr id='ed-{tag}' hidden><td colspan='11' style='background:#fafbfc'>"
+        f"<form class='new' method='post' action='/afiliados/{tag}/editar' "
+        f"style='box-shadow:none;margin:0'>"
+        f"<label>Tag (fixa)<input value='{tag}' disabled style='background:#eef0f3'></label>"
+        f"<label>Nome<input name='name' value=\"{_esc(a.get('name') or '')}\" required></label>"
+        f"<label>Cupom<input name='cupom' value='{_esc(cup)}' list='cupons-{tag}' "
+        f"placeholder='ARTHURPC'><datalist id='cupons-{tag}'>{opts}</datalist></label>"
+        f"<label>Chave PIX<input name='pix' value=\"{_esc(a.get('pix') or '')}\"></label>"
+        f"<label>E-mail<input name='email' type='email' value=\"{_esc(a.get('email') or '')}\"></label>"
+        f"<label>WhatsApp<input name='phone' value=\"{_esc(a.get('phone') or '')}\"></label>"
+        f"<label>%<input name='pct' value='{a.get('pct') or AFILIADO_PCT:g}' size='4'></label>"
+        f"<button type='submit'>Salvar</button> {aviso}</form></td></tr>")
+
+
 @app.get("/afiliados", response_class=HTMLResponse)
 async def afiliados_panel(request: Request):
     denied = _panel_auth(request, "/afiliados")
@@ -2724,8 +2791,11 @@ async def afiliados_panel(request: Request):
             f"<td class='r muted'>{_brl(a['pago_cents'])}</td>"
             f"<td><form method='post' action='/afiliados/{_esc(a['tag'])}/pagar' style='display:inline'>"
             f"<button class='gh'>✓ pagar</button></form> "
+            f"<button class='gh' onclick=\"var e=document.getElementById('ed-{_esc(a['tag'])}');"
+            f"e.hidden=!e.hidden\">✎ editar</button> "
             f"<form method='post' action='/afiliados/{_esc(a['tag'])}/toggle' style='display:inline'>"
-            f"<button class='gh'>{'pausar' if a.get('active') else 'ativar'}</button></form></td></tr>")
+            f"<button class='gh'>{'pausar' if a.get('active') else 'ativar'}</button></form></td></tr>"
+            f"{_edit_row(a)}")
     tbody = "".join(rows) or ("<tr><td colspan='11' class='muted' style='padding:1.2rem'>"
                               "Nenhum afiliado ainda — cadastre acima.</td></tr>")
     html = f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
