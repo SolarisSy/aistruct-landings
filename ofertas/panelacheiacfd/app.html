@@ -286,14 +286,7 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
 
 <section class="newsletter" id="comecar">
   <div class="container inner">
-    <h2>Quer testar o Recheio na sua cozinha?</h2>
-    <p>Deixe seu e-mail e avisamos quando as vagas do app abrirem na sua região.</p>
-    <form onsubmit="return sub(event)">
-      <input type="email" placeholder="seu@email.com" required aria-label="E-mail para lista de espera do app">
-      <button type="submit" class="btn">Entrar na lista</button>
-    </form>
-    <p class="thanks" id="thanksMsg">Anotado — você recebe um aviso assim que abrir vaga na sua região.</p>
-  </div>
+    <h2>Quer testar o Recheio na sua cozinha?</h2><p>O Recheio ainda está em teste interno com a nossa redação — não há versão pública nem lista de espera aberta. Quando abrir, o aviso sai aqui e nos artigos do site. Enquanto isso, o método que ele automatiza está descrito por escrito em <a href="marmita-da-semana-cinco-dias.html">marmita da semana</a> e em <a href="congelamento-correto-sobras.html">congelamento correto</a>.</p></div>
 </section>
 
 <footer class="site-footer">
@@ -328,14 +321,5 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
     </div>
   </div>
 </footer>
-
-<script>
-function sub(e){
-  e.preventDefault();
-  document.getElementById('thanksMsg').style.display='block';
-  e.target.reset();
-  return false;
-}
-</script>
 </body>
 </html>

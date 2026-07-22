@@ -365,14 +365,7 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
 
 <section class="newsletter">
   <div class="container inner">
-    <h2>Receba um artigo novo por semana</h2>
-    <p>Sem promoção, sem corrente de mensagem. Uma técnica ou uma receita, direto na caixa de entrada.</p>
-    <form onsubmit="return sub(event)">
-      <input type="email" placeholder="seu@email.com" required aria-label="E-mail para newsletter">
-      <button type="submit" class="btn">Assinar</button>
-    </form>
-    <p class="thanks" id="thanksMsg">Pronto — o próximo artigo chega na sua caixa de entrada.</p>
-  </div>
+    <h2>Como acompanhar as próximas pautas</h2><p>Publicamos de uma a duas matérias por semana, sempre com tempo, temperatura e quantidade testados na nossa cozinha. Não temos lista de e-mail ativa: para não perder nada, salve <a href="safe.html">esta página</a> nos favoritos ou volte pelo <a href="glossario.html">glossário</a>, que linka todos os artigos por termo.</p></div>
 </section>
 
 <section class="section tight">
@@ -414,14 +407,5 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
     </div>
   </div>
 </footer>
-
-<script>
-function sub(e){
-  e.preventDefault();
-  document.getElementById('thanksMsg').style.display='block';
-  e.target.reset();
-  return false;
-}
-</script>
 </body>
 </html>
