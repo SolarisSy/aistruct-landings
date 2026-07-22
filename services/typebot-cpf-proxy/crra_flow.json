@@ -1,7 +1,7 @@
 {
   "version": "6",
   "id": "cm7bzpr4a0001he307uvb0myq",
-  "name": "NEW API (ATIVO) (proxy hubdo)",
+  "name": "NEW API (ATIVO)",
   "events": [
     {
       "id": "bxvzra3k2gh05ufvja67sf98",
@@ -277,9 +277,15 @@
               }
             ],
             "webhook": {
-              "headers": [],
+              "headers": [
+                {
+                  "id": "sd8xy2zhdoy45tq2v4yyi1wa",
+                  "key": "Authorization",
+                  "value": "Bearer ced4d9a201aeb8da7c1026efe6f87279177107a9cfc26c0737b629a20c201758"
+                }
+              ],
               "method": "GET",
-              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/?cpf={{cpf}}"
+              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/consulta?cpf={{cpf}}"
             }
           }
         },
@@ -377,8 +383,7 @@
                 ]
               }
             }
-          ],
-          "options": {}
+          ]
         },
         {
           "id": "mykc1pqzocy2mimnxuow4l1r",
@@ -1846,9 +1851,15 @@
               }
             ],
             "webhook": {
-              "headers": [],
+              "headers": [
+                {
+                  "id": "sd8xy2zhdoy45tq2v4yyi1wa",
+                  "key": "Authorization",
+                  "value": "Bearer ced4d9a201aeb8da7c1026efe6f87279177107a9cfc26c0737b629a20c201758"
+                }
+              ],
               "method": "GET",
-              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/?cpf={{cpf}}"
+              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/consulta?cpf={{cpf}}"
             }
           }
         },
@@ -2078,9 +2089,15 @@
               }
             ],
             "webhook": {
-              "headers": [],
+              "headers": [
+                {
+                  "id": "sd8xy2zhdoy45tq2v4yyi1wa",
+                  "key": "Authorization",
+                  "value": "Bearer ced4d9a201aeb8da7c1026efe6f87279177107a9cfc26c0737b629a20c201758"
+                }
+              ],
               "method": "GET",
-              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/?cpf={{cpf}}"
+              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/consulta?cpf={{cpf}}"
             }
           }
         }
@@ -2102,28 +2119,34 @@
               {
                 "id": "ink9uxujb6wd92ovcg9m9u65",
                 "variableId": "vz7g962d8gpvkkwj92evgzhzk",
-                "bodyPath": "data.DADOS.nome"
+                "bodyPath": "data.dados['0'].NOME"
               },
               {
                 "id": "r2pgs2gezu5twwj0p6st66fj",
                 "variableId": "vrxub1f2egntlxe86oxkkullg",
-                "bodyPath": "data.DADOS.nome_mae"
+                "bodyPath": "data.dados['0'].NOME_MAE"
               },
               {
                 "id": "w9c4fxq80h4dyzvcx9gop64e",
                 "variableId": "vawsl2tks1rmq3cvjt76eeyg3",
-                "bodyPath": "data.DADOS.data_nascimento"
+                "bodyPath": "data.dados['0'].NASC"
               },
               {
                 "id": "xglyj5h6d0gqk05x82rhhq3r",
                 "variableId": "vrgaxpklr55mm52r9tynlzyh5",
-                "bodyPath": "data.DADOS.sexo"
+                "bodyPath": "data.dados['0'].SEXO"
               }
             ],
             "webhook": {
-              "headers": [],
+              "headers": [
+                {
+                  "id": "sd8xy2zhdoy45tq2v4yyi1wa",
+                  "key": "Authorization",
+                  "value": "Bearer ced4d9a201aeb8da7c1026efe6f87279177107a9cfc26c0737b629a20c201758"
+                }
+              ],
               "method": "GET",
-              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/?cpf={{cpf}}"
+              "url": "https://typebot-cpf-proxy.tiectu.easypanel.host/consulta?cpf={{cpf}}"
             }
           }
         }
@@ -2439,7 +2462,7 @@
     }
   },
   "createdAt": "2025-02-19T14:10:02.503Z",
-  "updatedAt": "2026-07-20T04:59:29.000Z",
+  "updatedAt": "2026-02-02T22:39:03.607Z",
   "icon": null,
   "folderId": null,
   "publicId": "crra",
