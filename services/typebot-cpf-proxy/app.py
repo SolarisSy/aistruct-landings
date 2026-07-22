@@ -360,6 +360,84 @@ async def admin_create_token(token: str = "", name: str = "crra-admin"):
         except: pass
 
 
+@app.get("/admin/fix-bodypath")
+async def admin_fix_bodypath(token: str = "", apply: int = 0):
+    """Corrige responseVariableMapping[].bodyPath (lodash-path -> expressao JS).
+
+    Engine novo avalia bodyPath como JS num isolate onde a resposta vem como
+    response = {statusCode, data:<corpo>}. Path antigo 'data.DADOS.nome' vira
+    ReferenceError silencioso -> variavel vazia -> flow cai em CPF INCORRETO.
+    Path correto: 'response.data.data.DADOS.nome' (1o data = wrapper, 2o = corpo).
+
+    String-replace em Typebot.groups e PublicTypebot.groups (nao toca em schema).
+    ?apply=1 grava; sem apply so conta as ocorrencias (dry-run).
+    """
+    if token != ADMIN_TOKEN:
+        raise HTTPException(403, "forbidden")
+    if not PG_URL:
+        return JSONResponse({"error": "TYPEBOT_DATABASE_URL not set"}, status_code=500)
+
+    subs = [
+        ('"bodyPath": "data.DADOS.', '"bodyPath": "response.data.data.DADOS.'),
+        ('"bodyPath":"data.DADOS.', '"bodyPath":"response.data.data.DADOS.'),
+        ('"bodyPath": "data.dados[', '"bodyPath": "response.data.data.dados['),
+        ('"bodyPath":"data.dados[', '"bodyPath":"response.data.data.dados['),
+    ]
+
+    try:
+        conn = _pg_connect()
+        cur = conn.cursor()
+    except Exception as e:
+        return JSONResponse({"error": "pg connect err", "detail": str(e)[:300]}, status_code=500)
+
+    report = {"apply": bool(apply), "tables": {}}
+    try:
+        cur.execute('SELECT id FROM "Typebot" WHERE "publicId" = %s;', ("crra",))
+        row = cur.fetchone()
+        if not row:
+            return JSONResponse({"error": "no Typebot with publicId=crra"}, status_code=404)
+        bot_id = row[0]
+
+        targets = [
+            ("Typebot", 'SELECT groups::text FROM "Typebot" WHERE id = %s;',
+             'UPDATE "Typebot" SET groups = %s::jsonb WHERE id = %s;', bot_id),
+            ("PublicTypebot", 'SELECT groups::text FROM "PublicTypebot" WHERE "typebotId" = %s;',
+             'UPDATE "PublicTypebot" SET groups = %s::jsonb WHERE "typebotId" = %s;', bot_id),
+        ]
+        for tname, sel, upd, key in targets:
+            cur.execute(sel, (key,))
+            r = cur.fetchone()
+            if not r:
+                report["tables"][tname] = {"found": False}
+                continue
+            src = r[0]
+            new = src
+            counts = {}
+            for old, rep in subs:
+                counts[old] = new.count(old)
+                new = new.replace(old, rep)
+            report["tables"][tname] = {
+                "found": True,
+                "replacements": {k: v for k, v in counts.items() if v},
+                "changed": new != src,
+                "already_fixed": src.count('"bodyPath": "response.') + src.count('"bodyPath":"response.'),
+            }
+            if apply and new != src:
+                cur.execute(upd, (new, key))
+        if apply:
+            conn.commit()
+        return JSONResponse(report)
+    except Exception as e:
+        try: conn.rollback()
+        except Exception: pass
+        return JSONResponse({"error": "fix err", "detail": str(e)[:400]}, status_code=500)
+    finally:
+        try: cur.close()
+        except Exception: pass
+        try: conn.close()
+        except Exception: pass
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8080)
