@@ -10,6 +10,26 @@
 (function () {
   "use strict";
 
+  /* ---- afiliado: ?ref=TAG persiste 30d (last-click) e vai como cart attribute ----
+   * Roda ANTES do gate de gateway: a tag tem que ser capturada mesmo em ?gw=paggins. */
+  var LS_REF = "hyu-ref", REF_TTL = 30 * 864e5;
+  function saveRef() {
+    try {
+      var r = new URLSearchParams(location.search).get("ref");
+      if (!r) return;
+      r = r.replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(0, 20);
+      if (r.length >= 3) localStorage.setItem(LS_REF, JSON.stringify({ t: r, at: Date.now() }));
+    } catch (e) {}
+  }
+  function getRef() {
+    try {
+      var v = JSON.parse(localStorage.getItem(LS_REF) || "null");
+      if (!v || !v.t || Date.now() - v.at > REF_TTL) return "";
+      return v.t;
+    } catch (e) { return ""; }
+  }
+  saveRef();
+
   var GW = "shopify";
   try {
     var qs = new URLSearchParams(location.search);
@@ -44,6 +64,7 @@
      "gclid", "fbclid", "ref", "src"].forEach(function (k) {
       var v = q.get(k); if (v) m[k] = v;
     });
+    var ref = getRef(); if (ref) m.ref = ref;   // storage vence a URL (persiste a navegação)
     m.page = location.pathname;
     return m;
   }

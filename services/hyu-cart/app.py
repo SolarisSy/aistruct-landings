@@ -60,10 +60,11 @@ import json
 import logging
 import os
 import re
+import secrets
 import sqlite3
 import uuid
 from collections import deque
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 import asyncio
@@ -95,6 +96,8 @@ HYU_ORIGINS = [
 LEADS_PASSWORD = os.environ.get("LEADS_PASSWORD", "").strip()
 PAGGINS_WEBHOOK_SECRET = os.environ.get("PAGGINS_WEBHOOK_SECRET", "").strip()
 LEADS_DB = os.environ.get("LEADS_DB", "/data/leads.db")
+# afiliados: % default de comissao sobre o SUBTOTAL de produtos (sem frete, pos-cupom)
+AFILIADO_PCT = float(os.environ.get("AFILIADO_PCT", "5") or 5)
 MANDAE_TOKEN = os.environ.get("MANDAE_TOKEN", "").strip()
 MANDAE_RATES_URL = "https://api.mandae.com.br/v2/postalcodes/{cep}/rates"
 FREE_SHIPPING_CANS = 12          # política: frete grátis a partir de 12 latas
@@ -321,6 +324,17 @@ def _db() -> sqlite3.Connection:
         "items TEXT, subtotal_cents INTEGER, frete_cents INTEGER, frete_service TEXT, "
         "total_cents INTEGER, coupon TEXT, meta TEXT, "
         "bling_status TEXT, bling_order_id TEXT, bling_error TEXT, tracking TEXT)"
+    )
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS afiliados ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, tag TEXT UNIQUE, name TEXT, "
+        "email TEXT, phone TEXT, pix TEXT, pct REAL, token TEXT, active INTEGER DEFAULT 1)"
+    )
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS comissoes ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, tag TEXT, pedido_id INTEGER, "
+        "order_id TEXT UNIQUE, base_cents INTEGER, pct REAL, valor_cents INTEGER, "
+        "status TEXT, paid_ts TEXT)"
     )
     return conn
 
@@ -1682,6 +1696,48 @@ async def shopify_rates(request: Request):
     return {"rates": rates}
 
 
+# ═══════════════════ AFILIADOS (tag no cart attribute -> comissao) ═══════════════════
+
+HOLD_DAYS = 7   # dias de carencia pos-pagamento antes da comissao virar sacavel
+
+
+def _norm_tag(s: Any) -> str:
+    """Tag do afiliado: A-Z0-9 sem acento, 3-20 chars. Case-insensitive."""
+    t = re.sub(r"[^A-Za-z0-9]", "", str(s or "")).upper()
+    return t[:20]
+
+
+def _credit_commission(order_id: str, pedido_id: int, ref: str, base_cents: int) -> None:
+    """Credita a comissao do afiliado dono da `ref` (tag) que veio no cart attribute.
+    Silencioso quando nao ha ref / tag desconhecida / afiliado inativo — o pedido
+    nunca pode falhar por causa do afiliado. Idempotente por order_id (UNIQUE)."""
+    tag = _norm_tag(ref)
+    if not tag or base_cents <= 0:
+        return
+    ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    conn = _db()
+    try:
+        row = conn.execute(
+            "SELECT tag, pct FROM afiliados WHERE tag=? AND active=1", (tag,)).fetchone()
+        if not row:
+            log.info("comissao IGNORADA order=%s ref=%s (tag desconhecida/inativa)",
+                     order_id, tag)
+            return
+        pct = float(row[1] or AFILIADO_PCT)
+        valor = int(round(base_cents * pct / 100))
+        conn.execute(
+            "INSERT OR IGNORE INTO comissoes (ts, tag, pedido_id, order_id, base_cents, "
+            "pct, valor_cents, status) VALUES (?,?,?,?,?,?,?,'pending')",
+            (ts, tag, pedido_id, order_id, base_cents, pct, valor))
+        conn.commit()
+        log.info("comissao CREDITADA order=%s tag=%s base=%s pct=%s valor=%s",
+                 order_id, tag, base_cents, pct, valor)
+    except Exception as e:                                  # nunca derruba o webhook
+        log.error("comissao falhou order=%s: %s", order_id, str(e)[:200])
+    finally:
+        conn.close()
+
+
 @app.post("/shopify/webhook")
 async def shopify_webhook(request: Request):
     """orders/paid da Shopify -> cria contato+pedido de venda no Bling (NF-e/etiqueta/
@@ -1772,8 +1828,37 @@ async def shopify_webhook(request: Request):
         conn.close()
     STATS["webhook_paid"] = STATS.get("webhook_paid", 0) + 1
     log.info("shopify webhook PAGO order=%s pedido=%s total=%s", order_id, pid, total)
+    # comissao de afiliado: base = subtotal de PRODUTOS pos-desconto, sem frete
+    base = int(round(float(o.get("current_subtotal_price") or 0) * 100)) or subtotal
+    _credit_commission(order_id, pid, attrs.get("ref") or "", base)
     asyncio.create_task(_bling_dispatch(pid))
     return {"ok": True, "pedido": pid}
+
+
+@app.post("/shopify/refund")
+async def shopify_refund(request: Request):
+    """refunds/create da Shopify -> estorna a comissao do afiliado (se ainda nao paga).
+    Registrado por _shopify_affiliate_setup.py. Mesmo HMAC do orders/paid."""
+    raw = await request.body()
+    if not _shopify_webhook_verified(raw, request.headers.get("x-shopify-hmac-sha256", "")):
+        raise HTTPException(401, "assinatura invalida")
+    try:
+        r = json.loads(raw or b"{}")
+    except Exception:
+        raise HTTPException(400, "JSON invalido")
+    order_id = "shopify-" + str(r.get("order_id") or "")
+    conn = _db()
+    try:
+        cur = conn.execute(
+            "UPDATE comissoes SET status='reversed' "
+            "WHERE order_id=? AND status='pending'", (order_id,))
+        conn.commit()
+        n = cur.rowcount
+    finally:
+        conn.close()
+    if n:
+        log.info("comissao ESTORNADA order=%s", order_id)
+    return {"ok": True, "reversed": n}
 
 
 @app.get("/healthz")
@@ -2286,3 +2371,318 @@ async def pedidos_xlsx(request: Request):
         out,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         headers={"Content-Disposition": "attachment; filename=pedidos-hyu.xlsx"})
+
+
+# ═══════════════════ AFILIADOS — painel do gestor + extrato do afiliado ═══════════════════
+
+SITE_URL = os.environ.get("SITE_URL", "https://hyudrinks.com").rstrip("/")
+
+
+def _afiliado_link(tag: str) -> str:
+    return f"{SITE_URL}/?ref={tag}"
+
+
+def _hold_cutoff() -> str:
+    return (datetime.now(timezone.utc) - timedelta(days=HOLD_DAYS)).isoformat(timespec="seconds")
+
+
+def _fetch_afiliados() -> list[dict[str, Any]]:
+    """Afiliados + saldo agregado. 'liberado' = pending com carencia vencida."""
+    cut = _hold_cutoff()
+    conn = _db()
+    try:
+        conn.row_factory = sqlite3.Row
+        afs = [dict(r) for r in conn.execute(
+            "SELECT * FROM afiliados ORDER BY id DESC").fetchall()]
+        soma = {r["tag"]: dict(r) for r in conn.execute(
+            "SELECT tag, COUNT(*) vendas, "
+            "SUM(CASE WHEN status='pending' THEN valor_cents ELSE 0 END) pend, "
+            "SUM(CASE WHEN status='pending' AND ts<? THEN valor_cents ELSE 0 END) libr, "
+            "SUM(CASE WHEN status='paid' THEN valor_cents ELSE 0 END) pago, "
+            "SUM(CASE WHEN status='reversed' THEN valor_cents ELSE 0 END) estr, "
+            "SUM(CASE WHEN status<>'reversed' THEN base_cents ELSE 0 END) base "
+            "FROM comissoes GROUP BY tag", (cut,)).fetchall()}
+    finally:
+        conn.close()
+    for a in afs:
+        s = soma.get(a["tag"], {})
+        a["vendas"] = s.get("vendas") or 0
+        a["pendente_cents"] = (s.get("pend") or 0) - (s.get("libr") or 0)
+        a["liberado_cents"] = s.get("libr") or 0
+        a["pago_cents"] = s.get("pago") or 0
+        a["estornado_cents"] = s.get("estr") or 0
+        a["vendido_cents"] = s.get("base") or 0
+        a["link"] = _afiliado_link(a["tag"])
+    return afs
+
+
+def _fetch_comissoes(tag: str = "") -> list[dict[str, Any]]:
+    conn = _db()
+    try:
+        conn.row_factory = sqlite3.Row
+        sql = "SELECT * FROM comissoes"
+        args: tuple = ()
+        if tag:
+            sql += " WHERE tag=?"
+            args = (tag,)
+        rows = [dict(r) for r in conn.execute(sql + " ORDER BY id DESC", args).fetchall()]
+    finally:
+        conn.close()
+    cut = _hold_cutoff()
+    for c in rows:
+        if c["status"] == "pending":
+            c["label"] = "liberado" if (c["ts"] or "") < cut else f"em carência ({HOLD_DAYS}d)"
+        else:
+            c["label"] = {"paid": "pago", "reversed": "estornado"}.get(c["status"], c["status"])
+    return rows
+
+
+@app.post("/afiliados/novo")
+async def afiliado_novo(request: Request):
+    from fastapi.responses import RedirectResponse
+    from urllib.parse import parse_qs
+    denied = _panel_auth(request, "/afiliados")
+    if denied:
+        return denied
+    raw = (await request.body()).decode("utf-8", "replace")
+    f = {k: v[0] for k, v in parse_qs(raw, keep_blank_values=True).items()}
+    tag = _norm_tag(f.get("tag"))
+    name = str(f.get("name") or "").strip()[:120]
+    if len(tag) < 3 or not name:
+        return RedirectResponse("/afiliados?err=tag+invalida+(3-20+letras/numeros)+ou+nome+vazio",
+                                status_code=303)
+    try:
+        pct = float(str(f.get("pct") or AFILIADO_PCT).replace(",", "."))
+    except ValueError:
+        pct = AFILIADO_PCT
+    pct = max(0.0, min(pct, 50.0))
+    token = secrets.token_urlsafe(12)
+    ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    conn = _db()
+    try:
+        conn.execute(
+            "INSERT INTO afiliados (ts, tag, name, email, phone, pix, pct, token, active) "
+            "VALUES (?,?,?,?,?,?,?,?,1)",
+            (ts, tag, name, str(f.get("email") or "").strip()[:160],
+             re.sub(r"\D", "", str(f.get("phone") or ""))[:13],
+             str(f.get("pix") or "").strip()[:140], pct, token))
+        conn.commit()
+    except sqlite3.IntegrityError:
+        return RedirectResponse(f"/afiliados?err=tag+{tag}+ja+existe", status_code=303)
+    finally:
+        conn.close()
+    log.info("afiliado criado tag=%s pct=%s", tag, pct)
+    return RedirectResponse(f"/afiliados?ok={tag}", status_code=303)
+
+
+@app.post("/afiliados/{tag}/toggle")
+async def afiliado_toggle(tag: str, request: Request):
+    from fastapi.responses import RedirectResponse
+    denied = _panel_auth(request, "/afiliados")
+    if denied:
+        return denied
+    conn = _db()
+    try:
+        conn.execute("UPDATE afiliados SET active=1-active WHERE tag=?", (_norm_tag(tag),))
+        conn.commit()
+    finally:
+        conn.close()
+    return RedirectResponse("/afiliados", status_code=303)
+
+
+@app.post("/afiliados/{tag}/pagar")
+async def afiliado_pagar(tag: str, request: Request):
+    """Marca como PAGAS as comissoes liberadas (carencia vencida) do afiliado.
+    O PIX em si e feito por fora — isto so baixa o saldo."""
+    from fastapi.responses import RedirectResponse
+    denied = _panel_auth(request, "/afiliados")
+    if denied:
+        return denied
+    t = _norm_tag(tag)
+    ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    conn = _db()
+    try:
+        cur = conn.execute(
+            "UPDATE comissoes SET status='paid', paid_ts=? "
+            "WHERE tag=? AND status='pending' AND ts<?", (ts, t, _hold_cutoff()))
+        conn.commit()
+        n = cur.rowcount
+    finally:
+        conn.close()
+    log.info("afiliado %s: %s comissoes marcadas como pagas", t, n)
+    return RedirectResponse(f"/afiliados?ok=pagas+{n}+comissoes+de+{t}", status_code=303)
+
+
+@app.get("/afiliados.csv")
+async def afiliados_csv(request: Request):
+    denied = _leads_auth(request)
+    if denied:
+        return denied
+    buf = io.StringIO()
+    buf.write("﻿")
+    w = csv.writer(buf, delimiter=";")
+    w.writerow(["tag", "afiliado", "pix", "email", "whatsapp", "pct", "vendas",
+                "vendido_reais", "pendente_reais", "liberado_reais", "pago_reais", "link"])
+    for a in _fetch_afiliados():
+        w.writerow([a["tag"], a["name"], a.get("pix") or "", a.get("email") or "",
+                    a.get("phone") or "", a.get("pct"), a["vendas"],
+                    str(round(a["vendido_cents"] / 100, 2)).replace(".", ","),
+                    str(round(a["pendente_cents"] / 100, 2)).replace(".", ","),
+                    str(round(a["liberado_cents"] / 100, 2)).replace(".", ","),
+                    str(round(a["pago_cents"] / 100, 2)).replace(".", ","), a["link"]])
+    buf.seek(0)
+    return StreamingResponse(iter([buf.getvalue()]), media_type="text/csv; charset=utf-8",
+                             headers={"Content-Disposition": "attachment; filename=afiliados-hyu.csv"})
+
+
+_AF_CSS = """
+ body{font:14px/1.5 system-ui,sans-serif;margin:0;background:#f5f6f8;color:#16191f}
+ header{display:flex;align-items:center;gap:1rem;padding:.9rem 1.2rem;background:#16191f;color:#fff;position:sticky;top:0;z-index:5}
+ h1{font-size:1rem;margin:0} .pill{background:#A8CC30;color:#16191f;font-weight:800;border-radius:999px;padding:.1rem .6rem}
+ .grow{flex:1} a.btn{background:#fff;color:#16191f;font-weight:700;text-decoration:none;border-radius:8px;padding:.35rem .8rem;margin-left:.4rem;font-size:.85rem}
+ a.out{background:none;color:#9aa3b0;border:1px solid #3a3f4a}
+ main{padding:1rem 1.2rem 2rem;overflow-x:auto;max-width:1200px}
+ table{border-collapse:collapse;width:100%;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+ th,td{padding:.55rem .7rem;border-bottom:1px solid #eceef1;text-align:left;font-size:.82rem;vertical-align:top}
+ th{background:#fafbfc;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#667}
+ tr:hover td{background:#fcfde8} .r{text-align:right;white-space:nowrap;font-weight:700}
+ .muted{color:#889;font-size:.75rem} .off{opacity:.45}
+ .tag{font-family:ui-monospace,monospace;font-weight:800;background:#16191f;color:#A8CC30;border-radius:6px;padding:.1rem .45rem}
+ .lnk{font-family:ui-monospace,monospace;font-size:.72rem;color:#556;word-break:break-all}
+ .ok{background:#e3f5d4;color:#3a6b12;font-weight:700;border-radius:6px;padding:.05rem .4rem;font-size:.72rem}
+ .pend{background:#fff3d6;color:#8a6100;border-radius:6px;padding:.05rem .4rem;font-size:.72rem;font-weight:700}
+ .err{background:#fde3e3;color:#a11;font-weight:700;border-radius:6px;padding:.05rem .4rem;font-size:.72rem}
+ form.new{background:#fff;border-radius:12px;padding:1rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,.08);
+   display:flex;flex-wrap:wrap;gap:.5rem;align-items:flex-end}
+ form.new label{display:flex;flex-direction:column;font-size:.7rem;text-transform:uppercase;color:#667;font-weight:700;gap:.2rem}
+ form.new input{padding:.45rem .6rem;border:1px solid #d7dbe0;border-radius:8px;font:inherit;font-size:.85rem}
+ form.new input:focus{outline:2px solid #A8CC30;border-color:#A8CC30}
+ button{cursor:pointer;border:0;border-radius:8px;background:#A8CC30;color:#16191f;font-weight:800;padding:.5rem .9rem;font-size:.85rem}
+ button.gh{background:#eef0f3;color:#445;font-weight:700;padding:.25rem .55rem;font-size:.75rem}
+ .msg{padding:.6rem .9rem;border-radius:10px;margin-bottom:.8rem;font-size:.85rem}
+ .msg.o{background:#e3f5d4;color:#3a6b12} .msg.e{background:#fde3e3;color:#a11}
+ .cards{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1rem}
+ .card{background:#fff;border-radius:12px;padding:.8rem 1.1rem;box-shadow:0 1px 4px rgba(0,0,0,.08);min-width:150px}
+ .card b{display:block;font-size:1.35rem;font-family:ui-monospace,monospace} .card span{font-size:.72rem;color:#778;text-transform:uppercase;font-weight:700}
+"""
+
+
+@app.get("/afiliados", response_class=HTMLResponse)
+async def afiliados_panel(request: Request):
+    denied = _panel_auth(request, "/afiliados")
+    if denied:
+        return denied
+    afs = _fetch_afiliados()
+    ok = request.query_params.get("ok", "")
+    err = request.query_params.get("err", "")
+    msg = (f'<div class="msg o">✓ {_esc(ok)}</div>' if ok else "") + \
+          (f'<div class="msg e">⚠ {_esc(err)}</div>' if err else "")
+    tot_lib = sum(a["liberado_cents"] for a in afs)
+    tot_pend = sum(a["pendente_cents"] for a in afs)
+    tot_pago = sum(a["pago_cents"] for a in afs)
+    tot_vend = sum(a["vendido_cents"] for a in afs)
+    rows = []
+    for a in afs:
+        off = "" if a.get("active") else " class='off'"
+        extrato = f"/a/{a['tag']}?k={a.get('token') or ''}"
+        rows.append(
+            f"<tr{off}><td><span class='tag'>{_esc(a['tag'])}</span>"
+            f"{'' if a.get('active') else ' <span class=err>inativo</span>'}</td>"
+            f"<td><strong>{_esc(a['name'])}</strong><br>"
+            f"<span class='muted'>{_esc(a.get('email') or '')} {_esc(a.get('phone') or '')}</span></td>"
+            f"<td><span class='lnk'>{_esc(a['link'])}</span><br>"
+            f"<button class='gh' onclick=\"navigator.clipboard.writeText('{_esc(a['link'])}');"
+            f"this.textContent='copiado ✓'\">copiar link</button> "
+            f"<a class='gh' href='{_esc(extrato)}' target='_blank'><button class='gh'>extrato</button></a></td>"
+            f"<td>{_esc(a.get('pix') or '—')}</td>"
+            f"<td class='r'>{a['pct']:g}%</td><td class='r'>{a['vendas']}</td>"
+            f"<td class='r'>{_brl(a['vendido_cents'])}</td>"
+            f"<td class='r'><span class='pend'>{_brl(a['pendente_cents'])}</span></td>"
+            f"<td class='r'><span class='ok'>{_brl(a['liberado_cents'])}</span></td>"
+            f"<td class='r muted'>{_brl(a['pago_cents'])}</td>"
+            f"<td><form method='post' action='/afiliados/{_esc(a['tag'])}/pagar' style='display:inline'>"
+            f"<button class='gh'>✓ pagar</button></form> "
+            f"<form method='post' action='/afiliados/{_esc(a['tag'])}/toggle' style='display:inline'>"
+            f"<button class='gh'>{'pausar' if a.get('active') else 'ativar'}</button></form></td></tr>")
+    tbody = "".join(rows) or ("<tr><td colspan='11' class='muted' style='padding:1.2rem'>"
+                              "Nenhum afiliado ainda — cadastre acima.</td></tr>")
+    html = f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>Afiliados HYU ({len(afs)})</title><style>{_AF_CSS}</style></head><body>
+<header><h1>🤝 Afiliados HYU</h1><span class="pill">{len(afs)}</span><span class="grow"></span>
+<a class="btn" href="/pedidos">📦 Pedidos</a><a class="btn" href="/afiliados.csv">⬇ CSV</a>
+<a class="btn out" href="/logout">Sair</a></header>
+<main>
+{msg}
+<div class="cards">
+ <div class="card"><span>a pagar (liberado)</span><b>{_brl(tot_lib)}</b></div>
+ <div class="card"><span>em carência {HOLD_DAYS}d</span><b>{_brl(tot_pend)}</b></div>
+ <div class="card"><span>já pago</span><b>{_brl(tot_pago)}</b></div>
+ <div class="card"><span>vendido por afiliados</span><b>{_brl(tot_vend)}</b></div>
+</div>
+<form class="new" method="post" action="/afiliados/novo">
+ <label>Tag (o código do link)<input name="tag" placeholder="ARTHUR" required></label>
+ <label>Nome<input name="name" placeholder="Arthur Silva" required></label>
+ <label>Chave PIX<input name="pix" placeholder="cpf/email/telefone"></label>
+ <label>E-mail<input name="email" type="email"></label>
+ <label>WhatsApp<input name="phone" placeholder="41999999999"></label>
+ <label>%<input name="pct" value="{AFILIADO_PCT:g}" size="4"></label>
+ <button type="submit">+ Criar afiliado</button>
+</form>
+<table><thead><tr><th>Tag</th><th>Afiliado</th><th>Link</th><th>PIX</th><th>%</th>
+<th>Vendas</th><th>Vendido</th><th>Carência</th><th>A pagar</th><th>Pago</th><th></th></tr></thead>
+<tbody>{tbody}</tbody></table>
+<p class="muted" style="margin-top:1rem">Comissão = {AFILIADO_PCT:g}% do subtotal de produtos
+(sem frete, após cupom), creditada quando o pedido é <b>pago</b> e liberada {HOLD_DAYS} dias depois
+(janela de estorno). "✓ pagar" só dá baixa no saldo — o PIX é feito por fora.</p>
+</main></body></html>"""
+    return HTMLResponse(html)
+
+
+@app.get("/a/{tag}", response_class=HTMLResponse)
+async def afiliado_extrato(tag: str, request: Request, k: str = ""):
+    """Extrato read-only do afiliado (link com token — sem senha, sem dados do comprador)."""
+    t = _norm_tag(tag)
+    conn = _db()
+    try:
+        conn.row_factory = sqlite3.Row
+        row = conn.execute("SELECT * FROM afiliados WHERE tag=?", (t,)).fetchone()
+    finally:
+        conn.close()
+    if not row or not k or not hmac.compare_digest(k, str(row["token"] or "")):
+        return HTMLResponse("<h1>Link inválido</h1>", status_code=404)
+    a = dict(row)
+    com = _fetch_comissoes(t)
+    lib = sum(c["valor_cents"] for c in com if c["label"] == "liberado")
+    car = sum(c["valor_cents"] for c in com if c["label"].startswith("em carência"))
+    pago = sum(c["valor_cents"] for c in com if c["status"] == "paid")
+    link = _afiliado_link(t)
+    rows = "".join(
+        f"<tr><td>{_esc((c['ts'] or '')[:10])}</td>"
+        f"<td class='r'>{_brl(c['base_cents'])}</td><td class='r'>{c['pct']:g}%</td>"
+        f"<td class='r'>{_brl(c['valor_cents'])}</td>"
+        f"<td><span class='{'ok' if c['label'] in ('liberado', 'pago') else 'err' if c['status'] == 'reversed' else 'pend'}'>"
+        f"{_esc(c['label'])}</span></td></tr>" for c in com) or \
+        "<tr><td colspan='5' class='muted' style='padding:1.2rem'>Nenhuma venda ainda — divulgue seu link!</td></tr>"
+    html = f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>HYU · Afiliado {_esc(a['name'])}</title><style>{_AF_CSS}</style></head><body>
+<header><h1>🤝 HYU · {_esc(a['name'])}</h1><span class="pill">{a['pct']:g}%</span></header>
+<main>
+<div class="cards">
+ <div class="card"><span>a receber</span><b>{_brl(lib)}</b></div>
+ <div class="card"><span>em carência {HOLD_DAYS}d</span><b>{_brl(car)}</b></div>
+ <div class="card"><span>já recebido</span><b>{_brl(pago)}</b></div>
+ <div class="card"><span>vendas</span><b>{len([c for c in com if c['status'] != 'reversed'])}</b></div>
+</div>
+<div class="card" style="margin-bottom:1rem">
+ <span>seu link de divulgação</span>
+ <p class="lnk" style="margin:.3rem 0">{_esc(link)}</p>
+ <button onclick="navigator.clipboard.writeText('{_esc(link)}');this.textContent='copiado ✓'">copiar link</button>
+</div>
+<table><thead><tr><th>Data</th><th>Venda</th><th>%</th><th>Comissão</th><th>Status</th></tr></thead>
+<tbody>{rows}</tbody></table>
+<p class="muted" style="margin-top:1rem">Comissão sobre os produtos (sem frete), liberada
+{HOLD_DAYS} dias após o pagamento. Pedido cancelado/estornado não gera comissão.</p>
+</main></body></html>"""
+    return HTMLResponse(html)
