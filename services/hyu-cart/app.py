@@ -1573,6 +1573,24 @@ async def _shopify_call(method: str, path: str, data: dict | None = None) -> dic
     return r.json()
 
 
+async def _shopify_localized_cpf(order_gid_num: str) -> str:
+    """CPF do campo NATIVO da Shopify BR (localizedFields TAX_CREDENTIAL_BR, coletado em
+    'Informações adicionais' do checkout). Só GraphQL — não vem no payload do webhook.
+    Fallback pra quando o gateway não injetar customer_document nos note_attributes."""
+    q = ("{ order(id: \"gid://shopify/Order/%s\") { localizedFields(first: 5) "
+         "{ nodes { key value } } } }" % order_gid_num)
+    try:
+        d = await _shopify_call("POST", "/graphql.json", {"query": q})
+        nodes = (((d.get("data") or {}).get("order") or {})
+                 .get("localizedFields") or {}).get("nodes") or []
+        for n in nodes:
+            if n.get("key") == "TAX_CREDENTIAL_BR":
+                return re.sub(r"\D", "", str(n.get("value") or ""))
+    except Exception as e:
+        log.error("localizedFields CPF falhou order=%s: %s", order_gid_num, str(e)[:120])
+    return ""
+
+
 @app.post("/shopify/checkout")
 async def shopify_checkout(request: Request):
     """Carrinho -> draft order -> invoice_url (checkout hospedado da Shopify)."""
@@ -1788,6 +1806,11 @@ async def shopify_webhook(request: Request):
              for a in (o.get("note_attributes") or []) if a.get("name")}
     # a Appmax injeta CPF + endereço ESTRUTURADO nos note_attributes — preferir esses
     cpf = re.sub(r"\D", "", str(attrs.get("cpf") or attrs.get("customer_document") or ""))
+    if not _valid_cpf(cpf):     # sem CPF do gateway -> campo nativo BR do checkout
+        try:                    # nunca pode abortar o webhook (pedido ainda nem foi gravado)
+            cpf = await _shopify_localized_cpf(str(o.get("id") or "")) or cpf
+        except Exception as e:
+            log.error("fallback CPF falhou order=%s: %s", order_id, str(e)[:120])
     name = str(ship.get("name")
                or f"{cust.get('first_name', '')} {cust.get('last_name', '')}").strip()[:120]
     phone = re.sub(r"\D", "", str(ship.get("phone") or o.get("phone")
