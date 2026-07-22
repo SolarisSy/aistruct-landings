@@ -1129,7 +1129,7 @@
           "id": "rs9uh1e98ml3fwirv7vhr2bs",
           "type": "Code",
           "options": {
-            "content": "const urlParams = new URLSearchParams(window.location.search);\nconst utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ttclid'];\nconst utmQuery = utmKeys\n  .filter(key => urlParams.has(key))\n  .map(key => `${key}=${encodeURIComponent(urlParams.get(key))}`)\n  .join('&');\n\nconst finalUrl = `https://pay.pagamentosofcbrasilcr.com/a6pVgd2KxOxZk7B${utmQuery ? '?' + utmQuery : ''}`;\nwindow.location.href = finalUrl;"
+            "content": "const urlParams = new URLSearchParams(window.location.search);\nconst utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ttclid'];\nconst utmQuery = utmKeys\n  .filter(key => urlParams.has(key))\n  .map(key => `${key}=${encodeURIComponent(urlParams.get(key))}`)\n  .join('&');\n\nconst finalUrl = `https://pay.asegupag.com/checkout/9e94cca3-f46e-4e45-a57b-e430f0aa6782${utmQuery ? '?' + utmQuery : ''}`;\nwindow.location.href = finalUrl;"
           }
         }
       ]
@@ -1332,7 +1332,7 @@
           "id": "tf9wwn497vwxmoz36vbcxz60",
           "type": "Redirect",
           "options": {
-            "url": "https://pay.ambienteseguropag.com/PyE2ZyaMpeMZqRb"
+            "url": "https://pay.asegupag.com/checkout/9e94cca3-f46e-4e45-a57b-e430f0aa6782"
           }
         }
       ]

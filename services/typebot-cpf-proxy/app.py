@@ -124,7 +124,7 @@ async def admin_publish_crra(token: str = ""):
 
     try:
         cur = conn.cursor()
-        # Find the bot
+        # Find the bot (Typebot table holds the draft + publicId)
         cur.execute('SELECT id, name, "publicId" FROM "Typebot" WHERE "publicId" = %s;', ("crra",))
         row = cur.fetchone()
         if not row:
@@ -136,28 +136,70 @@ async def admin_publish_crra(token: str = ""):
             })
         bot_id, bot_name, bot_pubid = row
 
-        # UPDATE publishedTypebot
+        # NEW API schema: published flow lives in PublicTypebot (linked by typebotId),
+        # NOT a publishedTypebot column on Typebot. Update both draft (Typebot) and
+        # the published row (PublicTypebot) so the viewer serves the new flow.
+        pub_fields = {
+            "groups": _json.dumps(published.get("groups", [])),
+            "edges": _json.dumps(published.get("edges", [])),
+            "variables": _json.dumps(published.get("variables", [])),
+            "events": _json.dumps(published.get("events", [])),
+            "theme": _json.dumps(published.get("theme", {})),
+            "settings": _json.dumps(published.get("settings", {})),
+            "version": published.get("version", "6"),
+        }
+        # 1) PublicTypebot: the row the viewer actually serves
+        cur.execute('SELECT id FROM "PublicTypebot" WHERE "typebotId" = %s;', (bot_id,))
+        pub_row = cur.fetchone()
+        pub_updated = 0
+        if pub_row:
+            set_clause = ", ".join(f'"{k}" = %s::jsonb' if k != "version" else f'"{k}" = %s' for k in pub_fields)
+            cur.execute(
+                f'UPDATE "PublicTypebot" SET {set_clause}, "updatedAt" = NOW() WHERE "typebotId" = %s;',
+                (*pub_fields.values(), bot_id),
+            )
+            pub_updated = cur.rowcount
+        # 2) Typebot draft (keeps draft in sync; groups/edges/variables/events are json)
+        draft_fields = {k: v for k, v in pub_fields.items()}
+        set_clause2 = ", ".join(f'"{k}" = %s::jsonb' if k != "version" else f'"{k}" = %s' for k in draft_fields)
         cur.execute(
-            'UPDATE "Typebot" SET "publishedTypebot" = %s::jsonb WHERE id = %s;',
-            (_json.dumps(published), bot_id),
+            f'UPDATE "Typebot" SET {set_clause2}, "updatedAt" = NOW() WHERE "id" = %s;',
+            (*draft_fields.values(), bot_id),
         )
         conn.commit()
 
-        # Verify
-        cur.execute('SELECT "publishedTypebot"::text FROM "Typebot" WHERE id = %s;', (bot_id,))
-        verify = cur.fetchone()[0]
-        verify_parsed = _json.loads(verify) if isinstance(verify, str) else verify
+        # Verify (read back from PublicTypebot)
+        verify_parsed = {}
+        if pub_row:
+            cur.execute(
+                'SELECT "groups"::text, "edges"::text FROM "PublicTypebot" WHERE "typebotId" = %s;',
+                (bot_id,),
+            )
+            vrow = cur.fetchone()
+            if vrow:
+                verify_parsed["groups"] = _json.loads(vrow[0]) if isinstance(vrow[0], str) else vrow[0]
+                verify_parsed["edges"] = _json.loads(vrow[1]) if isinstance(vrow[1], str) else vrow[1]
+
         webhook_urls = []
+        redirect_urls = []
+        code_urls = []
         for g in verify_parsed.get("groups", []):
             for b in g.get("blocks", []):
                 if b.get("type") == "Webhook":
                     wh = b.get("options", {}).get("webhook", {})
                     webhook_urls.append(wh.get("url", ""))
+                elif b.get("type") == "Redirect":
+                    redirect_urls.append(b.get("options", {}).get("url", ""))
+                elif b.get("type") == "Code":
+                    code_urls.append(b.get("options", {}).get("content", ""))
 
         return JSONResponse({
             "ok": True,
             "bot": {"id": bot_id, "name": bot_name, "publicId": bot_pubid},
+            "publictypebot_updated": pub_updated,
             "webhooks_after_update": webhook_urls,
+            "redirect_urls": redirect_urls,
+            "code_blocks": [c[:120] for c in code_urls],
             "groups_count": len(verify_parsed.get("groups", [])),
             "edges_count": len(verify_parsed.get("edges", [])),
         })
