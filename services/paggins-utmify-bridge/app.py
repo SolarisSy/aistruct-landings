@@ -102,17 +102,18 @@ def _s(v: Any) -> str | None:
 
 
 def _extract_amount_cents(payload: dict) -> int:
-    """Paggins já manda em CENTAVOS. Prioriza payment.amount / totalAmount / amount."""
+    """Paggins manda em REAIS (ex.: totalAmount=97 = R$97). UTMify espera CENTAVOS → x100.
+    (bug corrigido 21/07: antes tratava reais como centavos → venda marcava R$0,97)."""
     for path in (("payment", "amount"), ("data", "payment", "amount")):
         node = payload
         for k in path:
             node = node.get(k) if isinstance(node, dict) else None
         if isinstance(node, (int, float)) and node > 0:
-            return int(node)
+            return round(node * 100)
     for k in ("totalAmount", "total_amount", "amount"):
         v = _walk_find(payload, k)
         if isinstance(v, (int, float)) and v > 0:
-            return int(v)
+            return round(v * 100)
     return 0
 
 
