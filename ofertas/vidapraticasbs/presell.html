@@ -2,73 +2,90 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Vida Prática — o passo a passo que está mudando o mês de milhares de brasileiros</title>
+<title>Vida Prática · Aula: como organizar o orçamento do mês</title>
+<meta name="description" content="Aula em vídeo do portal Vida Prática sobre organização financeira: como planejar o orçamento e acompanhar os gastos do mês.">
+<meta name="theme-color" content="#16755b">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316755b'/%3E%3Ctext x='16' y='22' font-size='13' text-anchor='middle' fill='%23fff' font-family='Georgia,serif' font-weight='bold'%3EVP%3C/text%3E%3C/svg%3E">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#0f1226;color:#f4f5fb;line-height:1.5;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:520px;margin:0 auto;padding:22px 18px 40px}
-  .brand{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:26px}
-  .brand .dot{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#7c4dff,#5e2fd6);display:inline-block}
-  .brand span{font-weight:700;letter-spacing:.3px;font-size:1.05rem}
-  h1{font-size:1.5rem;line-height:1.25;text-align:center;margin-bottom:10px;font-weight:800}
-  h1 b{color:#b79bff}
-  .sub{text-align:center;color:#c2c6de;font-size:1rem;margin-bottom:22px}
-  .player{position:relative;border-radius:16px;overflow:hidden;background:linear-gradient(160deg,#1c2140,#141834);
-    aspect-ratio:9/12;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 50px rgba(0,0,0,.45);border:1px solid #2a3163}
-  .player::before{content:"";position:absolute;inset:0;background:
-    radial-gradient(120% 60% at 50% 0%,rgba(124,77,255,.28),transparent 60%)}
-  .playbtn{all:unset;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:16px;cursor:pointer;width:100%;height:100%;justify-content:center}
-  .circle{width:88px;height:88px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 8px 30px rgba(124,77,255,.55);animation:pulse 1.9s infinite}
-  .circle svg{margin-left:6px}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(124,77,255,.55)}70%{box-shadow:0 0 0 22px rgba(124,77,255,0)}100%{box-shadow:0 0 0 0 rgba(124,77,255,0)}}
-  .playlabel{font-weight:700;font-size:1.05rem;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5)}
-  .live{position:absolute;top:12px;left:12px;z-index:3;background:#ff3b57;color:#fff;font-size:.72rem;font-weight:700;
-    padding:4px 10px;border-radius:20px;display:flex;align-items:center;gap:6px;letter-spacing:.4px}
-  .live i{width:7px;height:7px;border-radius:50%;background:#fff;display:inline-block;animation:blink 1s infinite}
-  @keyframes blink{50%{opacity:.25}}
-  .cta{display:block;width:100%;margin-top:20px;background:linear-gradient(135deg,#7c4dff,#5e2fd6);color:#fff;border:none;
-    padding:17px;border-radius:14px;font-size:1.12rem;font-weight:800;cursor:pointer;box-shadow:0 10px 26px rgba(124,77,255,.4)}
-  .cta:active{transform:translateY(1px)}
-  .note{text-align:center;color:#8b90ad;font-size:.82rem;margin-top:14px}
-  .trust{display:flex;justify-content:center;gap:18px;margin-top:26px;color:#9aa0bd;font-size:.8rem;flex-wrap:wrap}
-  .trust span{display:flex;align-items:center;gap:6px}
+  :root{
+    --ac:#16755b; --ac-d:#0f4f3d; --ochre:#b06a1f; --ink:#1b2b26;
+    --mut:#5c6a64; --bg:#f5f2ea; --card:#fff; --line:#e6e0d3;
+    --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+    --sans:"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
+  a{color:var(--ac);text-decoration:none}
+  .topbar{background:var(--ac-d);color:#dceee6;font-size:.76rem;letter-spacing:.04em;text-align:center;padding:7px 12px}
+  header{background:var(--card);border-bottom:1px solid var(--line)}
+  .hwrap{max-width:760px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;gap:.6rem}
+  .brand{display:flex;align-items:center;gap:.6rem;font-family:var(--serif);font-weight:700;font-size:1.5rem;color:var(--ink)}
+  .brand .mark{width:38px;height:38px;border-radius:9px;background:var(--ac);color:#fff;display:grid;place-items:center;font-size:.95rem;font-weight:700;font-family:var(--serif)}
+  .brand span{color:var(--ac)}
+  main{max-width:760px;margin:0 auto;padding:30px 20px 50px}
+  .kicker{color:var(--ac);font-weight:800;text-transform:uppercase;letter-spacing:.11em;font-size:.72rem;margin:0 0 12px}
+  h1{font-family:var(--serif);font-weight:700;font-size:1.85rem;line-height:1.2;margin:0 0 14px;letter-spacing:-.01em}
+  .lead{color:var(--mut);font-size:1.08rem;margin:0 0 24px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(15,79,61,.07)}
+  .thumb{position:relative;background:linear-gradient(150deg,#1e6b55,#0f4f3d);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+  .thumb .play{width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+  .thumb .play svg{margin-left:5px}
+  .thumb .tag{position:absolute;left:14px;bottom:14px;color:#dceee6;font-size:.8rem;font-family:var(--serif);font-style:italic}
+  .cbody{padding:20px}
+  .cbody p{margin:0 0 16px;color:var(--ink)}
+  .cbody ul{margin:0 0 20px;padding-left:20px;color:var(--mut)}
+  .cbody li{margin:4px 0}
+  .btn{all:unset;display:block;width:100%;text-align:center;background:var(--ac);color:#fff;font-weight:700;
+    font-size:1.06rem;padding:15px;border-radius:11px;cursor:pointer}
+  .btn:hover{background:var(--ac-d)}
+  .meta{color:var(--mut);font-size:.85rem;margin-top:12px;text-align:center}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:22px 20px;text-align:center;color:var(--mut);font-size:.82rem}
+  footer a{color:var(--mut);margin:0 8px}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="brand"><i class="dot"></i><span>Vida Prática</span></div>
-    <h1>O passo a passo que está fazendo o <b>dinheiro render</b> sem sair do celular</h1>
-    <p class="sub">Assista à explicação completa antes que ela saia do ar.</p>
-
-    <form action="go/" method="get" id="f">
-      <div class="player">
-        <div class="live"><i></i> AO VIVO</div>
-        <button class="playbtn" type="submit" aria-label="Assistir agora">
-          <span class="circle">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="#5e2fd6"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          <span class="playlabel">Toque para assistir</span>
-        </button>
-      </div>
-      <button class="cta" type="submit">▶ ASSISTIR O VÍDEO AGORA</button>
-    </form>
-
-    <p class="note">Conteúdo gratuito • disponível por tempo limitado</p>
-    <div class="trust">
-      <span>🔒 Ambiente seguro</span>
-      <span>✔ +38 mil pessoas assistindo</span>
+  <div class="topbar">Conteúdo educativo · Portal Vida Prática</div>
+  <header>
+    <div class="hwrap">
+      <a class="brand" href="safe.html"><span class="mark">VP</span>Vida <span>Prática</span></a>
     </div>
-  </div>
+  </header>
+
+  <main>
+    <p class="kicker">Educação financeira · Aula em vídeo</p>
+    <h1>Como organizar o orçamento e acompanhar os gastos do mês</h1>
+    <p class="lead">Uma explicação passo a passo, em vídeo, sobre como montar um orçamento simples e manter as contas em dia — sem planilhas complicadas.</p>
+
+    <form action="go/" method="get" id="f" class="card">
+      <button class="thumb" type="submit" aria-label="Assistir à aula">
+        <span class="play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#16755b"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="tag">Aula gratuita · ~8 min</span>
+      </button>
+      <div class="cbody">
+        <p>Nesta aula você vai ver, na prática:</p>
+        <ul>
+          <li>como separar contas fixas, variáveis e o que dá pra guardar;</li>
+          <li>um método simples pra registrar os gastos do dia a dia;</li>
+          <li>como revisar o orçamento no fim do mês sem estresse.</li>
+        </ul>
+        <button class="btn" type="submit">Assistir à aula</button>
+        <p class="meta">Vídeo gratuito · sem cadastro</p>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    Vida Prática · conteúdo educativo sobre finanças pessoais<br>
+    <a href="sobre.html">Sobre</a> · <a href="termos.html">Termos</a> · <a href="privacidade.html">Privacidade</a>
+  </footer>
 
   <script>
     // repassa os parametros do anuncio (gclid/campaignid/...) pro cloaker em /go/
     (function () {
       var f = document.getElementById('f');
-      var q = new URLSearchParams(location.search);
-      q.forEach(function (v, k) {
+      new URLSearchParams(location.search).forEach(function (v, k) {
         var i = document.createElement('input');
         i.type = 'hidden'; i.name = k; i.value = v;
         f.appendChild(i);
