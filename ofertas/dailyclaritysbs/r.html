@@ -35,6 +35,12 @@
   if (!q.get("utm_source")) q.set("utm_source", "google");
   var cid = q.get("gclid") || q.get("clickid") || "";
   if (cid) { if (!q.get("subid")) q.set("subid", cid); if (!q.get("src")) q.set("src", cid); }
+  // o funil externo roda RedTrack proprio (gera rtkcid e descarta o resto da query
+  // na pagina final) — RedTrack captura sub1..sub10, entao carimbamos ali tambem:
+  // e a unica chance de o clickid voltar pra nos no postback da rede.
+  var subs = {sub1: cid, sub2: q.get("campaignid") || "", sub3: q.get("adgroupid") || "",
+               sub4: q.get("creative") || ""};
+  Object.keys(subs).forEach(function (k) { if (subs[k] && !q.get(k)) q.set(k, subs[k]); });
   var u = new URL(d);
   q.forEach(function (v, k) { if (!u.searchParams.has(k)) u.searchParams.set(k, v); });
   // 900ms dao tempo do pixel/utms dispararem o pageview antes de sair da pagina
