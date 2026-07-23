@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attention Residue: Why Switching Tasks Costs More Than You Think · Quiet Routine</title>
+  <meta name="description" content="A plain-language look at attention residue — the trace of a finished task that lingers into the next one — followed through an ordinary afternoon of email, a call, and a report.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://quietroutine.bond/attention-residue.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23faf7ef' stroke='%23a1583a' stroke-width='4'/%3E%3Ctext x='32' y='40' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%232a271f'%3EQR%3C/text%3E%3C/svg%3E">
+  <style>
+:root{
+  --bg:#f2ede1;
+  --paper:#faf7ef;
+  --ink:#2a271f;
+  --muted:#6f6a5a;
+  --line:#cdc2a8;
+  --clay:#a1583a;
+  --clay-dark:#7c4128;
+  --sage:#5c6b53;
+  --sage-dark:#3f4a38;
+  --radius:3px;
+  --maxw:1040px;
+  --serif:Georgia,'Times New Roman',Times,serif;
+  --sans:Verdana,Tahoma,Geneva,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px}
+img{max-width:100%;display:block}
+a{color:var(--clay-dark)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:normal}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+main{display:block}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:2px solid var(--clay);border-radius:50%;font-family:var(--serif);font-weight:bold;color:var(--clay-dark);font-size:14px;flex:none}
+.brand-name{font-family:var(--serif);font-size:20px;letter-spacing:.02em}
+.site-nav{display:flex;gap:18px;flex-wrap:wrap}
+.site-nav a{font-size:12px;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;color:var(--muted);padding-bottom:3px;border-bottom:1px solid transparent}
+.site-nav a:hover,.site-nav a:focus{color:var(--clay-dark);border-color:var(--clay)}
+
+/* buttons */
+.btn{display:inline-block;padding:11px 24px;background:var(--clay);color:#fff;text-decoration:none;border:2px solid var(--clay);border-radius:var(--radius);font-size:13px;text-transform:uppercase;letter-spacing:.08em;width:fit-content}
+.btn:hover{background:var(--clay-dark);border-color:var(--clay-dark)}
+.btn-outline{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn-outline:hover{background:var(--ink);color:var(--bg)}
+.btn-light{background:transparent;color:#fff;border:2px solid #fff}
+.btn-light:hover{background:#fff;color:var(--sage-dark)}
+
+/* hero (home) */
+.hero{display:grid;grid-template-columns:1.3fr .9fr;border-bottom:2px solid var(--ink)}
+.hero-media{position:relative;border-right:2px solid var(--ink);min-height:340px;overflow:hidden;background:var(--line)}
+.hero-media img{width:100%;height:100%;object-fit:cover;min-height:340px}
+.hero-text{padding:48px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:var(--paper)}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--sage-dark);font-weight:bold}
+.hero-text h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0}
+.hero-text p{color:var(--muted);font-size:16px;max-width:46ch;margin:0}
+
+/* generic section headings */
+.section-head{padding:56px 24px 0;max-width:var(--maxw);margin:0 auto}
+.section-head h2{font-size:26px;margin:0 0 8px}
+.section-head .lede{color:var(--muted);max-width:60ch;margin:0}
+
+/* article list — notebook contents */
+.contents{padding:24px 24px 64px}
+.toc-list{list-style:none;margin:36px auto 0;padding:0;border-top:1px solid var(--line);max-width:var(--maxw)}
+.toc-item{display:grid;grid-template-columns:52px 130px 1fr;gap:22px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.toc-item:nth-child(even){margin-left:44px}
+.toc-num{font-family:var(--serif);font-size:26px;color:var(--line)}
+.toc-thumb{width:130px;height:86px;object-fit:cover;border:1px solid var(--line)}
+.toc-body h3{margin:0 0 6px;font-size:19px}
+.toc-body h3 a,.toc-body h3{color:var(--ink)}
+.toc-meta{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-dark);margin-bottom:6px}
+.toc-dek{color:var(--muted);font-size:14px;margin:0;max-width:56ch}
+
+/* about blurb / generic prose block */
+.blurb{padding:8px 24px 56px;max-width:var(--maxw);margin:0 auto}
+.blurb p{max-width:68ch;color:var(--ink);font-size:16px}
+
+/* app section */
+.app-section{background:var(--sage-dark);color:var(--bg);padding:64px 24px}
+.app-inner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.app-copy h2{font-size:30px;margin:0 0 14px}
+.app-copy p{opacity:.9;max-width:48ch}
+.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}
+.feature-card{border:1px solid rgba(250,247,239,.35);padding:14px;border-radius:var(--radius)}
+.feature-card h4{margin:0 0 4px;font-size:15px}
+.feature-card p{margin:0;font-size:13px;opacity:.85}
+.feature-grid-page{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--maxw);margin:28px auto 0;padding:0 24px}
+.feature-card-page{border:1px solid var(--line);padding:20px;background:var(--paper)}
+.feature-card-page .ico{width:36px;height:36px;border:2px solid var(--clay);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-family:var(--serif);color:var(--clay-dark)}
+.feature-card-page h3{font-size:16px;margin:0 0 6px}
+.feature-card-page p{margin:0;color:var(--muted);font-size:14px}
+.app-mock{border:2px solid var(--bg);padding:20px;background:rgba(250,247,239,.06)}
+.mock-screen{border:1px solid rgba(250,247,239,.45);aspect-ratio:9/16;max-width:220px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:12px}
+.mock-time{font-family:var(--serif);font-size:22px}
+.mock-line{height:8px;background:rgba(250,247,239,.25);border-radius:2px}
+.mock-line.w60{width:60%}
+.mock-line.w80{width:80%}
+.mock-pill{border:1px solid rgba(250,247,239,.5);border-radius:2px;padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;width:fit-content;margin-top:auto}
+.how-section{background:var(--paper);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:56px 24px;margin-top:56px}
+.how-grid{max-width:var(--maxw);margin:28px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-step{border:1px solid var(--line);padding:18px;background:var(--bg)}
+.how-step .num{font-family:var(--serif);font-size:24px;color:var(--clay-dark)}
+.how-step h4{margin:8px 0 6px;font-size:15px}
+.how-step p{margin:0;color:var(--muted);font-size:14px}
+.faq-mini{max-width:var(--maxw);margin:0 auto;padding:56px 24px}
+.cta-band{text-align:center;padding:56px 24px;border-top:2px solid var(--ink)}
+.cta-band h2{font-size:24px;margin:0 0 10px}
+.cta-band p{color:var(--muted);margin:0 0 20px}
+
+/* newsletter */
+.newsletter{padding:56px 24px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.newsletter-inner{max-width:560px;margin:0 auto}
+.newsletter h2{font-size:22px;margin:0 0 8px}
+.newsletter p{color:var(--muted);margin:0}
+form.nl-form{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.nl-form input[type=email]{flex:1;min-width:180px;padding:11px 14px;border:2px solid var(--ink);border-radius:var(--radius);font-family:var(--sans);font-size:14px;background:var(--paper);color:var(--ink)}
+#ok{display:none;color:var(--sage-dark);margin-top:10px;font-size:13px}
+
+/* essay layout */
+.post-wrap{max-width:760px;margin:0 auto;padding:40px 24px 80px 64px;position:relative}
+.post-wrap::before{content:"";position:absolute;left:24px;top:4px;bottom:40px;width:1px;background:repeating-linear-gradient(to bottom,var(--line) 0 1px,transparent 1px 13px)}
+.breadcrumb{font-size:12px;color:var(--muted);margin:0 0 18px}
+.breadcrumb a{color:var(--muted)}
+.post-meta{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-dark);margin:0 0 10px}
+.post h1{font-size:clamp(28px,4vw,40px);line-height:1.2;margin:0 0 18px}
+.post-lede{font-size:19px;color:var(--muted);font-family:var(--serif);font-style:italic;margin:0 0 28px}
+.post h2{font-size:24px;margin:36px 0 12px}
+.post h3{font-size:19px;margin:28px 0 10px}
+.post p{margin:0 0 16px;font-size:16px}
+.post ul,.post ol{margin:0 0 16px;padding-left:22px}
+.post li{margin-bottom:8px}
+.post blockquote{margin:28px 0;padding:2px 0 2px 20px;border-left:3px solid var(--clay);font-family:var(--serif);font-style:italic;color:var(--ink);font-size:18px}
+.callout{border:1px solid var(--ink);padding:18px 20px;margin:28px 0;background:var(--paper)}
+.callout strong{display:block;font-family:var(--serif);margin-bottom:6px;font-size:15px}
+.tablewrap{overflow-x:auto;margin:28px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left}
+th{background:var(--paper);font-family:var(--serif);font-weight:normal}
+.related{margin-top:56px;border-top:2px solid var(--ink);padding-top:28px}
+.related h3{font-size:18px;margin:0 0 16px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card{border:1px solid var(--line);padding:14px;text-decoration:none;color:inherit;display:block}
+.related-card .cat{font-size:11px;text-transform:uppercase;color:var(--sage-dark);letter-spacing:.06em}
+.related-card h4{margin:6px 0 0;font-size:15px}
+.disclaimer{border:1px dashed var(--line);padding:14px 16px;font-size:13px;color:var(--muted);margin:24px 0}
+
+/* glossary */
+.glossary-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.glossary-item{border-bottom:1px solid var(--line);padding:18px 0}
+.glossary-item dt{font-family:var(--serif);font-size:17px;color:var(--ink);margin:0 0 6px}
+.glossary-item dd{margin:0;color:var(--muted);font-size:15px}
+
+/* faq */
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item summary{cursor:pointer;padding:16px 0;font-family:var(--serif);font-size:17px;list-style:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::before{content:"+ ";color:var(--clay-dark)}
+.faq-item[open] summary::before{content:"\2013 "}
+.faq-item p{padding:0 0 16px;color:var(--muted);margin:0}
+.faq-group{border-top:1px solid var(--line);margin-top:6px}
+
+/* about / team */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:28px 0}
+.team-card{border:1px solid var(--line);padding:16px}
+.team-card .avatar{width:52px;height:52px;border-radius:50%;border:2px solid var(--clay);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:bold;color:var(--clay-dark);margin-bottom:10px}
+.team-card h4{margin:0 0 4px;font-size:15px}
+.team-card p{margin:0;color:var(--muted);font-size:13px}
+.policy-list{border-top:1px solid var(--line);margin-top:20px;padding:0}
+.policy-list li{border-bottom:1px solid var(--line);padding:14px 0;list-style:none}
+.policy-list li b{font-family:var(--serif)}
+
+/* footer */
+.site-footer{background:var(--ink);color:var(--bg);padding:48px 24px 0}
+.footer-inner{display:grid;grid-template-columns:1.2fr 2fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(250,247,239,.2)}
+.footer-brand{display:flex;flex-direction:column;gap:10px}
+.footer-brand .brand-mark{border-color:var(--bg);color:var(--bg)}
+.footer-brand p{color:rgba(250,247,239,.7);font-size:13px;max-width:34ch;margin:0}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.footer-cols h4{font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;color:var(--bg)}
+.footer-cols a{display:block;color:rgba(250,247,239,.75);text-decoration:none;font-size:13px;margin-bottom:8px}
+.footer-cols a:hover{color:#fff}
+.footer-bottom{max-width:var(--maxw);margin:0 auto;padding:20px 24px;font-size:12px;color:rgba(250,247,239,.55)}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr}
+  .hero-media{border-right:none;border-bottom:2px solid var(--ink);min-height:220px}
+  .hero-media img{min-height:220px}
+  .toc-item{grid-template-columns:44px 1fr;grid-template-areas:"num body" "thumb thumb"}
+  .toc-item .toc-num{grid-area:num}
+  .toc-item .toc-body{grid-area:body}
+  .toc-item .toc-thumb{grid-area:thumb;width:100%;height:150px;margin-top:10px}
+  .toc-item:nth-child(even){margin-left:0}
+  .app-inner{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:1fr}
+  .feature-grid{grid-template-columns:1fr}
+  .feature-grid-page{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-cols{grid-template-columns:1fr 1fr}
+  .post-wrap{padding-left:24px}
+  .post-wrap::before{display:none}
+}
+  </style>
+</head><body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="safe.html"><span class="brand-mark" aria-hidden="true">QR</span><span class="brand-name">Quiet Routine</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="safe.html">Home</a>
+        <a href="app.html">Stillhour App</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+  <div class="post-wrap">
+  <article class="post">
+    <nav class="breadcrumb">Home / Attention / Attention Residue: Why Switching Tasks Costs More Than You Think</nav>
+    <h1>Attention Residue: Why Switching Tasks Costs More Than You Think</h1>
+    <p class="meta post-meta">Attention · 2026-02-21 · by the Quiet Routine desk</p>
+    <p><img src="img/attention-residue.jpg" alt="Attention Residue: Why Switching Tasks Costs More Than You Think"></p>
+
+    <p>Close the email tab, open the report, and something strange happens: the first few minutes don't quite belong to the report. A sentence half-forms and dissolves. The cursor blinks over a paragraph that was going somewhere five minutes ago, before the inbox pulled you sideways. Researchers call this attention residue — a piece of the last task that stays lodged in working attention even after the task itself has ended. It isn't distraction in the usual sense. Nothing is pulling you away. Something is simply still there, unfinished, taking up room.</p>
+
+    <h2>What residue actually is</h2>
+    <p>The term comes from work on task switching, most notably Sophie Leroy's research on why people underperform right after moving between tasks. The idea is fairly plain once you sit with it: attention doesn't snap cleanly from one target to another. When a task ends before it feels resolved, part of your attention keeps circling back to it, even while you've technically moved on. You are, in effect, doing two things badly instead of one thing well — the new task in front of you, and the old task still running quietly underneath.</p>
+    <p>This matters because most days are built from small, unfinished handoffs. An email left mid-reply. A call that ends before the decision is made. A spreadsheet closed because a meeting started. None of these are dramatic interruptions. They're just ordinary stops. But each one can leave a trace, and the traces add up across an afternoon in a way that's easy to miss because no single switch feels costly on its own.</p>
+
+    <h2>An ordinary afternoon, followed closely</h2>
+    <p>Picture a fairly typical stretch of work: forty minutes on email, a fifteen-minute phone call, then an hour meant for a report. On paper it looks like three separate blocks. In practice, the report block often starts with ten or fifteen minutes that don't belong to the report at all — a lingering thought about how the call ended, a half-formed reply still owed to someone in the inbox. The work being billed to "writing the report" is partly being spent finishing, in the background, the tasks that came before it.</p>
+    <p>What makes this hard to notice is that it doesn't look like idleness. You're typing. You're rereading a paragraph. It just isn't landing the way it would if the mind had arrived at the report whole. The residue isn't a pause — it's a kind of dilution.</p>
+
+    <blockquote>The cost of switching isn't paid at the moment you switch. It's paid in the first several minutes of whatever comes next.</blockquote>
+
+    <h2>Why closure changes the picture</h2>
+    <p>Leroy's research also points to something encouraging: the residue effect is smaller when a task feels finished before you leave it. Not perfectly finished — just brought to a stopping point that the mind can accept. A reply sent, even a short one. A decision from the call written down in one line. A next-step noted for the report before you stand up. The closing act seems to matter more than the completeness of the work itself. It's less about tying every loose end and more about giving attention somewhere clear to set the task down.</p>
+    <p>This is part of why an <a href="slow-first-hour.html">unhurried first hour</a> tends to make the rest of the day easier — it front-loads fewer half-finished threads for later hours to carry. It's also close in spirit to the closing habits described in <a href="evening-close.html">the small ritual that closes a day</a>, just applied task by task instead of at day's end.</p>
+
+    <h3>Some ordinary sources of residue</h3>
+    <ul>
+      <li>A message sent without a reply attached, left open in a tab "for later."</li>
+      <li>A call that ends on a question rather than an answer.</li>
+      <li>A document closed mid-thought because the clock said it was time to move.</li>
+      <li>A decision that got postponed rather than made, even a small one.</li>
+    </ul>
+
+    <h2>What tends to help, in practice</h2>
+    <p>None of this requires overhauling a calendar. The more workable changes are small and procedural — a sentence of closure before switching, rather than a hard stop. Writing one line about where a task stands, even if it's "waiting on X," seems to give the mind enough of a marker that it can let go. Some people find a two-minute buffer between tasks does something similar: not rest, exactly, just a beat where the last task can be set down before the next one is picked up.</p>
+    <ol>
+      <li>Before switching, write one sentence: what's done, what's still open.</li>
+      <li>Leave a visible note for yourself rather than trusting memory to hold the loose end.</li>
+      <li>Give the switch a small gap — even thirty seconds of no new input.</li>
+      <li>Start the next task with something concrete rather than something open-ended.</li>
+    </ol>
+
+    <div class="callout"><strong>Try this:</strong> At your next task switch, write a single line — "email: replied to two, one still needs a number from finance" — before you open anything new. It costs about fifteen seconds and gives the mind a place to file the loose end instead of carrying it.</div>
+
+    <p>There's also a slower version of the same idea, closer to how <a href="single-tasking.html">single-tasking</a> is usually described: fewer switches to begin with. Residue can only build up where there's switching to build it. An afternoon with three long blocks will generally carry less residue than the same hours cut into ten short ones, even if the total time worked is identical.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Switch type</th><th>Typical residue</th><th>What tends to help</th></tr></thead>
+        <tbody>
+          <tr><td>Email left mid-thread</td><td>Moderate — a reply feels "owed"</td><td>One-line status note before closing the tab</td></tr>
+          <tr><td>Call ending on an open question</td><td>High — no resolution to anchor to</td><td>Jot the outstanding question immediately after hanging up</td></tr>
+          <tr><td>Meeting cutting off deep work</td><td>High — thought was mid-formation</td><td>Leave a placeholder sentence in the document before leaving</td></tr>
+          <tr><td>Planned break between similar tasks</td><td>Low — task already felt complete</td><td>Little needed; closure was already in place</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>A quieter way to end a task</h2>
+    <p>None of this is about working harder or squeezing out more per hour. It's closer to housekeeping — noticing that a day made of many small stops benefits from many small closings. A room that's used all day tends to feel calmer when things are put back roughly where they belong between uses, rather than left scattered for the next person to sort through. Attention seems to work in a similar way, and thinking of it in terms of <a href="room-with-less.html">a room with less in it</a> — fewer open loops competing for the same space — can make the idea easier to hold onto than the research terminology usually allows.</p>
+    <p>The afternoon with the email, the call, and the report doesn't need to be shorter to feel less scattered. It mostly needs its transitions treated as real moments, worth a sentence of attention, rather than gaps to be crossed as quickly as possible.</p>
+
+    <div class="disclaimer"><strong>Note:</strong> This article is an editorial reflection on attention and daily pacing, written for general interest. It does not describe or diagnose any medical or psychological condition, and it isn't a substitute for professional guidance if focus or attention difficulties are affecting your life in a persistent way.</div>
+
+    <div class="related">
+      <h3>Read also</h3>
+      <div class="related-grid">
+        <a class="related-card" href="single-tasking.html"><span class="cat">Attention</span><h4>What Single-Tasking Actually Feels Like</h4></a>
+        <a class="related-card" href="slow-first-hour.html"><span class="cat">Mornings</span><h4>The Case for a Slow First Hour</h4></a>
+        <a class="related-card" href="evening-close.html"><span class="cat">Rituals</span><h4>The Small Ritual That Closes a Day</h4></a>
+      </div>
+    </div>
+  </article>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner wrap">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true">QR</span>
+        <p>Quiet Routine is an independent journal about attention, pace, and the small rituals that shape an ordinary day.</p>
+      </div>
+      <div class="footer-cols">
+        <div><h4>Read</h4>
+          <a href="safe.html">All essays</a>
+          <a href="glossary.html">Glossary</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+        <div><h4>About</h4>
+          <a href="about.html">About us</a>
+          <a href="app.html">Stillhour app</a>
+        </div>
+        <div><h4>Legal</h4>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Quiet Routine. An independent editorial project about quiet routine and attention. Not affiliated with, endorsed by, or sponsored by Google, YouTube, or any of their affiliates.</p>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

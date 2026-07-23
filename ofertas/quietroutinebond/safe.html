@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiet Routine — Essays on Attention and an Unhurried Day</title>
+<meta name="description" content="Quiet Routine is a journal about the small, low-noise habits — a slow first hour, single-tasking, silence, reading on paper — that shape how an ordinary day feels.">
+<link rel="canonical" href="https://quietroutine.bond/safe.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23faf7ef' stroke='%23a1583a' stroke-width='4'/%3E%3Ctext x='32' y='40' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%232a271f'%3EQR%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f2ede1;
+  --paper:#faf7ef;
+  --ink:#2a271f;
+  --muted:#6f6a5a;
+  --line:#cdc2a8;
+  --clay:#a1583a;
+  --clay-dark:#7c4128;
+  --sage:#5c6b53;
+  --sage-dark:#3f4a38;
+  --radius:3px;
+  --maxw:1040px;
+  --serif:Georgia,'Times New Roman',Times,serif;
+  --sans:Verdana,Tahoma,Geneva,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px}
+img{max-width:100%;display:block}
+a{color:var(--clay-dark)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:normal}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+main{display:block}
+.site-header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:2px solid var(--clay);border-radius:50%;font-family:var(--serif);font-weight:bold;color:var(--clay-dark);font-size:14px;flex:none}
+.brand-name{font-family:var(--serif);font-size:20px;letter-spacing:.02em}
+.site-nav{display:flex;gap:18px;flex-wrap:wrap}
+.site-nav a{font-size:12px;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;color:var(--muted);padding-bottom:3px;border-bottom:1px solid transparent}
+.site-nav a:hover,.site-nav a:focus{color:var(--clay-dark);border-color:var(--clay)}
+.btn{display:inline-block;padding:11px 24px;background:var(--clay);color:#fff;text-decoration:none;border:2px solid var(--clay);border-radius:var(--radius);font-size:13px;text-transform:uppercase;letter-spacing:.08em;width:fit-content}
+.btn:hover{background:var(--clay-dark);border-color:var(--clay-dark)}
+.btn-outline{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn-outline:hover{background:var(--ink);color:var(--bg)}
+.btn-light{background:transparent;color:#fff;border:2px solid #fff}
+.btn-light:hover{background:#fff;color:var(--sage-dark)}
+.hero{display:grid;grid-template-columns:1.3fr .9fr;border-bottom:2px solid var(--ink)}
+.hero-media{position:relative;border-right:2px solid var(--ink);min-height:340px;overflow:hidden;background:var(--line)}
+.hero-media img{width:100%;height:100%;object-fit:cover;min-height:340px}
+.hero-text{padding:48px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:var(--paper)}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--sage-dark);font-weight:bold}
+.hero-text h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0}
+.hero-text p{color:var(--muted);font-size:16px;max-width:46ch;margin:0}
+.section-head{padding:56px 24px 0;max-width:var(--maxw);margin:0 auto}
+.section-head h2{font-size:26px;margin:0 0 8px}
+.section-head .lede{color:var(--muted);max-width:60ch;margin:0}
+.contents{padding:24px 24px 64px}
+.toc-list{list-style:none;margin:36px auto 0;padding:0;border-top:1px solid var(--line);max-width:var(--maxw)}
+.toc-item{display:grid;grid-template-columns:52px 130px 1fr;gap:22px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.toc-item:nth-child(even){margin-left:44px}
+.toc-num{font-family:var(--serif);font-size:26px;color:var(--line)}
+.toc-thumb{width:130px;height:86px;object-fit:cover;border:1px solid var(--line)}
+.toc-body h3{margin:0 0 6px;font-size:19px}
+.toc-body h3 a,.toc-body h3{color:var(--ink)}
+.toc-meta{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-dark);margin-bottom:6px}
+.toc-dek{color:var(--muted);font-size:14px;margin:0;max-width:56ch}
+.blurb{padding:8px 24px 56px;max-width:var(--maxw);margin:0 auto}
+.blurb p{max-width:68ch;color:var(--ink);font-size:16px}
+.app-section{background:var(--sage-dark);color:var(--bg);padding:64px 24px}
+.app-inner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.app-copy h2{font-size:30px;margin:0 0 14px}
+.app-copy p{opacity:.9;max-width:48ch}
+.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}
+.feature-card{border:1px solid rgba(250,247,239,.35);padding:14px;border-radius:var(--radius)}
+.feature-card h4{margin:0 0 4px;font-size:15px}
+.feature-card p{margin:0;font-size:13px;opacity:.85}
+.app-mock{border:2px solid var(--bg);padding:20px;background:rgba(250,247,239,.06)}
+.mock-screen{border:1px solid rgba(250,247,239,.45);aspect-ratio:9/16;max-width:220px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:12px}
+.mock-time{font-family:var(--serif);font-size:22px}
+.mock-line{height:8px;background:rgba(250,247,239,.25);border-radius:2px}
+.mock-line.w60{width:60%}
+.mock-line.w80{width:80%}
+.mock-pill{border:1px solid rgba(250,247,239,.5);border-radius:2px;padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;width:fit-content;margin-top:auto}
+.newsletter{padding:56px 24px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.newsletter-inner{max-width:560px;margin:0 auto}
+.newsletter h2{font-size:22px;margin:0 0 8px}
+.newsletter p{color:var(--muted);margin:0}
+form.nl-form{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.nl-form input[type=email]{flex:1;min-width:180px;padding:11px 14px;border:2px solid var(--ink);border-radius:var(--radius);font-family:var(--sans);font-size:14px;background:var(--paper);color:var(--ink)}
+#ok{display:none;color:var(--sage-dark);margin-top:10px;font-size:13px}
+.site-footer{background:var(--ink);color:var(--bg);padding:48px 24px 0}
+.footer-inner{display:grid;grid-template-columns:1.2fr 2fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(250,247,239,.2)}
+.footer-brand{display:flex;flex-direction:column;gap:10px}
+.footer-brand .brand-mark{border-color:var(--bg);color:var(--bg)}
+.footer-brand p{color:rgba(250,247,239,.7);font-size:13px;max-width:34ch;margin:0}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.footer-cols h4{font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;color:var(--bg)}
+.footer-cols a{display:block;color:rgba(250,247,239,.75);text-decoration:none;font-size:13px;margin-bottom:8px}
+.footer-cols a:hover{color:#fff}
+.footer-bottom{max-width:var(--maxw);margin:0 auto;padding:20px 24px;font-size:12px;color:rgba(250,247,239,.55)}
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr}
+  .hero-media{border-right:none;border-bottom:2px solid var(--ink);min-height:220px}
+  .hero-media img{min-height:220px}
+  .toc-item{grid-template-columns:44px 1fr;grid-template-areas:"num body" "thumb thumb"}
+  .toc-item .toc-num{grid-area:num}
+  .toc-item .toc-body{grid-area:body}
+  .toc-item .toc-thumb{grid-area:thumb;width:100%;height:150px;margin-top:10px}
+  .toc-item:nth-child(even){margin-left:0}
+  .app-inner{grid-template-columns:1fr}
+  .feature-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-cols{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="safe.html"><span class="brand-mark" aria-hidden="true">QR</span><span class="brand-name">Quiet Routine</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="safe.html">Home</a>
+      <a href="app.html">Stillhour App</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-media"><img src="img/hero.jpg" alt="A plain wooden desk in early morning light, a notebook open, a cup of tea nearby"></div>
+    <div class="hero-text">
+      <span class="kicker">A journal about pace and attention</span>
+      <h1>Some days feel wide open. Most feel like they happened to us.</h1>
+      <p>Quiet Routine writes about the small, low-noise habits — a slow first hour, one task at a time, real silence, a book made of paper — that seem to change which kind of day you get. No hacks, no hustle. Just a closer look at the ordinary.</p>
+      <a class="btn" href="#essays">Read the essays</a>
+    </div>
+  </section>
+
+  <section class="section-head" id="essays">
+    <h2>Recent essays</h2>
+    <p class="lede">Short, close-in pieces about attention and the shape of a day — written slowly, meant to be read the same way.</p>
+  </section>
+
+  <section class="contents">
+    <ol class="toc-list">
+      <li class="toc-item"><a href="slow-first-hour.html" style="display:contents">
+        <span class="toc-num">01</span>
+        <img class="toc-thumb" src="img/slow-first-hour.jpg" alt="A quiet kitchen table at dawn with a mug and no phone in sight">
+        <span class="toc-body">
+          <span class="toc-meta">Mornings · Jan 14, 2026</span>
+          <h3>The Case for a Slow First Hour</h3>
+          <p class="toc-dek">What changes when the first sixty minutes of the day are not spent answering anything.</p>
+        </span>
+      </a></li>
+      <li class="toc-item"><a href="single-tasking.html" style="display:contents">
+        <span class="toc-num">02</span>
+        <img class="toc-thumb" src="img/single-tasking.jpg" alt="A single open notebook and pen on an otherwise empty desk">
+        <span class="toc-body">
+          <span class="toc-meta">Focus · Feb 3, 2026</span>
+          <h3>What Single-Tasking Actually Feels Like</h3>
+          <p class="toc-dek">Not a productivity hack — a description of what it's like to do one thing at a time, on purpose.</p>
+        </span>
+      </a></li>
+      <li class="toc-item"><a href="attention-residue.html" style="display:contents">
+        <span class="toc-num">03</span>
+        <img class="toc-thumb" src="img/attention-residue.jpg" alt="Overlapping papers on a desk suggesting several unfinished tasks">
+        <span class="toc-body">
+          <span class="toc-meta">Attention · Feb 21, 2026</span>
+          <h3>Attention Residue: Why Switching Tasks Costs More Than You Think</h3>
+          <p class="toc-dek">A little of the last task always stays behind. This is what that residue does to the next hour.</p>
+        </span>
+      </a></li>
+      <li class="toc-item"><a href="quiet-house.html" style="display:contents">
+        <span class="toc-num">04</span>
+        <img class="toc-thumb" src="img/quiet-house.jpg" alt="A calm living room with soft daylight and no screens turned on">
+        <span class="toc-body">
+          <span class="toc-meta">Silence · Mar 10, 2026</span>
+          <h3>In Praise of a Quiet House</h3>
+          <p class="toc-dek">On rooms without a soundtrack, and what the mind does when nothing is filling the silence.</p>
+        </span>
+      </a></li>
+      <li class="toc-item"><a href="reading-on-paper.html" style="display:contents">
+        <span class="toc-num">05</span>
+        <img class="toc-thumb" src="img/reading-on-paper.jpg" alt="A worn paperback book held open on a lap">
+        <span class="toc-body">
+          <span class="toc-meta">Reading · Mar 28, 2026</span>
+          <h3>Reading on Paper, Again</h3>
+          <p class="toc-dek">Returning to a physical book after a long stretch of screens, and noticing what is different about the attention it asks for.</p>
+        </span>
+      </a></li>
+      <li class="toc-item"><a href="evening-close.html" style="display:contents">
+        <span class="toc-num">06</span>
+        <img class="toc-thumb" src="img/evening-close.jpg" alt="A lamp being dimmed on a tidy desk at the end of the day">
+        <span class="toc-body">
+          <span class="toc-meta">Evenings · Apr 15, 2026</span>
+          <h3>The Small Ritual That Closes a Day</h3>
+          <p class="toc-dek">A short, repeatable gesture at day's end, and why a day without one tends to just trail off.</p>
+        </span>
+      </a></li>
+      <li class="toc-item"><a href="ultradian-rhythm.html" style="display:contents">
+        <span class="toc-num">07</span>
+        <img class="toc-thumb" src="img/ultradian-rhythm.jpg" alt="Someone stepping away from a desk to stretch by a window">
+        <span class="toc-body">
+          <span class="toc-meta">Rest · May 6, 2026</span>
+          <h3>Ultradian Rhythm and the Myth of the Long Push</h3>
+          <p class="toc-dek">The body seems to work in waves of roughly ninety minutes. Most schedules ignore this entirely.</p>
+        </span>
+      </a></li>
+      <li class="toc-item"><a href="room-with-less.html" style="display:contents">
+        <span class="toc-num">08</span>
+        <img class="toc-thumb" src="img/room-with-less.jpg" alt="A sparsely furnished room with a single chair and clear surfaces">
+        <span class="toc-body">
+          <span class="toc-meta">Attention · May 24, 2026</span>
+          <h3>A Room With Less in It</h3>
+          <p class="toc-dek">On sensory load, and how a room can quietly compete for attention before a single task begins.</p>
+        </span>
+      </a></li>
+      <li class="toc-item"><a href="unhurried-commute.html" style="display:contents">
+        <span class="toc-num">09</span>
+        <img class="toc-thumb" src="img/unhurried-commute.jpg" alt="A person walking calmly on a quiet street early in the morning">
+        <span class="toc-body">
+          <span class="toc-meta">Mornings · Jun 12, 2026</span>
+          <h3>The Unhurried Commute</h3>
+          <p class="toc-dek">Turning the gap between home and work into a transition instead of a delay.</p>
+        </span>
+      </a></li>
+    </ol>
+  </section>
+
+  <section class="app-section" id="app">
+    <div class="app-inner">
+      <div class="app-copy">
+        <h2>Stillhour — a quiet companion for the parts of the day you protect</h2>
+        <p>Stillhour is a small app for marking off quiet hours, running simple focus timers, and closing the day with a short wind-down prompt. Built by the same people who write here, for the same reason.</p>
+        <div class="feature-grid">
+          <div class="feature-card"><h4>Quiet Hours</h4><p>Block off a window where notifications wait.</p></div>
+          <div class="feature-card"><h4>One-Task Timer</h4><p>A plain timer for a single task, nothing else.</p></div>
+          <div class="feature-card"><h4>Wind-Down Prompt</h4><p>A short evening cue to close the day on purpose.</p></div>
+          <div class="feature-card"><h4>Paper Log</h4><p>A minimal, private log — no feed, no streaks to chase.</p></div>
+        </div>
+        <p style="margin-top:24px"><a class="btn btn-light" href="app.html">See how Stillhour works</a></p>
+      </div>
+      <div class="app-mock" aria-hidden="true">
+        <div class="mock-screen">
+          <div class="mock-time">7:42</div>
+          <div class="mock-line w80"></div>
+          <div class="mock-line w60"></div>
+          <div class="mock-line w80"></div>
+          <div class="mock-pill">Quiet Hour · Active</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div class="newsletter-inner">
+      <h2>A short note, occasionally</h2>
+      <p>No schedule to speak of. When there's a new essay worth your time, we'll say so — and nothing else.</p>
+      <form class="nl-form" onsubmit="sub(event)">
+        <input type="email" required placeholder="you@example.com" aria-label="Email address">
+        <button class="btn" type="submit">Subscribe</button>
+      </form>
+      <p id="ok">Thanks — you're on the list.</p>
+    </div>
+  </section>
+
+  <section class="blurb">
+    <h2 style="font-size:20px;margin:0 0 10px">About this journal</h2>
+    <p>Quiet Routine started as a set of private notes about why some ordinary days felt spacious and others felt like they'd been spent before they started. It's now a small, independent essay journal about attention, pace, and the unglamorous rituals — a slow first hour, a closed laptop, a paper book — that seem to make the difference. Read more on the <a href="about.html">about page</a>.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner wrap">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">QR</span>
+      <p>Quiet Routine is an independent journal about attention, pace, and the small rituals that shape an ordinary day.</p>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Read</h4>
+        <a href="safe.html">All essays</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div><h4>About</h4>
+        <a href="about.html">About us</a>
+        <a href="app.html">Stillhour app</a>
+      </div>
+      <div><h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Quiet Routine. An independent editorial project about quiet routine and attention. Not affiliated with, endorsed by, or sponsored by Google, YouTube, or any of their affiliates.</p>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body>
+</html>

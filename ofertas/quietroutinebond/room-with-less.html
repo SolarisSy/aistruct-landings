@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Room With Less in It · Quiet Routine</title>
+  <meta name="description" content="On sensory load, and how a room can quietly compete for attention before a single task begins — clutter, notifications, and ambient noise as a tax paid in advance.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://quietroutine.bond/room-with-less.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23faf7ef' stroke='%23a1583a' stroke-width='4'/%3E%3Ctext x='32' y='40' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%232a271f'%3EQR%3C/text%3E%3C/svg%3E">
+  <style>
+:root{
+  --bg:#f2ede1;
+  --paper:#faf7ef;
+  --ink:#2a271f;
+  --muted:#6f6a5a;
+  --line:#cdc2a8;
+  --clay:#a1583a;
+  --clay-dark:#7c4128;
+  --sage:#5c6b53;
+  --sage-dark:#3f4a38;
+  --radius:3px;
+  --maxw:1040px;
+  --serif:Georgia,'Times New Roman',Times,serif;
+  --sans:Verdana,Tahoma,Geneva,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px}
+img{max-width:100%;display:block}
+a{color:var(--clay-dark)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:normal}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+main{display:block}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:2px solid var(--clay);border-radius:50%;font-family:var(--serif);font-weight:bold;color:var(--clay-dark);font-size:14px;flex:none}
+.brand-name{font-family:var(--serif);font-size:20px;letter-spacing:.02em}
+.site-nav{display:flex;gap:18px;flex-wrap:wrap}
+.site-nav a{font-size:12px;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;color:var(--muted);padding-bottom:3px;border-bottom:1px solid transparent}
+.site-nav a:hover,.site-nav a:focus{color:var(--clay-dark);border-color:var(--clay)}
+
+/* buttons */
+.btn{display:inline-block;padding:11px 24px;background:var(--clay);color:#fff;text-decoration:none;border:2px solid var(--clay);border-radius:var(--radius);font-size:13px;text-transform:uppercase;letter-spacing:.08em;width:fit-content}
+.btn:hover{background:var(--clay-dark);border-color:var(--clay-dark)}
+.btn-outline{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn-outline:hover{background:var(--ink);color:var(--bg)}
+.btn-light{background:transparent;color:#fff;border:2px solid #fff}
+.btn-light:hover{background:#fff;color:var(--sage-dark)}
+
+/* hero (home) */
+.hero{display:grid;grid-template-columns:1.3fr .9fr;border-bottom:2px solid var(--ink)}
+.hero-media{position:relative;border-right:2px solid var(--ink);min-height:340px;overflow:hidden;background:var(--line)}
+.hero-media img{width:100%;height:100%;object-fit:cover;min-height:340px}
+.hero-text{padding:48px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:var(--paper)}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--sage-dark);font-weight:bold}
+.hero-text h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0}
+.hero-text p{color:var(--muted);font-size:16px;max-width:46ch;margin:0}
+
+/* generic section headings */
+.section-head{padding:56px 24px 0;max-width:var(--maxw);margin:0 auto}
+.section-head h2{font-size:26px;margin:0 0 8px}
+.section-head .lede{color:var(--muted);max-width:60ch;margin:0}
+
+/* article list — notebook contents */
+.contents{padding:24px 24px 64px}
+.toc-list{list-style:none;margin:36px auto 0;padding:0;border-top:1px solid var(--line);max-width:var(--maxw)}
+.toc-item{display:grid;grid-template-columns:52px 130px 1fr;gap:22px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.toc-item:nth-child(even){margin-left:44px}
+.toc-num{font-family:var(--serif);font-size:26px;color:var(--line)}
+.toc-thumb{width:130px;height:86px;object-fit:cover;border:1px solid var(--line)}
+.toc-body h3{margin:0 0 6px;font-size:19px}
+.toc-body h3 a,.toc-body h3{color:var(--ink)}
+.toc-meta{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-dark);margin-bottom:6px}
+.toc-dek{color:var(--muted);font-size:14px;margin:0;max-width:56ch}
+
+/* about blurb / generic prose block */
+.blurb{padding:8px 24px 56px;max-width:var(--maxw);margin:0 auto}
+.blurb p{max-width:68ch;color:var(--ink);font-size:16px}
+
+/* app section */
+.app-section{background:var(--sage-dark);color:var(--bg);padding:64px 24px}
+.app-inner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.app-copy h2{font-size:30px;margin:0 0 14px}
+.app-copy p{opacity:.9;max-width:48ch}
+.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}
+.feature-card{border:1px solid rgba(250,247,239,.35);padding:14px;border-radius:var(--radius)}
+.feature-card h4{margin:0 0 4px;font-size:15px}
+.feature-card p{margin:0;font-size:13px;opacity:.85}
+.feature-grid-page{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--maxw);margin:28px auto 0;padding:0 24px}
+.feature-card-page{border:1px solid var(--line);padding:20px;background:var(--paper)}
+.feature-card-page .ico{width:36px;height:36px;border:2px solid var(--clay);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-family:var(--serif);color:var(--clay-dark)}
+.feature-card-page h3{font-size:16px;margin:0 0 6px}
+.feature-card-page p{margin:0;color:var(--muted);font-size:14px}
+.app-mock{border:2px solid var(--bg);padding:20px;background:rgba(250,247,239,.06)}
+.mock-screen{border:1px solid rgba(250,247,239,.45);aspect-ratio:9/16;max-width:220px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:12px}
+.mock-time{font-family:var(--serif);font-size:22px}
+.mock-line{height:8px;background:rgba(250,247,239,.25);border-radius:2px}
+.mock-line.w60{width:60%}
+.mock-line.w80{width:80%}
+.mock-pill{border:1px solid rgba(250,247,239,.5);border-radius:2px;padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;width:fit-content;margin-top:auto}
+.how-section{background:var(--paper);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:56px 24px;margin-top:56px}
+.how-grid{max-width:var(--maxw);margin:28px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-step{border:1px solid var(--line);padding:18px;background:var(--bg)}
+.how-step .num{font-family:var(--serif);font-size:24px;color:var(--clay-dark)}
+.how-step h4{margin:8px 0 6px;font-size:15px}
+.how-step p{margin:0;color:var(--muted);font-size:14px}
+.faq-mini{max-width:var(--maxw);margin:0 auto;padding:56px 24px}
+.cta-band{text-align:center;padding:56px 24px;border-top:2px solid var(--ink)}
+.cta-band h2{font-size:24px;margin:0 0 10px}
+.cta-band p{color:var(--muted);margin:0 0 20px}
+
+/* newsletter */
+.newsletter{padding:56px 24px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.newsletter-inner{max-width:560px;margin:0 auto}
+.newsletter h2{font-size:22px;margin:0 0 8px}
+.newsletter p{color:var(--muted);margin:0}
+form.nl-form{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.nl-form input[type=email]{flex:1;min-width:180px;padding:11px 14px;border:2px solid var(--ink);border-radius:var(--radius);font-family:var(--sans);font-size:14px;background:var(--paper);color:var(--ink)}
+#ok{display:none;color:var(--sage-dark);margin-top:10px;font-size:13px}
+
+/* essay layout */
+.post-wrap{max-width:760px;margin:0 auto;padding:40px 24px 80px 64px;position:relative}
+.post-wrap::before{content:"";position:absolute;left:24px;top:4px;bottom:40px;width:1px;background:repeating-linear-gradient(to bottom,var(--line) 0 1px,transparent 1px 13px)}
+.breadcrumb{font-size:12px;color:var(--muted);margin:0 0 18px}
+.breadcrumb a{color:var(--muted)}
+.post-meta{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-dark);margin:0 0 10px}
+.post h1{font-size:clamp(28px,4vw,40px);line-height:1.2;margin:0 0 18px}
+.post-lede{font-size:19px;color:var(--muted);font-family:var(--serif);font-style:italic;margin:0 0 28px}
+.post h2{font-size:24px;margin:36px 0 12px}
+.post h3{font-size:19px;margin:28px 0 10px}
+.post p{margin:0 0 16px;font-size:16px}
+.post ul,.post ol{margin:0 0 16px;padding-left:22px}
+.post li{margin-bottom:8px}
+.post blockquote{margin:28px 0;padding:2px 0 2px 20px;border-left:3px solid var(--clay);font-family:var(--serif);font-style:italic;color:var(--ink);font-size:18px}
+.callout{border:1px solid var(--ink);padding:18px 20px;margin:28px 0;background:var(--paper)}
+.callout strong{display:block;font-family:var(--serif);margin-bottom:6px;font-size:15px}
+.tablewrap{overflow-x:auto;margin:28px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left}
+th{background:var(--paper);font-family:var(--serif);font-weight:normal}
+.related{margin-top:56px;border-top:2px solid var(--ink);padding-top:28px}
+.related h3{font-size:18px;margin:0 0 16px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card{border:1px solid var(--line);padding:14px;text-decoration:none;color:inherit;display:block}
+.related-card .cat{font-size:11px;text-transform:uppercase;color:var(--sage-dark);letter-spacing:.06em}
+.related-card h4{margin:6px 0 0;font-size:15px}
+.disclaimer{border:1px dashed var(--line);padding:14px 16px;font-size:13px;color:var(--muted);margin:24px 0}
+
+/* glossary */
+.glossary-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.glossary-item{border-bottom:1px solid var(--line);padding:18px 0}
+.glossary-item dt{font-family:var(--serif);font-size:17px;color:var(--ink);margin:0 0 6px}
+.glossary-item dd{margin:0;color:var(--muted);font-size:15px}
+
+/* faq */
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item summary{cursor:pointer;padding:16px 0;font-family:var(--serif);font-size:17px;list-style:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::before{content:"+ ";color:var(--clay-dark)}
+.faq-item[open] summary::before{content:"\2013 "}
+.faq-item p{padding:0 0 16px;color:var(--muted);margin:0}
+.faq-group{border-top:1px solid var(--line);margin-top:6px}
+
+/* about / team */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:28px 0}
+.team-card{border:1px solid var(--line);padding:16px}
+.team-card .avatar{width:52px;height:52px;border-radius:50%;border:2px solid var(--clay);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:bold;color:var(--clay-dark);margin-bottom:10px}
+.team-card h4{margin:0 0 4px;font-size:15px}
+.team-card p{margin:0;color:var(--muted);font-size:13px}
+.policy-list{border-top:1px solid var(--line);margin-top:20px;padding:0}
+.policy-list li{border-bottom:1px solid var(--line);padding:14px 0;list-style:none}
+.policy-list li b{font-family:var(--serif)}
+
+/* footer */
+.site-footer{background:var(--ink);color:var(--bg);padding:48px 24px 0}
+.footer-inner{display:grid;grid-template-columns:1.2fr 2fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(250,247,239,.2)}
+.footer-brand{display:flex;flex-direction:column;gap:10px}
+.footer-brand .brand-mark{border-color:var(--bg);color:var(--bg)}
+.footer-brand p{color:rgba(250,247,239,.7);font-size:13px;max-width:34ch;margin:0}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.footer-cols h4{font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;color:var(--bg)}
+.footer-cols a{display:block;color:rgba(250,247,239,.75);text-decoration:none;font-size:13px;margin-bottom:8px}
+.footer-cols a:hover{color:#fff}
+.footer-bottom{max-width:var(--maxw);margin:0 auto;padding:20px 24px;font-size:12px;color:rgba(250,247,239,.55)}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr}
+  .hero-media{border-right:none;border-bottom:2px solid var(--ink);min-height:220px}
+  .hero-media img{min-height:220px}
+  .toc-item{grid-template-columns:44px 1fr;grid-template-areas:"num body" "thumb thumb"}
+  .toc-item .toc-num{grid-area:num}
+  .toc-item .toc-body{grid-area:body}
+  .toc-item .toc-thumb{grid-area:thumb;width:100%;height:150px;margin-top:10px}
+  .toc-item:nth-child(even){margin-left:0}
+  .app-inner{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:1fr}
+  .feature-grid{grid-template-columns:1fr}
+  .feature-grid-page{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-cols{grid-template-columns:1fr 1fr}
+  .post-wrap{padding-left:24px}
+  .post-wrap::before{display:none}
+}
+  </style>
+</head><body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="safe.html"><span class="brand-mark" aria-hidden="true">QR</span><span class="brand-name">Quiet Routine</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="safe.html">Home</a>
+        <a href="app.html">Stillhour App</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+  <article class="post">
+    <div class="post-wrap">
+    <nav class="breadcrumb"><a href="safe.html">Home</a> / Attention / A Room With Less in It</nav>
+    <p class="post-meta">Attention · 2026-05-24 · by the Quiet Routine desk</p>
+    <h1>A Room With Less in It</h1>
+    <p><img src="img/room-with-less.jpg" alt="A Room With Less in It"></p>
+    <p>Before you open a laptop or pick up a book, the room has already made a few decisions for you. A charging cable on the floor asks to be coiled. A stack of mail asks to be sorted, or at least acknowledged. A phone face-up on the table blinks its little colored dot and asks nothing at all, which is somehow louder than if it asked. None of this is a task in the usual sense — nobody wrote it on a list — but it draws on the same limited supply of attention that the actual task will need in a few minutes. By the time you sit down, some of that supply is already spent.</p>
+
+    <h2>The tax nobody itemizes</h2>
+    <p>Sensory load is a useful term for this, even outside of any clinical context. It just means the total amount of incoming information a space is asking a person to process at any given moment — visual clutter, background sound, the small flicker of notification lights, the hum of a device left running. A room can be quiet in decibels and still be loud in this other sense. Four browser tabs open behind a fifth, a drawer that won't fully close, a lamp with a slightly wrong color temperature — each one is a minor draw, and minor draws add up the way small debts do, unnoticed until the total surprises you.</p>
+    <p>What makes this different from ordinary distraction is timing. A notification interrupts a task already underway; sensory load taxes you before the task begins, while you're still deciding what to do and how. It shapes the starting conditions, not just the middle of the work. That is why two people can sit down to write the same email in two different rooms and produce noticeably different first sentences — not because one is more skilled, but because one started with more attention already spent on the room itself.</p>
+
+    <h2>What a "loud" room actually contains</h2>
+    <p>It rarely looks dramatic. Nobody's desk resembles a crime scene. The load tends to hide in ordinary categories:</p>
+    <ul>
+      <li>Visual — objects out of place, cords, papers, anything the eye has to keep re-registering as "not yet dealt with."</li>
+      <li>Auditory — a television in another room, a fan cycling on and off, notification chimes even at low volume.</li>
+      <li>Ambient light — screens left glowing, overhead light that's too bright or too dim for the hour.</li>
+      <li>Digital surface — icons with red badge counts, open tabs, an inbox visible on a second monitor.</li>
+    </ul>
+    <p>Each item is small. The pattern connects to what we wrote about in <a href="attention-residue.html">attention residue</a> — the way an unfinished thing keeps a thin thread of attention on itself even after you've moved on. A cluttered room is, in effect, dozens of tiny unfinished things all keeping their threads active at once.</p>
+
+    <h2>Why the room wins quietly</h2>
+    <p>The trouble with sensory load is that it doesn't announce itself as a competitor. A notification at least presents itself as an event — you can name it, dismiss it, feel a small decision being made. A cluttered visual field doesn't offer that clarity. It just sits there, present in peripheral vision, costing a little without ever crossing the threshold into something you'd consciously address. People often report feeling tired after a task performed in such a room without being able to say why, since nothing overtly difficult happened. The room was doing quiet work the whole time.</p>
+    <blockquote>A room doesn't have to be messy to be loud. It only has to be full of small unfinished decisions.</blockquote>
+    <p>This is part of why some people find that reorganizing a workspace, even briefly, changes how a task feels before they've done anything related to the task itself. It isn't magic — it's simply one fewer category of input competing for the same narrow channel that the actual work also needs.</p>
+
+    <h2>A different way to walk into a room</h2>
+    <p>One approach that some people find useful is treating "settle the room" as its own short, separate step — not preparation for the task, but a small task of its own, with a defined end. Close the tabs that aren't in use. Put the phone somewhere it can't be glanced at without effort. Clear the one visible surface you'll be looking at most. This tends to work best when it's brief and bounded — a couple of minutes, not a full afternoon of reorganizing, which can become its own form of avoidance. The point isn't a spotless room. It's a room that has stopped asking things of you before you've asked anything of it.</p>
+    <p>This pairs naturally with ideas covered in <a href="slow-first-hour.html">the case for a slow first hour</a> — both are, in a sense, about reducing the number of decisions a morning makes on your behalf before you've made any of your own.</p>
+
+    <div class="callout"><strong>Try this:</strong> Before starting a task, spend two minutes doing nothing but reducing what's visible and audible in the room — screens off, phone out of sight, one surface cleared. Then begin. Notice, without judging it either way, whether the first few minutes of the task feel any different than usual.</div>
+
+    <h2>A rough map of common sources</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Source</th><th>Type of load</th><th>A low-effort adjustment</th></tr></thead>
+        <tbody>
+          <tr><td>Phone face-up nearby</td><td>Visual + anticipatory</td><td>Move it out of the sightline, not just to silent</td></tr>
+          <tr><td>Open browser tabs</td><td>Digital / visual</td><td>Close what isn't part of the current task</td></tr>
+          <tr><td>Background television or radio</td><td>Auditory</td><td>Off, rather than lowered — low volume still tracks attention</td></tr>
+          <tr><td>Visible clutter on the main surface</td><td>Visual</td><td>One clear zone in direct view, not the whole room</td></tr>
+          <tr><td>Overhead lighting mismatched to the hour</td><td>Ambient</td><td>A single warmer lamp instead of full overhead light</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>A note on proportion</h2>
+    <p>None of this argues for austerity as a virtue in itself. A room with personal objects, color, and warmth isn't automatically a loud room — the load comes from unresolved small decisions, not from ownership or decoration. A shelf of books in order asks nothing of you; the same books in a heap does. The goal, if there is one, is closer to what a quiet house achieves at a larger scale: not emptiness, but resolution — things that are where they're meant to be, so the mind doesn't have to keep checking on them.</p>
+
+    <div class="disclaimer"><strong>Note:</strong> This essay reflects general observations about attention and environment and is intended for reflection, not as psychological or medical guidance.</div>
+
+    <div class="related">
+      <h3>Read also</h3>
+      <div class="related-grid">
+        <a class="related-card" href="quiet-house.html"><span class="cat">Attention</span><h4>In Praise of a Quiet House</h4></a>
+        <a class="related-card" href="attention-residue.html"><span class="cat">Attention</span><h4>Attention Residue: Why Switching Tasks Costs More Than You Think</h4></a>
+        <a class="related-card" href="slow-first-hour.html"><span class="cat">Attention</span><h4>The Case for a Slow First Hour</h4></a>
+      </div>
+    </div>
+    </div>
+  </article>
+  <footer class="site-footer">
+    <div class="footer-inner wrap">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true">QR</span>
+        <p>Quiet Routine is an independent journal about attention, pace, and the small rituals that shape an ordinary day.</p>
+      </div>
+      <div class="footer-cols">
+        <div><h4>Read</h4>
+          <a href="safe.html">All essays</a>
+          <a href="glossary.html">Glossary</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+        <div><h4>About</h4>
+          <a href="about.html">About us</a>
+          <a href="app.html">Stillhour app</a>
+        </div>
+        <div><h4>Legal</h4>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Quiet Routine. An independent editorial project about quiet routine and attention. Not affiliated with, endorsed by, or sponsored by Google, YouTube, or any of their affiliates.</p>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

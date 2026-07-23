@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stillhour — A Quiet Companion App | Quiet Routine</title>
+<meta name="description" content="Stillhour is a small companion app for quiet hours, single-task timers, and a short evening wind-down — built by the writers of Quiet Routine.">
+<link rel="canonical" href="https://quietroutine.bond/app.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23faf7ef' stroke='%23a1583a' stroke-width='4'/%3E%3Ctext x='32' y='40' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%232a271f'%3EQR%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#f2ede1;--paper:#faf7ef;--ink:#2a271f;--muted:#6f6a5a;--line:#cdc2a8;--clay:#a1583a;--clay-dark:#7c4128;--sage:#5c6b53;--sage-dark:#3f4a38;--radius:3px;--maxw:1040px;--serif:Georgia,'Times New Roman',Times,serif;--sans:Verdana,Tahoma,Geneva,sans-serif;}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px}
+img{max-width:100%;display:block}
+a{color:var(--clay-dark)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:normal}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.site-header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:2px solid var(--clay);border-radius:50%;font-family:var(--serif);font-weight:bold;color:var(--clay-dark);font-size:14px;flex:none}
+.brand-name{font-family:var(--serif);font-size:20px;letter-spacing:.02em}
+.site-nav{display:flex;gap:18px;flex-wrap:wrap}
+.site-nav a{font-size:12px;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;color:var(--muted);padding-bottom:3px;border-bottom:1px solid transparent}
+.site-nav a:hover{color:var(--clay-dark);border-color:var(--clay)}
+.btn{display:inline-block;padding:11px 24px;background:var(--clay);color:#fff;text-decoration:none;border:2px solid var(--clay);border-radius:var(--radius);font-size:13px;text-transform:uppercase;letter-spacing:.08em;width:fit-content}
+.btn:hover{background:var(--clay-dark);border-color:var(--clay-dark)}
+.btn-outline{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn-outline:hover{background:var(--ink);color:var(--bg)}
+.btn-light{background:transparent;color:#fff;border:2px solid #fff}
+.btn-light:hover{background:#fff;color:var(--sage-dark)}
+.hero{display:grid;grid-template-columns:1.3fr .9fr;border-bottom:2px solid var(--ink)}
+.hero-media{position:relative;border-right:2px solid var(--ink);min-height:340px;overflow:hidden;background:var(--line)}
+.hero-media img{width:100%;height:100%;object-fit:cover;min-height:340px}
+.hero-text{padding:48px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:var(--paper)}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--sage-dark);font-weight:bold}
+.hero-text h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0}
+.hero-text p{color:var(--muted);font-size:16px;max-width:46ch;margin:0}
+.section-head{padding:56px 24px 0;max-width:var(--maxw);margin:0 auto}
+.section-head h2{font-size:26px;margin:0 0 8px}
+.section-head .lede{color:var(--muted);max-width:60ch;margin:0}
+.feature-grid-page{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--maxw);margin:28px auto 0;padding:0 24px}
+.feature-card-page{border:1px solid var(--line);padding:20px;background:var(--paper)}
+.feature-card-page .ico{width:36px;height:36px;border:2px solid var(--clay);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-family:var(--serif);color:var(--clay-dark)}
+.feature-card-page h3{font-size:16px;margin:0 0 6px}
+.feature-card-page p{margin:0;color:var(--muted);font-size:14px}
+.how-section{background:var(--paper);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:56px 24px;margin-top:56px}
+.how-grid{max-width:var(--maxw);margin:28px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-step{border:1px solid var(--line);padding:18px;background:var(--bg)}
+.how-step .num{font-family:var(--serif);font-size:24px;color:var(--clay-dark)}
+.how-step h4{margin:8px 0 6px;font-size:15px}
+.how-step p{margin:0;color:var(--muted);font-size:14px}
+.app-section{background:var(--sage-dark);color:var(--bg);padding:64px 24px}
+.app-inner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.app-copy h2{font-size:28px;margin:0 0 14px}
+.app-copy p{opacity:.9;max-width:48ch}
+.app-mock{border:2px solid var(--bg);padding:20px;background:rgba(250,247,239,.06)}
+.mock-screen{border:1px solid rgba(250,247,239,.45);aspect-ratio:9/16;max-width:220px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:12px}
+.mock-time{font-family:var(--serif);font-size:22px}
+.mock-line{height:8px;background:rgba(250,247,239,.25);border-radius:2px}
+.mock-line.w60{width:60%}
+.mock-line.w80{width:80%}
+.mock-pill{border:1px solid rgba(250,247,239,.5);border-radius:2px;padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;width:fit-content;margin-top:auto}
+.faq-mini{max-width:var(--maxw);margin:0 auto;padding:56px 24px}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item summary{cursor:pointer;padding:16px 0;font-family:var(--serif);font-size:17px;list-style:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::before{content:"+ ";color:var(--clay-dark)}
+.faq-item[open] summary::before{content:"\2013 "}
+.faq-item p{padding:0 0 16px;color:var(--muted);margin:0}
+.cta-band{text-align:center;padding:56px 24px;border-top:2px solid var(--ink)}
+.cta-band h2{font-size:24px;margin:0 0 10px}
+.cta-band p{color:var(--muted);margin:0 0 20px}
+.disclaimer{max-width:var(--maxw);margin:0 auto 40px;padding:0 24px}
+.disclaimer .box{border:1px dashed var(--line);padding:14px 16px;font-size:13px;color:var(--muted)}
+.site-footer{background:var(--ink);color:var(--bg);padding:48px 24px 0}
+.footer-inner{display:grid;grid-template-columns:1.2fr 2fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(250,247,239,.2)}
+.footer-brand{display:flex;flex-direction:column;gap:10px}
+.footer-brand .brand-mark{border-color:var(--bg);color:var(--bg)}
+.footer-brand p{color:rgba(250,247,239,.7);font-size:13px;max-width:34ch;margin:0}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.footer-cols h4{font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;color:var(--bg)}
+.footer-cols a{display:block;color:rgba(250,247,239,.75);text-decoration:none;font-size:13px;margin-bottom:8px}
+.footer-cols a:hover{color:#fff}
+.footer-bottom{max-width:var(--maxw);margin:0 auto;padding:20px 24px;font-size:12px;color:rgba(250,247,239,.55)}
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr}
+  .hero-media{border-right:none;border-bottom:2px solid var(--ink);min-height:220px}
+  .feature-grid-page{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:1fr}
+  .app-inner{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-cols{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="safe.html"><span class="brand-mark" aria-hidden="true">QR</span><span class="brand-name">Quiet Routine</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="safe.html">Home</a>
+      <a href="app.html">Stillhour App</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-media"><img src="img/app-hero.jpg" alt="A phone resting screen-down beside a notebook and a cup, quiet-hour symbolism"></div>
+    <div class="hero-text">
+      <span class="kicker">The Quiet Routine companion app</span>
+      <h1>Stillhour: a small app for the parts of the day you'd like to protect</h1>
+      <p>Not a habit tracker with streaks to keep alive. Stillhour helps you mark off a quiet hour, run a plain timer for one task, and close the day with a short prompt — then gets out of the way.</p>
+      <a class="btn" href="#how">See how it works</a>
+    </div>
+  </section>
+
+  <section class="section-head">
+    <h2>What it does</h2>
+    <p class="lede">Six small, unglamorous tools. Nothing gamified, nothing that asks for your attention more than it needs to.</p>
+  </section>
+  <div class="feature-grid-page">
+    <div class="feature-card-page"><span class="ico" aria-hidden="true">◐</span><h3>Quiet Hours</h3><p>Set a window where notifications hold until it ends. No exceptions to configure — that's the point.</p></div>
+    <div class="feature-card-page"><span class="ico" aria-hidden="true">▢</span><h3>One-Task Timer</h3><p>Name one task, start a plain countdown, and see nothing else on the screen while it runs.</p></div>
+    <div class="feature-card-page"><span class="ico" aria-hidden="true">☾</span><h3>Wind-Down Prompt</h3><p>An evening cue that asks a single short question, then suggests it's a fine time to stop.</p></div>
+    <div class="feature-card-page"><span class="ico" aria-hidden="true">≡</span><h3>Paper Log</h3><p>A private, text-only log of quiet hours kept — no charts, no comparisons to anyone else.</p></div>
+    <div class="feature-card-page"><span class="ico" aria-hidden="true">✎</span><h3>Three Lines</h3><p>An optional prompt to jot three lines about the day, kept locally, never shared or scored.</p></div>
+    <div class="feature-card-page"><span class="ico" aria-hidden="true">〜</span><h3>Transition Cue</h3><p>A gentle marker between two blocks of a day — leaving work, arriving home — so one doesn't bleed into the other.</p></div>
+  </div>
+
+  <section class="how-section" id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="lede" style="color:var(--muted);max-width:60ch;margin-top:8px">Three small steps. No setup wizard, no account required to try it.</p>
+      <div class="how-grid">
+        <div class="how-step"><div class="num">01</div><h4>Pick a window</h4><p>Choose a stretch of the day — first thing, or last thing — to mark as quiet.</p></div>
+        <div class="how-step"><div class="num">02</div><h4>Let it run</h4><p>The app holds notifications and shows a plain screen for the length you set.</p></div>
+        <div class="how-step"><div class="num">03</div><h4>Close it out</h4><p>A short prompt at the end helps you notice how the window went, then it's done.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="app-section">
+    <div class="app-inner">
+      <div class="app-copy">
+        <h2>Built by the people who write here</h2>
+        <p>Stillhour came out of the same notes that became this journal. It's meant as a quiet tool, not a system to optimize — most days, you'll open it, start a timer, and close it again within a minute.</p>
+        <p style="margin-top:18px"><a class="btn btn-light" href="safe.html">Read the essays that shaped it</a></p>
+      </div>
+      <div class="app-mock" aria-hidden="true">
+        <div class="mock-screen">
+          <div class="mock-time">21:10</div>
+          <div class="mock-line w60"></div>
+          <div class="mock-line w80"></div>
+          <div class="mock-pill">Wind-Down · 3 lines</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-mini">
+    <h2 style="font-size:22px;margin:0 0 6px">A few quick questions</h2>
+    <details class="faq-item">
+      <summary>Is Stillhour free to try?</summary>
+      <p>Yes. The core tools — quiet hours, the one-task timer, and the wind-down prompt — are free to use.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Does it track health or fitness data?</summary>
+      <p>No. Stillhour is about attention and routine, not health metrics. It doesn't collect or display medical or fitness information.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do I need an account?</summary>
+      <p>You can try the timer and quiet-hours tools without one. An account is only needed if you want your log kept across devices.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Where can I read more about the ideas behind it?</summary>
+      <p>The <a href="safe.html">Quiet Routine journal</a> covers the thinking in more depth — start with the essay on <a href="single-tasking.html">single-tasking</a> or <a href="ultradian-rhythm.html">ultradian rhythm</a>.</p>
+    </details>
+  </section>
+
+  <section class="cta-band">
+    <h2>Try a single quiet hour today</h2>
+    <p>No commitment beyond the next sixty minutes.</p>
+    <a class="btn" href="#how">See how it works</a>
+  </section>
+
+  <div class="disclaimer">
+    <div class="box">Stillhour is a lifestyle and routine companion app. It does not provide medical, psychological, or diagnostic advice, and it is not a substitute for professional care.</div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner wrap">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">QR</span>
+      <p>Quiet Routine is an independent journal about attention, pace, and the small rituals that shape an ordinary day.</p>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Read</h4>
+        <a href="safe.html">All essays</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div><h4>About</h4>
+        <a href="about.html">About us</a>
+        <a href="app.html">Stillhour app</a>
+      </div>
+      <div><h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Quiet Routine. An independent editorial project about quiet routine and attention. Not affiliated with, endorsed by, or sponsored by Google, YouTube, or any of their affiliates.</p>
+  </div>
+</footer>
+</body>
+</html>

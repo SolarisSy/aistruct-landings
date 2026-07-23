@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>In Praise of a Quiet House · Quiet Routine</title>
+  <meta name="description" content="A meditation on ambient silence at home — not total silence, but the absence of background media — and what it makes room for.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://quietroutine.bond/quiet-house.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23faf7ef' stroke='%23a1583a' stroke-width='4'/%3E%3Ctext x='32' y='40' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%232a271f'%3EQR%3C/text%3E%3C/svg%3E">
+  <style>
+:root{
+  --bg:#f2ede1;
+  --paper:#faf7ef;
+  --ink:#2a271f;
+  --muted:#6f6a5a;
+  --line:#cdc2a8;
+  --clay:#a1583a;
+  --clay-dark:#7c4128;
+  --sage:#5c6b53;
+  --sage-dark:#3f4a38;
+  --radius:3px;
+  --maxw:1040px;
+  --serif:Georgia,'Times New Roman',Times,serif;
+  --sans:Verdana,Tahoma,Geneva,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px}
+img{max-width:100%;display:block}
+a{color:var(--clay-dark)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:normal}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+main{display:block}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:2px solid var(--clay);border-radius:50%;font-family:var(--serif);font-weight:bold;color:var(--clay-dark);font-size:14px;flex:none}
+.brand-name{font-family:var(--serif);font-size:20px;letter-spacing:.02em}
+.site-nav{display:flex;gap:18px;flex-wrap:wrap}
+.site-nav a{font-size:12px;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;color:var(--muted);padding-bottom:3px;border-bottom:1px solid transparent}
+.site-nav a:hover,.site-nav a:focus{color:var(--clay-dark);border-color:var(--clay)}
+
+/* buttons */
+.btn{display:inline-block;padding:11px 24px;background:var(--clay);color:#fff;text-decoration:none;border:2px solid var(--clay);border-radius:var(--radius);font-size:13px;text-transform:uppercase;letter-spacing:.08em;width:fit-content}
+.btn:hover{background:var(--clay-dark);border-color:var(--clay-dark)}
+.btn-outline{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn-outline:hover{background:var(--ink);color:var(--bg)}
+.btn-light{background:transparent;color:#fff;border:2px solid #fff}
+.btn-light:hover{background:#fff;color:var(--sage-dark)}
+
+/* hero (home) */
+.hero{display:grid;grid-template-columns:1.3fr .9fr;border-bottom:2px solid var(--ink)}
+.hero-media{position:relative;border-right:2px solid var(--ink);min-height:340px;overflow:hidden;background:var(--line)}
+.hero-media img{width:100%;height:100%;object-fit:cover;min-height:340px}
+.hero-text{padding:48px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:var(--paper)}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--sage-dark);font-weight:bold}
+.hero-text h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0}
+.hero-text p{color:var(--muted);font-size:16px;max-width:46ch;margin:0}
+
+/* generic section headings */
+.section-head{padding:56px 24px 0;max-width:var(--maxw);margin:0 auto}
+.section-head h2{font-size:26px;margin:0 0 8px}
+.section-head .lede{color:var(--muted);max-width:60ch;margin:0}
+
+/* article list — notebook contents */
+.contents{padding:24px 24px 64px}
+.toc-list{list-style:none;margin:36px auto 0;padding:0;border-top:1px solid var(--line);max-width:var(--maxw)}
+.toc-item{display:grid;grid-template-columns:52px 130px 1fr;gap:22px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.toc-item:nth-child(even){margin-left:44px}
+.toc-num{font-family:var(--serif);font-size:26px;color:var(--line)}
+.toc-thumb{width:130px;height:86px;object-fit:cover;border:1px solid var(--line)}
+.toc-body h3{margin:0 0 6px;font-size:19px}
+.toc-body h3 a,.toc-body h3{color:var(--ink)}
+.toc-meta{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-dark);margin-bottom:6px}
+.toc-dek{color:var(--muted);font-size:14px;margin:0;max-width:56ch}
+
+/* about blurb / generic prose block */
+.blurb{padding:8px 24px 56px;max-width:var(--maxw);margin:0 auto}
+.blurb p{max-width:68ch;color:var(--ink);font-size:16px}
+
+/* app section */
+.app-section{background:var(--sage-dark);color:var(--bg);padding:64px 24px}
+.app-inner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.app-copy h2{font-size:30px;margin:0 0 14px}
+.app-copy p{opacity:.9;max-width:48ch}
+.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}
+.feature-card{border:1px solid rgba(250,247,239,.35);padding:14px;border-radius:var(--radius)}
+.feature-card h4{margin:0 0 4px;font-size:15px}
+.feature-card p{margin:0;font-size:13px;opacity:.85}
+.feature-grid-page{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--maxw);margin:28px auto 0;padding:0 24px}
+.feature-card-page{border:1px solid var(--line);padding:20px;background:var(--paper)}
+.feature-card-page .ico{width:36px;height:36px;border:2px solid var(--clay);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-family:var(--serif);color:var(--clay-dark)}
+.feature-card-page h3{font-size:16px;margin:0 0 6px}
+.feature-card-page p{margin:0;color:var(--muted);font-size:14px}
+.app-mock{border:2px solid var(--bg);padding:20px;background:rgba(250,247,239,.06)}
+.mock-screen{border:1px solid rgba(250,247,239,.45);aspect-ratio:9/16;max-width:220px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:12px}
+.mock-time{font-family:var(--serif);font-size:22px}
+.mock-line{height:8px;background:rgba(250,247,239,.25);border-radius:2px}
+.mock-line.w60{width:60%}
+.mock-line.w80{width:80%}
+.mock-pill{border:1px solid rgba(250,247,239,.5);border-radius:2px;padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;width:fit-content;margin-top:auto}
+.how-section{background:var(--paper);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:56px 24px;margin-top:56px}
+.how-grid{max-width:var(--maxw);margin:28px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-step{border:1px solid var(--line);padding:18px;background:var(--bg)}
+.how-step .num{font-family:var(--serif);font-size:24px;color:var(--clay-dark)}
+.how-step h4{margin:8px 0 6px;font-size:15px}
+.how-step p{margin:0;color:var(--muted);font-size:14px}
+.faq-mini{max-width:var(--maxw);margin:0 auto;padding:56px 24px}
+.cta-band{text-align:center;padding:56px 24px;border-top:2px solid var(--ink)}
+.cta-band h2{font-size:24px;margin:0 0 10px}
+.cta-band p{color:var(--muted);margin:0 0 20px}
+
+/* newsletter */
+.newsletter{padding:56px 24px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.newsletter-inner{max-width:560px;margin:0 auto}
+.newsletter h2{font-size:22px;margin:0 0 8px}
+.newsletter p{color:var(--muted);margin:0}
+form.nl-form{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.nl-form input[type=email]{flex:1;min-width:180px;padding:11px 14px;border:2px solid var(--ink);border-radius:var(--radius);font-family:var(--sans);font-size:14px;background:var(--paper);color:var(--ink)}
+#ok{display:none;color:var(--sage-dark);margin-top:10px;font-size:13px}
+
+/* essay layout */
+.post-wrap{max-width:760px;margin:0 auto;padding:40px 24px 80px 64px;position:relative}
+.post-wrap::before{content:"";position:absolute;left:24px;top:4px;bottom:40px;width:1px;background:repeating-linear-gradient(to bottom,var(--line) 0 1px,transparent 1px 13px)}
+.breadcrumb{font-size:12px;color:var(--muted);margin:0 0 18px}
+.breadcrumb a{color:var(--muted)}
+.post-meta{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-dark);margin:0 0 10px}
+.post h1{font-size:clamp(28px,4vw,40px);line-height:1.2;margin:0 0 18px}
+.post-lede{font-size:19px;color:var(--muted);font-family:var(--serif);font-style:italic;margin:0 0 28px}
+.post h2{font-size:24px;margin:36px 0 12px}
+.post h3{font-size:19px;margin:28px 0 10px}
+.post p{margin:0 0 16px;font-size:16px}
+.post ul,.post ol{margin:0 0 16px;padding-left:22px}
+.post li{margin-bottom:8px}
+.post blockquote{margin:28px 0;padding:2px 0 2px 20px;border-left:3px solid var(--clay);font-family:var(--serif);font-style:italic;color:var(--ink);font-size:18px}
+.callout{border:1px solid var(--ink);padding:18px 20px;margin:28px 0;background:var(--paper)}
+.callout strong{display:block;font-family:var(--serif);margin-bottom:6px;font-size:15px}
+.tablewrap{overflow-x:auto;margin:28px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left}
+th{background:var(--paper);font-family:var(--serif);font-weight:normal}
+.related{margin-top:56px;border-top:2px solid var(--ink);padding-top:28px}
+.related h3{font-size:18px;margin:0 0 16px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card{border:1px solid var(--line);padding:14px;text-decoration:none;color:inherit;display:block}
+.related-card .cat{font-size:11px;text-transform:uppercase;color:var(--sage-dark);letter-spacing:.06em}
+.related-card h4{margin:6px 0 0;font-size:15px}
+.disclaimer{border:1px dashed var(--line);padding:14px 16px;font-size:13px;color:var(--muted);margin:24px 0}
+
+/* glossary */
+.glossary-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.glossary-item{border-bottom:1px solid var(--line);padding:18px 0}
+.glossary-item dt{font-family:var(--serif);font-size:17px;color:var(--ink);margin:0 0 6px}
+.glossary-item dd{margin:0;color:var(--muted);font-size:15px}
+
+/* faq */
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item summary{cursor:pointer;padding:16px 0;font-family:var(--serif);font-size:17px;list-style:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::before{content:"+ ";color:var(--clay-dark)}
+.faq-item[open] summary::before{content:"\2013 "}
+.faq-item p{padding:0 0 16px;color:var(--muted);margin:0}
+.faq-group{border-top:1px solid var(--line);margin-top:6px}
+
+/* about / team */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:28px 0}
+.team-card{border:1px solid var(--line);padding:16px}
+.team-card .avatar{width:52px;height:52px;border-radius:50%;border:2px solid var(--clay);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:bold;color:var(--clay-dark);margin-bottom:10px}
+.team-card h4{margin:0 0 4px;font-size:15px}
+.team-card p{margin:0;color:var(--muted);font-size:13px}
+.policy-list{border-top:1px solid var(--line);margin-top:20px;padding:0}
+.policy-list li{border-bottom:1px solid var(--line);padding:14px 0;list-style:none}
+.policy-list li b{font-family:var(--serif)}
+
+/* footer */
+.site-footer{background:var(--ink);color:var(--bg);padding:48px 24px 0}
+.footer-inner{display:grid;grid-template-columns:1.2fr 2fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(250,247,239,.2)}
+.footer-brand{display:flex;flex-direction:column;gap:10px}
+.footer-brand .brand-mark{border-color:var(--bg);color:var(--bg)}
+.footer-brand p{color:rgba(250,247,239,.7);font-size:13px;max-width:34ch;margin:0}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.footer-cols h4{font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;color:var(--bg)}
+.footer-cols a{display:block;color:rgba(250,247,239,.75);text-decoration:none;font-size:13px;margin-bottom:8px}
+.footer-cols a:hover{color:#fff}
+.footer-bottom{max-width:var(--maxw);margin:0 auto;padding:20px 24px;font-size:12px;color:rgba(250,247,239,.55)}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr}
+  .hero-media{border-right:none;border-bottom:2px solid var(--ink);min-height:220px}
+  .hero-media img{min-height:220px}
+  .toc-item{grid-template-columns:44px 1fr;grid-template-areas:"num body" "thumb thumb"}
+  .toc-item .toc-num{grid-area:num}
+  .toc-item .toc-body{grid-area:body}
+  .toc-item .toc-thumb{grid-area:thumb;width:100%;height:150px;margin-top:10px}
+  .toc-item:nth-child(even){margin-left:0}
+  .app-inner{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:1fr}
+  .feature-grid{grid-template-columns:1fr}
+  .feature-grid-page{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-cols{grid-template-columns:1fr 1fr}
+  .post-wrap{padding-left:24px}
+  .post-wrap::before{display:none}
+}
+  </style>
+</head><body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="safe.html"><span class="brand-mark" aria-hidden="true">QR</span><span class="brand-name">Quiet Routine</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="safe.html">Home</a>
+        <a href="app.html">Stillhour App</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+  <article class="post">
+    <div class="post-wrap">
+    <nav class="breadcrumb"><a href="safe.html">Home</a> / Silence / In Praise of a Quiet House</nav>
+    <p class="post-meta">Silence · 2026-03-10 · by the Quiet Routine desk</p>
+    <h1>In Praise of a Quiet House</h1>
+    <p class="post-lede">On rooms without a soundtrack, and what the mind does when nothing is filling the silence.</p>
+    <p><img src="img/quiet-house.jpg" alt="In Praise of a Quiet House"></p>
+
+    <p>Most houses have a soundtrack now, even when no one meant to put one there. A podcast trails from the kitchen while dinner gets made. A show plays to an empty room because the room felt strange without it. A phone sits on the counter with something looping quietly in the background, half-listened-to, fully present. None of this is dramatic. It happens by default, the way a light switches on when you walk into a room. But it means a lot of houses are never actually quiet, and a lot of people have forgotten what that used to sound like.</p>
+
+    <h2>The house that used to go quiet</h2>
+    <p>Older houses, or older versions of the houses we live in now, had stretches of true quiet built into them. A radio that got turned off at the end of a program instead of streaming into the next one. A television with three channels and a signal that ended for the night. Silence wasn't a void to be managed — it was just what happened between things. You cooked in it. You folded laundry in it. You sat at a table in it, sometimes bored, sometimes just present, and neither of those felt like a problem that needed solving.</p>
+    <p>That kind of silence is harder to find on purpose now, mostly because it's easier than ever to avoid it by accident. There's always something to put on. The friction of silence used to be built into the technology; now the friction runs the other way, and quiet takes a small, deliberate act to reach.</p>
+
+    <h2>What background media actually does</h2>
+    <p>It's worth being specific about what's happening when a show or a podcast plays in the background of an evening. The content itself may be gentle, even genuinely good. The issue isn't the show. It's that a portion of attention is now reserved for it, low and steady, whether or not anyone is watching. Even unwatched, background media asks something of the mind — a low hum of tracking, a readiness to glance up if something changes. That reserved attention is attention that isn't available for anything else: for noticing the room, for a stray thought to finish itself, for the specific, unbothered feeling of doing one thing without narration running underneath it.</p>
+    <p>This is closely related to what happens when a person switches tasks too often during work — a small tax gets paid every time, and it adds up in ways that are easy to underestimate. The essay on <a href="attention-residue.html">attention residue</a> goes into this more directly, but the home version of it is quieter and less discussed: a house that never goes silent is a house where attention is always slightly divided, even during the hours meant for rest.</p>
+
+    <h2>What a quiet room makes room for</h2>
+    <p>The case for a quiet house isn't that noise is bad. It's that constant, low-grade sound narrows what a room can hold. Silence, by contrast, seems to leave space for things that don't announce themselves — a half-formed idea, the specific quality of afternoon light, the sound of someone else in the house doing something entirely unrelated. People who spend time in genuinely quiet rooms often describe a kind of settling, as if the nervous system had been bracing against something without quite knowing it, and the bracing eases when the something stops.</p>
+    <ul>
+      <li>A kitchen without a show running tends to surface small noticing — the sound of water, the smell of something cooking — that background media usually covers over.</li>
+      <li>A quiet commute home, even a short one, tends to leave people readier for the evening than one filled with input the whole way. The piece on the <a href="unhurried-commute.html">unhurried commute</a> covers this in more detail.</li>
+      <li>An evening with long stretches of no media at all often makes the one show or one song that does get chosen feel more deliberate, and more enjoyed.</li>
+    </ul>
+
+    <blockquote>A house doesn't need to be silent to feel quiet. It needs long enough stretches without a soundtrack that silence stops feeling like something missing.</blockquote>
+
+    <h2>The discomfort is often the point</h2>
+    <p>Anyone who has tried to sit in a quiet room after months of background noise knows the first ten minutes can feel restless, even faintly uncomfortable. That discomfort tends to get read as a sign that the silence isn't working — that something should be put on to fix it. It may instead be a sign of how unfamiliar plain quiet has become. Attention that's used to being fed tends to protest a little when the feeding stops, the same way a body used to constant motion feels strange the first time it sits still. The restlessness usually passes on its own, given a few minutes and no rush to end it.</p>
+    <h3>A note on total silence</h3>
+    <p>None of this is an argument for total, permanent silence, or for treating every sound as an intrusion. A house with people in it has footsteps, running water, the occasional burst of laughter — that's not the kind of noise this essay is about. The distinction is between a life that includes ordinary sound and a life with a near-constant media layer running underneath it. The first is simply a house being lived in. The second is closer to a soundtrack that's been on so long no one remembers choosing it.</p>
+
+    <div class="callout"><strong>Try this:</strong> Pick one recurring block of time — making dinner, getting ready in the morning, the last twenty minutes before bed — and leave it without any background audio for a week. Notice what the first few minutes of quiet feel like, and whether that feeling changes by the end of the week.</div>
+
+    <h2>A few starting points</h2>
+    <p>Building in quiet doesn't require silencing a whole house at once. A few smaller shifts tend to be easier to sustain and easier to notice the effect of.</p>
+    <div class="tablewrap">
+    <table>
+      <tr><th>Room or moment</th><th>Common default</th><th>A quieter alternative</th></tr>
+      <tr><td>Morning routine</td><td>News or a show playing while getting ready</td><td>The same routine with no audio at all, even once a week</td></tr>
+      <tr><td>Cooking dinner</td><td>Podcast or video running in the background</td><td>Music with no talking, or nothing, for one meal a week</td></tr>
+      <tr><td>Commute or errands</td><td>Something playing the entire way</td><td>The first or last five minutes left quiet</td></tr>
+      <tr><td>Before bed</td><td>A show as a wind-down habit</td><td>A period of <a href="reading-on-paper.html">reading on paper</a> instead, lamp only</td></tr>
+      <tr><td>Weekend mornings</td><td>Phone or television on from the first minutes awake</td><td>An hour with no screens or audio before either goes on</td></tr>
+    </table>
+    </div>
+
+    <h2>Living with the quiet, not managing it</h2>
+    <p>The goal isn't to turn a house into a monastery, or to treat every sound as a failure of discipline. It's closer to what a slow morning does for the start of a day — covered in the essay on a <a href="slow-first-hour.html">slow first hour</a> — except applied to the ordinary rooms of a house instead of the first waking minutes. A little unfilled space, held on purpose, tends to change how a room feels to be in, not because silence is inherently better than sound, but because a house that's never quiet leaves nowhere for a mind to simply rest. The app referenced on this site, <a href="app.html">Stillhour</a>, is one small tool some readers use to mark out that kind of unfilled time on purpose, though the practice itself doesn't require any tool at all — just a willingness to leave a room alone for a while.</p>
+
+    <div class="disclaimer"><strong>Note:</strong> This article is for general interest and reflection and is not medical, psychological, or therapeutic advice. If sound, silence, or attention feel connected to a health concern, please consult a qualified professional.</div>
+
+    <div class="related">
+      <h3>Read also</h3>
+      <div class="related-grid">
+        <a class="related-card" href="single-tasking.html"><span class="cat">Attention</span><h4>What Single-Tasking Actually Feels Like</h4></a>
+        <a class="related-card" href="room-with-less.html"><span class="cat">Space</span><h4>A Room With Less in It</h4></a>
+        <a class="related-card" href="evening-close.html"><span class="cat">Routine</span><h4>The Small Ritual That Closes a Day</h4></a>
+      </div>
+    </div>
+    </div>
+  </article>
+  <footer class="site-footer">
+  <div class="footer-inner wrap">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">QR</span>
+      <p>Quiet Routine is an independent journal about attention, pace, and the small rituals that shape an ordinary day.</p>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Read</h4>
+        <a href="safe.html">All essays</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div><h4>About</h4>
+        <a href="about.html">About us</a>
+        <a href="app.html">Stillhour app</a>
+      </div>
+      <div><h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Quiet Routine. An independent editorial project about quiet routine and attention. Not affiliated with, endorsed by, or sponsored by Google, YouTube, or any of their affiliates.</p>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>
