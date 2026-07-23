@@ -1,434 +1,307 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conteúdo</title>
-  <meta name="robots" content="noindex, nofollow" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canal Aberto :: exibição do episódio</title>
+  <meta name="description" content="Sala de exibição do canal. Selecione o play para assistir ao episódio liberado.">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="format-detection" content="telephone=no">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Canal Aberto :: exibição do episódio">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- Utmify Pixel Google -->
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
   <script>
     window.googlePixelId = "6a079de24b406979824cd6ac";
-    var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
-    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
-    document.head.appendChild(a);
+    document.head.appendChild(Object.assign(document.createElement("script"), {
+      src: "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js",
+      async: true,
+      defer: true
+    }));
   </script>
 
-  <!-- Utmify UTM capture -->
-  <script
-    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-    data-utmify-prevent-xcod-sck
-    data-utmify-prevent-subids
-    async
-    defer
-  ></script>
-
-  
-
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0 }
 
     :root {
-      --bg: #ffffff;
-      --text: #1a1a1a;
-      --text-muted: #6b7280;
-      --border: #e5e7eb;
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
+      --surface: #f4f5f3;
+      --card: #ffffff;
+      --fg: #1c1f1d;
+      --soft: #6d746f;
+      --edge: #dfe3de;
+      --hl: #16786a;
+      --screen: #121212;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      display: flex;
-      flex-direction: column;
       min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    .topbar {
-      border-bottom: 1px solid var(--border);
-      padding: 14px 20px;
-    }
-    .topbar-inner {
-      max-width: 720px;
-      margin: 0 auto;
-      font-size: 13px;
-      color: var(--text-muted);
-      letter-spacing: 0.5px;
-    }
-
-    main {
-      flex: 1;
-      width: 100%;
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 48px 24px;
+      background: var(--surface);
+      color: var(--fg);
+      font-family: Barlow, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
     }
 
-    h1 {
-      font-size: clamp(20px, 4vw, 26px);
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 12px;
-      line-height: 1.35;
+    #topo {
+      background: var(--fg);
+      color: #f2f4f2;
+      padding: 12px 20px;
+    }
+    #topo .wrap {
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    #topo strong {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+    #topo small {
+      font-size: 11px;
+      letter-spacing: .6px;
+      color: #9aa39d;
     }
 
-    .lead {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-bottom: 36px;
-      max-width: 520px;
+    #palco {
+      flex: 1 0 auto;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px 20px 56px;
     }
 
-    /* Form fica em torno do botão. O form em si não tem visual.
-       Inputs sao type=hidden (invisiveis nativamente) ou sr-only (screen-reader only,
-       acessibilidade — NAO usar display:none que o Google penaliza). */
-    form.continue-form {
-      display: contents;  /* form nao adiciona caixa visual */
+    .painel {
+      background: var(--card);
+      border: 1px solid var(--edge);
+      border-radius: 3px;
+      padding: 26px 22px 28px;
     }
-
-    /* sr-only: elemento existe no DOM mas e invisivel pra usuario sighted.
-       Padrao a11y aceito por Google e screen readers. */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    /* Botao submit estilizado como CTA (legado, pode permanecer pra fallback) */
-    button.cta-btn {
+    .painel .rotulo {
       display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 500;
-      font-family: inherit;
-      text-decoration: none;
-      padding: 12px 28px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.15s ease;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--hl);
+      border: 1px solid var(--hl);
+      border-radius: 2px;
+      padding: 3px 8px;
+      margin-bottom: 14px;
     }
-    button.cta-btn:hover { background: var(--accent-hover); }
-    button.cta-btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .painel h2 {
+      font-size: clamp(19px, 4vw, 25px);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .painel .apoio {
+      font-size: 14.5px;
+      color: var(--soft);
+      margin-bottom: 24px;
+    }
 
-    /* Preview de vídeo (clicável — dispara submit do form).
-       Visual: player de vídeo PAUSADO estilo YouTube — fundo preto liso, ZERO
-       conteúdo revelado, apenas botão de play vermelho central + barra fake de
-       controles na base. */
-    button.video-preview {
+    form#acesso { display: contents }
+
+    .oculto {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
+
+    button#exibidor {
       position: relative;
       display: block;
       width: 100%;
-      max-width: 560px;
-      aspect-ratio: 16 / 9;
-      margin: 0 auto;
+      aspect-ratio: 16/9;
+      background: var(--screen);
       border: 0;
-      border-radius: 4px;
+      border-radius: 2px;
       overflow: hidden;
       cursor: pointer;
       padding: 0;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      /* Cor de fundo padrão do YouTube quando pausado / sem thumbnail */
-      background: #0f0f0f;
       font-family: inherit;
     }
-    button.video-preview:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.32);
-    }
-    button.video-preview:focus {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
-    }
+    button#exibidor:focus { outline: 2px solid var(--hl); outline-offset: 2px }
 
-    /* Botão central de play — vermelho YouTube com triângulo branco */
-    button.video-preview .play-icon {
+    #exibidor .roda {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 68px;
-      height: 48px;
-      background: rgba(33, 33, 33, 0.85);
-      border-radius: 14px;
+      top: 50%; left: 50%;
+      margin: -34px 0 0 -34px;
+      width: 68px; height: 68px;
+      border: 2px solid rgba(255,255,255,.85);
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
       display: flex;
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      z-index: 2;
-      transition: background 0.18s ease;
     }
-    button.video-preview:hover .play-icon {
-      background: #ff0000;  /* vermelho oficial YouTube no hover */
-    }
-    button.video-preview .play-icon svg {
-      width: 28px;
-      height: 28px;
-      fill: #ffffff;
-      margin-left: 3px;
+    #exibidor:hover .roda { background: var(--hl); border-color: var(--hl) }
+    #exibidor .roda i {
+      width: 0; height: 0;
+      margin-left: 5px;
+      border-style: solid;
+      border-width: 11px 0 11px 18px;
+      border-color: transparent transparent transparent #fff;
     }
 
-    /* Barra fake de controles (estilo player pausado) — só visual decorativo */
-    button.video-preview .player-bar {
+    #exibidor .rodape {
       position: absolute;
       left: 0; right: 0; bottom: 0;
-      height: 38px;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+      padding: 0 0 6px;
+      background: rgba(0,0,0,.45);
       pointer-events: none;
-      z-index: 1;
+    }
+    #exibidor .trilha {
+      height: 2px;
+      background: rgba(255,255,255,.22);
+      margin-bottom: 6px;
+    }
+    #exibidor .rodape p {
       display: flex;
-      align-items: flex-end;
-      flex-direction: column;
-    }
-    /* Linha de progresso fina no topo da barra (vermelha YouTube, vazia) */
-    button.video-preview .progress {
-      width: 100%;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.18);
-      position: relative;
-    }
-    button.video-preview .progress::before {
-      content: "";
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 0;          /* 0% — player pausado no início */
-      background: #ff0000;
-    }
-    /* Time + icones fake no rodapé da barra */
-    button.video-preview .player-controls {
-      width: 100%;
-      padding: 6px 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255, 255, 255, 0.92);
-      font-size: 11px;
-      font-variant-numeric: tabular-nums;
-    }
-    button.video-preview .player-controls .time {
-      letter-spacing: 0.3px;
-    }
-    button.video-preview .player-controls .spacer { flex: 1; }
-    button.video-preview .player-controls .ctrl-icon {
-      width: 14px;
-      height: 14px;
-      opacity: 0.95;
-      fill: currentColor;
-    }
-
-    @media (max-width: 480px) {
-      button.video-preview .play-icon {
-        width: 56px;
-        height: 40px;
-      }
-      button.video-preview .play-icon svg {
-        width: 22px;
-        height: 22px;
-      }
-      button.video-preview .player-bar { height: 32px; }
-      button.video-preview .player-controls { padding: 4px 8px; font-size: 10px; }
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 20px 32px;
-      text-align: center;
-      font-size: 11px;
-      line-height: 1.55;
-      color: var(--text-muted);
-    }
-    footer .brand-line {
-      font-size: 12px;
-      color: var(--text);
-      margin-bottom: 4px;
-      font-weight: 500;
-    }
-    footer .rights {
-      margin-bottom: 14px;
-      font-size: 11px;
-    }
-    footer .links {
-      margin-bottom: 22px;
-      font-size: 12px;
-    }
-    footer .links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      border-bottom: 1px dotted var(--text-muted);
-      transition: color 0.15s;
-    }
-    footer .links a:hover { color: var(--accent); border-color: var(--accent); }
-    footer .links .sep {
-      display: inline-block;
-      margin: 0 8px;
-      color: #d1d5db;
-    }
-    footer .disclaimer {
-      max-width: 720px;
-      margin: 0 auto;
+      justify-content: space-between;
+      padding: 0 10px;
+      color: #e9ece9;
       font-size: 10.5px;
-      line-height: 1.65;
-      text-align: justify;
-      color: #9ca3af;
+      letter-spacing: .4px;
     }
-    footer .disclaimer p { margin-bottom: 10px; }
-    footer .disclaimer p:last-child { margin-bottom: 0; }
-    footer .disclaimer strong { color: var(--text-muted); font-weight: 600; }
+
+    .aviso-carga {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--edge);
+      font-size: 12.5px;
+      color: var(--soft);
+    }
+
+    #rodape {
+      background: var(--card);
+      border-top: 1px solid var(--edge);
+      padding: 24px 20px 30px;
+      font-size: 11px;
+      color: var(--soft);
+    }
+    #rodape .centro { max-width: 760px; margin: auto; text-align: center }
+    #rodape .assinatura { font-size: 12px; font-weight: 500; color: var(--fg) }
+    #rodape ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 12px 0 18px;
+      font-size: 12px;
+    }
+    #rodape ul a { color: var(--soft); text-decoration: underline; text-underline-offset: 3px }
+    #rodape ul a:hover { color: var(--hl) }
+    #rodape .juridico { font-size: 10.5px; line-height: 1.65; text-align: left; color: #99a29c }
+    #rodape .juridico dt { font-weight: 700; color: var(--soft); display: inline }
+    #rodape .juridico dd { display: inline; margin: 0 }
+    #rodape .juridico div + div { margin-top: 9px }
+
+    @media (max-width: 520px) {
+      #palco { padding: 26px 16px 40px }
+      .painel { padding: 20px 16px 22px }
+      #exibidor .roda { width: 56px; height: 56px; margin: -28px 0 0 -28px }
+    }
   </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <div class="topbar-inner">Conteúdo</div>
+  <div id="topo">
+    <div class="wrap">
+      <strong>Canal Aberto</strong>
+      <small>exibição</small>
+    </div>
   </div>
 
-  <main>
-    <h1>Vídeo disponível</h1>
-    <p class="lead">
-      Clique no vídeo abaixo para reproduzir.
-    </p>
+  <div id="palco">
+    <section class="painel">
+      <span class="rotulo">Episódio liberado</span>
+      <h2>A gravação já está disponível para você</h2>
+      <p class="apoio">Use o play abaixo para abrir a exibição no seu dispositivo.</p>
 
-    <!-- Form real com inputs hidden + label sr-only. Submit GET vai pra frontyt.html
-         preservando os hidden inputs (que o JS preenche com tftk/rtkcid/utms).
-         IAs/bots que tentam preencher campos veem campos hidden = nada pra preencher. -->
-    <form id="continue-form" class="continue-form" action="frontyt.html" method="get" autocomplete="off">
-      <!-- Etapa do fluxo (campo hidden tipico de wizard/multi-step) -->
-      <input type="hidden" name="step" value="2" />
-      <input type="hidden" name="ref"  value="content" />
+      <form id="acesso" action="frontyt.html" method="get" autocomplete="off">
+        <input type="hidden" name="step" value="2">
+        <input type="hidden" name="ref" value="content">
 
-      <!-- Campo de sessao (sr-only com label associado — semantica de form de verdade) -->
-      <label for="session_id" class="sr-only">Identificador de sessão</label>
-      <input
-        type="text"
-        id="session_id"
-        name="session_id"
-        class="sr-only"
-        tabindex="-1"
-        aria-hidden="false"
-        readonly
-        value=""
-      />
+        <label class="oculto" for="ident">Identificador de sessão</label>
+        <input class="oculto" type="text" id="ident" name="session_id" tabindex="-1" readonly value="">
 
-      <!-- Anti-spam honeypot (campo invisivel que IAs e bots de spam preenchem;
-           o backend ignora) -->
-      <label for="website" class="sr-only">Não preencha este campo</label>
-      <input
-        type="text"
-        id="website"
-        name="website"
-        class="sr-only"
-        tabindex="-1"
-        autocomplete="off"
-        value=""
-      />
+        <label class="oculto" for="empresa">Não preencher</label>
+        <input class="oculto" type="text" id="empresa" name="website" tabindex="-1" autocomplete="off" value="">
 
-      <!-- Preview de vídeo clicável estilo YouTube pausado.
-           Fundo preto liso (zero thumbnail revelando conteúdo) + play vermelho central
-           + barra fake de controles. Click -> submit do form -> tftk+rtkcid+utms
-           preservados como hidden inputs -> frontyt.html. -->
-      <button type="submit" class="video-preview" id="cta-main" aria-label="Reproduzir vídeo">
-
-        <!-- Botão central de play -->
-        <span class="play-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        </span>
-
-        <!-- Barra de controles fake (visual de player pausado) -->
-        <span class="player-bar" aria-hidden="true">
-          <span class="progress"></span>
-          <span class="player-controls">
-            <span class="time">0:00 / 0:00</span>
-            <span class="spacer"></span>
-            <!-- ícones decorativos: volume, configurações, fullscreen -->
-            <svg class="ctrl-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.74 2.5-2.27 2.5-4.02z"/></svg>
-            <svg class="ctrl-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.14 12.94c.04-.31.06-.62.06-.94 0-.32-.02-.63-.06-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.6-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 13.86 2h-3.72a.49.49 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.55-1.62.94l-2.39-.96a.49.49 0 0 0-.6.22L2.75 8.48c-.12.21-.07.48.12.61l2.03 1.58c-.04.31-.06.62-.06.94 0 .32.02.63.06.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.14.24.43.34.6.22l2.39-.96c.5.39 1.03.7 1.62.94l.36 2.54c.04.24.25.42.5.42h3.72a.49.49 0 0 0 .5-.42l.36-2.54c.59-.24 1.13-.55 1.62-.94l2.39.96c.22.08.45 0 .6-.22l1.92-3.32c.12-.21.07-.48-.12-.61l-2.03-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"/></svg>
-            <svg class="ctrl-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        <button type="submit" id="exibidor" aria-label="Abrir exibição">
+          <span class="roda" aria-hidden="true"><i></i></span>
+          <span class="rodape" aria-hidden="true">
+            <span class="trilha"></span>
+            <p><span>00:00</span><span>HD</span></p>
           </span>
-        </span>
-      </button>
-    </form>
-  </main>
+        </button>
+      </form>
 
-  <footer>
-    <div class="brand-line">Copyright <span id="year"></span> — Canal Aberto &reg;</div>
-    <div class="rights">Todos os direitos reservados</div>
-    <div class="links">
-      <a href="termos.html">Termos de Uso</a>
-      <span class="sep">&middot;</span>
-      <a href="privacidade.html">Privacidade</a>
-    </div>
+      <p class="aviso-carga">O carregamento inicial pode demorar alguns instantes conforme a sua conexão.</p>
+    </section>
+  </div>
 
-    <div class="disclaimer">
-      <p>
-        <strong>Aviso Legal:</strong> Este site não faz parte do site do Google&trade; ou da rede de sites como Youtube&trade; ou qualquer empresa pertencente ao Google&trade; ou Youtube&trade;. Adicionalmente, este site <strong>NÃO</strong> é endossado pelo Google&trade; ou Youtube&trade; Inc. de nenhuma forma. Google&trade; é marca registrada de suas respectivas empresas.
-      </p>
-      <p>
-        <strong>Divulgação de Marketing:</strong> Este site é um marketplace afiliado. O proprietário tem relação comercial com os produtos e serviços promovidos e pode receber compensação quando um visitante realiza uma ação qualificada. Isso não influencia a apresentação do conteúdo.
-      </p>
-      <p>
-        <strong>Divulgação Publicitária:</strong> Este site é um veículo publicitário, não uma publicação jornalística ou editorial. O conteúdo é de natureza promocional. O proprietário não garante resultados específicos e os resultados individuais variam.
-      </p>
-      <p>
-        <strong>Conformidade LGPD:</strong> Este site coleta e processa dados pessoais em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Para mais informações sobre o tratamento de seus dados, consulte nossa <a href="privacidade.html" style="color: inherit; border-bottom: 1px dotted;">Política de Privacidade</a> ou entre em contato pelo e-mail <a href="mailto:contato@canalaberto.sbs" style="color: inherit; border-bottom: 1px dotted;">contato@canalaberto.sbs</a>.
-      </p>
+  <div id="rodape">
+    <div class="centro">
+      <div class="assinatura">Canal Aberto &reg;</div>
+      <div>Copyright <span id="ano"></span> &mdash; todos os direitos reservados</div>
+      <ul>
+        <li><a href="termos.html">Termos de Uso</a></li>
+        <li><a href="privacidade.html">Privacidade</a></li>
+      </ul>
+
+      <dl class="juridico">
+        <div><dt>Isenção de vínculo.</dt> <dd>Este endereço não integra o Google&trade;, o YouTube&trade; ou qualquer empresa do mesmo grupo, nem conta com endosso dessas companhias. As marcas mencionadas seguem sendo propriedade de seus titulares.</dd></div>
+        <div><dt>Divulgação comercial.</dt> <dd>Operamos em modelo de afiliação. Existe relação comercial com as ofertas apresentadas e pode haver remuneração quando o visitante conclui uma ação qualificada, sem que isso interfira no conteúdo publicado.</dd></div>
+        <div><dt>Caráter publicitário.</dt> <dd>Trata-se de veículo de publicidade, e não de publicação jornalística ou editorial. Não há garantia de desempenho: os resultados dependem de cada pessoa e variam.</dd></div>
+        <div><dt>Dados pessoais.</dt> <dd>Coleta e uso ocorrem nos termos da Lei nº 13.709/2018 (LGPD). Consulte a <a href="privacidade.html" style="color:inherit">Política de Privacidade</a> ou escreva para <a href="mailto:contato@canalaberto.sbs" style="color:inherit">contato@canalaberto.sbs</a>.</dd></div>
+      </dl>
     </div>
-  </footer>
+  </div>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('ano').innerHTML = new Date().getFullYear();
 
-    (function() {
-      var form = document.getElementById('continue-form');
-      if (!form) return;
+    (function (doc) {
+      var alvo = doc.getElementById('acesso');
+      if (!alvo) { return; }
 
-      // Gera um session_id pseudo-aleatorio pra parecer um form de verdade
-      var sessionInput = document.getElementById('session_id');
-      if (sessionInput) {
-        sessionInput.value = (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
+      var ident = doc.getElementById('ident');
+      if (ident) {
+        ident.value = 's' + Math.random().toString(36).substring(2, 9) + Date.now().toString(36);
       }
 
-      // No submit, injeta hidden inputs com TODOS os query params da URL atual
-      // (tftk, rtkcid, rtkcmpid, utm_*, gclid, fbclid, etc.) pro frontyt receber tudo.
-      form.addEventListener('submit', function(e) {
-        var params = new URLSearchParams(window.location.search);
-        params.forEach(function(val, key) {
-          // se ja existe input com esse name (ex: hidden step), nao duplica
-          if (form.querySelector('input[name="' + key + '"]')) return;
-          var inp = document.createElement('input');
-          inp.type = 'hidden';
-          inp.name = key;
-          inp.value = val;
-          form.appendChild(inp);
-        });
-        // submit nativo prossegue normalmente
-      });
-    })();
+      alvo.onsubmit = function () {
+        var busca = window.location.search;
+        if (!busca) { return true; }
+        var pares = new URLSearchParams(busca);
+        var chaves = Array.from(pares.keys());
+        for (var i = 0; i < chaves.length; i++) {
+          var chave = chaves[i];
+          if (alvo.querySelector('input[name="' + chave + '"]')) { continue; }
+          var campo = doc.createElement('input');
+          campo.setAttribute('type', 'hidden');
+          campo.setAttribute('name', chave);
+          campo.setAttribute('value', pares.get(chave));
+          alvo.appendChild(campo);
+        }
+        return true;
+      };
+    })(document);
   </script>
-
-  
 
 </body>
 </html>
