@@ -451,6 +451,9 @@ async def admin_dump_pub(token: str = ""):
         return JSONResponse({"error": "pg connect err", "detail": str(e)[:300]}, status_code=500)
     try:
         cur = conn.cursor()
+        # contar rows
+        cur.execute('SELECT count(*) FROM "PublicTypebot" WHERE "typebotId" = %s;', ("cmref0a45f0f96f4084a4",))
+        row_count = cur.fetchone()[0]
         cur.execute(
             'SELECT "groups"::text, "edges"::text, "variables"::text, "events"::text, '
             '"version", "settings"::text, "theme"::text '
@@ -459,7 +462,7 @@ async def admin_dump_pub(token: str = ""):
         )
         r = cur.fetchone()
         if not r:
-            return JSONResponse({"error": "no PublicTypebot row"})
+            return JSONResponse({"error": "no PublicTypebot row", "row_count": row_count})
         def _parse(x):
             if x is None: return None
             if isinstance(x, (dict, list)): return x
@@ -486,6 +489,9 @@ async def admin_dump_pub(token: str = ""):
             "conditions": conds,
             "settings_type": type(settings).__name__,
             "settings_keys": list(settings.keys()) if isinstance(settings, dict) else None,
+            "raw_groups_sample": str(r[0])[:300] if r[0] else None,
+            "raw_events_sample": str(r[3])[:300] if r[3] else None,
+            "row_count": row_count,
         })
     except Exception as e:
         return JSONResponse({"error": "query err", "detail": str(e)[:300]}, status_code=500)
