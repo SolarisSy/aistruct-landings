@@ -50,6 +50,15 @@ h1.hed{font-size:2.35rem;line-height:1.14;letter-spacing:-.02em;margin:10px 0 8p
 .card h3{font-size:1.14rem;line-height:1.28;margin:12px 0 6px;letter-spacing:-.01em}
 .card h3 a{color:#241c16}
 .card p{margin:0;color:#6f6053;font-size:.95rem}
+.rows{margin-top:30px}
+.row{display:grid;grid-template-columns:280px 1fr;gap:26px;padding:26px 0;border-bottom:1px dotted #ddcdba}
+.row:first-child{border-top:1px dotted #ddcdba}
+@media(max-width:660px){.row{grid-template-columns:1fr;gap:14px}}
+.rowimg{position:relative;overflow:hidden;aspect-ratio:3/2;border-radius:2px;background:#eadfd2}
+.rowimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.row h3{font-size:1.3rem;line-height:1.24;margin:10px 0 8px;letter-spacing:-.015em}
+.row h3 a{color:#241c16}
+.row p{margin:0 0 8px;color:#5b4f45;font-size:1rem}
 .sec-rule{display:flex;align-items:center;gap:14px;margin:56px 0 0}
 .sec-rule:after{content:"";flex:1;height:1px;background:#e4d7c8}
 .note{background:#f4eadd;border:1px solid #e4d7c8;padding:20px 22px;margin:44px 0 0}
@@ -107,7 +116,7 @@ table.plan th{font:600 11px ui-sans-serif,Arial,sans-serif;letter-spacing:.1em;t
 <h1 class="hed"><a href="the-first-hour-decides-the-day.html" style="color:#241c16">The first hour decides the day, and most of us give it away</a></h1>
 <p class="dek">Between waking up and the first real task there is a stretch of time that almost nobody plans. What happens in it tends to set the tone for the next eight hours.</p>
 <p><a href="the-first-hour-decides-the-day.html">Read the piece &rarr;</a></p></div>
-<aside class="rail"><p class="k">On the desk</p><ol><li><a href="a-shutdown-note-for-the-end-of-work.html">The shutdown note: five lines that stop work following you home</a></li><li><a href="task-lists-that-survive-tuesday.html">Task lists that survive Tuesday</a></li><li><a href="meetings-that-earn-their-slot.html">Meetings that earn their slot</a></li><li><a href="the-real-cost-of-switching-tabs.html">The real cost of switching tabs</a></li></ol>
+<aside class="rail"><p class="k">On the desk</p><ol><li><a href="a-shutdown-note-for-the-end-of-work.html">The shutdown note: five lines that stop work following you home</a></li><li><a href="task-lists-that-survive-tuesday.html">Task lists that survive Tuesday</a></li><li><a href="meetings-that-earn-their-slot.html">Meetings that earn their slot</a></li></ol>
 <p style="margin-top:22px;color:#6f6053;font-size:.94rem">Everything here is written by hand, published
 when it is ready, and revised when it turns out to be wrong. Start with the
 <a href="glossario.html">glossary</a> if the vocabulary is unfamiliar.</p></aside></div>
@@ -117,14 +126,16 @@ when it is ready, and revised when it turns out to be wrong. Start with the
 <p class="k">Routines</p><h3><a href="a-shutdown-note-for-the-end-of-work.html">The shutdown note: five lines that stop work following you home</a></h3><p>Ending the day well is a smaller problem than starting it well, and it is solved almost entirely by writing things down before you…</p></article><article class="card"><div class="thumb"><img src="img/task-lists-that-survive-tuesday.jpg" alt="Task lists that survive Tuesday" loading="lazy"></div>
 <p class="k">Planning</p><h3><a href="task-lists-that-survive-tuesday.html">Task lists that survive Tuesday</a></h3><p>Most lists are written on a good day for a good day. Then Tuesday arrives with a broken deploy and the list becomes decoration.…</p></article><article class="card"><div class="thumb"><img src="img/meetings-that-earn-their-slot.jpg" alt="Meetings that earn their slot" loading="lazy"></div>
 <p class="k">Working hours</p><h3><a href="meetings-that-earn-their-slot.html">Meetings that earn their slot</a></h3><p>A meeting costs the number of people in the room multiplied by its length, plus the fragments of time on either side that nobody c…</p></article><article class="card"><div class="thumb"><img src="img/the-real-cost-of-switching-tabs.jpg" alt="The real cost of switching tabs" loading="lazy"></div>
-<p class="k">Attention</p><h3><a href="the-real-cost-of-switching-tabs.html">The real cost of switching tabs</a></h3><p>Switching is cheap in the moment and expensive in aggregate, which is exactly the shape of a habit nobody notices forming.…</p></article></div>
+<p class="k">Attention</p><h3><a href="the-real-cost-of-switching-tabs.html">The real cost of switching tabs</a></h3><p>Switching is cheap in the moment and expensive in aggregate, which is exactly the shape of a habit nobody notices forming.…</p></article><article class="card"><div class="thumb"><img src="img/planning-a-week-in-thirty-minutes.jpg" alt="Planning a week in thirty minutes" loading="lazy"></div>
+<p class="k">Planning</p><h3><a href="planning-a-week-in-thirty-minutes.html">Planning a week in thirty minutes</a></h3><p>A weekly plan is not a schedule. It is a short argument with yourself about what the week is for, and it takes half an hour.…</p></article><article class="card"><div class="thumb"><img src="img/reading-notes-you-actually-reuse.jpg" alt="Reading notes you actually reuse" loading="lazy"></div>
+<p class="k">Notes</p><h3><a href="reading-notes-you-actually-reuse.html">Reading notes you actually reuse</a></h3><p>Most notes are written once and never opened again. A few simple constraints change that ratio more than any app ever will.…</p></article></div>
 
 <div class="sec-rule"><p class="k" style="margin:0">Longer reads</p></div>
-<div class="grid"><article class="card"><div class="thumb"><img src="img/planning-a-week-in-thirty-minutes.jpg" alt="Planning a week in thirty minutes" loading="lazy"></div>
-<p class="k">Planning</p><h3><a href="planning-a-week-in-thirty-minutes.html">Planning a week in thirty minutes</a></h3><p>A weekly plan is not a schedule. It is a short argument with yourself about what the week is for, and it takes half an hour.…</p></article><article class="card"><div class="thumb"><img src="img/reading-notes-you-actually-reuse.jpg" alt="Reading notes you actually reuse" loading="lazy"></div>
-<p class="k">Notes</p><h3><a href="reading-notes-you-actually-reuse.html">Reading notes you actually reuse</a></h3><p>Most notes are written once and never opened again. A few simple constraints change that ratio more than any app ever will.…</p></article><article class="card"><div class="thumb"><img src="img/deep-work-in-an-open-office.jpg" alt="Deep work in an open office" loading="lazy"></div>
-<p class="k">Working hours</p><h3><a href="deep-work-in-an-open-office.html">Deep work in an open office</a></h3><p>Advice about long, silent blocks of concentration usually assumes a door. Here is the version for a room with forty desks and no w…</p></article><article class="card"><div class="thumb"><img src="img/when-focus-wont-come.jpg" alt="What to do on the days focus will not come" loading="lazy"></div>
-<p class="k">Attention</p><h3><a href="when-focus-wont-come.html">What to do on the days focus will not come</a></h3><p>Some days the usual routine simply does not take. The useful response is procedural rather than motivational.…</p></article></div>
+<div class="rows"><article class="row"><div class="rowimg"><img src="img/deep-work-in-an-open-office.jpg" alt="Deep work in an open office" loading="lazy"></div>
+<div><p class="k">Working hours</p><h3><a href="deep-work-in-an-open-office.html">Deep work in an open office</a></h3><p>Advice about long, silent blocks of concentration usually assumes a door. Here is the version for a room with forty desks and no walls.</p>
+<p><a href="deep-work-in-an-open-office.html">Read &rarr;</a></p></div></article><article class="row"><div class="rowimg"><img src="img/when-focus-wont-come.jpg" alt="What to do on the days focus will not come" loading="lazy"></div>
+<div><p class="k">Attention</p><h3><a href="when-focus-wont-come.html">What to do on the days focus will not come</a></h3><p>Some days the usual routine simply does not take. The useful response is procedural rather than motivational.</p>
+<p><a href="when-focus-wont-come.html">Read &rarr;</a></p></div></article></div>
 
 <div class="strip"><h4>The Thursday letter</h4>
 <p>One short piece a week — usually a method someone on the desk tried and either kept or dropped.
