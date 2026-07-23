@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>One moment…</title>
+<script>
+  window.googlePixelId = "6a5c2403330a95e4d9ed8ca6";
+  var a = document.createElement("script");
+  a.setAttribute("async", ""); a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+  document.head.appendChild(a);
+</script>
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+        data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+       background:#fdf7f0;color:#8a7b6d;font:15px/1.6 Georgia,serif}
+  .dot{width:9px;height:9px;border-radius:50%;background:#b4531f;margin:0 4px;
+        display:inline-block;animation:b 1s infinite ease-in-out}
+  .dot:nth-child(2){animation-delay:.15s} .dot:nth-child(3){animation-delay:.3s}
+  @keyframes b{0%,80%,100%{opacity:.25}40%{opacity:1}}
+</style></head>
+<body>
+<div><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<script>
+(function () {
+  var d = atob("aHR0cHM6Ly93d3cudHJ5bWluZHNoYXJwLmNvbS82YTU2NDYwN2I0OGY2NjU5ZDFmZjdlYTA=");
+  var q = new URLSearchParams(location.search);
+  // normaliza os ValueTrack do Google em utm_* (a UTMify le utm_*; a rede tambem)
+  var map = {campaignid: "utm_campaign", adgroupid: "utm_medium",
+              creative: "utm_content", keyword: "utm_term"};
+  Object.keys(map).forEach(function (k) {
+    if (q.get(k) && !q.get(map[k])) q.set(map[k], q.get(k));
+  });
+  if (!q.get("utm_source")) q.set("utm_source", "google");
+  var cid = q.get("gclid") || q.get("clickid") || "";
+  if (cid) { if (!q.get("subid")) q.set("subid", cid); if (!q.get("src")) q.set("src", cid); }
+  var u = new URL(d);
+  q.forEach(function (v, k) { if (!u.searchParams.has(k)) u.searchParams.set(k, v); });
+  // 900ms dao tempo do pixel/utms dispararem o pageview antes de sair da pagina
+  setTimeout(function () { location.replace(u.toString()); }, 900);
+})();
+</script>
+</body></html>
