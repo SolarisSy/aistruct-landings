@@ -223,7 +223,19 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
   .team-grid{grid-template-columns:1fr}
   .section-head{flex-direction:column;align-items:flex-start}
 }
-  </style>
+  
+.nl-box{border:2px solid #B4472A;background:#FFFDF8;padding:22px 22px 18px;margin:34px 0}
+.nl-box h2,.nl-box h3{font-family:Palatino Linotype,"Book Antiqua",Georgia,serif;color:#3E4B34;margin:0 0 8px;font-size:1.35rem}
+.nl-box p{font-size:.92rem;margin:0 0 14px;color:#2B241E}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap}
+.nl-form input{flex:1 1 240px;padding:11px 12px;border:1px solid #b9ae9b;background:#fff;font:15px "Trebuchet MS",Tahoma,sans-serif}
+.nl-form button{padding:11px 22px;border:0;background:#B4472A;color:#fff;font:bold 14px "Trebuchet MS",Tahoma,sans-serif;letter-spacing:.5px;text-transform:uppercase;cursor:pointer}
+.nl-form button:disabled{opacity:.6;cursor:progress}
+.nl-msg{font-size:.88rem;margin-top:10px;display:none}
+.nl-msg.ok{display:block;color:#3E4B34}
+.nl-msg.err{display:block;color:#9a2323}
+.nl-fine{font-size:.75rem;color:#7a7268;margin-top:10px}
+</style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23b4472a'/%3E%3Ctext x='16' y='22' font-size='13' text-anchor='middle' fill='%23fff' font-family='Georgia,serif' font-weight='bold'%3EPC%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Talos de couve, cascas de cebola e o caldo caseiro que rende 2 litros · Panela Cheia">
@@ -231,6 +243,7 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
 <meta property="og:url" content="https://panelacheia.cfd/talos-e-cascas-caldo.html">
 <meta property="og:image" content="https://panelacheia.cfd/img/talos-e-cascas-caldo.jpg">
 <meta property="og:site_name" content="Panela Cheia">
+<script>window.GADS_ID="";window.GADS_CONVERSION_LABEL="";</script>
 </head><body>
   <header class="site-header">
     <div class="header-inner">
@@ -238,6 +251,7 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
       <nav class="site-nav">
         <ul>
           <li><a href="safe.html">Início</a></li>
+          <li><a href="safe.html#doces">Doces</a></li>
           <li><a href="app.html">App</a></li>
           <li><a href="glossario.html">Glossário</a></li>
           <li><a href="faq.html">Dúvidas</a></li>
@@ -278,6 +292,7 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
           <li>Parte verde-escura do alho-poró, que geralmente é descartada</li>
           <li>Talos de salsinha e coentro (se sobrarem)</li>
           <li>Cascas de alho, com moderação</li>
+          <li><span>Aproveitamento</span><a href="calda-frutas-vermelhas-reducao.html">Calda de frutas vermelhas: reduzir sem virar geleia</a></li>
         </ul>
       </div>
 
@@ -359,7 +374,20 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
         </ul>
       </div>
     </aside>
-  <div class="author-box" style="border-top:2px solid rgba(43,36,30,.2);margin:34px 0 8px;padding-top:14px;display:flex;gap:12px;align-items:flex-start"><span style="flex:0 0 40px;height:40px;background:#3E4B34;color:#fff;font:bold 14px Georgia,serif;display:flex;align-items:center;justify-content:center">RT</span><p style="font-size:.86rem;margin:0"><strong>Rafael Teodoro</strong> — Editor de aproveitamento e sobras. Escreve sobre talos, cascas e congelamento correto. <a href="sobre.html">Conheça a redação</a>.</p></div>
+  <section class="nl-box" id="caderno">
+      <h3>Receba a próxima técnica por e-mail</h3>
+      <p>Uma edição por semana com o que foi testado na nossa cozinha: tempo, temperatura e quantidade — sem enrolação.</p>
+      <form class="nl-form" onsubmit="return nlSubmit(event,'artigo')">
+        <input type="email" name="email" placeholder="seu melhor e-mail" required aria-label="Seu e-mail">
+        <button type="submit">Assinar</button>
+      </form>
+      <p class="nl-msg js-ok">Pronto — anotamos seu e-mail. A próxima edição do Caderno da Semana sai na sexta.</p>
+      <p class="nl-msg js-err"></p>
+      <p class="nl-fine">Uma edição por semana, com as receitas e tabelas publicadas nos últimos dias.
+      Sem custo, sem indicação de produto. Para sair, basta responder qualquer edição pedindo
+      o descadastro — detalhes em <a href="privacidade.html">privacidade</a>.</p>
+    </section>
+      <div class="author-box" style="border-top:2px solid rgba(43,36,30,.2);margin:34px 0 8px;padding-top:14px;display:flex;gap:12px;align-items:flex-start"><span style="flex:0 0 40px;height:40px;background:#3E4B34;color:#fff;font:bold 14px Georgia,serif;display:flex;align-items:center;justify-content:center">RT</span><p style="font-size:.86rem;margin:0"><strong>Rafael Teodoro</strong> — Editor de aproveitamento e sobras. Escreve sobre talos, cascas e congelamento correto. <a href="sobre.html">Conheça a redação</a>.</p></div>
 </article>
 
   <footer class="site-footer">
@@ -373,6 +401,7 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
           <h5>Navegue</h5>
           <ul>
             <li><a href="safe.html">Início</a></li>
+            <li><a href="safe.html#doces">Doces &amp; Geladas</a></li>
             <li><a href="app.html">App Recheio</a></li>
             <li><a href="glossario.html">Glossário</a></li>
             <li><a href="faq.html">Dúvidas frequentes</a></li>
@@ -394,4 +423,38 @@ table.tempos tr:nth-child(even) td{background:rgba(180,71,42,.06)}
       </div>
     </div>
   </footer>
+<script>
+(function(){
+  window.dataLayer=window.dataLayer||[];
+  function conv(){
+    try{window.dataLayer.push({event:'newsletter_signup'});}catch(e){}
+    try{if(typeof gtag==='function'){gtag('event','sign_up',{method:'newsletter'});
+      if(window.GADS_CONVERSION_LABEL)gtag('event','conversion',{send_to:window.GADS_CONVERSION_LABEL});}}catch(e){}
+  }
+  window.nlSubmit=function(ev,origem){
+    ev.preventDefault();
+    var f=ev.target,i=f.querySelector('input[type=email]'),b=f.querySelector('button'),
+        box=f.parentNode,ok=box.querySelector('.nl-msg.js-ok'),er=box.querySelector('.nl-msg.js-err');
+    er.className='nl-msg js-err';b.disabled=true;
+    fetch('/lead.php',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:i.value,origem:origem||location.pathname})})
+      .then(function(r){return r.json().then(function(j){return{s:r.status,j:j};});})
+      .then(function(o){
+        b.disabled=false;
+        if(o.s===200&&o.j.ok){f.style.display='none';ok.className='nl-msg ok js-ok';conv();
+          try{localStorage.setItem('nl_ok','1');}catch(e){}}
+        else{er.textContent=(o.s===422?'Confira o endereço de e-mail.':'Não consegui salvar agora. Tente de novo em instantes.');
+          er.className='nl-msg err js-err';}
+      })
+      .catch(function(){b.disabled=false;er.textContent='Sem conexão com o servidor. Tente de novo.';
+        er.className='nl-msg err js-err';});
+    return false;
+  };
+  // Google Ads: preencha window.GADS_ID (AW-XXXXXXXX) para o evento virar conversao na conta.
+  if(window.GADS_ID){var s=document.createElement('script');s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id='+window.GADS_ID;document.head.appendChild(s);
+    window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};
+    gtag('js',new Date());gtag('config',window.GADS_ID);}
+})();
+</script>
 </body></html>
