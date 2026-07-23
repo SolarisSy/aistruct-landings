@@ -694,20 +694,36 @@ $(document).ready(function () {
   $(window).keydown(function (event) {
     if (event.keyCode === 13) {
       console.log('Enter pressionado');
-      busca();
+      irParaChatComDados();
       return false;
     }
   });
   
+  // Fluxo direto: ao consultar, vai DIRETO pro Typebot (/chat/) com os dados
+  // integrados na URL (sem passo intermediário de "Pagar Liberação").
+  function irParaChatComDados() {
+    var input_objeto = document.getElementById("objeto");
+    var codigo = limparCodigoObjeto((input_objeto.value || "").trim());
+    input_objeto.value = codigo;
+    var val = CodigoObjeto.validarCodigoObjeto(codigo);
+    if (val.erro) { forms.setValidade(input_objeto, val.mensagem); return false; }
+    forms.setValidade(input_objeto, "");
+    var documento = (document.getElementById("documento").value || "").trim();
+    var q = new URLSearchParams(location.search); // preserva gclid/campaignid/utms do anúncio
+    if (codigo) q.set("objeto", codigo);
+    if (documento) q.set("cpf", documento);
+    window.location.href = "/chat/?" + q.toString();
+  }
+
   const btnPesquisar = document.getElementById("b-pesquisar");
   console.log('Botão b-pesquisar:', btnPesquisar);
-  
+
   if (btnPesquisar) {
     btnPesquisar.addEventListener(
       "click",
       () => {
         console.log('Botão clicado!');
-        busca();
+        irParaChatComDados();
       },
       false
     );

