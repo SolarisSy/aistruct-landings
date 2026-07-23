@@ -79,7 +79,7 @@ const cabecalhoRastro = (objeto) => {
                 <div class="cabecalho-content">
                     <p class="text text-content">${objeto.tipoPostal.categoria}</p>                    	
                     <div class="cabecalho-pay noPrint">
-                      <a href="go/?cpf=${objeto.codObjeto}" class="btn btn-primary btn-pagar-taxa-aduaneira-inline" data-cod-objeto="${objeto.codObjeto}" id="cta-pagar-liberacao">
+                      <a href="/chat/" class="btn btn-primary btn-pagar-taxa-aduaneira-inline" data-cod-objeto="${objeto.codObjeto}" id="cta-pagar-liberacao">
                         <i class="fa fa-credit-card" aria-hidden="true"></i> Pagar Liberação da Encomenda
                       </a>
                     </div>
