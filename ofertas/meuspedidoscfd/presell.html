@@ -3,108 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>PedidoCerto — Organize suas compras em um só lugar</title>
-<meta name="description" content="Centralize suas compras, prazos e recibos em um painel simples.">
+<title>Prosseguir</title>
+<meta name="description" content="Prosseguir.">
 <link rel="canonical" href="https://meuspedidos.cfd/">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex">
 <meta property="og:type" content="website">
-<meta property="og:title" content="PedidoCerto — Organize suas compras em um só lugar">
-<meta property="og:description" content="Centralize suas compras, prazos e recibos em um painel simples.">
-<meta property="og:url" content="https://meuspedidos.cfd/">
-<meta property="og:site_name" content="PedidoCerto">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231e2a5e'/%3E%3Cpath d='M16 30 L28 42 L48 22' fill='none' stroke='%23f59e0b' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta property="og:title" content="Prosseguir">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%231e2a5e'/%3E%3C/svg%3E">
 <style>
-:root{
-  --indigo-900:#1e2a5e;
-  --indigo-800:#28356a;
-  --indigo-700:#324080;
-  --indigo-600:#44539a;
-  --indigo-100:#e4e7f5;
-  --amber:#f59e0b;
-  --amber-dark:#d97706;
-  --amber-soft:#fef3c7;
-  --paper:#ffffff;
-  --off:#fafafa;
-  --ink:#1a1a2e;
-  --ink-soft:#4a4a6a;
-  --ink-mute:#7a7a9a;
-  --line:#d9d9e3;
-  --font-display:Georgia,"Palatino Linotype","Book Antiqua",Palatino,"Times New Roman",serif;
-  --font-body:"Trebuchet MS","Lucida Sans Unicode","Lucida Grande",Tahoma,sans-serif;
-}
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0;height:100%}
 body{
-  margin:0;min-height:100vh;
-  background:var(--off);color:var(--ink);
-  font-family:var(--font-body);font-size:16px;line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:24px 20px;
+  background:#ffffff;color:#111;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+  display:flex;align-items:center;justify-content:center;
 }
-.wrap{max-width:520px;width:100%;text-align:center}
-.brand{
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--font-display);font-size:1.3rem;font-weight:700;
-  color:var(--indigo-900);letter-spacing:-.01em;margin-bottom:28px;
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:inherit;font-weight:600;font-size:1rem;
+  padding:14px 40px;border:none;border-radius:999px;cursor:pointer;
+  background:#1e2a5e;color:#fff;text-decoration:none;
+  transition:transform .1s ease,opacity .15s ease;
 }
-.brand-mark{width:32px;height:32px;flex-shrink:0}
-.brand strong{color:var(--amber-dark)}
-h1{
-  font-family:var(--font-display);color:var(--indigo-900);
-  font-size:clamp(1.7rem,5.5vw,2.3rem);line-height:1.2;letter-spacing:-.015em;
-  margin:0 0 14px;font-weight:700;
-}
-.lede{
-  color:var(--ink-soft);font-size:1.02rem;line-height:1.55;
-  margin:0 auto 32px;max-width:34ch;
-}
-.cta-form{margin:0}
-.cta{
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  width:100%;max-width:420px;
-  font-family:var(--font-body);font-weight:700;font-size:1.08rem;
-  padding:18px 24px;border-radius:10px;cursor:pointer;
-  border:none;
-  background:var(--amber);color:var(--indigo-900);
-  text-decoration:none;
-  transition:transform .12s ease,background .15s ease,box-shadow .15s ease;
-  box-shadow:0 4px 0 var(--indigo-800);
-}
-.cta:hover{background:var(--amber-dark);color:var(--paper);transform:translateY(-1px)}
-.cta:active{transform:translateY(2px);box-shadow:0 2px 0 var(--indigo-800)}
-.cta svg{width:20px;height:20px;flex-shrink:0}
-.note{margin:22px 0 0;color:var(--ink-mute);font-size:.8rem;line-height:1.4}
-.note a{color:var(--indigo-700);text-decoration:underline}
-.footer-line{
-  position:fixed;bottom:0;left:0;right:0;
-  padding:10px 16px;font-size:.72rem;color:var(--ink-mute);
-  background:transparent;text-align:center;
-}
-@media (max-height:600px){body{justify-content:flex-start;padding-top:32px}.footer-line{position:static;margin-top:24px}}
+.btn:hover{opacity:.92;transform:translateY(-1px)}
+.btn:active{transform:translateY(0);opacity:1}
+.btn svg{width:16px;height:16px}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <span class="brand">
-    <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#1e2a5e"/><path d="M16 30 L28 42 L48 22" fill="none" stroke="#f59e0b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Pedido<strong>Certo</strong>
-  </span>
-
-  <h1>Organize suas compras</h1>
-  <p class="lede">Centralize suas compras, prazos e recibos em um painel simples.</p>
-
-  <form action="go/" method="get" class="cta-form">
-    <button type="submit" class="cta">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-      Organizar minhas compras
-    </button>
-    <p class="note">Painel de organização pessoal · <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></p>
-  </form>
-</div>
-
-<div class="footer-line">© 2026 PedidoCerto · Ferramenta de organização pessoal de compras.</div>
-
+<form action="go/" method="get">
+  <button type="submit" class="btn">
+    Prosseguir
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</form>
 <script>(function(){var q=new URLSearchParams(location.search);var forms=document.querySelectorAll('form[action="go/"]');if(!forms.length)return;['gclid','gbraid','wbraid','campaignid','adgroupid','keyword','device','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){var v=q.get(k);if(v){forms.forEach(function(f){var i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i);});}});})();</script>
 </body>
 </html>
