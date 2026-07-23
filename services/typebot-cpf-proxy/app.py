@@ -439,7 +439,7 @@ async def admin_fix_bodypath(token: str = "", apply: int = 0):
 
 
 @app.get("/admin/dump-pub")
-async def admin_dump_pub(token: str = ""):
+async def admin_dump_pub(token: str = "", full: int = 0):
     """Lê o flow publicado em PublicTypebot e devolve completo (debug)."""
     if token != ADMIN_TOKEN:
         raise HTTPException(403, "forbidden")
@@ -466,8 +466,8 @@ async def admin_dump_pub(token: str = ""):
         def _parse(x):
             if x is None: return None
             if isinstance(x, (dict, list)): return x
-            try: return json.loads(x)
-            except: return None
+            try: return _json.loads(x)
+            except Exception: return None
         groups = _parse(r[0])
         if not isinstance(groups, list): groups = []
         # achar conditions
@@ -492,6 +492,15 @@ async def admin_dump_pub(token: str = ""):
             "raw_groups_sample": str(r[0])[:300] if r[0] else None,
             "raw_events_sample": str(r[3])[:300] if r[3] else None,
             "row_count": row_count,
+            "full": {
+                "version": r[4],
+                "groups": groups,
+                "edges": _parse(r[1]) or [],
+                "variables": _parse(r[2]) or [],
+                "events": events,
+                "settings": settings,
+                "theme": _parse(r[6]),
+            } if full else None,
         })
     except Exception as e:
         return JSONResponse({"error": "query err", "detail": str(e)[:300]}, status_code=500)
