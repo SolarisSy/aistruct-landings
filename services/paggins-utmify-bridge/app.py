@@ -72,9 +72,9 @@ def _now_utmify() -> str:
 def _record(outcome: str, payload: Any, **extra) -> None:
     import json as _json
     try:
-        raw = _json.dumps(payload)[:1600]
+        raw = _json.dumps(payload)[:8000]
     except Exception:
-        raw = str(payload)[:1600]
+        raw = str(payload)[:8000]
     RECENT.appendleft({"ts": _now_iso(), "outcome": outcome, "payload": raw, **extra})
 
 
@@ -125,14 +125,20 @@ def _extract_tracking(payload: dict) -> dict:
             if v not in (None, ""):
                 return _s(v)
         return None
-    src = pick("src", "gclid")
+    # gclid PRIMEIRO: o `src` do checkout vem do player vTurb (session v3_…_t-11_s-1)
+    # e mascarava o gclid → UTMify gravava utmSource=null e o Google Ads nunca
+    # recebia a conversão atribuída (2 vendas perdidas, 18–23/07).
+    gclid = pick("gclid")
+    src = gclid or pick("src")
     return {
         "src": src,
         "sck": pick("sck"),
-        "utm_source": pick("utm_source", "utmSource"),
-        "utm_campaign": pick("utm_campaign", "utmCampaign"),
+        # com gclid presente a origem é Google mesmo que o checkout não repasse utm_source
+        "utm_source": pick("utm_source", "utmSource") or ("google" if gclid else None),
+        "utm_campaign": pick("utm_campaign", "utmCampaign") or _s(_walk_find(payload, "campaignid")),
         "utm_medium": pick("utm_medium", "utmMedium"),
-        "utm_content": pick("utm_content", "utmContent"),
+        # creative = id do ANÚNCIO (vem do tracking template &creative={creative})
+        "utm_content": pick("utm_content", "utmContent") or _s(_walk_find(payload, "creative")),
         "utm_term": pick("utm_term", "utmTerm"),
     }
 
