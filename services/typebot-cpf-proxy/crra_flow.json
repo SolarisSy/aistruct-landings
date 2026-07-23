@@ -258,22 +258,22 @@
               {
                 "id": "ink9uxujb6wd92ovcg9m9u65",
                 "variableId": "vz7g962d8gpvkkwj92evgzhzk",
-                "bodyPath": "data.DADOS.nome"
+                "bodyPath": "response.data.data.DADOS.nome"
               },
               {
                 "id": "r2pgs2gezu5twwj0p6st66fj",
                 "variableId": "vrxub1f2egntlxe86oxkkullg",
-                "bodyPath": "data.DADOS.nome_mae"
+                "bodyPath": "response.data.data.DADOS.nome_mae"
               },
               {
                 "id": "w9c4fxq80h4dyzvcx9gop64e",
                 "variableId": "vawsl2tks1rmq3cvjt76eeyg3",
-                "bodyPath": "data.DADOS.data_nascimento"
+                "bodyPath": "response.data.data.DADOS.data_nascimento"
               },
               {
                 "id": "xglyj5h6d0gqk05x82rhhq3r",
                 "variableId": "vrgaxpklr55mm52r9tynlzyh5",
-                "bodyPath": "data.DADOS.sexo"
+                "bodyPath": "response.data.data.DADOS.sexo"
               }
             ],
             "webhook": {
@@ -1832,22 +1832,22 @@
               {
                 "id": "ink9uxujb6wd92ovcg9m9u65",
                 "variableId": "vz7g962d8gpvkkwj92evgzhzk",
-                "bodyPath": "data.DADOS.nome"
+                "bodyPath": "response.data.data.DADOS.nome"
               },
               {
                 "id": "r2pgs2gezu5twwj0p6st66fj",
                 "variableId": "vrxub1f2egntlxe86oxkkullg",
-                "bodyPath": "data.DADOS.nome_mae"
+                "bodyPath": "response.data.data.DADOS.nome_mae"
               },
               {
                 "id": "w9c4fxq80h4dyzvcx9gop64e",
                 "variableId": "vawsl2tks1rmq3cvjt76eeyg3",
-                "bodyPath": "data.DADOS.data_nascimento"
+                "bodyPath": "response.data.data.DADOS.data_nascimento"
               },
               {
                 "id": "xglyj5h6d0gqk05x82rhhq3r",
                 "variableId": "vrgaxpklr55mm52r9tynlzyh5",
-                "bodyPath": "data.DADOS.sexo"
+                "bodyPath": "response.data.data.DADOS.sexo"
               }
             ],
             "webhook": {
@@ -2070,22 +2070,22 @@
               {
                 "id": "ink9uxujb6wd92ovcg9m9u65",
                 "variableId": "vz7g962d8gpvkkwj92evgzhzk",
-                "bodyPath": "data.DADOS.nome"
+                "bodyPath": "response.data.data.DADOS.nome"
               },
               {
                 "id": "r2pgs2gezu5twwj0p6st66fj",
                 "variableId": "vrxub1f2egntlxe86oxkkullg",
-                "bodyPath": "data.DADOS.nome_mae"
+                "bodyPath": "response.data.data.DADOS.nome_mae"
               },
               {
                 "id": "w9c4fxq80h4dyzvcx9gop64e",
                 "variableId": "vawsl2tks1rmq3cvjt76eeyg3",
-                "bodyPath": "data.DADOS.data_nascimento"
+                "bodyPath": "response.data.data.DADOS.data_nascimento"
               },
               {
                 "id": "xglyj5h6d0gqk05x82rhhq3r",
                 "variableId": "vrgaxpklr55mm52r9tynlzyh5",
-                "bodyPath": "data.DADOS.sexo"
+                "bodyPath": "response.data.data.DADOS.sexo"
               }
             ],
             "webhook": {
@@ -2119,22 +2119,22 @@
               {
                 "id": "ink9uxujb6wd92ovcg9m9u65",
                 "variableId": "vz7g962d8gpvkkwj92evgzhzk",
-                "bodyPath": "data.dados['0'].NOME"
+                "bodyPath": "response.data.data.dados['0'].NOME"
               },
               {
                 "id": "r2pgs2gezu5twwj0p6st66fj",
                 "variableId": "vrxub1f2egntlxe86oxkkullg",
-                "bodyPath": "data.dados['0'].NOME_MAE"
+                "bodyPath": "response.data.data.dados['0'].NOME_MAE"
               },
               {
                 "id": "w9c4fxq80h4dyzvcx9gop64e",
                 "variableId": "vawsl2tks1rmq3cvjt76eeyg3",
-                "bodyPath": "data.dados['0'].NASC"
+                "bodyPath": "response.data.data.dados['0'].NASC"
               },
               {
                 "id": "xglyj5h6d0gqk05x82rhhq3r",
                 "variableId": "vrgaxpklr55mm52r9tynlzyh5",
-                "bodyPath": "data.dados['0'].SEXO"
+                "bodyPath": "response.data.data.dados['0'].SEXO"
               }
             ],
             "webhook": {
