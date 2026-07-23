@@ -2428,7 +2428,8 @@
   "theme": {
     "general": {
       "background": {
-        "type": "None"
+        "type": "Color",
+        "content": "#FFC900"
       }
     },
     "chat": {
