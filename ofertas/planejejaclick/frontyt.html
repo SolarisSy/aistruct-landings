@@ -181,11 +181,15 @@
        integração nativa Kirvano. Sem trk.<dom>, sem bridge, sem RedTrack. -->
   <script>
   (function () {
-    var CO = "https://www.paggins.com/checkout/d0c1cd2c-b36f-4d85-8975-7f81c6a8514b";
+    var CO = "https://www.paggins.com/checkout/c27f7d88-674d-4279-a76b-82981929972e";
     if (!CO) return;
     var COBASE = CO.split('?')[0];
-    // migracao Paggins Fisico->Digital: repontar o botao do checkout velho p/ o novo
-    var OLDBASE = "https://www.paggins.com/checkout/2f13dd61-d0cc-4600-9b53-26380e7ddb27";
+    // Paggins troca o link do checkout de tempos em tempos (produto novo). O botao do
+    // player pode ter QUALQUER link antigo; reescreve todos p/ o COBASE atual.
+    var OLDBASES = [
+      "https://www.paggins.com/checkout/2f13dd61-d0cc-4600-9b53-26380e7ddb27",
+      "https://www.paggins.com/checkout/d0c1cd2c-b36f-4d85-8975-7f81c6a8514b"
+    ];
     var KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','src','cmpid'];
     function params() {
       var out = {};
@@ -199,7 +203,8 @@
     function withUtms(url) {
       try {
         if (typeof url !== 'string') return url;
-        if (url.indexOf(OLDBASE) === 0) { url = COBASE + url.slice(OLDBASE.length); }
+        for (var oi=0; oi<OLDBASES.length; oi++){ var ob=OLDBASES[oi];
+          if (url.indexOf(ob) === 0) { url = COBASE + url.slice(ob.length); break; } }
         if (url.indexOf(COBASE) !== 0) return url;
         var u = new URL(url);
         var pr = params();
