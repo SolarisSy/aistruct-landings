@@ -51,7 +51,7 @@ PLATFORM_NAME = os.environ.get("PLATFORM_NAME", "Paggins").strip()
 # Sem isso, pedidos de OUTROS produtos da loja iriam parar no UTMify do loto (contaminação).
 PRODUCT_ID_FILTER = os.environ.get("PRODUCT_ID_FILTER", "").strip() or None
 
-app = FastAPI(title="Paggins -> UTMify Bridge", version="1.0.0")
+app = FastAPI(title="Paggins -> UTMify Bridge", version="1.1.0")
 
 RECENT: deque = deque(maxlen=80)
 STATS = {"received": 0, "skipped_event": 0, "skipped_dedup": 0, "bad_sig": 0,
@@ -189,11 +189,11 @@ def _verify_sig(raw: bytes, sig: str | None) -> bool:
 
 @app.get("/")
 def root():
-    return {"service": "paggins-utmify-bridge", "version": "1.0.0",
+    return {"service": "paggins-utmify-bridge", "version": "1.1.0",
             "token_configured": bool(UTMIFY_API_TOKEN),
             "sig_required": PAGGINS_WEBHOOK_SECRET is not None,
             "utmify_orders_url": UTMIFY_ORDERS_URL,
-            "tracking_source": "_walk_find(src/gclid/utm_*) — link fixo pode não repassar; ver /debug/recent"}
+            "tracking_source": "gclid > src (v1.1.0) — creative->utm_content, campaignid->utm_campaign"}
 
 
 @app.get("/healthz")
