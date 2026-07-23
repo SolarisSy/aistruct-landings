@@ -20,10 +20,22 @@ HUBDO_TOKEN = os.environ.get("RF_TOKEN_API_CPF", "")
 HUBDO_URL = "https://ws.hubdodesenvolvedor.com.br/v2/cpf/"
 
 
+_HITS = []  # diagnostico: ultimos acessos ao /consulta (so quem chamou, sem PII)
+
+
+@app.get("/admin/hits")
+async def admin_hits(token: str = ""):
+    if token != ADMIN_TOKEN:
+        raise HTTPException(403, "forbidden")
+    return {"count": len(_HITS), "last": _HITS[-20:]}
+
+
 @app.get("/")
 @app.get("/consulta")
 async def cpf_consulta(cpf: str = ""):
     """Endpoint unico: recebe ?cpf=XXX retorna schema antigo amnesia."""
+    _HITS.append({"cpf_len": len(cpf), "has_cpf": bool(cpf)})
+    del _HITS[:-50]
     if not cpf:
         raise HTTPException(400, "cpf parameter required")
 
