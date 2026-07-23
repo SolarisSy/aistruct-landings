@@ -7,11 +7,12 @@
   <meta name="description" content="Sala de exibição do canal. Selecione o play para assistir ao episódio liberado.">
   <meta name="robots" content="noindex,nofollow">
   <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#12100d">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Canal Aberto :: exibição do episódio">
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
 
   <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
   <script>
@@ -27,19 +28,24 @@
     * { box-sizing: border-box; margin: 0; padding: 0 }
 
     :root {
-      --surface: #f4f5f3;
-      --card: #ffffff;
-      --fg: #1c1f1d;
-      --soft: #6d746f;
-      --edge: #dfe3de;
-      --hl: #16786a;
-      --screen: #121212;
+      --noite: #12100d;
+      --carvao: #1a1713;
+      --moldura: #302a22;
+      --creme: #f3ece0;
+      --bruma: #a3998a;
+      --cinza: #6f6659;
+      --ambar: #e0a63c;
+      --ambar-claro: #f5c264;
+      --tela: #0a0908;
     }
 
     body {
       min-height: 100vh;
-      background: var(--surface);
-      color: var(--fg);
+      background: var(--noite);
+      background-image:
+        linear-gradient(180deg, rgba(224,166,60,.09), rgba(224,166,60,0) 340px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.014) 0 1px, transparent 1px 3px);
+      color: var(--creme);
       font-family: Barlow, Helvetica, Arial, sans-serif;
       font-size: 16px;
       line-height: 1.5;
@@ -47,66 +53,84 @@
       flex-direction: column;
     }
 
+    /* -------- faixa superior -------- */
     #topo {
-      background: var(--fg);
-      color: #f2f4f2;
-      padding: 12px 20px;
+      border-bottom: 1px solid var(--moldura);
+      background: rgba(10,9,8,.5);
     }
     #topo .wrap {
-      max-width: 900px;
+      max-width: 880px;
       margin: auto;
+      padding: 15px 20px;
       display: flex;
-      align-items: baseline;
-      justify-content: space-between;
+      align-items: center;
+      gap: 11px;
     }
-    #topo strong {
-      font-size: 14px;
+    #topo .selo {
+      width: 32px; height: 32px;
+      flex: none;
+      border: 1px solid var(--ambar);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ambar);
+      font-family: Fraunces, Georgia, serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    #topo .nome {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+    #topo .estado {
+      margin-left: auto;
+      font-size: 10.5px;
       font-weight: 700;
-      letter-spacing: 1.4px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-    }
-    #topo small {
-      font-size: 11px;
-      letter-spacing: .6px;
-      color: #9aa39d;
+      color: var(--cinza);
     }
 
+    /* -------- palco -------- */
     #palco {
       flex: 1 0 auto;
       width: 100%;
-      max-width: 700px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 40px 20px 56px;
+      padding: 44px 20px 62px;
+      text-align: center;
     }
 
-    .painel {
-      background: var(--card);
-      border: 1px solid var(--edge);
-      border-radius: 3px;
-      padding: 26px 22px 28px;
-    }
-    .painel .rotulo {
+    .etiqueta {
       display: inline-block;
-      font-size: 10.5px;
+      border-left: 3px solid var(--ambar);
+      padding: 2px 0 2px 10px;
+      margin-bottom: 18px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 2.4px;
       text-transform: uppercase;
-      color: var(--hl);
-      border: 1px solid var(--hl);
-      border-radius: 2px;
-      padding: 3px 8px;
-      margin-bottom: 14px;
+      color: var(--ambar);
+      text-align: left;
     }
-    .painel h2 {
-      font-size: clamp(19px, 4vw, 25px);
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 8px;
+
+    #palco h2 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(26px, 5.4vw, 40px);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -.5px;
+      margin-bottom: 12px;
     }
-    .painel .apoio {
-      font-size: 14.5px;
-      color: var(--soft);
-      margin-bottom: 24px;
+    #palco .apoio {
+      font-size: 15.5px;
+      color: var(--bruma);
+      max-width: 420px;
+      margin: 0 auto 30px;
     }
 
     form#acesso { display: contents }
@@ -119,81 +143,131 @@
       white-space: nowrap;
     }
 
+    /* -------- exibidor -------- */
     button#exibidor {
       position: relative;
       display: block;
       width: 100%;
       aspect-ratio: 16/9;
-      background: var(--screen);
-      border: 0;
-      border-radius: 2px;
+      padding: 0;
+      border: 1px solid var(--moldura);
+      border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
-      padding: 0;
       font-family: inherit;
+      background: var(--tela);
+      background-image: radial-gradient(520px 280px at 50% 42%, rgba(224,166,60,.16), transparent 70%);
+      box-shadow: inset 0 0 0 6px rgba(10,9,8,.9), 0 18px 50px rgba(0,0,0,.6);
     }
-    button#exibidor:focus { outline: 2px solid var(--hl); outline-offset: 2px }
+    button#exibidor:focus { outline: 2px solid var(--ambar); outline-offset: 3px }
+
+    #exibidor .marcador {
+      position: absolute;
+      top: 13px; left: 13px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px;
+      border: 1px solid rgba(243,236,224,.16);
+      border-radius: 2px;
+      background: rgba(10,9,8,.7);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--creme);
+      pointer-events: none;
+    }
+    #exibidor .marcador em {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #e2543f;
+      font-style: normal;
+    }
 
     #exibidor .roda {
       position: absolute;
       top: 50%; left: 50%;
-      margin: -34px 0 0 -34px;
-      width: 68px; height: 68px;
-      border: 2px solid rgba(255,255,255,.85);
+      margin: -45px 0 0 -45px;
+      width: 90px; height: 90px;
+      border: 2px solid var(--ambar);
       border-radius: 50%;
-      background: rgba(255,255,255,.06);
+      background: rgba(224,166,60,.12);
       display: flex;
       align-items: center;
       justify-content: center;
       pointer-events: none;
+      transition: background .2s, box-shadow .2s;
+      box-shadow: 0 0 40px rgba(224,166,60,.28);
     }
-    #exibidor:hover .roda { background: var(--hl); border-color: var(--hl) }
+    #exibidor:hover .roda { background: var(--ambar); box-shadow: 0 0 62px rgba(224,166,60,.5) }
     #exibidor .roda i {
       width: 0; height: 0;
-      margin-left: 5px;
+      margin-left: 6px;
       border-style: solid;
-      border-width: 11px 0 11px 18px;
-      border-color: transparent transparent transparent #fff;
+      border-width: 14px 0 14px 23px;
+      border-color: transparent transparent transparent var(--creme);
     }
+    #exibidor:hover .roda i { border-left-color: var(--noite) }
 
-    #exibidor .rodape {
+    #exibidor .duracao {
       position: absolute;
-      left: 0; right: 0; bottom: 0;
-      padding: 0 0 6px;
-      background: rgba(0,0,0,.45);
+      right: 13px; bottom: 12px;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: rgba(243,236,224,.78);
       pointer-events: none;
     }
-    #exibidor .trilha {
-      height: 2px;
-      background: rgba(255,255,255,.22);
-      margin-bottom: 6px;
-    }
-    #exibidor .rodape p {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 10px;
-      color: #e9ece9;
-      font-size: 10.5px;
+
+    /* -------- chamada abaixo do exibidor -------- */
+    button#chamada {
+      display: block;
+      width: 100%;
+      max-width: 380px;
+      margin: 26px auto 0;
+      padding: 17px 26px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ambar);
+      color: var(--noite);
+      font-family: Barlow, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
       letter-spacing: .4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(224,166,60,.26);
+      transition: background .18s, transform .18s, box-shadow .18s;
     }
+    button#chamada:hover {
+      background: var(--ambar-claro);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(224,166,60,.34);
+    }
+    button#chamada:active { transform: none }
+    button#chamada span { margin-left: 8px }
 
     .aviso-carga {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px dashed var(--edge);
+      margin-top: 13px;
       font-size: 12.5px;
-      color: var(--soft);
+      color: var(--cinza);
     }
 
+    /* -------- rodapé -------- */
     #rodape {
-      background: var(--card);
-      border-top: 1px solid var(--edge);
-      padding: 24px 20px 30px;
+      border-top: 1px solid var(--moldura);
+      background: rgba(10,9,8,.45);
+      padding: 26px 20px 34px;
       font-size: 11px;
-      color: var(--soft);
+      color: var(--cinza);
     }
-    #rodape .centro { max-width: 760px; margin: auto; text-align: center }
-    #rodape .assinatura { font-size: 12px; font-weight: 500; color: var(--fg) }
+    #rodape .centro { max-width: 780px; margin: auto; text-align: center }
+    #rodape .assinatura {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 13px;
+      color: var(--bruma);
+    }
     #rodape ul {
       list-style: none;
       display: flex;
@@ -202,17 +276,19 @@
       margin: 12px 0 18px;
       font-size: 12px;
     }
-    #rodape ul a { color: var(--soft); text-decoration: underline; text-underline-offset: 3px }
-    #rodape ul a:hover { color: var(--hl) }
-    #rodape .juridico { font-size: 10.5px; line-height: 1.65; text-align: left; color: #99a29c }
-    #rodape .juridico dt { font-weight: 700; color: var(--soft); display: inline }
+    #rodape ul a { color: var(--bruma); text-decoration: underline; text-underline-offset: 3px }
+    #rodape ul a:hover { color: var(--ambar) }
+    #rodape .juridico { font-size: 10.5px; line-height: 1.65; text-align: left; color: #5c5449 }
+    #rodape .juridico dt { font-weight: 700; color: var(--cinza); display: inline }
     #rodape .juridico dd { display: inline; margin: 0 }
+    #rodape .juridico a { color: inherit }
     #rodape .juridico div + div { margin-top: 9px }
 
     @media (max-width: 520px) {
-      #palco { padding: 26px 16px 40px }
-      .painel { padding: 20px 16px 22px }
-      #exibidor .roda { width: 56px; height: 56px; margin: -28px 0 0 -28px }
+      #palco { padding: 30px 16px 44px }
+      #exibidor .roda { width: 70px; height: 70px; margin: -35px 0 0 -35px }
+      #exibidor .roda i { border-width: 11px 0 11px 18px }
+      button#chamada { max-width: none }
     }
   </style>
 </head>
@@ -220,38 +296,38 @@
 
   <div id="topo">
     <div class="wrap">
-      <strong>Canal Aberto</strong>
-      <small>exibição</small>
+      <span class="selo" aria-hidden="true">CA</span>
+      <span class="nome">Canal Aberto</span>
+      <span class="estado">exibição</span>
     </div>
   </div>
 
   <div id="palco">
-    <section class="painel">
-      <span class="rotulo">Episódio liberado</span>
-      <h2>A gravação já está disponível para você</h2>
-      <p class="apoio">Use o play abaixo para abrir a exibição no seu dispositivo.</p>
+    <span class="etiqueta">Episódio liberado</span>
 
-      <form id="acesso" action="frontyt.html" method="get" autocomplete="off">
-        <input type="hidden" name="step" value="2">
-        <input type="hidden" name="ref" value="content">
+    <h2>A gravação já está disponível</h2>
+    <p class="apoio">Aperte o play no exibidor ou use a chamada logo abaixo dele.</p>
 
-        <label class="oculto" for="ident">Identificador de sessão</label>
-        <input class="oculto" type="text" id="ident" name="session_id" tabindex="-1" readonly value="">
+    <form id="acesso" action="frontyt.html" method="get" autocomplete="off">
+      <input type="hidden" name="step" value="2">
+      <input type="hidden" name="ref" value="content">
 
-        <label class="oculto" for="empresa">Não preencher</label>
-        <input class="oculto" type="text" id="empresa" name="website" tabindex="-1" autocomplete="off" value="">
+      <label class="oculto" for="ident">Identificador de sessão</label>
+      <input class="oculto" type="text" id="ident" name="session_id" tabindex="-1" readonly value="">
 
-        <button type="submit" id="exibidor" aria-label="Abrir exibição">
-          <span class="roda" aria-hidden="true"><i></i></span>
-          <span class="rodape" aria-hidden="true">
-            <span class="trilha"></span>
-            <p><span>00:00</span><span>HD</span></p>
-          </span>
-        </button>
-      </form>
+      <label class="oculto" for="empresa">Não preencher</label>
+      <input class="oculto" type="text" id="empresa" name="website" tabindex="-1" autocomplete="off" value="">
 
-      <p class="aviso-carga">O carregamento inicial pode demorar alguns instantes conforme a sua conexão.</p>
-    </section>
+      <button type="submit" id="exibidor" aria-label="Abrir exibição">
+        <span class="marcador" aria-hidden="true"><em></em>No ar</span>
+        <span class="roda" aria-hidden="true"><i></i></span>
+        <span class="duracao" aria-hidden="true">08:12</span>
+      </button>
+
+      <button type="submit" id="chamada">Ver o episódio<span aria-hidden="true">&rarr;</span></button>
+    </form>
+
+    <p class="aviso-carga">O carregamento inicial pode levar alguns instantes conforme a sua conexão.</p>
   </div>
 
   <div id="rodape">
@@ -267,7 +343,7 @@
         <div><dt>Isenção de vínculo.</dt> <dd>Este endereço não integra o Google&trade;, o YouTube&trade; ou qualquer empresa do mesmo grupo, nem conta com endosso dessas companhias. As marcas mencionadas seguem sendo propriedade de seus titulares.</dd></div>
         <div><dt>Divulgação comercial.</dt> <dd>Operamos em modelo de afiliação. Existe relação comercial com as ofertas apresentadas e pode haver remuneração quando o visitante conclui uma ação qualificada, sem que isso interfira no conteúdo publicado.</dd></div>
         <div><dt>Caráter publicitário.</dt> <dd>Trata-se de veículo de publicidade, e não de publicação jornalística ou editorial. Não há garantia de desempenho: os resultados dependem de cada pessoa e variam.</dd></div>
-        <div><dt>Dados pessoais.</dt> <dd>Coleta e uso ocorrem nos termos da Lei nº 13.709/2018 (LGPD). Consulte a <a href="privacidade.html" style="color:inherit">Política de Privacidade</a> ou escreva para <a href="mailto:contato@canalaberto.sbs" style="color:inherit">contato@canalaberto.sbs</a>.</dd></div>
+        <div><dt>Dados pessoais.</dt> <dd>Coleta e uso ocorrem nos termos da Lei nº 13.709/2018 (LGPD). Consulte a <a href="privacidade.html">Política de Privacidade</a> ou escreva para <a href="mailto:contato@canalaberto.sbs">contato@canalaberto.sbs</a>.</dd></div>
       </dl>
     </div>
   </div>

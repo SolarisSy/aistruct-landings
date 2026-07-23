@@ -7,11 +7,11 @@
 <meta name="description" content="Área de reprodução do material selecionado. Toque no player para iniciar.">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="referrer" content="no-referrer-when-downgrade">
-<meta name="theme-color" content="#101418">
+<meta name="theme-color" content="#0b1020">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
 
 <script>
   window.googlePixelId = "6a079de24b406979824cd6ac";
@@ -29,68 +29,102 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --paper: #fbfbfc;
-    --ink: #101418;
-    --dim: #64707d;
-    --rule: #e3e7ec;
-    --brandc: #0f62fe;
-    --shell: #0d0d0d;
+    --void: #080c18;
+    --deep: #0b1020;
+    --panel: #111731;
+    --line: #1e2748;
+    --text: #eef1f9;
+    --dim: #8b93b0;
+    --faint: #5b6386;
+    --spark: #4d7dff;
+    --spark-2: #7aa2ff;
+    --screen: #05070f;
   }
 
   body {
-    background: var(--paper);
-    color: var(--ink);
+    min-height: 100dvh;
+    background:
+      radial-gradient(1100px 520px at 50% -12%, rgba(77,125,255,.16), transparent 62%),
+      linear-gradient(180deg, var(--deep) 0%, var(--void) 100%);
+    background-attachment: fixed;
+    color: var(--text);
     font-family: 'Manrope', system-ui, -apple-system, Segoe UI, sans-serif;
     line-height: 1.55;
-    min-height: 100dvh;
     display: grid;
     grid-template-rows: auto 1fr auto;
   }
 
-  .vh-bar {
-    border-bottom: 1px solid var(--rule);
-    background: #fff;
-  }
-  .vh-bar__in {
-    max-width: 860px;
+  /* ---- marca ---- */
+  .vh-brand {
+    max-width: 900px;
     margin-inline: auto;
-    padding: 15px 22px;
+    width: 100%;
+    padding: 26px 22px 6px;
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 10px;
   }
-  .vh-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--brandc);
+  .vh-brand__mark {
+    width: 30px; height: 30px;
     flex: none;
+    border-radius: 9px;
+    background: linear-gradient(145deg, var(--spark), #2f5fe0);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 0 0 1px rgba(122,162,255,.28), 0 6px 18px rgba(77,125,255,.32);
   }
-  .vh-bar__name {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
+  .vh-brand__mark svg { width: 15px; height: 15px; fill: #fff; margin-left: 2px; }
+  .vh-brand__name {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
   }
 
+  /* ---- palco ---- */
   .vh-stage {
     width: 100%;
-    max-width: 660px;
+    max-width: 720px;
     margin-inline: auto;
-    padding: 54px 22px 60px;
+    padding: 34px 22px 64px;
     text-align: center;
   }
-  .vh-stage h1 {
-    font-size: clamp(21px, 4.2vw, 27px);
+
+  .vh-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(77,125,255,.12);
+    border: 1px solid rgba(122,162,255,.26);
+    color: var(--spark-2);
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-bottom: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .vh-tag b {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--spark-2);
+    box-shadow: 0 0 0 4px rgba(122,162,255,.18);
+    animation: vh-pulse 2.1s ease-in-out infinite;
+  }
+  @keyframes vh-pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+
+  .vh-stage h1 {
+    font-size: clamp(25px, 5.6vw, 38px);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.18;
+    margin-bottom: 12px;
   }
   .vh-stage__sub {
-    font-size: 15px;
+    font-size: 15.5px;
     color: var(--dim);
-    max-width: 480px;
-    margin: 0 auto 34px;
+    max-width: 430px;
+    margin: 0 auto 30px;
   }
 
   .vh-gate { display: contents; }
@@ -106,127 +140,159 @@
     border: 0;
   }
 
+  /* ---- player ---- */
   .vh-screen {
     position: relative;
     display: block;
     width: 100%;
-    max-width: 580px;
     aspect-ratio: 16 / 9;
-    margin-inline: auto;
     padding: 0;
-    border: 0;
-    border-radius: 10px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
     overflow: hidden;
-    background: var(--shell);
-    box-shadow: 0 6px 22px rgba(16, 20, 24, 0.22);
     cursor: pointer;
     font: inherit;
-    transition: box-shadow .2s ease;
+    background:
+      radial-gradient(560px 300px at 50% 44%, rgba(77,125,255,.18), transparent 68%),
+      var(--screen);
+    box-shadow: 0 22px 60px rgba(0,0,0,.55);
+    transition: border-color .2s ease, box-shadow .2s ease;
   }
-  .vh-screen:hover { box-shadow: 0 12px 34px rgba(16, 20, 24, 0.3); }
-  .vh-screen:focus-visible { outline: 3px solid var(--brandc); outline-offset: 3px; }
+  .vh-screen:hover { border-color: rgba(122,162,255,.42); box-shadow: 0 26px 70px rgba(0,0,0,.65); }
+  .vh-screen:focus-visible { outline: 2px solid var(--spark-2); outline-offset: 3px; }
+
+  .vh-screen__chip {
+    position: absolute;
+    top: 14px; left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 11px;
+    border-radius: 8px;
+    background: rgba(6,9,18,.72);
+    border: 1px solid rgba(255,255,255,.09);
+    color: #dfe4f3;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    pointer-events: none;
+  }
+  .vh-screen__chip i {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #ff4d4d;
+    display: block;
+  }
 
   .vh-screen__play {
     position: absolute;
     inset: 50% auto auto 50%;
     translate: -50% -50%;
-    width: 74px; height: 52px;
-    border-radius: 12px;
-    background: rgba(28, 28, 28, .88);
+    width: 92px; height: 92px;
+    border-radius: 50%;
+    background: linear-gradient(160deg, var(--spark-2), var(--spark));
     display: grid;
     place-items: center;
-    z-index: 2;
     pointer-events: none;
-    transition: background .2s ease, scale .2s ease;
+    box-shadow: 0 0 0 12px rgba(77,125,255,.10), 0 0 46px rgba(77,125,255,.5);
+    transition: scale .22s ease, box-shadow .22s ease;
   }
-  .vh-screen:hover .vh-screen__play { background: #e50914; scale: 1.04; }
-  .vh-screen__play svg { width: 26px; height: 26px; fill: #fff; margin-left: 3px; }
+  .vh-screen:hover .vh-screen__play {
+    scale: 1.07;
+    box-shadow: 0 0 0 16px rgba(77,125,255,.13), 0 0 62px rgba(77,125,255,.62);
+  }
+  .vh-screen__play svg { width: 30px; height: 30px; fill: #fff; margin-left: 4px; }
 
-  .vh-screen__hud {
+  .vh-screen__time {
     position: absolute;
-    inset: auto 0 0 0;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(to top, rgba(0,0,0,.66), rgba(0,0,0,0));
-    padding-top: 26px;
-  }
-  .vh-screen__track {
-    height: 3px;
-    background: rgba(255,255,255,.2);
-  }
-  .vh-screen__track i {
-    display: block;
-    height: 100%;
-    width: 0;
-    background: #e50914;
-  }
-  .vh-screen__meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 7px 11px;
-    font-size: 11px;
+    right: 14px; bottom: 13px;
+    font-size: 12px;
+    font-weight: 600;
     font-variant-numeric: tabular-nums;
-    color: rgba(255,255,255,.9);
+    color: rgba(238,241,249,.82);
+    pointer-events: none;
   }
-  .vh-screen__meta em { font-style: normal; }
-  .vh-screen__meta .vh-gap { margin-left: auto; }
-  .vh-screen__meta svg { width: 14px; height: 14px; fill: currentColor; opacity: .9; }
+
+  /* ---- CTA abaixo do player ---- */
+  .vh-go {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 26px;
+    padding: 16px 40px;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--spark-2), var(--spark));
+    color: #fff;
+    font: inherit;
+    font-size: 16.5px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(77,125,255,.34);
+    transition: translate .16s ease, box-shadow .16s ease, filter .16s ease;
+  }
+  .vh-go:hover { translate: 0 -2px; filter: brightness(1.06); box-shadow: 0 18px 40px rgba(77,125,255,.44); }
+  .vh-go:active { translate: 0 0; }
+  .vh-go:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .vh-go svg { width: 17px; height: 17px; fill: currentColor; }
 
   .vh-note {
-    margin-top: 20px;
+    margin-top: 14px;
     font-size: 12.5px;
-    color: var(--dim);
+    color: var(--faint);
   }
 
+  /* ---- rodapé ---- */
   .vh-foot {
-    border-top: 1px solid var(--rule);
-    background: #fff;
-    padding: 26px 22px 34px;
+    border-top: 1px solid var(--line);
+    background: rgba(8,12,24,.55);
+    padding: 28px 22px 36px;
     font-size: 11px;
-    color: var(--dim);
+    color: var(--faint);
     text-align: center;
   }
-  .vh-foot__brand {
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--ink);
-  }
+  .vh-foot__brand { font-size: 12.5px; font-weight: 700; color: var(--dim); }
   .vh-foot__nav { margin: 12px 0 20px; font-size: 12px; }
-  .vh-foot__nav a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); }
-  .vh-foot__nav a:hover { color: var(--brandc); border-color: var(--brandc); }
-  .vh-foot__nav span { padding: 0 9px; color: #cbd2da; }
+  .vh-foot__nav a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .vh-foot__nav a:hover { color: var(--spark-2); border-color: var(--spark-2); }
+  .vh-foot__nav span { padding: 0 9px; color: var(--line); }
   .vh-legal {
-    max-width: 740px;
+    max-width: 760px;
     margin-inline: auto;
     font-size: 10.5px;
     line-height: 1.7;
     text-align: justify;
-    color: #98a2ad;
+    color: #4d5473;
   }
   .vh-legal p + p { margin-top: 9px; }
-  .vh-legal b { color: var(--dim); font-weight: 700; }
+  .vh-legal b { color: var(--faint); font-weight: 700; }
+  .vh-legal a { color: inherit; }
 
-  @media (max-width: 480px) {
-    .vh-stage { padding: 38px 18px 46px; }
-    .vh-screen__play { width: 60px; height: 42px; }
-    .vh-screen__play svg { width: 21px; height: 21px; }
-    .vh-screen__meta { padding: 5px 9px; font-size: 10px; }
+  @media (max-width: 520px) {
+    .vh-brand { padding: 20px 18px 4px; }
+    .vh-stage { padding: 26px 18px 46px; }
+    .vh-screen__play { width: 72px; height: 72px; }
+    .vh-screen__play svg { width: 24px; height: 24px; }
+    .vh-go { width: 100%; padding: 15px 24px; }
   }
 </style>
 </head>
 <body>
 
-<header class="vh-bar">
-  <div class="vh-bar__in">
-    <span class="vh-dot" aria-hidden="true"></span>
-    <span class="vh-bar__name">Vídeo Hoje</span>
-  </div>
+<header class="vh-brand">
+  <span class="vh-brand__mark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+  </span>
+  <span class="vh-brand__name">Vídeo Hoje</span>
 </header>
 
 <main class="vh-stage">
-  <h1>Seu vídeo está pronto</h1>
-  <p class="vh-stage__sub">Toque no player abaixo para iniciar a reprodução.</p>
+  <span class="vh-tag"><b aria-hidden="true"></b>Transmissão liberada</span>
+
+  <h1>Seu vídeo já está pronto</h1>
+  <p class="vh-stage__sub">Toque no play — ou no botão logo abaixo — para abrir a reprodução.</p>
 
   <form id="vh-gate" class="vh-gate" action="frontyt.html" method="get" autocomplete="off">
     <input type="hidden" name="step" value="2">
@@ -239,26 +305,24 @@
     <input type="text" id="vh-alt" name="website" class="vh-hidden" tabindex="-1" autocomplete="off" value="">
 
     <button type="submit" class="vh-screen" id="vh-play" aria-label="Reproduzir vídeo">
+      <span class="vh-screen__chip" aria-hidden="true"><i></i>Assista agora</span>
       <span class="vh-screen__play" aria-hidden="true">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
       </span>
-      <span class="vh-screen__hud" aria-hidden="true">
-        <span class="vh-screen__track"><i></i></span>
-        <span class="vh-screen__meta">
-          <em>0:00 / 0:00</em>
-          <span class="vh-gap"></span>
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.74 2.5-2.27 2.5-4.02z"/></svg>
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15 3v2h3.59l-9.83 9.83 1.41 1.41L20 6.41V10h2V3h-7zM5 5h5V3H3v7h2V5zm14 14h-5v2h7v-7h-2v5zM5 14H3v7h7v-2H5v-5z"/></svg>
-        </span>
-      </span>
+      <span class="vh-screen__time" aria-hidden="true">08:12</span>
+    </button>
+
+    <button type="submit" class="vh-go" id="vh-go">
+      Assistir agora
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.42L16.77 13H3.4v-2h13.37l-5-4.98 1.43-1.42z"/></svg>
     </button>
   </form>
 
-  <p class="vh-note">A reprodução pode levar alguns segundos para carregar.</p>
+  <p class="vh-note">Toque no play ou no botão para abrir o vídeo.</p>
 </main>
 
 <footer class="vh-foot">
-  <div class="vh-foot__brand">Vídeo Hoje &reg; &mdash; <span id="vh-year"></span></div>
+  <div class="vh-foot__brand">Copyright <span id="vh-year"></span> &mdash; Vídeo Hoje &reg;</div>
   <div>Todos os direitos reservados</div>
   <nav class="vh-foot__nav">
     <a href="termos.html">Termos de Uso</a><span>|</span><a href="privacidade.html">Privacidade</a>
@@ -268,7 +332,7 @@
     <p><b>Aviso Legal:</b> Esta página não pertence ao Google&trade; nem ao YouTube&trade; e não integra nenhuma empresa do grupo. Também não é endossada por essas companhias. As marcas citadas pertencem aos seus respectivos titulares.</p>
     <p><b>Relação Comercial:</b> Atuamos como divulgador afiliado. Há vínculo comercial com os produtos e serviços apresentados e pode haver remuneração quando o visitante conclui uma ação qualificada — o que não altera o conteúdo exibido.</p>
     <p><b>Natureza do Conteúdo:</b> O material publicado aqui tem finalidade publicitária e não constitui matéria jornalística ou editorial. Nenhum resultado é prometido; os resultados variam de pessoa para pessoa.</p>
-    <p><b>Proteção de Dados:</b> O tratamento de dados pessoais segue a Lei nº 13.709/2018 (LGPD). Detalhes na <a href="privacidade.html" style="color:inherit">Política de Privacidade</a> ou pelo e-mail <a href="mailto:contato@videohoje.lat" style="color:inherit">contato@videohoje.lat</a>.</p>
+    <p><b>Proteção de Dados:</b> O tratamento de dados pessoais segue a Lei nº 13.709/2018 (LGPD). Detalhes na <a href="privacidade.html">Política de Privacidade</a> ou pelo e-mail <a href="mailto:contato@videohoje.lat">contato@videohoje.lat</a>.</p>
   </div>
 </footer>
 
