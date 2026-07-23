@@ -384,16 +384,7 @@
               }
             }
           ],
-          "options": {
-            "comparisons": [
-              {
-                "id": "mj0o40ytmx7c59tnn62md8fl",
-                "variableId": "vjbiwltmtjd2ndvnz0u8wr8o1",
-                "comparisonOperator": "Is empty"
-              }
-            ],
-            "logicalOperator": "AND"
-          }
+          "options": {}
         },
         {
           "id": "mykc1pqzocy2mimnxuow4l1r",
@@ -2275,16 +2266,6 @@
       "to": {
         "groupId": "twcmfpf673mnt133gotr27jp",
         "blockId": "qj1b85jgzax9ttur2kwx6sn3"
-      }
-    },
-    {
-      "id": "edgedefault_crra_crra",
-      "from": {
-        "blockId": "qj1b85jgzax9ttur2kwx6sn3"
-      },
-      "to": {
-        "groupId": "twcmfpf673mnt133gotr27jp",
-        "blockId": "mykc1pqzocy2milbk9aw8lrb"
       }
     }
   ],
