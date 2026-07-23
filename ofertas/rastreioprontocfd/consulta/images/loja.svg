@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Loja">
-  <g fill="none" stroke="#00416b" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M28 46l8-18h56l8 18"/>
-    <path d="M22 46h84l-6 18H28z"/>
-    <path d="M32 64v44h64V64"/>
-    <path d="M52 108V82h24v26"/>
-  </g>
-</svg>
-

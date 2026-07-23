@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /go/
-Disallow: /chat/
-Disallow: /rastreio/
 
 Sitemap: https://rastreiopronto.cfd/sitemap.xml
