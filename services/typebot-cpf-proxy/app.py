@@ -438,6 +438,57 @@ async def admin_fix_bodypath(token: str = "", apply: int = 0):
         except Exception: pass
 
 
+@app.get("/admin/dump-pub")
+async def admin_dump_pub(token: str = ""):
+    """Lê o flow publicado em PublicTypebot e devolve completo (debug)."""
+    if token != ADMIN_TOKEN:
+        raise HTTPException(403, "forbidden")
+    if not PG_URL:
+        return JSONResponse({"error": "TYPEBOT_DATABASE_URL not set"}, status_code=500)
+    try:
+        conn = _pg_connect()
+    except Exception as e:
+        return JSONResponse({"error": "pg connect err", "detail": str(e)[:300]}, status_code=500)
+    try:
+        cur = conn.cursor()
+        cur.execute(
+            'SELECT "groups"::text, "edges"::text, "variables"::text, "events"::text, '
+            '"version", "settings"::text, "theme"::text '
+            'FROM "PublicTypebot" WHERE "typebotId" = %s;',
+            ("cmref0a45f0f96f4084a4",),
+        )
+        r = cur.fetchone()
+        if not r:
+            return JSONResponse({"error": "no PublicTypebot row"})
+        def _parse(x):
+            if x is None: return None
+            try: return json.loads(x) if isinstance(x, str) else x
+            except: return str(x)[:200]
+        groups = _parse(r[0]) or []
+        # achar conditions
+        conds = []
+        for g in groups:
+            for b in g.get("blocks", []):
+                if b.get("type") == "Condition":
+                    conds.append({"id": b.get("id"), "options": b.get("options", {})})
+        return JSONResponse({
+            "groups_count": len(groups),
+            "edges_count": len(_parse(r[1]) or []),
+            "vars_count": len(_parse(r[2]) or []),
+            "events": _parse(r[3]),
+            "version": r[4],
+            "conditions": conds,
+            "settings_keys": list((_parse(r[5]) or {}).keys()) if isinstance(_parse(r[5]), dict) else str(_parse(r[5]))[:100],
+        })
+    except Exception as e:
+        return JSONResponse({"error": "query err", "detail": str(e)[:300]}, status_code=500)
+    finally:
+        try: cur.close()
+        except: pass
+        try: conn.close()
+        except: pass
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8080)
