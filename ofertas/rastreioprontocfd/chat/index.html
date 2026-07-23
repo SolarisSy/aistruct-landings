@@ -32,32 +32,31 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         typebot-standard:defined ~ #loader { display: none; }
-        typebot-standard { display: block; width: 100%; height: calc(100vh - 54px); height: calc(100dvh - 54px); }
-        /* header oficial dos Correios */
-        #correios-header {
-            position: sticky; top: 0; left: 0; width: 100%; height: 54px;
-            background: #00478F; display: flex; align-items: center; gap: 10px;
-            padding: 0 16px; z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,.18);
+        typebot-standard { display: block; width: 100%; height: calc(100vh - 3rem); height: calc(100dvh - 3rem); }
+        /* header oficial dos Correios — o MESMO da /consulta/ (#menu, logo logonovo.png) */
+        #menu {
+            font-family: 'Trebuchet MS', arial, helvetica, sans-serif;
+            height: 3rem; z-index: 10; position: sticky; top: 0; width: 100%;
+            display: flex; align-items: center;
+            border-top: 1px solid #fff; border-bottom: 1px solid #ffd400;
+            padding: 0.5rem 0.75rem;
+            background: url("../consulta/images/logonovo.png") no-repeat center #f5f3f0;
+            background-size: auto 50%;
         }
-        #correios-header .logo { width: 34px; height: 34px; flex: none; }
-        #correios-header .wm {
-            color: #fff; font-weight: 800; font-size: 1.4rem; letter-spacing: .01em;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        #correios-header .wm b { color: #FFD400; }
-        #loader { top: 54px; }
+        #menu > a { display: flex; align-items: center; padding: 0 1rem; height: 2rem; }
+        #menu .hamburger { flex: 0 0 2rem; margin-right: 1rem; }
+        #menu .logo { flex: 1 1 auto; padding-left: 0; }
+        #menu .pesquisar { display: none; }
+        #loader { top: 3rem; }
     </style>
 </head>
 
 <body>
-    <header id="correios-header">
-        <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-label="Correios">
-            <circle cx="50" cy="50" r="46" fill="#FFD400"/>
-            <path d="M28 42 Q50 26 72 42 L72 60 Q50 74 28 60 Z" fill="#00478F"/>
-            <circle cx="50" cy="50" r="7" fill="#FFD400"/>
-        </svg>
-        <span class="wm">Correios</span>
-    </header>
+    <section id="menu">
+        <a class="hamburger" tabindex="1"></a>
+        <a class="logo" href=""></a>
+        <a class="pesquisar"></a>
+    </section>
     <typebot-standard id="typebot-embed"></typebot-standard>
 
     <div id="loader">
