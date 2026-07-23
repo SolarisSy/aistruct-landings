@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reading notes you actually reuse · Daily Clarity</title>
+<meta name="description" content="Most notes are written once and never opened again. A few simple constraints change that ratio more than any app ever will.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://dailyclarity.sbs/reading-notes-you-actually-reuse.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b4531f'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23fdf7f0' text-anchor='middle'%3EDC%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Daily Clarity">
+<meta property="og:title" content="Reading notes you actually reuse · Daily Clarity"><meta property="og:description" content="Most notes are written once and never opened again. A few simple constraints change that ratio more than any app ever will.">
+<meta property="og:url" content="https://dailyclarity.sbs/reading-notes-you-actually-reuse.html">
+<meta property="og:image" content="https://dailyclarity.sbs/img/reading-notes-you-actually-reuse.jpg">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fdf7f0;color:#241c16;
+ font:17px/1.72 "Iowan Old Style","Palatino Linotype",Georgia,serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:#b4531f;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.k{font:600 11px/1 ui-sans-serif,"Helvetica Neue",Arial,sans-serif;letter-spacing:.16em;
+ text-transform:uppercase;color:#8a7b6d}
+.shell{max-width:1080px;margin:0 auto;padding:0 22px}
+header.top{border-bottom:1px solid #e4d7c8;padding:22px 0 16px;margin-bottom:34px}
+.brandrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.brand{font-size:1.5rem;font-weight:600;letter-spacing:-.015em;color:#241c16}
+.brand span{color:#b4531f}
+.tag{color:#6f6053;font-size:.92rem;max-width:520px}
+nav.main{margin-top:14px;display:flex;gap:20px;flex-wrap:wrap}
+nav.main a{font:600 12px/1 ui-sans-serif,Arial,sans-serif;letter-spacing:.1em;
+ text-transform:uppercase;color:#4a5a3f}
+.lead{display:grid;grid-template-columns:1.55fr .95fr;gap:44px;align-items:start}
+@media(max-width:860px){.lead{grid-template-columns:1fr;gap:30px}}
+.lead figure{margin:0 0 18px}
+.lead figure img{aspect-ratio:16/9;object-fit:cover;border-radius:2px}
+h1.hed{font-size:2.35rem;line-height:1.14;letter-spacing:-.02em;margin:10px 0 8px}
+@media(max-width:600px){h1.hed{font-size:1.8rem}}
+.dek{font-size:1.08rem;color:#4b4038}
+.rail{border-left:1px solid #e4d7c8;padding-left:26px}
+@media(max-width:860px){.rail{border-left:0;padding-left:0;border-top:1px solid #e4d7c8;padding-top:24px}}
+.rail ol{list-style:none;counter-reset:r;margin:14px 0 0;padding:0}
+.rail li{counter-increment:r;padding:13px 0;border-bottom:1px dotted #ddcdba}
+.rail li:before{content:counter(r,decimal-leading-zero);font:600 11px ui-sans-serif,Arial,sans-serif;
+ color:#b4531f;margin-right:9px}
+.rail a{color:#241c16;font-size:1rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 30px;margin:52px 0 10px}
+@media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr);gap:28px 22px}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.card .thumb{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:2px;background:#eadfd2}
+.card .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card h3{font-size:1.14rem;line-height:1.28;margin:12px 0 6px;letter-spacing:-.01em}
+.card h3 a{color:#241c16}
+.card p{margin:0;color:#6f6053;font-size:.95rem}
+.sec-rule{display:flex;align-items:center;gap:14px;margin:56px 0 0}
+.sec-rule:after{content:"";flex:1;height:1px;background:#e4d7c8}
+.note{background:#f4eadd;border:1px solid #e4d7c8;padding:20px 22px;margin:44px 0 0}
+.strip{border:1px solid #e4d7c8;border-left:3px solid #b4531f;padding:20px 22px;margin:48px 0 0}
+.strip h4{margin:0 0 6px;font-size:1.05rem}
+.strip p{margin:0;color:#5b4f45;font-size:.96rem}
+form.news{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+form.news input{flex:1;min-width:200px;padding:11px 12px;border:1px solid #d9c9b7;background:#fff;
+ font:15px Georgia,serif;border-radius:2px}
+form.news button{padding:11px 18px;border:0;background:#b4531f;color:#fdf7f0;border-radius:6px;
+ font:600 13px ui-sans-serif,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+form.news button:hover{background:#963f10}
+footer{margin:78px 0 0;border-top:1px solid #e4d7c8;padding:26px 0 46px;color:#8a7b6d;font-size:.9rem}
+footer a{color:#6f6053}
+footer .fl{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:10px}
+/* artigo */
+.art{max-width:690px;margin:0 auto}
+.crumb{font:600 11px ui-sans-serif,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8a7b6d}
+.art h1{font-size:2.1rem;line-height:1.16;letter-spacing:-.02em;margin:12px 0 10px}
+@media(max-width:600px){.art h1{font-size:1.65rem}}
+.byline{color:#8a7b6d;font-size:.92rem;border-bottom:1px solid #e4d7c8;padding-bottom:16px}
+.art figure{margin:26px 0 30px}
+.art figure img{aspect-ratio:16/9;object-fit:cover;border-radius:2px}
+.art figcaption{color:#8a7b6d;font-size:.84rem;margin-top:7px}
+.art h2{font-size:1.28rem;letter-spacing:-.01em;margin:36px 0 2px}
+.art p{margin:14px 0}
+.short{background:#f7efe4;border:1px solid #e4d7c8;padding:18px 22px;margin:30px 0}
+.short .k{color:#b4531f}
+.short ul{margin:10px 0 0;padding-left:18px}
+.short li{margin:6px 0;font-size:.97rem}
+.also{margin-top:52px;border-top:1px solid #e4d7c8;padding-top:22px}
+.also .grid{margin-top:20px;grid-template-columns:repeat(3,1fr)}
+@media(max-width:700px){.also .grid{grid-template-columns:1fr}}
+/* paginas simples */
+.page{max-width:720px;margin:0 auto}
+.page h1{font-size:2.05rem;letter-spacing:-.02em;margin:6px 0 12px}
+.page h2{font-size:1.16rem;margin:32px 0 2px}
+dl.gl dt{font-weight:600;margin-top:20px}
+dl.gl dd{margin:5px 0 0;color:#4b4038}
+details{border-bottom:1px solid #e4d7c8;padding:15px 0}
+details summary{cursor:pointer;font-size:1.05rem;font-weight:600;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary:before{content:"+ ";color:#b4531f}
+details[open] summary:before{content:"\2212 "}
+details p{margin:10px 0 0;color:#4b4038}
+table.plan{border-collapse:collapse;width:100%;margin-top:18px;font-size:.96rem}
+table.plan th,table.plan td{border-bottom:1px solid #e4d7c8;padding:10px 8px;text-align:left}
+table.plan th{font:600 11px ui-sans-serif,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a7b6d}
+</style></head><body><div class="shell"><header class="top"><div class="brandrow">
+<a class="brand" href="safe.html">Daily <span>Clarity</span></a>
+<p class="tag">Notes on attention, working hours and the plans that survive contact with a Tuesday.</p></div>
+<nav class="main"><a href="safe.html">Journal</a><a href="app.html">Clarity Board</a><a href="glossario.html">Glossary</a><a href="faq.html">Questions</a><a href="sobre.html">About</a></nav></header><article class="art">
+<p class="crumb"><a href="safe.html">Journal</a> &nbsp;/&nbsp; Notes</p>
+<h1>Reading notes you actually reuse</h1><p class="dek">Most notes are written once and never opened again. A few simple constraints change that ratio more than any app ever will.</p>
+<p class="byline">By the Daily Clarity desk &middot; July 2026 &middot; about 10 minutes</p>
+<figure><img src="img/reading-notes-you-actually-reuse.jpg" alt="Reading notes you actually reuse"><figcaption>Notes — Daily Clarity</figcaption></figure>
+<div class="short"><p class="k">In short</p><ul><li>Own words plus a reason, not highlights.</li><li>One idea per note; title it as a claim.</li><li>Ten minutes a week to retitle and delete.</li></ul></div>
+<h2>Highlighting is not note-taking</h2><p>Marking a passage feels like work and produces almost nothing, because the marked text is still in the author's words and the author's structure. Six months later a page of yellow tells you that something mattered without telling you what you thought about it.</p><p>The minimum useful note is a sentence in your own words plus a reason it is worth keeping. The translation is where the understanding happens; the reason is what makes the note findable when you are looking for something else entirely.</p><h2>One idea per note</h2><p>Long summaries are hard to reuse because they mix five ideas that belong in five different contexts. Splitting them at capture — one idea, one short note, a title that states the idea as a claim — costs a minute and makes the note portable.</p><p>Titles as claims are underrated. "Meetings without a decision-maker produce second meetings" is a title you can find and drop into a draft. "Notes on meetings" is a title you will scroll past forever.</p><h2>Link forward, not just backward</h2><p>When writing a note, add a line about where it might be used: a project, an argument you keep having, a recurring question. That single line converts a library into a working set, because the note now points at a future rather than only at its source.</p><p>Do not build elaborate hierarchies. Folders age badly and the effort spent maintaining them is effort not spent writing. A flat pile of well-titled notes and a search box beats a beautiful tree nobody prunes.</p><h2>A weekly ten minutes</h2><p>Open the notes from the past week, fix the titles that turned out to be vague, and delete the ones that no longer say anything. Deleting is part of the practice — a collection you trust is one you have pruned. A hundred notes you trust beat a thousand you avoid opening.</p><p>The payoff arrives late and then all at once: the first time you sit down to write something difficult and find that half the argument already exists in eight notes you wrote months ago, the habit stops needing justification.</p><h2>Capture is not the hard part</h2><p>Everyone worries about capturing enough and almost nobody worries about retrieval, which is where collections actually fail. The question to ask of every new note is not "is this interesting" but "what would I be searching for on the day I need this?" — then put those words in the title.</p><p>Retrieval also improves when notes disagree with each other. A pile of confirmations is a comfortable and useless thing; two notes making opposite claims force the argument to be resolved in writing, and the resolution is usually the most valuable note of the three.</p><p>Finally, write for a stranger. Six months is long enough that you are one, and the abbreviation that felt obvious on a Tuesday afternoon will be a small archaeological puzzle by spring.</p><h2>Reading with a question</h2><p>Notes improve enormously when the reading has a purpose narrower than "learn about this". Holding a question — how do teams decide when to stop a project, what makes handovers fail — turns passive reading into a search, and searches produce notes naturally because you notice when something answers you.</p><p>Without a question, everything looks moderately interesting and the notes become a summary of the source rather than an extract of what you needed. Summaries are the least reusable artefact in the whole practice; they duplicate the original at lower quality.</p><p>It is fine for the question to change halfway through. Write the new one down at the top of the page — six months later, knowing what you were looking for is often more useful than the note itself.</p><h2>Notes that become writing</h2><p>The purpose of the collection is not the collection. It is the moment when a draft is due and half of the argument already exists, written by you, in your own words, months ago.</p><p>To make that moment likelier, keep the notes in the same format as the writing you do — prose sentences rather than bullet fragments. A bullet has to be rewritten before it can be used; a sentence can be pasted into a draft and edited, and that small difference decides whether the collection ever gets opened under deadline.</p><p>Once a month, take three notes that seem related and write four hundred words joining them. Most of what comes out will be discarded, but the exercise is the only reliable way to find out whether the notes are alive or merely stored.</p>
+<div class="strip"><h4>The Thursday letter</h4>
+<p>One short piece a week — usually a method someone on the desk tried and either kept or dropped.
+No attachments, no course, no schedule creep.</p>
+<form class="news" onsubmit="this.reset();this.querySelector('button').textContent='Saved locally';return false;">
+<input type="email" placeholder="you@example.com" aria-label="Email address" required>
+<button type="submit">Subscribe</button></form></div>
+<div class="also"><p class="k">Also on the desk</p><div class="grid"><article class="card"><div class="thumb"><img src="img/the-first-hour-decides-the-day.jpg" alt="The first hour decides the day, and most of us give it away" loading="lazy"></div>
+<h3><a href="the-first-hour-decides-the-day.html">The first hour decides the day, and most of us give it away</a></h3><p>Attention</p></article><article class="card"><div class="thumb"><img src="img/a-shutdown-note-for-the-end-of-work.jpg" alt="The shutdown note: five lines that stop work following you home" loading="lazy"></div>
+<h3><a href="a-shutdown-note-for-the-end-of-work.html">The shutdown note: five lines that stop work following you home</a></h3><p>Routines</p></article><article class="card"><div class="thumb"><img src="img/task-lists-that-survive-tuesday.jpg" alt="Task lists that survive Tuesday" loading="lazy"></div>
+<h3><a href="task-lists-that-survive-tuesday.html">Task lists that survive Tuesday</a></h3><p>Planning</p></article></div></div>
+</article><footer><div class="fl">
+<a href="safe.html">Journal</a><a href="app.html">Clarity Board</a><a href="glossario.html">Glossary</a>
+<a href="faq.html">Questions</a><a href="sobre.html">About</a>
+<a href="privacidade.html">Privacy</a><a href="termos.html">Terms</a></div>
+<p>Daily Clarity — an independent journal about attention and working hours, written in Lisbon and read
+wherever people keep losing their afternoons. Articles are general reflection on work habits, not
+professional advice. &copy; 2026 Daily Clarity.</p></footer></div></body></html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Task lists that survive Tuesday · Daily Clarity</title>
+<meta name="description" content="Most lists are written on a good day for a good day. Then Tuesday arrives with a broken deploy and the list becomes decoration.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://dailyclarity.sbs/task-lists-that-survive-tuesday.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b4531f'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23fdf7f0' text-anchor='middle'%3EDC%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Daily Clarity">
+<meta property="og:title" content="Task lists that survive Tuesday · Daily Clarity"><meta property="og:description" content="Most lists are written on a good day for a good day. Then Tuesday arrives with a broken deploy and the list becomes decoration.">
+<meta property="og:url" content="https://dailyclarity.sbs/task-lists-that-survive-tuesday.html">
+<meta property="og:image" content="https://dailyclarity.sbs/img/task-lists-that-survive-tuesday.jpg">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fdf7f0;color:#241c16;
+ font:17px/1.72 "Iowan Old Style","Palatino Linotype",Georgia,serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:#b4531f;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.k{font:600 11px/1 ui-sans-serif,"Helvetica Neue",Arial,sans-serif;letter-spacing:.16em;
+ text-transform:uppercase;color:#8a7b6d}
+.shell{max-width:1080px;margin:0 auto;padding:0 22px}
+header.top{border-bottom:1px solid #e4d7c8;padding:22px 0 16px;margin-bottom:34px}
+.brandrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.brand{font-size:1.5rem;font-weight:600;letter-spacing:-.015em;color:#241c16}
+.brand span{color:#b4531f}
+.tag{color:#6f6053;font-size:.92rem;max-width:520px}
+nav.main{margin-top:14px;display:flex;gap:20px;flex-wrap:wrap}
+nav.main a{font:600 12px/1 ui-sans-serif,Arial,sans-serif;letter-spacing:.1em;
+ text-transform:uppercase;color:#4a5a3f}
+.lead{display:grid;grid-template-columns:1.55fr .95fr;gap:44px;align-items:start}
+@media(max-width:860px){.lead{grid-template-columns:1fr;gap:30px}}
+.lead figure{margin:0 0 18px}
+.lead figure img{aspect-ratio:16/9;object-fit:cover;border-radius:2px}
+h1.hed{font-size:2.35rem;line-height:1.14;letter-spacing:-.02em;margin:10px 0 8px}
+@media(max-width:600px){h1.hed{font-size:1.8rem}}
+.dek{font-size:1.08rem;color:#4b4038}
+.rail{border-left:1px solid #e4d7c8;padding-left:26px}
+@media(max-width:860px){.rail{border-left:0;padding-left:0;border-top:1px solid #e4d7c8;padding-top:24px}}
+.rail ol{list-style:none;counter-reset:r;margin:14px 0 0;padding:0}
+.rail li{counter-increment:r;padding:13px 0;border-bottom:1px dotted #ddcdba}
+.rail li:before{content:counter(r,decimal-leading-zero);font:600 11px ui-sans-serif,Arial,sans-serif;
+ color:#b4531f;margin-right:9px}
+.rail a{color:#241c16;font-size:1rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 30px;margin:52px 0 10px}
+@media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr);gap:28px 22px}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.card .thumb{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:2px;background:#eadfd2}
+.card .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card h3{font-size:1.14rem;line-height:1.28;margin:12px 0 6px;letter-spacing:-.01em}
+.card h3 a{color:#241c16}
+.card p{margin:0;color:#6f6053;font-size:.95rem}
+.sec-rule{display:flex;align-items:center;gap:14px;margin:56px 0 0}
+.sec-rule:after{content:"";flex:1;height:1px;background:#e4d7c8}
+.note{background:#f4eadd;border:1px solid #e4d7c8;padding:20px 22px;margin:44px 0 0}
+.strip{border:1px solid #e4d7c8;border-left:3px solid #b4531f;padding:20px 22px;margin:48px 0 0}
+.strip h4{margin:0 0 6px;font-size:1.05rem}
+.strip p{margin:0;color:#5b4f45;font-size:.96rem}
+form.news{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+form.news input{flex:1;min-width:200px;padding:11px 12px;border:1px solid #d9c9b7;background:#fff;
+ font:15px Georgia,serif;border-radius:2px}
+form.news button{padding:11px 18px;border:0;background:#b4531f;color:#fdf7f0;border-radius:6px;
+ font:600 13px ui-sans-serif,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+form.news button:hover{background:#963f10}
+footer{margin:78px 0 0;border-top:1px solid #e4d7c8;padding:26px 0 46px;color:#8a7b6d;font-size:.9rem}
+footer a{color:#6f6053}
+footer .fl{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:10px}
+/* artigo */
+.art{max-width:690px;margin:0 auto}
+.crumb{font:600 11px ui-sans-serif,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8a7b6d}
+.art h1{font-size:2.1rem;line-height:1.16;letter-spacing:-.02em;margin:12px 0 10px}
+@media(max-width:600px){.art h1{font-size:1.65rem}}
+.byline{color:#8a7b6d;font-size:.92rem;border-bottom:1px solid #e4d7c8;padding-bottom:16px}
+.art figure{margin:26px 0 30px}
+.art figure img{aspect-ratio:16/9;object-fit:cover;border-radius:2px}
+.art figcaption{color:#8a7b6d;font-size:.84rem;margin-top:7px}
+.art h2{font-size:1.28rem;letter-spacing:-.01em;margin:36px 0 2px}
+.art p{margin:14px 0}
+.short{background:#f7efe4;border:1px solid #e4d7c8;padding:18px 22px;margin:30px 0}
+.short .k{color:#b4531f}
+.short ul{margin:10px 0 0;padding-left:18px}
+.short li{margin:6px 0;font-size:.97rem}
+.also{margin-top:52px;border-top:1px solid #e4d7c8;padding-top:22px}
+.also .grid{margin-top:20px;grid-template-columns:repeat(3,1fr)}
+@media(max-width:700px){.also .grid{grid-template-columns:1fr}}
+/* paginas simples */
+.page{max-width:720px;margin:0 auto}
+.page h1{font-size:2.05rem;letter-spacing:-.02em;margin:6px 0 12px}
+.page h2{font-size:1.16rem;margin:32px 0 2px}
+dl.gl dt{font-weight:600;margin-top:20px}
+dl.gl dd{margin:5px 0 0;color:#4b4038}
+details{border-bottom:1px solid #e4d7c8;padding:15px 0}
+details summary{cursor:pointer;font-size:1.05rem;font-weight:600;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary:before{content:"+ ";color:#b4531f}
+details[open] summary:before{content:"\2212 "}
+details p{margin:10px 0 0;color:#4b4038}
+table.plan{border-collapse:collapse;width:100%;margin-top:18px;font-size:.96rem}
+table.plan th,table.plan td{border-bottom:1px solid #e4d7c8;padding:10px 8px;text-align:left}
+table.plan th{font:600 11px ui-sans-serif,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a7b6d}
+</style></head><body><div class="shell"><header class="top"><div class="brandrow">
+<a class="brand" href="safe.html">Daily <span>Clarity</span></a>
+<p class="tag">Notes on attention, working hours and the plans that survive contact with a Tuesday.</p></div>
+<nav class="main"><a href="safe.html">Journal</a><a href="app.html">Clarity Board</a><a href="glossario.html">Glossary</a><a href="faq.html">Questions</a><a href="sobre.html">About</a></nav></header><article class="art">
+<p class="crumb"><a href="safe.html">Journal</a> &nbsp;/&nbsp; Planning</p>
+<h1>Task lists that survive Tuesday</h1><p class="dek">Most lists are written on a good day for a good day. Then Tuesday arrives with a broken deploy and the list becomes decoration.</p>
+<p class="byline">By the Daily Clarity desk &middot; July 2026 &middot; about 10 minutes</p>
+<figure><img src="img/task-lists-that-survive-tuesday.jpg" alt="Task lists that survive Tuesday"><figcaption>Planning — Daily Clarity</figcaption></figure>
+<div class="short"><p class="k">In short</p><ul><li>Three ranked items a day, plus a floor for bad days.</li><li>Size tasks small/medium/large instead of guessing minutes.</li><li>Weekly: delete anything carried over more than twice.</li></ul></div>
+<h2>The optimism problem</h2><p>A list written on Sunday evening assumes a Tuesday with no interruptions, full energy and accurate estimates. None of those hold. When reality removes two hours, the list does not adapt — it simply becomes wrong, and a wrong list is worse than none, because it teaches you to ignore your own plans.</p><p>The fix is not better estimates. People have been bad at estimating for as long as there have been deadlines, and no notation solves it. The fix is writing lists that already assume the day will be smaller than you hoped.</p><h2>Three items, ranked, with a floor</h2><p>Cap the day at three real items and rank them. The ranking is the whole trick: when the day shrinks, you do not renegotiate, you drop from the bottom. Without a rank, a shrinking day turns into a debate with yourself, and the debate always picks the easiest survivor.</p><p>Add a floor — the one thing that must be true by evening even in a disaster. It is often small: send the file, answer the client, push the fix. Naming it removes the worst version of a bad day, the one where a great deal happened and the single thing that mattered did not.</p><p>Everything else goes on a separate page you are allowed to ignore. Calling it "someday" is fine. Mixing it into the daily list is not; a list of eleven things has no rank in practice, only a top and a fog.</p><h2>Estimating by size, not by clock</h2><p>Rather than guessing minutes, tag each item small, medium or large — under half an hour, under half a day, more than that. Sizes are easier to get right and they force a useful decision: a large item on a Tuesday means the day holds one thing, not three.</p><p>Anything that stays large for two weeks is not a task, it is a project pretending to be one. Split it until the first piece is small, and put only that piece on the list. The habit of splitting is worth more than any app.</p><h2>Reviewing without ceremony</h2><p>Once a week, spend fifteen minutes on three questions. What did I carry over more than twice? What did I finish that never made it onto a list? What is on the someday page that I now know I will never do?</p><p>Delete generously on the third. A list you trust is short and mostly true; a list you do not trust becomes a museum, and museums get replaced by a brand-new system every few months.</p><p>Delete generously on the third question. A list you trust is short and mostly true; a list you do not trust is long, and long lists get replaced by a brand-new system every few months, which is the most expensive form of procrastination there is.</p><h2>Where the list lives</h2><p>The medium matters less than the constraint, but it does matter. A list on the same screen as the work competes with the work; a list on paper beside the keyboard is glanced at and forgotten again in one second. Whatever you choose, it should be readable without unlocking, searching or clicking.</p><p>Keep exactly one list. The most reliable way to stop trusting your own planning is to run a work list, a personal list, a chat thread with yourself and a folder of sticky notes, then spend Monday reconciling them. Reconciliation is not planning; it is the tax you pay for having four systems.</p><p>And write the list in the same place every day. Habits attach to locations far more readily than to intentions, which is why the people who keep lists longest are usually the ones with an unremarkable notebook that never moves off the desk.</p><h2>The carry-over test</h2><p>The single most informative thing on a list is an item that has been rewritten four times. It is not a task you are lazy about; it is a task that is mis-specified, blocked, or not actually yours.</p><p>Run it through three questions before rewriting it a fifth time. Is the first physical step obvious? If not, the item is a project and needs splitting. Is it waiting on someone? If so, it belongs on a short waiting-list with a date and a name, not on today. Would anything bad happen if it never got done? If nothing would, delete it and notice how little the deletion costs.</p><p>Most carried-over items fail the first question. "Sort out the invoice situation" has no first step; "list the four unpaid invoices in a message to accounts" has one, and it usually turns out to take eleven minutes.</p><h2>Ranking is a promise, not a preference</h2><p>Ranking three items only works if the rank binds when the day shrinks. The moment you allow yourself to reorder at two in the afternoon because the third item is more appealing, the rank stops being information and becomes decoration.</p><p>There is one legitimate reason to reorder: new information that changes the stakes — the client moved a deadline, the deploy broke, someone is blocked on you. When that happens, say so explicitly on the sheet. A one-word margin note ("deploy") beside the reordering keeps the record honest, and after a month it shows how often the day was genuinely disrupted versus how often it was renegotiated.</p><p>For most people the honest count is illuminating: perhaps one day in five is genuinely disrupted, and the other reorderings were preference wearing a disruption costume.</p>
+<div class="strip"><h4>The Thursday letter</h4>
+<p>One short piece a week — usually a method someone on the desk tried and either kept or dropped.
+No attachments, no course, no schedule creep.</p>
+<form class="news" onsubmit="this.reset();this.querySelector('button').textContent='Saved locally';return false;">
+<input type="email" placeholder="you@example.com" aria-label="Email address" required>
+<button type="submit">Subscribe</button></form></div>
+<div class="also"><p class="k">Also on the desk</p><div class="grid"><article class="card"><div class="thumb"><img src="img/meetings-that-earn-their-slot.jpg" alt="Meetings that earn their slot" loading="lazy"></div>
+<h3><a href="meetings-that-earn-their-slot.html">Meetings that earn their slot</a></h3><p>Working hours</p></article><article class="card"><div class="thumb"><img src="img/the-real-cost-of-switching-tabs.jpg" alt="The real cost of switching tabs" loading="lazy"></div>
+<h3><a href="the-real-cost-of-switching-tabs.html">The real cost of switching tabs</a></h3><p>Attention</p></article><article class="card"><div class="thumb"><img src="img/planning-a-week-in-thirty-minutes.jpg" alt="Planning a week in thirty minutes" loading="lazy"></div>
+<h3><a href="planning-a-week-in-thirty-minutes.html">Planning a week in thirty minutes</a></h3><p>Planning</p></article></div></div>
+</article><footer><div class="fl">
+<a href="safe.html">Journal</a><a href="app.html">Clarity Board</a><a href="glossario.html">Glossary</a>
+<a href="faq.html">Questions</a><a href="sobre.html">About</a>
+<a href="privacidade.html">Privacy</a><a href="termos.html">Terms</a></div>
+<p>Daily Clarity — an independent journal about attention and working hours, written in Lisbon and read
+wherever people keep losing their afternoons. Articles are general reflection on work habits, not
+professional advice. &copy; 2026 Daily Clarity.</p></footer></div></body></html>
