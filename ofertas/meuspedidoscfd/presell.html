@@ -2,15 +2,15 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Manter o controle de cada pedido online: um método prático para não perder nenhuma compra — PedidoCerto</title>
-<meta name="description" content="Um método editorial para acompanhar compras online: como identificar o transportador, ler notificações de status, conferir endereço, receber bem e usar a janela de arrependimento.">
-<link rel="canonical" href="https://meuspedidos.cfd/presell.html">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>PedidoCerto — Acompanhe seu pedido</title>
+<meta name="description" content="Acompanhe o status do seu pedido e libere a entrega.">
+<link rel="canonical" href="https://meuspedidos.cfd/">
 <meta name="robots" content="index, follow">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Manter o controle de cada pedido online: um método prático">
-<meta property="og:description" content="Como acompanhar compras online sem depender da memória: identificar transportador, ler status, conferir endereço e receber bem.">
-<meta property="og:url" content="https://meuspedidos.cfd/presell.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PedidoCerto — Acompanhe seu pedido">
+<meta property="og:description" content="Acompanhe o status do seu pedido e libere a entrega.">
+<meta property="og:url" content="https://meuspedidos.cfd/">
 <meta property="og:site_name" content="PedidoCerto">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231e2a5e'/%3E%3Cpath d='M16 30 L28 42 L48 22' fill='none' stroke='%23f59e0b' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
@@ -27,280 +27,84 @@
   --off:#fafafa;
   --ink:#1a1a2e;
   --ink-soft:#4a4a6a;
+  --ink-mute:#7a7a9a;
   --line:#d9d9e3;
   --font-display:Georgia,"Palatino Linotype","Book Antiqua",Palatino,"Times New Roman",serif;
   --font-body:"Trebuchet MS","Lucida Sans Unicode","Lucida Grande",Tahoma,sans-serif;
-  --font-mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
-  --container:1140px;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%}
 body{
-  margin:0;background:var(--off);color:var(--ink);
-  font-family:var(--font-body);font-size:17px;line-height:1.68;
+  margin:0;min-height:100vh;
+  background:var(--off);color:var(--ink);
+  font-family:var(--font-body);font-size:16px;line-height:1.5;
   -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px 20px;
 }
-img{max-width:100%;display:block;height:auto}
-a{color:var(--indigo-700);text-decoration-thickness:1.5px;text-underline-offset:3px}
-a:hover{color:var(--amber-dark)}
-h1,h2,h3,h4{font-family:var(--font-display);color:var(--indigo-900);line-height:1.16;margin:0 0 .5em;font-weight:700}
-h1{font-size:clamp(2.05rem,4.1vw,3rem);letter-spacing:-.015em}
-h2{font-size:clamp(1.5rem,2.6vw,2.05rem)}
-h3{font-size:1.22rem}
-p{margin:0 0 1.1em}
-ul,ol{margin:0 0 1.1em;padding-left:1.35em}
-li{margin-bottom:.4em}
-.container{max-width:var(--container);margin:0 auto;padding:0 26px}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:.45em;
-  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--amber-dark);font-weight:700;margin-bottom:.8em;
+.wrap{max-width:520px;width:100%;text-align:center}
+.brand{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-display);font-size:1.3rem;font-weight:700;
+  color:var(--indigo-900);letter-spacing:-.01em;margin-bottom:28px;
 }
-.eyebrow::before{content:"§";font-size:1em;color:var(--indigo-700)}
-
-/* ===== HEADER ===== */
-.top-accent{height:4px;background:var(--amber)}
-.site-header{
-  background:var(--paper);border-bottom:1px solid var(--line);
-  position:sticky;top:0;z-index:40;
-}
-.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;gap:20px}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
-.brand:hover{color:inherit}
 .brand-mark{width:32px;height:32px;flex-shrink:0}
-.brand-text{
-  font-family:var(--font-display);font-size:1.32rem;font-weight:700;color:var(--indigo-900);
-  letter-spacing:-.015em;
+.brand strong{color:var(--amber-dark)}
+h1{
+  font-family:var(--font-display);color:var(--indigo-900);
+  font-size:clamp(1.7rem,5.5vw,2.3rem);line-height:1.2;letter-spacing:-.015em;
+  margin:0 0 14px;font-weight:700;
 }
-.brand-text strong{color:var(--amber-dark);font-weight:700}
-.site-nav{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
-.site-nav a{
-  color:var(--ink);text-decoration:none;font-size:.95rem;font-weight:600;
-  padding:6px 0;border-bottom:2px solid transparent;
+.lede{
+  color:var(--ink-soft);font-size:1.02rem;line-height:1.55;
+  margin:0 auto 32px;max-width:34ch;
 }
-.site-nav a:hover{color:var(--indigo-700);border-bottom-color:var(--amber)}
-.nav-toggle{display:none;background:none;border:1.5px solid var(--indigo-900);font-size:1.05rem;padding:5px 11px;cursor:pointer;color:var(--indigo-900)}
-
-/* ===== BUTTONS ===== */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
-  font-family:var(--font-body);font-weight:700;font-size:1rem;
-  padding:13px 26px;border-radius:2px;
-  border:1.5px solid var(--indigo-900);background:var(--indigo-900);color:var(--off);
-  text-decoration:none;cursor:pointer;transition:transform .12s ease,background .15s ease;
+.cta-form{margin:0}
+.cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;max-width:420px;
+  font-family:var(--font-body);font-weight:700;font-size:1.08rem;
+  padding:18px 24px;border-radius:10px;cursor:pointer;
+  border:none;
+  background:var(--amber);color:var(--indigo-900);
+  text-decoration:none;
+  transition:transform .12s ease,background .15s ease,box-shadow .15s ease;
+  box-shadow:0 4px 0 var(--indigo-800);
 }
-.btn:hover{background:var(--indigo-700);color:var(--off);transform:translateY(-1px)}
-.btn.btn-ghost{background:transparent;color:var(--indigo-900)}
-.btn.btn-ghost:hover{background:var(--indigo-900);color:var(--off)}
-.btn.cta{
-  background:var(--indigo-900);border-color:var(--indigo-900);color:var(--off);
-  font-size:1.06rem;padding:15px 32px;border-bottom:4px solid var(--amber);
+.cta:hover{background:var(--amber-dark);color:var(--paper);transform:translateY(-1px)}
+.cta:active{transform:translateY(2px);box-shadow:0 2px 0 var(--indigo-800)}
+.cta svg{width:20px;height:20px;flex-shrink:0}
+.note{margin:22px 0 0;color:var(--ink-mute);font-size:.8rem;line-height:1.4}
+.note a{color:var(--indigo-700);text-decoration:underline}
+.footer-line{
+  position:fixed;bottom:0;left:0;right:0;
+  padding:10px 16px;font-size:.72rem;color:var(--ink-mute);
+  background:transparent;text-align:center;
 }
-.btn.cta:hover{background:var(--indigo-700);color:var(--off)}
-.cta-form{margin:1.8em 0;text-align:center}
-.cta-note{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-soft);margin-top:.5em;letter-spacing:.02em}
-
-/* ===== ARTICLE / POST LAYOUT ===== */
-.masthead{border-bottom:2px solid var(--ink);padding:8px 0 0}
-.masthead .container{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
-.masthead .issue{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
-.breadcrumb{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-soft);padding:14px 0}
-.breadcrumb a{color:var(--ink-soft)}
-.post-head{padding:10px 0 30px;border-bottom:1px solid var(--line);margin-bottom:34px;max-width:60ch}
-.post-head .eyebrow{color:var(--amber-dark)}
-.post-meta{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--font-mono);font-size:.8rem;color:var(--ink-soft);margin-top:.9em}
-.post{max-width:70ch}
-.post h2{margin-top:1.6em}
-.post h3{margin-top:1.3em;color:var(--indigo-700)}
-.post p{color:var(--ink)}
-.post blockquote{
-  margin:1.9em 0;padding:16px 22px;border-left:4px solid var(--amber);
-  background:var(--off);font-style:italic;color:var(--ink-soft);border-radius:0 2px 2px 0;
-}
-.callout{
-  border:1px solid var(--indigo-700);border-left:5px solid var(--indigo-900);
-  border-radius:2px;padding:18px 22px;margin:1.9em 0;background:var(--indigo-100);
-}
-.callout strong{color:var(--indigo-900)}
-.tip::before{content:"› ";color:var(--amber-dark);font-weight:700}
-.related{margin-top:50px;padding-top:30px;border-top:2px solid var(--ink)}
-.related h2{font-size:1.3rem}
-.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.card{
-  background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--indigo-700);
-  padding:20px;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);
-  transition:transform .12s ease,border-color .12s ease;
-}
-.card:hover{border-left-color:var(--amber);transform:translate(-2px,-2px);color:var(--ink)}
-.card .cat{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber-dark);font-weight:700;margin-bottom:.55em}
-.card h3{margin-bottom:.35em;font-size:1.1rem}
-.card .dek{color:var(--ink-soft);font-size:.93rem;margin:0}
-
-/* ===== FOOTER ===== */
-.site-footer{background:var(--ink);color:#cdcde0;padding:46px 0 0;margin-top:60px}
-.footer-inner{display:grid;grid-template-columns:1.4fr 2fr;gap:40px;padding-bottom:34px}
-.footer-brand .brand-text{color:#fff}
-.footer-brand .brand-text strong{color:var(--amber)}
-.footer-brand p{color:#cdcde0;opacity:.9;max-width:40ch;margin-top:.7em}
-.footer-nav{display:flex;gap:46px}
-.footer-col h3{font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:#cdcde0;opacity:.7;margin-bottom:.9em}
-.footer-col a{display:block;color:#cdcde0;text-decoration:none;padding:5px 0;font-size:.93rem}
-.footer-col a:hover{color:var(--amber)}
-.footer-bottom{border-top:1px solid #2e2e4a;padding:16px 0;font-size:.8rem;color:#cdcde0;opacity:.7}
-
-@media (max-width:880px){
-  .related-grid{grid-template-columns:1fr}
-  .footer-inner{grid-template-columns:1fr}
-  .footer-nav{gap:32px}
-}
-@media (max-width:720px){
-  .site-nav{
-    position:absolute;top:100%;left:0;right:0;background:var(--paper);
-    flex-direction:column;align-items:flex-start;gap:0;border-bottom:2px solid var(--ink);
-    padding:8px 26px 14px;display:none;
-  }
-  .site-nav.is-open{display:flex}
-  .site-nav a{width:100%;padding:10px 0}
-  .nav-toggle{display:block}
-  .related-grid{grid-template-columns:1fr}
-}
+@media (max-height:600px){body{justify-content:flex-start;padding-top:32px}.footer-line{position:static;margin-top:24px}}
 </style>
 </head>
 <body>
-<div class="top-accent"></div>
-<header class="site-header">
-  <div class="header-inner container">
-    <a href="safe.html" class="brand">
-      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#1e2a5e"/><path d="M16 30 L28 42 L48 22" fill="none" stroke="#f59e0b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span class="brand-text">Pedido<strong>Certo</strong></span>
-    </a>
-    <nav class="site-nav" aria-label="Navegação principal">
-      <a href="safe.html">Início</a>
-      <a href="app.html">App</a>
-      <a href="glossario.html">Glossário</a>
-      <a href="faq.html">Dúvidas</a>
-      <a href="sobre.html">Sobre</a>
-    </nav>
-    <button class="nav-toggle" type="button" aria-label="Abrir menu" onclick="document.querySelector('.site-nav').classList.toggle('is-open')">☰</button>
-  </div>
-</header>
+<div class="wrap">
+  <span class="brand">
+    <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#1e2a5e"/><path d="M16 30 L28 42 L48 22" fill="none" stroke="#f59e0b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Pedido<strong>Certo</strong>
+  </span>
 
-<div class="masthead">
-  <div class="container">
-    <span class="issue">Edição 07 · Consumo &amp; Entregas · Julho 2026</span>
-    <span class="issue">Guia de bolso · nº 12</span>
-  </div>
+  <h1>Acompanhe seu pedido</h1>
+  <p class="lede">Consulte o status da sua entrega e conclua a liberação para receber.</p>
+
+  <form action="consulta/" method="get" class="cta-form">
+    <button type="submit" class="cta">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Rastrear meu pedido
+    </button>
+    <p class="note">Acompanhamento de encomendas · <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></p>
+  </form>
 </div>
 
-<div class="container breadcrumb">
-  <a href="safe.html">Início</a> / <a href="safe.html#destaque">Reportagens</a> / Manter o controle de cada pedido
-</div>
+<div class="footer-line">© 2026 PedidoCerto · Conteúdo editorial independente — não somos transportadora.</div>
 
-<article class="container">
-  <div class="post-head">
-    <p class="eyebrow">Reportagem de capa · Acompanhamento</p>
-    <h1>Manter o controle de cada pedido online: um método prático para não perder nenhuma compra</h1>
-    <p class="post-meta">
-      <span>Publicado em 9 de julho de 2026</span>
-      <span>Atualizado em 16 de julho de 2026</span>
-      <span>8 min de leitura</span>
-      <span>por Redação PedidoCerto</span>
-    </p>
-  </div>
-
-  <div class="post">
-    <p>Quem compra pela internet com frequência acaba vivendo um paradoxo: quanto mais pedidos em andamento, mais difícil fica saber o status de cada um. A confirmação chega em canais diferentes — e-mail, aplicativo da loja, uma notificação solta no celular — e depois de duas semanas sobra uma pilha de códigos que ninguém lembra de onde veio.</p>
-    <p>Este texto não promete acabar com os imprevistos (eles existem em qualquer cadeia de entrega). A proposta é outra: montar um método pequeno, repetível, que mantém você no controle em vez de depender da memória. São cinco passos, na ordem em que costumam fazer diferença.</p>
-
-    <h2>1. Identifique o transportador de cada etapa antes de precisar dele</h2>
-    <p>A primeira confusão clássica é não saber quem está levando o pacote. Uma compra pode sair da loja com uma transportadora, passar por um centro de triagem com outra e chegar à sua rua com um entregador de aplicativo — tudo no mesmo pedido. Quando dá problema, a pessoa liga para o lugar errado e perde dias.</p>
-    <p>A manobra é simples: assim que o código de rastreio aparece, veja qual empresa gerou aquele prefixo. Cada transportadora tem um formato de código e um portal próprio de consulta. Anote o nome junto ao pedido. Se o status mudar de "em trânsito" para "encaminhado para último parceiro de entrega", esse é o momento de identificar quem vai tocar a última milha — normalmente é ele quem você vai precisar contatar primeiro.</p>
-
-    <div class="callout">
-      <strong>Por que isso importa:</strong> a loja responde pela entrega do ponto de vista legal, mas na prática a devolutiva rápida sobre "onde está o pacote" costuma vir do transportador que está com ele na mão naquele instante. Saber o nome dele encurta qualquer conversa.
-    </div>
-
-    <h2>2. Aprenda a ler o que cada status realmente significa</h2>
-    <p>As notificações de rastreio usam um vocabulário que parece técnico mas é, na maioria das vezes, padronizado. Os termos mais comuns têm significados estáveis entre transportadoras — e entender a diferença entre eles evita pânico à toa e negligença perigosa.</p>
-    <p>"Postado" indica que o pacote foi entregue à transportadora, mas ainda não começou a viajar. "Em trânsito" significa que está se movendo entre unidades de triagem. "Encaminhado" é um termo genérico que pode tanto indicar progresso normal quanto uma parada para reorganização de carga. "Saiu para entrega" é o último passo antes da chegada — costuma acontecer no mesmo dia. "Aguardando retirada" indica que o pacote está em uma unidade esperando você, normalmente com prazo limite.</p>
-    <p>O sinal de alerta real não está em nenhuma frase isolada, mas na combinação: status travado na mesma etapa por muitos dias, ou mudança repentina para "devolvido ao remetente" sem motivo claro. Para entender essas variações com calma, vale a leitura do nosso <a href="rastreio-parado-entenda-o-que-significa.html">guia sobre rastreio parado</a>.</p>
-
-    <h2>3. Revise o endereço de entrega antes de precisar dele</h2>
-    <p>Boa parte dos chamados "extravios" é, na verdade, endereço incompleto. Falta o número, falta o complemento, o CEP está com um dígito trocado. O pacote chega na cidade, o entregador não consegue achar o local, e o produto volta. O consumidor só descobre dias depois, quando o status mostra devolução.</p>
-    <p>A revisão vale ser feita no instante da compra, e não quando o problema aparece. Confira número, complemento (apartamento, bloco, ponto de referência útil), CEP e o nome do destinatário exatamente como aparece na caixa dos correios. Se costuma receber em condomínio, deixe claro se há portaria 24 horas ou se é preciso combamar horário. Esses detalhes parecem pequenos mas são exatamente o que separa uma entrega tranquila de uma devolução frustrante.</p>
-
-    <form action="consulta/" method="get" id="ctaForm" class="cta-form">
-      <button type="submit" class="btn cta">Acessar área de acompanhamento</button>
-      <p class="cta-note">Centralize seus pedidos e prazos em um só painel</p>
-    </form>
-
-    <h2>4. Saiba o que conferir no momento em que o pacote chega</h2>
-    <p>Receber bem é uma etapa subestimada. Quando o entregador está na porta, a pressa faz muita gente assinar o comprovante sem olhar a embalagem — e só descobrir amassado ou violação horas depois, quando o transporte já não responde mais pela peça.</p>
-    <p>O hábito que protege é curto: antes de assinar qualquer coisa, confira o lacre, a integridade da caixa e se o nome do remetente corresponde ao esperado. Se houver avaria visível, anote na hora no comprovante do entregador ("recebido com embalagem amassada") e fotografe. Esse registro transforma uma reclamação difusa em um pedido concreto, com data e evidência. Para os passos seguintes, veja o roteiro de <a href="receber-pedido-com-avaria-o-que-fazer.html">o que fazer ao receber um pedido com avaria</a>.</p>
-
-    <blockquote>Quem registra o problema no ato da entrega quase nunca precisa brigar depois. Quem assina em branco e descobre o dano dois dias depois entra em uma conversa muito mais difícil com a loja.</blockquote>
-
-    <h2>5. Guarde o comprovante e conheça a janela dos sete dias</h2>
-    <p>O último passo é o que mais se paga ao longo do tempo. Toda compra online gera um comprovante — pode ser o e-mail de confirmação, a nota fiscal em PDF, o número do pedido. Reunir esses comprovantes em um lugar só (um arquivo, uma pasta, uma ferramenta de organização) é o que permite resolver qualquer divergência com agilidade.</p>
-    <p>Aqui entra um direito que muita gente desconhece: o Código de Defesa do Consumidor prevê sete dias corridos, a contar do recebimento, para desistir de uma compra feita fora do estabelecimento físico — sem precisar justificar. Essa janela curta é poderosa mas passa rápido, e só vale para quem lembra da data exata em que o produto chegou. É o tipo de informação que fica fácil de usar quando se tem o comprovante à mão. Detalhamos o procedimento completo em <a href="direito-de-arrependimento-7-dias-como-funciona.html">direito de arrependimento: como funciona</a>.</p>
-
-    <p>Nenhum desses cinco passos é complicado. O que falta, quase sempre, não é conhecimento — é um lugar organizado onde o conhecimento cabe. Manter uma lista simples, com loja, prazo e status, faz com que o método se repita sozinho a cada nova compra. É nesse ponto que uma ferramenta de organização pessoal deixa de ser luxo e vira parte do hábito.</p>
-
-    <form action="consulta/" method="get" class="cta-form">
-      <button type="submit" class="btn cta">Acessar área de acompanhamento</button>
-      <p class="cta-note">Organize seus pedidos em um único painel pessoal</p>
-    </form>
-
-    <div class="related">
-      <h2>Continue lendo</h2>
-      <div class="related-grid">
-        <a class="card" href="rastreio-parado-entenda-o-que-significa.html">
-          <span class="cat">Rastreio</span>
-          <h3>Rastreio parado: o que cada status realmente significa</h3>
-          <p class="dek">Como distinguir uma parada normal de um sinal real de problema.</p>
-        </a>
-        <a class="card" href="direito-de-arrependimento-7-dias-como-funciona.html">
-          <span class="cat">Direitos do Consumidor</span>
-          <h3>Direito de arrependimento em 7 dias: como funciona</h3>
-          <p class="dek">A janela prevista pelo CDC e o passo a passo para usá-la.</p>
-        </a>
-        <a class="card" href="como-organizar-comprovantes-de-compra.html">
-          <span class="cat">Organização</span>
-          <h3>Como organizar comprovantes de compra sem se perder</h3>
-          <p class="dek">Um sistema simples para guardar notas, pedidos e garantias.</p>
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <span class="brand-text">Pedido<strong>Certo</strong></span>
-      <p>Conteúdo editorial independente sobre compras online, entregas e direitos do consumidor no Brasil.</p>
-    </div>
-    <nav class="footer-nav" aria-label="Links do rodapé">
-      <div class="footer-col">
-        <h3>Portal</h3>
-        <a href="safe.html">Início</a>
-        <a href="app.html">App PedidoCerto</a>
-        <a href="glossario.html">Glossário</a>
-        <a href="faq.html">Dúvidas frequentes</a>
-        <a href="sobre.html">Sobre o PedidoCerto</a>
-      </div>
-      <div class="footer-col">
-        <h3>Institucional</h3>
-        <a href="privacidade.html">Política de Privacidade</a>
-        <a href="termos.html">Termos de Uso</a>
-        <a href="mailto:contato@meuspedidos.cfd">contato@meuspedidos.cfd</a>
-      </div>
-    </nav>
-  </div>
-  <div class="container footer-bottom">
-    <p>&copy; 2026 PedidoCerto. Conteúdo editorial independente — não somos transportadora nem marketplace.</p>
-  </div>
-</footer>
 <script>(function(){var q=new URLSearchParams(location.search);var forms=document.querySelectorAll('form[action="consulta/"]');if(!forms.length)return;['gclid','gbraid','wbraid','campaignid','adgroupid','keyword','device','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){var v=q.get(k);if(v){forms.forEach(function(f){var i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i);});}});})();</script>
 </body>
 </html>
