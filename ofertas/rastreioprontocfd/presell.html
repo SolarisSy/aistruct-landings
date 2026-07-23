@@ -31,21 +31,12 @@ h1{font-family:var(--font-display);color:var(--wine-900);font-size:clamp(1.55rem
 .brand-text strong{color:var(--gold-dark)}
 main{flex:1;padding:34px 0 34px;text-align:center}
 .lead{color:var(--ink-soft);font-size:.98rem;margin:0 auto;max-width:44ch}
-.stage{margin:24px auto 0}
-.player{position:relative;display:block;width:100%;border:0;padding:0;cursor:pointer;border-radius:14px;overflow:hidden;background:linear-gradient(160deg,#4a1422 0%,#5b1a2e 45%,#2b0c14 100%);box-shadow:0 18px 40px -18px rgba(58,16,25,.55);aspect-ratio:16/9}
-.player::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,rgba(201,162,39,.18),transparent 62%)}
-.player-grid{position:absolute;inset:0;opacity:.14;background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px);background-size:38px 38px}
-.play-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;text-align:center}
-.play{position:relative;width:92px;height:92px;margin:0 auto;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -6px rgba(0,0,0,.5);transition:transform .15s ease}
-.play svg{width:36px;height:36px;margin-left:5px;fill:var(--wine-900)}
-.play::before,.play::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--gold);animation:pulse 2.4s cubic-bezier(.2,.6,.3,1) infinite}
-.play::after{animation-delay:1.2s}
-@keyframes pulse{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.85);opacity:0}}
-.player:hover .play{transform:scale(1.06)}
-.player:active .play{transform:scale(.97)}
-.play-label{display:block;margin-top:15px;color:#fff;font-weight:700;font-size:1rem;text-shadow:0 2px 8px rgba(0,0,0,.45)}
-@media (prefers-reduced-motion:reduce){.play::before,.play::after{animation:none;opacity:0}}
-.cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin-top:20px;width:100%;max-width:420px;font-family:inherit;font-weight:700;font-size:1.02rem;padding:16px 30px;border:none;border-radius:999px;cursor:pointer;background:var(--wine);color:#fff;box-shadow:0 10px 22px -12px rgba(58,16,25,.8);transition:transform .1s ease,opacity .15s ease}
+.stage{margin:30px auto 0}
+.cta-wrap{position:relative;display:inline-block;max-width:420px;width:100%}
+.cta-wrap::before{content:"";position:absolute;inset:0;border-radius:999px;border:2px solid var(--wine);animation:pulse 2.4s cubic-bezier(.2,.6,.3,1) infinite;pointer-events:none}
+@keyframes pulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.09);opacity:0}}
+@media (prefers-reduced-motion:reduce){.cta-wrap::before{animation:none;opacity:0}}
+.cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;font-family:inherit;font-weight:700;font-size:1.05rem;padding:18px 30px;border:none;border-radius:999px;cursor:pointer;background:var(--wine);color:#fff;box-shadow:0 12px 26px -12px rgba(58,16,25,.85);transition:transform .1s ease,opacity .15s ease}
 .cta:hover{opacity:.94;transform:translateY(-1px)}
 .cta:active{transform:translateY(0)}
 .cta svg{width:16px;height:16px}
@@ -71,20 +62,15 @@ main{flex:1;padding:34px 0 34px;text-align:center}
 <main>
   <div class="container">
     <h1>Acompanhe sua encomenda</h1>
-    <p class="lead">Veja a orientação rápida e siga para a área de acompanhamento.</p>
+    <p class="lead">Siga para a área de acompanhamento.</p>
 
     <form class="stage" action="go/" method="get">
-      <button type="submit" class="player" aria-label="Assistir e continuar">
-        <span class="player-grid"></span>
-        <span class="play-wrap">
-          <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="play-label">Assistir</span>
-        </span>
-      </button>
-      <button type="submit" class="cta">
-        Continuar
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
+      <span class="cta-wrap">
+        <button type="submit" class="cta">
+          Continuar
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </span>
       <p class="stage-foot">Consulta gratuita</p>
     </form>
   </div>
