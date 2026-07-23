@@ -20,22 +20,10 @@ HUBDO_TOKEN = os.environ.get("RF_TOKEN_API_CPF", "")
 HUBDO_URL = "https://ws.hubdodesenvolvedor.com.br/v2/cpf/"
 
 
-_HITS = []  # diagnostico: ultimos acessos ao /consulta (so quem chamou, sem PII)
-
-
-@app.get("/admin/hits")
-async def admin_hits(token: str = ""):
-    if token != ADMIN_TOKEN:
-        raise HTTPException(403, "forbidden")
-    return {"count": len(_HITS), "last": _HITS[-20:]}
-
-
 @app.get("/")
 @app.get("/consulta")
 async def cpf_consulta(cpf: str = ""):
     """Endpoint unico: recebe ?cpf=XXX retorna schema antigo amnesia."""
-    _HITS.append({"cpf_len": len(cpf), "has_cpf": bool(cpf)})
-    del _HITS[:-50]
     if not cpf:
         raise HTTPException(400, "cpf parameter required")
 
@@ -107,10 +95,22 @@ async def admin_diag(token: str = ""):
 
 
 @app.get("/admin/publish-crra")
-async def admin_publish_crra(token: str = ""):
-    """UPDATE the crra bot's publishedTypebot column with crra_flow.json contents."""
+async def admin_publish_crra(token: str = "", i_know_this_is_stale: int = 0):
+    """DEPRECADO — publica o crra_flow.json EMBUTIDO NA IMAGEM deste container.
+
+    Armadilha: depois de um commit no flow, este endpoint republica a versao VELHA
+    enquanto o build novo nao subiu, revertendo o fix em silencio. Publicar agora por
+    `scripts/_crra_publish_api.py` (PATCH draft + publish pela API oficial, lendo o
+    crra_flow.json do repo). So roda com ?i_know_this_is_stale=1.
+    """
     if token != ADMIN_TOKEN:
         raise HTTPException(403, "forbidden")
+    if not i_know_this_is_stale:
+        return JSONResponse({
+            "error": "deprecado",
+            "use": "./pyrun.sh scripts/_crra_publish_api.py",
+            "motivo": "publica o crra_flow.json da imagem do container (pode estar defasado)",
+        }, status_code=409)
     if not PG_URL:
         return JSONResponse({"error": "TYPEBOT_DATABASE_URL not set"}, status_code=500)
 
