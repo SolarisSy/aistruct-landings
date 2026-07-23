@@ -462,23 +462,30 @@ async def admin_dump_pub(token: str = ""):
             return JSONResponse({"error": "no PublicTypebot row"})
         def _parse(x):
             if x is None: return None
-            try: return json.loads(x) if isinstance(x, str) else x
-            except: return str(x)[:200]
-        groups = _parse(r[0]) or []
+            if isinstance(x, (dict, list)): return x
+            try: return json.loads(x)
+            except: return None
+        groups = _parse(r[0])
+        if not isinstance(groups, list): groups = []
         # achar conditions
         conds = []
         for g in groups:
-            for b in g.get("blocks", []):
-                if b.get("type") == "Condition":
-                    conds.append({"id": b.get("id"), "options": b.get("options", {})})
+            if isinstance(g, dict):
+                for b in g.get("blocks", []):
+                    if isinstance(b, dict) and b.get("type") == "Condition":
+                        conds.append({"id": b.get("id"), "options": b.get("options", {})})
+        events = _parse(r[3])
+        settings = _parse(r[5])
         return JSONResponse({
             "groups_count": len(groups),
             "edges_count": len(_parse(r[1]) or []),
             "vars_count": len(_parse(r[2]) or []),
-            "events": _parse(r[3]),
+            "events_type": type(events).__name__,
+            "events": events,
             "version": r[4],
             "conditions": conds,
-            "settings_keys": list((_parse(r[5]) or {}).keys()) if isinstance(_parse(r[5]), dict) else str(_parse(r[5]))[:100],
+            "settings_type": type(settings).__name__,
+            "settings_keys": list(settings.keys()) if isinstance(settings, dict) else None,
         })
     except Exception as e:
         return JSONResponse({"error": "query err", "detail": str(e)[:300]}, status_code=500)
