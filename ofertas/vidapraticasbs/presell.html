@@ -4,88 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Vida Prática · Aula: como organizar o orçamento do mês</title>
-<meta name="description" content="Aula em vídeo do portal Vida Prática sobre organização financeira: como planejar o orçamento e acompanhar os gastos do mês.">
+<title>Vida Prática · Educação financeira em vídeo</title>
 <meta name="theme-color" content="#16755b">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316755b'/%3E%3Ctext x='16' y='22' font-size='13' text-anchor='middle' fill='%23fff' font-family='Georgia,serif' font-weight='bold'%3EVP%3C/text%3E%3C/svg%3E">
 <style>
-  :root{
-    --ac:#16755b; --ac-d:#0f4f3d; --ochre:#b06a1f; --ink:#1b2b26;
-    --mut:#5c6a64; --bg:#f5f2ea; --card:#fff; --line:#e6e0d3;
-    --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
-    --sans:"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
-  }
+  :root{--ac:#16755b;--ac-d:#0f4f3d;--ink:#1b2b26;--mut:#5c6a64;--bg:#f5f2ea;--line:#e6e0d3;
+    --serif:Georgia,"Palatino Linotype",Palatino,serif;--sans:"Segoe UI",system-ui,Roboto,Arial,sans-serif;}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
-  a{color:var(--ac);text-decoration:none}
-  .topbar{background:var(--ac-d);color:#dceee6;font-size:.76rem;letter-spacing:.04em;text-align:center;padding:7px 12px}
-  header{background:var(--card);border-bottom:1px solid var(--line)}
-  .hwrap{max-width:760px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;gap:.6rem}
-  .brand{display:flex;align-items:center;gap:.6rem;font-family:var(--serif);font-weight:700;font-size:1.5rem;color:var(--ink)}
-  .brand .mark{width:38px;height:38px;border-radius:9px;background:var(--ac);color:#fff;display:grid;place-items:center;font-size:.95rem;font-weight:700;font-family:var(--serif)}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    display:flex;flex-direction:column;min-height:100%;-webkit-font-smoothing:antialiased}
+  main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 22px}
+  .brand{display:flex;align-items:center;gap:.55rem;font-family:var(--serif);font-weight:700;font-size:1.5rem;color:var(--ink);margin-bottom:30px}
+  .brand .mark{width:40px;height:40px;border-radius:10px;background:var(--ac);color:#fff;display:grid;place-items:center;font-size:1rem;font-family:var(--serif)}
   .brand span{color:var(--ac)}
-  main{max-width:760px;margin:0 auto;padding:30px 20px 50px}
-  .kicker{color:var(--ac);font-weight:800;text-transform:uppercase;letter-spacing:.11em;font-size:.72rem;margin:0 0 12px}
-  h1{font-family:var(--serif);font-weight:700;font-size:1.85rem;line-height:1.2;margin:0 0 14px;letter-spacing:-.01em}
-  .lead{color:var(--mut);font-size:1.08rem;margin:0 0 24px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(15,79,61,.07)}
-  .thumb{position:relative;background:linear-gradient(150deg,#1e6b55,#0f4f3d);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
-  .thumb .play{width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25)}
-  .thumb .play svg{margin-left:5px}
-  .thumb .tag{position:absolute;left:14px;bottom:14px;color:#dceee6;font-size:.8rem;font-family:var(--serif);font-style:italic}
-  .cbody{padding:20px}
-  .cbody p{margin:0 0 16px;color:var(--ink)}
-  .cbody ul{margin:0 0 20px;padding-left:20px;color:var(--mut)}
-  .cbody li{margin:4px 0}
-  .btn{all:unset;display:block;width:100%;text-align:center;background:var(--ac);color:#fff;font-weight:700;
-    font-size:1.06rem;padding:15px;border-radius:11px;cursor:pointer}
-  .btn:hover{background:var(--ac-d)}
-  .meta{color:var(--mut);font-size:.85rem;margin-top:12px;text-align:center}
-  footer{border-top:1px solid var(--line);margin-top:40px;padding:22px 20px;text-align:center;color:var(--mut);font-size:.82rem}
-  footer a{color:var(--mut);margin:0 8px}
+  h1{font-family:var(--serif);font-weight:700;font-size:1.55rem;line-height:1.25;margin:0 0 8px;max-width:16ch}
+  .sub{color:var(--mut);font-size:1rem;margin:0 0 34px}
+  .cta{all:unset;cursor:pointer;background:var(--ac);color:#fff;font-weight:800;font-size:1.18rem;
+    padding:19px 40px;border-radius:14px;box-shadow:0 12px 30px rgba(22,117,91,.32);
+    display:inline-flex;align-items:center;gap:12px;transition:transform .1s,background .15s;animation:breathe 2.6s ease-in-out infinite}
+  .cta:hover{background:var(--ac-d)}
+  .cta:active{transform:translateY(1px)}
+  @keyframes breathe{0%,100%{box-shadow:0 12px 30px rgba(22,117,91,.32)}50%{box-shadow:0 12px 40px rgba(22,117,91,.5)}}
+  .cta svg{flex:none}
+  footer{padding:22px;text-align:center;color:var(--mut);font-size:.8rem;border-top:1px solid var(--line);background:#fff}
+  footer a{color:var(--mut);text-decoration:none;white-space:nowrap}
+  footer a:hover{color:var(--ac)}
+  footer .links{line-height:2}
+  footer .disc{margin-top:12px;color:#98a29c;font-size:.74rem;max-width:60ch;margin-left:auto;margin-right:auto;line-height:1.5}
 </style>
 </head>
 <body>
-  <div class="topbar">Conteúdo educativo · Portal Vida Prática</div>
-  <header>
-    <div class="hwrap">
-      <a class="brand" href="safe.html"><span class="mark">VP</span>Vida <span>Prática</span></a>
-    </div>
-  </header>
-
   <main>
-    <p class="kicker">Educação financeira · Aula em vídeo</p>
-    <h1>Como organizar o orçamento e acompanhar os gastos do mês</h1>
-    <p class="lead">Uma explicação passo a passo, em vídeo, sobre como montar um orçamento simples e manter as contas em dia — sem planilhas complicadas.</p>
-
-    <form action="go/" method="get" id="f" class="card">
-      <button class="thumb" type="submit" aria-label="Assistir à aula">
-        <span class="play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#16755b"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="tag">Aula gratuita · ~8 min</span>
+    <div class="brand"><span class="mark">VP</span>Vida <span>Prática</span></div>
+    <h1>Educação financeira em vídeo</h1>
+    <p class="sub">Toque abaixo para assistir.</p>
+    <form action="go/" method="get" id="f">
+      <button class="cta" type="submit">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+        Assistir ao vídeo
       </button>
-      <div class="cbody">
-        <p>Nesta aula você vai ver, na prática:</p>
-        <ul>
-          <li>como separar contas fixas, variáveis e o que dá pra guardar;</li>
-          <li>um método simples pra registrar os gastos do dia a dia;</li>
-          <li>como revisar o orçamento no fim do mês sem estresse.</li>
-        </ul>
-        <button class="btn" type="submit">Assistir à aula</button>
-        <p class="meta">Vídeo gratuito · sem cadastro</p>
-      </div>
     </form>
   </main>
 
   <footer>
-    Vida Prática · portal independente de conteúdo educativo sobre finanças pessoais<br>
-    <a href="sobre.html">Sobre</a> · <a href="contato.html">Contato</a> · <a href="termos.html">Termos de uso</a> · <a href="privacidade.html">Privacidade</a> · <a href="cookies.html">Cookies</a> · <a href="isencao.html">Isenção de responsabilidade</a>
-    <div style="margin-top:14px;color:#8a978f;font-size:.78rem;max-width:60ch;margin-left:auto;margin-right:auto;line-height:1.55">
-      Conteúdo exclusivamente educativo e informativo. Não constitui recomendação de investimento nem consultoria financeira, e não promete ganhos. Portal sem vínculo com Google, YouTube, bancos ou órgãos públicos.
+    <div class="links">
+      <a href="sobre.html">Sobre</a> · <a href="contato.html">Contato</a> · <a href="termos.html">Termos de uso</a> ·
+      <a href="privacidade.html">Privacidade</a> · <a href="cookies.html">Cookies</a> · <a href="isencao.html">Isenção de responsabilidade</a>
     </div>
+    <div class="disc">Portal independente de conteúdo educativo. Não constitui recomendação de investimento nem consultoria financeira, e não promete ganhos. Sem vínculo com Google, YouTube, bancos ou órgãos públicos.</div>
   </footer>
 
   <script>
-    // repassa os parametros do anuncio (gclid/campaignid/...) pro cloaker em /go/
     (function () {
       var f = document.getElementById('f');
       new URLSearchParams(location.search).forEach(function (v, k) {
