@@ -17,7 +17,7 @@
 :root{--wine-900:#3a1019;--wine:#5b1a2e;--gold:#c9a227;--gold-dark:#a6841a;--cream:#faf5ed;--paper:#fff;--ink:#1f1416;--ink-soft:#5a4a4e;--ink-mute:#8a7a7e;--line:#cdbfa3;--font-display:Cambria,Constantia,Georgia,"Times New Roman",serif;--font-body:Verdana,Geneva,"DejaVu Sans",Tahoma,sans-serif;--font-mono:"Courier New",Consolas,monospace}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;min-height:100%;background:var(--cream);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+body{margin:0;min-height:100vh;min-height:100dvh;background:var(--cream);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
 svg{display:block;max-width:100%}
 a{color:var(--wine);text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:2px}
 h1{font-family:var(--font-display);color:var(--wine-900);font-size:clamp(1.55rem,4.2vw,2.1rem);line-height:1.25;margin:0 0 .4em;font-weight:700}
@@ -29,7 +29,7 @@ h1{font-family:var(--font-display);color:var(--wine-900);font-size:clamp(1.55rem
 .brand-mark{width:26px;height:26px;flex-shrink:0}
 .brand-text{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--wine-900)}
 .brand-text strong{color:var(--gold-dark)}
-main{flex:1;padding:34px 0 34px;text-align:center}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:30px 0;text-align:center}
 .lead{color:var(--ink-soft);font-size:.98rem;margin:0 auto;max-width:44ch}
 .stage{margin:30px auto 0}
 .cta-wrap{position:relative;display:inline-block;max-width:420px;width:100%}
