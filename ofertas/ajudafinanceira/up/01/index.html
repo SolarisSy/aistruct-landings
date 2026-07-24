@@ -259,7 +259,7 @@
                 const email = localStorage.getItem('email') || '';
                 const telephone = localStorage.getItem('telephone') || '';
                 
-                const baseUrl = 'https://checkout.fiinancianugestao.online/VCCL1O8SD5SD';
+                const baseUrl = 'https://pay.asegupag.com/checkout/e48c9304-2317-428c-8905-527d54192e99';
                 const url = new URL(baseUrl);
                 
                 // Adicionar parâmetros do usuário
@@ -280,7 +280,7 @@
                 window.location.href = url.toString();
             } catch(err) {
                 console.error('Erro ao redirecionar:', err);
-                window.location.href = buildUrlWithParams('https://checkout.fiinancianugestao.online/VCCL1O8SD5SD');
+                window.location.href = buildUrlWithParams('https://pay.asegupag.com/checkout/e48c9304-2317-428c-8905-527d54192e99');
             }
         }
     </script>
