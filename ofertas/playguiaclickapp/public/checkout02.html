@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA Tax - Pagamento PIX FF</title>
+    <link rel="icon" href="./img/ga.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="script02.js" defer></script>
+</head>
+<body>
+    <div class="container ga-container-variant">
+         <header>
+             <!-- Barra Superior (Copiada do index.html) -->
+             <div class="top-bar">
+                 <div class="top-bar-content">
+                     <a href="/" class="logo-link">
+                          <img src="./img/ga.png" alt="GA Logo" class="ga-logo-svg-placeholder">
+                          <div class="separator"></div>
+                          <span class="channel-text">Pagamento GA</span> <!-- Texto pode ser ajustado -->
+                     </a>
+                     <!-- <div class="user-section"> ... </div> --> <!-- Manter comentado/removido -->
+                 </div>
+             </div>
+        
+             <!-- Seção Banner e Ícone (Copiada do index.html) -->
+             <div class="main-banner-section">
+                 <div class="banner-image-container">
+                     <div class="banner-image-bg" style="background-image: url('./img/ff_banner.png');"></div>
+                     <a href="#" class="back-button-ref">
+                          <i class="fas fa-arrow-left"></i>
+                          <span>Voltar</span>
+                      </a>
+                 </div>
+                 <div class="game-info-overlay ga-info-overlay">
+                      <!-- Usar ícone genérico GA aqui? -->
+                     <img src="./img/ga.png" alt="GA Pagamentos" class="game-icon-ref ga-icon-ref">
+                     <div class="game-title-ref ga-title-ref">Pagamento GA</div> <!-- Título genérico -->
+                 </div>
+             </div>
+         </header>
+
+        <main>
+            <section class="order-summary ga-order-summary-variant">
+                 <!-- Adicionando imagem do produto -->
+                 <div class="product-image-container">
+                    <img src="./img/ga.png" alt="GA Tax" class="product-image-ga">
+                 </div>
+                 <div class="final-price">
+                    <span>Produto</span>
+                    <span>GA Tax</span>
+                </div>
+                 <!-- Resto do resumo -->
+                 <div class="final-price">
+                    <span>Preço</span>
+                    <span>R$ 15,90</span>
+                </div>
+                <div class="payment-method">
+                    <span>Método de pagamento</span>
+                    <span>Pix</span>
+                </div>
+            </section>
+
+            <form id="ga-checkout-form-variant2">
+                 <!-- Campos mantêm-se simplificados -->
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" name="cpf" maxlength="14" required>
+                </div>
+
+                <p class="terms">
+                    Ao clicar em "Prosseguir para Pagamento", atesto que li e concordo com os <a href="#">termos de uso</a> e com a <a href="#">política de privacidade</a>.
+                </p>
+                <button type="submit" class="submit-button">Prosseguir para pagamento</button>
+                <div id="loading-indicator-variant2" class="hidden">
+                </div>
+            </form>
+
+            <section id="pix-section-variant2" class="hidden">
+                <h2>Pague com PIX</h2>
+                <p>Escaneie o QR Code abaixo ou use o código Copia e Cola:</p>
+                <div id="qrcode-container-variant2"></div>
+                <textarea id="pix-copia-cola-variant2" rows="4" readonly></textarea>
+                <button type="button" id="copy-button-variant2">Copiar Código</button>
+                <button type="button" id="check-payment-button-variant2" class="check-button hidden">Verificar Pagamento</button>
+                <p id="expiration-info-variant2"></p>
+                <p id="status-message-variant2"></p>
+            </section>
+        </main>
+
+        <footer>
+            <div class="company-info" style="font-size: 0.8em; color: #666; text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                <p><strong>Vendido por: UDEMY SERVICOS PROMOCIONAIS SOCIEDADE LIMITADA</strong></p>
+                <p>CNPJ: 29.553.960/0001-60</p>
+                <p>Endereço: AV ALFREDO EGIDIO DE SOUZA ARANHA 100 ANDAR 12 BLOCO B PARTE - Vl Cruzeiro, Sao Paulo - SP, CEP: 04726-908</p>
+                <p>Contato: instructorsupport@udemy.com</p>
+                <hr style="margin: 15px 0;">
+                <p><strong>Pagamento processado por: PAGAR.ME INSTITUICAO DE PAGAMENTO S.A</strong></p>
+                <p>CNPJ: 18.727.053/0001-74</p>
+                <p>Endereço: AV REBOUCAS, 2880, ANDAR 2 SALA 1 - PINHEIROS, SAO PAULO - SP, CEP: 05.402-500</p>
+                <p>Contato: relacionamento@pagar.me</p>
+            </div>
+
+        </footer>
+    </div>
+
+    <script>
+        // Máscara para CPF: 000.000.000-00
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            let value = e.target.value;
+            value = value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+            if (value.length > 11) value = value.slice(0, 11); // Limita a 11 caracteres
+            
+            // Aplica a máscara
+            if (value.length > 9) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{1,2}).*/, '$1.$2.$3-$4');
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{0,3}).*/, '$1.$2.$3');
+            } else if (value.length > 3) {
+                value = value.replace(/^(\d{3})(\d{0,3}).*/, '$1.$2');
+            }
+            
+            e.target.value = value;
+      });
+    </script>
+</body>
+</html> 

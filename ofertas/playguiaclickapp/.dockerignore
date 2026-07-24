@@ -1,0 +1,45 @@
+# Arquivos e diretórios a serem ignorados no build Docker
+
+# Dependências
+node_modules
+.pnp
+.pnp.js
+
+# Build
+.next
+out
+dist
+build
+
+# Cache
+.cache
+.turbo
+
+# Arquivos de ambiente local
+.env*.local
+
+# Arquivos de log
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos do sistema
+.DS_Store
+*.pem
+
+# Arquivos do editor
+.idea
+.vscode
+*.swp
+*.swo
+
+# Arquivos de teste
+coverage
+
+# Outros
+# tsconfig.tsbuildinfo  # Removido para permitir seu uso durante o build
+.git
+.github
+README.md 

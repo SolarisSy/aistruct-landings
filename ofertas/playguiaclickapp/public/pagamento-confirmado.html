@@ -1,0 +1,465 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Diamantes FF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+            color: #333;
+        }
+
+        .container.ga-pg-confirm-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+        }
+
+        .logo.ga-logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #444;
+            text-align: center;
+        }
+
+        .input-container.ff-input-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            color: #333;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: not-allowed;
+            transition: background-color 0.3s ease;
+        }
+
+        button.enabled {
+            cursor: pointer;
+            background-color: #007bff;
+        }
+
+        button.enabled:hover {
+            background-color: #0056b3;
+        }
+
+        .status-container.ff-status-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: left;
+            display: none;
+        }
+
+        .priority-container.ff-priority-container {
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: #e6f7e6;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .priority-container p {
+            font-size: 1rem;
+            color: #2d572c;
+            margin-bottom: 10px;
+        }
+
+        .priority-container button {
+            width: auto;
+            padding: 12px 20px;
+            background-color: #34c759;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .priority-container button:hover {
+            background-color: #28a745;
+            transform: scale(1.05);
+        }
+
+        .priority-alert.ff-priority-alert {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #ffe4e4;
+            color: #d9534f;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .priority-fast.ff-priority-fast {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #e6f9ff;
+            color: #007bff;
+            border: 1px solid #b3e5fc;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .priority-fast button {
+            width: auto;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .priority-fast button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .status-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .status-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .status-success {
+            color: #28a745;
+        }
+
+        .status-warning {
+            color: #ffc107;
+        }
+
+        .status-error {
+            color: #dc3545;
+        }
+
+        .spinner {
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.2);
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .status-processing {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: #ffc107;
+            margin-top: 20px;
+        }
+
+        .status-processing .circle {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            border: 4px solid #ffc107;
+            border-radius: 50%;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #ffc107;
+            }
+            to {
+                box-shadow: 0 0 15px #ffc107;
+            }
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            width: 100%;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .notice.ff-notice {
+            font-size: 0.9rem;
+            margin-top: 20px;
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border: 1px solid #ffeeba;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .page.ga-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="page ga-page">
+        <div class="container ga-pg-confirm-container">
+            <img src="/img/ga.png" alt="GA Logo" class="logo ga-logo">
+            <h1>Obrigado pela sua compra de FF!</h1>
+            
+            <div style="text-align: left; margin-bottom: 20px; padding: 10px; border: 1px solid #eee;">
+                <p><strong>ID da Transação FF:</strong> <span id="transaction-id-ff"></span></p>
+                <p><strong>Jogador FF:</strong> <span id="player-name-display-ff"></span></p>
+                <p><strong>Valor da Recarga FF:</strong> <span id="recharge-value-ff"></span></p>
+                <p><strong>Prazo de Entrega (Diamantes FF):</strong> <span id="delivery-time-ff"></span></p>
+            </div>
+            
+            <h2>Insira seu ID FF para consultar o status do seu pedido</h2>
+            <div class="input-container ff-input-container">
+                <input id="account-id-ff" type="text" placeholder="Insira seu ID FF aqui..." oninput="enableButton()">
+            </div>
+            <button id="consult-button-ff" class="disabled" disabled="" onclick="checkCookieAndShowStatus()">CONSULTAR MEUS DIAMANTES FF</button>
+
+            <div id="status-ff" class="status-container ff-status-container">
+                <div class="spinner"></div>
+                <div class="status-item">
+                    <span class="status-icon status-success">✔️</span>
+                    <span id="queue-status-ff">Posição na fila para recebimento do pedido FF: 824 de 1341 jogadores.</span>
+                </div>
+                <div class="status-processing">
+                    <div class="circle"></div>
+                    <span>Status do pedido FF em processamento</span>
+                </div>
+            </div>
+
+            <div id="priority-ff" class="priority-container ff-priority-container">
+                <p>Quer acelerar o processo e ser um dos primeiros na fila FF?</p>
+                <button onclick="prioritizeQueue()">Fila Prioritária FF e Acelere Seus Diamantes</button>
+            </div>
+
+            <div id="priority-alert-ff" class="priority-alert ff-priority-alert">
+                <p>Lamentamos informar, mas não há mais vagas disponíveis para a fila prioritária FF devido ao alto número de pedidos. 😔</p>
+            </div>
+
+            <div id="priority-fast-ff" class="priority-fast ff-priority-fast">
+                <p>Caso você esteja com muita pressa de receber seus diamantes FF, use o <b>Diamante Fast FF</b> e receba na hora, com um bônus de +500 diamantes se comprar nos próximos 5 minutos!</p>
+                <button onclick="window.location.href='checkout02.html';">Quero Diamante Fast FF!</button>
+            </div>
+
+            <div class="notice ff-notice">
+                Caso não receba seus diamantes FF, entre em contato conosco pelo e-mail <a href="mailto:contato@recargajogoemga.com">contato@recargajogoemga.com</a> para reembolso ou reenvio do pedido. Isso pode acontecer devido à alta demanda pela promoção FF.
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 GA International. Todos os direitos reservados. Consulte nossos <a href="#">Termos de Serviço GA</a> e <a href="#">Política de Privacidade GA</a>.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const transactionId = urlParams.get('tid');
+            const valorParam = urlParams.get('valor');
+            const playerName = urlParams.get('playerName') || 'Não informado (FF)';
+            const diasUteis = parseInt(urlParams.get('dias') || '0', 10);
+            const itemId = urlParams.get('itemId') || 'diamond_pack_ff_default';
+            const itemName = urlParams.get('itemName') || 'Pacote de Diamantes FF';
+            const itemQuantity = parseInt(urlParams.get('itemQuantity') || '1', 10);
+
+            const valor = valorParam ? parseFloat(valorParam) / 100 : 0;
+
+            document.getElementById('transaction-id-ff').textContent = transactionId || 'N/A';
+            document.getElementById('player-name-display-ff').textContent = decodeURIComponent(playerName);
+            document.getElementById('recharge-value-ff').textContent = valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            if (diasUteis > 0) {
+                document.getElementById('delivery-time-ff').textContent = `${diasUteis} dia(s) útil(eis) para FF`;
+            } else {
+                document.getElementById('delivery-time-ff').textContent = "Imediato para FF (geralmente em minutos)";
+            }
+
+            if (window.performance && window.performance.navigation.type === 2) {
+                window.location.replace(window.location.origin + window.location.pathname);
+            }
+        });
+    
+        function enableButton() {
+            const input = document.getElementById('account-id-ff');
+            const button = document.getElementById('consult-button-ff');
+            if (input.value.trim() !== "") {
+                button.classList.add('enabled');
+                button.disabled = false;
+            } else {
+                button.classList.remove('enabled');
+                button.disabled = true;
+            }
+        }
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const c = cookies[i].trim();
+                if (c.indexOf(name + "=") === 0) {
+                    return c.substring(name.length + 1);
+                }
+            }
+            return "";
+        }
+
+        function checkCookieAndShowStatus() {
+            const today = new Date().toISOString().slice(0, 10);
+            const lastConsult = getCookie("lastConsultFF");
+
+            if (lastConsult === today) {
+                alert("Você já consultou seus diamantes FF hoje. Tente novamente amanhã.");
+                return;
+            }
+
+            setCookie("lastConsultFF", today, 1);
+            showStatus();
+        }
+
+        function showStatus() {
+            const statusContainer = document.getElementById('status-ff');
+            const button = document.getElementById('consult-button-ff');
+            button.disabled = true;
+            button.textContent = "Carregando FF...";
+
+            const queueStatus = document.getElementById('queue-status-ff');
+            let currentPosition = 824;
+            let totalPlayers = 1341;
+
+            const positionInterval = setInterval(() => {
+                if (currentPosition > 0) {
+                    currentPosition--;
+                    queueStatus.textContent = `Posição na fila FF para recebimento do pedido: ${currentPosition} de ${totalPlayers} jogadores.`;
+                } else {
+                    clearInterval(positionInterval);
+                }
+            }, 200);
+
+            const totalInterval = setInterval(() => {
+                if (totalPlayers < 2000) {
+                    totalPlayers++;
+                    queueStatus.textContent = `Posição na fila FF para recebimento do pedido: ${currentPosition} de ${totalPlayers} jogadores.`;
+                } else {
+                    clearInterval(totalInterval);
+                }
+            }, 100);
+
+            setTimeout(() => {
+                clearInterval(positionInterval);
+                clearInterval(totalInterval);
+                statusContainer.style.display = 'block';
+                button.textContent = "CONSULTAR MEUS DIAMANTES FF";
+
+                const priorityContainer = document.getElementById('priority-ff');
+                setTimeout(() => {
+                    priorityContainer.style.display = 'block';
+                }, 5000);
+            }, 3000);
+        }
+
+        function prioritizeQueue() {
+            const alertBox = document.getElementById('priority-alert-ff');
+            alertBox.style.display = 'block';
+
+            const fastOption = document.getElementById('priority-fast-ff');
+            setTimeout(() => {
+                fastOption.style.display = 'block';
+            }, 2000);
+        }
+    </script>
+
+
+</body></html>

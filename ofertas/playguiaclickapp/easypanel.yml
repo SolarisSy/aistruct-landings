@@ -1,0 +1,19 @@
+name: ffnew
+type: docker
+dockerfile: Dockerfile
+source:
+  type: git
+  # Substitua o URL abaixo pelo URL do seu repositório Git se disponível
+  # url: https://github.com/seu-usuario/seu-repositorio.git
+  dir: .
+ports:
+  - name: web
+    port: 3000
+    # Altere para 'false' se você não quiser expor esta porta publicamente
+    expose: true
+env:
+  - name: NODE_ENV
+    value: production
+resources:
+  memory: 512M
+  cpu: 0.5 

