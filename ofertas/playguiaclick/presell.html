@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PlayGuia · Desempenho e ajustes para jogar no celular</title>
+<meta name="description" content="Guia prático de ajustes para quem joga no celular: travamento, sensibilidade, bateria e conexão. Conteúdo independente, sem patrocínio de fabricante.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://playguia.click/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2320343a'/%3E%3Cpath d='M7 9h5.4l3.6 8.2L19.6 9H25l-7.1 15h-3.8z' fill='%23b3400f'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#20343a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PlayGuia">
+<meta property="og:title" content="PlayGuia · Desempenho e ajustes para jogar no celular">
+<meta property="og:description" content="Guia prático de ajustes para quem joga no celular: travamento, sensibilidade, bateria e conexão.">
+<meta property="og:url" content="https://playguia.click/">
+<meta property="og:image" content="https://playguia.click/img/_hero.jpg">
+<meta property="og:locale" content="pt_BR">
+<style>
+  :root{
+    --ac:#b3400f;--deep:#20343a;--paper:#f5f2ec;--ink:#14171a;--line:#ddd6c9;--mut:#5f6b70;
+    --disp:"Trebuchet MS","Lucida Grande","Segoe UI",sans-serif;
+    --body:Georgia,"Iowan Old Style","Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+    font-size:17px;line-height:1.68;display:flex;flex-direction:column;min-height:100%;
+    -webkit-text-size-adjust:100%}
+  img{max-width:100%;display:block}
+  .wrap{width:100%;max-width:640px;margin:0 auto;padding:0 22px}
+
+  header{border-bottom:3px double var(--line)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 22px}
+  .logo{font-family:var(--disp);font-weight:700;font-size:1.3rem;letter-spacing:-.03em;
+    color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:9px}
+  .logo i{width:24px;height:24px;background:var(--deep);display:inline-block;position:relative;font-style:normal}
+  .logo i::after{content:"";position:absolute;inset:5px 5px;background:var(--ac);
+    clip-path:polygon(0 0,38% 0,50% 46%,62% 0,100% 0,58% 100%,42% 100%)}
+  .logo b{color:var(--ac)}
+  .tag{font-family:var(--disp);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--mut)}
+
+  main{flex:1;padding:30px 0 42px}
+  .kicker{font-family:var(--disp);font-size:.73rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ac);margin:0 0 9px}
+  h1{font-family:var(--disp);font-size:1.92rem;line-height:1.17;letter-spacing:-.028em;margin:0 0 12px}
+  .dek{color:var(--mut);font-size:1.06rem;margin:0 0 22px}
+  figure{margin:0 0 24px;border:1px solid var(--line)}
+
+  .pts{list-style:none;margin:0 0 28px;padding:0}
+  .pts li{position:relative;padding-left:26px;margin-bottom:11px;font-size:1rem;line-height:1.55}
+  .pts li::before{content:"";position:absolute;left:0;top:.62em;width:13px;height:2px;background:var(--ac)}
+  .pts b{font-family:var(--disp);letter-spacing:-.01em}
+
+  form{margin:0}
+  .cta{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;gap:11px;width:100%;background:var(--ac);color:#fff;
+    font-family:var(--disp);font-weight:700;font-size:1.14rem;letter-spacing:.01em;
+    padding:19px 26px;border-radius:3px;text-align:center;
+    border-bottom:4px solid #8b3009;transition:background .15s,transform .08s}
+  .cta:hover{background:#c2470f}
+  .cta:active{transform:translateY(2px);border-bottom-width:2px}
+  .cta svg{flex:none}
+  .hint{font-family:var(--disp);font-size:.8rem;color:var(--mut);text-align:center;margin:11px 0 0}
+
+  .note{border-left:5px solid var(--deep);background:#fff;padding:14px 18px;margin:30px 0 0;
+    font-size:.96rem;color:var(--deep)}
+  .note b{font-family:var(--disp);font-size:.74rem;letter-spacing:.13em;text-transform:uppercase;
+    display:block;margin-bottom:5px;color:var(--mut)}
+
+  footer{border-top:3px double var(--line);padding:22px 0 30px;font-size:.85rem}
+  footer .links{font-family:var(--disp);font-size:.83rem;line-height:2.1}
+  footer a{color:var(--mut);text-decoration:none;white-space:nowrap}
+  footer a:hover{color:var(--ac)}
+  footer .sep{color:var(--line);margin:0 6px}
+  footer .disc{margin-top:12px;color:#8b9499;font-size:.79rem;line-height:1.62}
+  @media(max-width:520px){
+    h1{font-size:1.62rem}
+    .cta{font-size:1.06rem;padding:18px 20px}
+  }
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="logo" href="safe.html"><i></i>Play<b>Guia</b></a>
+  <span class="tag">Guias · Celular</span>
+</div></header>
+
+<main><div class="wrap">
+  <p class="kicker">Desempenho</p>
+  <h1>O seu celular trava na hora errada?</h1>
+  <p class="dek">Na maioria dos casos não é o aparelho: são três ajustes que quase
+  ninguém revisa — e dá para testar todos em quatro partidas curtas.</p>
+
+  <figure>
+    <img src="img/_hero.jpg" alt="Pessoa jogando em um celular segurando com as duas mãos" width="840" height="525" fetchpriority="high">
+  </figure>
+
+  <ul class="pts">
+    <li><b>Calor:</b> o desempenho cai a partir do quinto minuto e ninguém associa à capa do aparelho.</li>
+    <li><b>Memória:</b> o engasgo isolado vem do sistema trocando recursos, não de falta de potência.</li>
+    <li><b>Configuração:</b> baixar tudo ao mínimo de uma vez esconde qual ajuste resolveu.</li>
+  </ul>
+
+  <form action="go/" method="get" id="f">
+    <button class="cta" type="submit">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      Ver o guia completo
+    </button>
+  </form>
+  <p class="hint">Leitura de 4 minutos · sem cadastro</p>
+
+  <div class="note">
+    <b>Como testamos</b>
+    Uma variável por vez, sempre no mesmo cenário, com a condição do aparelho anotada.
+    Quando o resultado não se repete em dois aparelhos diferentes, o texto diz isso.
+  </div>
+</div></main>
+
+<footer><div class="wrap">
+  <div class="links">
+    <a href="safe.html">Início</a><span class="sep">·</span>
+    <a href="app.html">Caderno de ajustes</a><span class="sep">·</span>
+    <a href="glossario.html">Glossário</a><span class="sep">·</span>
+    <a href="faq.html">Dúvidas</a><span class="sep">·</span>
+    <a href="sobre.html">Sobre</a><span class="sep">·</span>
+    <a href="privacidade.html">Privacidade</a><span class="sep">·</span>
+    <a href="termos.html">Termos de uso</a>
+  </div>
+  <div class="disc">
+    PlayGuia é um site independente de conteúdo sobre jogos em dispositivos móveis. Não temos
+    vínculo, patrocínio ou representação de fabricantes de aparelhos, desenvolvedoras de jogos,
+    lojas de aplicativos ou operadoras. O conteúdo é informativo e não substitui a orientação
+    técnica do fabricante do seu aparelho. © 2026 PlayGuia · playguia.click
+  </div>
+</div></footer>
+
+<script>
+  (function () {
+    var f = document.getElementById('f');
+    new URLSearchParams(location.search).forEach(function (v, k) {
+      var i = document.createElement('input');
+      i.type = 'hidden'; i.name = k; i.value = v;
+      f.appendChild(i);
+    });
+  })();
+</script>
+</body>
+</html>
