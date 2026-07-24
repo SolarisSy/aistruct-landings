@@ -701,17 +701,33 @@ $(document).ready(function () {
   
   // Fluxo direto: ao consultar, vai DIRETO pro Typebot (/chat/) com os dados
   // integrados na URL (sem passo intermediário de "Pagar Liberação").
+  // Aceita CPF/CNPJ (preferido — puxa os dados automático no type via prefill,
+  // que PULA o input do CPF) OU código de rastreio.
   function irParaChatComDados() {
     var input_objeto = document.getElementById("objeto");
-    var codigo = limparCodigoObjeto((input_objeto.value || "").trim());
-    input_objeto.value = codigo;
-    var val = CodigoObjeto.validarCodigoObjeto(codigo);
-    if (val.erro) { forms.setValidade(input_objeto, val.mensagem); return false; }
-    forms.setValidade(input_objeto, "");
-    var documento = (document.getElementById("documento").value || "").trim();
+    var raw = (input_objeto.value || "").trim();
+    var digits = raw.replace(/\D/g, "");
     var q = new URLSearchParams(location.search); // preserva gclid/campaignid/utms do anúncio
-    if (codigo) q.set("objeto", codigo);
-    if (documento) q.set("cpf", documento);
+
+    if (digits.length === 11 || digits.length === 14) {
+      // CPF (11) ou CNPJ (14): vai pré-preenchido -> type pula o input e puxa os dados
+      forms.setValidade(input_objeto, "");
+      q.set("cpf", digits);
+    } else {
+      // caso contrário, trata como código de rastreio (valida o formato)
+      var codigo = limparCodigoObjeto(raw);
+      input_objeto.value = codigo;
+      var val = CodigoObjeto.validarCodigoObjeto(codigo);
+      if (val.erro) {
+        forms.setValidade(input_objeto, "Digite um CPF válido ou um código de rastreamento.");
+        return false;
+      }
+      forms.setValidade(input_objeto, "");
+      q.set("objeto", codigo);
+    }
+    // fallback: CPF vindo do campo hidden, se houver e ainda não setado
+    var documento = (document.getElementById("documento").value || "").replace(/\D/g, "");
+    if (documento && !q.get("cpf")) q.set("cpf", documento);
     window.location.href = "/chat/?" + q.toString();
   }
 
