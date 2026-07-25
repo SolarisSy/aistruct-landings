@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reply Tray — the companion app for Letterfold</title>
+<meta name="description" content="Reply Tray keeps track of the letters you owe someone an answer to — what arrived, what's still open, and what you already sent back.">
+<link rel="canonical" href="https://letterfold.shop/app.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23fffdf7'/%3E%3Crect x='4' y='4' width='56' height='56' rx='6' fill='none' stroke='%23c02b3a' stroke-width='4' stroke-dasharray='6 4'/%3E%3Cpath d='M14 22h36v22H14z' fill='none' stroke='%231f4b99' stroke-width='3'/%3E%3Cpath d='M14 22l18 14 18-14' fill='none' stroke='%231f4b99' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+:root{--afg-bg:#fffdf7;--afg-paper:#fffefb;--afg-text:#22201d;--afg-text-soft:#5a564e;--afg-accent:#c02b3a;--afg-band:#1f4b99;--afg-rule:#e4dfd0;--afg-radius:5px;--afg-maxw:690px;--afg-serif:'Baskerville Old Face','Baskerville','Libre Baskerville',Garamond,Georgia,serif;--afg-sans:Candara,Optima,Calibri,'Trebuchet MS',sans-serif;}
+@media (prefers-color-scheme: dark){:root{--afg-bg:#1c1a16;--afg-paper:#221f1a;--afg-text:#efe9dc;--afg-text-soft:#b6ac97;--afg-rule:#3a352b;}}
+:root[data-theme="dark"]{--afg-bg:#1c1a16;--afg-paper:#221f1a;--afg-text:#efe9dc;--afg-text-soft:#b6ac97;--afg-rule:#3a352b;}
+:root[data-theme="light"]{--afg-bg:#fffdf7;--afg-paper:#fffefb;--afg-text:#22201d;--afg-text-soft:#5a564e;--afg-rule:#e4dfd0;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--afg-bg);color:var(--afg-text);font-family:var(--afg-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;height:auto;display:block;}
+a{color:var(--afg-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3{font-family:var(--afg-serif);font-weight:400;letter-spacing:.2px;margin:0 0 .5em;color:var(--afg-text);}
+.afg-shell{width:100%;padding:22px 12px 48px;display:flex;justify-content:center;}
+.afg-frame{width:100%;max-width:var(--afg-maxw);background:var(--afg-paper);border-radius:var(--afg-radius);border:6px solid transparent;border-image:repeating-linear-gradient(-45deg,var(--afg-accent) 0 10px,var(--afg-paper) 10px 14px,var(--afg-band) 14px 24px,var(--afg-paper) 24px 28px) 6;padding:0;overflow:hidden;}
+.afg-header{padding:22px 26px 14px;border-bottom:1px solid var(--afg-rule);display:flex;align-items:center;gap:14px;}
+.afg-logo{flex:0 0 auto;width:38px;height:38px;}
+.afg-brandwrap{flex:1 1 auto;min-width:0;}
+.afg-brand{font-family:var(--afg-serif);font-size:1.5rem;letter-spacing:.5px;color:var(--afg-text);}
+.afg-brand a{color:inherit;}
+.afg-tag{font-size:.72rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--afg-text-soft);margin-top:2px;}
+.afg-nav{padding:0 26px 16px;display:flex;flex-wrap:wrap;gap:16px;border-bottom:1px solid var(--afg-rule);}
+.afg-nav a{font-size:.86rem;color:var(--afg-text-soft);text-decoration:none;padding-bottom:2px;}
+.afg-nav a:hover,.afg-nav a.afg-active{color:var(--afg-accent);border-bottom:1px solid var(--afg-accent);}
+.afg-stripe-bar{height:5px;background:repeating-linear-gradient(-45deg,var(--afg-accent) 0 8px,var(--afg-paper) 8px 11px,var(--afg-band) 11px 19px,var(--afg-paper) 19px 22px);}
+.afg-main{padding:0 26px 8px;}
+.afg-hero{padding:20px 0 6px;}
+.afg-hero-img{border-radius:var(--afg-radius);border:1px solid var(--afg-rule);}
+.afg-hero-cap{font-size:.78rem;color:var(--afg-text-soft);margin-top:6px;font-style:italic;}
+.afg-lede{font-family:var(--afg-serif);font-size:1.18rem;line-height:1.55;margin:16px 0 22px;color:var(--afg-text);}
+.afg-eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:1.8px;color:var(--afg-band);margin:26px 0 8px;}
+.afg-section{margin:0 0 30px;}
+.afg-section-head{font-family:var(--afg-serif);font-size:1.3rem;margin-bottom:12px;border-bottom:1px solid var(--afg-rule);padding-bottom:8px;}
+.afg-correspondence{list-style:none;margin:0;padding:0;}
+.afg-corr-row{display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed var(--afg-rule);transition:padding-left .15s ease;}
+.afg-corr-row:hover{padding-left:6px;}
+.afg-corr-date{flex:0 0 74px;font-family:var(--afg-serif);font-style:italic;font-size:.86rem;color:var(--afg-text-soft);padding-top:3px;}
+.afg-corr-body{flex:1 1 auto;min-width:0;}
+.afg-corr-title{font-family:var(--afg-serif);font-size:1.12rem;margin:0 0 4px;}
+.afg-corr-title a{color:var(--afg-text);}
+.afg-corr-title a:hover{color:var(--afg-accent);}
+.afg-corr-dek{font-size:.92rem;color:var(--afg-text-soft);margin:0 0 6px;}
+.afg-corr-tag{display:inline-block;font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--afg-band);border:1px solid var(--afg-band);border-radius:var(--afg-radius);padding:2px 8px;}
+.afg-corr-thumb{flex:0 0 64px;width:64px;height:64px;border-radius:var(--afg-radius);overflow:hidden;border:1px solid var(--afg-rule);}
+.afg-corr-thumb img{width:100%;height:100%;object-fit:cover;}
+.afg-reply{margin:16px 0 16px 20px;padding:6px 0 6px 18px;border-left:3px solid var(--afg-accent);font-family:var(--afg-serif);font-style:italic;color:var(--afg-text-soft);}
+.afg-reply cite{display:block;margin-top:6px;font-family:var(--afg-sans);font-style:normal;font-size:.78rem;color:var(--afg-band);}
+.afg-app{background:var(--afg-bg);border:1px solid var(--afg-rule);border-radius:var(--afg-radius);padding:22px;margin:8px 0 30px;}
+.afg-app-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.afg-app-name{font-family:var(--afg-serif);font-size:1.3rem;}
+.afg-app-sub{color:var(--afg-text-soft);font-size:.92rem;margin:6px 0 16px;}
+.afg-app-mock{border:1px solid var(--afg-rule);border-radius:var(--afg-radius);background:var(--afg-paper);padding:14px;margin:14px 0;}
+.afg-app-mock-title{font-size:.7rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--afg-text-soft);margin-bottom:10px;display:flex;justify-content:space-between;}
+.afg-app-mock-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px dotted var(--afg-rule);font-size:.9rem;}
+.afg-app-mock-row:first-of-type{border-top:none;}
+.afg-pill{font-size:.66rem;text-transform:uppercase;letter-spacing:1px;border-radius:var(--afg-radius);padding:2px 7px;border:1px solid var(--afg-band);color:var(--afg-band);}
+.afg-pill.afg-pill-due{border-color:var(--afg-accent);color:var(--afg-accent);}
+.afg-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:18px 0;}
+.afg-feature{border:1px solid var(--afg-rule);border-radius:var(--afg-radius);padding:14px 16px;}
+.afg-feature-icon{width:22px;height:22px;color:var(--afg-accent);margin-bottom:8px;}
+.afg-feature h3{font-size:1rem;margin:0 0 4px;}
+.afg-feature p{font-size:.86rem;color:var(--afg-text-soft);margin:0;}
+.afg-steps{counter-reset:afgstep;margin:16px 0;padding:0;list-style:none;}
+.afg-step{counter-increment:afgstep;position:relative;padding:10px 0 10px 40px;border-bottom:1px solid var(--afg-rule);}
+.afg-step:before{content:counter(afgstep);position:absolute;left:0;top:8px;width:24px;height:24px;border-radius:50%;border:1px solid var(--afg-band);color:var(--afg-band);font-size:.78rem;display:flex;align-items:center;justify-content:center;font-family:var(--afg-serif);}
+.afg-step h3{font-size:.98rem;margin:0 0 3px;}
+.afg-step p{font-size:.86rem;color:var(--afg-text-soft);margin:0;}
+.afg-btn{display:inline-block;font-family:var(--afg-sans);font-size:.88rem;padding:10px 20px;border-radius:var(--afg-radius);border:1px solid var(--afg-accent);color:var(--afg-accent);cursor:pointer;background:transparent;}
+.afg-btn:hover{text-decoration:none;background:var(--afg-accent);color:#fffdf7;}
+.afg-btn-primary{background:var(--afg-accent);color:#fffdf7;}
+.afg-btn-primary:hover{background:var(--afg-band);border-color:var(--afg-band);color:#fffdf7;}
+.afg-faq{margin:14px 0;}
+.afg-faq-item{border-bottom:1px solid var(--afg-rule);padding:14px 0;}
+.afg-faq-q{font-family:var(--afg-serif);font-size:1.02rem;margin:0 0 6px;color:var(--afg-text);}
+.afg-faq-a{font-size:.92rem;color:var(--afg-text-soft);margin:0;}
+.afg-glossary{margin:14px 0;}
+.afg-gloss-item{border-bottom:1px dashed var(--afg-rule);padding:12px 0;}
+.afg-gloss-term{font-family:var(--afg-serif);font-size:1.02rem;color:var(--afg-band);margin:0 0 4px;}
+.afg-gloss-def{font-size:.9rem;color:var(--afg-text-soft);margin:0;}
+.afg-newsletter{border:1px solid var(--afg-rule);border-radius:var(--afg-radius);padding:20px;margin:10px 0 30px;background:var(--afg-bg);}
+.afg-newsletter h3{font-size:1.05rem;margin:0 0 6px;}
+.afg-newsletter p{font-size:.86rem;color:var(--afg-text-soft);margin:0 0 12px;}
+.afg-newsletter form{display:flex;gap:8px;flex-wrap:wrap;}
+.afg-input{flex:1 1 200px;padding:9px 12px;border-radius:var(--afg-radius);border:1px solid var(--afg-rule);background:var(--afg-paper);color:var(--afg-text);font-family:var(--afg-sans);font-size:.9rem;}
+.afg-note{font-size:.78rem;color:var(--afg-text-soft);margin-top:8px;display:none;}
+.afg-about-team{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0;}
+.afg-team-member{border:1px solid var(--afg-rule);border-radius:var(--afg-radius);padding:14px;}
+.afg-team-member h3{font-size:.98rem;margin:0 0 2px;}
+.afg-team-role{font-size:.78rem;color:var(--afg-band);margin:0 0 8px;}
+.afg-team-member p{font-size:.86rem;color:var(--afg-text-soft);margin:0;}
+.afg-policy-list{margin:14px 0;padding-left:0;list-style:none;}
+.afg-policy-list li{padding:10px 0 10px 26px;border-bottom:1px solid var(--afg-rule);position:relative;font-size:.92rem;color:var(--afg-text-soft);}
+.afg-policy-list li:before{content:"§";position:absolute;left:0;top:9px;color:var(--afg-accent);font-family:var(--afg-serif);}
+.afg-article-body p{margin:0 0 16px;font-size:.98rem;}
+.afg-article-body h2{font-size:1.2rem;margin-top:28px;}
+.afg-article-meta{display:flex;gap:14px;align-items:center;color:var(--afg-text-soft);font-size:.82rem;margin:8px 0 20px;flex-wrap:wrap;}
+.afg-back{display:inline-block;margin:14px 0 0;font-size:.86rem;}
+.afg-footer{padding:20px 26px 24px;border-top:1px solid var(--afg-rule);font-size:.82rem;color:var(--afg-text-soft);}
+.afg-footer-links{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;}
+.afg-footer-links a{color:var(--afg-text-soft);}
+.afg-footer-links a:hover{color:var(--afg-accent);}
+.afg-table-wrap{overflow-x:auto;}
+@media (max-width:560px){.afg-feature-grid,.afg-about-team{grid-template-columns:1fr;}.afg-corr-thumb{display:none;}.afg-header{flex-wrap:wrap;}}
+</style>
+</head>
+<body>
+<div class="afg-shell">
+<div class="afg-frame">
+<div class="afg-stripe-bar"></div>
+<header class="afg-header">
+<svg class="afg-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<circle cx="32" cy="32" r="29" fill="none" stroke="#c02b3a" stroke-width="2.5" stroke-dasharray="4 3"/>
+<path d="M16 24h32v20H16z" fill="none" stroke="#1f4b99" stroke-width="2.5"/>
+<path d="M16 24l16 12 16-12" fill="none" stroke="#1f4b99" stroke-width="2.5"/>
+</svg>
+<div class="afg-brandwrap">
+<div class="afg-brand"><a href="safe.html">Letterfold</a></div>
+<div class="afg-tag">Notes on Paper &amp; Post</div>
+</div>
+</header>
+<nav class="afg-nav">
+<a href="safe.html">Home</a>
+<a href="app.html" class="afg-active">Reply Tray</a>
+<a href="glossary.html">Glossary</a>
+<a href="faq.html">FAQ</a>
+<a href="about.html">About</a>
+</nav>
+<main class="afg-main">
+
+<section class="afg-hero">
+<div class="afg-eyebrow">Companion App</div>
+<h1>Reply Tray</h1>
+<p class="afg-lede">A quiet place to keep track of the letters you owe someone an answer to. Reply Tray doesn't compose anything for you — it just remembers what came in, what's still open, and what you already sent back, so nothing sits unanswered by accident.</p>
+</section>
+
+<section class="afg-section">
+<div class="afg-eyebrow">How the tray looks</div>
+<div class="afg-app-mock">
+<div class="afg-app-mock-title"><span>This week</span><span>4 letters</span></div>
+<div class="afg-app-mock-row"><span>From Aunt Priya — thank-you note</span><span class="afg-pill">Replied</span></div>
+<div class="afg-app-mock-row"><span>From the Whitfields — holiday card</span><span class="afg-pill afg-pill-due">Open · 2 days</span></div>
+<div class="afg-app-mock-row"><span>From D. — long letter, three pages</span><span class="afg-pill afg-pill-due">Open · 6 days</span></div>
+<div class="afg-app-mock-row"><span>From a pen pal in Porto</span><span class="afg-pill">Replied</span></div>
+</div>
+</section>
+
+<section class="afg-section">
+<div class="afg-eyebrow">What it does</div>
+<h2 class="afg-section-head">Six things Reply Tray keeps track of</h2>
+<div class="afg-feature-grid">
+<div class="afg-feature">
+<svg class="afg-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18v12H3z"/><path d="M3 6l9 7 9-7"/></svg>
+<h3>An inbox log</h3>
+<p>A simple entry for every letter that arrives — sender, date received, and a line about what it needs.</p>
+</div>
+<div class="afg-feature">
+<svg class="afg-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+<h3>A soft due window</h3>
+<p>You set your own reply window — a week, two weeks — and the tray marks a letter open until you close it.</p>
+</div>
+<div class="afg-feature">
+<svg class="afg-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M14 3v5h5"/></svg>
+<h3>Draft notes</h3>
+<p>A margin for a few lines you want to remember to say — not a text editor, just a place to jot the gist.</p>
+</div>
+<div class="afg-feature">
+<svg class="afg-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6L9 17l-5-5"/></svg>
+<h3>A closed archive</h3>
+<p>Once you've sent a reply, the entry moves to an archive you can search by person or by year.</p>
+</div>
+<div class="afg-feature">
+<svg class="afg-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/></svg>
+<h3>Correspondence streaks</h3>
+<p>A gentle count of how many letters you've answered in a row — no leaderboard, just a private tally.</p>
+</div>
+<div class="afg-feature">
+<svg class="afg-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>
+<h3>Print-ready address cards</h3>
+<p>A small card view with the return address formatted the way it should sit on an envelope.</p>
+</div>
+</div>
+</section>
+
+<section class="afg-section">
+<div class="afg-eyebrow">How it works</div>
+<h2 class="afg-section-head">Three steps</h2>
+<ol class="afg-steps">
+<li class="afg-step"><h3>Log the letter</h3><p>When something arrives, add a line: who it's from and roughly what it asks of you.</p></li>
+<li class="afg-step"><h3>Let the tray hold it</h3><p>It sits as open until you mark it answered — no notifications, no badges, just a list you check when you choose to.</p></li>
+<li class="afg-step"><h3>Close it when you reply</h3><p>Mark it done and it moves to the archive, dated, searchable, out of the way.</p></li>
+</ol>
+</section>
+
+<section class="afg-section">
+<div class="afg-eyebrow">Questions</div>
+<h2 class="afg-section-head">A few things people ask</h2>
+<div class="afg-faq">
+<div class="afg-faq-item"><p class="afg-faq-q">Does Reply Tray send anything for me?</p><p class="afg-faq-a">No. It only tracks what's open and what's answered. You still write and mail the letter yourself.</p></div>
+<div class="afg-faq-item"><p class="afg-faq-q">Is it only for paper mail?</p><p class="afg-faq-a">It's built around physical correspondence, but some people use it for long personal emails too.</p></div>
+<div class="afg-faq-item"><p class="afg-faq-q">Can I use it with a shared household tray?</p><p class="afg-faq-a">Yes — several people can log letters to the same tray, which is handy for a family mailbox.</p></div>
+</div>
+</section>
+
+<section class="afg-section afg-app">
+<div class="afg-app-head">
+<div class="afg-app-name">Try Reply Tray</div>
+<span class="afg-pill">Free to start</span>
+</div>
+<p class="afg-app-sub">Read more about the habit of replying on time in our piece on the <a href="the-forty-eight-hour-reply.html">forty-eight-hour reply</a>, or browse the full <a href="glossary.html">glossary</a> of correspondence terms.</p>
+<a class="afg-btn afg-btn-primary" href="safe.html">Back to the journal</a>
+</section>
+
+</main>
+<footer class="afg-footer">
+<div class="afg-footer-links">
+<a href="safe.html">Home</a>
+<a href="app.html">Reply Tray</a>
+<a href="glossary.html">Glossary</a>
+<a href="faq.html">FAQ</a>
+<a href="about.html">About</a>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+</div>
+<div>&copy; 2026 Letterfold. A small journal about paper correspondence.</div>
+</footer>
+</div>
+</div>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body>
+</html>

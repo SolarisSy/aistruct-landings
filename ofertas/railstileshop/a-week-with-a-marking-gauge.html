@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Week With a Marking Gauge · Railstile</title>
+  <meta name="description" content="A first-person week of shop notes: setting one marking gauge to a single drawing dimension and holding it across five joints, and the one joint where that rule had to bend.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://railstile.shop/a-week-with-a-marking-gauge.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e8ecef'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='16' y1='2' x2='16' y2='9' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='16' y1='23' x2='16' y2='30' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='2' y1='16' x2='9' y2='16' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='23' y1='16' x2='30' y2='16' stroke='%2316457a' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='2.4' fill='%23c96a1e'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --rls-bg:#e8ecef;
+  --rls-bg-sheet:#f4f6f7;
+  --rls-text:#10161c;
+  --rls-muted:#4b5964;
+  --rls-blue:#16457a;
+  --rls-blue-dim:#3d6796;
+  --rls-orange:#c96a1e;
+  --rls-line:#b7c1c8;
+  --rls-radius:6px;
+  --rls-maxw:1100px;
+  --rls-serif:Constantia,Georgia,'Times New Roman',serif;
+  --rls-sans:Futura,'Century Gothic','Trebuchet MS',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--rls-bg);
+  background-image:
+    linear-gradient(var(--rls-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--rls-line) 1px,transparent 1px);
+  background-size:34px 34px;
+  background-attachment:fixed;
+  color:var(--rls-text);
+  font-family:var(--rls-serif);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;height:auto;}
+a{color:var(--rls-blue);}
+a:hover{color:var(--rls-orange);}
+h1,h2,h3,h4{font-family:var(--rls-serif);font-weight:600;line-height:1.2;margin:0 0 .5em;color:var(--rls-text);}
+p{margin:0 0 1em;}
+.rls-shell{max-width:var(--rls-maxw);margin:0 auto;padding:0 20px;}
+
+/* ---------- header ---------- */
+.rls-topbar{background:var(--rls-blue);color:#eef2f5;font-family:var(--rls-sans);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
+.rls-topbar .rls-shell{display:flex;justify-content:space-between;align-items:center;padding:6px 20px;flex-wrap:wrap;gap:6px;}
+.rls-topbar-scale{color:#c7d6e4;}
+.rls-header{background:var(--rls-bg-sheet);border-bottom:2px solid var(--rls-text);position:relative;}
+.rls-header::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--rls-line);}
+.rls-header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;flex-wrap:wrap;}
+.rls-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--rls-text);}
+.rls-brand-mark{flex:none;}
+.rls-brand-text{display:flex;flex-direction:column;}
+.rls-brand-name{font-family:var(--rls-sans);font-weight:700;font-size:1.32rem;letter-spacing:.06em;color:var(--rls-text);}
+.rls-brand-tag{font-family:var(--rls-sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-blue);}
+.rls-nav{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--rls-sans);font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;}
+.rls-nav a{text-decoration:none;color:var(--rls-text);padding-bottom:3px;border-bottom:2px solid transparent;}
+.rls-nav a:hover{color:var(--rls-orange);border-color:var(--rls-orange);}
+
+/* ---------- dimension rule (brand motif) ---------- */
+.rls-dim{display:flex;align-items:center;gap:0;margin:1.8rem 0;font-family:var(--rls-sans);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rls-blue);}
+.rls-dim-arrow{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;flex:none;}
+.rls-dim-arrow--l{border-right:7px solid var(--rls-blue);}
+.rls-dim-arrow--r{border-left:7px solid var(--rls-blue);}
+.rls-dim-line{flex:1;height:1px;background:var(--rls-blue);}
+.rls-dim-label{padding:0 .7em;white-space:nowrap;}
+
+/* ---------- hero ---------- */
+.rls-hero{padding:44px 0 20px;}
+.rls-hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;}
+.rls-hero-eyebrow{font-family:var(--rls-sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rls-orange);margin-bottom:10px;}
+.rls-hero-title{font-size:2.5rem;margin-bottom:.4em;}
+.rls-hero-dek{color:var(--rls-muted);font-size:1.08rem;max-width:52ch;}
+.rls-hero-media{position:relative;border:1px solid var(--rls-text);border-radius:var(--rls-radius);background:var(--rls-bg-sheet);padding:10px;}
+.rls-hero-media img{border-radius:calc(var(--rls-radius) - 2px);}
+.rls-hero-media::before{content:"FIG. 01 — ELEVATION";position:absolute;top:-11px;left:16px;background:var(--rls-bg-sheet);padding:0 8px;font-family:var(--rls-sans);font-size:.62rem;letter-spacing:.1em;color:var(--rls-blue);}
+
+/* ---------- sections & article grid ---------- */
+.rls-section{padding:42px 0;}
+.rls-section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:26px;border-bottom:1px solid var(--rls-text);padding-bottom:10px;flex-wrap:wrap;}
+.rls-section-title{font-size:1.5rem;margin:0;}
+.rls-section-note{font-family:var(--rls-sans);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-muted);}
+
+.rls-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;}
+.rls-card{grid-column:span 7;background:var(--rls-bg-sheet);border:1px solid var(--rls-line);border-radius:var(--rls-radius);overflow:hidden;text-decoration:none;color:var(--rls-text);display:flex;flex-direction:column;position:relative;transition:border-color .15s ease;}
+.rls-card:hover{border-color:var(--rls-blue);}
+.rls-card:nth-child(2){grid-column:span 5;}
+.rls-card:nth-child(3){grid-column:span 5;}
+.rls-card:nth-child(4){grid-column:span 7;}
+.rls-card:nth-child(3n+5){grid-column:span 4;}
+.rls-card-thumb{aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--rls-line);}
+.rls-card-thumb img{width:100%;height:100%;object-fit:cover;}
+.rls-card-body{padding:16px 18px 20px;position:relative;}
+.rls-card-cat{font-family:var(--rls-sans);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-orange);margin-bottom:8px;}
+.rls-card-title{font-size:1.14rem;margin-bottom:.4em;}
+.rls-card-dek{color:var(--rls-muted);font-size:.92rem;margin-bottom:10px;}
+.rls-card-meta{font-family:var(--rls-sans);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rls-muted);}
+.rls-card-tag{position:absolute;top:10px;right:10px;background:var(--rls-blue);color:#eef2f5;font-family:var(--rls-sans);font-size:.6rem;letter-spacing:.08em;padding:3px 7px;border-radius:3px;}
+
+/* ---------- two-column swap (drawing / measurements) ---------- */
+.rls-split{display:grid;grid-template-columns:3fr 2fr;gap:34px;align-items:start;margin-bottom:6px;}
+.rls-split:nth-of-type(even){grid-template-columns:2fr 3fr;}
+.rls-split:nth-of-type(even) .rls-drawing{order:2;}
+.rls-split:nth-of-type(even) .rls-measure{order:1;}
+.rls-drawing{border:1px solid var(--rls-text);border-radius:var(--rls-radius);background:var(--rls-bg-sheet);padding:14px;position:relative;}
+.rls-drawing::before{content:attr(data-fig);position:absolute;top:-11px;left:14px;background:var(--rls-bg-sheet);padding:0 8px;font-family:var(--rls-sans);font-size:.6rem;letter-spacing:.1em;color:var(--rls-blue);}
+.rls-measure{background:transparent;padding-top:6px;}
+.rls-measure h3{font-family:var(--rls-sans);font-size:.86rem;letter-spacing:.06em;text-transform:uppercase;color:var(--rls-blue);}
+
+/* ---------- app / cutlist mockup ---------- */
+.rls-app-panel{background:var(--rls-text);color:#eef2f5;border-radius:var(--rls-radius);padding:44px 0;}
+.rls-app-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;padding:0 20px;max-width:calc(var(--rls-maxw) - 40px);margin:0 auto;}
+.rls-app-eyebrow{font-family:var(--rls-sans);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#e2a370;margin-bottom:8px;}
+.rls-app-title{font-size:1.9rem;color:#f2f5f7;}
+.rls-app-copy{color:#c3ccd3;max-width:46ch;}
+.rls-app-cta{display:inline-block;margin-top:16px;background:var(--rls-orange);color:#1a1206;font-family:var(--rls-sans);font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:12px 22px;border-radius:var(--rls-radius);text-decoration:none;}
+.rls-app-cta:hover{background:#e07f2c;color:#1a1206;}
+.rls-mock{background:#f4f6f7;color:var(--rls-text);border-radius:var(--rls-radius);border:1px solid #0a0f14;overflow:hidden;font-family:var(--rls-sans);}
+.rls-mock-bar{background:var(--rls-text);color:#dfe6ea;font-size:.66rem;letter-spacing:.08em;padding:8px 12px;display:flex;justify-content:space-between;}
+.rls-mock-body{padding:14px;}
+.rls-mock-row{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-bottom:1px dashed var(--rls-line);font-size:.82rem;}
+.rls-mock-row:last-child{border-bottom:none;}
+.rls-mock-row span:last-child{color:var(--rls-blue);font-weight:600;}
+.rls-mock-flag{color:var(--rls-orange)!important;}
+
+/* ---------- feature grid (app.html) ---------- */
+.rls-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.rls-feat{background:var(--rls-bg-sheet);border:1px solid var(--rls-line);border-radius:var(--rls-radius);padding:20px;}
+.rls-feat-icon{width:34px;height:34px;color:var(--rls-blue);margin-bottom:10px;}
+.rls-feat h3{font-size:1.02rem;margin-bottom:.35em;}
+.rls-feat p{color:var(--rls-muted);font-size:.9rem;margin:0;}
+
+/* ---------- how it works (steps) ---------- */
+.rls-steps{counter-reset:rls-step;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.rls-step{position:relative;padding:22px 16px 16px;border:1px solid var(--rls-line);border-radius:var(--rls-radius);background:var(--rls-bg-sheet);}
+.rls-step::before{counter-increment:rls-step;content:counter(rls-step,decimal-leading-zero);position:absolute;top:-13px;left:14px;background:var(--rls-blue);color:#eef2f5;font-family:var(--rls-sans);font-size:.7rem;padding:3px 8px;border-radius:3px;}
+.rls-step h4{font-size:.96rem;margin-bottom:.3em;}
+.rls-step p{color:var(--rls-muted);font-size:.86rem;margin:0;}
+
+/* ---------- faq ---------- */
+.rls-faq-item{border-bottom:1px solid var(--rls-line);padding:18px 0;}
+.rls-faq-q{font-family:var(--rls-sans);font-weight:700;font-size:.98rem;margin-bottom:.4em;color:var(--rls-text);display:flex;gap:10px;}
+.rls-faq-q .rls-faq-mark{color:var(--rls-orange);}
+.rls-faq-a{color:var(--rls-muted);margin:0;max-width:70ch;}
+
+/* ---------- glossary ---------- */
+.rls-gloss-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;}
+.rls-gloss-item{border-bottom:1px solid var(--rls-line);padding:16px 0;break-inside:avoid;}
+.rls-gloss-term{font-family:var(--rls-sans);font-weight:700;color:var(--rls-blue);font-size:.98rem;}
+.rls-gloss-def{color:var(--rls-muted);margin:.35em 0 0;}
+
+/* ---------- about ---------- */
+.rls-about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:34px;align-items:start;}
+.rls-team{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px;}
+.rls-team-card{background:var(--rls-bg-sheet);border:1px solid var(--rls-line);border-radius:var(--rls-radius);padding:16px;text-align:center;}
+.rls-team-card img{border-radius:50%;width:64px;height:64px;object-fit:cover;margin:0 auto 10px;}
+.rls-team-card h4{font-size:.92rem;margin-bottom:.15em;}
+.rls-team-card p{color:var(--rls-muted);font-size:.78rem;margin:0;}
+.rls-policy-list{margin:0;padding-left:1.1em;color:var(--rls-muted);}
+.rls-policy-list li{margin-bottom:.5em;}
+
+/* ---------- newsletter ---------- */
+.rls-newsletter{background:var(--rls-bg-sheet);border:1px dashed var(--rls-text);border-radius:var(--rls-radius);padding:28px;display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:center;}
+.rls-newsletter h3{margin-bottom:.3em;}
+.rls-newsletter p{color:var(--rls-muted);margin:0;}
+.rls-newsletter-form{display:flex;gap:8px;flex-wrap:wrap;}
+.rls-newsletter-form input{flex:1;min-width:160px;padding:11px 12px;border:1px solid var(--rls-text);border-radius:var(--rls-radius);font-family:var(--rls-sans);font-size:.86rem;background:#fff;color:var(--rls-text);}
+.rls-newsletter-form button{background:var(--rls-blue);color:#fff;border:none;font-family:var(--rls-sans);font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;border-radius:var(--rls-radius);cursor:pointer;}
+.rls-newsletter-form button:hover{background:var(--rls-orange);}
+.rls-newsletter-ok{display:none;margin-top:10px;font-family:var(--rls-sans);font-size:.78rem;color:var(--rls-blue);}
+
+/* ---------- legal ---------- */
+.rls-legal h2{font-size:1.2rem;margin-top:1.6em;}
+.rls-legal p,.rls-legal li{color:var(--rls-muted);}
+.rls-legal ul{padding-left:1.2em;}
+
+/* ---------- article page scaffolding ---------- */
+.rls-article-head{padding:38px 0 10px;border-bottom:1px solid var(--rls-text);}
+.rls-article-cat{font-family:var(--rls-sans);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rls-orange);}
+.rls-article-title{font-size:2.1rem;margin:.3em 0;}
+.rls-article-meta{font-family:var(--rls-sans);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--rls-muted);}
+.rls-article-body{padding:34px 0;}
+
+/* ---------- title block (footer motif — recurring foot-of-page block) ---------- */
+.rls-footer{background:var(--rls-bg-sheet);border-top:2px solid var(--rls-text);margin-top:20px;}
+.rls-titleblock{border:1px solid var(--rls-text);border-radius:var(--rls-radius);margin:24px 0;overflow:hidden;font-family:var(--rls-sans);font-size:.72rem;max-width:460px;margin-left:auto;background:#fff;}
+.rls-titleblock-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rls-line);}
+.rls-titleblock-row:first-child{border-top:none;}
+.rls-titleblock-cell{padding:8px 10px;border-left:1px solid var(--rls-line);}
+.rls-titleblock-cell:first-child{border-left:none;}
+.rls-titleblock-cell b{display:block;color:var(--rls-muted);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px;}
+.rls-titleblock-title{grid-template-columns:1fr;}
+.rls-titleblock-title .rls-titleblock-cell{border-left:none;background:var(--rls-blue);color:#eef2f5;}
+.rls-titleblock-title b{color:#c7d6e4;}
+.rls-footer-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:26px 0 10px;}
+.rls-footer-nav{display:flex;flex-direction:column;gap:8px;font-family:var(--rls-sans);font-size:.82rem;}
+.rls-footer-nav a{text-decoration:none;color:var(--rls-text);}
+.rls-footer-nav a:hover{color:var(--rls-orange);}
+.rls-footer-blurb{max-width:34ch;color:var(--rls-muted);font-size:.86rem;}
+.rls-copy{padding:14px 0 22px;font-family:var(--rls-sans);font-size:.7rem;color:var(--rls-muted);border-top:1px solid var(--rls-line);}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .rls-hero-grid,.rls-about-grid,.rls-app-grid,.rls-split,.rls-split:nth-of-type(even){grid-template-columns:1fr;}
+  .rls-split:nth-of-type(even) .rls-drawing,.rls-split:nth-of-type(even) .rls-measure{order:initial;}
+  .rls-feat-grid,.rls-steps{grid-template-columns:1fr 1fr;}
+  .rls-gloss-grid{grid-template-columns:1fr;}
+  .rls-team{grid-template-columns:1fr;}
+  .rls-newsletter{grid-template-columns:1fr;}
+  .rls-card,.rls-card:nth-child(2),.rls-card:nth-child(3),.rls-card:nth-child(4),.rls-card:nth-child(3n+5){grid-column:span 12;}
+  .rls-titleblock{margin-left:0;max-width:100%;}
+}
+@media (max-width:560px){
+  .rls-feat-grid,.rls-steps{grid-template-columns:1fr;}
+  .rls-hero-title{font-size:1.9rem;}
+  body{font-size:16px;}
+}
+
+/* ---------- article content extras (this post only) ---------- */
+.rls-post blockquote{margin:2rem 0;padding:.2em 0 .2em 1.4rem;border-left:3px solid var(--rls-orange);font-size:1.22rem;line-height:1.5;color:var(--rls-text);}
+.rls-post blockquote p{margin:0;}
+.rls-callout{background:var(--rls-bg-sheet);border:1px solid var(--rls-line);border-left:4px solid var(--rls-blue);border-radius:var(--rls-radius);padding:18px 20px;margin:1.8rem 0;}
+.rls-callout p{margin:0;color:var(--rls-text);}
+.rls-callout-label{display:block;font-family:var(--rls-sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-blue);margin-bottom:.5em;}
+.rls-note{background:#fff;border:1px dashed var(--rls-line);border-radius:var(--rls-radius);padding:16px 20px;margin:1.8rem 0;}
+.rls-note p{margin:0;color:var(--rls-muted);font-size:.92rem;}
+.rls-note-label{display:block;font-family:var(--rls-sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-muted);margin-bottom:.5em;}
+.rls-post table{width:100%;border-collapse:collapse;margin:1.6rem 0;font-size:.92rem;}
+.rls-post caption{text-align:left;font-family:var(--rls-sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-blue);margin-bottom:.6em;caption-side:top;}
+.rls-post th,.rls-post td{border:1px solid var(--rls-line);padding:9px 12px;text-align:left;vertical-align:top;}
+.rls-post thead th{background:var(--rls-bg-sheet);font-family:var(--rls-sans);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--rls-muted);}
+.rls-post ul{padding-left:1.2em;margin:0 0 1.4em;}
+.rls-post li{margin-bottom:.4em;}
+.rls-readalso{background:var(--rls-bg-sheet);border:1px solid var(--rls-line);border-radius:var(--rls-radius);padding:20px 22px;margin:2.4rem 0 1rem;}
+.rls-readalso h3{font-family:var(--rls-sans);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-blue);margin-bottom:.8em;}
+.rls-readalso ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5em;}
+.rls-readalso li::before{content:"→ ";color:var(--rls-orange);}
+  </style>
+</head><body>
+  <div class="rls-topbar">
+    <div class="rls-shell">
+      <span>Railstile &mdash; Furniture Architecture &amp; Design Notes</span>
+      <span class="rls-topbar-scale">Scale NTS &middot; Sheet 1 of 1 &middot; Rev A</span>
+    </div>
+  </div>
+  <header class="rls-header">
+    <div class="rls-shell rls-header-inner">
+      <a class="rls-brand" href="safe.html">
+        <svg class="rls-brand-mark" width="34" height="34" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="11" fill="none" stroke="#16457a" stroke-width="1.6"/>
+          <line x1="16" y1="2" x2="16" y2="9" stroke="#16457a" stroke-width="1.6"/>
+          <line x1="16" y1="23" x2="16" y2="30" stroke="#16457a" stroke-width="1.6"/>
+          <line x1="2" y1="16" x2="9" y2="16" stroke="#16457a" stroke-width="1.6"/>
+          <line x1="23" y1="16" x2="30" y2="16" stroke="#16457a" stroke-width="1.6"/>
+          <circle cx="16" cy="16" r="2.4" fill="#c96a1e"/>
+        </svg>
+        <span class="rls-brand-text">
+          <span class="rls-brand-name">RAILSTILE</span>
+          <span class="rls-brand-tag">Design Before Saw</span>
+        </span>
+      </a>
+      <nav class="rls-nav" aria-label="Primary">
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Cutlist App</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="rls-post">
+    <div class="rls-shell">
+      <div class="rls-article-head">
+        <div class="rls-article-cat">Tools</div>
+        <h1 class="rls-article-title">A Week With a Marking Gauge</h1>
+        <p class="rls-hero-dek">Notes from setting a single gauge once and holding it through five different joints, instead of resetting it each time.</p>
+        <p class="rls-article-meta">July 6, 2026 &middot; Shop Notes</p>
+      </div>
+
+      <div class="rls-article-body">
+        <div class="rls-drawing" data-fig="FIG. 01 — BEAM LOCKED, MONDAY">
+          <img src="img/a-week-with-a-marking-gauge.jpg" alt="A Week With a Marking Gauge">
+        </div>
+
+        <p>The idea came from a throwaway line in a supplier's catalogue copy: set it once, work all week. I decided to test it properly rather than take it on faith. On Monday morning I pulled the reveal dimension for a bank of five drawer fronts off the cutting list, set a single marking gauge to that number, and ran a strip of tape across the locking screw so I'd notice the moment it drifted. The rule for the week was simple: no resetting the beam until every drawer in the run was scribed, no matter how many boards or joints stood between the first mark and the last.</p>
+
+        <h2>Monday — one setting, read from the drawing</h2>
+        <p>The habit I was trying to break was reading a gauge off the stock in front of me &mdash; eyeing a reveal, nudging the fence, calling it close enough. Instead the setting came straight from the elevation, the same number that had already been checked against the carcase opening before anything was cut. Reading the dimension off a drawing rather than off a board is a small discipline, but it's the same one covered in <a href="the-drawing-that-saves-timber.html">the drawing that saves more timber than technique</a>: the number is decided once, on paper, where a mistake costs nothing but an eraser.</p>
+
+        <h2>Tuesday — where the discipline paid off</h2>
+        <p>By Tuesday afternoon I'd scribed shoulder lines on all five drawer rails from the same locked setting. Laid side by side, the lines sat exactly level with each other &mdash; no board reading a hair proud of its neighbor, no shoulder that needed a second pass with a chisel to bring it in line. That's the payoff of holding one setting: every mark inherits the same error, or the same absence of one. A gauge reset five times can drift five different ways; a gauge locked once can only be wrong once.</p>
+
+        <blockquote><p>A gauge doesn't know the right dimension. It only knows how to repeat the one you gave it &mdash; faithfully, joint after joint, whether that number was correct or not.</p></blockquote>
+
+        <h2>Wednesday — the joint that broke the rule</h2>
+        <p>The rule held until a stopped housing on the case side, where two boards milled from different stock ran a half-millimeter apart in thickness. Riding the gauge off the same face on both boards, as the setup called for, put the housing line a fraction off true on the thinner piece. This is the gap that <a href="datum-faces-and-why-they-matter.html">datum faces</a> exist to close: the gauge was consistent, but consistent against a face that wasn't reading the same thickness on both boards. I reset for that one joint and marked why in the shop log, rather than pretend the week had gone perfectly.</p>
+
+        <div class="rls-callout">
+          <span class="rls-callout-label">Shop note</span>
+          <p>A marking gauge removes exactly one kind of error: the error of reading a rule slightly differently each time you pick it up. It does nothing about a dimension that was wrong on the drawing, or a board that isn't the thickness the drawing assumed. Those are separate problems, solved earlier, on paper.</p>
+        </div>
+
+        <h2>Thursday — two gauges, not one</h2>
+        <p>The fix for Wednesday's housing turned out not to be resetting the same gauge back and forth, but keeping a second gauge dedicated to that one dimension for the rest of the week. The single-setting idea survived, just narrower than I'd first framed it: not one gauge for the whole project, but one setting per feature, held for that feature's full run. Logged against the days, the pattern was clear enough to write down.</p>
+
+        <table>
+          <caption>Gauge log, five days</caption>
+          <thead>
+            <tr><th>Day</th><th>Joint</th><th>Setting source</th><th>Outcome</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Monday</td><td>Drawer front reveal</td><td>Elevation drawing</td><td>Setting locked, no resets</td></tr>
+            <tr><td>Tuesday</td><td>Rail shoulders (5)</td><td>Same locked gauge</td><td>All shoulders level</td></tr>
+            <tr><td>Wednesday</td><td>Stopped housing</td><td>Same gauge, wrong face read</td><td>Reset required, logged</td></tr>
+            <tr><td>Thursday</td><td>Housing, second board</td><td>Dedicated second gauge</td><td>Consistent from here on</td></tr>
+            <tr><td>Friday</td><td>Tenon cheeks</td><td>Cutlist thickness, third gauge</td><td>No resets, no surprises</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Friday — what the gauge can't fix</h2>
+        <p>By the end of the week the lesson wasn't really about the tool. A gauge enforces whatever decision was already made; it has no opinion on whether that decision was right. If the drawing had given the wrong reveal on Monday, a perfectly held setting would have repeated that error across all five drawers with total consistency &mdash; which is worse than an inconsistent error, because nothing about the work would have looked wrong. The gauge is a technique-side safeguard. The dimension it's set to is a drawing-side decision, and that's where checking belongs, before the beam ever locks.</p>
+
+        <ul>
+          <li>Read the setting off the drawing or cutlist, not off a convenient board.</li>
+          <li>Lock one setting per dimension, not per project &mdash; a second feature earns a second gauge.</li>
+          <li>Mark which face the gauge is riding, and confirm every board shares that face as a true reference.</li>
+          <li>Log a reset when it happens; a silent reset is the one that comes back as a gap later.</li>
+        </ul>
+
+        <div class="rls-note">
+          <span class="rls-note-label">Reading note</span>
+          <p>This is a record of one week in one shop, not a universal method. Stock variance, joint type, and how a drawing was dimensioned will all change whether a single setting holds. It's offered here as a log, not a rule to copy without checking it against your own cutlist.</p>
+        </div>
+
+        <div class="rls-readalso">
+          <h3>Read also</h3>
+          <ul>
+            <li><a href="reading-the-cutlist.html">Reading the Cutlist Before You Touch the Saw</a></li>
+            <li><a href="the-two-millimeter-drawer.html">The Two-Millimeter Drawer</a></li>
+            <li><a href="tolerance-stacking-in-flat-pack-furniture.html">Tolerance Stacking in Flat-Pack Furniture</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="rls-footer">
+    <div class="rls-shell">
+      <div class="rls-titleblock">
+        <div class="rls-titleblock-row rls-titleblock-title">
+          <div class="rls-titleblock-cell"><b>Document</b>Railstile &mdash; Furniture Architecture Journal</div>
+        </div>
+        <div class="rls-titleblock-row">
+          <div class="rls-titleblock-cell"><b>Drawn by</b>Editorial Desk</div>
+          <div class="rls-titleblock-cell"><b>Checked by</b>Shop Notes Reader</div>
+        </div>
+        <div class="rls-titleblock-row">
+          <div class="rls-titleblock-cell"><b>Scale</b>Not to Scale</div>
+          <div class="rls-titleblock-cell"><b>Sheet</b>1 of 1</div>
+        </div>
+        <div class="rls-titleblock-row">
+          <div class="rls-titleblock-cell"><b>Units</b>mm / in</div>
+          <div class="rls-titleblock-cell"><b>Rev</b>A</div>
+        </div>
+      </div>
+      <div class="rls-footer-grid">
+        <p class="rls-footer-blurb">Railstile is an independent journal of furniture architecture and shop design method &mdash; measurement, joints, and squaring, written before the saw touches the board.</p>
+        <nav class="rls-footer-nav" aria-label="Footer">
+          <a href="safe.html">Journal</a>
+          <a href="app.html">Cutlist App</a>
+          <a href="about.html">About</a>
+          <a href="glossary.html">Glossary</a>
+          <a href="faq.html">FAQ</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+        </nav>
+      </div>
+      <p class="rls-copy">&copy; 2026 Railstile. Editorial content for general shop-craft reading only. Contact: editors@railstile.shop</p>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

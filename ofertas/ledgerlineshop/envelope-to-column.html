@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From Envelopes to Columns: Retiring a Cash-Only System · Ledgerline</title>
+  <meta name="description" content="One household's move from cash envelopes to a bound ledger — what carried over, and what a second column caught that cash never could.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ledgerline.shop/envelope-to-column.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fbfaf5'/%3E%3Crect x='2' y='2' width='28' height='28' fill='none' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='10' y1='2' x2='10' y2='30' stroke='%239aa79f' stroke-width='1'/%3E%3Cline x1='4' y1='10' x2='28' y2='10' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='4' y1='22' x2='28' y2='22' stroke='%232f6a4f' stroke-width='.75'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --ldg-bg:#fbfaf5;
+  --ldg-row-a:#ffffff;
+  --ldg-row-b:#f4f3ec;
+  --ldg-text:#1f2421;
+  --ldg-muted:#5c655f;
+  --ldg-accent:#2f6a4f;
+  --ldg-accent-dark:#234f3b;
+  --ldg-rule:#9aa79f;
+  --ldg-radius:1.5px;
+  --ldg-maxw:890px;
+  --ldg-serif:Cambria,Georgia,'Times New Roman',serif;
+  --ldg-sans:Calibri,Candara,'Segoe UI',Tahoma,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--ldg-bg);color:var(--ldg-text);font-family:var(--ldg-sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+a{color:var(--ldg-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--ldg-serif);font-weight:700;line-height:1.2;margin:0 0 .5em;color:var(--ldg-text);}
+p{margin:0 0 1em;}
+img{max-width:100%;display:block;height:auto;}
+ul,ol{margin:0;padding:0;}
+button{font-family:var(--ldg-sans);}
+.ldg-container{max-width:var(--ldg-maxw);margin:0 auto;padding:0 20px;}
+.ldg-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+.ldg-masthead{background:var(--ldg-bg);}
+.ldg-masthead-rule-top{height:1px;background:var(--ldg-text);}
+.ldg-masthead-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:20px 20px 16px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ldg-logo{font-family:var(--ldg-serif);font-style:italic;font-size:25px;color:var(--ldg-text);display:flex;flex-direction:column;gap:2px;}
+.ldg-logo-sub{font-family:var(--ldg-sans);font-style:normal;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ldg-muted);}
+.ldg-nav{display:flex;gap:18px;flex-wrap:wrap;}
+.ldg-nav a{font-family:var(--ldg-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-text);}
+.ldg-nav a:hover{color:var(--ldg-accent);}
+.ldg-masthead-rule-bottom{height:4px;border-bottom:4px double var(--ldg-text);}
+
+.ldg-hero{padding-top:0;}
+.ldg-hero-media{width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:var(--ldg-radius);}
+.ldg-hero-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:26px 20px;background:var(--ldg-row-a);border-bottom:4px double var(--ldg-text);}
+.ldg-hero-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.07em;padding-top:6px;font-weight:bold;}
+.ldg-hero-title{font-family:var(--ldg-serif);font-size:34px;line-height:1.16;margin:0 0 10px;}
+.ldg-hero-dek{font-family:var(--ldg-sans);font-size:16px;color:var(--ldg-muted);max-width:60ch;margin:0;}
+
+.ldg-section{padding:44px 0;}
+.ldg-section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;padding:0 20px 12px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-section-title{font-family:var(--ldg-serif);font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-text);margin:0;}
+.ldg-section-label{font-family:var(--ldg-sans);font-size:11px;color:var(--ldg-muted);text-transform:uppercase;letter-spacing:.05em;}
+.ldg-lede{font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-muted);padding:0 20px;max-width:62ch;}
+
+.ldg-ledger{display:flex;flex-direction:column;border-top:1px solid var(--ldg-rule);}
+.ldg-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);align-items:start;}
+.ldg-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-row-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-muted);letter-spacing:.05em;padding-top:4px;}
+.ldg-row-content{display:flex;gap:16px;align-items:flex-start;}
+.ldg-row-thumb{width:96px;height:74px;object-fit:cover;flex:none;border-radius:var(--ldg-radius);}
+.ldg-row-text{flex:1;min-width:0;}
+.ldg-row-cat{display:block;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;margin-bottom:4px;}
+.ldg-row-title{font-family:var(--ldg-serif);font-size:19px;margin:0 0 4px;line-height:1.3;}
+.ldg-row-title a{color:var(--ldg-text);}
+.ldg-row-title a:hover{color:var(--ldg-accent);}
+.ldg-row-dek{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);line-height:1.5;margin:0;}
+
+.ldg-totals{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:14px 20px;border-top:4px double var(--ldg-text);font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);}
+
+.ldg-mock{border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);overflow:hidden;background:#fff;margin:0 20px;}
+.ldg-mock-head{display:grid;grid-template-columns:60px 1fr 100px 110px;background:var(--ldg-accent);color:#fff;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;}
+.ldg-mock-row{display:grid;grid-template-columns:60px 1fr 100px 110px;padding:11px 14px;font-family:var(--ldg-sans);font-size:13.5px;border-top:1px solid var(--ldg-rule);}
+.ldg-mock-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-mock-num{color:var(--ldg-muted);}
+.ldg-mock-amt,.ldg-mock-bal{text-align:right;font-variant-numeric:tabular-nums;}
+.ldg-mock-total{border-top:4px double var(--ldg-text);font-weight:bold;background:var(--ldg-row-a);}
+
+.ldg-feature-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-feature-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-feature-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-feature-no{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-accent);font-weight:bold;letter-spacing:.05em;padding-top:3px;}
+.ldg-feature-title{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-feature-body{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);margin:0;}
+
+.ldg-faq-row,.ldg-gloss-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-faq-row:nth-child(odd),.ldg-gloss-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-faq-row:nth-child(even),.ldg-gloss-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-faq-tag,.ldg-gloss-letter{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);letter-spacing:.05em;padding-top:3px;}
+.ldg-gloss-letter{font-family:var(--ldg-serif);font-size:20px;color:var(--ldg-accent);padding-top:0;}
+.ldg-faq-q,.ldg-gloss-term{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-faq-a,.ldg-gloss-def{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-muted);margin:0;line-height:1.6;}
+
+.ldg-newsletter{border-top:1px solid var(--ldg-rule);border-bottom:4px double var(--ldg-text);padding:28px 20px;margin:44px 0;background:var(--ldg-row-b);}
+.ldg-newsletter h2{font-family:var(--ldg-serif);font-size:19px;margin:0 0 8px;}
+.ldg-newsletter p{font-size:14px;color:var(--ldg-muted);}
+.ldg-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.ldg-newsletter input[type=email]{flex:1;min-width:200px;padding:11px 12px;border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);font-family:var(--ldg-sans);background:#fff;color:var(--ldg-text);}
+.ldg-ok{display:none;margin-top:10px;font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-accent);}
+
+.ldg-btn{background:var(--ldg-accent);color:#fff;border:none;padding:11px 20px;border-radius:var(--ldg-radius);font-family:var(--ldg-sans);font-size:13px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;text-decoration:none;display:inline-block;}
+.ldg-btn:hover{background:var(--ldg-accent-dark);text-decoration:none;}
+.ldg-btn-ghost{background:transparent;color:var(--ldg-accent);border:1px solid var(--ldg-accent);}
+.ldg-btn-ghost:hover{background:var(--ldg-row-b);}
+
+.ldg-about-blurb{padding:32px 20px;border-top:1px solid var(--ldg-rule);}
+.ldg-prose{padding:0 20px;font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-text);}
+.ldg-prose h2{font-family:var(--ldg-serif);font-size:21px;margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-prose p{margin:0 0 16px;line-height:1.7;}
+.ldg-prose li{margin:0 0 8px;line-height:1.6;}
+.ldg-prose ul{padding-left:20px;list-style:disc;margin-bottom:16px;}
+
+.ldg-breadcrumb{font-family:var(--ldg-sans);font-size:12px;color:var(--ldg-muted);padding:16px 20px 0;}
+.ldg-breadcrumb a{color:var(--ldg-muted);}
+.ldg-article-head{padding:20px 20px 24px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-cat{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;}
+.ldg-article-title{font-family:var(--ldg-serif);font-size:32px;line-height:1.18;margin:8px 0 10px;}
+.ldg-article-meta{font-family:var(--ldg-sans);font-size:12.5px;color:var(--ldg-muted);}
+.ldg-article-media{width:100%;aspect-ratio:16/9;object-fit:cover;margin:24px 0;border-radius:var(--ldg-radius);}
+.ldg-article-body{padding:0 20px;font-family:var(--ldg-serif);font-size:17px;line-height:1.75;}
+.ldg-article-body h2{font-family:var(--ldg-serif);font-size:22px;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-body p{margin:0 0 18px;}
+.ldg-aside{display:grid;grid-template-columns:90px 1fr;gap:18px;margin:26px 0;padding:16px 0;border-top:1px solid var(--ldg-rule);border-bottom:1px solid var(--ldg-rule);background:var(--ldg-row-b);}
+.ldg-aside-label{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.06em;padding-left:20px;}
+.ldg-aside p{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-text);padding-right:20px;margin:0;}
+
+.ldg-footer{border-top:4px double var(--ldg-text);background:var(--ldg-row-b);margin-top:54px;}
+.ldg-footer-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:32px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;}
+.ldg-footer-col h4{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);margin:0 0 10px;}
+.ldg-footer-col a{display:block;font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-text);margin-bottom:6px;}
+.ldg-footer-col a:hover{color:var(--ldg-accent);}
+.ldg-footer-col p{font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-muted);margin:0;}
+.ldg-footer-bottom{border-top:1px solid var(--ldg-rule);padding:14px 20px;text-align:center;font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);max-width:var(--ldg-maxw);margin:0 auto;}
+
+@media(max-width:640px){
+  .ldg-masthead-inner{flex-direction:column;align-items:flex-start;gap:10px;}
+  .ldg-row,.ldg-hero-row,.ldg-feature-row,.ldg-faq-row,.ldg-gloss-row,.ldg-aside,.ldg-totals{grid-template-columns:1fr;}
+  .ldg-row-content{gap:12px;}
+  .ldg-mock-head,.ldg-mock-row{grid-template-columns:44px 1fr 66px 80px;font-size:11px;padding:9px 10px;}
+  .ldg-footer-inner{grid-template-columns:1fr 1fr;}
+  .ldg-hero-title,.ldg-article-title{font-size:26px;}
+  .ldg-aside-label{padding-left:0;}
+  .ldg-aside p{padding-right:0;}
+}
+@media(max-width:420px){.ldg-footer-inner{grid-template-columns:1fr;}}
+
+/* supplemental rules for elements not covered above (blockquote, table, lists, read-also) */
+.ldg-article-body blockquote{margin:30px 0;padding:2px 0 2px 20px;border-left:3px solid var(--ldg-accent);font-family:var(--ldg-serif);font-style:italic;font-size:21px;line-height:1.5;color:var(--ldg-text);}
+.ldg-table-wrap{overflow-x:auto;margin:24px 0;}
+.ldg-article-body table{width:100%;min-width:480px;border-collapse:collapse;margin:0;font-family:var(--ldg-sans);font-size:14px;}
+.ldg-article-body th,.ldg-article-body td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--ldg-rule);vertical-align:top;}
+.ldg-article-body th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ldg-muted);border-bottom:2px solid var(--ldg-text);}
+.ldg-article-body tbody tr:nth-child(even) td{background:var(--ldg-row-b);}
+.ldg-article-body ul{margin:0 0 20px;padding-left:22px;list-style:disc;font-family:var(--ldg-sans);font-size:15.5px;}
+.ldg-article-body ul li{margin-bottom:8px;line-height:1.6;}
+.ldg-article-body .ldg-aside{margin:30px 0;}
+.ldg-read-also .ldg-section-head{padding-top:6px;}
+  </style>
+</head><body>
+  <header class="ldg-masthead">
+    <div class="ldg-masthead-rule-top"></div>
+    <div class="ldg-masthead-inner">
+      <a class="ldg-logo" href="safe.html">Ledgerline<span class="ldg-logo-sub">A Household Ledger</span></a>
+      <nav class="ldg-nav" aria-label="Primary">
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Column Book</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+    <div class="ldg-masthead-rule-bottom"></div>
+  </header>
+  <article class="ldg-post">
+    <div class="ldg-breadcrumb"><a href="safe.html">Journal</a> / <span>Case Notes</span></div>
+    <div class="ldg-article-head">
+      <span class="ldg-article-cat">Case Notes</span>
+      <h1 class="ldg-article-title">From Envelopes to Columns: Retiring a Cash-Only System</h1>
+      <p class="ldg-article-meta">March 10, 2026 &middot; One household's slow move from labeled envelopes to a bound ledger, and what stayed the same.</p>
+    </div>
+    <img class="ldg-article-media" src="img/envelope-to-column.jpg" alt="From Envelopes to Columns: Retiring a Cash-Only System">
+    <div class="ldg-article-body">
+      <p>For six years, this household ran its budget out of a kitchen drawer: seven envelopes, each labeled in marker &mdash; groceries, gas, kids, eating out, gifts, savings, and one just marked &ldquo;everything else.&rdquo; Payday meant peeling bills into envelopes; a purchase meant pulling from one. The system was blunt and it worked, more or less, until direct deposits stopped arriving as cash and a growing share of the family's spending moved onto a card that no envelope could hold. What follows is an account of the eight months it took to retire the envelopes for a bound ledger &mdash; what carried over from the drawer, what a second column caught that the drawer never could, and how closing a month went from an afternoon of guessing to a short sit-down with a pencil.</p>
+
+      <h2>The Envelope Habit, and Why It Held for Years</h2>
+      <p>The envelope system had one real strength: it made spending physical. An empty envelope was an unambiguous signal &mdash; the eating-out money was gone, so eating out stopped, no negotiation required. There was nothing to reconcile, because the cash in hand was the only account that existed. For years that was enough. The household had spending that stayed mostly in cash and a small enough number of categories that seven envelopes covered the map well. The drawer worked because the world it described was simple.</p>
+
+      <h2>Where the System Started to Strain</h2>
+      <p>The strain showed up gradually, not all at once. A second income arrived by direct deposit and rarely touched cash. Recurring payments &mdash; insurance, a phone plan, a subscription or two &mdash; left the account by card or auto-debit and never passed through an envelope at all. Within a year or so, the envelopes represented only part of what the household actually spent; the rest lived in a bank app's scrolling list, sorted by nothing in particular. Worse, once an envelope was emptied and refilled the following month, there was no record of what had happened to it. The system had no memory, and by then the household needed one.</p>
+
+      <h2>The First Month With a Bound Book</h2>
+      <p>The switch wasn't dramatic. A bound ledger, ruled with two columns per page &mdash; one for money in, one for money out, with a running balance carried down the margin &mdash; replaced the drawer on the same shelf. The first weeks went slower than the envelopes ever had; writing a figure by hand takes longer than pulling a bill from a stack. By the third week, though, the habit had settled into roughly the rhythm the envelopes once kept: check the book before spending, write the entry after.</p>
+
+      <h2>What Carried Over From the Drawer</h2>
+      <p>Not everything about the envelope years got discarded. The category names moved over almost unchanged &mdash; groceries, gas, kids, eating out kept their labels, now as column headings instead of markered flaps. A few other habits carried over as well:</p>
+      <ul>
+        <li>The weekly check-in, moved from Sunday envelope-counting to a Sunday column total.</li>
+        <li>A cap per category, enforced now by the running balance instead of an empty envelope.</li>
+        <li>Keeping shared costs and personal costs visibly apart, so no one had to ask whose turn it was to cover something.</li>
+        <li>Treating &ldquo;everything else&rdquo; as its own line rather than letting it swallow other categories, a habit the old catch-all envelope never really managed.</li>
+      </ul>
+      <p>The lesson wasn't that envelopes were the wrong idea. It was that the discipline behind them &mdash; name it, cap it, check it weekly &mdash; never actually needed cash to work. It needed a place to be written down.</p>
+
+      <div class="ldg-aside">
+        <span class="ldg-aside-label">Along the way</span>
+        <p>Category names inherited from an envelope drawer aren't always the ones a ledger needs going forward &mdash; a cash-era label like &ldquo;misc&rdquo; tends to get vague fast once it has a whole column to fill. See <a href="categories-that-hold.html">choosing categories that still make sense in December</a> for how this household eventually split that one line into three.</p>
+      </div>
+
+      <h2>What the Second Column Caught</h2>
+      <p>The habit that never existed under the envelope system was reconciliation, because there was nothing to reconcile against &mdash; cash in hand was simply true, no matter how it got spent. A ledger with two columns and a running balance works differently: the balance is a prediction, and every so often the prediction and the bank statement disagree. That disagreement isn't a nuisance. It's most of the value of keeping a second column at all.</p>
+      <p>In the fourth month, the running balance came out short by exactly the amount of a card payment entered on the wrong side &mdash; moved from money-out to money-in by a slip of the pen. Nothing in a single running list would have flagged that; the total still looked plausible sitting on its own. It was the second column, and the requirement that both sides agree with an outside number, that named the week to go looking. For more on why that particular check tends to work when a single list doesn't, see <a href="two-column-catch.html">what a second column catches that one column misses</a>.</p>
+      <blockquote>A column that balances isn't proof nothing went wrong. A column that won't balance is proof something did &mdash; and it names the week to go looking in.</blockquote>
+
+      <h2>Closing Day, Twelve Weeks In</h2>
+      <p>By the third month, closing the ledger had a shape. Both columns get totaled to the last entry, the running balance is checked against the bank total, and any gap gets chased down before it's carried onto a fresh page. Here's roughly how one month's close compared with the same task under the old system:</p>
+      <div class="ldg-table-wrap">
+      <table>
+        <thead><tr><th>What changed</th><th>Envelope system</th><th>Bound ledger</th></tr></thead>
+        <tbody>
+          <tr><td>Category discipline</td><td>Enforced by running out of cash</td><td>Enforced by the running balance column</td></tr>
+          <tr><td>Shared spending</td><td>Anonymous once cash left the drawer</td><td>Carries a note or initials with the entry</td></tr>
+          <tr><td>Record after the month ends</td><td>None &mdash; the envelope is just empty</td><td>Bound and dated, searchable later</td></tr>
+          <tr><td>Catching an entry error</td><td>A light envelope, hard to trace to a cause</td><td>A balance that won't close, tied to a date</td></tr>
+          <tr><td>Time to review a month</td><td>Often most of an afternoon</td><td>About twenty minutes, mostly addition</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>What used to take the better part of an afternoon under the old system &mdash; mostly spent trying to remember where an unlabeled bill had gone &mdash; now runs in a fraction of that, most of it just addition. The full routine, category order and all, is laid out in <a href="twenty-minute-close.html">closing the month in twenty minutes, not a weekend</a>.</p>
+
+      <div class="ldg-aside">
+        <span class="ldg-aside-label">A note on this account</span>
+        <p>This describes one household's ledger, kept for its own record &mdash; not a system to copy line for line. Categories, caps, and check-in days tend to fit the household that wrote them; a ledger borrowed wholesale from someone else's drawer rarely holds for long. Educational reading, not a recommendation for any particular setup.</p>
+      </div>
+
+      <div class="ldg-read-also">
+        <div class="ldg-section-head">
+          <h2 class="ldg-section-title" style="border:none;margin:0;padding:0;">Read Also</h2>
+        </div>
+        <div class="ldg-ledger">
+          <div class="ldg-row">
+            <span class="ldg-row-date">Case Notes</span>
+            <div class="ldg-row-content">
+              <div class="ldg-row-text">
+                <span class="ldg-row-cat">Method</span>
+                <h3 class="ldg-row-title"><a href="pencil-versus-pen.html">Pencil Versus Pen: The Case for Correcting in the Open</a></h3>
+                <p class="ldg-row-dek">Why some entries go in soft, on purpose, before they're confirmed.</p>
+              </div>
+            </div>
+          </div>
+          <div class="ldg-row">
+            <span class="ldg-row-date">History</span>
+            <div class="ldg-row-content">
+              <div class="ldg-row-text">
+                <span class="ldg-row-cat">Background</span>
+                <h3 class="ldg-row-title"><a href="ledger-lines-history.html">Where the Ruled Line Comes From</a></h3>
+                <p class="ldg-row-dek">The long history behind the two-column page this household adopted.</p>
+              </div>
+            </div>
+          </div>
+          <div class="ldg-row">
+            <span class="ldg-row-date">Method</span>
+            <div class="ldg-row-content">
+              <div class="ldg-row-text">
+                <span class="ldg-row-cat">Categories</span>
+                <h3 class="ldg-row-title"><a href="categories-that-hold.html">Choosing Categories That Still Make Sense in December</a></h3>
+                <p class="ldg-row-dek">How a catch-all envelope label turns into columns that actually hold.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <footer class="ldg-footer">
+    <div class="ldg-footer-inner">
+      <div class="ldg-footer-col">
+        <h4>Ledgerline</h4>
+        <p>An independent journal on handwritten household accounting &mdash; paper ledgers, double columns, and the twenty-minute monthly close. Nothing on this site is sold.</p>
+      </div>
+      <div class="ldg-footer-col">
+        <h4>Read</h4>
+        <a href="safe.html">Home</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="ldg-footer-col">
+        <h4>Companion</h4>
+        <a href="app.html">Column Book</a>
+      </div>
+      <div class="ldg-footer-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+    <div class="ldg-footer-bottom">
+      <span>&copy; 2026 Ledgerline. Notes from a paper ledger, kept by hand.</span>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

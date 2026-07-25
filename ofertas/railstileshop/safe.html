@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Railstile &mdash; Furniture Architecture &amp; Design Notes</title>
+<meta name="description" content="Railstile is a journal of furniture architecture and shop design method: measurement, joints, and squaring, written before the saw touches the board.">
+<link rel="canonical" href="https://railstile.shop/safe.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e8ecef'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='16' y1='2' x2='16' y2='9' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='16' y1='23' x2='16' y2='30' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='2' y1='16' x2='9' y2='16' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='23' y1='16' x2='30' y2='16' stroke='%2316457a' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='2.4' fill='%23c96a1e'/%3E%3C/svg%3E">
+<style>
+:root{
+  --rls-bg:#e8ecef;
+  --rls-bg-sheet:#f4f6f7;
+  --rls-text:#10161c;
+  --rls-muted:#4b5964;
+  --rls-blue:#16457a;
+  --rls-blue-dim:#3d6796;
+  --rls-orange:#c96a1e;
+  --rls-line:#b7c1c8;
+  --rls-radius:6px;
+  --rls-maxw:1100px;
+  --rls-serif:Constantia,Georgia,'Times New Roman',serif;
+  --rls-sans:Futura,'Century Gothic','Trebuchet MS',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--rls-bg);
+  background-image:
+    linear-gradient(var(--rls-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--rls-line) 1px,transparent 1px);
+  background-size:34px 34px;
+  background-attachment:fixed;
+  color:var(--rls-text);
+  font-family:var(--rls-serif);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;height:auto;}
+a{color:var(--rls-blue);}
+a:hover{color:var(--rls-orange);}
+h1,h2,h3,h4{font-family:var(--rls-serif);font-weight:600;line-height:1.2;margin:0 0 .5em;color:var(--rls-text);}
+p{margin:0 0 1em;}
+.rls-shell{max-width:var(--rls-maxw);margin:0 auto;padding:0 20px;}
+.rls-topbar{background:var(--rls-blue);color:#eef2f5;font-family:var(--rls-sans);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
+.rls-topbar .rls-shell{display:flex;justify-content:space-between;align-items:center;padding:6px 20px;flex-wrap:wrap;gap:6px;}
+.rls-topbar-scale{color:#c7d6e4;}
+.rls-header{background:var(--rls-bg-sheet);border-bottom:2px solid var(--rls-text);position:relative;}
+.rls-header::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--rls-line);}
+.rls-header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;flex-wrap:wrap;}
+.rls-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--rls-text);}
+.rls-brand-mark{flex:none;}
+.rls-brand-text{display:flex;flex-direction:column;}
+.rls-brand-name{font-family:var(--rls-sans);font-weight:700;font-size:1.32rem;letter-spacing:.06em;color:var(--rls-text);}
+.rls-brand-tag{font-family:var(--rls-sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-blue);}
+.rls-nav{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--rls-sans);font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;}
+.rls-nav a{text-decoration:none;color:var(--rls-text);padding-bottom:3px;border-bottom:2px solid transparent;}
+.rls-nav a:hover{color:var(--rls-orange);border-color:var(--rls-orange);}
+.rls-dim{display:flex;align-items:center;gap:0;margin:1.8rem 0;font-family:var(--rls-sans);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rls-blue);}
+.rls-dim-arrow{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;flex:none;}
+.rls-dim-arrow--l{border-right:7px solid var(--rls-blue);}
+.rls-dim-arrow--r{border-left:7px solid var(--rls-blue);}
+.rls-dim-line{flex:1;height:1px;background:var(--rls-blue);}
+.rls-dim-label{padding:0 .7em;white-space:nowrap;}
+.rls-hero{padding:44px 0 20px;}
+.rls-hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;}
+.rls-hero-eyebrow{font-family:var(--rls-sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rls-orange);margin-bottom:10px;}
+.rls-hero-title{font-size:2.5rem;margin-bottom:.4em;}
+.rls-hero-dek{color:var(--rls-muted);font-size:1.08rem;max-width:52ch;}
+.rls-hero-media{position:relative;border:1px solid var(--rls-text);border-radius:var(--rls-radius);background:var(--rls-bg-sheet);padding:10px;}
+.rls-hero-media img{border-radius:calc(var(--rls-radius) - 2px);}
+.rls-hero-media::before{content:"FIG. 01 — ELEVATION";position:absolute;top:-11px;left:16px;background:var(--rls-bg-sheet);padding:0 8px;font-family:var(--rls-sans);font-size:.62rem;letter-spacing:.1em;color:var(--rls-blue);}
+.rls-section{padding:42px 0;}
+.rls-section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:26px;border-bottom:1px solid var(--rls-text);padding-bottom:10px;flex-wrap:wrap;}
+.rls-section-title{font-size:1.5rem;margin:0;}
+.rls-section-note{font-family:var(--rls-sans);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-muted);}
+.rls-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;}
+.rls-card{grid-column:span 7;background:var(--rls-bg-sheet);border:1px solid var(--rls-line);border-radius:var(--rls-radius);overflow:hidden;text-decoration:none;color:var(--rls-text);display:flex;flex-direction:column;position:relative;transition:border-color .15s ease;}
+.rls-card:hover{border-color:var(--rls-blue);}
+.rls-card:nth-child(2){grid-column:span 5;}
+.rls-card:nth-child(3){grid-column:span 5;}
+.rls-card:nth-child(4){grid-column:span 7;}
+.rls-card:nth-child(3n+5){grid-column:span 4;}
+.rls-card-thumb{aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--rls-line);}
+.rls-card-thumb img{width:100%;height:100%;object-fit:cover;}
+.rls-card-body{padding:16px 18px 20px;position:relative;}
+.rls-card-cat{font-family:var(--rls-sans);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-orange);margin-bottom:8px;}
+.rls-card-title{font-size:1.14rem;margin-bottom:.4em;}
+.rls-card-dek{color:var(--rls-muted);font-size:.92rem;margin-bottom:10px;}
+.rls-card-meta{font-family:var(--rls-sans);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rls-muted);}
+.rls-card-tag{position:absolute;top:10px;right:10px;background:var(--rls-blue);color:#eef2f5;font-family:var(--rls-sans);font-size:.6rem;letter-spacing:.08em;padding:3px 7px;border-radius:3px;}
+.rls-app-panel{background:var(--rls-text);color:#eef2f5;border-radius:var(--rls-radius);padding:44px 0;}
+.rls-app-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;padding:0 20px;max-width:calc(var(--rls-maxw) - 40px);margin:0 auto;}
+.rls-app-eyebrow{font-family:var(--rls-sans);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#e2a370;margin-bottom:8px;}
+.rls-app-title{font-size:1.9rem;color:#f2f5f7;}
+.rls-app-copy{color:#c3ccd3;max-width:46ch;}
+.rls-app-cta{display:inline-block;margin-top:16px;background:var(--rls-orange);color:#1a1206;font-family:var(--rls-sans);font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:12px 22px;border-radius:var(--rls-radius);text-decoration:none;}
+.rls-app-cta:hover{background:#e07f2c;color:#1a1206;}
+.rls-mock{background:#f4f6f7;color:var(--rls-text);border-radius:var(--rls-radius);border:1px solid #0a0f14;overflow:hidden;font-family:var(--rls-sans);}
+.rls-mock-bar{background:var(--rls-text);color:#dfe6ea;font-size:.66rem;letter-spacing:.08em;padding:8px 12px;display:flex;justify-content:space-between;}
+.rls-mock-body{padding:14px;}
+.rls-mock-row{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-bottom:1px dashed var(--rls-line);font-size:.82rem;}
+.rls-mock-row:last-child{border-bottom:none;}
+.rls-mock-row span:last-child{color:var(--rls-blue);font-weight:600;}
+.rls-mock-flag{color:var(--rls-orange)!important;}
+.rls-newsletter{background:var(--rls-bg-sheet);border:1px dashed var(--rls-text);border-radius:var(--rls-radius);padding:28px;display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:center;}
+.rls-newsletter h3{margin-bottom:.3em;}
+.rls-newsletter p{color:var(--rls-muted);margin:0;}
+.rls-newsletter-form{display:flex;gap:8px;flex-wrap:wrap;}
+.rls-newsletter-form input{flex:1;min-width:160px;padding:11px 12px;border:1px solid var(--rls-text);border-radius:var(--rls-radius);font-family:var(--rls-sans);font-size:.86rem;background:#fff;color:var(--rls-text);}
+.rls-newsletter-form button{background:var(--rls-blue);color:#fff;border:none;font-family:var(--rls-sans);font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;border-radius:var(--rls-radius);cursor:pointer;}
+.rls-newsletter-form button:hover{background:var(--rls-orange);}
+.rls-newsletter-ok{display:none;margin-top:10px;font-family:var(--rls-sans);font-size:.78rem;color:var(--rls-blue);}
+.rls-about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:34px;align-items:start;}
+.rls-policy-list{margin:0;padding-left:1.1em;color:var(--rls-muted);}
+.rls-policy-list li{margin-bottom:.5em;}
+.rls-footer{background:var(--rls-bg-sheet);border-top:2px solid var(--rls-text);margin-top:20px;}
+.rls-titleblock{border:1px solid var(--rls-text);border-radius:var(--rls-radius);margin:24px 0;overflow:hidden;font-family:var(--rls-sans);font-size:.72rem;max-width:460px;margin-left:auto;background:#fff;}
+.rls-titleblock-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rls-line);}
+.rls-titleblock-row:first-child{border-top:none;}
+.rls-titleblock-cell{padding:8px 10px;border-left:1px solid var(--rls-line);}
+.rls-titleblock-cell:first-child{border-left:none;}
+.rls-titleblock-cell b{display:block;color:var(--rls-muted);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px;}
+.rls-titleblock-title .rls-titleblock-cell{border-left:none;background:var(--rls-blue);color:#eef2f5;}
+.rls-titleblock-title b{color:#c7d6e4;}
+.rls-footer-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:26px 0 10px;}
+.rls-footer-nav{display:flex;flex-direction:column;gap:8px;font-family:var(--rls-sans);font-size:.82rem;}
+.rls-footer-nav a{text-decoration:none;color:var(--rls-text);}
+.rls-footer-nav a:hover{color:var(--rls-orange);}
+.rls-footer-blurb{max-width:34ch;color:var(--rls-muted);font-size:.86rem;}
+.rls-copy{padding:14px 0 22px;font-family:var(--rls-sans);font-size:.7rem;color:var(--rls-muted);border-top:1px solid var(--rls-line);}
+@media (max-width:860px){
+  .rls-hero-grid,.rls-about-grid,.rls-app-grid,.rls-split,.rls-split:nth-of-type(even){grid-template-columns:1fr;}
+  .rls-newsletter{grid-template-columns:1fr;}
+  .rls-card,.rls-card:nth-child(2),.rls-card:nth-child(3),.rls-card:nth-child(4),.rls-card:nth-child(3n+5){grid-column:span 12;}
+  .rls-titleblock{margin-left:0;max-width:100%;}
+}
+@media (max-width:560px){
+  .rls-hero-title{font-size:1.9rem;}
+  body{font-size:16px;}
+}
+</style>
+</head>
+<body>
+<div class="rls-topbar">
+  <div class="rls-shell">
+    <span>Railstile &mdash; Furniture Architecture &amp; Design Notes</span>
+    <span class="rls-topbar-scale">Scale NTS &middot; Sheet 1 of 1 &middot; Rev A</span>
+  </div>
+</div>
+<header class="rls-header">
+  <div class="rls-shell rls-header-inner">
+    <a class="rls-brand" href="safe.html">
+      <svg class="rls-brand-mark" width="34" height="34" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="11" fill="none" stroke="#16457a" stroke-width="1.6"/>
+        <line x1="16" y1="2" x2="16" y2="9" stroke="#16457a" stroke-width="1.6"/>
+        <line x1="16" y1="23" x2="16" y2="30" stroke="#16457a" stroke-width="1.6"/>
+        <line x1="2" y1="16" x2="9" y2="16" stroke="#16457a" stroke-width="1.6"/>
+        <line x1="23" y1="16" x2="30" y2="16" stroke="#16457a" stroke-width="1.6"/>
+        <circle cx="16" cy="16" r="2.4" fill="#c96a1e"/>
+      </svg>
+      <span class="rls-brand-text">
+        <span class="rls-brand-name">RAILSTILE</span>
+        <span class="rls-brand-tag">Design Before Saw</span>
+      </span>
+    </a>
+    <nav class="rls-nav" aria-label="Primary">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Cutlist App</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="rls-hero">
+    <div class="rls-shell rls-hero-grid">
+      <div>
+        <div class="rls-hero-eyebrow">The Railstile Journal</div>
+        <h1 class="rls-hero-title">A two-millimeter error on paper becomes a drawer gap on the bench.</h1>
+        <p class="rls-hero-dek">Railstile is a journal about the part of furniture-making that happens before the first cut: measurement, joints, and squaring. We write about the drawing, the datum face, and the habits that keep a cutlist honest &mdash; because the drawing tends to save more timber than technique does.</p>
+        <div class="rls-dim">
+          <span class="rls-dim-arrow rls-dim-arrow--l"></span>
+          <span class="rls-dim-line"></span>
+          <span class="rls-dim-label">Measure &middot; Draw &middot; Square &middot; Cut</span>
+          <span class="rls-dim-line"></span>
+          <span class="rls-dim-arrow rls-dim-arrow--r"></span>
+        </div>
+      </div>
+      <div class="rls-hero-media">
+        <img src="img/hero.jpg" alt="A woodworker's technical drawing of a drawer carcase next to a marking gauge and square on a workbench">
+      </div>
+    </div>
+  </section>
+
+  <section class="rls-section">
+    <div class="rls-shell">
+      <div class="rls-section-head">
+        <h2 class="rls-section-title">From the Drawing Table</h2>
+        <span class="rls-section-note">9 entries &middot; updated weekly</span>
+      </div>
+      <div class="rls-grid">
+
+        <a class="rls-card" href="reading-the-cutlist.html">
+          <div class="rls-card-thumb"><img src="img/reading-the-cutlist.jpg" alt="A hand-written cutlist next to sawn boards, checked line by line"></div>
+          <div class="rls-card-body">
+            <span class="rls-card-tag">Fig. 02</span>
+            <div class="rls-card-cat">Measurement</div>
+            <h3 class="rls-card-title">Reading the Cutlist Before You Touch the Saw</h3>
+            <p class="rls-card-dek">A cutlist is a set of promises. Most mistakes happen because someone read it the way they wanted it to say, not the way it says.</p>
+            <div class="rls-card-meta">January 14, 2026</div>
+          </div>
+        </a>
+
+        <a class="rls-card" href="the-two-millimeter-drawer.html">
+          <div class="rls-card-thumb"><img src="img/the-two-millimeter-drawer.jpg" alt="A drawer front with a visible gap on one side, held up to a square"></div>
+          <div class="rls-card-body">
+            <div class="rls-card-cat">Joinery</div>
+            <h3 class="rls-card-title">The Two-Millimeter Drawer</h3>
+            <p class="rls-card-dek">One case, traced from drawing to bench, showing exactly where a small rounding decision turned into a visible reveal.</p>
+            <div class="rls-card-meta">February 3, 2026</div>
+          </div>
+        </a>
+
+        <a class="rls-card" href="squaring-a-carcase-without-a-jig.html">
+          <div class="rls-card-thumb"><img src="img/squaring-a-carcase-without-a-jig.jpg" alt="A carcase clamped diagonally with a tape measure spanning corner to corner"></div>
+          <div class="rls-card-body">
+            <div class="rls-card-cat">Squaring</div>
+            <h3 class="rls-card-title">Squaring a Carcase Without a Jig</h3>
+            <p class="rls-card-dek">The diagonal method is older than most of the jigs sold to replace it, and it still tells the truth faster.</p>
+            <div class="rls-card-meta">February 21, 2026</div>
+          </div>
+        </a>
+
+        <a class="rls-card" href="datum-faces-and-why-they-matter.html">
+          <div class="rls-card-thumb"><img src="img/datum-faces-and-why-they-matter.jpg" alt="A board with a face marked as reference surface, checked against a straightedge"></div>
+          <div class="rls-card-body">
+            <span class="rls-card-tag">Fig. 05</span>
+            <div class="rls-card-cat">Technique</div>
+            <h3 class="rls-card-title">Datum Faces and Why They Matter</h3>
+            <p class="rls-card-dek">Every measurement needs a face it trusts. Pick the wrong one, or none at all, and every later number drifts with it.</p>
+            <div class="rls-card-meta">March 9, 2026</div>
+          </div>
+        </a>
+
+        <a class="rls-card" href="dovetails-versus-dowels.html">
+          <div class="rls-card-thumb"><img src="img/dovetails-versus-dowels.jpg" alt="A dovetail joint and a doweled joint drawn side by side on a technical sheet"></div>
+          <div class="rls-card-body">
+            <div class="rls-card-cat">Joinery</div>
+            <h3 class="rls-card-title">Dovetails Versus Dowels: A Drawing-Table Comparison</h3>
+            <p class="rls-card-dek">Not which joint is better, but which drawing decisions each one asks you to get right before you cut.</p>
+            <div class="rls-card-meta">April 2, 2026</div>
+          </div>
+        </a>
+
+        <a class="rls-card" href="the-drawing-that-saves-timber.html">
+          <div class="rls-card-thumb"><img src="img/the-drawing-that-saves-timber.jpg" alt="A cutting diagram laid over a sheet of plywood, showing offcuts marked for reuse"></div>
+          <div class="rls-card-body">
+            <div class="rls-card-cat">Design Process</div>
+            <h3 class="rls-card-title">The Drawing That Saves More Timber Than Technique</h3>
+            <p class="rls-card-dek">Skill recovers a bad cut. A good drawing prevents the bad cut from being drawn in the first place.</p>
+            <div class="rls-card-meta">April 27, 2026</div>
+          </div>
+        </a>
+
+        <a class="rls-card" href="tolerance-stacking-in-flat-pack-furniture.html">
+          <div class="rls-card-thumb"><img src="img/tolerance-stacking-in-flat-pack-furniture.jpg" alt="Several flat-pack panels stacked with small gaps visible between edges"></div>
+          <div class="rls-card-body">
+            <div class="rls-card-cat">Measurement</div>
+            <h3 class="rls-card-title">Tolerance Stacking in Flat-Pack Furniture</h3>
+            <p class="rls-card-dek">Small allowed errors add up across a run of panels, and the last joint in the chain is the one that pays for all of them.</p>
+            <div class="rls-card-meta">May 18, 2026</div>
+          </div>
+        </a>
+
+        <a class="rls-card" href="grain-direction-and-seasonal-movement.html">
+          <div class="rls-card-thumb"><img src="img/grain-direction-and-seasonal-movement.jpg" alt="A wide board with grain direction marked in pencil arrows"></div>
+          <div class="rls-card-body">
+            <div class="rls-card-cat">Material</div>
+            <h3 class="rls-card-title">Grain Direction and Seasonal Movement</h3>
+            <p class="rls-card-dek">A panel that was flat in the shop in July may not stay flat through a dry winter, and the drawing can plan around it.</p>
+            <div class="rls-card-meta">June 8, 2026</div>
+          </div>
+        </a>
+
+        <a class="rls-card" href="a-week-with-a-marking-gauge.html">
+          <div class="rls-card-thumb"><img src="img/a-week-with-a-marking-gauge.jpg" alt="A marking gauge scribing a line on the edge of a board"></div>
+          <div class="rls-card-body">
+            <div class="rls-card-cat">Tools</div>
+            <h3 class="rls-card-title">A Week With a Marking Gauge</h3>
+            <p class="rls-card-dek">Notes from setting a single gauge once and holding it through five different joints, instead of resetting it each time.</p>
+            <div class="rls-card-meta">July 6, 2026</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="rls-section">
+    <div class="rls-shell">
+      <div class="rls-app-panel">
+        <div class="rls-app-grid">
+          <div>
+            <div class="rls-app-eyebrow">Companion App</div>
+            <h2 class="rls-app-title">Cutlist</h2>
+            <p class="rls-app-copy">Cutlist is a small planning tool built alongside this journal &mdash; it turns a set of dimensions into a checked cutting diagram, flags stacked tolerances before they reach the saw, and keeps a running note of datum faces per part.</p>
+            <a class="rls-app-cta" href="app.html">See how Cutlist works</a>
+          </div>
+          <div class="rls-mock" aria-hidden="true">
+            <div class="rls-mock-bar"><span>CUTLIST &middot; PROJECT: SIDE TABLE</span><span>REV A</span></div>
+            <div class="rls-mock-body">
+              <div class="rls-mock-row"><span>Top panel, W</span><span>420 mm</span></div>
+              <div class="rls-mock-row"><span>Top panel, D</span><span>360 mm</span></div>
+              <div class="rls-mock-row"><span>Apron clearance</span><span class="rls-mock-flag">check</span></div>
+              <div class="rls-mock-row"><span>Leg, square</span><span>38 &times; 38 mm</span></div>
+              <div class="rls-mock-row"><span>Datum face set</span><span>4 of 4</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rls-section">
+    <div class="rls-shell">
+      <div class="rls-newsletter">
+        <div>
+          <h3>Notes from the drawing table, roughly monthly</h3>
+          <p>One dimension worth thinking about, one small mistake worth reading about before you repeat it. No spam, unsubscribe anytime.</p>
+        </div>
+        <form class="rls-newsletter-form" onsubmit="return sub(event)">
+          <input type="email" required placeholder="you@example.com" aria-label="Email address">
+          <button type="submit">Subscribe</button>
+        </form>
+        <div id="ok" class="rls-newsletter-ok" style="grid-column:1/-1;">You're on the list &mdash; thanks for reading.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rls-section">
+    <div class="rls-shell rls-about-grid">
+      <div>
+        <h2 class="rls-section-title">About This Journal</h2>
+        <p>Railstile is written by a small group of woodworkers and drafters who got tired of watching good timber get spent fixing drawing mistakes. We publish measured, specific pieces about the part of the process that happens with a pencil, not a blade.</p>
+        <p><a href="about.html">Read the full mission and content policy &rarr;</a></p>
+      </div>
+      <div class="rls-titleblock" style="margin:0;">
+        <div class="rls-titleblock-row rls-titleblock-title">
+          <div class="rls-titleblock-cell"><b>About Sheet</b>Railstile Editorial Desk</div>
+        </div>
+        <div class="rls-titleblock-row">
+          <div class="rls-titleblock-cell"><b>Founded</b>2026</div>
+          <div class="rls-titleblock-cell"><b>Focus</b>Measurement &amp; joinery</div>
+        </div>
+        <div class="rls-titleblock-row">
+          <div class="rls-titleblock-cell"><b>Format</b>Journal + Cutlist app</div>
+          <div class="rls-titleblock-cell"><b>Contact</b>editors@railstile.shop</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rls-footer">
+  <div class="rls-shell">
+    <div class="rls-titleblock">
+      <div class="rls-titleblock-row rls-titleblock-title">
+        <div class="rls-titleblock-cell"><b>Document</b>Railstile &mdash; Furniture Architecture Journal</div>
+      </div>
+      <div class="rls-titleblock-row">
+        <div class="rls-titleblock-cell"><b>Drawn by</b>Editorial Desk</div>
+        <div class="rls-titleblock-cell"><b>Checked by</b>Shop Notes Reader</div>
+      </div>
+      <div class="rls-titleblock-row">
+        <div class="rls-titleblock-cell"><b>Scale</b>Not to Scale</div>
+        <div class="rls-titleblock-cell"><b>Sheet</b>1 of 1</div>
+      </div>
+      <div class="rls-titleblock-row">
+        <div class="rls-titleblock-cell"><b>Units</b>mm / in</div>
+        <div class="rls-titleblock-cell"><b>Rev</b>A</div>
+      </div>
+    </div>
+    <div class="rls-footer-grid">
+      <p class="rls-footer-blurb">Railstile is an independent journal of furniture architecture and shop design method &mdash; measurement, joints, and squaring, written before the saw touches the board.</p>
+      <nav class="rls-footer-nav" aria-label="Footer">
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Cutlist App</a>
+        <a href="about.html">About</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </nav>
+    </div>
+    <p class="rls-copy">&copy; 2026 Railstile. Editorial content for general shop-craft reading only. Contact: editors@railstile.shop</p>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body>
+</html>

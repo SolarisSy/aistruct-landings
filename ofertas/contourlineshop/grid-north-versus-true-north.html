@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grid North Versus True North · Contourline</title>
+  <meta name="description" content="Grid north, magnetic north, and true north rarely agree. A guide to the margin diagram that turns a map bearing into one you can actually walk.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://contourline.shop/grid-north-versus-true-north.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Grid North Versus True North · Contourline">
+  <meta property="og:description" content="Three norths live on the same sheet, and a compass bearing that ignores the difference will walk you somewhere else entirely.">
+  <meta property="og:image" content="https://contourline.shop/img/grid-north-versus-true-north.jpg">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f7f8f4'/%3E%3Ccircle cx='32' cy='34' r='22' fill='none' stroke='%232f6b3c' stroke-width='3'/%3E%3Ccircle cx='32' cy='34' r='14' fill='none' stroke='%232f6b3c' stroke-width='3'/%3E%3Ccircle cx='32' cy='34' r='6' fill='none' stroke='%232f6b3c' stroke-width='3'/%3E%3Cpath d='M8 12 L52 12' stroke='%23b0561c' stroke-width='3'/%3E%3Cpath d='M8 12 L15 6 M8 12 L15 18' stroke='%23b0561c' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+/* ===== Contourline — topographic sheet system ===== */
+:root{
+  --cln-bg:#f7f8f4;
+  --cln-bg-alt:#eef0e6;
+  --cln-paper:#fffefb;
+  --cln-ink:#14211f;
+  --cln-ink-soft:#48564f;
+  --cln-ink-faint:#7c887f;
+  --cln-line:rgba(20,33,31,.34);
+  --cln-line-soft:rgba(20,33,31,.16);
+  --cln-contour:#2f6b3c;
+  --cln-contour-soft:#e4ece3;
+  --cln-trail:#b0561c;
+  --cln-trail-soft:#f5e6d9;
+  --cln-maxw:1160px;
+  --cln-radius:0px;
+  --cln-serif:Perpetua,'Palatino Linotype','Book Antiqua',Georgia,serif;
+  --cln-sans:'Gill Sans MT','Gill Sans',Corbel,Calibri,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{margin:0;background:var(--cln-bg);color:var(--cln-ink);font-family:var(--cln-serif);font-size:17px;line-height:1.64;}
+img{max-width:100%;display:block;}
+h1,h2,h3,h4{font-family:var(--cln-serif);font-weight:400;line-height:1.18;margin:0 0 .5em;color:var(--cln-ink);}
+p{margin:0 0 1.1em;}
+a{color:var(--cln-contour);text-decoration:none;border-bottom:1px solid var(--cln-line-soft);}
+a:hover{border-bottom-color:var(--cln-contour);}
+ul,ol{margin:0 0 1.1em;padding-left:1.25em;}
+button,input{font-family:inherit;}
+
+.cln-shell{max-width:var(--cln-maxw);margin:0 auto;padding:0 28px;}
+.cln-eyebrow{font-family:var(--cln-sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cln-contour);}
+.cln-hr{border:none;border-top:1px solid var(--cln-line-soft);margin:0;}
+
+/* ---- header ---- */
+.cln-header{background:var(--cln-paper);border-bottom:1px solid var(--cln-ink);}
+.cln-header-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 28px;flex-wrap:wrap;}
+.cln-brand{display:flex;align-items:center;gap:11px;}
+.cln-brand-mark{width:34px;height:34px;flex:none;}
+.cln-brand-name{font-family:var(--cln-serif);font-size:22px;letter-spacing:.01em;color:var(--cln-ink);line-height:1;}
+.cln-brand-tag{display:block;font-family:var(--cln-sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cln-ink-faint);margin-top:3px;}
+.cln-brand-link{border-bottom:none;}
+.cln-nav{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+.cln-nav a{font-family:var(--cln-sans);font-size:13.5px;letter-spacing:.03em;color:var(--cln-ink-soft);border-bottom:1px solid transparent;}
+.cln-nav a:hover,.cln-nav a[aria-current="page"]{color:var(--cln-contour);border-bottom-color:var(--cln-contour);}
+.cln-coord-readout{font-family:var(--cln-sans);font-size:11px;letter-spacing:.08em;color:var(--cln-ink-faint);white-space:nowrap;}
+
+/* ---- breadcrumb ---- */
+.cln-crumb{font-family:var(--cln-sans);font-size:12px;letter-spacing:.03em;color:var(--cln-ink-faint);padding:14px 0;}
+.cln-crumb a{color:var(--cln-ink-faint);border-bottom:1px solid var(--cln-line-soft);}
+.cln-crumb span{margin:0 6px;}
+
+/* ---- hero: coordinate-framed, full bleed ---- */
+.cln-hero{background:var(--cln-ink);padding:22px 0 34px;}
+.cln-hero-frame{position:relative;max-width:var(--cln-maxw);margin:0 auto;padding:26px 22px 22px 46px;}
+.cln-hero-frame::before{content:"";position:absolute;top:0;left:46px;right:0;height:15px;
+  background-image:repeating-linear-gradient(to right,rgba(247,248,244,.55) 0 1px,transparent 1px 40px);}
+.cln-hero-frame::after{content:"";position:absolute;top:15px;bottom:0;left:0;width:15px;
+  background-image:repeating-linear-gradient(to bottom,rgba(247,248,244,.55) 0 1px,transparent 1px 40px);}
+.cln-hero-coord{position:absolute;font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.07em;color:rgba(247,248,244,.72);z-index:1;}
+.cln-hero-coord--tl{top:2px;left:6px;}
+.cln-hero-coord--br{bottom:2px;right:6px;}
+.cln-hero-inner{border:1px solid rgba(247,248,244,.4);position:relative;}
+.cln-hero-media{position:relative;overflow:hidden;border-bottom:1px solid rgba(247,248,244,.4);}
+.cln-hero-media img{width:100%;height:400px;object-fit:cover;filter:saturate(.94) contrast(1.02);}
+.cln-hero-legend{position:absolute;right:18px;bottom:18px;background:var(--cln-paper);border:1px solid var(--cln-ink);padding:12px 14px;width:188px;z-index:2;}
+.cln-hero-legend h3{font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;margin:0 0 8px;color:var(--cln-ink);}
+.cln-hero-legend ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;}
+.cln-hero-legend li{display:flex;align-items:center;gap:9px;font-family:var(--cln-sans);font-size:11.5px;color:var(--cln-ink-soft);}
+.cln-legend-swatch{width:22px;height:0;border-top:2px solid var(--cln-contour);display:inline-block;flex:none;}
+.cln-legend-swatch--trail{border-top-style:dashed;border-color:var(--cln-trail);}
+.cln-legend-swatch--boundary{border-top-style:dotted;border-color:var(--cln-ink);}
+.cln-hero-copy{background:var(--cln-paper);padding:26px 28px 28px;}
+.cln-hero-kicker{font-family:var(--cln-sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cln-trail);margin-bottom:10px;}
+.cln-hero-title{font-size:clamp(28px,4vw,42px);max-width:20ch;}
+.cln-hero-dek{font-family:var(--cln-sans);font-size:15.5px;color:var(--cln-ink-soft);max-width:56ch;margin-top:6px;}
+
+/* ---- 12-col layout: uneven 7/5 with sticky right rail ---- */
+.cln-layout{display:grid;grid-template-columns:1fr;gap:44px;padding:44px 0 60px;}
+.cln-main{min-width:0;}
+.cln-aside-inner{border:1px solid var(--cln-ink);background:var(--cln-paper);padding:0;}
+.cln-aside-block{padding:18px 20px;}
+.cln-aside-block + .cln-aside-block{border-top:1px solid var(--cln-line-soft);}
+.cln-aside-title{font-family:var(--cln-sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--cln-contour);margin-bottom:12px;}
+.cln-aside-scale{display:flex;align-items:flex-end;height:16px;border-bottom:1px solid var(--cln-ink);margin:10px 0 4px;}
+.cln-aside-scale span{flex:1;border-left:1px solid var(--cln-ink);height:8px;}
+.cln-aside-scale span:first-child{height:16px;}
+.cln-aside-scale-label{display:flex;justify-content:space-between;font-family:var(--cln-sans);font-size:10px;color:var(--cln-ink-faint);}
+.cln-related{list-style:none;margin:0;padding:0;display:grid;gap:12px;}
+.cln-related li{padding-bottom:12px;border-bottom:1px solid var(--cln-line-soft);}
+.cln-related li:last-child{border-bottom:none;padding-bottom:0;}
+.cln-related a{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink);border-bottom:none;display:block;line-height:1.4;}
+.cln-related a:hover{color:var(--cln-contour);}
+.cln-related small{display:block;font-size:11px;color:var(--cln-ink-faint);margin-top:3px;letter-spacing:.03em;}
+
+@media(min-width:940px){
+  .cln-layout{grid-template-columns:7fr 5fr;align-items:start;}
+  .cln-aside{position:sticky;top:20px;}
+}
+
+/* ---- index / plates (article entries) ---- */
+.cln-index{display:grid;gap:26px;grid-template-columns:1fr;}
+@media(min-width:640px){.cln-index{grid-template-columns:1fr 1fr;}}
+.cln-plate{border:1px solid var(--cln-ink);background:var(--cln-paper);}
+.cln-plate-frame{position:relative;border-bottom:1px solid var(--cln-ink);}
+.cln-plate-frame::before,.cln-plate-frame::after{content:"";position:absolute;width:9px;height:9px;border:1px solid var(--cln-ink);background:var(--cln-paper);z-index:1;}
+.cln-plate-frame::before{top:-5px;left:-5px;}
+.cln-plate-frame::after{top:-5px;right:-5px;}
+.cln-plate-media{overflow:hidden;height:168px;}
+.cln-plate-media img{width:100%;height:100%;object-fit:cover;}
+.cln-plate-body{padding:16px 18px 18px;}
+.cln-plate-cat{font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--cln-trail);}
+.cln-plate-title{font-size:19px;margin:8px 0 6px;}
+.cln-plate-title a{color:var(--cln-ink);border-bottom:none;}
+.cln-plate-title a:hover{color:var(--cln-contour);}
+.cln-plate-dek{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin-bottom:10px;}
+.cln-plate-meta{font-family:var(--cln-sans);font-size:11px;color:var(--cln-ink-faint);letter-spacing:.03em;}
+
+/* ---- generic section ---- */
+.cln-section{padding:52px 0;}
+.cln-section-alt{background:var(--cln-bg-alt);}
+.cln-section-head{max-width:640px;margin:0 0 30px;}
+.cln-section-head .cln-eyebrow{margin-bottom:10px;display:block;}
+
+/* ---- buttons ---- */
+.cln-btn{display:inline-block;font-family:var(--cln-sans);font-size:13.5px;letter-spacing:.05em;text-transform:uppercase;padding:12px 22px;border:1px solid var(--cln-ink);color:var(--cln-ink);border-bottom-width:1px;background:transparent;cursor:pointer;}
+.cln-btn:hover{background:var(--cln-ink);color:var(--cln-paper);}
+.cln-btn--primary{background:var(--cln-contour);border-color:var(--cln-contour);color:#fff;}
+.cln-btn--primary:hover{background:var(--cln-ink);border-color:var(--cln-ink);}
+
+/* ---- app mockup (Waypoint Card) ---- */
+.cln-app-grid{display:grid;gap:36px;grid-template-columns:1fr;align-items:center;}
+@media(min-width:900px){.cln-app-grid{grid-template-columns:5fr 7fr;}}
+.cln-app-mock{border:1px solid var(--cln-ink);background:var(--cln-paper);padding:18px;max-width:300px;margin:0 auto;}
+.cln-app-mock-head{display:flex;justify-content:space-between;align-items:center;font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cln-ink-faint);border-bottom:1px solid var(--cln-line-soft);padding-bottom:10px;margin-bottom:12px;}
+.cln-app-mock-title{font-family:var(--cln-serif);font-size:20px;margin-bottom:4px;}
+.cln-app-mock-sub{font-family:var(--cln-sans);font-size:11.5px;color:var(--cln-ink-soft);margin-bottom:14px;}
+.cln-app-mock-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid var(--cln-line-soft);font-family:var(--cln-sans);font-size:12px;}
+.cln-app-mock-row span:first-child{color:var(--cln-ink-faint);}
+.cln-app-mock-scalebar{display:flex;height:10px;margin:14px 0 4px;border:1px solid var(--cln-ink);}
+.cln-app-mock-scalebar i{flex:1;font-style:normal;}
+.cln-app-mock-scalebar i:nth-child(odd){background:var(--cln-ink);}
+.cln-app-mock-scale-label{display:flex;justify-content:space-between;font-family:var(--cln-sans);font-size:9.5px;color:var(--cln-ink-faint);}
+.cln-app-mock-badge{display:inline-block;margin-top:14px;font-family:var(--cln-sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--cln-contour);border:1px solid var(--cln-contour);padding:4px 9px;}
+
+.cln-features{display:grid;gap:1px;background:var(--cln-line-soft);border:1px solid var(--cln-line-soft);grid-template-columns:1fr;margin-top:8px;}
+@media(min-width:640px){.cln-features{grid-template-columns:1fr 1fr;}}
+@media(min-width:940px){.cln-features{grid-template-columns:1fr 1fr 1fr;}}
+.cln-feature{background:var(--cln-paper);padding:22px 20px;}
+.cln-feature-icon{width:26px;height:26px;color:var(--cln-contour);margin-bottom:12px;}
+.cln-feature-icon svg{width:100%;height:100%;}
+.cln-feature-title{font-family:var(--cln-sans);font-size:14.5px;font-weight:normal;letter-spacing:.01em;color:var(--cln-ink);margin-bottom:6px;}
+.cln-feature-text{font-family:var(--cln-sans);font-size:13px;color:var(--cln-ink-soft);line-height:1.55;margin:0;}
+
+.cln-steps{list-style:none;margin:0;padding:0;display:grid;gap:0;}
+.cln-step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--cln-line-soft);}
+.cln-step:first-child{border-top:1px solid var(--cln-ink);}
+.cln-step-num{font-family:var(--cln-sans);font-size:13px;color:var(--cln-trail);border:1px solid var(--cln-trail);width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.cln-step-title{font-family:var(--cln-sans);font-size:14.5px;color:var(--cln-ink);margin-bottom:4px;}
+.cln-step-text{font-family:var(--cln-sans);font-size:13px;color:var(--cln-ink-soft);margin:0;}
+
+.cln-faq{display:grid;gap:0;}
+.cln-faq-item{border-top:1px solid var(--cln-line-soft);padding:18px 0;}
+.cln-faq-item:last-child{border-bottom:1px solid var(--cln-line-soft);}
+.cln-faq-q{font-family:var(--cln-sans);font-size:15px;color:var(--cln-ink);margin:0 0 8px;}
+.cln-faq-a{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0;}
+
+/* ---- newsletter (cosmetic) ---- */
+.cln-newsletter{border:1px solid var(--cln-ink);background:var(--cln-paper);padding:28px;display:grid;gap:16px;}
+@media(min-width:700px){.cln-newsletter{grid-template-columns:1.3fr 1fr;align-items:center;}}
+.cln-newsletter-title{font-size:22px;margin-bottom:6px;}
+.cln-newsletter-text{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0;}
+.cln-newsletter-form{display:flex;gap:0;}
+.cln-newsletter-form input{flex:1;border:1px solid var(--cln-ink);border-right:none;padding:12px 14px;font-family:var(--cln-sans);font-size:13.5px;background:var(--cln-bg);color:var(--cln-ink);}
+.cln-newsletter-form input:focus{outline:none;background:#fff;}
+.cln-newsletter-form button{border-left:none;}
+.cln-ok{display:none;font-family:var(--cln-sans);font-size:12.5px;color:var(--cln-contour);margin-top:8px;}
+
+/* ---- prose (article body) ---- */
+.cln-prose h2{font-size:25px;margin-top:1.6em;}
+.cln-prose h3{font-size:20px;margin-top:1.4em;}
+.cln-prose p{color:var(--cln-ink);}
+.cln-callout{border:1px solid var(--cln-line);border-left:3px solid var(--cln-contour);background:var(--cln-contour-soft);padding:16px 18px;font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:1.6em 0;}
+.cln-callout strong{color:var(--cln-ink);}
+.cln-pull{border-top:1px solid var(--cln-ink);border-bottom:1px solid var(--cln-ink);padding:18px 0;margin:1.8em 0;font-size:21px;line-height:1.5;color:var(--cln-ink);}
+.cln-pull cite{display:block;font-family:var(--cln-sans);font-size:11.5px;font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--cln-ink-faint);margin-top:8px;}
+.cln-tag{display:inline-block;font-family:var(--cln-sans);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--cln-ink-soft);border:1px solid var(--cln-line);padding:4px 9px;margin:2px 6px 2px 0;}
+
+/* ---- glossary ---- */
+.cln-gloss-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:30px;}
+.cln-gloss-nav a{font-family:var(--cln-sans);font-size:12.5px;color:var(--cln-ink-soft);border:1px solid var(--cln-line);padding:5px 10px;border-bottom:1px solid var(--cln-line);}
+.cln-gloss-nav a:hover{color:var(--cln-contour);border-color:var(--cln-contour);}
+.cln-gloss-item{border-top:1px solid var(--cln-line-soft);padding:20px 0;}
+.cln-gloss-item:first-child{border-top:1px solid var(--cln-ink);}
+.cln-gloss-term{font-size:19px;margin-bottom:6px;}
+.cln-gloss-term em{font-family:var(--cln-sans);font-style:normal;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cln-trail);margin-left:10px;}
+.cln-gloss-def{font-family:var(--cln-sans);font-size:14px;color:var(--cln-ink-soft);margin:0;}
+
+/* ---- about / team / policy ---- */
+.cln-team{display:grid;gap:22px;grid-template-columns:1fr;margin-top:10px;}
+@media(min-width:640px){.cln-team{grid-template-columns:1fr 1fr;}}
+.cln-team-member{border:1px solid var(--cln-line);padding:18px;}
+.cln-team-name{font-size:17px;margin-bottom:2px;}
+.cln-team-role{font-family:var(--cln-sans);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--cln-trail);margin-bottom:10px;}
+.cln-team-bio{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0;}
+.cln-policy-list{list-style:none;padding:0;margin:0;display:grid;gap:14px;}
+.cln-policy-list li{border-top:1px solid var(--cln-line-soft);padding-top:14px;font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);}
+.cln-policy-list strong{color:var(--cln-ink);font-family:var(--cln-serif);font-size:15.5px;display:block;margin-bottom:4px;font-weight:400;}
+
+/* ---- legal pages ---- */
+.cln-legal h2{font-size:20px;margin-top:1.5em;}
+.cln-legal p,.cln-legal li{font-family:var(--cln-sans);font-size:14px;color:var(--cln-ink-soft);}
+.cln-legal-updated{font-family:var(--cln-sans);font-size:12px;color:var(--cln-ink-faint);letter-spacing:.04em;margin-bottom:22px;}
+
+/* ---- footer ---- */
+.cln-footer{background:var(--cln-ink);color:var(--cln-bg);padding:46px 0 0;margin-top:20px;}
+.cln-footer-in{display:grid;gap:32px;grid-template-columns:1.4fr 1fr 1fr;padding-bottom:34px;border-bottom:1px solid rgba(247,248,244,.2);}
+@media(max-width:760px){.cln-footer-in{grid-template-columns:1fr;}}
+.cln-footer-brand{font-family:var(--cln-serif);font-size:20px;margin-bottom:10px;color:var(--cln-bg);}
+.cln-footer-text{font-family:var(--cln-sans);font-size:13px;color:rgba(247,248,244,.68);max-width:34ch;}
+.cln-footer-title{font-family:var(--cln-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,248,244,.55);margin-bottom:14px;}
+.cln-footer-links{list-style:none;margin:0;padding:0;display:grid;gap:9px;}
+.cln-footer-links a{font-family:var(--cln-sans);font-size:13.5px;color:rgba(247,248,244,.82);border-bottom:none;}
+.cln-footer-links a:hover{color:#fff;border-bottom:1px solid rgba(247,248,244,.5);}
+.cln-footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:20px 0;font-family:var(--cln-sans);font-size:11.5px;color:rgba(247,248,244,.5);}
+
+@media(max-width:600px){
+  .cln-header-in{padding:14px 20px;}
+  .cln-hero-frame{padding:20px 14px 16px 30px;}
+  .cln-hero-media img{height:260px;}
+  .cln-hero-legend{position:static;width:auto;margin-top:14px;}
+  .cln-hero-copy{padding:20px 18px 22px;}
+  .cln-shell{padding:0 18px;}
+}
+  </style>
+</head><body>
+  <header class="cln-header">
+    <div class="cln-shell cln-header-in">
+      <a class="cln-brand cln-brand-link" href="safe.html">
+        <span class="cln-brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="26" r="18" fill="none" stroke="#2f6b3c" stroke-width="2"/><circle cx="24" cy="26" r="12" fill="none" stroke="#2f6b3c" stroke-width="2"/><circle cx="24" cy="26" r="6" fill="none" stroke="#2f6b3c" stroke-width="2"/><path d="M8 8 L40 8" stroke="#b0561c" stroke-width="2"/><path d="M8 8 L13 3 M8 8 L13 13" stroke="#b0561c" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+        <span>
+          <span class="cln-brand-name">Contourline</span>
+          <span class="cln-brand-tag">Field notes on maps</span>
+        </span>
+      </a>
+      <nav class="cln-nav" aria-label="Primary">
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Waypoint Card</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+      <span class="cln-coord-readout">Sheet 44&deg;16'N&nbsp;71&deg;18'W</span>
+    </div>
+  </header>
+
+  <article class="cln-post">
+
+    <div class="cln-shell">
+      <div class="cln-crumb"><a href="safe.html">Journal</a><span>/</span>Grid North Versus True North</div>
+    </div>
+
+    <section class="cln-hero">
+      <div class="cln-hero-frame">
+        <span class="cln-hero-coord cln-hero-coord--tl">44&deg;16'12"N</span>
+        <span class="cln-hero-coord cln-hero-coord--br">71&deg;18'04"W</span>
+        <div class="cln-hero-inner">
+          <div class="cln-hero-media">
+            <img src="img/grid-north-versus-true-north.jpg" alt="Grid North Versus True North">
+          </div>
+          <div class="cln-hero-copy">
+            <div class="cln-hero-kicker">Navigation</div>
+            <h1 class="cln-hero-title">Grid North Versus True North</h1>
+            <p class="cln-hero-dek">Three norths live on the same sheet, and a compass bearing that ignores the difference will walk you somewhere else entirely.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cln-shell">
+      <div class="cln-layout">
+        <main class="cln-main cln-prose">
+          <div class="cln-plate-meta" style="margin-bottom:20px;">Navigation &middot; Apr 11, 2026 &middot; 7 min read</div>
+
+          <p>A compass needle doesn't point at the top of the map. That single fact trips up more people than any other piece of field navigation, and the map itself rarely announces it loudly &mdash; the correction lives as a small diagram tucked into a lower corner, easy to fold away and forget entirely. Three different norths can sit on the same sheet of paper: the true geographic pole, the wandering point a compass needle actually seeks, and the straight grid the map itself was drawn against. A bearing read off one and walked as if it belonged to another will still look perfectly confident on the page. It just won't match the ground underfoot.</p>
+
+          <h2>Three Norths, One Sheet</h2>
+          <p>True north points along a meridian toward the geographic pole, the axis the earth actually spins on. It's fixed by geometry and doesn't drift, though meridians converge as they climb toward the pole, which matters more than it sounds like it should. Magnetic north is where a compass needle settles, pulled by the planet's magnetic field rather than its rotation. The magnetic pole wanders over years and decades, so the needle's target today sits a little differently than it did a generation ago. Grid north is the odd one out: it isn't a place at all, but a direction defined by the printed grid lines running up the sheet, straight and parallel by construction, obedient to the projection rather than the globe it's standing in for.</p>
+
+          <h2>Why the Grid Bends Away From True</h2>
+          <p>Meridians of longitude aren't parallel &mdash; they converge toward the poles the way the ribs of an umbrella converge at the handle. A map built for printing needs straight vertical lines, so its grid runs parallel from edge to edge instead of tapering the way the meridians do. Somewhere near the middle of the map's zone, usually along a chosen central meridian, grid north and true north agree almost exactly. Move east or west of that line and the gap opens: a few tenths of a degree near the equator, more than a degree once a sheet reaches the edge of its zone at higher latitude. This gap is called convergence, and unlike declination it has nothing to do with magnetism &mdash; it comes entirely from the flattening choice covered in <a href="the-projection-you-didnt-choose.html">an earlier note on projection</a>, the same decision that bends coastlines and stretches continents depending on where the cartographer chose to keep things honest.</p>
+
+          <h2>The Small Print in the Margin</h2>
+          <p>Most topographic sheets carry a small diagram near the bottom edge: three short arrows labeled GN, MN, and TN, splayed apart at angles too small to read accurately with the eye. Beside it sits a printed note &mdash; a declination value, a survey date, sometimes an estimated annual change. Ignore this diagram and grid north on the page works fine for plotting a route with a ruler and pencil. Try to walk that same bearing with a compass in hand, though, and the needle answers to magnetic north, not grid north, and the two rarely agree by more than coincidence. The angle between them, called the grid-magnetic angle or G&ndash;M angle, is the number a field compass actually needs, and it's almost always printed right there for the reader to add or subtract.</p>
+
+          <div class="cln-callout"><strong>Reading the arrows.</strong> GN, MN, and TN on a declination diagram are directions, not distances &mdash; the angles between them are drawn at an exaggerated scale so they stay legible on paper. Never measure the diagram itself with a protractor; use the printed degree value instead, and check its survey date before trusting it.</div>
+
+          <h2>A Bearing That Ignores the Difference</h2>
+          <p>Take a grid bearing straight off the map: plot a line from a known point to a distant saddle, measure the angle against a grid north line, done. Walk that same number with an uncorrected compass in a location where the G&ndash;M angle runs eleven degrees west, and after a couple of kilometers the error compounds to well past a hundred meters off the intended line. On open ground the mistake announces itself quickly &mdash; a landmark that should sit dead ahead drifts visibly to one side. On a wooded plateau or under low cloud, the same uncorrected bearing can carry a walker into the wrong drainage entirely, one that looks identical to the correct one on the ground until <a href="walking-a-map-into-the-field.html">the map and the terrain stop agreeing</a>, a mismatch worth reading closely rather than dismissing as a bad map.</p>
+
+          <blockquote class="cln-pull">The needle is honest about where it's pointing. The map is honest about where north was drawn. Neither one claims to be pointing at the other.<cite>Field notebook, Sheet 07</cite></blockquote>
+
+          <h2>From the Map to the Needle</h2>
+          <p>Converting a plotted bearing into one a compass can actually walk is a short, mechanical sequence, and skipping a step in the middle is where most errors slip in.</p>
+          <ol>
+            <li>Plot the bearing on the map against a grid north line &mdash; this is the grid bearing, the one measured straight off the page.</li>
+            <li>Find the grid-magnetic angle printed in the declination diagram, and note whether magnetic north sits east or west of grid north.</li>
+            <li>Add the angle if magnetic north is east of grid north; subtract it if magnetic north is west of grid north.</li>
+            <li>Walk the resulting magnetic bearing with the compass, not the original number lifted off the page.</li>
+          </ol>
+          <p>The angles involved are easy to confuse with each other because they're all reported in degrees and all live in the same small diagram. Laid side by side, though, each one measures something different and drifts for a different reason.</p>
+
+          <div style="overflow-x:auto;margin:1.4em 0;">
+          <table style="width:100%;border-collapse:collapse;font-family:var(--cln-sans);font-size:13.5px;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--cln-ink);">
+                <th style="text-align:left;padding:8px 10px;color:var(--cln-ink);">Angle</th>
+                <th style="text-align:left;padding:8px 10px;color:var(--cln-ink);">Measured between</th>
+                <th style="text-align:left;padding:8px 10px;color:var(--cln-ink);">Typical size</th>
+                <th style="text-align:left;padding:8px 10px;color:var(--cln-ink);">Main cause</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--cln-line-soft);"><td style="padding:8px 10px;">Declination</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">True north and magnetic north</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">0&deg; to over 20&deg;, by location</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">Position of the magnetic pole</td></tr>
+              <tr style="border-bottom:1px solid var(--cln-line-soft);"><td style="padding:8px 10px;">Convergence</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">True north and grid north</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">Under 1&deg; near a zone's center, more toward its edge</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">Choice of map projection</td></tr>
+              <tr style="border-bottom:1px solid var(--cln-line-soft);"><td style="padding:8px 10px;">Grid&ndash;magnetic angle</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">Grid north and magnetic north</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">Sum or difference of the two above</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">Both declination and convergence</td></tr>
+              <tr><td style="padding:8px 10px;">Annual change</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">This year's declination and last survey's</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">Often a few tenths of a degree</td><td style="padding:8px 10px;color:var(--cln-ink-soft);">Drift of the magnetic pole</td></tr>
+            </tbody>
+          </table>
+          </div>
+
+          <h2>When the Numbers Are Old</h2>
+          <p>Declination isn't a constant. The magnetic pole drifts, sometimes a few tenths of a degree a year and sometimes faster, and the lines connecting points of equal declination shift along with it. A map printed a decade or two ago carries a declination value that was accurate on its survey date and may be noticeably off today, especially in regions where the annual change was already large to begin with. Most sheets print an estimated annual correction alongside the base value for exactly this reason &mdash; a small note that's easy to skip past and worth applying whenever the map predates the walk by very long.</p>
+
+          <div style="border:1px solid var(--cln-line);border-left:3px solid var(--cln-trail);background:var(--cln-trail-soft);padding:16px 18px;font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:2em 0 0;">
+            <strong style="color:var(--cln-ink);">A note on this piece.</strong> This article explains how a declination diagram is built and read, for anyone curious about the small print in a map's margin. It's written for background understanding, not as a substitute for a current, location-specific declination value or for practicing bearing conversion under supervision before relying on it in unfamiliar terrain.
+          </div>
+
+        </main>
+
+        <aside class="cln-aside">
+          <div class="cln-aside-inner">
+            <div class="cln-aside-block">
+              <div class="cln-aside-title">Read also</div>
+              <ul class="cln-related">
+                <li><a href="legends-are-arguments.html">Legends Are Arguments<small>Symbols &amp; the map key</small></a></li>
+                <li><a href="the-datum-problem.html">The Datum Problem Nobody Mentions<small>Coordinate systems</small></a></li>
+                <li><a href="scale-bars-and-the-lies-they-tell.html">Scale Bars and the Lies They Tell<small>Scale &amp; distortion</small></a></li>
+              </ul>
+            </div>
+            <div class="cln-aside-block">
+              <div class="cln-aside-title">Graphic scale</div>
+              <div class="cln-aside-scale">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <div class="cln-aside-scale-label"><span>0</span><span>1</span><span>2</span><span>3 km</span></div>
+            </div>
+            <div class="cln-aside-block">
+              <div class="cln-aside-title">Newsletter</div>
+              <p style="font-family:var(--cln-sans);font-size:13px;color:var(--cln-ink-soft);margin:0 0 12px;">One new field note a month. No spam, no maps sold.</p>
+              <form class="cln-newsletter-form" onsubmit="return sub(event)">
+                <input type="email" required placeholder="you@example.com" aria-label="Email address">
+                <button class="cln-btn" type="submit">Join</button>
+              </form>
+              <div class="cln-ok" id="ok">Thanks &mdash; you're on the list.</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+  </article>
+
+  <footer class="cln-footer">
+    <div class="cln-shell cln-footer-in">
+      <div>
+        <div class="cln-footer-brand">Contourline</div>
+        <p class="cln-footer-text">An independent journal about reading maps closely &mdash; projection, generalization, and the choices a cartographer makes about what to leave out. Written for people who like to know why a map looks the way it does.</p>
+      </div>
+      <div>
+        <div class="cln-footer-title">Read</div>
+        <ul class="cln-footer-links">
+          <li><a href="safe.html">Journal</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="app.html">Waypoint Card</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="cln-footer-title">Site</div>
+        <ul class="cln-footer-links">
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms of use</a></li>
+          <li><a href="mailto:notes@contourline.shop">notes@contourline.shop</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="cln-shell cln-footer-bottom">
+      <span>&copy; 2026 Contourline. Reading maps, one contour at a time.</span>
+      <span>Independent journal &middot; not affiliated with any surveying authority</span>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

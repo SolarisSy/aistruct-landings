@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ &mdash; Railstile</title>
+<meta name="description" content="Common questions about furniture architecture and woodworking design method, plus how the Railstile journal and the Cutlist app work.">
+<link rel="canonical" href="https://railstile.shop/faq.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e8ecef'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='16' y1='2' x2='16' y2='9' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='16' y1='23' x2='16' y2='30' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='2' y1='16' x2='9' y2='16' stroke='%2316457a' stroke-width='1.6'/%3E%3Cline x1='23' y1='16' x2='30' y2='16' stroke='%2316457a' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='2.4' fill='%23c96a1e'/%3E%3C/svg%3E">
+<style>
+:root{
+  --rls-bg:#e8ecef;
+  --rls-bg-sheet:#f4f6f7;
+  --rls-text:#10161c;
+  --rls-muted:#4b5964;
+  --rls-blue:#16457a;
+  --rls-orange:#c96a1e;
+  --rls-line:#b7c1c8;
+  --rls-radius:6px;
+  --rls-maxw:1100px;
+  --rls-serif:Constantia,Georgia,'Times New Roman',serif;
+  --rls-sans:Futura,'Century Gothic','Trebuchet MS',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--rls-bg);background-image:linear-gradient(var(--rls-line) 1px,transparent 1px),linear-gradient(90deg,var(--rls-line) 1px,transparent 1px);background-size:34px 34px;background-attachment:fixed;color:var(--rls-text);font-family:var(--rls-serif);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;height:auto;}
+a{color:var(--rls-blue);}
+a:hover{color:var(--rls-orange);}
+h1,h2,h3,h4{font-family:var(--rls-serif);font-weight:600;line-height:1.2;margin:0 0 .5em;color:var(--rls-text);}
+p{margin:0 0 1em;}
+.rls-shell{max-width:var(--rls-maxw);margin:0 auto;padding:0 20px;}
+.rls-topbar{background:var(--rls-blue);color:#eef2f5;font-family:var(--rls-sans);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
+.rls-topbar .rls-shell{display:flex;justify-content:space-between;align-items:center;padding:6px 20px;flex-wrap:wrap;gap:6px;}
+.rls-topbar-scale{color:#c7d6e4;}
+.rls-header{background:var(--rls-bg-sheet);border-bottom:2px solid var(--rls-text);position:relative;}
+.rls-header::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--rls-line);}
+.rls-header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;flex-wrap:wrap;}
+.rls-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--rls-text);}
+.rls-brand-mark{flex:none;}
+.rls-brand-text{display:flex;flex-direction:column;}
+.rls-brand-name{font-family:var(--rls-sans);font-weight:700;font-size:1.32rem;letter-spacing:.06em;color:var(--rls-text);}
+.rls-brand-tag{font-family:var(--rls-sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-blue);}
+.rls-nav{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--rls-sans);font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;}
+.rls-nav a{text-decoration:none;color:var(--rls-text);padding-bottom:3px;border-bottom:2px solid transparent;}
+.rls-nav a:hover{color:var(--rls-orange);border-color:var(--rls-orange);}
+.rls-hero{padding:44px 0 20px;}
+.rls-hero-eyebrow{font-family:var(--rls-sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rls-orange);margin-bottom:10px;}
+.rls-hero-title{font-size:2.3rem;margin-bottom:.4em;}
+.rls-hero-dek{color:var(--rls-muted);font-size:1.08rem;max-width:62ch;}
+.rls-section{padding:10px 0 42px;}
+.rls-section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px;border-bottom:1px solid var(--rls-text);padding-bottom:10px;flex-wrap:wrap;}
+.rls-section-title{font-size:1.4rem;margin:0;}
+.rls-section-note{font-family:var(--rls-sans);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rls-muted);}
+.rls-faq-item{border-bottom:1px solid var(--rls-line);padding:18px 0;}
+.rls-faq-q{font-family:var(--rls-sans);font-weight:700;font-size:.98rem;margin-bottom:.4em;color:var(--rls-text);display:flex;gap:10px;}
+.rls-faq-q .rls-faq-mark{color:var(--rls-orange);}
+.rls-faq-a{color:var(--rls-muted);margin:0;max-width:70ch;}
+.rls-footer{background:var(--rls-bg-sheet);border-top:2px solid var(--rls-text);margin-top:20px;}
+.rls-titleblock{border:1px solid var(--rls-text);border-radius:var(--rls-radius);margin:24px 0;overflow:hidden;font-family:var(--rls-sans);font-size:.72rem;max-width:460px;margin-left:auto;background:#fff;}
+.rls-titleblock-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rls-line);}
+.rls-titleblock-row:first-child{border-top:none;}
+.rls-titleblock-cell{padding:8px 10px;border-left:1px solid var(--rls-line);}
+.rls-titleblock-cell:first-child{border-left:none;}
+.rls-titleblock-cell b{display:block;color:var(--rls-muted);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px;}
+.rls-titleblock-title .rls-titleblock-cell{border-left:none;background:var(--rls-blue);color:#eef2f5;}
+.rls-titleblock-title b{color:#c7d6e4;}
+.rls-footer-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:26px 0 10px;}
+.rls-footer-nav{display:flex;flex-direction:column;gap:8px;font-family:var(--rls-sans);font-size:.82rem;}
+.rls-footer-nav a{text-decoration:none;color:var(--rls-text);}
+.rls-footer-nav a:hover{color:var(--rls-orange);}
+.rls-footer-blurb{max-width:34ch;color:var(--rls-muted);font-size:.86rem;}
+.rls-copy{padding:14px 0 22px;font-family:var(--rls-sans);font-size:.7rem;color:var(--rls-muted);border-top:1px solid var(--rls-line);}
+@media (max-width:860px){
+  .rls-titleblock{margin-left:0;max-width:100%;}
+}
+@media (max-width:560px){
+  .rls-hero-title{font-size:1.8rem;}
+  body{font-size:16px;}
+}
+</style>
+</head>
+<body>
+<div class="rls-topbar">
+  <div class="rls-shell">
+    <span>Railstile &mdash; Furniture Architecture &amp; Design Notes</span>
+    <span class="rls-topbar-scale">Scale NTS &middot; Sheet 1 of 1 &middot; Rev A</span>
+  </div>
+</div>
+<header class="rls-header">
+  <div class="rls-shell rls-header-inner">
+    <a class="rls-brand" href="safe.html">
+      <svg class="rls-brand-mark" width="34" height="34" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="11" fill="none" stroke="#16457a" stroke-width="1.6"/>
+        <line x1="16" y1="2" x2="16" y2="9" stroke="#16457a" stroke-width="1.6"/>
+        <line x1="16" y1="23" x2="16" y2="30" stroke="#16457a" stroke-width="1.6"/>
+        <line x1="2" y1="16" x2="9" y2="16" stroke="#16457a" stroke-width="1.6"/>
+        <line x1="23" y1="16" x2="30" y2="16" stroke="#16457a" stroke-width="1.6"/>
+        <circle cx="16" cy="16" r="2.4" fill="#c96a1e"/>
+      </svg>
+      <span class="rls-brand-text">
+        <span class="rls-brand-name">RAILSTILE</span>
+        <span class="rls-brand-tag">Design Before Saw</span>
+      </span>
+    </a>
+    <nav class="rls-nav" aria-label="Primary">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Cutlist App</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="rls-hero">
+    <div class="rls-shell">
+      <div class="rls-hero-eyebrow">FAQ</div>
+      <h1 class="rls-hero-title">Questions readers ask us most</h1>
+      <p class="rls-hero-dek">A mix of questions about furniture architecture and woodworking design method, and a few about how this journal and the Cutlist app work.</p>
+    </div>
+  </section>
+
+  <section class="rls-section">
+    <div class="rls-shell">
+      <div class="rls-section-head">
+        <h2 class="rls-section-title">Measurement, Joints &amp; Squaring</h2>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> Why does a small measurement error matter so much in furniture?</p>
+        <p class="rls-faq-a">Furniture joins many parts together, and each joint depends on the parts around it lining up. A small error on its own rarely shows, but once several parts meet at a drawer, a door, or a case corner, those small errors can combine into a gap or a joint that won't close cleanly.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> What is a datum face, and why should I start there?</p>
+        <p class="rls-faq-a">A datum face is the one surface you decide to trust and measure everything else from. Without it, different measurements on the same part can be taken from different starting points, and small disagreements between them are almost impossible to trace back later.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> How do I check if a carcase is actually square, not just close?</p>
+        <p class="rls-faq-a">Measure both diagonals, corner to corner. If they match, the corners are true right angles. If they differ, the case is out of square in the direction of the longer diagonal, and that's the side to ease back toward center with a clamp.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> Why do drawer gaps end up uneven even after careful cutting?</p>
+        <p class="rls-faq-a">Usually because the opening and the drawer front were measured from different reference points, or because a rounding decision on paper (splitting a gap evenly on both sides, for instance) wasn't carried through consistently to the cut.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> What's the difference between rough and finished dimension?</p>
+        <p class="rls-faq-a">Rough dimension is the size of the board as bought or milled roughly to size. Finished dimension is its size after planing, jointing, and thicknessing. A cutlist that lists finished sizes but is read as rough sizes will leave a project short.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> Should I trust a cutlist from a plan, or re-measure everything myself?</p>
+        <p class="rls-faq-a">Trust it as a starting point, but check the dimensions that depend on your own stock thickness or a joint you're substituting. A cutlist written for 18mm plywood won't hold up unchanged if your sheet measures 17.5mm.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> What is tolerance stacking, and how do I avoid it?</p>
+        <p class="rls-faq-a">It's the way several small, individually acceptable errors add up across a run of parts. The usual way to avoid it is to measure a run of parts against one continuous reference, rather than each part against the last one in the row.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> Is a story stick really more reliable than a tape measure?</p>
+        <p class="rls-faq-a">For repeated dimensions within one project, often yes &mdash; it removes the step of reading and writing down a number, which is where a surprising number of small errors come from. A tape measure is still the right tool for the first pass at establishing sizes.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> Why does grain direction matter for panel stability?</p>
+        <p class="rls-faq-a">Solid wood moves far more across the grain than along it as humidity changes. A panel's grain direction affects how it should be joined to its frame or case, so that seasonal movement has somewhere to go instead of fighting against a fixed joint.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> Do dovetails or mortise-and-tenon joints need different tolerances?</p>
+        <p class="rls-faq-a">They tolerate different things well. A dovetail's mechanical shape can forgive a slightly loose fit better than a tenon can, since its angles resist being pulled straight apart, while a tenon relies more on a snug fit for strength.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="rls-section">
+    <div class="rls-shell">
+      <div class="rls-section-head">
+        <h2 class="rls-section-title">The Journal &amp; Cutlist App</h2>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> What is Cutlist, and who is it for?</p>
+        <p class="rls-faq-a">Cutlist is a small companion app that turns a list of part dimensions into a checked cutting diagram and flags stacked tolerances before they reach the saw. It's aimed at anyone planning a project from a set of dimensions, not just professional shops.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> Does Cutlist replace making my own drawing?</p>
+        <p class="rls-faq-a">No. It works from dimensions you've already decided on, whether from your own drawing or a plan you're following, and checks how those numbers add up together.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> Does Railstile sell plans, kits, or tools?</p>
+        <p class="rls-faq-a">No. Railstile is an editorial journal. We write about method and reasoning, not specific commercial products, and our only companion product is the Cutlist planning app.</p>
+      </div>
+
+      <div class="rls-faq-item">
+        <p class="rls-faq-q"><span class="rls-faq-mark">Q.</span> How often does Railstile publish?</p>
+        <p class="rls-faq-a">New pieces run roughly weekly. Readers who want a lighter-touch update can subscribe to the occasional email note from the drawing table on the homepage.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="rls-footer">
+  <div class="rls-shell">
+    <div class="rls-titleblock">
+      <div class="rls-titleblock-row rls-titleblock-title">
+        <div class="rls-titleblock-cell"><b>Document</b>Railstile &mdash; Furniture Architecture Journal</div>
+      </div>
+      <div class="rls-titleblock-row">
+        <div class="rls-titleblock-cell"><b>Drawn by</b>Editorial Desk</div>
+        <div class="rls-titleblock-cell"><b>Checked by</b>Shop Notes Reader</div>
+      </div>
+      <div class="rls-titleblock-row">
+        <div class="rls-titleblock-cell"><b>Scale</b>Not to Scale</div>
+        <div class="rls-titleblock-cell"><b>Sheet</b>1 of 1</div>
+      </div>
+      <div class="rls-titleblock-row">
+        <div class="rls-titleblock-cell"><b>Units</b>mm / in</div>
+        <div class="rls-titleblock-cell"><b>Rev</b>A</div>
+      </div>
+    </div>
+    <div class="rls-footer-grid">
+      <p class="rls-footer-blurb">Railstile is an independent journal of furniture architecture and shop design method &mdash; measurement, joints, and squaring, written before the saw touches the board.</p>
+      <nav class="rls-footer-nav" aria-label="Footer">
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Cutlist App</a>
+        <a href="about.html">About</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </nav>
+    </div>
+    <p class="rls-copy">&copy; 2026 Railstile. Editorial content for general shop-craft reading only. Contact: editors@railstile.shop</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Hallway as a Shipping Corridor · Stowage</title>
+  <meta name="description" content="A home's fastest route from door to truck has a narrowest point that sets the pace for everything else — most people find it mid-carry, not before.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://stowage.shop/the-hallway-as-corridor.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23efe9dc'/%3E%3Crect x='11' y='18' width='42' height='32' fill='none' stroke='%230f5f6b' stroke-width='4'/%3E%3Cpath d='M11 18 L32 29 L53 18' fill='none' stroke='%230f5f6b' stroke-width='4'/%3E%3Cline x1='32' y1='29' x2='32' y2='50' stroke='%230f5f6b' stroke-width='4'/%3E%3C/svg%3E">
+  <style>
+/* Stowage — cargo manifest design system */
+:root{
+  --stw-bg:#efe9dc;
+  --stw-bg-deep:#e6dfc9;
+  --stw-panel:#f7f4ea;
+  --stw-ink:#2a2620;
+  --stw-ink-soft:#5c5644;
+  --stw-accent:#0f5f6b;
+  --stw-accent-ink:#f4f1e6;
+  --stw-line:#b9ae8f;
+  --stw-line-soft:#d8d0b8;
+  --stw-radius:4px;
+  --stw-maxw:950px;
+  --stw-serif:Rockwell,"Rockwell Nova","Roboto Slab",Georgia,serif;
+  --stw-sans:Menlo,Consolas,"Liberation Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px),repeating-linear-gradient(90deg, rgba(0,0,0,0.012) 0px, rgba(0,0,0,0.012) 1px, transparent 1px, transparent 4px),var(--stw-bg);color:var(--stw-ink);font-family:var(--stw-sans);font-size:15px;line-height:1.6;}
+img{max-width:100%;display:block;height:auto;}
+a{color:var(--stw-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--stw-serif);color:var(--stw-ink);line-height:1.2;margin:0 0 .5em;letter-spacing:.01em;}
+h1{font-size:clamp(1.7rem,4vw,2.6rem);}
+h2{font-size:clamp(1.3rem,2.6vw,1.85rem);}
+h3{font-size:1.15rem;}
+p{margin:0 0 1.1em;}
+ul,ol{margin:0 0 1.1em;padding-left:1.3em;}
+.stw-container{max-width:var(--stw-maxw);margin:0 auto;padding:0 20px;}
+.stw-header{border-bottom:2px solid var(--stw-ink);background:var(--stw-panel);position:sticky;top:0;z-index:40;}
+.stw-header__inner{max-width:var(--stw-maxw);margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.stw-logo{display:flex;align-items:center;gap:8px;font-family:var(--stw-serif);font-weight:700;font-size:1.3rem;letter-spacing:.06em;color:var(--stw-ink);}
+.stw-logo:hover{text-decoration:none;}
+.stw-logo__mark{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:2px solid var(--stw-accent);border-radius:var(--stw-radius);color:var(--stw-accent);font-family:var(--stw-sans);font-size:.7rem;transform:rotate(-4deg);}
+.stw-tagline{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stw-ink-soft);display:block;margin-top:2px;}
+.stw-nav{display:flex;gap:18px;flex-wrap:wrap;font-size:.82rem;letter-spacing:.02em;text-transform:uppercase;}
+.stw-nav a{color:var(--stw-ink);border-bottom:2px solid transparent;padding-bottom:2px;}
+.stw-nav a:hover{color:var(--stw-accent);border-color:var(--stw-accent);text-decoration:none;}
+.stw-footer{border-top:2px solid var(--stw-ink);background:var(--stw-bg-deep);margin-top:60px;padding:44px 0 26px;}
+.stw-footer__grid{max-width:var(--stw-maxw);margin:0 auto;padding:0 20px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px;}
+.stw-footer h4{font-family:var(--stw-serif);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;color:var(--stw-ink);}
+.stw-footer p{font-size:.85rem;color:var(--stw-ink-soft);}
+.stw-footer ul{list-style:none;padding:0;margin:0;}
+.stw-footer li{margin-bottom:8px;font-size:.85rem;}
+.stw-footer a{color:var(--stw-ink-soft);}
+.stw-footer a:hover{color:var(--stw-accent);}
+.stw-footer__bottom{max-width:var(--stw-maxw);margin:26px auto 0;padding:16px 20px 0;border-top:1px solid var(--stw-line);font-size:.75rem;color:var(--stw-ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.stw-btn{display:inline-block;background:var(--stw-accent);color:var(--stw-accent-ink)!important;font-family:var(--stw-sans);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;padding:12px 22px;border-radius:var(--stw-radius);border:2px solid var(--stw-ink);text-decoration:none!important;}
+.stw-btn:hover{background:var(--stw-ink);}
+.stw-btn--ghost{background:transparent;color:var(--stw-ink)!important;border:2px solid var(--stw-ink);}
+.stw-btn--ghost:hover{background:var(--stw-ink);color:var(--stw-accent-ink)!important;}
+.stw-tag{display:inline-block;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--stw-accent);color:var(--stw-accent);padding:3px 8px;border-radius:var(--stw-radius);}
+.stw-hero{padding:46px 0 36px;border-bottom:2px dashed var(--stw-line);}
+.stw-hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;}
+.stw-hero__eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--stw-accent);margin-bottom:10px;}
+.stw-hero__lead{font-size:1.02rem;color:var(--stw-ink-soft);max-width:46ch;}
+.stw-hero__figure{border:2px solid var(--stw-ink);border-radius:var(--stw-radius);overflow:hidden;position:relative;background:var(--stw-panel);}
+.stw-hero__figure img{width:100%;}
+.stw-stamp{position:absolute;bottom:14px;right:14px;width:92px;height:92px;border:3px double var(--stw-accent);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(-10deg);background:rgba(247,244,234,.88);color:var(--stw-accent);font-family:var(--stw-sans);font-size:.6rem;line-height:1.25;letter-spacing:.05em;text-transform:uppercase;padding:6px;}
+.stw-section{padding:44px 0;}
+.stw-section__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px;border-bottom:2px solid var(--stw-ink);padding-bottom:10px;flex-wrap:wrap;gap:10px;}
+.stw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.stw-box{border:1px solid var(--stw-line);background:var(--stw-panel);border-radius:var(--stw-radius);display:flex;flex-direction:column;position:relative;overflow:hidden;color:inherit;text-decoration:none;}
+.stw-box:hover{border-color:var(--stw-accent);}
+.stw-box:hover .stw-box__title{color:var(--stw-accent);text-decoration:underline;}
+.stw-box::before{content:"";position:absolute;top:6px;left:6px;width:6px;height:6px;border-radius:50%;background:var(--stw-bg-deep);border:1px solid var(--stw-line);}
+.stw-box::after{content:"";position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--stw-bg-deep);border:1px solid var(--stw-line);}
+.stw-box__thumb{aspect-ratio:4/3;overflow:hidden;border-bottom:1px solid var(--stw-line);}
+.stw-box__thumb img{width:100%;height:100%;object-fit:cover;}
+.stw-box__code{font-family:var(--stw-sans);font-size:.68rem;letter-spacing:.08em;color:var(--stw-accent);padding:8px 10px 0;text-transform:uppercase;}
+.stw-box__body{padding:6px 10px 12px;flex:1;display:flex;flex-direction:column;}
+.stw-box__title{font-family:var(--stw-serif);font-size:.98rem;margin:2px 0 6px;}
+.stw-box__dek{font-size:.78rem;color:var(--stw-ink-soft);flex:1;margin-bottom:8px;}
+.stw-box__meta{font-size:.68rem;color:var(--stw-ink-soft);text-transform:uppercase;letter-spacing:.05em;border-top:1px dashed var(--stw-line);padding-top:6px;display:flex;justify-content:space-between;}
+.stw-app{background:var(--stw-bg-deep);border-top:2px solid var(--stw-ink);border-bottom:2px solid var(--stw-ink);padding:50px 0;}
+.stw-app__grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.stw-mock{border:2px solid var(--stw-ink);border-radius:var(--stw-radius);background:var(--stw-panel);overflow:hidden;box-shadow:6px 6px 0 var(--stw-line);}
+.stw-mock__bar{background:var(--stw-ink);color:var(--stw-bg);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;display:flex;justify-content:space-between;}
+.stw-mock__row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--stw-line-soft);font-size:.78rem;gap:10px;}
+.stw-mock__row:last-child{border-bottom:none;}
+.stw-mock__bar-fill{height:6px;border-radius:3px;background:var(--stw-line-soft);flex:1;position:relative;overflow:hidden;}
+.stw-mock__bar-fill span{position:absolute;left:0;top:0;bottom:0;background:var(--stw-accent);}
+.stw-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;}
+.stw-feat{border:1px solid var(--stw-line);background:var(--stw-panel);border-radius:var(--stw-radius);padding:16px;}
+.stw-feat__icon{width:34px;height:34px;border:2px solid var(--stw-accent);border-radius:var(--stw-radius);display:flex;align-items:center;justify-content:center;color:var(--stw-accent);margin-bottom:10px;}
+.stw-feat h3{font-size:.98rem;margin-bottom:6px;}
+.stw-feat p{font-size:.82rem;color:var(--stw-ink-soft);margin:0;}
+.stw-steps{counter-reset:stwstep;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:26px 0;}
+.stw-step{border-left:3px solid var(--stw-accent);padding-left:14px;}
+.stw-step::before{counter-increment:stwstep;content:"STEP " counter(stwstep,decimal-leading-zero);font-family:var(--stw-sans);font-size:.7rem;color:var(--stw-accent);letter-spacing:.08em;display:block;margin-bottom:6px;}
+.stw-news{border:2px dashed var(--stw-line);border-radius:var(--stw-radius);padding:26px;background:var(--stw-panel);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+.stw-news form{display:flex;gap:10px;flex-wrap:wrap;}
+.stw-news input[type=email]{font-family:var(--stw-sans);font-size:.85rem;padding:10px 12px;border:2px solid var(--stw-ink);border-radius:var(--stw-radius);background:var(--stw-bg);min-width:220px;}
+.stw-news button{font-family:var(--stw-sans);font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;background:var(--stw-ink);color:var(--stw-bg);border:2px solid var(--stw-ink);border-radius:var(--stw-radius);padding:11px 18px;cursor:pointer;}
+.stw-news button:hover{background:var(--stw-accent);border-color:var(--stw-accent);}
+.stw-news__ok{display:none;font-size:.78rem;color:var(--stw-accent);margin-top:8px;}
+.stw-article{display:grid;grid-template-columns:96px 1fr;gap:0 28px;padding:40px 0 60px;}
+.stw-article__rail{border-right:1px dashed var(--stw-line);font-family:var(--stw-sans);font-size:.66rem;color:var(--stw-ink-soft);letter-spacing:.04em;padding-right:14px;}
+.stw-article__rail div{padding:7px 0;border-bottom:1px dotted var(--stw-line-soft);}
+.stw-article__body{max-width:62ch;}
+.stw-article__meta{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--stw-accent);margin-bottom:10px;display:flex;gap:12px;flex-wrap:wrap;}
+.stw-article__body h2{margin-top:1.6em;}
+.stw-article__body blockquote{border-left:3px solid var(--stw-accent);margin:1.4em 0;padding:2px 0 2px 18px;color:var(--stw-ink-soft);font-style:italic;}
+.stw-article__body figure{margin:1.6em 0;}
+.stw-article__body figcaption{font-size:.75rem;color:var(--stw-ink-soft);margin-top:6px;}
+.stw-article__foot{margin-top:36px;padding-top:16px;border-top:2px solid var(--stw-ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.8rem;}
+.stw-prose{max-width:68ch;padding:44px 0 60px;}
+.stw-prose h2{margin-top:1.5em;}
+.stw-prose .stw-tag{margin-bottom:14px;}
+.stw-gloss{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:10px 0 50px;}
+.stw-gloss__item{border:1px solid var(--stw-line);border-radius:var(--stw-radius);background:var(--stw-panel);padding:14px 16px;}
+.stw-gloss__code{font-family:var(--stw-sans);font-size:.68rem;color:var(--stw-accent);letter-spacing:.08em;}
+.stw-gloss__term{font-family:var(--stw-serif);font-size:1.02rem;margin:4px 0 6px;}
+.stw-gloss__def{font-size:.85rem;color:var(--stw-ink-soft);margin:0;}
+.stw-faq{padding:10px 0 50px;}
+.stw-faq details{border:1px solid var(--stw-line);border-radius:var(--stw-radius);background:var(--stw-panel);margin-bottom:10px;padding:14px 16px;}
+.stw-faq summary{cursor:pointer;font-family:var(--stw-serif);font-size:1rem;list-style:none;display:flex;gap:10px;align-items:baseline;}
+.stw-faq summary::-webkit-details-marker{display:none;}
+.stw-faq summary::before{content:"+";color:var(--stw-accent);font-family:var(--stw-sans);font-weight:bold;}
+.stw-faq details[open] summary::before{content:"–";}
+.stw-faq__code{font-family:var(--stw-sans);font-size:.68rem;color:var(--stw-accent);}
+.stw-faq p{margin:10px 0 0;font-size:.88rem;color:var(--stw-ink-soft);}
+.stw-team{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0;}
+.stw-team__card{border:1px solid var(--stw-line);border-radius:var(--stw-radius);background:var(--stw-panel);padding:14px;text-align:center;}
+.stw-team__avatar{width:52px;height:52px;border-radius:50%;border:2px solid var(--stw-accent);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:var(--stw-serif);color:var(--stw-accent);}
+.stw-team__role{font-size:.72rem;color:var(--stw-ink-soft);text-transform:uppercase;letter-spacing:.05em;}
+@media (max-width:860px){.stw-hero__grid{grid-template-columns:1fr;}.stw-app__grid{grid-template-columns:1fr;}.stw-grid{grid-template-columns:repeat(2,1fr);}.stw-feat-grid{grid-template-columns:repeat(2,1fr);}.stw-steps{grid-template-columns:1fr;}.stw-footer__grid{grid-template-columns:1fr 1fr;}.stw-team{grid-template-columns:1fr;}.stw-gloss{grid-template-columns:1fr;}}
+@media (max-width:560px){.stw-grid{grid-template-columns:1fr 1fr;}.stw-article{grid-template-columns:1fr;}.stw-article__rail{display:none;}.stw-footer__grid{grid-template-columns:1fr;}.stw-feat-grid{grid-template-columns:1fr;}}
+
+/* Page-specific: article content elements not covered by the base system above */
+.stw-article__body table{width:100%;border-collapse:collapse;margin:1.6em 0;font-size:.85rem;}
+.stw-article__body th,.stw-article__body td{border:1px solid var(--stw-line);padding:8px 10px;text-align:left;vertical-align:top;}
+.stw-article__body thead th{background:var(--stw-bg-deep);font-family:var(--stw-sans);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--stw-ink-soft);}
+.stw-article__body tbody tr:nth-child(even){background:var(--stw-panel);}
+.stw-callout{border:2px solid var(--stw-accent);border-radius:var(--stw-radius);background:var(--stw-panel);padding:18px 20px;margin:1.8em 0;display:flex;gap:14px;align-items:flex-start;}
+.stw-callout__icon{flex:none;width:34px;height:34px;border:2px solid var(--stw-accent);border-radius:var(--stw-radius);display:flex;align-items:center;justify-content:center;color:var(--stw-accent);}
+.stw-callout h3{margin:0 0 6px;font-size:1rem;}
+.stw-callout p{margin:0;font-size:.88rem;color:var(--stw-ink-soft);}
+.stw-note{border:2px dashed var(--stw-line);border-radius:var(--stw-radius);background:var(--stw-bg-deep);padding:16px 18px;margin:2em 0;font-size:.85rem;color:var(--stw-ink-soft);}
+.stw-note strong{color:var(--stw-ink);}
+.stw-readalso{border-top:2px solid var(--stw-ink);border-bottom:2px solid var(--stw-ink);padding:20px 0;margin:2.2em 0;}
+.stw-readalso h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--stw-accent);margin-bottom:12px;}
+.stw-readalso ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
+.stw-readalso li{border-bottom:1px dotted var(--stw-line-soft);padding-bottom:8px;}
+.stw-readalso li:last-child{border-bottom:none;padding-bottom:0;}
+.stw-readalso a{font-family:var(--stw-serif);font-size:.98rem;}
+.stw-readalso span{display:block;font-size:.75rem;color:var(--stw-ink-soft);font-family:var(--stw-sans);margin-top:2px;}
+  </style>
+</head><body>
+  <header class="stw-header">
+    <div class="stw-header__inner">
+      <div>
+        <a href="safe.html" class="stw-logo"><span class="stw-logo__mark">S</span>STOWAGE</a>
+        <span class="stw-tagline">A manifest for the home move</span>
+      </div>
+      <nav class="stw-nav" aria-label="Primary">
+        <a href="safe.html">Home</a>
+        <a href="app.html">Packslip</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="stw-post">
+    <div class="stw-container">
+      <div class="stw-article">
+        <aside class="stw-article__rail" aria-hidden="true">
+          <div>DOOR</div>
+          <div>HALLWAY</div>
+          <div>TURN</div>
+          <div>STAIRS</div>
+          <div>TRUCK</div>
+        </aside>
+        <div class="stw-article__body">
+          <div class="stw-article__meta"><span class="stw-tag">Route Planning</span><span>Apr 9, 2026</span><span>Route 01</span></div>
+          <h1>The Hallway as a Shipping Corridor</h1>
+          <figure>
+            <img src="img/the-hallway-as-corridor.jpg" alt="The Hallway as a Shipping Corridor">
+            <figcaption>The narrowest six feet of hallway usually decides more about a move than any single room does.</figcaption>
+          </figure>
+
+          <p>A move has exactly one route that matters: the shortest, clearest line between the front door and the back of the truck. Everything else — which room gets packed first, how a box is labeled, what shelf something came off of — happens in service of that line. Most people never walk it in advance. They find out where it narrows, where it turns twice in six feet, or where a side table has been blocking a doorway for years, at the exact moment they're holding something heavy and can't set it down. A shipping company would never load a dock without first checking the access route to it. A home move deserves the same five minutes, and almost never gets them.</p>
+
+          <h2>Every Route Has a Choke Point</h2>
+          <p>Every home has one section that's narrower than the rest of the path — a foyer pinched between a closet and a wall, a hallway that loses width at a light switch, a stairwell that turns before it reaches the landing. That single point, not the truck's cargo door and not the widest room in the house, sets the maximum size for anything carried through on two feet. A shipping corridor works the same way: its real capacity is set by the narrowest bridge or tunnel along the route, not by the open highway on either side of it. Nobody plans a shipment around the easy stretch. They plan it around the point where it gets hard, and a hallway is exactly that point in most homes.</p>
+
+          <blockquote>The route decides what fits through it. The house decides nothing until someone is already carrying something.</blockquote>
+
+          <h2>Walk the Corridor Empty-Handed First</h2>
+          <p>Before a single box moves, walk the route from door to truck with nothing in your hands. This sounds unnecessary until it's skipped, and then it's the reason a dresser gets stuck sideways in a doorway with a crew standing around it. Look for what a busy eye skips over: a rug that bunches underfoot, a doorstop angled into the swing path, a thermostat or light switch sitting at exactly shoulder height along the wall. None of these register as obstacles during ordinary life. All of them register instantly the moment two hands are full and can't be freed to fix anything. The same discipline extends to what ends up inside the boxes moving through that corridor — <a href="the-weight-not-the-room.html">The Weight, Not the Room</a> covers the parallel mistake of sorting by where a box came from instead of what it will do to whoever carries it.</p>
+
+          <h2>Pick a Direction and Hold It</h2>
+          <p>A loading dock rarely has people walking freight in both directions through the same doorway at once — it slows everyone down and multiplies the chance of a collision in a tight spot. A home move benefits from the same one-way discipline. Send loaded carriers out along one side of the route and bring empty-handed people back along the other, or stagger timing so nobody meets a fully loaded neighbor at the choke point. It feels like overkill for a two-person move. It stops being overkill the moment a third or fourth helper shows up and everyone is improvising their own path through the same six feet of hallway.</p>
+
+          <div class="stw-callout">
+            <div class="stw-callout__icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M14 6l7 6-7 6"/></svg>
+            </div>
+            <div>
+              <h3>Field Note</h3>
+              <p>Clear the entire corridor once, before the first box moves — not gradually, as things get in the way. A route cleared in pieces gets re-cluttered by whatever just got carried out of the last room, and the choke point never actually opens up.</p>
+            </div>
+          </div>
+
+          <h2>What the Turns Decide</h2>
+          <p>A straight hallway is forgiving. A turn is not, because furniture doesn't pivot in place — it needs the diagonal space to swing through a corner, and that diagonal is almost always wider than either wall it's turning between. This is why a couch that clears a doorway in a straight line jams solid two feet later at a 90-degree turn, and why the fix is rarely to push harder. It's to measure the corner before moving day, not during it, and to know in advance which pieces need a door lifted off its hinges or a leg removed to make the turn at all.</p>
+
+          <table>
+            <thead><tr><th>Segment</th><th>Common Bottleneck</th><th>What It Caps</th><th>Check Before Moving Day</th></tr></thead>
+            <tbody>
+              <tr><td>Front door threshold</td><td>Storm or screen door swinging inward</td><td>Box width passing single file</td><td>Prop both doors open and measure the clear gap, not the frame</td></tr>
+              <tr><td>Hallway turn</td><td>90° corner narrower than either straight run</td><td>Length of rigid items — dressers, mattresses, frames</td><td>Measure the diagonal a large item needs to pivot through</td></tr>
+              <tr><td>Stairwell landing</td><td>Handrail plus a mid-flight turn</td><td>Two-person carries on anything wide</td><td>Walk the stairs holding a broom horizontally to test clearance</td></tr>
+              <tr><td>Truck ramp or curb</td><td>Grade change at the street</td><td>Cart wheels and stacks over three boxes high</td><td>Confirm ramp angle and curb height match the dolly in use</td></tr>
+            </tbody>
+          </table>
+
+          <h2>A Five-Minute Route Check</h2>
+          <p>None of this requires a tape measure and a clipboard, though both help. It requires walking the route once with the sole job of finding what will stop a loaded carrier, not what looks untidy.</p>
+
+          <ol>
+            <li>Walk door to truck empty-handed and note every point where the path narrows or turns.</li>
+            <li>Measure the tightest turn's diagonal against the largest piece of furniture leaving through it.</li>
+            <li>Clear rugs, doorstops, and low furniture along the full corridor in one pass, not room by room.</li>
+            <li>Decide the direction of travel in advance and brief anyone helping before the first box moves.</li>
+            <li>Recheck the choke point once it's cleared — if it's still tight, plan to disassemble, not force it.</li>
+          </ol>
+
+          <p>A route mapped in advance rarely saves time on the easy boxes. It saves the move on the one piece that doesn't fit the first way anyone tries it, and it's usually the same piece that gets set down mid-hallway, blocking the corridor for everything behind it. <a href="the-last-box-problem.html">The Last-Box Problem</a> looks at why that stranded item is so often the one nobody planned a path for in the first place.</p>
+
+          <div class="stw-note"><strong>A note on this piece:</strong> this describes a way of thinking about planning a walking route through a home, not a substitute for professional movers' assessment of stairwells, tight turns, or heavy furniture. When a piece genuinely won't clear a corridor, treat that as a signal to call in help, not a problem to force through.</div>
+
+          <div class="stw-readalso">
+            <h3>Read Also</h3>
+            <ul>
+              <li><a href="reading-the-truck-bed.html">Reading the Truck Bed Before You Load It</a><span>The route inside the house sets up the route inside the truck — the base layer decides everything stacked after it.</span></li>
+              <li><a href="a-stacking-order-for-fragile-loads.html">A Stacking Order for Fragile Loads</a><span>Fragile doesn't mean light, and light doesn't mean it goes on top.</span></li>
+              <li><a href="density-per-box.html">Density Per Box, Explained</a><span>Two boxes the same size can carry a completely different load through the same corridor.</span></li>
+            </ul>
+          </div>
+
+          <div class="stw-article__foot">
+            <span>Filed under <a href="safe.html#stw-latest">Route Planning</a></span>
+            <span>First logged Apr 9, 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="stw-footer">
+    <div class="stw-footer__grid">
+      <div>
+        <h4>Stowage</h4>
+        <p>Stowage is an independent editorial project about the logistics of moving house — load order, box density, and the routes a home takes when it moves. Packslip is our companion planning app.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="safe.html">Home</a></li>
+          <li><a href="app.html">Packslip App</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact &amp; Legal</h4>
+        <ul>
+          <li><a href="mailto:desk@stowage.shop">desk@stowage.shop</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="stw-footer__bottom">
+      <span>© 2026 Stowage. Editorial content, not professional moving advice.</span>
+      <span>Companion app: Packslip</span>
+    </div>
+  </footer>
+</body></html>

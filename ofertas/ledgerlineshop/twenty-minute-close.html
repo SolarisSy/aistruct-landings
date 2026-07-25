@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Closing the Month in Twenty Minutes, Not a Weekend · Ledgerline</title>
+  <meta name="description" content="A repeatable monthly close sequence &mdash; total in, total out, check the balance, carry forward &mdash; that replaces the dreaded shoebox marathon with a short habit.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ledgerline.shop/twenty-minute-close.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fbfaf5'/%3E%3Crect x='2' y='2' width='28' height='28' fill='none' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='10' y1='2' x2='10' y2='30' stroke='%239aa79f' stroke-width='1'/%3E%3Cline x1='4' y1='10' x2='28' y2='10' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='4' y1='22' x2='28' y2='22' stroke='%232f6a4f' stroke-width='.75'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --ldg-bg:#fbfaf5;
+  --ldg-row-a:#ffffff;
+  --ldg-row-b:#f4f3ec;
+  --ldg-text:#1f2421;
+  --ldg-muted:#5c655f;
+  --ldg-accent:#2f6a4f;
+  --ldg-accent-dark:#234f3b;
+  --ldg-rule:#9aa79f;
+  --ldg-radius:1.5px;
+  --ldg-maxw:890px;
+  --ldg-serif:Cambria,Georgia,'Times New Roman',serif;
+  --ldg-sans:Calibri,Candara,'Segoe UI',Tahoma,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--ldg-bg);color:var(--ldg-text);font-family:var(--ldg-sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+a{color:var(--ldg-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--ldg-serif);font-weight:700;line-height:1.2;margin:0 0 .5em;color:var(--ldg-text);}
+p{margin:0 0 1em;}
+img{max-width:100%;display:block;height:auto;}
+ul,ol{margin:0;padding:0;}
+button{font-family:var(--ldg-sans);}
+.ldg-container{max-width:var(--ldg-maxw);margin:0 auto;padding:0 20px;}
+.ldg-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+.ldg-masthead{background:var(--ldg-bg);}
+.ldg-masthead-rule-top{height:1px;background:var(--ldg-text);}
+.ldg-masthead-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:20px 20px 16px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ldg-logo{font-family:var(--ldg-serif);font-style:italic;font-size:25px;color:var(--ldg-text);display:flex;flex-direction:column;gap:2px;}
+.ldg-logo-sub{font-family:var(--ldg-sans);font-style:normal;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ldg-muted);}
+.ldg-nav{display:flex;gap:18px;flex-wrap:wrap;}
+.ldg-nav a{font-family:var(--ldg-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-text);}
+.ldg-nav a:hover{color:var(--ldg-accent);}
+.ldg-masthead-rule-bottom{height:4px;border-bottom:4px double var(--ldg-text);}
+
+.ldg-hero{padding-top:0;}
+.ldg-hero-media{width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:var(--ldg-radius);}
+.ldg-hero-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:26px 20px;background:var(--ldg-row-a);border-bottom:4px double var(--ldg-text);}
+.ldg-hero-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.07em;padding-top:6px;font-weight:bold;}
+.ldg-hero-title{font-family:var(--ldg-serif);font-size:34px;line-height:1.16;margin:0 0 10px;}
+.ldg-hero-dek{font-family:var(--ldg-sans);font-size:16px;color:var(--ldg-muted);max-width:60ch;margin:0;}
+
+.ldg-section{padding:44px 0;}
+.ldg-section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;padding:0 20px 12px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-section-title{font-family:var(--ldg-serif);font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-text);margin:0;}
+.ldg-section-label{font-family:var(--ldg-sans);font-size:11px;color:var(--ldg-muted);text-transform:uppercase;letter-spacing:.05em;}
+.ldg-lede{font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-muted);padding:0 20px;max-width:62ch;}
+
+.ldg-ledger{display:flex;flex-direction:column;border-top:1px solid var(--ldg-rule);}
+.ldg-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);align-items:start;}
+.ldg-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-row-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-muted);letter-spacing:.05em;padding-top:4px;}
+.ldg-row-content{display:flex;gap:16px;align-items:flex-start;}
+.ldg-row-thumb{width:96px;height:74px;object-fit:cover;flex:none;border-radius:var(--ldg-radius);}
+.ldg-row-text{flex:1;min-width:0;}
+.ldg-row-cat{display:block;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;margin-bottom:4px;}
+.ldg-row-title{font-family:var(--ldg-serif);font-size:19px;margin:0 0 4px;line-height:1.3;}
+.ldg-row-title a{color:var(--ldg-text);}
+.ldg-row-title a:hover{color:var(--ldg-accent);}
+.ldg-row-dek{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);line-height:1.5;margin:0;}
+
+.ldg-totals{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:14px 20px;border-top:4px double var(--ldg-text);font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);}
+
+.ldg-mock{border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);overflow:hidden;background:#fff;margin:0 20px;}
+.ldg-mock-head{display:grid;grid-template-columns:60px 1fr 100px 110px;background:var(--ldg-accent);color:#fff;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;}
+.ldg-mock-row{display:grid;grid-template-columns:60px 1fr 100px 110px;padding:11px 14px;font-family:var(--ldg-sans);font-size:13.5px;border-top:1px solid var(--ldg-rule);}
+.ldg-mock-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-mock-num{color:var(--ldg-muted);}
+.ldg-mock-amt,.ldg-mock-bal{text-align:right;font-variant-numeric:tabular-nums;}
+.ldg-mock-total{border-top:4px double var(--ldg-text);font-weight:bold;background:var(--ldg-row-a);}
+
+.ldg-feature-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-feature-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-feature-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-feature-no{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-accent);font-weight:bold;letter-spacing:.05em;padding-top:3px;}
+.ldg-feature-title{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-feature-body{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);margin:0;}
+
+.ldg-faq-row,.ldg-gloss-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-faq-row:nth-child(odd),.ldg-gloss-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-faq-row:nth-child(even),.ldg-gloss-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-faq-tag,.ldg-gloss-letter{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);letter-spacing:.05em;padding-top:3px;}
+.ldg-gloss-letter{font-family:var(--ldg-serif);font-size:20px;color:var(--ldg-accent);padding-top:0;}
+.ldg-faq-q,.ldg-gloss-term{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-faq-a,.ldg-gloss-def{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-muted);margin:0;line-height:1.6;}
+
+.ldg-newsletter{border-top:1px solid var(--ldg-rule);border-bottom:4px double var(--ldg-text);padding:28px 20px;margin:44px 0;background:var(--ldg-row-b);}
+.ldg-newsletter h2{font-family:var(--ldg-serif);font-size:19px;margin:0 0 8px;}
+.ldg-newsletter p{font-size:14px;color:var(--ldg-muted);}
+.ldg-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.ldg-newsletter input[type=email]{flex:1;min-width:200px;padding:11px 12px;border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);font-family:var(--ldg-sans);background:#fff;color:var(--ldg-text);}
+.ldg-ok{display:none;margin-top:10px;font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-accent);}
+
+.ldg-btn{background:var(--ldg-accent);color:#fff;border:none;padding:11px 20px;border-radius:var(--ldg-radius);font-family:var(--ldg-sans);font-size:13px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;text-decoration:none;display:inline-block;}
+.ldg-btn:hover{background:var(--ldg-accent-dark);text-decoration:none;}
+.ldg-btn-ghost{background:transparent;color:var(--ldg-accent);border:1px solid var(--ldg-accent);}
+.ldg-btn-ghost:hover{background:var(--ldg-row-b);}
+
+.ldg-about-blurb{padding:32px 20px;border-top:1px solid var(--ldg-rule);}
+.ldg-prose{padding:0 20px;font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-text);}
+.ldg-prose h2{font-family:var(--ldg-serif);font-size:21px;margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-prose p{margin:0 0 16px;line-height:1.7;}
+.ldg-prose li{margin:0 0 8px;line-height:1.6;}
+.ldg-prose ul{padding-left:20px;list-style:disc;margin-bottom:16px;}
+
+.ldg-breadcrumb{font-family:var(--ldg-sans);font-size:12px;color:var(--ldg-muted);padding:16px 20px 0;}
+.ldg-breadcrumb a{color:var(--ldg-muted);}
+.ldg-article-head{padding:20px 20px 24px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-cat{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;}
+.ldg-article-title{font-family:var(--ldg-serif);font-size:32px;line-height:1.18;margin:8px 0 10px;}
+.ldg-article-meta{font-family:var(--ldg-sans);font-size:12.5px;color:var(--ldg-muted);}
+.ldg-article-media{width:100%;aspect-ratio:16/9;object-fit:cover;margin:24px 0;border-radius:var(--ldg-radius);}
+.ldg-article-body{padding:0 20px;font-family:var(--ldg-serif);font-size:17px;line-height:1.75;}
+.ldg-article-body h2{font-family:var(--ldg-serif);font-size:22px;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-body p{margin:0 0 18px;}
+.ldg-aside{display:grid;grid-template-columns:90px 1fr;gap:18px;margin:26px 0;padding:16px 0;border-top:1px solid var(--ldg-rule);border-bottom:1px solid var(--ldg-rule);background:var(--ldg-row-b);}
+.ldg-aside-label{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.06em;padding-left:20px;}
+.ldg-aside p{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-text);padding-right:20px;margin:0;}
+
+.ldg-footer{border-top:4px double var(--ldg-text);background:var(--ldg-row-b);margin-top:54px;}
+.ldg-footer-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:32px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;}
+.ldg-footer-col h4{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);margin:0 0 10px;}
+.ldg-footer-col a{display:block;font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-text);margin-bottom:6px;}
+.ldg-footer-col a:hover{color:var(--ldg-accent);}
+.ldg-footer-col p{font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-muted);margin:0;}
+.ldg-footer-bottom{border-top:1px solid var(--ldg-rule);padding:14px 20px;text-align:center;font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);max-width:var(--ldg-maxw);margin:0 auto;}
+
+.ldg-table-wrap{overflow-x:auto;margin:0 0 20px;}
+.ldg-table{width:100%;border-collapse:collapse;font-family:var(--ldg-sans);font-size:14px;min-width:520px;}
+.ldg-table caption{text-align:left;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);margin-bottom:8px;}
+.ldg-table th,.ldg-table td{padding:10px 12px;border-bottom:1px solid var(--ldg-rule);text-align:left;vertical-align:top;}
+.ldg-table thead th{background:var(--ldg-accent);color:#fff;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;}
+.ldg-table tbody tr:nth-child(even){background:var(--ldg-row-b);}
+.ldg-callout{border-left:4px solid var(--ldg-accent);background:var(--ldg-row-b);padding:16px 18px;margin:0 0 20px;font-family:var(--ldg-sans);font-size:14.5px;color:var(--ldg-text);border-radius:var(--ldg-radius);}
+.ldg-callout strong{color:var(--ldg-accent-dark);}
+.ldg-note-box{border:1px solid var(--ldg-rule);background:var(--ldg-row-a);padding:16px 18px;margin:28px 0 0;font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);border-radius:var(--ldg-radius);}
+.ldg-note-box p{margin:0;}
+.ldg-readalso{border-top:4px double var(--ldg-text);border-bottom:1px solid var(--ldg-rule);background:var(--ldg-row-b);margin:36px 0 0;padding:22px 20px;}
+.ldg-readalso h3{font-family:var(--ldg-serif);font-size:14px;text-transform:uppercase;letter-spacing:.07em;margin:0 0 12px;color:var(--ldg-muted);}
+.ldg-readalso ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.ldg-readalso li{border-bottom:1px solid var(--ldg-rule);padding-bottom:8px;}
+.ldg-readalso li:last-child{border-bottom:none;padding-bottom:0;}
+.ldg-readalso a{font-family:var(--ldg-serif);font-size:16px;color:var(--ldg-text);}
+.ldg-readalso a:hover{color:var(--ldg-accent);}
+blockquote.ldg-pullquote{margin:28px 0;padding:4px 0 4px 20px;border-left:4px solid var(--ldg-accent);font-family:var(--ldg-serif);font-style:italic;font-size:21px;line-height:1.5;color:var(--ldg-accent-dark);}
+blockquote.ldg-pullquote footer{margin-top:8px;font-family:var(--ldg-sans);font-style:normal;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);}
+.ldg-article-body ul{list-style:disc;padding-left:22px;margin:0 0 18px;font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-text);line-height:1.7;}
+.ldg-article-body ul li{margin:0 0 8px;}
+.ldg-article-body ol{list-style:decimal;padding-left:22px;margin:0 0 18px;font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-text);line-height:1.7;}
+.ldg-article-body ol li{margin:0 0 8px;}
+
+@media(max-width:640px){
+  .ldg-masthead-inner{flex-direction:column;align-items:flex-start;gap:10px;}
+  .ldg-row,.ldg-hero-row,.ldg-feature-row,.ldg-faq-row,.ldg-gloss-row,.ldg-aside,.ldg-totals{grid-template-columns:1fr;}
+  .ldg-row-content{gap:12px;}
+  .ldg-mock-head,.ldg-mock-row{grid-template-columns:44px 1fr 66px 80px;font-size:11px;padding:9px 10px;}
+  .ldg-footer-inner{grid-template-columns:1fr 1fr;}
+  .ldg-hero-title,.ldg-article-title{font-size:26px;}
+  .ldg-aside-label{padding-left:0;}
+  .ldg-aside p{padding-right:0;}
+}
+@media(max-width:420px){.ldg-footer-inner{grid-template-columns:1fr;}}
+  </style>
+</head><body>
+  <header class="ldg-masthead">
+  <div class="ldg-masthead-rule-top"></div>
+  <div class="ldg-masthead-inner">
+    <a class="ldg-logo" href="safe.html">Ledgerline<span class="ldg-logo-sub">A Household Ledger</span></a>
+    <nav class="ldg-nav" aria-label="Primary">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Column Book</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+  <div class="ldg-masthead-rule-bottom"></div>
+</header>
+  <article class="ldg-post">
+    <p class="ldg-breadcrumb"><a href="safe.html">Journal</a> &rsaquo; Habits</p>
+    <div class="ldg-article-head">
+      <span class="ldg-article-cat">Habits</span>
+      <h1 class="ldg-article-title">Closing the Month in Twenty Minutes, Not a Weekend</h1>
+      <p class="ldg-article-meta">February 3, 2026 &middot; A short, repeatable sequence beats an occasional marathon session with a shoebox of receipts.</p>
+    </div>
+    <img class="ldg-article-media" src="img/twenty-minute-close.jpg" alt="Closing the Month in Twenty Minutes, Not a Weekend">
+    <div class="ldg-article-body">
+      <p>There is a particular kind of dread that builds over four weeks of an unclosed ledger. It starts small &mdash; a Tuesday you meant to log but didn't, a receipt folded into a coat pocket, a bank statement you skimmed instead of read. By the last Sunday of the month it has become a pile, and the pile has become a chore that eats an afternoon, sometimes an evening after it, sometimes the better part of a weekend spent hunting for a missing eleven dollars. The fix is not more willpower. It is a sequence short enough that skipping it feels like more work than doing it, and specific enough that you never have to decide what to do next &mdash; you just do the next line.</p>
+
+      <h2>Why the close keeps getting pushed off</h2>
+      <p>Most people don't avoid the monthly close because it's hard. They avoid it because it's <em>undefined</em>. Open the ledger, and what exactly are you supposed to do? Check everything? Recount every entry since the first of the month? That vagueness is what turns a fifteen-minute task into something you'd rather not start on a Tuesday night. A defined sequence removes the guessing. You open the book, you know the four steps, you do them in order, and you close the book. The dread was never really about the arithmetic &mdash; it was about not knowing where the task ended.</p>
+      <p>There's a second reason the close gets deferred, and it's more interesting: an unclosed month feels reversible in a way a closed one doesn't. While the month is still "open," any number in it feels provisional, and provisional numbers are easy to leave alone. Closing forces a decision &mdash; this is what happened, in these figures, and now we carry it forward. That small ceremony of finality is worth more than it sounds like on paper.</p>
+
+      <h2>The four-step sequence</h2>
+      <p>The routine described here is deliberately narrow. It isn't a full <a href="two-column-catch.html">two-column reconciliation</a> exercise, and it isn't a deep audit. It's a closing ritual &mdash; the equivalent of locking the door and checking the stove before bed. Four movements, done in the same order every time:</p>
+      <ol>
+        <li><strong>Total the in column.</strong> Run a finger down every entry logged as income for the month and add. Write the sum at the bottom in pencil first, ink once you're satisfied.</li>
+        <li><strong>Total the out column.</strong> Same motion, same page, the other side. Two totals, side by side, both visible at once.</li>
+        <li><strong>Check the balance.</strong> Subtract out from in, add the result to last month's carried balance, and compare that figure against whatever the bank statement or cash count actually shows.</li>
+        <li><strong>Carry forward.</strong> Write the new balance at the top of next month's page before you close the book. This single line is what makes next month's open take thirty seconds instead of ten minutes of hunting for where you left off.</li>
+      </ol>
+      <p>That's the whole routine. No categorizing, no re-reading every line for meaning, no reconciling receipts against categories yet &mdash; that's a separate, occasional task, not part of the close. The close only asks two questions: does the math check out, and where do we start from tomorrow.</p>
+
+      <blockquote class="ldg-pullquote">
+        "A ledger closed on the last day of the month is a different object than one closed three weeks late. The first is a record. The second is an excavation."
+        <footer>&mdash; from a reader's note, filed under Habits</footer>
+      </blockquote>
+
+      <h2>What twenty minutes actually looks like</h2>
+      <p>Below is a close performed on an ordinary household ledger, the kind kept in a bound book with ruled columns rather than loose sheets. The entries are illustrative &mdash; a stand-in for whatever a given month actually held &mdash; but the shape of the total line is the part worth studying.</p>
+      <div class="ldg-table-wrap">
+        <table class="ldg-table">
+          <caption>Sample closing page, single household ledger</caption>
+          <thead>
+            <tr><th scope="col">Line</th><th scope="col">Description</th><th scope="col">Column</th><th scope="col">Running total</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1&ndash;14</td><td>Fourteen income entries logged through the month</td><td>In</td><td>Summed to one figure</td></tr>
+            <tr><td>15&ndash;41</td><td>Twenty-seven expense entries across all categories</td><td>Out</td><td>Summed to one figure</td></tr>
+            <tr><td>42</td><td>Carried balance from prior month</td><td>Carried</td><td>Added to the difference</td></tr>
+            <tr><td>43</td><td>Balance check against bank statement</td><td>Check</td><td>Matched or flagged</td></tr>
+            <tr><td>44</td><td>New balance written atop next month's page</td><td>Carry forward</td><td>Starting figure</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Five lines of work, but the first two rows above represent a whole month of prior logging &mdash; the close itself is only the totaling, checking, and carrying. That's the part that fits inside twenty minutes: not writing the month, just closing it.</p>
+
+      <div class="ldg-callout"><strong>The habit, not the tool.</strong> A spreadsheet can sum a column instantly, which sounds like an advantage until you notice that instant totals invite instant trust. Adding by hand, even briefly, is a second look at every figure you wrote down &mdash; a small check built into the closing ritual itself, not bolted on afterward.</div>
+
+      <h2>Where the balance usually goes wrong</h2>
+      <p>When the check in step three doesn't match, the mismatch is rarely mysterious once you know where to look. A few patterns show up again and again in the notes readers have sent over the months this column has run:</p>
+      <ul>
+        <li>An entry logged in the wrong column &mdash; an expense written as income, or the reverse, which throws the total by exactly double the entry's value.</li>
+        <li>A transposed pair of digits somewhere in a total, the kind an app would never make and a hand sometimes does &mdash; which is precisely why the second look matters, a point explored further in <a href="two-column-catch.html">what a second column catches that one column misses</a>.</li>
+        <li>A cash entry never logged at all, remembered only when the drawer holds less than the book says it should.</li>
+        <li>Last month's carried figure copied incorrectly at the top of this month's page &mdash; the single line most worth double-checking before you write anything else.</li>
+      </ul>
+      <p>None of these require re-deriving the whole month. They require re-adding one column, which is the entire reason the close is built around addition rather than review.</p>
+
+      <div class="ldg-aside">
+        <span class="ldg-aside-label">Worth noting</span>
+        <p>A close that always balances on the first try isn't necessarily a more accurate ledger. Sometimes it means an error and its opposite happened to cancel out. The check is a useful signal, not a guarantee &mdash; it catches arithmetic slips, not misremembered entries.</p>
+      </div>
+
+      <h2>Making the twenty minutes repeatable</h2>
+      <p>The single biggest factor in whether this routine sticks isn't the routine &mdash; it's whether the same time slot holds it every month. Households that close reliably tend to anchor the task to something that already happens on a fixed date: the day the bank statement arrives, the first Sunday after payday, the evening bills get paid. The close rides along on an existing habit instead of asking to be remembered on its own. A recurring reminder works too, but an anchor beats a reminder, because an anchor doesn't require noticing the reminder in the first place.</p>
+      <p>It also helps to keep the close separate from the daily logging. Trying to write every day's entries and total the month in the same sitting turns twenty minutes back into an hour, because you're doing two different kinds of attention at once &mdash; careful entry-by-entry writing, and rapid summing. Split them, and each one gets faster.</p>
+
+      <div class="ldg-note-box"><p>This piece describes a household bookkeeping habit for general interest and record-keeping context. It is not financial, tax, or accounting advice, and nothing here should be treated as a recommendation for how a specific household should manage its finances.</p></div>
+    </div>
+
+    <div class="ldg-readalso">
+      <h3>Read also</h3>
+      <ul>
+        <li><a href="two-column-catch.html">What a Second Column Catches That One Column Misses</a></li>
+        <li><a href="pencil-versus-pen.html">Pencil Versus Pen: The Case for Correcting in the Open</a></li>
+        <li><a href="envelope-to-column.html">From Envelopes to Columns: Retiring a Cash-Only System</a></li>
+      </ul>
+    </div>
+  </article>
+  <footer class="ldg-footer">
+  <div class="ldg-footer-inner">
+    <div class="ldg-footer-col">
+      <h4>Ledgerline</h4>
+      <p>An independent journal on handwritten household accounting &mdash; paper ledgers, double columns, and the twenty-minute monthly close. Nothing on this site is sold.</p>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Read</h4>
+      <a href="safe.html">Home</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Companion</h4>
+      <a href="app.html">Column Book</a>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="ldg-footer-bottom">
+    <span>&copy; 2026 Ledgerline. Notes from a paper ledger, kept by hand.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

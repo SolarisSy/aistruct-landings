@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://contourline.shop/sitemap.xml

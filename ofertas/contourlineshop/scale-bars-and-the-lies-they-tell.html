@@ -1,0 +1,429 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scale Bars and the Lies They Tell · Contourline</title>
+<meta name="description" content="How representative fraction, verbal scale, and graphic scale bars each mislead in a different way, especially once a map is reprojected or reproduced.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://contourline.shop/scale-bars-and-the-lies-they-tell.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f7f8f4'/%3E%3Ccircle cx='32' cy='34' r='22' fill='none' stroke='%232f6b3c' stroke-width='3'/%3E%3Ccircle cx='32' cy='34' r='14' fill='none' stroke='%232f6b3c' stroke-width='3'/%3E%3Ccircle cx='32' cy='34' r='6' fill='none' stroke='%232f6b3c' stroke-width='3'/%3E%3Cpath d='M8 12 L52 12' stroke='%23b0561c' stroke-width='3'/%3E%3Cpath d='M8 12 L15 6 M8 12 L15 18' stroke='%23b0561c' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+/* ===== Contourline — topographic sheet system ===== */
+:root{
+  --cln-bg:#f7f8f4;
+  --cln-bg-alt:#eef0e6;
+  --cln-paper:#fffefb;
+  --cln-ink:#14211f;
+  --cln-ink-soft:#48564f;
+  --cln-ink-faint:#7c887f;
+  --cln-line:rgba(20,33,31,.34);
+  --cln-line-soft:rgba(20,33,31,.16);
+  --cln-contour:#2f6b3c;
+  --cln-contour-soft:#e4ece3;
+  --cln-trail:#b0561c;
+  --cln-trail-soft:#f5e6d9;
+  --cln-maxw:1160px;
+  --cln-radius:0px;
+  --cln-serif:Perpetua,'Palatino Linotype','Book Antiqua',Georgia,serif;
+  --cln-sans:'Gill Sans MT','Gill Sans',Corbel,Calibri,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{margin:0;background:var(--cln-bg);color:var(--cln-ink);font-family:var(--cln-serif);font-size:17px;line-height:1.64;}
+img{max-width:100%;display:block;}
+h1,h2,h3,h4{font-family:var(--cln-serif);font-weight:400;line-height:1.18;margin:0 0 .5em;color:var(--cln-ink);}
+p{margin:0 0 1.1em;}
+a{color:var(--cln-contour);text-decoration:none;border-bottom:1px solid var(--cln-line-soft);}
+a:hover{border-bottom-color:var(--cln-contour);}
+ul,ol{margin:0 0 1.1em;padding-left:1.25em;}
+button,input{font-family:inherit;}
+
+.cln-shell{max-width:var(--cln-maxw);margin:0 auto;padding:0 28px;}
+.cln-eyebrow{font-family:var(--cln-sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cln-contour);}
+.cln-hr{border:none;border-top:1px solid var(--cln-line-soft);margin:0;}
+
+/* ---- header ---- */
+.cln-header{background:var(--cln-paper);border-bottom:1px solid var(--cln-ink);}
+.cln-header-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 28px;flex-wrap:wrap;}
+.cln-brand{display:flex;align-items:center;gap:11px;}
+.cln-brand-mark{width:34px;height:34px;flex:none;}
+.cln-brand-name{font-family:var(--cln-serif);font-size:22px;letter-spacing:.01em;color:var(--cln-ink);line-height:1;}
+.cln-brand-tag{display:block;font-family:var(--cln-sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cln-ink-faint);margin-top:3px;}
+.cln-brand-link{border-bottom:none;}
+.cln-nav{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+.cln-nav a{font-family:var(--cln-sans);font-size:13.5px;letter-spacing:.03em;color:var(--cln-ink-soft);border-bottom:1px solid transparent;}
+.cln-nav a:hover,.cln-nav a[aria-current="page"]{color:var(--cln-contour);border-bottom-color:var(--cln-contour);}
+.cln-coord-readout{font-family:var(--cln-sans);font-size:11px;letter-spacing:.08em;color:var(--cln-ink-faint);white-space:nowrap;}
+
+/* ---- breadcrumb ---- */
+.cln-crumb{font-family:var(--cln-sans);font-size:12px;letter-spacing:.03em;color:var(--cln-ink-faint);padding:14px 0;}
+.cln-crumb a{color:var(--cln-ink-faint);border-bottom:1px solid var(--cln-line-soft);}
+.cln-crumb span{margin:0 6px;}
+
+/* ---- hero: coordinate-framed, full bleed ---- */
+.cln-hero{background:var(--cln-ink);padding:22px 0 34px;}
+.cln-hero-frame{position:relative;max-width:var(--cln-maxw);margin:0 auto;padding:26px 22px 22px 46px;}
+.cln-hero-frame::before{content:"";position:absolute;top:0;left:46px;right:0;height:15px;
+  background-image:repeating-linear-gradient(to right,rgba(247,248,244,.55) 0 1px,transparent 1px 40px);}
+.cln-hero-frame::after{content:"";position:absolute;top:15px;bottom:0;left:0;width:15px;
+  background-image:repeating-linear-gradient(to bottom,rgba(247,248,244,.55) 0 1px,transparent 1px 40px);}
+.cln-hero-coord{position:absolute;font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.07em;color:rgba(247,248,244,.72);z-index:1;}
+.cln-hero-coord--tl{top:2px;left:6px;}
+.cln-hero-coord--br{bottom:2px;right:6px;}
+.cln-hero-inner{border:1px solid rgba(247,248,244,.4);position:relative;}
+.cln-hero-media{position:relative;overflow:hidden;border-bottom:1px solid rgba(247,248,244,.4);}
+.cln-hero-media img{width:100%;height:400px;object-fit:cover;filter:saturate(.94) contrast(1.02);}
+.cln-hero-legend{position:absolute;right:18px;bottom:18px;background:var(--cln-paper);border:1px solid var(--cln-ink);padding:12px 14px;width:188px;z-index:2;}
+.cln-hero-legend h3{font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;margin:0 0 8px;color:var(--cln-ink);}
+.cln-hero-legend ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;}
+.cln-hero-legend li{display:flex;align-items:center;gap:9px;font-family:var(--cln-sans);font-size:11.5px;color:var(--cln-ink-soft);}
+.cln-legend-swatch{width:22px;height:0;border-top:2px solid var(--cln-contour);display:inline-block;flex:none;}
+.cln-legend-swatch--trail{border-top-style:dashed;border-color:var(--cln-trail);}
+.cln-legend-swatch--boundary{border-top-style:dotted;border-color:var(--cln-ink);}
+.cln-hero-copy{background:var(--cln-paper);padding:26px 28px 28px;}
+.cln-hero-kicker{font-family:var(--cln-sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cln-trail);margin-bottom:10px;}
+.cln-hero-title{font-size:clamp(28px,4vw,42px);max-width:20ch;}
+.cln-hero-dek{font-family:var(--cln-sans);font-size:15.5px;color:var(--cln-ink-soft);max-width:56ch;margin-top:6px;}
+
+/* ---- 12-col layout: uneven 7/5 with sticky right rail ---- */
+.cln-layout{display:grid;grid-template-columns:1fr;gap:44px;padding:44px 0 60px;}
+.cln-main{min-width:0;}
+.cln-aside-inner{border:1px solid var(--cln-ink);background:var(--cln-paper);padding:0;}
+.cln-aside-block{padding:18px 20px;}
+.cln-aside-block + .cln-aside-block{border-top:1px solid var(--cln-line-soft);}
+.cln-aside-title{font-family:var(--cln-sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--cln-contour);margin-bottom:12px;}
+.cln-aside-scale{display:flex;align-items:flex-end;height:16px;border-bottom:1px solid var(--cln-ink);margin:10px 0 4px;}
+.cln-aside-scale span{flex:1;border-left:1px solid var(--cln-ink);height:8px;}
+.cln-aside-scale span:first-child{height:16px;}
+.cln-aside-scale-label{display:flex;justify-content:space-between;font-family:var(--cln-sans);font-size:10px;color:var(--cln-ink-faint);}
+.cln-related{list-style:none;margin:0;padding:0;display:grid;gap:12px;}
+.cln-related li{padding-bottom:12px;border-bottom:1px solid var(--cln-line-soft);}
+.cln-related li:last-child{border-bottom:none;padding-bottom:0;}
+.cln-related a{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink);border-bottom:none;display:block;line-height:1.4;}
+.cln-related a:hover{color:var(--cln-contour);}
+.cln-related small{display:block;font-size:11px;color:var(--cln-ink-faint);margin-top:3px;letter-spacing:.03em;}
+
+@media(min-width:940px){
+  .cln-layout{grid-template-columns:7fr 5fr;align-items:start;}
+  .cln-aside{position:sticky;top:20px;}
+}
+
+/* ---- index / plates (article entries) ---- */
+.cln-index{display:grid;gap:26px;grid-template-columns:1fr;}
+@media(min-width:640px){.cln-index{grid-template-columns:1fr 1fr;}}
+.cln-plate{border:1px solid var(--cln-ink);background:var(--cln-paper);}
+.cln-plate-frame{position:relative;border-bottom:1px solid var(--cln-ink);}
+.cln-plate-frame::before,.cln-plate-frame::after{content:"";position:absolute;width:9px;height:9px;border:1px solid var(--cln-ink);background:var(--cln-paper);z-index:1;}
+.cln-plate-frame::before{top:-5px;left:-5px;}
+.cln-plate-frame::after{top:-5px;right:-5px;}
+.cln-plate-media{overflow:hidden;height:168px;}
+.cln-plate-media img{width:100%;height:100%;object-fit:cover;}
+.cln-plate-body{padding:16px 18px 18px;}
+.cln-plate-cat{font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--cln-trail);}
+.cln-plate-title{font-size:19px;margin:8px 0 6px;}
+.cln-plate-title a{color:var(--cln-ink);border-bottom:none;}
+.cln-plate-title a:hover{color:var(--cln-contour);}
+.cln-plate-dek{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin-bottom:10px;}
+.cln-plate-meta{font-family:var(--cln-sans);font-size:11px;color:var(--cln-ink-faint);letter-spacing:.03em;}
+
+/* ---- generic section ---- */
+.cln-section{padding:52px 0;}
+.cln-section-alt{background:var(--cln-bg-alt);}
+.cln-section-head{max-width:640px;margin:0 0 30px;}
+.cln-section-head .cln-eyebrow{margin-bottom:10px;display:block;}
+
+/* ---- buttons ---- */
+.cln-btn{display:inline-block;font-family:var(--cln-sans);font-size:13.5px;letter-spacing:.05em;text-transform:uppercase;padding:12px 22px;border:1px solid var(--cln-ink);color:var(--cln-ink);border-bottom-width:1px;background:transparent;cursor:pointer;}
+.cln-btn:hover{background:var(--cln-ink);color:var(--cln-paper);}
+.cln-btn--primary{background:var(--cln-contour);border-color:var(--cln-contour);color:#fff;}
+.cln-btn--primary:hover{background:var(--cln-ink);border-color:var(--cln-ink);}
+
+/* ---- app mockup (Waypoint Card) ---- */
+.cln-app-grid{display:grid;gap:36px;grid-template-columns:1fr;align-items:center;}
+@media(min-width:900px){.cln-app-grid{grid-template-columns:5fr 7fr;}}
+.cln-app-mock{border:1px solid var(--cln-ink);background:var(--cln-paper);padding:18px;max-width:300px;margin:0 auto;}
+.cln-app-mock-head{display:flex;justify-content:space-between;align-items:center;font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cln-ink-faint);border-bottom:1px solid var(--cln-line-soft);padding-bottom:10px;margin-bottom:12px;}
+.cln-app-mock-title{font-family:var(--cln-serif);font-size:20px;margin-bottom:4px;}
+.cln-app-mock-sub{font-family:var(--cln-sans);font-size:11.5px;color:var(--cln-ink-soft);margin-bottom:14px;}
+.cln-app-mock-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid var(--cln-line-soft);font-family:var(--cln-sans);font-size:12px;}
+.cln-app-mock-row span:first-child{color:var(--cln-ink-faint);}
+.cln-app-mock-scalebar{display:flex;height:10px;margin:14px 0 4px;border:1px solid var(--cln-ink);}
+.cln-app-mock-scalebar i{flex:1;font-style:normal;}
+.cln-app-mock-scalebar i:nth-child(odd){background:var(--cln-ink);}
+.cln-app-mock-scale-label{display:flex;justify-content:space-between;font-family:var(--cln-sans);font-size:9.5px;color:var(--cln-ink-faint);}
+.cln-app-mock-badge{display:inline-block;margin-top:14px;font-family:var(--cln-sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--cln-contour);border:1px solid var(--cln-contour);padding:4px 9px;}
+
+.cln-features{display:grid;gap:1px;background:var(--cln-line-soft);border:1px solid var(--cln-line-soft);grid-template-columns:1fr;margin-top:8px;}
+@media(min-width:640px){.cln-features{grid-template-columns:1fr 1fr;}}
+@media(min-width:940px){.cln-features{grid-template-columns:1fr 1fr 1fr;}}
+.cln-feature{background:var(--cln-paper);padding:22px 20px;}
+.cln-feature-icon{width:26px;height:26px;color:var(--cln-contour);margin-bottom:12px;}
+.cln-feature-icon svg{width:100%;height:100%;}
+.cln-feature-title{font-family:var(--cln-sans);font-size:14.5px;font-weight:normal;letter-spacing:.01em;color:var(--cln-ink);margin-bottom:6px;}
+.cln-feature-text{font-family:var(--cln-sans);font-size:13px;color:var(--cln-ink-soft);line-height:1.55;margin:0;}
+
+.cln-steps{list-style:none;margin:0;padding:0;display:grid;gap:0;}
+.cln-step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--cln-line-soft);}
+.cln-step:first-child{border-top:1px solid var(--cln-ink);}
+.cln-step-num{font-family:var(--cln-sans);font-size:13px;color:var(--cln-trail);border:1px solid var(--cln-trail);width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.cln-step-title{font-family:var(--cln-sans);font-size:14.5px;color:var(--cln-ink);margin-bottom:4px;}
+.cln-step-text{font-family:var(--cln-sans);font-size:13px;color:var(--cln-ink-soft);margin:0;}
+
+.cln-faq{display:grid;gap:0;}
+.cln-faq-item{border-top:1px solid var(--cln-line-soft);padding:18px 0;}
+.cln-faq-item:last-child{border-bottom:1px solid var(--cln-line-soft);}
+.cln-faq-q{font-family:var(--cln-sans);font-size:15px;color:var(--cln-ink);margin:0 0 8px;}
+.cln-faq-a{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0;}
+
+/* ---- newsletter (cosmetic) ---- */
+.cln-newsletter{border:1px solid var(--cln-ink);background:var(--cln-paper);padding:28px;display:grid;gap:16px;}
+@media(min-width:700px){.cln-newsletter{grid-template-columns:1.3fr 1fr;align-items:center;}}
+.cln-newsletter-title{font-size:22px;margin-bottom:6px;}
+.cln-newsletter-text{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0;}
+.cln-newsletter-form{display:flex;gap:0;}
+.cln-newsletter-form input{flex:1;border:1px solid var(--cln-ink);border-right:none;padding:12px 14px;font-family:var(--cln-sans);font-size:13.5px;background:var(--cln-bg);color:var(--cln-ink);}
+.cln-newsletter-form input:focus{outline:none;background:#fff;}
+.cln-newsletter-form button{border-left:none;}
+.cln-ok{display:none;font-family:var(--cln-sans);font-size:12.5px;color:var(--cln-contour);margin-top:8px;}
+
+/* ---- prose (article body) ---- */
+.cln-prose h2{font-size:25px;margin-top:1.6em;}
+.cln-prose h3{font-size:20px;margin-top:1.4em;}
+.cln-prose p{color:var(--cln-ink);}
+.cln-callout{border:1px solid var(--cln-line);border-left:3px solid var(--cln-contour);background:var(--cln-contour-soft);padding:16px 18px;font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:1.6em 0;}
+.cln-callout strong{color:var(--cln-ink);}
+.cln-pull{border-top:1px solid var(--cln-ink);border-bottom:1px solid var(--cln-ink);padding:18px 0;margin:1.8em 0;font-size:21px;line-height:1.5;color:var(--cln-ink);}
+.cln-pull cite{display:block;font-family:var(--cln-sans);font-size:11.5px;font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--cln-ink-faint);margin-top:8px;}
+.cln-tag{display:inline-block;font-family:var(--cln-sans);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--cln-ink-soft);border:1px solid var(--cln-line);padding:4px 9px;margin:2px 6px 2px 0;}
+
+/* ---- glossary ---- */
+.cln-gloss-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:30px;}
+.cln-gloss-nav a{font-family:var(--cln-sans);font-size:12.5px;color:var(--cln-ink-soft);border:1px solid var(--cln-line);padding:5px 10px;border-bottom:1px solid var(--cln-line);}
+.cln-gloss-nav a:hover{color:var(--cln-contour);border-color:var(--cln-contour);}
+.cln-gloss-item{border-top:1px solid var(--cln-line-soft);padding:20px 0;}
+.cln-gloss-item:first-child{border-top:1px solid var(--cln-ink);}
+.cln-gloss-term{font-size:19px;margin-bottom:6px;}
+.cln-gloss-term em{font-family:var(--cln-sans);font-style:normal;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cln-trail);margin-left:10px;}
+.cln-gloss-def{font-family:var(--cln-sans);font-size:14px;color:var(--cln-ink-soft);margin:0;}
+
+/* ---- about / team / policy ---- */
+.cln-team{display:grid;gap:22px;grid-template-columns:1fr;margin-top:10px;}
+@media(min-width:640px){.cln-team{grid-template-columns:1fr 1fr;}}
+.cln-team-member{border:1px solid var(--cln-line);padding:18px;}
+.cln-team-name{font-size:17px;margin-bottom:2px;}
+.cln-team-role{font-family:var(--cln-sans);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--cln-trail);margin-bottom:10px;}
+.cln-team-bio{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0;}
+.cln-policy-list{list-style:none;padding:0;margin:0;display:grid;gap:14px;}
+.cln-policy-list li{border-top:1px solid var(--cln-line-soft);padding-top:14px;font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);}
+.cln-policy-list strong{color:var(--cln-ink);font-family:var(--cln-serif);font-size:15.5px;display:block;margin-bottom:4px;font-weight:400;}
+
+/* ---- legal pages ---- */
+.cln-legal h2{font-size:20px;margin-top:1.5em;}
+.cln-legal p,.cln-legal li{font-family:var(--cln-sans);font-size:14px;color:var(--cln-ink-soft);}
+.cln-legal-updated{font-family:var(--cln-sans);font-size:12px;color:var(--cln-ink-faint);letter-spacing:.04em;margin-bottom:22px;}
+
+/* ---- footer ---- */
+.cln-footer{background:var(--cln-ink);color:var(--cln-bg);padding:46px 0 0;margin-top:20px;}
+.cln-footer-in{display:grid;gap:32px;grid-template-columns:1.4fr 1fr 1fr;padding-bottom:34px;border-bottom:1px solid rgba(247,248,244,.2);}
+@media(max-width:760px){.cln-footer-in{grid-template-columns:1fr;}}
+.cln-footer-brand{font-family:var(--cln-serif);font-size:20px;margin-bottom:10px;color:var(--cln-bg);}
+.cln-footer-text{font-family:var(--cln-sans);font-size:13px;color:rgba(247,248,244,.68);max-width:34ch;}
+.cln-footer-title{font-family:var(--cln-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,248,244,.55);margin-bottom:14px;}
+.cln-footer-links{list-style:none;margin:0;padding:0;display:grid;gap:9px;}
+.cln-footer-links a{font-family:var(--cln-sans);font-size:13.5px;color:rgba(247,248,244,.82);border-bottom:none;}
+.cln-footer-links a:hover{color:#fff;border-bottom:1px solid rgba(247,248,244,.5);}
+.cln-footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:20px 0;font-family:var(--cln-sans);font-size:11.5px;color:rgba(247,248,244,.5);}
+
+@media(max-width:600px){
+  .cln-header-in{padding:14px 20px;}
+  .cln-hero-frame{padding:20px 14px 16px 30px;}
+  .cln-hero-media img{height:260px;}
+  .cln-hero-legend{position:static;width:auto;margin-top:14px;}
+  .cln-hero-copy{padding:20px 18px 22px;}
+  .cln-shell{padding:0 18px;}
+}
+</style>
+</head><body>
+<header class="cln-header">
+  <div class="cln-shell cln-header-in">
+    <a class="cln-brand cln-brand-link" href="safe.html">
+      <span class="cln-brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="26" r="18" fill="none" stroke="#2f6b3c" stroke-width="2"/><circle cx="24" cy="26" r="12" fill="none" stroke="#2f6b3c" stroke-width="2"/><circle cx="24" cy="26" r="6" fill="none" stroke="#2f6b3c" stroke-width="2"/><path d="M8 8 L40 8" stroke="#b0561c" stroke-width="2"/><path d="M8 8 L13 3 M8 8 L13 13" stroke="#b0561c" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+      <span>
+        <span class="cln-brand-name">Contourline</span>
+        <span class="cln-brand-tag">Field notes on maps</span>
+      </span>
+    </a>
+    <nav class="cln-nav" aria-label="Primary">
+      <a href="safe.html" aria-current="page">Journal</a>
+      <a href="app.html">Waypoint Card</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+    <span class="cln-coord-readout">Sheet 44&deg;16'N&nbsp;71&deg;18'W</span>
+  </div>
+</header>
+
+<article class="cln-post">
+
+  <div class="cln-shell">
+    <nav class="cln-crumb" aria-label="Breadcrumb">
+      <a href="safe.html">Journal</a><span>/</span><a href="safe.html">Scale</a><span>/</span>Scale Bars and the Lies They Tell
+    </nav>
+  </div>
+
+  <section class="cln-hero">
+    <div class="cln-hero-frame">
+      <span class="cln-hero-coord cln-hero-coord--tl">44&deg;16'12"N</span>
+      <span class="cln-hero-coord cln-hero-coord--br">71&deg;18'04"W</span>
+      <div class="cln-hero-inner">
+        <div class="cln-hero-media">
+          <img src="img/scale-bars-and-the-lies-they-tell.jpg" alt="Scale Bars and the Lies They Tell">
+        </div>
+        <div class="cln-hero-copy">
+          <div class="cln-hero-kicker">Scale</div>
+          <h1 class="cln-hero-title">Scale Bars and the Lies They Tell</h1>
+          <p class="cln-hero-dek">A scale bar looks like the most honest mark on the page. It is also the easiest place to hide a distortion.</p>
+          <p style="font-family:var(--cln-sans);font-size:12px;color:var(--cln-ink-faint);letter-spacing:.03em;margin-top:10px;">Mar 9, 2026 &middot; Scale &middot; 6 min read</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cln-shell">
+    <div class="cln-layout">
+      <main class="cln-main">
+        <div class="cln-prose">
+
+          <p>Pull a paper map from a drawer and the least conspicuous mark on it is often the scale bar &mdash; a short ruled line near the bottom edge, sometimes no wider than a matchstick, promising to translate inches on the sheet into miles on the ground. It looks like the most trustworthy object on the page, plainer than a legend's color choices or a projection's curved graticule, because it seems to state a fact rather than offer an interpretation. But a scale bar is a claim, not a measurement, and like every other mark on a map it holds true only under the conditions the cartographer had in mind while drawing it.</p>
+
+          <h2>Three Ways to Say How Big</h2>
+          <p>Cartographers have three traditional ways to express scale, and each carries a different kind of risk. A representative fraction states a ratio directly &mdash; 1:24,000 means one unit on the map equals 24,000 of the same unit on the ground. A verbal scale puts the same idea into words, such as "one inch represents two miles," meant to be read by someone who never learned to interpret a ratio. A graphic scale draws the relationship as a small ruled bar, so a reader can measure distance with a piece of string or the edge of a notecard without doing any arithmetic at all. On a fresh, correctly printed sheet, all three describe the same map and should agree. The trouble starts once the map stops being fresh, correctly printed, or the same size it was when the scale was written.</p>
+
+          <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;margin:1.6em 0;min-width:480px;font-family:var(--cln-sans);font-size:13.5px;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--cln-ink);">
+                <th style="text-align:left;padding:8px 10px 8px 0;color:var(--cln-ink);">Scale type</th>
+                <th style="text-align:left;padding:8px 10px;color:var(--cln-ink);">How it's shown</th>
+                <th style="text-align:left;padding:8px 10px;color:var(--cln-ink);">Where it tends to break</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--cln-line-soft);">
+                <td style="padding:8px 10px 8px 0;color:var(--cln-ink-soft);">Representative fraction</td>
+                <td style="padding:8px 10px;color:var(--cln-ink-soft);">A ratio, e.g. 1:24,000</td>
+                <td style="padding:8px 10px;color:var(--cln-ink-soft);">Implies one constant everywhere, though it's exact only along certain lines of the projection</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--cln-line-soft);">
+                <td style="padding:8px 10px 8px 0;color:var(--cln-ink-soft);">Verbal scale</td>
+                <td style="padding:8px 10px;color:var(--cln-ink-soft);">A sentence, e.g. "one inch to the mile"</td>
+                <td style="padding:8px 10px;color:var(--cln-ink-soft);">Gets quoted apart from the map and outlives revisions or reprints</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--cln-line-soft);">
+                <td style="padding:8px 10px 8px 0;color:var(--cln-ink-soft);">Graphic bar</td>
+                <td style="padding:8px 10px;color:var(--cln-ink-soft);">A ruled line with tick marks</td>
+                <td style="padding:8px 10px;color:var(--cln-ink-soft);">Fails only when the page is stretched unevenly, not when it's simply resized</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 10px 8px 0;color:var(--cln-ink-soft);">Digital zoom level</td>
+                <td style="padding:8px 10px;color:var(--cln-ink-soft);">No fixed bar at all, just a slider</td>
+                <td style="padding:8px 10px;color:var(--cln-ink-soft);">Screenshotting a frame strips away the very scale that made it legible</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+
+          <h2>The Representative Fraction Sounds More Precise Than It Is</h2>
+          <p>A ratio like 1:24,000 reads like a fact carved in stone, and that apparent precision is exactly what makes it misleading. Flat maps are drawn from a curved surface using a <a href="the-projection-you-didnt-choose.html">projection</a>, and no projection holds distance constant across its entire extent &mdash; scale is exact only along certain lines, sometimes called standard lines, and stretches or compresses everywhere else on the sheet. On a single quadrangle covering a few dozen square miles, that stretch is small enough to ignore for most walking purposes. On a map of a state, a country, or the whole world printed at one stated ratio, the number on the cover is closer to an average than a guarantee, and treating it as uniform can put a careful reader a real distance off near the map's edge.</p>
+
+          <h2>A Verbal Scale Is a Sentence, and Sentences Get Misquoted</h2>
+          <p>A verbal scale has a second life the other two rarely get: people repeat it out loud, write it into a caption, or copy it into a different document, often separated from the map it described. Once separated, it stops being checked against anything. "One inch to the mile" survives a hundred retellings even after the map itself has been enlarged, reduced, or replaced by a revised edition at a different ratio, because a sentence is easy to keep and a map is not. Older charts compound the problem with units a modern reader no longer holds an intuition for &mdash; leagues, versts, chains &mdash; so the sentence sounds authoritative while telling whoever reads it two centuries later almost nothing without a conversion table close at hand.</p>
+
+          <blockquote class="cln-pull">A scale bar redrawn at the wrong size is not lying about distance. It is telling the truth about a map that no longer exists.<cite>Field note, Contourline</cite></blockquote>
+
+          <h2>The Graphic Bar Survives the Photocopier, Which Is the Point</h2>
+          <p>The graphic scale exists to solve the exact failure a verbal scale invites. Because it is drawn as a physical mark on the page rather than stated as a number, a bar scale shrinks and grows along with everything else when a map is photocopied, scanned, or printed at a different size &mdash; the ratio between the bar and the distances around it never changes, so a reader can still measure correctly even off a blurry fourth-generation copy. That is a genuine advantage, and it is why field cartographers have favored bar scales for centuries. The advantage has a narrow edge, though: it depends on the reproduction being uniform in both directions. A page stretched more on one axis than the other &mdash; common when a document is resized to fit a template or a screen &mdash; distorts distances differently depending on which way a reader happens to measure, while the bar itself keeps sitting quietly in the corner, looking perfectly innocent.</p>
+
+          <div class="cln-callout"><strong>A quick check:</strong> if a printed map shows a graticule or grid, the grid squares should be square. A grid that reads as visibly rectangular is the clearest sign a reproduction stretched the page unevenly &mdash; and that the scale bar nearby is no longer telling the same story along both axes.</div>
+
+          <h2>Where the Projection Breaks All Three at Once</h2>
+          <p>The scale problem gets sharper, not smaller, the wider a map's coverage. A neighborhood map can get away with a single honest bar because the distortion across a few blocks is too small to matter. A world map cannot. A Mercator projection, still common on wall maps and web slippy maps alike, stretches distance north-south as latitude increases, so a bar scale accurate near the equator can be far off by the time it is applied near the poles &mdash; the same printed inch representing a modest distance in one band of latitude and a much larger one in another. <a href="what-generalization-erases.html">Generalization</a> compounds the effect on smaller-scale maps too, where coastlines are simplified and features are enlarged just to stay legible, so the scale bar ends up describing an idealized version of the terrain rather than the terrain a surveyor actually walked.</p>
+
+          <h2>A Small Check Worth Running on Any Map</h2>
+          <p>Before trusting a printed distance, a few habits catch most of the common failures:</p>
+          <ul>
+            <li>Measure the bar itself with a ruler, then compare that to a known real-world distance shown on the same sheet, rather than assuming the label is accurate.</li>
+            <li>If a representative fraction is printed alongside the bar, check that the two agree at the map's actual physical size &mdash; not the size it appears zoomed in on a screen.</li>
+            <li>Look for a note about standard parallels or a central meridian; scale is exact only along those lines, and an approximation everywhere else.</li>
+            <li>On any map covering a wide area, treat the printed scale as a regional average rather than a fixed promise, and favor short, local measurements over long ones whenever precision matters.</li>
+          </ul>
+
+          <div class="cln-callout" style="border-left-color:var(--cln-trail);background:var(--cln-trail-soft);"><strong>A note on scope:</strong> this piece is about reading published maps with a more critical eye, not a technical manual for surveying or geodesy. Anyone measuring distance for a purpose where accuracy genuinely matters should consult a current, purpose-built dataset rather than a bar scale on a printed sheet.</div>
+
+        </div>
+      </main>
+
+      <aside class="cln-aside">
+        <div class="cln-aside-inner">
+          <div class="cln-aside-block">
+            <div class="cln-aside-title">Read also</div>
+            <ul class="cln-related">
+              <li><a href="reading-contour-lines-like-a-story.html">Reading Contour Lines Like a Story</a><small>Terrain Reading</small></li>
+              <li><a href="grid-north-versus-true-north.html">Grid North Versus True North</a><small>Navigation</small></li>
+              <li><a href="the-datum-problem.html">The Datum Problem Nobody Mentions</a><small>Coordinate Systems</small></li>
+            </ul>
+          </div>
+          <div class="cln-aside-block">
+            <div class="cln-aside-title">Graphic scale</div>
+            <div class="cln-aside-scale">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="cln-aside-scale-label"><span>0</span><span>1</span><span>2</span><span>3 km</span></div>
+          </div>
+          <div class="cln-aside-block">
+            <div class="cln-aside-title">Newsletter</div>
+            <p style="font-family:var(--cln-sans);font-size:13px;color:var(--cln-ink-soft);margin:0 0 12px;">One new field note a month. No spam, no maps sold.</p>
+            <form class="cln-newsletter-form" onsubmit="return sub(event)">
+              <input type="email" required placeholder="you@example.com" aria-label="Email address">
+              <button class="cln-btn" type="submit">Join</button>
+            </form>
+            <div class="cln-ok" id="ok">Thanks &mdash; you're on the list.</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+</article>
+
+<footer class="cln-footer">
+  <div class="cln-shell cln-footer-in">
+    <div>
+      <div class="cln-footer-brand">Contourline</div>
+      <p class="cln-footer-text">An independent journal about reading maps closely &mdash; projection, generalization, and the choices a cartographer makes about what to leave out. Written for people who like to know why a map looks the way it does.</p>
+    </div>
+    <div>
+      <div class="cln-footer-title">Read</div>
+      <ul class="cln-footer-links">
+        <li><a href="safe.html">Journal</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="app.html">Waypoint Card</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="cln-footer-title">Site</div>
+      <ul class="cln-footer-links">
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms of use</a></li>
+        <li><a href="mailto:notes@contourline.shop">notes@contourline.shop</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cln-shell cln-footer-bottom">
+    <span>&copy; 2026 Contourline. Reading maps, one contour at a time.</span>
+    <span>Independent journal &middot; not affiliated with any surveying authority</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Belongs in the Margin, Not the Column · Ledgerline</title>
+  <meta name="description" content="Margin notes carry who, why, and how a shared cost split; folding that story into the amount column breaks the total and the memory both.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ledgerline.shop/receipts-margin-notes.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fbfaf5'/%3E%3Crect x='2' y='2' width='28' height='28' fill='none' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='10' y1='2' x2='10' y2='30' stroke='%239aa79f' stroke-width='1'/%3E%3Cline x1='4' y1='10' x2='28' y2='10' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='4' y1='22' x2='28' y2='22' stroke='%232f6a4f' stroke-width='.75'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --ldg-bg:#fbfaf5;
+  --ldg-row-a:#ffffff;
+  --ldg-row-b:#f4f3ec;
+  --ldg-text:#1f2421;
+  --ldg-muted:#5c655f;
+  --ldg-accent:#2f6a4f;
+  --ldg-accent-dark:#234f3b;
+  --ldg-rule:#9aa79f;
+  --ldg-radius:1.5px;
+  --ldg-maxw:890px;
+  --ldg-serif:Cambria,Georgia,'Times New Roman',serif;
+  --ldg-sans:Calibri,Candara,'Segoe UI',Tahoma,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--ldg-bg);color:var(--ldg-text);font-family:var(--ldg-sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+a{color:var(--ldg-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--ldg-serif);font-weight:700;line-height:1.2;margin:0 0 .5em;color:var(--ldg-text);}
+p{margin:0 0 1em;}
+img{max-width:100%;display:block;height:auto;}
+ul,ol{margin:0;padding:0;}
+button{font-family:var(--ldg-sans);}
+.ldg-container{max-width:var(--ldg-maxw);margin:0 auto;padding:0 20px;}
+.ldg-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+.ldg-masthead{background:var(--ldg-bg);}
+.ldg-masthead-rule-top{height:1px;background:var(--ldg-text);}
+.ldg-masthead-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:20px 20px 16px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ldg-logo{font-family:var(--ldg-serif);font-style:italic;font-size:25px;color:var(--ldg-text);display:flex;flex-direction:column;gap:2px;}
+.ldg-logo-sub{font-family:var(--ldg-sans);font-style:normal;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ldg-muted);}
+.ldg-nav{display:flex;gap:18px;flex-wrap:wrap;}
+.ldg-nav a{font-family:var(--ldg-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-text);}
+.ldg-nav a:hover{color:var(--ldg-accent);}
+.ldg-masthead-rule-bottom{height:4px;border-bottom:4px double var(--ldg-text);}
+
+.ldg-hero{padding-top:0;}
+.ldg-hero-media{width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:var(--ldg-radius);}
+.ldg-hero-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:26px 20px;background:var(--ldg-row-a);border-bottom:4px double var(--ldg-text);}
+.ldg-hero-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.07em;padding-top:6px;font-weight:bold;}
+.ldg-hero-title{font-family:var(--ldg-serif);font-size:34px;line-height:1.16;margin:0 0 10px;}
+.ldg-hero-dek{font-family:var(--ldg-sans);font-size:16px;color:var(--ldg-muted);max-width:60ch;margin:0;}
+
+.ldg-section{padding:44px 0;}
+.ldg-section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;padding:0 20px 12px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-section-title{font-family:var(--ldg-serif);font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-text);margin:0;}
+.ldg-section-label{font-family:var(--ldg-sans);font-size:11px;color:var(--ldg-muted);text-transform:uppercase;letter-spacing:.05em;}
+.ldg-lede{font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-muted);padding:0 20px;max-width:62ch;}
+
+.ldg-ledger{display:flex;flex-direction:column;border-top:1px solid var(--ldg-rule);}
+.ldg-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);align-items:start;}
+.ldg-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-row-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-muted);letter-spacing:.05em;padding-top:4px;}
+.ldg-row-content{display:flex;gap:16px;align-items:flex-start;}
+.ldg-row-thumb{width:96px;height:74px;object-fit:cover;flex:none;border-radius:var(--ldg-radius);}
+.ldg-row-text{flex:1;min-width:0;}
+.ldg-row-cat{display:block;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;margin-bottom:4px;}
+.ldg-row-title{font-family:var(--ldg-serif);font-size:19px;margin:0 0 4px;line-height:1.3;}
+.ldg-row-title a{color:var(--ldg-text);}
+.ldg-row-title a:hover{color:var(--ldg-accent);}
+.ldg-row-dek{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);line-height:1.5;margin:0;}
+
+.ldg-totals{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:14px 20px;border-top:4px double var(--ldg-text);font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);}
+
+.ldg-mock{border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);overflow:hidden;background:#fff;margin:0 20px;}
+.ldg-mock-head{display:grid;grid-template-columns:60px 1fr 100px 110px;background:var(--ldg-accent);color:#fff;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;}
+.ldg-mock-row{display:grid;grid-template-columns:60px 1fr 100px 110px;padding:11px 14px;font-family:var(--ldg-sans);font-size:13.5px;border-top:1px solid var(--ldg-rule);}
+.ldg-mock-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-mock-num{color:var(--ldg-muted);}
+.ldg-mock-amt,.ldg-mock-bal{text-align:right;font-variant-numeric:tabular-nums;}
+.ldg-mock-total{border-top:4px double var(--ldg-text);font-weight:bold;background:var(--ldg-row-a);}
+
+.ldg-feature-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-feature-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-feature-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-feature-no{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-accent);font-weight:bold;letter-spacing:.05em;padding-top:3px;}
+.ldg-feature-title{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-feature-body{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);margin:0;}
+
+.ldg-faq-row,.ldg-gloss-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-faq-row:nth-child(odd),.ldg-gloss-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-faq-row:nth-child(even),.ldg-gloss-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-faq-tag,.ldg-gloss-letter{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);letter-spacing:.05em;padding-top:3px;}
+.ldg-gloss-letter{font-family:var(--ldg-serif);font-size:20px;color:var(--ldg-accent);padding-top:0;}
+.ldg-faq-q,.ldg-gloss-term{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-faq-a,.ldg-gloss-def{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-muted);margin:0;line-height:1.6;}
+
+.ldg-newsletter{border-top:1px solid var(--ldg-rule);border-bottom:4px double var(--ldg-text);padding:28px 20px;margin:44px 0;background:var(--ldg-row-b);}
+.ldg-newsletter h2{font-family:var(--ldg-serif);font-size:19px;margin:0 0 8px;}
+.ldg-newsletter p{font-size:14px;color:var(--ldg-muted);}
+.ldg-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.ldg-newsletter input[type=email]{flex:1;min-width:200px;padding:11px 12px;border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);font-family:var(--ldg-sans);background:#fff;color:var(--ldg-text);}
+.ldg-ok{display:none;margin-top:10px;font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-accent);}
+
+.ldg-btn{background:var(--ldg-accent);color:#fff;border:none;padding:11px 20px;border-radius:var(--ldg-radius);font-family:var(--ldg-sans);font-size:13px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;text-decoration:none;display:inline-block;}
+.ldg-btn:hover{background:var(--ldg-accent-dark);text-decoration:none;}
+.ldg-btn-ghost{background:transparent;color:var(--ldg-accent);border:1px solid var(--ldg-accent);}
+.ldg-btn-ghost:hover{background:var(--ldg-row-b);}
+
+.ldg-about-blurb{padding:32px 20px;border-top:1px solid var(--ldg-rule);}
+.ldg-prose{padding:0 20px;font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-text);}
+.ldg-prose h2{font-family:var(--ldg-serif);font-size:21px;margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-prose p{margin:0 0 16px;line-height:1.7;}
+.ldg-prose li{margin:0 0 8px;line-height:1.6;}
+.ldg-prose ul{padding-left:20px;list-style:disc;margin-bottom:16px;}
+
+.ldg-breadcrumb{font-family:var(--ldg-sans);font-size:12px;color:var(--ldg-muted);padding:16px 20px 0;}
+.ldg-breadcrumb a{color:var(--ldg-muted);}
+.ldg-article-head{padding:20px 20px 24px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-cat{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;}
+.ldg-article-title{font-family:var(--ldg-serif);font-size:32px;line-height:1.18;margin:8px 0 10px;}
+.ldg-article-meta{font-family:var(--ldg-sans);font-size:12.5px;color:var(--ldg-muted);}
+.ldg-article-media{width:100%;aspect-ratio:16/9;object-fit:cover;margin:24px 0;border-radius:var(--ldg-radius);}
+.ldg-article-body{padding:0 20px;font-family:var(--ldg-serif);font-size:17px;line-height:1.75;}
+.ldg-article-body h2{font-family:var(--ldg-serif);font-size:22px;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-body p{margin:0 0 18px;}
+.ldg-aside{display:grid;grid-template-columns:90px 1fr;gap:18px;margin:26px 0;padding:16px 0;border-top:1px solid var(--ldg-rule);border-bottom:1px solid var(--ldg-rule);background:var(--ldg-row-b);}
+.ldg-aside-label{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.06em;padding-left:20px;}
+.ldg-aside p{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-text);padding-right:20px;margin:0;}
+
+.ldg-footer{border-top:4px double var(--ldg-text);background:var(--ldg-row-b);margin-top:54px;}
+.ldg-footer-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:32px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;}
+.ldg-footer-col h4{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);margin:0 0 10px;}
+.ldg-footer-col a{display:block;font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-text);margin-bottom:6px;}
+.ldg-footer-col a:hover{color:var(--ldg-accent);}
+.ldg-footer-col p{font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-muted);margin:0;}
+.ldg-footer-bottom{border-top:1px solid var(--ldg-rule);padding:14px 20px;text-align:center;font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);max-width:var(--ldg-maxw);margin:0 auto;}
+
+.ldg-table-wrap{overflow-x:auto;margin:0 0 20px;}
+.ldg-table{width:100%;border-collapse:collapse;font-family:var(--ldg-sans);font-size:14px;min-width:520px;}
+.ldg-table caption{text-align:left;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);margin-bottom:8px;}
+.ldg-table th,.ldg-table td{padding:10px 12px;border-bottom:1px solid var(--ldg-rule);text-align:left;vertical-align:top;}
+.ldg-table thead th{background:var(--ldg-accent);color:#fff;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;}
+.ldg-table tbody tr:nth-child(even){background:var(--ldg-row-b);}
+.ldg-callout{border-left:4px solid var(--ldg-accent);background:var(--ldg-row-b);padding:16px 18px;margin:0 0 20px;font-family:var(--ldg-sans);font-size:14.5px;color:var(--ldg-text);border-radius:var(--ldg-radius);}
+.ldg-callout strong{color:var(--ldg-accent-dark);}
+.ldg-note-box{border:1px solid var(--ldg-rule);background:var(--ldg-row-a);padding:16px 18px;margin:28px 0 0;font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);border-radius:var(--ldg-radius);}
+.ldg-note-box p{margin:0;}
+.ldg-readalso{border-top:4px double var(--ldg-text);border-bottom:1px solid var(--ldg-rule);background:var(--ldg-row-b);margin:36px 0 0;padding:22px 20px;}
+.ldg-readalso h3{font-family:var(--ldg-serif);font-size:14px;text-transform:uppercase;letter-spacing:.07em;margin:0 0 12px;color:var(--ldg-muted);}
+.ldg-readalso ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.ldg-readalso li{border-bottom:1px solid var(--ldg-rule);padding-bottom:8px;}
+.ldg-readalso li:last-child{border-bottom:none;padding-bottom:0;}
+.ldg-readalso a{font-family:var(--ldg-serif);font-size:16px;color:var(--ldg-text);}
+.ldg-readalso a:hover{color:var(--ldg-accent);}
+blockquote.ldg-pullquote{margin:28px 0;padding:4px 0 4px 20px;border-left:4px solid var(--ldg-accent);font-family:var(--ldg-serif);font-style:italic;font-size:21px;line-height:1.5;color:var(--ldg-accent-dark);}
+blockquote.ldg-pullquote footer{margin-top:8px;font-family:var(--ldg-sans);font-style:normal;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);}
+.ldg-article-body ul{list-style:disc;padding-left:22px;margin:0 0 18px;font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-text);line-height:1.7;}
+.ldg-article-body ul li{margin:0 0 8px;}
+.ldg-article-body ol{list-style:decimal;padding-left:22px;margin:0 0 18px;font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-text);line-height:1.7;}
+.ldg-article-body ol li{margin:0 0 8px;}
+
+@media(max-width:640px){
+  .ldg-masthead-inner{flex-direction:column;align-items:flex-start;gap:10px;}
+  .ldg-row,.ldg-hero-row,.ldg-feature-row,.ldg-faq-row,.ldg-gloss-row,.ldg-aside,.ldg-totals{grid-template-columns:1fr;}
+  .ldg-row-content{gap:12px;}
+  .ldg-mock-head,.ldg-mock-row{grid-template-columns:44px 1fr 66px 80px;font-size:11px;padding:9px 10px;}
+  .ldg-footer-inner{grid-template-columns:1fr 1fr;}
+  .ldg-hero-title,.ldg-article-title{font-size:26px;}
+  .ldg-aside-label{padding-left:0;}
+  .ldg-aside p{padding-right:0;}
+}
+@media(max-width:420px){.ldg-footer-inner{grid-template-columns:1fr;}}
+  </style>
+</head><body>
+  <header class="ldg-masthead">
+  <div class="ldg-masthead-rule-top"></div>
+  <div class="ldg-masthead-inner">
+    <a class="ldg-logo" href="safe.html">Ledgerline<span class="ldg-logo-sub">A Household Ledger</span></a>
+    <nav class="ldg-nav" aria-label="Primary">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Column Book</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+  <div class="ldg-masthead-rule-bottom"></div>
+</header>
+  <article class="ldg-post">
+    <p class="ldg-breadcrumb"><a href="safe.html">Journal</a> &rsaquo; Habits</p>
+    <div class="ldg-article-head">
+      <span class="ldg-article-cat">Habits</span>
+      <h1 class="ldg-article-title">What Belongs in the Margin, Not the Column</h1>
+      <p class="ldg-article-meta">June 2, 2026 &middot; Context belongs beside the number, not folded into it.</p>
+    </div>
+    <img class="ldg-article-media" src="img/receipts-margin-notes.jpg" alt="What Belongs in the Margin, Not the Column">
+    <div class="ldg-article-body">
+      <p>A restaurant check for four comes to $172.60, split unevenly because two people ordered wine and two didn't, and one of them handed over cash for their share right at the table. Writing it into the ledger that night, there's a real temptation to fold the whole story into the number itself &mdash; "43.15 (Dana's half, cash, wine)" &mdash; because that's the only line the moment seems to have. It fits. It even reads back fine a week later. It breaks the first time that column gets added, because a pen, or an eye running down the page, now has to parse a parenthetical sitting where only a figure should be. The story about who and why does not belong in the same cell as the number. It belongs in the margin, a few inches to the right, doing an entirely different job.</p>
+
+      <h2>The column has one job</h2>
+      <p>An amount column exists to be added. That's the whole of its contract: a stack of figures, aligned, that a habit of running totals can move down without stopping to think. The moment a word enters that column &mdash; even a short one, even an abbreviation you're sure you'll remember &mdash; the column stops being purely additive. Whoever closes the month now has to read before summing, and reading is a slower, different kind of attention than adding. It's exactly where transposition and skipped lines creep in, the same errors <a href="two-column-catch.html">a second column exists to catch</a> in the first place. A column that has to be parsed line by line has already lost the one advantage a column has over a paragraph.</p>
+
+      <h2>Why context keeps trying to move in</h2>
+      <p>Most household ledgers weren't built with a generous margin, or the margin exists but feels optional &mdash; an afterthought strip nobody ruled with much intention. So when a transaction is one line but carries three facts &mdash; who it involved, why it happened, how the money actually moved between people &mdash; those facts have nowhere obvious to go except wherever there's still ink-space left: the description field, or, failing that, right after the number itself. The instinct isn't carelessness. It's that the page as physically laid out never clearly said "this space is for that," so the number absorbed what the margin should have carried.</p>
+
+      <h2>What the margin is actually for</h2>
+      <p>The margin's job is to hold everything that isn't the number but explains it. In practice that tends to be four kinds of information:</p>
+      <ul>
+        <li><strong>Who</strong> &mdash; the other person a cost was shared with, especially when the ledger is <a href="shared-ledger-two-people.html">kept jointly between two people</a> and a later reader wasn't at the table.</li>
+        <li><strong>Why</strong> &mdash; the occasion behind an otherwise ordinary category, so a large entry reads as a known event rather than an unexplained spike.</li>
+        <li><strong>Split</strong> &mdash; the fraction a shared cost was divided by, and who fronted the full amount before being paid back.</li>
+        <li><strong>Source</strong> &mdash; whether the money moved as cash, card, or transfer, which matters when a cash count and a bank total are checked against each other separately.</li>
+      </ul>
+      <p>None of these change the number. That's the test worth applying before writing anything: if removing the note would change what you'd write in the amount column, it isn't a margin note at all &mdash; it's a correction, and it belongs in the figure itself, in ink, crossed through properly rather than annotated around.</p>
+
+      <div class="ldg-callout"><strong>One line, not a paragraph.</strong> A margin note that runs three sentences defeats its own purpose &mdash; nobody re-reads a paragraph while adding a column. Four or five words is usually enough: who, in what proportion, paid which way. The ledger doesn't need to hold the whole memory, just the hook for it.</div>
+
+      <h2>Reading a note months later</h2>
+      <p>The value of a margin note isn't on the day it's written &mdash; that day, you remember everything without help. It's eight months later, flipping back through a page while looking for something else, when the note has to do the work memory used to do for free. A few of the everyday cases where it earns its space:</p>
+      <div class="ldg-table-wrap">
+        <table class="ldg-table">
+          <caption>Margin notes and what they prevent</caption>
+          <thead>
+            <tr><th scope="col">What the margin says</th><th scope="col">Example</th><th scope="col">What it prevents later</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Who</td><td>&ldquo;split w/ Dana, her half&rdquo;</td><td>Forgetting who still owes, or accidentally counting a shared cost twice.</td></tr>
+            <tr><td>Why</td><td>&ldquo;annual renewal, not monthly&rdquo;</td><td>A single large figure reading as an overspend when it's really a known once-a-year cost.</td></tr>
+            <tr><td>Source</td><td>&ldquo;paid cash, reimburse from joint&rdquo;</td><td>A cash count and a bank total disagreeing for a reason that isn't actually an error.</td></tr>
+            <tr><td>Cross-reference</td><td>&ldquo;see Mar 14, refund landed here&rdquo;</td><td>Re-explaining the same story on two separate lines instead of pointing to it once.</td></tr>
+            <tr><td>Occasion</td><td>&ldquo;birthday gift, Lucia&rdquo;</td><td>A routine-looking category total quietly holding one irregular entry inside it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>A page where it mattered</h2>
+      <p>Take an actual entry: $86.40, dining, dated a Saturday in October. Next to a month of ten- and twelve-dollar lunches, it reads as an anomaly worth asking about &mdash; did something go wrong that week? The margin, four words wide, answers before the question fully forms: "Marcus's leaving dinner, split 4, covered Dana's share." The number now makes sense on sight, without a phone call to anyone who was there, without trying to reconstruct a Saturday from months back. The note didn't change the arithmetic at all. It changed how long the number stayed confusing.</p>
+
+      <blockquote class="ldg-pullquote">"A number without its margin is a fact with the reason removed. It's still true. It's just no longer useful to whoever reads it next &mdash; including the person who wrote it, a year on."
+        <footer>&mdash; from a reader's note, filed under Habits</footer>
+      </blockquote>
+
+      <h2>Write it while the pen is already out</h2>
+      <p>Margin notes get skipped less from disagreement about their value than from timing. Writing the number takes five seconds. Writing "split w/ Dana, cash, her half" takes another eight. Coming back to add it later, after the pen is put away and the moment has cooled, takes far longer, if it happens at all &mdash; by then the four-word note has expanded in your head into an explanation you feel obliged to write properly, and a properly written explanation is exactly the kind of task that gets postponed. The fix is procedural, not motivational: the margin gets filled in during the same motion as the amount, before the pen lifts off the page. Nothing elaborate, a fragment rather than a sentence, but written now, while it's still cheap.</p>
+      <p>This also keeps the margin proportionate to its purpose. A note written in the moment tends to stay short, because you're not yet worried about a future reader misunderstanding &mdash; you're just capturing the one fact you'd want if you forgot everything else. A note added days later tends to sprawl, trying to compensate for everything already forgotten. Short and immediate beats long and retrospective almost every time, and it leaves the amount column doing exactly what it was ruled to do.</p>
+
+      <div class="ldg-note-box"><p>This piece describes a household record-keeping habit for general interest. It is not financial, tax, or accounting advice, and nothing here should be read as a recommendation for how a particular household should track or split shared expenses.</p></div>
+    </div>
+
+    <div class="ldg-readalso">
+      <h3>Read also</h3>
+      <ul>
+        <li><a href="shared-ledger-two-people.html">Keeping One Ledger Between Two People</a></li>
+        <li><a href="two-column-catch.html">What a Second Column Catches That One Column Misses</a></li>
+        <li><a href="reading-old-ledgers.html">Reading a Ledger You Kept Two Years Ago</a></li>
+      </ul>
+    </div>
+  </article>
+  <footer class="ldg-footer">
+  <div class="ldg-footer-inner">
+    <div class="ldg-footer-col">
+      <h4>Ledgerline</h4>
+      <p>An independent journal on handwritten household accounting &mdash; paper ledgers, double columns, and the twenty-minute monthly close. Nothing on this site is sold.</p>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Read</h4>
+      <a href="safe.html">Home</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Companion</h4>
+      <a href="app.html">Column Book</a>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="ldg-footer-bottom">
+    <span>&copy; 2026 Ledgerline. Notes from a paper ledger, kept by hand.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledgerline &mdash; Notes on Handwritten Household Accounting</title>
+<meta name="description" content="A working journal on keeping a household ledger by hand: double columns, monthly closes, and the small habits that make a paper book easy to trust.">
+<link rel="canonical" href="https://ledgerline.shop/safe.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fbfaf5'/%3E%3Crect x='2' y='2' width='28' height='28' fill='none' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='10' y1='2' x2='10' y2='30' stroke='%239aa79f' stroke-width='1'/%3E%3Cline x1='4' y1='10' x2='28' y2='10' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='4' y1='22' x2='28' y2='22' stroke='%232f6a4f' stroke-width='.75'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ldg-bg:#fbfaf5;
+  --ldg-row-a:#ffffff;
+  --ldg-row-b:#f4f3ec;
+  --ldg-text:#1f2421;
+  --ldg-muted:#5c655f;
+  --ldg-accent:#2f6a4f;
+  --ldg-accent-dark:#234f3b;
+  --ldg-rule:#9aa79f;
+  --ldg-radius:1.5px;
+  --ldg-maxw:890px;
+  --ldg-serif:Cambria,Georgia,'Times New Roman',serif;
+  --ldg-sans:Calibri,Candara,'Segoe UI',Tahoma,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--ldg-bg);color:var(--ldg-text);font-family:var(--ldg-sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+a{color:var(--ldg-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--ldg-serif);font-weight:700;line-height:1.2;margin:0 0 .5em;color:var(--ldg-text);}
+p{margin:0 0 1em;}
+img{max-width:100%;display:block;height:auto;}
+ul,ol{margin:0;padding:0;}
+button{font-family:var(--ldg-sans);}
+.ldg-container{max-width:var(--ldg-maxw);margin:0 auto;padding:0 20px;}
+.ldg-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+.ldg-masthead{background:var(--ldg-bg);}
+.ldg-masthead-rule-top{height:1px;background:var(--ldg-text);}
+.ldg-masthead-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:20px 20px 16px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ldg-logo{font-family:var(--ldg-serif);font-style:italic;font-size:25px;color:var(--ldg-text);display:flex;flex-direction:column;gap:2px;}
+.ldg-logo-sub{font-family:var(--ldg-sans);font-style:normal;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ldg-muted);}
+.ldg-nav{display:flex;gap:18px;flex-wrap:wrap;}
+.ldg-nav a{font-family:var(--ldg-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-text);}
+.ldg-nav a:hover{color:var(--ldg-accent);}
+.ldg-masthead-rule-bottom{height:4px;border-bottom:4px double var(--ldg-text);}
+
+.ldg-hero{padding-top:0;}
+.ldg-hero-media{width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:var(--ldg-radius);}
+.ldg-hero-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:26px 20px;background:var(--ldg-row-a);border-bottom:4px double var(--ldg-text);}
+.ldg-hero-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.07em;padding-top:6px;font-weight:bold;}
+.ldg-hero-title{font-family:var(--ldg-serif);font-size:34px;line-height:1.16;margin:0 0 10px;}
+.ldg-hero-dek{font-family:var(--ldg-sans);font-size:16px;color:var(--ldg-muted);max-width:60ch;margin:0;}
+
+.ldg-section{padding:44px 0;}
+.ldg-section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;padding:0 20px 12px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-section-title{font-family:var(--ldg-serif);font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-text);margin:0;}
+.ldg-section-label{font-family:var(--ldg-sans);font-size:11px;color:var(--ldg-muted);text-transform:uppercase;letter-spacing:.05em;}
+.ldg-lede{font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-muted);padding:0 20px;max-width:62ch;}
+
+.ldg-ledger{display:flex;flex-direction:column;border-top:1px solid var(--ldg-rule);}
+.ldg-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);align-items:start;}
+.ldg-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-row-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-muted);letter-spacing:.05em;padding-top:4px;}
+.ldg-row-content{display:flex;gap:16px;align-items:flex-start;}
+.ldg-row-thumb{width:96px;height:74px;object-fit:cover;flex:none;border-radius:var(--ldg-radius);}
+.ldg-row-text{flex:1;min-width:0;}
+.ldg-row-cat{display:block;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;margin-bottom:4px;}
+.ldg-row-title{font-family:var(--ldg-serif);font-size:19px;margin:0 0 4px;line-height:1.3;}
+.ldg-row-title a{color:var(--ldg-text);}
+.ldg-row-title a:hover{color:var(--ldg-accent);}
+.ldg-row-dek{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);line-height:1.5;margin:0;}
+
+.ldg-totals{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:14px 20px;border-top:4px double var(--ldg-text);font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);}
+
+.ldg-mock{border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);overflow:hidden;background:#fff;margin:0 20px;}
+.ldg-mock-head{display:grid;grid-template-columns:60px 1fr 100px 110px;background:var(--ldg-accent);color:#fff;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;}
+.ldg-mock-row{display:grid;grid-template-columns:60px 1fr 100px 110px;padding:11px 14px;font-family:var(--ldg-sans);font-size:13.5px;border-top:1px solid var(--ldg-rule);}
+.ldg-mock-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-mock-num{color:var(--ldg-muted);}
+.ldg-mock-amt,.ldg-mock-bal{text-align:right;font-variant-numeric:tabular-nums;}
+.ldg-mock-total{border-top:4px double var(--ldg-text);font-weight:bold;background:var(--ldg-row-a);}
+
+.ldg-feature-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-feature-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-feature-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-feature-no{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-accent);font-weight:bold;letter-spacing:.05em;padding-top:3px;}
+.ldg-feature-title{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-feature-body{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);margin:0;}
+
+.ldg-faq-row,.ldg-gloss-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-faq-row:nth-child(odd),.ldg-gloss-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-faq-row:nth-child(even),.ldg-gloss-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-faq-tag,.ldg-gloss-letter{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);letter-spacing:.05em;padding-top:3px;}
+.ldg-gloss-letter{font-family:var(--ldg-serif);font-size:20px;color:var(--ldg-accent);padding-top:0;}
+.ldg-faq-q,.ldg-gloss-term{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-faq-a,.ldg-gloss-def{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-muted);margin:0;line-height:1.6;}
+
+.ldg-newsletter{border-top:1px solid var(--ldg-rule);border-bottom:4px double var(--ldg-text);padding:28px 20px;margin:44px 0;background:var(--ldg-row-b);}
+.ldg-newsletter h2{font-family:var(--ldg-serif);font-size:19px;margin:0 0 8px;}
+.ldg-newsletter p{font-size:14px;color:var(--ldg-muted);}
+.ldg-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.ldg-newsletter input[type=email]{flex:1;min-width:200px;padding:11px 12px;border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);font-family:var(--ldg-sans);background:#fff;color:var(--ldg-text);}
+.ldg-ok{display:none;margin-top:10px;font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-accent);}
+
+.ldg-btn{background:var(--ldg-accent);color:#fff;border:none;padding:11px 20px;border-radius:var(--ldg-radius);font-family:var(--ldg-sans);font-size:13px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;text-decoration:none;display:inline-block;}
+.ldg-btn:hover{background:var(--ldg-accent-dark);text-decoration:none;}
+.ldg-btn-ghost{background:transparent;color:var(--ldg-accent);border:1px solid var(--ldg-accent);}
+.ldg-btn-ghost:hover{background:var(--ldg-row-b);}
+
+.ldg-about-blurb{padding:32px 20px;border-top:1px solid var(--ldg-rule);}
+.ldg-prose{padding:0 20px;font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-text);}
+.ldg-prose h2{font-family:var(--ldg-serif);font-size:21px;margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-prose p{margin:0 0 16px;line-height:1.7;}
+.ldg-prose li{margin:0 0 8px;line-height:1.6;}
+.ldg-prose ul{padding-left:20px;list-style:disc;margin-bottom:16px;}
+
+.ldg-breadcrumb{font-family:var(--ldg-sans);font-size:12px;color:var(--ldg-muted);padding:16px 20px 0;}
+.ldg-breadcrumb a{color:var(--ldg-muted);}
+.ldg-article-head{padding:20px 20px 24px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-cat{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;}
+.ldg-article-title{font-family:var(--ldg-serif);font-size:32px;line-height:1.18;margin:8px 0 10px;}
+.ldg-article-meta{font-family:var(--ldg-sans);font-size:12.5px;color:var(--ldg-muted);}
+.ldg-article-media{width:100%;aspect-ratio:16/9;object-fit:cover;margin:24px 0;border-radius:var(--ldg-radius);}
+.ldg-article-body{padding:0 20px;font-family:var(--ldg-serif);font-size:17px;line-height:1.75;}
+.ldg-article-body h2{font-family:var(--ldg-serif);font-size:22px;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-body p{margin:0 0 18px;}
+.ldg-aside{display:grid;grid-template-columns:90px 1fr;gap:18px;margin:26px 0;padding:16px 0;border-top:1px solid var(--ldg-rule);border-bottom:1px solid var(--ldg-rule);background:var(--ldg-row-b);}
+.ldg-aside-label{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.06em;padding-left:20px;}
+.ldg-aside p{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-text);padding-right:20px;margin:0;}
+
+.ldg-footer{border-top:4px double var(--ldg-text);background:var(--ldg-row-b);margin-top:54px;}
+.ldg-footer-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:32px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;}
+.ldg-footer-col h4{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);margin:0 0 10px;}
+.ldg-footer-col a{display:block;font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-text);margin-bottom:6px;}
+.ldg-footer-col a:hover{color:var(--ldg-accent);}
+.ldg-footer-col p{font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-muted);margin:0;}
+.ldg-footer-bottom{border-top:1px solid var(--ldg-rule);padding:14px 20px;text-align:center;font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);max-width:var(--ldg-maxw);margin:0 auto;}
+
+@media(max-width:640px){
+  .ldg-masthead-inner{flex-direction:column;align-items:flex-start;gap:10px;}
+  .ldg-row,.ldg-hero-row,.ldg-feature-row,.ldg-faq-row,.ldg-gloss-row,.ldg-aside,.ldg-totals{grid-template-columns:1fr;}
+  .ldg-row-content{gap:12px;}
+  .ldg-mock-head,.ldg-mock-row{grid-template-columns:44px 1fr 66px 80px;font-size:11px;padding:9px 10px;}
+  .ldg-footer-inner{grid-template-columns:1fr 1fr;}
+  .ldg-hero-title,.ldg-article-title{font-size:26px;}
+  .ldg-aside-label{padding-left:0;}
+  .ldg-aside p{padding-right:0;}
+}
+@media(max-width:420px){.ldg-footer-inner{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header class="ldg-masthead">
+  <div class="ldg-masthead-rule-top"></div>
+  <div class="ldg-masthead-inner">
+    <a class="ldg-logo" href="safe.html">Ledgerline<span class="ldg-logo-sub">A Household Ledger</span></a>
+    <nav class="ldg-nav" aria-label="Primary">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Column Book</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+  <div class="ldg-masthead-rule-bottom"></div>
+</header>
+<main>
+  <section class="ldg-hero">
+    <img class="ldg-hero-media" src="img/hero.jpg" alt="An open household ledger book with ruled columns, a fountain pen resting across the page">
+    <div class="ldg-hero-row">
+      <div class="ldg-hero-date">Vol. I &mdash; Field Notes</div>
+      <div>
+        <h1 class="ldg-hero-title">Notes on Keeping a Ledger by Hand</h1>
+        <p class="ldg-hero-dek">A working journal on double columns, monthly closes, and the small habits that make a paper ledger easy to trust &mdash; written from an actual kitchen-table notebook, not a spreadsheet template.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ldg-section">
+    <div class="ldg-section-head">
+      <h2 class="ldg-section-title">Latest Entries</h2>
+      <span class="ldg-section-label">9 posts</span>
+    </div>
+    <div class="ldg-ledger">
+
+      <article class="ldg-row">
+        <div class="ldg-row-date">Jul 01</div>
+        <div class="ldg-row-content">
+          <img class="ldg-row-thumb" src="img/reading-old-ledgers.jpg" alt="A closed ledger book from a previous year being reopened on a table">
+          <div class="ldg-row-text">
+            <span class="ldg-row-cat">Archive</span>
+            <h3 class="ldg-row-title"><a href="reading-old-ledgers.html">Reading a Ledger You Kept Two Years Ago</a></h3>
+            <p class="ldg-row-dek">A closed book is only useful if the entries still explain themselves without you.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ldg-row">
+        <div class="ldg-row-date">Jun 02</div>
+        <div class="ldg-row-content">
+          <img class="ldg-row-thumb" src="img/receipts-margin-notes.jpg" alt="A hand writing a short note in the margin of a ledger page beside a column of figures">
+          <div class="ldg-row-text">
+            <span class="ldg-row-cat">Habits</span>
+            <h3 class="ldg-row-title"><a href="receipts-margin-notes.html">What Belongs in the Margin, Not the Column</a></h3>
+            <p class="ldg-row-dek">Context belongs beside the number, not folded into it.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ldg-row">
+        <div class="ldg-row-date">May 08</div>
+        <div class="ldg-row-content">
+          <img class="ldg-row-thumb" src="img/shared-ledger-two-people.jpg" alt="Two people sitting at a table sharing one open ledger book">
+          <div class="ldg-row-text">
+            <span class="ldg-row-cat">Family</span>
+            <h3 class="ldg-row-title"><a href="shared-ledger-two-people.html">Keeping One Ledger Between Two People</a></h3>
+            <p class="ldg-row-dek">A shared notebook needs a few written rules before it needs more columns.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ldg-row">
+        <div class="ldg-row-date">Apr 12</div>
+        <div class="ldg-row-content">
+          <img class="ldg-row-thumb" src="img/categories-that-hold.jpg" alt="A ledger page with a short list of category headings ruled across the top">
+          <div class="ldg-row-text">
+            <span class="ldg-row-cat">Method</span>
+            <h3 class="ldg-row-title"><a href="categories-that-hold.html">Choosing Categories That Still Make Sense in December</a></h3>
+            <p class="ldg-row-dek">A short list of durable headings outlasts a long list of specific ones.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ldg-row">
+        <div class="ldg-row-date">Mar 29</div>
+        <div class="ldg-row-content">
+          <img class="ldg-row-thumb" src="img/ledger-lines-history.jpg" alt="An antique ruled ledger page showing the printed column lines">
+          <div class="ldg-row-text">
+            <span class="ldg-row-cat">History</span>
+            <h3 class="ldg-row-title"><a href="ledger-lines-history.html">Where the Ruled Line Comes From</a></h3>
+            <p class="ldg-row-dek">Countinghouse habits from centuries ago still decide how a notebook page is ruled today.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ldg-row">
+        <div class="ldg-row-date">Mar 10</div>
+        <div class="ldg-row-content">
+          <img class="ldg-row-thumb" src="img/envelope-to-column.jpg" alt="Cash envelopes beside an open ledger book during a transition to columns">
+          <div class="ldg-row-text">
+            <span class="ldg-row-cat">Case Notes</span>
+            <h3 class="ldg-row-title"><a href="envelope-to-column.html">From Envelopes to Columns: Retiring a Cash-Only System</a></h3>
+            <p class="ldg-row-dek">One household's slow move from labeled envelopes to a bound ledger, and what stayed the same.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ldg-row">
+        <div class="ldg-row-date">Feb 21</div>
+        <div class="ldg-row-content">
+          <img class="ldg-row-thumb" src="img/pencil-versus-pen.jpg" alt="A single line struck through a ledger entry with initials and a date beside it">
+          <div class="ldg-row-text">
+            <span class="ldg-row-cat">Materials</span>
+            <h3 class="ldg-row-title"><a href="pencil-versus-pen.html">Pencil Versus Pen: The Case for Correcting in the Open</a></h3>
+            <p class="ldg-row-dek">Crossing out a mistake in ink, with initials and a date, tells a more honest story than an eraser.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ldg-row">
+        <div class="ldg-row-date">Feb 03</div>
+        <div class="ldg-row-content">
+          <img class="ldg-row-thumb" src="img/twenty-minute-close.jpg" alt="A ledger and a small stack of receipts arranged for a monthly close">
+          <div class="ldg-row-text">
+            <span class="ldg-row-cat">Habits</span>
+            <h3 class="ldg-row-title"><a href="twenty-minute-close.html">Closing the Month in Twenty Minutes, Not a Weekend</a></h3>
+            <p class="ldg-row-dek">A short, repeatable sequence beats an occasional marathon session with a shoebox of receipts.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ldg-row">
+        <div class="ldg-row-date">Jan 14</div>
+        <div class="ldg-row-content">
+          <img class="ldg-row-thumb" src="img/two-column-catch.jpg" alt="Two ruled columns on a ledger page, one for entries and one for a running balance">
+          <div class="ldg-row-text">
+            <span class="ldg-row-cat">Method</span>
+            <h3 class="ldg-row-title"><a href="two-column-catch.html">What a Second Column Catches That One Column Misses</a></h3>
+            <p class="ldg-row-dek">A running balance next to a plain list turns a typo into a visible gap the same afternoon.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <div class="ldg-totals"><span></span><span>End of current entries &mdash; new notes posted roughly every two weeks</span></div>
+  </section>
+
+  <section class="ldg-section">
+    <div class="ldg-section-head">
+      <h2 class="ldg-section-title">The Companion Notebook</h2>
+      <span class="ldg-section-label">Column Book</span>
+    </div>
+    <p class="ldg-lede">Everything on this site works from a paper ledger and nothing more. For readers who want the same double-column habit on a phone between paper sessions, we keep a small companion app called Column Book.</p>
+    <div class="ldg-mock">
+      <div class="ldg-mock-head"><span>No.</span><span>Description</span><span class="ldg-mock-amt">Amount</span><span class="ldg-mock-bal">Balance</span></div>
+      <div class="ldg-mock-row"><span class="ldg-mock-num">1</span><span>Groceries &mdash; week 1</span><span class="ldg-mock-amt">&minus;68.40</span><span class="ldg-mock-bal">1,231.60</span></div>
+      <div class="ldg-mock-row"><span class="ldg-mock-num">2</span><span>Wages</span><span class="ldg-mock-amt">+1,900.00</span><span class="ldg-mock-bal">3,131.60</span></div>
+      <div class="ldg-mock-row"><span class="ldg-mock-num">3</span><span>Utilities</span><span class="ldg-mock-amt">&minus;142.15</span><span class="ldg-mock-bal">2,989.45</span></div>
+      <div class="ldg-mock-row ldg-mock-total"><span></span><span>Balance carried forward</span><span></span><span class="ldg-mock-bal">2,989.45</span></div>
+    </div>
+    <p class="ldg-lede" style="margin-top:18px;">Column Book mirrors the same two-column habit &mdash; an entry column and a running balance &mdash; so a reader can jot something down between paper sessions and copy it into the book later.</p>
+    <div class="ldg-lede"><a class="ldg-btn" href="app.html">See how Column Book works</a></div>
+  </section>
+
+  <section class="ldg-newsletter">
+    <h2>A note when a new entry is posted</h2>
+    <p>No digest, no daily mail &mdash; just a short note roughly every two weeks when a new field note or method piece goes up.</p>
+    <form onsubmit="return sub(event)">
+      <input type="email" required placeholder="you@example.com" aria-label="Email address">
+      <button class="ldg-btn" type="submit">Subscribe</button>
+    </form>
+    <div class="ldg-ok" id="ok">Thanks &mdash; you're on the list.</div>
+  </section>
+
+  <section class="ldg-about-blurb">
+    <h2>About this journal</h2>
+    <p>Ledgerline is written by a small group of people who keep their household accounts by hand and compare notes on method. Nothing here is sold, and none of it is financial advice for your particular situation &mdash; it is a record of what has worked, and sometimes not worked, at one kitchen table. Read more on the <a href="about.html">About</a> page, or start with the <a href="glossary.html">Glossary</a> for the terms used throughout the journal.</p>
+  </section>
+</main>
+<footer class="ldg-footer">
+  <div class="ldg-footer-inner">
+    <div class="ldg-footer-col">
+      <h4>Ledgerline</h4>
+      <p>An independent journal on handwritten household accounting &mdash; paper ledgers, double columns, and the twenty-minute monthly close. Nothing on this site is sold.</p>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Read</h4>
+      <a href="safe.html">Home</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Companion</h4>
+      <a href="app.html">Column Book</a>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="ldg-footer-bottom">
+    <span>&copy; 2026 Ledgerline. Notes from a paper ledger, kept by hand.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary &mdash; Ledgerline</title>
+<meta name="description" content="A working glossary of household budgeting and hand-kept ledger terms, as used throughout the Ledgerline journal: columns, closes, postings, and more.">
+<link rel="canonical" href="https://ledgerline.shop/glossary.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fbfaf5'/%3E%3Crect x='2' y='2' width='28' height='28' fill='none' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='10' y1='2' x2='10' y2='30' stroke='%239aa79f' stroke-width='1'/%3E%3Cline x1='4' y1='10' x2='28' y2='10' stroke='%232f6a4f' stroke-width='1.5'/%3E%3Cline x1='4' y1='22' x2='28' y2='22' stroke='%232f6a4f' stroke-width='.75'/%3E%3C/svg%3E">
+<style>
+
+:root{
+  --ldg-bg:#fbfaf5;
+  --ldg-row-a:#ffffff;
+  --ldg-row-b:#f4f3ec;
+  --ldg-text:#1f2421;
+  --ldg-muted:#5c655f;
+  --ldg-accent:#2f6a4f;
+  --ldg-accent-dark:#234f3b;
+  --ldg-rule:#9aa79f;
+  --ldg-radius:1.5px;
+  --ldg-maxw:890px;
+  --ldg-serif:Cambria,Georgia,'Times New Roman',serif;
+  --ldg-sans:Calibri,Candara,'Segoe UI',Tahoma,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--ldg-bg);color:var(--ldg-text);font-family:var(--ldg-sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+a{color:var(--ldg-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--ldg-serif);font-weight:700;line-height:1.2;margin:0 0 .5em;color:var(--ldg-text);}
+p{margin:0 0 1em;}
+img{max-width:100%;display:block;height:auto;}
+ul,ol{margin:0;padding:0;}
+button{font-family:var(--ldg-sans);}
+.ldg-container{max-width:var(--ldg-maxw);margin:0 auto;padding:0 20px;}
+.ldg-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+.ldg-masthead{background:var(--ldg-bg);}
+.ldg-masthead-rule-top{height:1px;background:var(--ldg-text);}
+.ldg-masthead-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:20px 20px 16px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ldg-logo{font-family:var(--ldg-serif);font-style:italic;font-size:25px;color:var(--ldg-text);display:flex;flex-direction:column;gap:2px;}
+.ldg-logo-sub{font-family:var(--ldg-sans);font-style:normal;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ldg-muted);}
+.ldg-nav{display:flex;gap:18px;flex-wrap:wrap;}
+.ldg-nav a{font-family:var(--ldg-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-text);}
+.ldg-nav a:hover{color:var(--ldg-accent);}
+.ldg-masthead-rule-bottom{height:4px;border-bottom:4px double var(--ldg-text);}
+
+.ldg-hero{padding-top:0;}
+.ldg-hero-media{width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:var(--ldg-radius);}
+.ldg-hero-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:26px 20px;background:var(--ldg-row-a);border-bottom:4px double var(--ldg-text);}
+.ldg-hero-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.07em;padding-top:6px;font-weight:bold;}
+.ldg-hero-title{font-family:var(--ldg-serif);font-size:34px;line-height:1.16;margin:0 0 10px;}
+.ldg-hero-dek{font-family:var(--ldg-sans);font-size:16px;color:var(--ldg-muted);max-width:60ch;margin:0;}
+
+.ldg-section{padding:44px 0;}
+.ldg-section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;padding:0 20px 12px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-section-title{font-family:var(--ldg-serif);font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-text);margin:0;}
+.ldg-section-label{font-family:var(--ldg-sans);font-size:11px;color:var(--ldg-muted);text-transform:uppercase;letter-spacing:.05em;}
+.ldg-lede{font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-muted);padding:0 20px;max-width:62ch;}
+
+.ldg-ledger{display:flex;flex-direction:column;border-top:1px solid var(--ldg-rule);}
+.ldg-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);align-items:start;}
+.ldg-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-row-date{font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;color:var(--ldg-muted);letter-spacing:.05em;padding-top:4px;}
+.ldg-row-content{display:flex;gap:16px;align-items:flex-start;}
+.ldg-row-thumb{width:96px;height:74px;object-fit:cover;flex:none;border-radius:var(--ldg-radius);}
+.ldg-row-text{flex:1;min-width:0;}
+.ldg-row-cat{display:block;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;margin-bottom:4px;}
+.ldg-row-title{font-family:var(--ldg-serif);font-size:19px;margin:0 0 4px;line-height:1.3;}
+.ldg-row-title a{color:var(--ldg-text);}
+.ldg-row-title a:hover{color:var(--ldg-accent);}
+.ldg-row-dek{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);line-height:1.5;margin:0;}
+
+.ldg-totals{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:14px 20px;border-top:4px double var(--ldg-text);font-family:var(--ldg-sans);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);}
+
+.ldg-mock{border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);overflow:hidden;background:#fff;margin:0 20px;}
+.ldg-mock-head{display:grid;grid-template-columns:60px 1fr 100px 110px;background:var(--ldg-accent);color:#fff;font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;}
+.ldg-mock-row{display:grid;grid-template-columns:60px 1fr 100px 110px;padding:11px 14px;font-family:var(--ldg-sans);font-size:13.5px;border-top:1px solid var(--ldg-rule);}
+.ldg-mock-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-mock-num{color:var(--ldg-muted);}
+.ldg-mock-amt,.ldg-mock-bal{text-align:right;font-variant-numeric:tabular-nums;}
+.ldg-mock-total{border-top:4px double var(--ldg-text);font-weight:bold;background:var(--ldg-row-a);}
+
+.ldg-feature-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-feature-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-feature-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-feature-no{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-accent);font-weight:bold;letter-spacing:.05em;padding-top:3px;}
+.ldg-feature-title{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-feature-body{font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-muted);margin:0;}
+
+.ldg-faq-row,.ldg-gloss-row{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 20px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-faq-row:nth-child(odd),.ldg-gloss-row:nth-child(odd){background:var(--ldg-row-a);}
+.ldg-faq-row:nth-child(even),.ldg-gloss-row:nth-child(even){background:var(--ldg-row-b);}
+.ldg-faq-tag,.ldg-gloss-letter{font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);letter-spacing:.05em;padding-top:3px;}
+.ldg-gloss-letter{font-family:var(--ldg-serif);font-size:20px;color:var(--ldg-accent);padding-top:0;}
+.ldg-faq-q,.ldg-gloss-term{font-family:var(--ldg-serif);font-size:17px;margin:0 0 6px;}
+.ldg-faq-a,.ldg-gloss-def{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-muted);margin:0;line-height:1.6;}
+
+.ldg-newsletter{border-top:1px solid var(--ldg-rule);border-bottom:4px double var(--ldg-text);padding:28px 20px;margin:44px 0;background:var(--ldg-row-b);}
+.ldg-newsletter h2{font-family:var(--ldg-serif);font-size:19px;margin:0 0 8px;}
+.ldg-newsletter p{font-size:14px;color:var(--ldg-muted);}
+.ldg-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.ldg-newsletter input[type=email]{flex:1;min-width:200px;padding:11px 12px;border:1px solid var(--ldg-rule);border-radius:var(--ldg-radius);font-family:var(--ldg-sans);background:#fff;color:var(--ldg-text);}
+.ldg-ok{display:none;margin-top:10px;font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-accent);}
+
+.ldg-btn{background:var(--ldg-accent);color:#fff;border:none;padding:11px 20px;border-radius:var(--ldg-radius);font-family:var(--ldg-sans);font-size:13px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;text-decoration:none;display:inline-block;}
+.ldg-btn:hover{background:var(--ldg-accent-dark);text-decoration:none;}
+.ldg-btn-ghost{background:transparent;color:var(--ldg-accent);border:1px solid var(--ldg-accent);}
+.ldg-btn-ghost:hover{background:var(--ldg-row-b);}
+
+.ldg-about-blurb{padding:32px 20px;border-top:1px solid var(--ldg-rule);}
+.ldg-prose{padding:0 20px;font-family:var(--ldg-sans);font-size:15px;color:var(--ldg-text);}
+.ldg-prose h2{font-family:var(--ldg-serif);font-size:21px;margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-prose p{margin:0 0 16px;line-height:1.7;}
+.ldg-prose li{margin:0 0 8px;line-height:1.6;}
+.ldg-prose ul{padding-left:20px;list-style:disc;margin-bottom:16px;}
+
+.ldg-breadcrumb{font-family:var(--ldg-sans);font-size:12px;color:var(--ldg-muted);padding:16px 20px 0;}
+.ldg-breadcrumb a{color:var(--ldg-muted);}
+.ldg-article-head{padding:20px 20px 24px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-cat{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ldg-accent);font-weight:bold;}
+.ldg-article-title{font-family:var(--ldg-serif);font-size:32px;line-height:1.18;margin:8px 0 10px;}
+.ldg-article-meta{font-family:var(--ldg-sans);font-size:12.5px;color:var(--ldg-muted);}
+.ldg-article-media{width:100%;aspect-ratio:16/9;object-fit:cover;margin:24px 0;border-radius:var(--ldg-radius);}
+.ldg-article-body{padding:0 20px;font-family:var(--ldg-serif);font-size:17px;line-height:1.75;}
+.ldg-article-body h2{font-family:var(--ldg-serif);font-size:22px;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ldg-rule);}
+.ldg-article-body p{margin:0 0 18px;}
+.ldg-aside{display:grid;grid-template-columns:90px 1fr;gap:18px;margin:26px 0;padding:16px 0;border-top:1px solid var(--ldg-rule);border-bottom:1px solid var(--ldg-rule);background:var(--ldg-row-b);}
+.ldg-aside-label{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;color:var(--ldg-accent);letter-spacing:.06em;padding-left:20px;}
+.ldg-aside p{font-family:var(--ldg-sans);font-size:14px;color:var(--ldg-text);padding-right:20px;margin:0;}
+
+.ldg-footer{border-top:4px double var(--ldg-text);background:var(--ldg-row-b);margin-top:54px;}
+.ldg-footer-inner{max-width:var(--ldg-maxw);margin:0 auto;padding:32px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;}
+.ldg-footer-col h4{font-family:var(--ldg-sans);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ldg-muted);margin:0 0 10px;}
+.ldg-footer-col a{display:block;font-family:var(--ldg-sans);font-size:13.5px;color:var(--ldg-text);margin-bottom:6px;}
+.ldg-footer-col a:hover{color:var(--ldg-accent);}
+.ldg-footer-col p{font-family:var(--ldg-sans);font-size:13px;color:var(--ldg-muted);margin:0;}
+.ldg-footer-bottom{border-top:1px solid var(--ldg-rule);padding:14px 20px;text-align:center;font-family:var(--ldg-sans);font-size:11.5px;color:var(--ldg-muted);max-width:var(--ldg-maxw);margin:0 auto;}
+
+@media(max-width:640px){
+  .ldg-masthead-inner{flex-direction:column;align-items:flex-start;gap:10px;}
+  .ldg-row,.ldg-hero-row,.ldg-feature-row,.ldg-faq-row,.ldg-gloss-row,.ldg-aside,.ldg-totals{grid-template-columns:1fr;}
+  .ldg-row-content{gap:12px;}
+  .ldg-mock-head,.ldg-mock-row{grid-template-columns:44px 1fr 66px 80px;font-size:11px;padding:9px 10px;}
+  .ldg-footer-inner{grid-template-columns:1fr 1fr;}
+  .ldg-hero-title,.ldg-article-title{font-size:26px;}
+  .ldg-aside-label{padding-left:0;}
+  .ldg-aside p{padding-right:0;}
+}
+@media(max-width:420px){.ldg-footer-inner{grid-template-columns:1fr;}}
+
+</style>
+</head>
+<body>
+<header class="ldg-masthead">
+  <div class="ldg-masthead-rule-top"></div>
+  <div class="ldg-masthead-inner">
+    <a class="ldg-logo" href="safe.html">Ledgerline<span class="ldg-logo-sub">A Household Ledger</span></a>
+    <nav class="ldg-nav" aria-label="Primary">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Column Book</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+  <div class="ldg-masthead-rule-bottom"></div>
+</header>
+<main>
+
+  <nav class="ldg-breadcrumb"><a href="safe.html">Home</a> / Glossary</nav>
+  <section class="ldg-hero">
+    <img class="ldg-hero-media" src="img/glossary-hero.jpg" alt="A close view of ruled ledger columns with handwritten labels at the top of each">
+    <div class="ldg-hero-row">
+      <div class="ldg-hero-date">Reference</div>
+      <div>
+        <h1 class="ldg-hero-title">Glossary</h1>
+        <p class="ldg-hero-dek">The terms used throughout this journal, defined the way we use them &mdash; not a dictionary of formal bookkeeping, just the words that come up in a household ledger.</p>
+      </div>
+    </div>
+  </section>
+  <section class="ldg-section">
+    <div class="ldg-section-head">
+      <h2 class="ldg-section-title">Terms A&ndash;V</h2>
+      <span class="ldg-section-label">21 entries</span>
+    </div>
+    <div class="ldg-ledger">
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">B</div><div><p class="ldg-gloss-term">Balance Carried Forward</p><p class="ldg-gloss-def">The single figure moved from the bottom of one page or month to the top of the next, so a new page never starts from zero.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">C</div><div><p class="ldg-gloss-term">Cash Book</p><p class="ldg-gloss-def">A ledger kept specifically for cash in and cash out, as distinct from a broader household ledger that may also track transfers or planned bills.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">C</div><div><p class="ldg-gloss-term">Category Heading</p><p class="ldg-gloss-def">A short, fixed label &mdash; groceries, utilities, transport &mdash; written once at the top of a section and reused every month rather than invented fresh each time.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">C</div><div><p class="ldg-gloss-term">Column</p><p class="ldg-gloss-def">A vertical section of a ledger page reserved for one kind of figure, such as an amount or a running balance, kept separate from the description text.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">C</div><div><p class="ldg-gloss-term">Correction Line</p><p class="ldg-gloss-def">A single line struck through a mistaken entry, left legible, usually with initials and a date beside it, rather than an erasure.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">D</div><div><p class="ldg-gloss-term">Double Column</p><p class="ldg-gloss-def">A layout with an entry column beside a running balance column, so an arithmetic slip shows up as a mismatch instead of hiding in a plain list.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">E</div><div><p class="ldg-gloss-term">Entry</p><p class="ldg-gloss-def">One recorded line: a date, a short description, and an amount.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">F</div><div><p class="ldg-gloss-term">Fixed Category</p><p class="ldg-gloss-def">A category a household commits to using consistently for a full year, chosen for durability over precision.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">J</div><div><p class="ldg-gloss-term">Journal</p><p class="ldg-gloss-def">In this site's usage, the day-by-day record of what happened, distinct from a formal ledger, which is often organized by category rather than by date.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">L</div><div><p class="ldg-gloss-term">Ledger</p><p class="ldg-gloss-def">A bound or ongoing record of entries organized so that a balance can be checked at any point, typically by category or account.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">M</div><div><p class="ldg-gloss-term">Margin Note</p><p class="ldg-gloss-def">A short annotation beside an entry &mdash; who it was for, why it was split &mdash; kept separate from the number itself.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">M</div><div><p class="ldg-gloss-term">Monthly Close</p><p class="ldg-gloss-def">The short routine at the end of a month: totaling entries, checking the balance, and carrying the result forward to the next page.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">O</div><div><p class="ldg-gloss-term">Opening Balance</p><p class="ldg-gloss-def">The figure a new page or new month starts from, taken from the prior period's balance carried forward.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">P</div><div><p class="ldg-gloss-term">Petty Cash Tin</p><p class="ldg-gloss-def">A small physical cash reserve for incidental spending, usually reconciled against its own short column separate from the main ledger.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">P</div><div><p class="ldg-gloss-term">Posting</p><p class="ldg-gloss-def">The act of writing an entry into the ledger, as distinct from simply noting it on a receipt or in a phone.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">R</div><div><p class="ldg-gloss-term">Reconciliation</p><p class="ldg-gloss-def">Comparing a ledger's running balance against an outside record, such as a bank statement or a counted cash tin, to confirm they agree.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">R</div><div><p class="ldg-gloss-term">Recap Line</p><p class="ldg-gloss-def">A short summary line, often at the top of a new page, restating the balance carried forward before new entries begin.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">R</div><div><p class="ldg-gloss-term">Retained Receipt</p><p class="ldg-gloss-def">A paper receipt kept alongside the ledger as backup for a specific entry, usually filed by date rather than by category.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">R</div><div><p class="ldg-gloss-term">Running Balance</p><p class="ldg-gloss-def">The continuously updated total shown after each entry, rather than only at the end of the month.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">T</div><div><p class="ldg-gloss-term">Totals Line</p><p class="ldg-gloss-def">The row at the bottom of a page or section, often marked with a double rule, showing the sum of the entries above it.</p></div></div>
+      <div class="ldg-gloss-row"><div class="ldg-gloss-letter">V</div><div><p class="ldg-gloss-term">Voucher</p><p class="ldg-gloss-def">A slip or note written to stand in for a receipt that was lost or never issued, recorded so the entry still has a paper trail.</p></div></div>
+    </div>
+    <div class="ldg-totals"><span></span><span>End of glossary &mdash; new terms added as they come up in the journal</span></div>
+  </section>
+
+</main>
+<footer class="ldg-footer">
+  <div class="ldg-footer-inner">
+    <div class="ldg-footer-col">
+      <h4>Ledgerline</h4>
+      <p>An independent journal on handwritten household accounting &mdash; paper ledgers, double columns, and the twenty-minute monthly close. Nothing on this site is sold.</p>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Read</h4>
+      <a href="safe.html">Home</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Companion</h4>
+      <a href="app.html">Column Book</a>
+    </div>
+    <div class="ldg-footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="ldg-footer-bottom">
+    <span>&copy; 2026 Ledgerline. Notes from a paper ledger, kept by hand.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body>
+</html>

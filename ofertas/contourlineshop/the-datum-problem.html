@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Datum Problem Nobody Mentions · Contourline</title>
+  <meta name="description" content="A coastline surveyed in 1927 and the same coastline from a modern GPS can disagree by a hundred meters. The reference ellipsoid underneath the numbers is why.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://contourline.shop/the-datum-problem.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f7f8f4'/%3E%3Ccircle cx='32' cy='34' r='22' fill='none' stroke='%232f6b3c' stroke-width='3'/%3E%3Ccircle cx='32' cy='34' r='14' fill='none' stroke='%232f6b3c' stroke-width='3'/%3E%3Ccircle cx='32' cy='34' r='6' fill='none' stroke='%232f6b3c' stroke-width='3'/%3E%3Cpath d='M8 12 L52 12' stroke='%23b0561c' stroke-width='3'/%3E%3Cpath d='M8 12 L15 6 M8 12 L15 18' stroke='%23b0561c' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+/* ===== Contourline — topographic sheet system ===== */
+:root{
+  --cln-bg:#f7f8f4;
+  --cln-bg-alt:#eef0e6;
+  --cln-paper:#fffefb;
+  --cln-ink:#14211f;
+  --cln-ink-soft:#48564f;
+  --cln-ink-faint:#7c887f;
+  --cln-line:rgba(20,33,31,.34);
+  --cln-line-soft:rgba(20,33,31,.16);
+  --cln-contour:#2f6b3c;
+  --cln-contour-soft:#e4ece3;
+  --cln-trail:#b0561c;
+  --cln-trail-soft:#f5e6d9;
+  --cln-maxw:1160px;
+  --cln-radius:0px;
+  --cln-serif:Perpetua,'Palatino Linotype','Book Antiqua',Georgia,serif;
+  --cln-sans:'Gill Sans MT','Gill Sans',Corbel,Calibri,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{margin:0;background:var(--cln-bg);color:var(--cln-ink);font-family:var(--cln-serif);font-size:17px;line-height:1.64;}
+img{max-width:100%;display:block;}
+h1,h2,h3,h4{font-family:var(--cln-serif);font-weight:400;line-height:1.18;margin:0 0 .5em;color:var(--cln-ink);}
+p{margin:0 0 1.1em;}
+a{color:var(--cln-contour);text-decoration:none;border-bottom:1px solid var(--cln-line-soft);}
+a:hover{border-bottom-color:var(--cln-contour);}
+ul,ol{margin:0 0 1.1em;padding-left:1.25em;}
+button,input{font-family:inherit;}
+
+.cln-shell{max-width:var(--cln-maxw);margin:0 auto;padding:0 28px;}
+.cln-eyebrow{font-family:var(--cln-sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cln-contour);}
+.cln-hr{border:none;border-top:1px solid var(--cln-line-soft);margin:0;}
+
+/* ---- header ---- */
+.cln-header{background:var(--cln-paper);border-bottom:1px solid var(--cln-ink);}
+.cln-header-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 28px;flex-wrap:wrap;}
+.cln-brand{display:flex;align-items:center;gap:11px;}
+.cln-brand-mark{width:34px;height:34px;flex:none;}
+.cln-brand-name{font-family:var(--cln-serif);font-size:22px;letter-spacing:.01em;color:var(--cln-ink);line-height:1;}
+.cln-brand-tag{display:block;font-family:var(--cln-sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cln-ink-faint);margin-top:3px;}
+.cln-brand-link{border-bottom:none;}
+.cln-nav{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+.cln-nav a{font-family:var(--cln-sans);font-size:13.5px;letter-spacing:.03em;color:var(--cln-ink-soft);border-bottom:1px solid transparent;}
+.cln-nav a:hover,.cln-nav a[aria-current="page"]{color:var(--cln-contour);border-bottom-color:var(--cln-contour);}
+.cln-coord-readout{font-family:var(--cln-sans);font-size:11px;letter-spacing:.08em;color:var(--cln-ink-faint);white-space:nowrap;}
+
+/* ---- breadcrumb ---- */
+.cln-crumb{font-family:var(--cln-sans);font-size:12px;letter-spacing:.03em;color:var(--cln-ink-faint);padding:14px 0;}
+.cln-crumb a{color:var(--cln-ink-faint);border-bottom:1px solid var(--cln-line-soft);}
+.cln-crumb span{margin:0 6px;}
+
+/* ---- hero: coordinate-framed, full bleed ---- */
+.cln-hero{background:var(--cln-ink);padding:22px 0 34px;}
+.cln-hero-frame{position:relative;max-width:var(--cln-maxw);margin:0 auto;padding:26px 22px 22px 46px;}
+.cln-hero-frame::before{content:"";position:absolute;top:0;left:46px;right:0;height:15px;
+  background-image:repeating-linear-gradient(to right,rgba(247,248,244,.55) 0 1px,transparent 1px 40px);}
+.cln-hero-frame::after{content:"";position:absolute;top:15px;bottom:0;left:0;width:15px;
+  background-image:repeating-linear-gradient(to bottom,rgba(247,248,244,.55) 0 1px,transparent 1px 40px);}
+.cln-hero-coord{position:absolute;font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.07em;color:rgba(247,248,244,.72);z-index:1;}
+.cln-hero-coord--tl{top:2px;left:6px;}
+.cln-hero-coord--br{bottom:2px;right:6px;}
+.cln-hero-inner{border:1px solid rgba(247,248,244,.4);position:relative;}
+.cln-hero-media{position:relative;overflow:hidden;border-bottom:1px solid rgba(247,248,244,.4);}
+.cln-hero-media img{width:100%;height:400px;object-fit:cover;filter:saturate(.94) contrast(1.02);}
+.cln-hero-legend{position:absolute;right:18px;bottom:18px;background:var(--cln-paper);border:1px solid var(--cln-ink);padding:12px 14px;width:188px;z-index:2;}
+.cln-hero-legend h3{font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;margin:0 0 8px;color:var(--cln-ink);}
+.cln-hero-legend ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;}
+.cln-hero-legend li{display:flex;align-items:center;gap:9px;font-family:var(--cln-sans);font-size:11.5px;color:var(--cln-ink-soft);}
+.cln-legend-swatch{width:22px;height:0;border-top:2px solid var(--cln-contour);display:inline-block;flex:none;}
+.cln-legend-swatch--trail{border-top-style:dashed;border-color:var(--cln-trail);}
+.cln-legend-swatch--boundary{border-top-style:dotted;border-color:var(--cln-ink);}
+.cln-hero-copy{background:var(--cln-paper);padding:26px 28px 28px;}
+.cln-hero-kicker{font-family:var(--cln-sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cln-trail);margin-bottom:10px;}
+.cln-hero-title{font-size:clamp(28px,4vw,42px);max-width:20ch;}
+.cln-hero-dek{font-family:var(--cln-sans);font-size:15.5px;color:var(--cln-ink-soft);max-width:56ch;margin-top:6px;}
+
+/* ---- 12-col layout: uneven 7/5 with sticky right rail ---- */
+.cln-layout{display:grid;grid-template-columns:1fr;gap:44px;padding:44px 0 60px;}
+.cln-main{min-width:0;}
+.cln-aside-inner{border:1px solid var(--cln-ink);background:var(--cln-paper);padding:0;}
+.cln-aside-block{padding:18px 20px;}
+.cln-aside-block + .cln-aside-block{border-top:1px solid var(--cln-line-soft);}
+.cln-aside-title{font-family:var(--cln-sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--cln-contour);margin-bottom:12px;}
+.cln-aside-scale{display:flex;align-items:flex-end;height:16px;border-bottom:1px solid var(--cln-ink);margin:10px 0 4px;}
+.cln-aside-scale span{flex:1;border-left:1px solid var(--cln-ink);height:8px;}
+.cln-aside-scale span:first-child{height:16px;}
+.cln-aside-scale-label{display:flex;justify-content:space-between;font-family:var(--cln-sans);font-size:10px;color:var(--cln-ink-faint);}
+.cln-related{list-style:none;margin:0;padding:0;display:grid;gap:12px;}
+.cln-related li{padding-bottom:12px;border-bottom:1px solid var(--cln-line-soft);}
+.cln-related li:last-child{border-bottom:none;padding-bottom:0;}
+.cln-related a{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink);border-bottom:none;display:block;line-height:1.4;}
+.cln-related a:hover{color:var(--cln-contour);}
+.cln-related small{display:block;font-size:11px;color:var(--cln-ink-faint);margin-top:3px;letter-spacing:.03em;}
+
+@media(min-width:940px){
+  .cln-layout{grid-template-columns:7fr 5fr;align-items:start;}
+  .cln-aside{position:sticky;top:20px;}
+}
+
+/* ---- index / plates (article entries) ---- */
+.cln-index{display:grid;gap:26px;grid-template-columns:1fr;}
+@media(min-width:640px){.cln-index{grid-template-columns:1fr 1fr;}}
+.cln-plate{border:1px solid var(--cln-ink);background:var(--cln-paper);}
+.cln-plate-frame{position:relative;border-bottom:1px solid var(--cln-ink);}
+.cln-plate-frame::before,.cln-plate-frame::after{content:"";position:absolute;width:9px;height:9px;border:1px solid var(--cln-ink);background:var(--cln-paper);z-index:1;}
+.cln-plate-frame::before{top:-5px;left:-5px;}
+.cln-plate-frame::after{top:-5px;right:-5px;}
+.cln-plate-media{overflow:hidden;height:168px;}
+.cln-plate-media img{width:100%;height:100%;object-fit:cover;}
+.cln-plate-body{padding:16px 18px 18px;}
+.cln-plate-cat{font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--cln-trail);}
+.cln-plate-title{font-size:19px;margin:8px 0 6px;}
+.cln-plate-title a{color:var(--cln-ink);border-bottom:none;}
+.cln-plate-title a:hover{color:var(--cln-contour);}
+.cln-plate-dek{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin-bottom:10px;}
+.cln-plate-meta{font-family:var(--cln-sans);font-size:11px;color:var(--cln-ink-faint);letter-spacing:.03em;}
+
+/* ---- generic section ---- */
+.cln-section{padding:52px 0;}
+.cln-section-alt{background:var(--cln-bg-alt);}
+.cln-section-head{max-width:640px;margin:0 0 30px;}
+.cln-section-head .cln-eyebrow{margin-bottom:10px;display:block;}
+
+/* ---- buttons ---- */
+.cln-btn{display:inline-block;font-family:var(--cln-sans);font-size:13.5px;letter-spacing:.05em;text-transform:uppercase;padding:12px 22px;border:1px solid var(--cln-ink);color:var(--cln-ink);border-bottom-width:1px;background:transparent;cursor:pointer;}
+.cln-btn:hover{background:var(--cln-ink);color:var(--cln-paper);}
+.cln-btn--primary{background:var(--cln-contour);border-color:var(--cln-contour);color:#fff;}
+.cln-btn--primary:hover{background:var(--cln-ink);border-color:var(--cln-ink);}
+
+/* ---- app mockup (Waypoint Card) ---- */
+.cln-app-grid{display:grid;gap:36px;grid-template-columns:1fr;align-items:center;}
+@media(min-width:900px){.cln-app-grid{grid-template-columns:5fr 7fr;}}
+.cln-app-mock{border:1px solid var(--cln-ink);background:var(--cln-paper);padding:18px;max-width:300px;margin:0 auto;}
+.cln-app-mock-head{display:flex;justify-content:space-between;align-items:center;font-family:var(--cln-sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cln-ink-faint);border-bottom:1px solid var(--cln-line-soft);padding-bottom:10px;margin-bottom:12px;}
+.cln-app-mock-title{font-family:var(--cln-serif);font-size:20px;margin-bottom:4px;}
+.cln-app-mock-sub{font-family:var(--cln-sans);font-size:11.5px;color:var(--cln-ink-soft);margin-bottom:14px;}
+.cln-app-mock-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid var(--cln-line-soft);font-family:var(--cln-sans);font-size:12px;}
+.cln-app-mock-row span:first-child{color:var(--cln-ink-faint);}
+.cln-app-mock-scalebar{display:flex;height:10px;margin:14px 0 4px;border:1px solid var(--cln-ink);}
+.cln-app-mock-scalebar i{flex:1;font-style:normal;}
+.cln-app-mock-scalebar i:nth-child(odd){background:var(--cln-ink);}
+.cln-app-mock-scale-label{display:flex;justify-content:space-between;font-family:var(--cln-sans);font-size:9.5px;color:var(--cln-ink-faint);}
+.cln-app-mock-badge{display:inline-block;margin-top:14px;font-family:var(--cln-sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--cln-contour);border:1px solid var(--cln-contour);padding:4px 9px;}
+
+.cln-features{display:grid;gap:1px;background:var(--cln-line-soft);border:1px solid var(--cln-line-soft);grid-template-columns:1fr;margin-top:8px;}
+@media(min-width:640px){.cln-features{grid-template-columns:1fr 1fr;}}
+@media(min-width:940px){.cln-features{grid-template-columns:1fr 1fr 1fr;}}
+.cln-feature{background:var(--cln-paper);padding:22px 20px;}
+.cln-feature-icon{width:26px;height:26px;color:var(--cln-contour);margin-bottom:12px;}
+.cln-feature-icon svg{width:100%;height:100%;}
+.cln-feature-title{font-family:var(--cln-sans);font-size:14.5px;font-weight:normal;letter-spacing:.01em;color:var(--cln-ink);margin-bottom:6px;}
+.cln-feature-text{font-family:var(--cln-sans);font-size:13px;color:var(--cln-ink-soft);line-height:1.55;margin:0;}
+
+.cln-steps{list-style:none;margin:0;padding:0;display:grid;gap:0;}
+.cln-step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--cln-line-soft);}
+.cln-step:first-child{border-top:1px solid var(--cln-ink);}
+.cln-step-num{font-family:var(--cln-sans);font-size:13px;color:var(--cln-trail);border:1px solid var(--cln-trail);width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.cln-step-title{font-family:var(--cln-sans);font-size:14.5px;color:var(--cln-ink);margin-bottom:4px;}
+.cln-step-text{font-family:var(--cln-sans);font-size:13px;color:var(--cln-ink-soft);margin:0;}
+
+.cln-faq{display:grid;gap:0;}
+.cln-faq-item{border-top:1px solid var(--cln-line-soft);padding:18px 0;}
+.cln-faq-item:last-child{border-bottom:1px solid var(--cln-line-soft);}
+.cln-faq-q{font-family:var(--cln-sans);font-size:15px;color:var(--cln-ink);margin:0 0 8px;}
+.cln-faq-a{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0;}
+
+/* ---- newsletter (cosmetic) ---- */
+.cln-newsletter{border:1px solid var(--cln-ink);background:var(--cln-paper);padding:28px;display:grid;gap:16px;}
+@media(min-width:700px){.cln-newsletter{grid-template-columns:1.3fr 1fr;align-items:center;}}
+.cln-newsletter-title{font-size:22px;margin-bottom:6px;}
+.cln-newsletter-text{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0;}
+.cln-newsletter-form{display:flex;gap:0;}
+.cln-newsletter-form input{flex:1;border:1px solid var(--cln-ink);border-right:none;padding:12px 14px;font-family:var(--cln-sans);font-size:13.5px;background:var(--cln-bg);color:var(--cln-ink);}
+.cln-newsletter-form input:focus{outline:none;background:#fff;}
+.cln-newsletter-form button{border-left:none;}
+.cln-ok{display:none;font-family:var(--cln-sans);font-size:12.5px;color:var(--cln-contour);margin-top:8px;}
+
+/* ---- prose (article body) ---- */
+.cln-prose h2{font-size:25px;margin-top:1.6em;}
+.cln-prose h3{font-size:20px;margin-top:1.4em;}
+.cln-prose p{color:var(--cln-ink);}
+.cln-callout{border:1px solid var(--cln-line);border-left:3px solid var(--cln-contour);background:var(--cln-contour-soft);padding:16px 18px;font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:1.6em 0;}
+.cln-callout strong{color:var(--cln-ink);}
+.cln-pull{border-top:1px solid var(--cln-ink);border-bottom:1px solid var(--cln-ink);padding:18px 0;margin:1.8em 0;font-size:21px;line-height:1.5;color:var(--cln-ink);}
+.cln-pull cite{display:block;font-family:var(--cln-sans);font-size:11.5px;font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--cln-ink-faint);margin-top:8px;}
+.cln-tag{display:inline-block;font-family:var(--cln-sans);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--cln-ink-soft);border:1px solid var(--cln-line);padding:4px 9px;margin:2px 6px 2px 0;}
+
+/* ---- glossary ---- */
+.cln-gloss-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:30px;}
+.cln-gloss-nav a{font-family:var(--cln-sans);font-size:12.5px;color:var(--cln-ink-soft);border:1px solid var(--cln-line);padding:5px 10px;border-bottom:1px solid var(--cln-line);}
+.cln-gloss-nav a:hover{color:var(--cln-contour);border-color:var(--cln-contour);}
+.cln-gloss-item{border-top:1px solid var(--cln-line-soft);padding:20px 0;}
+.cln-gloss-item:first-child{border-top:1px solid var(--cln-ink);}
+.cln-gloss-term{font-size:19px;margin-bottom:6px;}
+.cln-gloss-term em{font-family:var(--cln-sans);font-style:normal;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cln-trail);margin-left:10px;}
+.cln-gloss-def{font-family:var(--cln-sans);font-size:14px;color:var(--cln-ink-soft);margin:0;}
+
+/* ---- about / team / policy ---- */
+.cln-team{display:grid;gap:22px;grid-template-columns:1fr;margin-top:10px;}
+@media(min-width:640px){.cln-team{grid-template-columns:1fr 1fr;}}
+.cln-team-member{border:1px solid var(--cln-line);padding:18px;}
+.cln-team-name{font-size:17px;margin-bottom:2px;}
+.cln-team-role{font-family:var(--cln-sans);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--cln-trail);margin-bottom:10px;}
+.cln-team-bio{font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0;}
+.cln-policy-list{list-style:none;padding:0;margin:0;display:grid;gap:14px;}
+.cln-policy-list li{border-top:1px solid var(--cln-line-soft);padding-top:14px;font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);}
+.cln-policy-list strong{color:var(--cln-ink);font-family:var(--cln-serif);font-size:15.5px;display:block;margin-bottom:4px;font-weight:400;}
+
+/* ---- legal pages ---- */
+.cln-legal h2{font-size:20px;margin-top:1.5em;}
+.cln-legal p,.cln-legal li{font-family:var(--cln-sans);font-size:14px;color:var(--cln-ink-soft);}
+.cln-legal-updated{font-family:var(--cln-sans);font-size:12px;color:var(--cln-ink-faint);letter-spacing:.04em;margin-bottom:22px;}
+
+/* ---- footer ---- */
+.cln-footer{background:var(--cln-ink);color:var(--cln-bg);padding:46px 0 0;margin-top:20px;}
+.cln-footer-in{display:grid;gap:32px;grid-template-columns:1.4fr 1fr 1fr;padding-bottom:34px;border-bottom:1px solid rgba(247,248,244,.2);}
+@media(max-width:760px){.cln-footer-in{grid-template-columns:1fr;}}
+.cln-footer-brand{font-family:var(--cln-serif);font-size:20px;margin-bottom:10px;color:var(--cln-bg);}
+.cln-footer-text{font-family:var(--cln-sans);font-size:13px;color:rgba(247,248,244,.68);max-width:34ch;}
+.cln-footer-title{font-family:var(--cln-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,248,244,.55);margin-bottom:14px;}
+.cln-footer-links{list-style:none;margin:0;padding:0;display:grid;gap:9px;}
+.cln-footer-links a{font-family:var(--cln-sans);font-size:13.5px;color:rgba(247,248,244,.82);border-bottom:none;}
+.cln-footer-links a:hover{color:#fff;border-bottom:1px solid rgba(247,248,244,.5);}
+.cln-footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:20px 0;font-family:var(--cln-sans);font-size:11.5px;color:rgba(247,248,244,.5);}
+
+@media(max-width:600px){
+  .cln-header-in{padding:14px 20px;}
+  .cln-hero-frame{padding:20px 14px 16px 30px;}
+  .cln-hero-media img{height:260px;}
+  .cln-hero-legend{position:static;width:auto;margin-top:14px;}
+  .cln-hero-copy{padding:20px 18px 22px;}
+  .cln-shell{padding:0 18px;}
+}
+  </style>
+</head><body>
+  <header class="cln-header">
+  <div class="cln-shell cln-header-in">
+    <a class="cln-brand cln-brand-link" href="safe.html">
+      <span class="cln-brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="26" r="18" fill="none" stroke="#2f6b3c" stroke-width="2"/><circle cx="24" cy="26" r="12" fill="none" stroke="#2f6b3c" stroke-width="2"/><circle cx="24" cy="26" r="6" fill="none" stroke="#2f6b3c" stroke-width="2"/><path d="M8 8 L40 8" stroke="#b0561c" stroke-width="2"/><path d="M8 8 L13 3 M8 8 L13 13" stroke="#b0561c" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+      <span>
+        <span class="cln-brand-name">Contourline</span>
+        <span class="cln-brand-tag">Field notes on maps</span>
+      </span>
+    </a>
+    <nav class="cln-nav" aria-label="Primary">
+      <a href="safe.html" aria-current="page">Journal</a>
+      <a href="app.html">Waypoint Card</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+    <span class="cln-coord-readout">Sheet 44&deg;16'N&nbsp;71&deg;18'W</span>
+  </div>
+</header>
+
+  <article class="cln-post">
+    <div class="cln-shell">
+      <div class="cln-crumb"><a href="safe.html">Journal</a><span>/</span><a href="safe.html">Coordinate Systems</a><span>/</span>The Datum Problem Nobody Mentions</div>
+    </div>
+
+    <section class="cln-hero">
+      <div class="cln-hero-frame">
+        <span class="cln-hero-coord cln-hero-coord--tl">40&deg;42'46"N (1927 sheet)</span>
+        <span class="cln-hero-coord cln-hero-coord--br">40&deg;42'51"N (GPS fix)</span>
+        <div class="cln-hero-inner">
+          <div class="cln-hero-media">
+            <img src="img/the-datum-problem.jpg" alt="The Datum Problem Nobody Mentions">
+            <div class="cln-hero-legend">
+              <h3>On this sheet</h3>
+              <ul>
+                <li><span class="cln-legend-swatch"></span> Shoreline, GPS fix</li>
+                <li><span class="cln-legend-swatch cln-legend-swatch--trail"></span> Shoreline, 1927 survey</li>
+                <li><span class="cln-legend-swatch cln-legend-swatch--boundary"></span> Datum shift vector</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cln-hero-copy">
+            <div class="cln-hero-kicker">Coordinate Systems &middot; Jun 19, 2026 &middot; 7 min read</div>
+            <h1 class="cln-hero-title">The Datum Problem Nobody Mentions</h1>
+            <p class="cln-hero-dek">Two maps of the same coastline, two different datums, and a shoreline that jumps a hundred meters between them.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cln-shell">
+      <div class="cln-layout">
+        <main class="cln-main cln-prose">
+
+          <p>Open two charts of the same harbor &mdash; one traced from a 1968 survey sheet, one exported fresh off a phone &mdash; and plot the identical coordinate pair on both. On the old sheet, that latitude and longitude sit a clean stretch offshore, past the end of the breakwater. On the new one, the same numbers land you on the seawall, inside the harbor office. The coastline did not move. The surveyors were not sloppy. The two sheets were simply built on different mathematical models of the earth, and nobody printed which one on either page.</p>
+
+          <h2>A globe is not the sphere it pretends to be</h2>
+          <p>The earth bulges at the equator, flattens slightly at the poles, and sags or swells locally wherever mass is denser underground &mdash; a mountain range here, a subducting plate there. The true shape, called the geoid, is too irregular to compute coordinates against directly, so every mapping system substitutes a smooth mathematical stand-in: a reference ellipsoid, an idealized oblate sphere tuned to fit the geoid as closely as the math of the era allowed. Clarke's ellipsoid of 1866 was one such compromise. GRS80, built from satellite tracking a century later, is another, closer one. Neither is the earth. Both are useful approximations, chosen at a moment in time, with the tools available then.</p>
+
+          <h2>A datum is where you decide the model touches ground</h2>
+          <p>An ellipsoid alone is just a shape floating in space; it says nothing about where Kansas or the Andaman coast actually sits on it. A datum pins the ellipsoid to the real world by fixing an origin point &mdash; historically, a single physical survey marker &mdash; and an orientation, then propagating coordinates outward from that anchor across an entire national grid. Change the origin, the ellipsoid, or both, and every coordinate downstream shifts with it, even though the ground being described never moved an inch. This is the layer that sits underneath a map's projection, discussed in <a href="the-projection-you-didnt-choose.html">The Projection You Didn't Choose</a>: projection decides how a curved surface gets flattened onto paper, and datum decides what that curved surface was assumed to be in the first place.</p>
+
+          <h2>The shift that happened without a headline</h2>
+          <p>The North American Datum of 1927 anchored its ellipsoid to a single brass marker at Meades Ranch, Kansas, and every triangulated coordinate on the continent was built outward from that one point using survey instruments of the day. By the early 1980s, decades of satellite geodesy had shown the fit was uneven &mdash; good near Kansas, drifting further off across the edges of the continent. The replacement, NAD83, used a new ellipsoid centered on the earth's actual center of mass rather than one regional marker. The same physical survey monument can carry two different sets of coordinates depending on which datum produced them, and the gap between those two numbers, for a single fixed point of granite in the ground, commonly runs into tens of meters and can run further on older regional networks.</p>
+
+          <div class="cln-callout"><strong>A note on what "wrong" means here.</strong> Neither NAD27 nor NAD83 nor WGS84 is the incorrect one. Each is an internally consistent model, accurate on its own terms, built to the best geodetic knowledge available when it was defined. The mismatch only appears when coordinates from two different datums get plotted on the same sheet without converting one into the other first.</div>
+
+          <h2>Why the mismatch still surfaces on paper today</h2>
+          <p>Modern consumer devices resolve this quietly &mdash; a phone's GPS chip reports positions in WGS84 and most current basemaps are built the same way, so the conversion never becomes visible to the person holding the screen. The trouble reappears at the edges: an old property plat referenced to a state grid built on NAD27, a decades-old topographic quad still sitting in a trailhead kiosk, a handheld GPS unit whose datum setting got changed once and never checked again. Anyone who has tried <a href="walking-a-map-into-the-field.html">walking a paper map into the field</a> against a live GPS track has likely felt this without naming it &mdash; a trail that seems to run a few dozen meters off from where the device insists it should be, on ground that has not shifted since the survey crew last walked it.</p>
+
+          <blockquote class="cln-pull">A coordinate is not a fact about the ground. It is a fact about the model of the ground someone chose to use, and two honest models can disagree by a hundred meters without either one being wrong.<cite>Field note, Sheet 44</cite></blockquote>
+
+          <h2>Reading the datum like a field note</h2>
+          <p>You rarely need to solve the geodesy yourself &mdash; you mainly need to notice the question exists before it costs you an afternoon:</p>
+          <ul>
+            <li>Check the margin of a printed sheet for a datum label, often small text near the scale bar or neatline reading something like "NAD27" or "WGS84."</li>
+            <li>On a GPS device or mapping app, check the datum setting in the coordinate or units menu before trusting a reading against an older paper source.</li>
+            <li>If an overlay of old and new data looks consistently offset in one direction rather than randomly scattered, suspect a datum mismatch before suspecting bad survey work.</li>
+            <li>Treat any coordinate copied out of an old deed, chart, or report as datum-unknown until the source states otherwise.</li>
+          </ul>
+
+          <table>
+            <thead><tr><th>Datum</th><th>Reference ellipsoid</th><th>Origin</th><th>Era of use</th><th>Where you'll still meet it</th></tr></thead>
+            <tbody>
+              <tr><td>NAD27</td><td>Clarke 1866</td><td>Meades Ranch, Kansas</td><td>1927 &ndash; 1980s</td><td>Older USGS topo quads, older property surveys</td></tr>
+              <tr><td>NAD83</td><td>GRS80</td><td>Geocentric (earth's mass center)</td><td>1983 &ndash; present</td><td>Current US federal surveys, most GIS layers</td></tr>
+              <tr><td>WGS84</td><td>WGS84 ellipsoid</td><td>Geocentric, satellite-derived</td><td>1984 &ndash; present</td><td>GPS receivers, phone maps, most web basemaps</td></tr>
+              <tr><td>ED50</td><td>International 1924</td><td>Potsdam, Germany (regional)</td><td>1950 &ndash; 1990s</td><td>Older European charts, some legacy survey grids</td></tr>
+              <tr><td>Local historical datums</td><td>Various regional ellipsoids</td><td>A single local astronomic marker</td><td>19th &ndash; mid 20th c.</td><td>Pre-satellite national surveys underneath some older plats</td></tr>
+            </tbody>
+          </table>
+
+          <p>None of this makes an old chart untrustworthy or a new one automatically superior. It means the two were built to different specifications, the way two rulers calibrated to slightly different lengths can both be precise instruments and still disagree the moment you compare a measurement from one against the other.</p>
+
+          <div class="cln-callout"><strong>Educational note.</strong> This piece explains how reference ellipsoids and datums work in general terms &mdash; it is not a survey, GIS, or navigation guide for any specific location, device, or dataset. For related terms, see the glossary entries on ellipsoid, geoid, and datum shift.</div>
+
+          <div class="cln-callout" style="background:var(--cln-paper);border-left-color:var(--cln-trail);">
+            <strong>Read also</strong>
+            <ul style="margin:10px 0 0;">
+              <li><a href="scale-bars-and-the-lies-they-tell.html">Scale Bars and the Lies They Tell</a> &mdash; another number on the map that means something different depending on assumptions buried underneath it.</li>
+              <li><a href="the-blank-spaces-on-old-charts.html">The Blank Spaces on Old Charts</a> &mdash; what older survey sheets left out, and why the gaps were rarely accidental.</li>
+              <li><a href="grid-north-versus-true-north.html">Grid North Versus True North</a> &mdash; a companion mismatch, this time in direction rather than position.</li>
+            </ul>
+          </div>
+
+        </main>
+
+        <aside class="cln-aside">
+          <div class="cln-aside-inner">
+            <div class="cln-aside-block">
+              <div class="cln-aside-title">About this journal</div>
+              <p style="font-family:var(--cln-sans);font-size:13.5px;color:var(--cln-ink-soft);margin:0 0 10px;">Contourline is written by a small group of amateur cartographers who spend most weekends comparing a printed sheet to the ground it claims to describe.</p>
+              <a href="about.html" style="font-family:var(--cln-sans);font-size:13px;">Read our approach &rarr;</a>
+            </div>
+            <div class="cln-aside-block">
+              <div class="cln-aside-title">More field notes</div>
+              <ul class="cln-related">
+                <li><a href="the-projection-you-didnt-choose.html">The Projection You Didn't Choose<small>Projection &middot; 8 min</small></a></li>
+                <li><a href="grid-north-versus-true-north.html">Grid North Versus True North<small>Navigation &middot; 7 min</small></a></li>
+                <li><a href="the-blank-spaces-on-old-charts.html">The Blank Spaces on Old Charts<small>Archival Maps &middot; 6 min</small></a></li>
+                <li><a href="walking-a-map-into-the-field.html">Walking a Map Into the Field<small>Fieldwork &middot; 9 min</small></a></li>
+              </ul>
+            </div>
+            <div class="cln-aside-block">
+              <div class="cln-aside-title">Graphic scale</div>
+              <div class="cln-aside-scale">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <div class="cln-aside-scale-label"><span>0</span><span>1</span><span>2</span><span>3 km</span></div>
+            </div>
+            <div class="cln-aside-block">
+              <div class="cln-aside-title">Newsletter</div>
+              <p style="font-family:var(--cln-sans);font-size:13px;color:var(--cln-ink-soft);margin:0 0 12px;">One new field note a month. No spam, no maps sold.</p>
+              <form class="cln-newsletter-form" onsubmit="return sub(event)">
+                <input type="email" required placeholder="you@example.com" aria-label="Email address">
+                <button class="cln-btn" type="submit">Join</button>
+              </form>
+              <div class="cln-ok" id="ok">Thanks &mdash; you're on the list.</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+
+  <footer class="cln-footer">
+  <div class="cln-shell cln-footer-in">
+    <div>
+      <div class="cln-footer-brand">Contourline</div>
+      <p class="cln-footer-text">An independent journal about reading maps closely &mdash; projection, generalization, and the choices a cartographer makes about what to leave out. Written for people who like to know why a map looks the way it does.</p>
+    </div>
+    <div>
+      <div class="cln-footer-title">Read</div>
+      <ul class="cln-footer-links">
+        <li><a href="safe.html">Journal</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="app.html">Waypoint Card</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="cln-footer-title">Site</div>
+      <ul class="cln-footer-links">
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms of use</a></li>
+        <li><a href="mailto:notes@contourline.shop">notes@contourline.shop</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cln-shell cln-footer-bottom">
+    <span>&copy; 2026 Contourline. Reading maps, one contour at a time.</span>
+    <span>Independent journal &middot; not affiliated with any surveying authority</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>
