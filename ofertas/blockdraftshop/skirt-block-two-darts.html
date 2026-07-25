@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Building a Skirt Block With Two Darts Instead of One · Blockdraft</title>
+  <meta name="description" content="One long waist dart puts all the shaping on a single fold. Notes on drafting a skirt block with two shorter darts per half, and how to split the total.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://blockdraft.shop/skirt-block-two-darts.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fbf7f2'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23b03050' stroke-width='3'/%3E%3Cpath d='M32 10l6 10h-12z' fill='%23b03050'/%3E%3Cpath d='M14 34l8-6v12z' fill='%232f5f8f'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --bdk-bg:#fbf7f2;
+  --bdk-bg-alt:#f2ecdf;
+  --bdk-text:#2b2622;
+  --bdk-text-soft:#5b534a;
+  --bdk-accent:#b03050;
+  --bdk-mark:#2f5f8f;
+  --bdk-line:#c9bfae;
+  --bdk-radius:8.5px;
+  --bdk-maxw:870px;
+  --bdk-serif:'Book Antiqua','Palatino Linotype',Georgia,serif;
+  --bdk-sans:Geneva,Verdana,'Trebuchet MS',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bdk-bg);color:var(--bdk-text);font-family:var(--bdk-sans);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:var(--bdk-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--bdk-serif);font-weight:400;color:var(--bdk-text);line-height:1.2;margin:0 0 .5em;}
+h1{font-size:2.35rem;letter-spacing:.2px;}
+h2{font-size:1.65rem;margin-top:2.2em;}
+h3{font-size:1.25rem;}
+p{margin:0 0 1.1em;}
+ul,ol{margin:0 0 1.1em;padding-left:1.3em;}
+li{margin-bottom:.4em;}
+.bdk-wrap{max-width:var(--bdk-maxw);margin:0 auto;padding:0 22px;}
+.bdk-notch{display:inline-block;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid var(--bdk-accent);}
+.bdk-notch.bdk-notch--blue{border-top-color:var(--bdk-mark);}
+.bdk-sep{position:relative;border:0;border-top:2px dashed var(--bdk-line);margin:46px 0;}
+.bdk-sep::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--bdk-mark);}
+.bdk-header{border-bottom:2px dashed var(--bdk-line);background:var(--bdk-bg);position:sticky;top:0;z-index:20;}
+.bdk-headbar{max-width:var(--bdk-maxw);margin:0 auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bdk-logo{display:flex;align-items:center;gap:9px;font-family:var(--bdk-serif);font-size:1.4rem;color:var(--bdk-text);}
+.bdk-logo:hover{text-decoration:none;}
+.bdk-logo-mark{width:26px;height:26px;border:2px solid var(--bdk-accent);border-radius:50%;position:relative;flex:none;}
+.bdk-logo-mark::before{content:"";position:absolute;left:50%;top:-2px;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--bdk-accent);}
+.bdk-nav{display:flex;gap:22px;flex-wrap:wrap;font-size:.92rem;}
+.bdk-nav a{color:var(--bdk-text-soft);letter-spacing:.3px;}
+.bdk-nav a:hover{color:var(--bdk-accent);}
+.bdk-footer{border-top:2px dashed var(--bdk-line);margin-top:60px;padding:38px 0 30px;background:var(--bdk-bg-alt);}
+.bdk-foot-grid{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;}
+.bdk-foot-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-text-soft);font-family:var(--bdk-sans);margin-bottom:10px;}
+.bdk-foot-col a{display:block;color:var(--bdk-text);font-size:.92rem;margin-bottom:7px;}
+.bdk-foot-bottom{margin-top:26px;padding-top:18px;border-top:1px dashed var(--bdk-line);font-size:.8rem;color:var(--bdk-text-soft);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;}
+.bdk-news{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);padding:26px;background:var(--bdk-bg-alt);}
+.bdk-news form{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.bdk-news input[type=email]{flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--bdk-line);border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.95rem;background:#fff;}
+.bdk-ok{display:none;margin-top:10px;color:var(--bdk-mark);font-size:.88rem;}
+.bdk-btn{display:inline-block;background:var(--bdk-accent);color:#fff;padding:12px 22px;border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.92rem;letter-spacing:.4px;border:none;cursor:pointer;}
+.bdk-btn:hover{background:#8f2540;text-decoration:none;color:#fff;}
+.bdk-btn--outline{background:transparent;color:var(--bdk-accent);border:1.5px solid var(--bdk-accent);}
+.bdk-btn--outline:hover{background:var(--bdk-accent);color:#fff;}
+.bdk-pattern{display:grid;grid-template-columns:55% 45%;position:relative;align-items:start;}
+.bdk-piece{padding:20px 30px 20px 0;border-right:2px dashed var(--bdk-mark);}
+.bdk-instruction{padding:20px 0 20px 30px;}
+.bdk-stepnum{position:absolute;left:55%;top:24px;transform:translate(-50%,0);width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;border:3px solid var(--bdk-bg);box-shadow:0 0 0 2px var(--bdk-mark);z-index:2;}
+.bdk-pattern + .bdk-pattern{border-top:2px dashed var(--bdk-line);}
+.bdk-piece h3,.bdk-instruction h3{margin-top:0;}
+.bdk-piece .bdk-thumb{border-radius:var(--bdk-radius);overflow:hidden;border:1px solid var(--bdk-line);margin-bottom:12px;}
+.bdk-piece .bdk-thumb img{width:100%;height:190px;object-fit:cover;display:block;}
+.bdk-meta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:6px;display:inline-block;}
+.bdk-dek{color:var(--bdk-text-soft);font-size:.95rem;}
+@media (max-width:640px){
+  .bdk-pattern{grid-template-columns:1fr;}
+  .bdk-piece{border-right:none;border-bottom:2px dashed var(--bdk-mark);padding:20px 0;}
+  .bdk-instruction{padding:20px 0;}
+  .bdk-stepnum{position:static;transform:none;margin-bottom:10px;}
+}
+.bdk-hero{padding:54px 0 20px;}
+.bdk-hero-frame{border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:14px;position:relative;}
+.bdk-hero-frame img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:320px;object-fit:cover;}
+.bdk-hero-frame::before,.bdk-hero-frame::after{content:"";position:absolute;top:50%;width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;}
+.bdk-hero-frame::before{left:-2px;border-left:9px solid var(--bdk-accent);}
+.bdk-hero-frame::after{right:-2px;border-right:9px solid var(--bdk-mark);}
+.bdk-eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--bdk-accent);margin-bottom:10px;}
+.bdk-mock{border:2px solid var(--bdk-text);border-radius:16px;max-width:250px;margin:0 auto;padding:14px;background:#fff;}
+.bdk-mock-bar{display:flex;justify-content:space-between;font-size:.7rem;color:var(--bdk-text-soft);margin-bottom:10px;}
+.bdk-mock-screen{border:2px dashed var(--bdk-mark);border-radius:8px;padding:12px;}
+.bdk-mock-row{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--bdk-line);font-size:.8rem;}
+.bdk-mock-row:last-child{border-bottom:none;}
+.bdk-mock-dot{width:16px;height:16px;border-radius:50%;background:var(--bdk-accent);flex:none;}
+.bdk-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-feat{padding:22px;border-right:2px dashed var(--bdk-line);border-bottom:2px dashed var(--bdk-line);}
+.bdk-feat:nth-child(2n){border-right:none;}
+.bdk-feat h3{font-size:1.05rem;margin-bottom:6px;}
+.bdk-feat p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-feat-grid{grid-template-columns:1fr;}.bdk-feat{border-right:none;}}
+.bdk-term{padding:20px 0;border-bottom:1px dashed var(--bdk-line);}
+.bdk-term dt{font-family:var(--bdk-serif);font-size:1.1rem;color:var(--bdk-accent);margin-bottom:6px;}
+.bdk-term dd{margin:0;color:var(--bdk-text-soft);}
+.bdk-alpha{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-accent);margin:34px 0 4px;}
+.bdk-badge{display:inline-block;background:var(--bdk-bg-alt);border:1px solid var(--bdk-line);border-radius:20px;padding:4px 12px;font-size:.75rem;color:var(--bdk-text-soft);margin-right:6px;}
+.bdk-section{padding:40px 0;}
+.bdk-lead{font-size:1.08rem;color:var(--bdk-text-soft);max-width:640px;}
+.bdk-quote{border-left:3px solid var(--bdk-accent);padding-left:16px;font-style:italic;color:var(--bdk-text-soft);margin:24px 0;}
+.bdk-updated{font-size:.85rem;color:var(--bdk-text-soft);}
+.bdk-team{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-team-card{padding:20px;border-right:2px dashed var(--bdk-line);}
+.bdk-team-card:last-child{border-right:none;}
+.bdk-team-card h3{font-size:1.05rem;margin-bottom:2px;}
+.bdk-team-role{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-team-card p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-team{grid-template-columns:1fr;}.bdk-team-card{border-right:none;border-bottom:2px dashed var(--bdk-line);}.bdk-team-card:last-child{border-bottom:none;}}
+.bdk-artmeta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-byline{font-size:.86rem;color:var(--bdk-text-soft);border-top:1px dashed var(--bdk-line);border-bottom:1px dashed var(--bdk-line);padding:10px 0;margin:0 0 30px;}
+.bdk-artbody{font-size:1.02rem;}
+.bdk-artbody h2{border-top:2px dashed var(--bdk-line);padding-top:26px;}
+.bdk-fig{margin:30px 0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:12px;}
+.bdk-fig img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:auto;}
+.bdk-figcap{font-size:.82rem;color:var(--bdk-text-soft);margin:10px 2px 0;}
+.bdk-callout{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);background:var(--bdk-bg-alt);padding:20px 22px;margin:30px 0;}
+.bdk-callout h3{margin-top:0;font-size:1.05rem;}
+.bdk-callout p:last-child{margin-bottom:0;}
+.bdk-steps{list-style:none;padding:0;counter-reset:bdkstep;margin:28px 0;}
+.bdk-steps li{counter-increment:bdkstep;position:relative;padding:2px 0 18px 52px;border-bottom:1px dashed var(--bdk-line);margin-bottom:18px;}
+.bdk-steps li:last-child{border-bottom:none;margin-bottom:0;}
+.bdk-steps li::before{content:counter(bdkstep);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;box-shadow:0 0 0 2px var(--bdk-mark);}
+.bdk-tablewrap{overflow-x:auto;margin:26px 0;}
+.bdk-table{border-collapse:collapse;width:100%;font-size:.92rem;}
+.bdk-table th,.bdk-table td{border:1px dashed var(--bdk-line);padding:9px 12px;text-align:left;}
+.bdk-table th{font-family:var(--bdk-serif);font-weight:400;background:var(--bdk-bg-alt);}
+.bdk-related{border-top:2px dashed var(--bdk-line);margin-top:46px;padding-top:24px;}
+.bdk-related a{display:block;margin-bottom:8px;}
+  </style>
+</head><body>
+  <header class="bdk-header">
+  <div class="bdk-headbar">
+    <a href="safe.html" class="bdk-logo"><span class="bdk-logo-mark"></span> Blockdraft</a>
+    <nav class="bdk-nav">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Blockbook</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+  <article class="bdk-post">
+    <div class="bdk-wrap bdk-section">
+      <span class="bdk-artmeta">Skirt Blocks</span>
+      <h1>Building a Skirt Block With Two Darts Instead of One</h1>
+      <p class="bdk-lead">One dart per half distributes waist suppression unevenly on most bodies — this note works through drafting a two-dart skirt block instead.</p>
+      <p class="bdk-byline">Blockdraft Journal &middot; April 15, 2026 &middot; Filed under Skirt Blocks</p>
+
+      <figure class="bdk-fig">
+        <img src="img/skirt-block-two-darts.jpg" alt="Building a Skirt Block With Two Darts Instead of One">
+        <figcaption class="bdk-figcap">Two shorter darts marked on a back panel, pinned before the waistline is trued and the legs are walked together.</figcaption>
+      </figure>
+
+      <div class="bdk-artbody">
+        <p>The first straight skirt off my block hung well from the side and badly from behind. Standing at the mirror the seams were plumb, the hem was level, and the whole back panel had a faint bubble in it — a soft rise between the two dart points, like the cloth had been asked to fold in one place and had done it grudgingly. Nothing was measured wrong. One dart on each half was simply carrying the entire difference between waist and hip, and it was carrying it in a straight line down the roundest part of the panel.</p>
+
+        <h2>What a single long dart is being asked to do</h2>
+        <p>A dart takes width out at one level and leaves it at another. That is all. When the waist sits several inches smaller than the hip, that difference has to go somewhere, and a one-dart draft hands nearly all of it to a single fold per quarter panel. The wider the dart, the steeper the cloth has to turn at its point, and the more abruptly it has to leave the flat plane and come back to it.</p>
+        <p>Past roughly an inch of intake, that turn tends to leave a mark. Smooth cottons and anything with a sheen show it first; a wool crepe or a heavy twill will absorb far more before it complains. The other half of the problem is geometric. A dart folds along a straight line, but the surface it is shaping curves in two directions at once — outward across the seat and inward toward the waist — so a single line can only be right at one point along its length.</p>
+
+        <h2>Working out the total suppression first</h2>
+        <p>Before deciding how many darts, decide how much. Take the waist where you actually want the band to sit, over the clothes you wear under a skirt rather than over bare skin — the difference matters more than people expect, which is the whole argument in <a href="measuring-over-worn-clothes.html">measuring over the clothes you actually wear</a>. Then take the fullest hip, usually somewhere around seven to nine inches below that waistline, and note how far down it fell.</p>
+        <p>Subtract one from the other and you have the total suppression for the whole circumference. That figure gets divided three ways: a share to the side seams, a share to the front darts, and a larger share to the back. Many drafting systems send somewhere between a third and a half of the total to the side seams, then split the remainder unevenly front to back. The exact split is a preference, not a law, and it is worth testing once on cloth and then keeping.</p>
+
+        <div class="bdk-tablewrap">
+          <table class="bdk-table">
+            <thead>
+              <tr><th>Waist-to-hip difference</th><th>Often taken at the side seams (total)</th><th>Left for the front, each half</th><th>Left for the back, each half</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>About 6 in</td><td>Roughly 2&frac12;&ndash;3 in</td><td>Roughly &frac12;&ndash;&frac34; in, split across two darts</td><td>Roughly &frac34;&ndash;1 in, split across two darts</td></tr>
+              <tr><td>About 8 in</td><td>Roughly 3&ndash;4 in</td><td>Roughly &frac34;&ndash;1 in</td><td>Roughly 1&ndash;1&frac14; in</td></tr>
+              <tr><td>About 10 in</td><td>Roughly 4&ndash;5 in</td><td>Roughly 1&ndash;1&frac14; in</td><td>Roughly 1&frac14;&ndash;1&frac34; in</td></tr>
+              <tr><td>About 12 in or more</td><td>Roughly 4&frac12;&ndash;5&frac12; in</td><td>Roughly 1&frac14;&ndash;1&frac12; in</td><td>Roughly 1&frac34;&ndash;2 in</td></tr>
+              <tr><td>Working in centimetres</td><td>Same proportions apply</td><td>Same proportions apply</td><td>Same proportions apply</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Read those as starting points to test, not as targets to hit. A side seam that swallows too much of the total starts to swing forward and lose its plumb line; one that swallows too little leaves the darts doing work they can't do quietly.</p>
+
+        <blockquote class="bdk-quote">Two shorter darts ask the cloth to change its mind twice, gently, instead of once, sharply.</blockquote>
+
+        <h2>Two darts, two different lengths</h2>
+        <p>Once the per-half figure is settled, split it. An even split is the obvious first try, though many people end up giving slightly more to the dart nearer the side seam, because that is where the panel curves hardest. The bigger decision is length, and the front and back rarely want the same answer.</p>
+        <p>Back darts tend to run longer — often somewhere around five and a half to seven inches from the waistline — because the curve behind you develops gradually and keeps developing well below the high hip. A short back dart releases its fullness too early and leaves a shelf. Front darts tend to be shorter, often three to four and a half inches, because the front curve is softer and closer to the waist. A long front dart aims a visible point at a flat area and usually shows.</p>
+        <p>Two darts also let you stagger the points instead of stopping them at the same level. Ending the inner dart half an inch or so above the outer one spreads the release over two lines rather than one, which is most of the reason the bubble disappears.</p>
+
+        <div class="bdk-callout">
+          <h3>Placing them by feel, not by fraction</h3>
+          <p>The usual instruction is to divide the quarter waist into thirds and drop a dart at each division. That is a reasonable place to start drawing. It is a poor place to stop, because it assumes the fullness sits symmetrically around the panel, and on most people it does not. Pin the first muslin, look at where the cloth actually wants to fold, and move the lines to meet it. A dart sitting a little off the tidy third is not a mistake — it is the panel telling you where its high point is.</p>
+        </div>
+
+        <h2>The draft, in order</h2>
+        <p>Work on paper first, with the hip line drawn before anything else. Every measurement below refers back to it.</p>
+
+        <ol class="bdk-steps">
+          <li>Draw the base rectangle: quarter hip plus your ease across, finished length down, with centre front and centre back marked. Rule the hip line at the depth you measured, and the waistline across the top.</li>
+          <li>Take the side seam share out at the waist on both front and back, then curve the seam smoothly from that new point down to the hip line. Keep the curve continuous — a corner here reads as a dent in cloth.</li>
+          <li>Divide what remains for the front half into two darts and mark their positions, starting from the tidy thirds and expecting to move them later.</li>
+          <li>Do the same for the back with the larger figure, spacing the two darts a little wider apart than the front pair and setting their points lower.</li>
+          <li>Draw each dart's legs from the waistline down to its point, then stagger the points so no two finish at the same level. Front points stay high; back points run deep.</li>
+          <li>True the waistline last. Fold each dart closed the way it will be pressed, cut or trace the curve across the folded paper, and let it open again — the waist edge should now read as one clean line rather than a row of steps.</li>
+        </ol>
+
+        <h2>Reading the first muslin</h2>
+        <p>Cut it in something with a similar hand to the fabric you have in mind, stitch the darts and side seams, and put a length of twill tape at the waist instead of a band. Then stand still and look for four things:</p>
+        <ul>
+          <li>A dimple or pucker at any dart point — usually means that dart is taking too much on its own, or its point stops in an area that hasn't started curving yet.</li>
+          <li>A soft ridge running between the two points on one panel, which says the darts are too close together and are behaving like one wide dart.</li>
+          <li>Fabric pooling just under the waist at the back, a sign the back darts are ending too high and releasing before the curve does.</li>
+          <li>The side seam drifting forward or back off plumb, which is a suppression split question rather than a dart question.</li>
+        </ul>
+        <p>Fix what you find on the paper block itself, not on the muslin, and re-cut. That is the point of a block: it absorbs the correction permanently so the next six skirts start from a shape that already works, which is the habit described in <a href="the-one-adjustment-rule.html">the one-adjustment rule</a>.</p>
+
+        <h2>When one dart is still the sensible answer</h2>
+        <p>A two-dart draft is not automatically better. When the waist-to-hip difference is small, splitting it produces two darts so shallow they barely register, and the extra stitching buys nothing. Heavy or napped cloth hides a single dart well enough that the second one is fuss. Gathered, pleated or bias-cut styles handle the difference in other ways entirely. And a yoked skirt trades darts for a seam, which is the same shaping wearing different clothes.</p>
+
+        <div class="bdk-news">
+          <h4 style="font-family:var(--bdk-serif);font-size:1.1rem;margin-bottom:8px;">A note on these figures</h4>
+          <p style="margin-bottom:0;font-size:.93rem;color:var(--bdk-text-soft);">These are working notes from a home sewing workbook, written for people drafting their own blocks. Drafting systems, fabric weights, ease preferences and posture all vary, so every quantity here is a starting point to test on your own muslin rather than a rule to follow. Nothing on this page is professional fitting instruction, and no measurement described here says anything about a body beyond how much room a garment needs.</p>
+        </div>
+
+        <div class="bdk-related">
+          <h3>Read also</h3>
+          <a href="dart-rotation-explained.html">Dart Rotation Explained: Moving Shaping Without Losing Fit</a>
+          <a href="notches-that-earn-their-keep.html">Notches That Earn Their Keep: A Marking System for Repeat Sewing</a>
+          <a href="paper-versus-cloth-block.html">Paper Block or Cloth Sloper: Choosing the Master Copy That Lasts</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="bdk-footer">
+  <div class="bdk-wrap">
+    <div class="bdk-foot-grid">
+      <div class="bdk-foot-col">
+        <h4>Blockdraft</h4>
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Blockbook app</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Reference</h4>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Elsewhere</h4>
+        <span style="font-size:.85rem;color:var(--bdk-text-soft);">Reader mail: hello@blockdraft.shop</span>
+      </div>
+    </div>
+    <div class="bdk-foot-bottom">
+      <span>&copy; 2026 Blockdraft. Notes on pattern drafting and home tailoring, written by hand.</span>
+      <span>Not affiliated with any pattern brand or sewing machine manufacturer.</span>
+    </div>
+  </div>
+</footer>
+</body></html>

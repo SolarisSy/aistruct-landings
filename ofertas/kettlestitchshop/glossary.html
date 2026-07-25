@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bookbinding Glossary — Kettlestitch</title>
+<meta name="description" content="A plain-language glossary of bookbinding and book repair terms — signatures, sewing, spines, and hard covers — from the Kettlestitch journal.">
+<link rel="canonical" href="https://kettlestitch.shop/glossary.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bookbinding Glossary — Kettlestitch">
+<meta property="og:description" content="Plain-language definitions of bookbinding and repair terms.">
+<meta property="og:image" content="https://kettlestitch.shop/img/hero.jpg">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f3ece2'/%3E%3Cg stroke='%237d2b2b' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 20 L50 44'/%3E%3Cpath d='M14 44 L50 20'/%3E%3Cpath d='M14 32 L50 32'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+:root{
+  --kst-bg:#f3ece2;--kst-paper:#f8f3ea;--kst-paper-dark:#ece3d3;--kst-ink:#241f1a;--kst-ink-soft:#544b40;
+  --kst-accent:#7d2b2b;--kst-accent-soft:#a9564f;--kst-line:#d7c9b2;--kst-radius:8px;--kst-maxw:665px;
+  --kst-shell:1240px;--kst-gutter:64px;
+  --kst-serif:'Palatino Linotype',Palatino,'URW Palladio L',Georgia,serif;
+  --kst-sans:'Century Gothic','CenturyGothic',AppleGothic,'Futura',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;counter-reset:kstfolio;background-color:var(--kst-bg);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.14  0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");color:var(--kst-ink);font-family:var(--kst-serif);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--kst-accent)}
+a:hover{color:var(--kst-ink)}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--kst-serif);font-weight:400;margin:0 0 .5em;color:var(--kst-ink)}
+.kst-h1{font-size:clamp(2rem,4.6vw,2.85rem);line-height:1.12;letter-spacing:.2px}
+.kst-h2{font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.2}
+.kst-lede{font-size:1.12rem;color:var(--kst-ink-soft);max-width:var(--kst-maxw);margin:0 0 1.2em}
+.kst-shell{max-width:var(--kst-shell);margin:0 auto;padding:0 28px}
+.kst-skiplink{position:absolute;left:-999px;top:0;background:var(--kst-accent);color:#f8f3ea;padding:10px 16px;z-index:200}
+.kst-skiplink:focus{left:12px;top:12px}
+.kst-header{border-bottom:1px solid var(--kst-line);background:var(--kst-paper);position:relative}
+.kst-header::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--kst-line)}
+.kst-headerbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0;flex-wrap:wrap}
+.kst-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--kst-ink)}
+.kst-brand:hover{color:var(--kst-ink)}
+.kst-brandmark{flex:none}
+.kst-brandtext{display:flex;flex-direction:column;line-height:1.05}
+.kst-brandname{font-family:var(--kst-serif);font-size:1.4rem;letter-spacing:.3px}
+.kst-brandtag{font-family:var(--kst-sans);font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--kst-accent)}
+.kst-nav{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--kst-sans);font-size:.78rem;letter-spacing:.6px;text-transform:uppercase}
+.kst-navlink{color:var(--kst-ink);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.kst-navlink:hover{color:var(--kst-accent);border-bottom-color:var(--kst-accent)}
+.kst-section{padding:56px 0;border-bottom:1px solid var(--kst-line);counter-increment:kstfolio;position:relative}
+.kst-section:last-of-type{border-bottom:none}
+.kst-kicker{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .8em;display:block}
+.kst-folio{margin-top:44px;padding-top:14px;border-top:1px solid var(--kst-line);text-align:center;font-family:var(--kst-sans);font-size:.72rem;letter-spacing:3px;color:var(--kst-ink-soft)}
+.kst-folio::before{content:"— " counter(kstfolio,decimal-leading-zero) " —"}
+.kst-spread{display:grid;grid-template-columns:1fr 1fr;gap:var(--kst-gutter);align-items:start;position:relative}
+.kst-spread::before{content:"";position:absolute;left:calc(50% - 1px);top:0;bottom:0;width:2px;background:linear-gradient(90deg,transparent,rgba(36,31,26,.14),transparent)}
+@media(max-width:860px){.kst-spread{grid-template-columns:1fr;gap:32px}.kst-spread::before{display:none}}
+.kst-leaf{background:var(--kst-paper);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:26px;box-shadow:0 1px 0 rgba(36,31,26,.05)}
+.kst-crumb{font-family:var(--kst-sans);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--kst-ink-soft);margin-bottom:1.4em}
+.kst-crumb a{color:var(--kst-ink-soft);text-decoration:none}
+.kst-crumb a:hover{color:var(--kst-accent)}
+.kst-term{border-top:1px solid var(--kst-line);padding:16px 0}
+.kst-term:first-child{border-top:none}
+.kst-term dt{font-family:var(--kst-serif);font-size:1.1rem;color:var(--kst-accent);margin-bottom:.25em}
+.kst-term dd{margin:0;color:var(--kst-ink-soft)}
+.kst-footer{background:var(--kst-ink);color:#e6dfd2;padding:52px 0 30px}
+.kst-footer a{color:#e6dfd2;text-decoration:none}
+.kst-footer a:hover{color:#e7c9c9}
+.kst-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.kst-footer-brand{font-family:var(--kst-serif);font-size:1.3rem;margin-bottom:.4em}
+.kst-footer-desc{color:#b9b0a0;max-width:320px;font-size:.92rem}
+.kst-footer h4{font-family:var(--kst-sans);font-size:.7rem;letter-spacing:1.8px;text-transform:uppercase;color:#b9b0a0;margin:0 0 .9em}
+.kst-footer ul{list-style:none;padding:0;margin:0;font-family:var(--kst-sans);font-size:.85rem}
+.kst-footer li{margin-bottom:.6em}
+.kst-footer-bottom{margin-top:40px;padding-top:20px;border-top:1px solid #3a352d;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--kst-sans);font-size:.72rem;color:#8b8272}
+@media(max-width:760px){.kst-footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="kst-skiplink" href="#main">Skip to content</a>
+<header class="kst-header">
+  <div class="kst-shell kst-headerbar">
+    <a class="kst-brand" href="safe.html">
+      <svg class="kst-brandmark" width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#f3ece2" stroke="#d7c9b2"/><g stroke="#7d2b2b" stroke-width="4" stroke-linecap="round"><path d="M14 20 L50 44"/><path d="M14 44 L50 20"/><path d="M14 32 L50 32"/></g></svg>
+      <span class="kst-brandtext"><span class="kst-brandname">Kettlestitch</span><span class="kst-brandtag">Bookbinding &amp; Repair Journal</span></span>
+    </a>
+    <nav class="kst-nav" aria-label="Primary">
+      <a class="kst-navlink" href="safe.html">Journal</a>
+      <a class="kst-navlink" href="app.html">Signature Count</a>
+      <a class="kst-navlink" href="glossary.html">Glossary</a>
+      <a class="kst-navlink" href="faq.html">FAQ</a>
+      <a class="kst-navlink" href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<section class="kst-section">
+  <div class="kst-shell">
+    <p class="kst-crumb"><a href="safe.html">Journal</a> / Glossary</p>
+    <span class="kst-kicker">Reference</span>
+    <h1 class="kst-h1">A glossary of bookbinding terms</h1>
+    <p class="kst-lede">Twenty short definitions covering the vocabulary that comes up across the journal — signatures, sewing, spines, and hard covers — written for readers who have never picked up an awl.</p>
+    <div class="kst-spread" style="margin-top:30px">
+      <div class="kst-leaf">
+        <dl>
+          <div class="kst-term"><dt>Signature</dt><dd>A single folded section of a book, usually 8, 16, or 32 pages, sewn as one unit alongside the others that make up the text block.</dd></div>
+          <div class="kst-term"><dt>Kettle Stitch</dt><dd>The linking stitch at the head and tail of the spine that ties each new signature to the one before it during sewing.</dd></div>
+          <div class="kst-term"><dt>Spine</dt><dd>The folded, bound edge of a book where the signatures are joined and, on a hardcover, where the case attaches.</dd></div>
+          <div class="kst-term"><dt>Text Block</dt><dd>The sewn or glued body of pages on its own, before covers, endpapers, or a case are added.</dd></div>
+          <div class="kst-term"><dt>Endpaper</dt><dd>The folded sheet at the front and back of the text block that joins the pages to the case — part pastedown, part free leaf.</dd></div>
+          <div class="kst-term"><dt>Case</dt><dd>The assembled hard cover of a book: two boards and a spine piece, usually covered in cloth, paper, or leather.</dd></div>
+          <div class="kst-term"><dt>Hollow Back</dt><dd>A paper or cloth tube glued to the spine that separates it from the text block, which is why some hardcovers open flat.</dd></div>
+          <div class="kst-term"><dt>Tight Back</dt><dd>A spine glued directly to the text block with no hollow, common on older bindings, which tends to resist opening flat.</dd></div>
+          <div class="kst-term"><dt>Headband</dt><dd>A small woven or stuck-on band at the head and tail of the spine, originally functional and now often decorative.</dd></div>
+          <div class="kst-term"><dt>Super (Mull)</dt><dd>An open-weave fabric strip glued across the spine of the sewn text block, adding strength before the case goes on.</dd></div>
+        </dl>
+      </div>
+      <div class="kst-leaf">
+        <dl>
+          <div class="kst-term"><dt>Board</dt><dd>The stiff panel, often binder's board or millboard, that forms the front and back cover of a hardbound book.</dd></div>
+          <div class="kst-term"><dt>Joint</dt><dd>The hinge area where the board meets the spine, allowing the cover to open and close without the case cracking.</dd></div>
+          <div class="kst-term"><dt>Foredge</dt><dd>The outer edge of the text block, opposite the spine — the side you fan through to find a page.</dd></div>
+          <div class="kst-term"><dt>Collation</dt><dd>The process of checking that a text block's signatures and pages are complete and in the correct order before sewing.</dd></div>
+          <div class="kst-term"><dt>Sewing Station</dt><dd>A punched hole along the fold of a signature through which thread passes during sewing, placed to line up across the whole text block.</dd></div>
+          <div class="kst-term"><dt>Guard</dt><dd>A narrow strip of paper or fabric used to reinforce a weak signature fold, or to extend a single leaf so it can be sewn in properly.</dd></div>
+          <div class="kst-term"><dt>Pastedown</dt><dd>The half of the endpaper that is glued flat to the inside face of the board, as opposed to the free-hanging half.</dd></div>
+          <div class="kst-term"><dt>Grain Direction</dt><dd>The alignment of fibers in a sheet of paper, which determines whether a fold sits flat or fights back and eventually cracks.</dd></div>
+          <div class="kst-term"><dt>Backing</dt><dd>Shaping the spine into a slightly flared shoulder after sewing, so the boards have a ridge to seat against.</dd></div>
+          <div class="kst-term"><dt>Rebacking</dt><dd>Replacing a damaged or detached spine piece while keeping the original boards, a common repair on an otherwise sound case.</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="kst-folio"></div>
+  </div>
+</section>
+
+</main>
+<footer class="kst-footer">
+  <div class="kst-shell kst-footer-grid">
+    <div>
+      <div class="kst-footer-brand">Kettlestitch</div>
+      <p class="kst-footer-desc">A journal about the physical work of keeping books together — sewing signatures, rebuilding spines, and knowing when a repair should be left alone. Written from the bench, not the showroom.</p>
+    </div>
+    <div>
+      <h4>Read</h4>
+      <ul>
+        <li><a href="safe.html">Journal</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li>
+        <li><a href="mailto:hello@kettlestitch.shop">hello@kettlestitch.shop</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="kst-shell kst-footer-bottom">
+    <span>&copy; 2026 Kettlestitch. An independent binder's journal.</span>
+    <span>Not affiliated with any publisher, library, or auction house.</span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dart Rotation Explained: Moving Shaping Without Losing Fit · Blockdraft</title>
+  <meta name="description" content="A dart is stored shaping that pivots around the apex. How to move a waist dart to the shoulder or side seam, split it in two, and check the paper first.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://blockdraft.shop/dart-rotation-explained.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fbf7f2'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23b03050' stroke-width='3'/%3E%3Cpath d='M32 10l6 10h-12z' fill='%23b03050'/%3E%3Cpath d='M14 34l8-6v12z' fill='%232f5f8f'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --bdk-bg:#fbf7f2;
+  --bdk-bg-alt:#f2ecdf;
+  --bdk-text:#2b2622;
+  --bdk-text-soft:#5b534a;
+  --bdk-accent:#b03050;
+  --bdk-mark:#2f5f8f;
+  --bdk-line:#c9bfae;
+  --bdk-radius:8.5px;
+  --bdk-maxw:870px;
+  --bdk-serif:'Book Antiqua','Palatino Linotype',Georgia,serif;
+  --bdk-sans:Geneva,Verdana,'Trebuchet MS',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bdk-bg);color:var(--bdk-text);font-family:var(--bdk-sans);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:var(--bdk-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--bdk-serif);font-weight:400;color:var(--bdk-text);line-height:1.2;margin:0 0 .5em;}
+h1{font-size:2.35rem;letter-spacing:.2px;}
+h2{font-size:1.65rem;margin-top:2.2em;}
+h3{font-size:1.25rem;}
+p{margin:0 0 1.1em;}
+ul,ol{margin:0 0 1.1em;padding-left:1.3em;}
+li{margin-bottom:.4em;}
+.bdk-wrap{max-width:var(--bdk-maxw);margin:0 auto;padding:0 22px;}
+.bdk-notch{display:inline-block;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid var(--bdk-accent);}
+.bdk-notch.bdk-notch--blue{border-top-color:var(--bdk-mark);}
+.bdk-sep{position:relative;border:0;border-top:2px dashed var(--bdk-line);margin:46px 0;}
+.bdk-sep::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--bdk-mark);}
+.bdk-header{border-bottom:2px dashed var(--bdk-line);background:var(--bdk-bg);position:sticky;top:0;z-index:20;}
+.bdk-headbar{max-width:var(--bdk-maxw);margin:0 auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bdk-logo{display:flex;align-items:center;gap:9px;font-family:var(--bdk-serif);font-size:1.4rem;color:var(--bdk-text);}
+.bdk-logo:hover{text-decoration:none;}
+.bdk-logo-mark{width:26px;height:26px;border:2px solid var(--bdk-accent);border-radius:50%;position:relative;flex:none;}
+.bdk-logo-mark::before{content:"";position:absolute;left:50%;top:-2px;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--bdk-accent);}
+.bdk-nav{display:flex;gap:22px;flex-wrap:wrap;font-size:.92rem;}
+.bdk-nav a{color:var(--bdk-text-soft);letter-spacing:.3px;}
+.bdk-nav a:hover{color:var(--bdk-accent);}
+.bdk-footer{border-top:2px dashed var(--bdk-line);margin-top:60px;padding:38px 0 30px;background:var(--bdk-bg-alt);}
+.bdk-foot-grid{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;}
+.bdk-foot-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-text-soft);font-family:var(--bdk-sans);margin-bottom:10px;}
+.bdk-foot-col a{display:block;color:var(--bdk-text);font-size:.92rem;margin-bottom:7px;}
+.bdk-foot-bottom{margin-top:26px;padding-top:18px;border-top:1px dashed var(--bdk-line);font-size:.8rem;color:var(--bdk-text-soft);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;}
+.bdk-news{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);padding:26px;background:var(--bdk-bg-alt);}
+.bdk-news form{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.bdk-news input[type=email]{flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--bdk-line);border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.95rem;background:#fff;}
+.bdk-ok{display:none;margin-top:10px;color:var(--bdk-mark);font-size:.88rem;}
+.bdk-btn{display:inline-block;background:var(--bdk-accent);color:#fff;padding:12px 22px;border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.92rem;letter-spacing:.4px;border:none;cursor:pointer;}
+.bdk-btn:hover{background:#8f2540;text-decoration:none;color:#fff;}
+.bdk-btn--outline{background:transparent;color:var(--bdk-accent);border:1.5px solid var(--bdk-accent);}
+.bdk-btn--outline:hover{background:var(--bdk-accent);color:#fff;}
+.bdk-pattern{display:grid;grid-template-columns:55% 45%;position:relative;align-items:start;}
+.bdk-piece{padding:20px 30px 20px 0;border-right:2px dashed var(--bdk-mark);}
+.bdk-instruction{padding:20px 0 20px 30px;}
+.bdk-stepnum{position:absolute;left:55%;top:24px;transform:translate(-50%,0);width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;border:3px solid var(--bdk-bg);box-shadow:0 0 0 2px var(--bdk-mark);z-index:2;}
+.bdk-pattern + .bdk-pattern{border-top:2px dashed var(--bdk-line);}
+.bdk-piece h3,.bdk-instruction h3{margin-top:0;}
+.bdk-piece .bdk-thumb{border-radius:var(--bdk-radius);overflow:hidden;border:1px solid var(--bdk-line);margin-bottom:12px;}
+.bdk-piece .bdk-thumb img{width:100%;height:190px;object-fit:cover;display:block;}
+.bdk-meta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:6px;display:inline-block;}
+.bdk-dek{color:var(--bdk-text-soft);font-size:.95rem;}
+@media (max-width:640px){
+  .bdk-pattern{grid-template-columns:1fr;}
+  .bdk-piece{border-right:none;border-bottom:2px dashed var(--bdk-mark);padding:20px 0;}
+  .bdk-instruction{padding:20px 0;}
+  .bdk-stepnum{position:static;transform:none;margin-bottom:10px;}
+}
+.bdk-hero{padding:54px 0 20px;}
+.bdk-hero-frame{border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:14px;position:relative;}
+.bdk-hero-frame img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:320px;object-fit:cover;}
+.bdk-hero-frame::before,.bdk-hero-frame::after{content:"";position:absolute;top:50%;width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;}
+.bdk-hero-frame::before{left:-2px;border-left:9px solid var(--bdk-accent);}
+.bdk-hero-frame::after{right:-2px;border-right:9px solid var(--bdk-mark);}
+.bdk-eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--bdk-accent);margin-bottom:10px;}
+.bdk-mock{border:2px solid var(--bdk-text);border-radius:16px;max-width:250px;margin:0 auto;padding:14px;background:#fff;}
+.bdk-mock-bar{display:flex;justify-content:space-between;font-size:.7rem;color:var(--bdk-text-soft);margin-bottom:10px;}
+.bdk-mock-screen{border:2px dashed var(--bdk-mark);border-radius:8px;padding:12px;}
+.bdk-mock-row{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--bdk-line);font-size:.8rem;}
+.bdk-mock-row:last-child{border-bottom:none;}
+.bdk-mock-dot{width:16px;height:16px;border-radius:50%;background:var(--bdk-accent);flex:none;}
+.bdk-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-feat{padding:22px;border-right:2px dashed var(--bdk-line);border-bottom:2px dashed var(--bdk-line);}
+.bdk-feat:nth-child(2n){border-right:none;}
+.bdk-feat h3{font-size:1.05rem;margin-bottom:6px;}
+.bdk-feat p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-feat-grid{grid-template-columns:1fr;}.bdk-feat{border-right:none;}}
+.bdk-term{padding:20px 0;border-bottom:1px dashed var(--bdk-line);}
+.bdk-term dt{font-family:var(--bdk-serif);font-size:1.1rem;color:var(--bdk-accent);margin-bottom:6px;}
+.bdk-term dd{margin:0;color:var(--bdk-text-soft);}
+.bdk-alpha{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-accent);margin:34px 0 4px;}
+.bdk-badge{display:inline-block;background:var(--bdk-bg-alt);border:1px solid var(--bdk-line);border-radius:20px;padding:4px 12px;font-size:.75rem;color:var(--bdk-text-soft);margin-right:6px;}
+.bdk-section{padding:40px 0;}
+.bdk-lead{font-size:1.08rem;color:var(--bdk-text-soft);max-width:640px;}
+.bdk-quote{border-left:3px solid var(--bdk-accent);padding-left:16px;font-style:italic;color:var(--bdk-text-soft);margin:24px 0;}
+.bdk-updated{font-size:.85rem;color:var(--bdk-text-soft);}
+.bdk-team{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-team-card{padding:20px;border-right:2px dashed var(--bdk-line);}
+.bdk-team-card:last-child{border-right:none;}
+.bdk-team-card h3{font-size:1.05rem;margin-bottom:2px;}
+.bdk-team-role{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-team-card p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-team{grid-template-columns:1fr;}.bdk-team-card{border-right:none;border-bottom:2px dashed var(--bdk-line);}.bdk-team-card:last-child{border-bottom:none;}}
+.bdk-artmeta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-byline{font-size:.86rem;color:var(--bdk-text-soft);border-top:1px dashed var(--bdk-line);border-bottom:1px dashed var(--bdk-line);padding:10px 0;margin:0 0 30px;}
+.bdk-artbody{font-size:1.02rem;}
+.bdk-artbody h2{border-top:2px dashed var(--bdk-line);padding-top:26px;}
+.bdk-fig{margin:30px 0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:12px;}
+.bdk-fig img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:auto;}
+.bdk-figcap{font-size:.82rem;color:var(--bdk-text-soft);margin:10px 2px 0;}
+.bdk-callout{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);background:var(--bdk-bg-alt);padding:20px 22px;margin:30px 0;}
+.bdk-callout h3{margin-top:0;font-size:1.05rem;}
+.bdk-callout p:last-child{margin-bottom:0;}
+.bdk-steps{list-style:none;padding:0;counter-reset:bdkstep;margin:28px 0;}
+.bdk-steps li{counter-increment:bdkstep;position:relative;padding:2px 0 18px 52px;border-bottom:1px dashed var(--bdk-line);margin-bottom:18px;}
+.bdk-steps li:last-child{border-bottom:none;margin-bottom:0;}
+.bdk-steps li::before{content:counter(bdkstep);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;box-shadow:0 0 0 2px var(--bdk-mark);}
+.bdk-tablewrap{overflow-x:auto;margin:26px 0;}
+.bdk-table{border-collapse:collapse;width:100%;font-size:.92rem;}
+.bdk-table th,.bdk-table td{border:1px dashed var(--bdk-line);padding:9px 12px;text-align:left;}
+.bdk-table th{font-family:var(--bdk-serif);font-weight:400;background:var(--bdk-bg-alt);}
+.bdk-related{border-top:2px dashed var(--bdk-line);margin-top:46px;padding-top:24px;}
+.bdk-related a{display:block;margin-bottom:8px;}
+  </style>
+</head><body>
+  <header class="bdk-header">
+  <div class="bdk-headbar">
+    <a href="safe.html" class="bdk-logo"><span class="bdk-logo-mark"></span> Blockdraft</a>
+    <nav class="bdk-nav">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Blockbook</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+  <article class="bdk-post">
+    <div class="bdk-wrap bdk-section">
+      <span class="bdk-artmeta">Bodice Drafting &middot; February 21, 2026</span>
+      <h1>Dart Rotation Explained: Moving Shaping Without Losing Fit</h1>
+      <p class="bdk-lead">Shaping in a bodice block can move almost anywhere on the pattern without losing its function &mdash; this note traces the pivot points that make dart rotation predictable.</p>
+      <p class="bdk-byline">Written at the cutting table, with a paper block, an awl, and a roll of tape. Part of the bodice series.</p>
+
+      <div class="bdk-artbody">
+        <p>The first time I moved a waist dart up to the shoulder, I braced for the pattern to come out smaller. It didn't. The outline changed shape along two edges, the waistline went flat and clean, a wedge opened at the shoulder seam, and the finished muslin fit exactly as it had before. That was the moment the whole thing stopped being a trick I copied from a book and started being something I could reason about. A dart is not a decoration you place. It is a quantity of shaping that already exists in the block, and rotation just decides which seam pays for it.</p>
+
+        <div class="bdk-fig">
+          <img src="img/dart-rotation-explained.jpg" alt="Dart Rotation Explained: Moving Shaping Without Losing Fit">
+          <p class="bdk-figcap">Pivot lines drawn from the apex out to the shoulder, the side seam, and the waist. The wedge is the same wedge each time &mdash; only the seam it opens into changes.</p>
+        </div>
+
+        <h2>A Dart Is Stored Shaping, Not a Seam</h2>
+        <p>Cloth comes off the bolt flat. A body is not. Somewhere between the two, a certain amount of fabric has to be removed to let the flat piece cup over a curve, and in a bodice most of that removal happens around the bust. The dart is where you park it. Close the dart and the paper stops lying flat &mdash; it domes. That dome is the point of the exercise.</p>
+        <p>Because the shaping is a quantity rather than a location, the same block can carry it in a waist dart, a shoulder dart, a French dart running up from the side seam, or four small tucks along a yoke. None of those choices adds or removes room. They only change where the flatness is interrupted.</p>
+        <p>This is also why a block worth keeping is a block you fitted once. If the shaping quantity is right for your body, every rotation from that point forward inherits the correct amount without further fitting &mdash; the argument behind <a href="the-one-adjustment-rule.html">the one-adjustment rule</a>.</p>
+
+        <blockquote class="bdk-quote">You are not drawing a new dart. You are carrying the old one to a different edge and setting it down there.</blockquote>
+
+        <h2>The Apex Is the Only Fixed Point</h2>
+        <p>Every rotation turns around a single point, and on a bodice front that point is the bust apex &mdash; the tip of the cone the shaping builds. Stick an awl or a pin through the apex, and the paper can swing. Whatever seam the legs of the old dart used to sit in closes up as the paper turns; whatever seam you swing toward opens by the same angle.</p>
+        <p>Two habits make this reliable. Mark the apex clearly on the block, in a different color from the seam lines, so you never have to guess where it is. And draw the new dart line all the way from the seam to the apex before you cut, not partway. A slash that stops short leaves a hinge of paper that fights the rotation and quietly steals a degree or two.</p>
+
+        <h2>Three Moves: Shoulder, Side Seam, and Split</h2>
+        <p>Take a front block with one waist dart. Here is what happens on paper in each case.</p>
+        <ul>
+          <li><strong>To the shoulder.</strong> Draw a line from the apex to a point on the shoulder seam, usually a third to halfway in from the neck. Cut along it to the apex. Close the waist dart by bringing its legs together; the shoulder line spreads open into a wedge. The waistline is now a smooth curve, the shoulder seam is broken by a dart, and the side seam is untouched.</li>
+          <li><strong>To the side seam.</strong> Same procedure, new destination: a line from the apex out to the side seam, often a few inches below the armhole. Closing the waist dart opens that line instead. The side seam is now longer at that point than the back side seam, which is normal &mdash; the dart take-up restores the match once it is stitched.</li>
+          <li><strong>Split into two.</strong> Draw both a shoulder line and a waist line to the apex. Close the original dart only partway, letting half its angle escape into the shoulder, and leave the remainder in the waist. Two shallower darts, same total shaping, softer surface.</li>
+        </ul>
+        <p>In every case the outer edges of the block stay where they were, except for the seam that received the wedge. Neck, armhole, and center front do not move. If they do, something slipped.</p>
+
+        <div class="bdk-callout">
+          <h3>The dart point stops short of the apex</h3>
+          <p>Rotate to the apex, then shorten. Stitching a dart all the way to the apex tends to produce a hard cone; most people find the surface reads smoother when the stitching stops a short distance before it, with the distance growing as the fabric gets softer and the cup gets fuller. The rotation uses the true apex. Only the sewing line backs off.</p>
+        </div>
+
+        <h2>The Bubble at the Apex, and How to Catch It on Paper</h2>
+        <p>The common failure is rotating around a point that is not the apex &mdash; a pin pushed in a little high, a slash line drawn to the general neighborhood of the bust rather than to the marked point. The pattern still looks plausible. Both darts close. But the shaping now converges somewhere the body does not peak, and the muslin shows a small slack dome sitting near the bust: fabric with nowhere to go, standing away from the surface. Sewers call it a bubble, and it is stubborn, because nothing about the measurements is wrong.</p>
+        <p>Catch it before cutting cloth. Fold the paper pattern along the new dart legs and pinch them closed with tape, exactly as they will be sewn.</p>
+        <ol class="bdk-steps">
+          <li>Close every dart on the paper copy with tape, not pins &mdash; pins let the paper cheat.</li>
+          <li>Set the closed pattern on a flat table and press the center front down. A correct rotation lifts into a single clean dome centered on the apex mark.</li>
+          <li>Look for a second small ripple beside the dome, or a dome whose peak sits away from your apex mark. Either one means the pivot point drifted.</li>
+          <li>Check the seam lengths against the untouched block: neck, armhole, and center front should measure the same as before. A changed armhole means the slash crossed a line it should not have.</li>
+        </ol>
+        <p>Test rotations on a paper copy, never the master. Whether the master itself is paper or cloth is a separate decision, and one worth making deliberately &mdash; see <a href="paper-versus-cloth-block.html">paper block or cloth sloper</a>.</p>
+
+        <h2>Where Each Position Tends to Sit Best</h2>
+        <p>Rotation is neutral to fit but not neutral to appearance. The same shaping reads differently depending on how the cloth behaves at the seam that absorbs it.</p>
+        <div class="bdk-tablewrap">
+          <table class="bdk-table">
+            <thead><tr><th>Dart position</th><th>Tends to suit</th><th>Watch out for</th></tr></thead>
+            <tbody>
+              <tr><td>Waist dart</td><td>Crisp cottons, linens, anything that holds a pressed fold</td><td>Long dart legs show every wobble in the stitching line</td></tr>
+              <tr><td>Shoulder dart</td><td>Mid-weight wovens and wools that ease and press well</td><td>Sits in a visible spot; stripes and checks break across it</td></tr>
+              <tr><td>Side seam / French dart</td><td>Drapey rayons and softer blends where a hidden dart is preferred</td><td>Slippery cloth stretches on the bias-ish dart legs unless stay-stitched</td></tr>
+              <tr><td>Two split darts</td><td>Fuller cups, or any fabric that resists a sharp single fold</td><td>Two chances to miss the apex instead of one</td></tr>
+              <tr><td>Gathers or tucks in place of a dart</td><td>Soft, light cloth with good drape</td><td>Take-up is harder to control; make a small test piece first</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Keeping the Rotations With the Block</h2>
+        <p>Once you can move shaping freely, the block stops being one pattern and becomes a source for many. That only holds if you can find your way back. Keep the original waist-dart version as the master, unmarked and uncut, and treat each rotation as a copy with the pivot line, the apex, and the date written on it. Label the destination seam in plain words. Six months later, "shoulder, one-third from neck" is worth more than a clever code.</p>
+        <p>The other half of the discipline is upstream: a rotation is only as honest as the measurements the block came from, taken over the layers you actually wear rather than in bare stocking feet.</p>
+
+        <div style="border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:20px 22px;margin:34px 0;background:var(--bdk-bg);">
+          <h3 style="margin-top:0;font-size:1.05rem;">A note on how to read this</h3>
+          <p style="margin-bottom:0;">These are working notes from a home cutting table, written to explain a method rather than to prescribe one. Bodies, cloth, and drafting systems differ, and what settles nicely on one block may need a different pivot on another. Try any rotation on a paper copy and a scrap muslin before it meets fabric you care about.</p>
+        </div>
+
+        <div class="bdk-related">
+          <h3>Read also</h3>
+          <a href="measuring-over-worn-clothes.html">Why Measuring Over the Clothes You Actually Wear Changes the Block</a>
+          <a href="skirt-block-two-darts.html">Building a Skirt Block With Two Darts Instead of One</a>
+          <a href="notches-that-earn-their-keep.html">Notches That Earn Their Keep: A Marking System for Repeat Sewing</a>
+        </div>
+      </div>
+    </div>
+  </article>
+  <footer class="bdk-footer">
+  <div class="bdk-wrap">
+    <div class="bdk-foot-grid">
+      <div class="bdk-foot-col">
+        <h4>Blockdraft</h4>
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Blockbook app</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Reference</h4>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Elsewhere</h4>
+        <span style="font-size:.85rem;color:var(--bdk-text-soft);">Reader mail: hello@blockdraft.shop</span>
+      </div>
+    </div>
+    <div class="bdk-foot-bottom">
+      <span>&copy; 2026 Blockdraft. Notes on pattern drafting and home tailoring, written by hand.</span>
+      <span>Not affiliated with any pattern brand or sewing machine manufacturer.</span>
+    </div>
+  </div>
+</footer>
+</body></html>

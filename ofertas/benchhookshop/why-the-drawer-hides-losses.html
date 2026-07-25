@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why the Drawer Hides Losses · Benchhook</title>
+  <meta name="description" content="The same tools on a wall and in a drawer: how long a gap survives in each, why stacking buries the bottom layer, and the split that ended the guessing.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://benchhook.shop/why-the-drawer-hides-losses.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%231f2124'/%3E%3Ccircle cx='16' cy='11' r='3' fill='none' stroke='%23f0a500' stroke-width='2'/%3E%3Crect x='9' y='17' width='14' height='9' rx='2' fill='none' stroke='%23f0a500' stroke-width='2'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --bnh-bg:#1f2124;
+  --bnh-bg2:#17181a;
+  --bnh-card:#26282c;
+  --bnh-line:#3a3d42;
+  --bnh-text:#e6e8ea;
+  --bnh-mute:#a4a7ac;
+  --bnh-panel:#eeeae1;
+  --bnh-ink:#232320;
+  --bnh-ink-mute:#5c584f;
+  --bnh-accent:#f0a500;
+  --bnh-accent-dim:#c98600;
+  --bnh-radius:6.5px;
+  --bnh-maxw:995px;
+  --bnh-serif:'Bell MT','Bell MT Std',Cambria,Georgia,'Times New Roman',serif;
+  --bnh-sans:Consolas,'Lucida Console','Courier New',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background-color:var(--bnh-bg);background-image:radial-gradient(circle,rgba(255,255,255,.055) 1.4px,transparent 1.6px);background-size:26px 26px;color:var(--bnh-text);font-family:var(--bnh-sans);line-height:1.5;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+h1,h2,h3,h4{font-family:var(--bnh-serif);font-weight:700;margin:0 0 .5em;}
+.bnh-wrap{max-width:var(--bnh-maxw);margin:0 auto;padding:0 20px;}
+.bnh-site-header{position:sticky;top:0;z-index:20;background:var(--bnh-bg2);border-bottom:2px solid var(--bnh-accent);}
+.bnh-header-inner{max-width:var(--bnh-maxw);margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.bnh-logo{font-family:var(--bnh-serif);font-size:1.3rem;letter-spacing:.03em;text-decoration:none;color:var(--bnh-text);font-weight:700;}
+.bnh-logo span{color:var(--bnh-accent);}
+.bnh-logo-sm{font-family:var(--bnh-serif);font-size:1.05rem;color:var(--bnh-text);margin:0 0 .5em;font-weight:700;}
+.bnh-nav{display:flex;gap:22px;flex-wrap:wrap;}
+.bnh-nav a{text-decoration:none;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bnh-mute);border-bottom:1px solid transparent;padding-bottom:3px;transition:color .15s,border-color .15s;}
+.bnh-nav a:hover,.bnh-nav a:focus{color:var(--bnh-accent);border-color:var(--bnh-accent);}
+.bnh-hero{max-width:var(--bnh-maxw);margin:26px auto 10px;padding:0 20px;}
+.bnh-hero-frame{position:relative;border-radius:var(--bnh-radius);overflow:hidden;border:2px solid var(--bnh-accent);background:var(--bnh-bg2);}
+.bnh-hero-frame img{width:100%;height:min(46vw,380px);object-fit:cover;filter:grayscale(.1) contrast(1.05);}
+.bnh-hero-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,16,18,.92) 0%,rgba(15,16,18,.35) 55%,rgba(15,16,18,.05) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:26px;}
+.bnh-hero-kicker{font-family:var(--bnh-sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bnh-accent);margin-bottom:.5em;}
+.bnh-hero-overlay h1{font-size:clamp(1.5rem,4vw,2.35rem);color:#fff;max-width:640px;margin:0 0 .3em;}
+.bnh-hero-overlay p{color:#d8d9da;max-width:560px;font-size:.95rem;margin:0;}
+.bnh-section{max-width:var(--bnh-maxw);margin:0 auto;padding:44px 20px;}
+.bnh-section-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:22px;border-bottom:1px solid var(--bnh-line);padding-bottom:12px;}
+.bnh-section-head h2{font-size:1.4rem;}
+.bnh-section-tag{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bnh-accent);}
+.bnh-pegboard{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+.bnh-card{display:flex;flex-direction:column;text-decoration:none;color:inherit;}
+.bnh-thumb{position:relative;aspect-ratio:1/1;border-radius:var(--bnh-radius);overflow:hidden;border:1.5px solid var(--bnh-line);background:#151617;transition:border-color .15s,transform .15s;}
+.bnh-card:hover .bnh-thumb{border-color:var(--bnh-accent);transform:translateY(-2px);}
+.bnh-thumb img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.05);}
+.bnh-thumb::before,.bnh-thumb::after{content:"";position:absolute;top:7px;width:8px;height:8px;border-radius:50%;background:var(--bnh-bg);border:2px solid var(--bnh-accent);}
+.bnh-thumb::before{left:7px;}
+.bnh-thumb::after{right:7px;}
+.bnh-badge{position:absolute;right:6px;bottom:6px;width:26px;height:26px;border-radius:50%;background:rgba(15,16,18,.82);border:1px solid var(--bnh-accent);display:flex;align-items:center;justify-content:center;}
+.bnh-badge svg{width:14px;height:14px;stroke:var(--bnh-accent);}
+.bnh-cardbody{padding:10px 1px 0;}
+.bnh-cat{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bnh-accent);}
+.bnh-card h3{font-size:.98rem;line-height:1.28;margin:.4em 0;color:var(--bnh-text);}
+.bnh-dek{font-size:.78rem;color:var(--bnh-mute);line-height:1.45;margin:0;}
+.bnh-meta{font-size:.68rem;color:#6f7377;margin-top:.5em;letter-spacing:.03em;}
+@media (max-width:900px){.bnh-pegboard{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:620px){.bnh-pegboard{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:400px){.bnh-pegboard{grid-template-columns:1fr;}}
+.bnh-panel-wrap{padding:34px 20px 60px;}
+.bnh-panel{max-width:var(--bnh-maxw);margin:0 auto;background:var(--bnh-panel);color:var(--bnh-ink);border-radius:var(--bnh-radius);padding:clamp(26px,5vw,64px);border:1px solid #d9d3c2;}
+.bnh-panel h1{color:var(--bnh-ink);font-size:clamp(1.7rem,4vw,2.3rem);}
+.bnh-panel h2{color:var(--bnh-ink);font-size:1.3rem;margin-top:1.6em;}
+.bnh-panel h3{color:var(--bnh-ink);font-size:1.08rem;margin-top:1.3em;}
+.bnh-panel p{font-family:var(--bnh-serif);font-size:1.02rem;line-height:1.72;margin:0 0 1.15em;max-width:70ch;}
+.bnh-panel li{font-family:var(--bnh-serif);font-size:1.02rem;line-height:1.68;margin-bottom:.5em;}
+.bnh-kicker{font-family:var(--bnh-sans);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bnh-accent-dim);margin-bottom:.7em;}
+.bnh-byline{font-family:var(--bnh-sans);font-size:.76rem;color:var(--bnh-ink-mute);letter-spacing:.03em;margin:0 0 2em;padding-bottom:1.4em;border-bottom:1px dashed #cfc7b0;}
+.bnh-panel-thumb{width:100%;border-radius:var(--bnh-radius);margin:1.6em 0;border:1px solid #d9d3c2;}
+.bnh-callout{background:#e4ddc7;border-left:3px solid var(--bnh-accent-dim);border-radius:0 var(--bnh-radius) var(--bnh-radius) 0;padding:14px 18px;font-family:var(--bnh-sans);font-size:.85rem;color:var(--bnh-ink);margin:1.6em 0;}
+.bnh-backlink{display:inline-block;margin-top:2em;font-family:var(--bnh-sans);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bnh-ink);text-decoration:none;border-bottom:1px solid var(--bnh-accent-dim);}
+.bnh-app-section{background:var(--bnh-bg2);border-radius:var(--bnh-radius);border:1px solid var(--bnh-line);padding:36px;}
+.bnh-app-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;}
+.bnh-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;}
+.bnh-feat{background:var(--bnh-card);border:1px solid var(--bnh-line);border-radius:var(--bnh-radius);padding:16px;}
+.bnh-feat svg{width:22px;height:22px;stroke:var(--bnh-accent);margin-bottom:.6em;}
+.bnh-feat h4{font-size:.92rem;margin-bottom:.35em;}
+.bnh-feat p{font-size:.78rem;color:var(--bnh-mute);margin:0;line-height:1.5;}
+.bnh-mockup{background:#151617;border:1.5px solid var(--bnh-line);border-radius:var(--bnh-radius);padding:18px;}
+.bnh-mockup-head{display:flex;justify-content:space-between;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bnh-mute);border-bottom:1px solid var(--bnh-line);padding-bottom:10px;margin-bottom:8px;}
+.bnh-mockrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--bnh-line);font-size:.82rem;}
+.bnh-mockrow:last-child{border-bottom:none;}
+.bnh-dot{width:9px;height:9px;border-radius:50%;border:2px solid var(--bnh-accent);flex-shrink:0;}
+.bnh-dot.bnh-dot-empty{border-color:#7a3f3f;background:transparent;}
+.bnh-dot.bnh-dot-full{background:var(--bnh-accent);}
+.bnh-mockrow .bnh-mname{flex:1;}
+.bnh-mockrow .bnh-mcount{color:var(--bnh-mute);font-variant-numeric:tabular-nums;}
+.bnh-btn{display:inline-block;background:var(--bnh-accent);color:#1f1a0c;font-family:var(--bnh-sans);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;padding:.8em 1.5em;border-radius:var(--bnh-radius);border:none;text-decoration:none;cursor:pointer;transition:filter .15s,transform .15s;}
+.bnh-btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.bnh-btn-ghost{background:transparent;color:var(--bnh-accent);border:1.5px solid var(--bnh-accent);}
+.bnh-btn-dark{background:var(--bnh-ink);color:var(--bnh-panel);}
+.bnh-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;}
+.bnh-step{border:1px dashed var(--bnh-line);border-radius:var(--bnh-radius);padding:16px;position:relative;}
+.bnh-step-num{font-family:var(--bnh-serif);font-size:1.6rem;color:var(--bnh-accent);display:block;margin-bottom:.2em;}
+.bnh-step h4{font-size:.9rem;margin-bottom:.3em;}
+.bnh-step p{font-size:.78rem;color:var(--bnh-mute);margin:0;}
+.bnh-about-blurb{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start;}
+.bnh-about-blurb p{color:var(--bnh-mute);font-size:.92rem;line-height:1.65;}
+.bnh-newsletter{background:linear-gradient(135deg,#26282c,#1a1b1d);border:1px solid var(--bnh-line);border-radius:var(--bnh-radius);padding:30px;text-align:center;}
+.bnh-newsletter h2{font-size:1.2rem;}
+.bnh-newsletter p{color:var(--bnh-mute);font-size:.85rem;max-width:46ch;margin:0 auto 1.2em;}
+.bnh-nl-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:420px;margin:0 auto;}
+.bnh-nl-form input[type=email]{flex:1;min-width:200px;background:#151617;border:1px solid var(--bnh-line);border-radius:var(--bnh-radius);padding:.8em 1em;color:var(--bnh-text);font-family:var(--bnh-sans);font-size:.85rem;}
+.bnh-nl-ok{display:none;margin-top:10px;font-size:.8rem;color:var(--bnh-accent);}
+.bnh-faq-item{border-bottom:1px dashed #cfc7b0;padding:14px 0;}
+.bnh-faq-item summary{font-family:var(--bnh-serif);font-size:1.05rem;cursor:pointer;color:var(--bnh-ink);list-style:none;position:relative;padding-right:30px;}
+.bnh-faq-item summary::-webkit-details-marker{display:none;}
+.bnh-faq-item summary::after{content:"+";position:absolute;right:0;top:0;color:var(--bnh-accent-dim);font-size:1.2rem;}
+.bnh-faq-item[open] summary::after{content:"–";}
+.bnh-faq-item p{margin-top:.7em;}
+.bnh-glossary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 44px;}
+.bnh-gterm{border-bottom:1px dashed #cfc7b0;padding:14px 0;}
+.bnh-gterm dt{font-family:var(--bnh-serif);font-weight:700;font-size:1.02rem;color:var(--bnh-ink);}
+.bnh-gterm dd{margin:.35em 0 0;font-size:.92rem;color:var(--bnh-ink-mute);font-family:var(--bnh-serif);line-height:1.55;}
+@media (max-width:700px){.bnh-glossary-grid{grid-template-columns:1fr;}}
+.bnh-policy-list{list-style:none;margin:0;padding:0;}
+.bnh-policy-list li{padding-left:1.4em;position:relative;}
+.bnh-policy-list li::before{content:"—";position:absolute;left:0;color:var(--bnh-accent-dim);}
+.bnh-contact-box{background:#e4ddc7;border-radius:var(--bnh-radius);padding:18px 20px;font-family:var(--bnh-sans);font-size:.85rem;display:inline-block;margin-top:.5em;}
+.bnh-site-footer{background:var(--bnh-bg2);border-top:2px solid var(--bnh-accent);margin-top:20px;padding:40px 20px 16px;}
+.bnh-footer-inner{max-width:var(--bnh-maxw);margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;}
+.bnh-footer-col p{color:var(--bnh-mute);font-size:.82rem;line-height:1.55;margin:0;}
+.bnh-footer-h{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bnh-accent);margin:0 0 .8em;}
+.bnh-footer-col a{display:block;font-size:.82rem;color:var(--bnh-mute);text-decoration:none;margin-bottom:.55em;}
+.bnh-footer-col a:hover{color:var(--bnh-accent);}
+.bnh-footer-bottom{max-width:var(--bnh-maxw);margin:26px auto 0;padding-top:16px;border-top:1px solid var(--bnh-line);font-size:.72rem;color:#6f7377;}
+@media (max-width:800px){
+  .bnh-app-grid{grid-template-columns:1fr;}
+  .bnh-feat-grid{grid-template-columns:repeat(2,1fr);}
+  .bnh-steps{grid-template-columns:1fr;}
+  .bnh-about-blurb{grid-template-columns:1fr;}
+  .bnh-footer-inner{grid-template-columns:1fr;}
+}
+@media (max-width:480px){.bnh-feat-grid{grid-template-columns:1fr;}}
+.bnh-team-card{background:#e4ddc7;border-radius:var(--bnh-radius);padding:18px 20px;}
+.bnh-team-card h3{margin-top:0;font-size:1.02rem;}
+.bnh-team-card p{font-family:var(--bnh-serif);font-size:.92rem;margin:0;color:var(--bnh-ink-mute);line-height:1.6;}
+.bnh-team-role{font-family:var(--bnh-sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bnh-accent-dim);}
+.bnh-panel .bnh-about-blurb{gap:26px;}
+.bnh-table-wrap{overflow-x:auto;margin:1.6em 0;}
+.bnh-table{width:100%;border-collapse:collapse;font-family:var(--bnh-sans);font-size:.82rem;color:var(--bnh-ink);min-width:520px;}
+.bnh-table th{text-align:left;border-bottom:2px solid var(--bnh-accent-dim);padding:10px 12px;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bnh-ink-mute);}
+.bnh-table td{border-bottom:1px dashed #cfc7b0;padding:10px 12px;vertical-align:top;line-height:1.5;}
+.bnh-panel blockquote{margin:1.8em 0;padding:.2em 0 .2em 22px;border-left:3px solid var(--bnh-accent-dim);}
+.bnh-panel blockquote p{font-size:1.16rem;line-height:1.6;font-style:italic;color:var(--bnh-ink);margin:0;}
+.bnh-note{border:1px dashed #cfc7b0;border-radius:var(--bnh-radius);padding:18px 20px;margin:2em 0 0;}
+.bnh-note h3{margin-top:0;font-size:1rem;}
+.bnh-note p{font-size:.95rem;margin-bottom:0;color:var(--bnh-ink-mute);}
+.bnh-readalso{background:#e4ddc7;border-radius:var(--bnh-radius);padding:20px 22px;margin:2.2em 0 0;}
+.bnh-readalso p.bnh-ra-h{font-family:var(--bnh-sans);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bnh-accent-dim);margin:0 0 .8em;}
+.bnh-readalso ul{margin:0;padding-left:1.1em;}
+.bnh-readalso li{margin-bottom:.4em;}
+  </style>
+</head><body>
+  <header class="bnh-site-header">
+  <div class="bnh-header-inner">
+    <a class="bnh-logo" href="/safe.html">BENCH<span>HOOK</span></a>
+    <nav class="bnh-nav">
+      <a href="/safe.html">Journal</a>
+      <a href="/app.html">Toolcount</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+  <article class="bnh-post">
+    <div class="bnh-panel-wrap">
+      <div class="bnh-panel">
+        <p class="bnh-kicker">Shrinkage</p>
+        <h1>Why the Drawer Hides Losses</h1>
+        <p class="bnh-byline">Feb 21, 2026 · Benchhook Journal · Reading time about six minutes</p>
+
+        <img class="bnh-panel-thumb" src="img/why-the-drawer-hides-losses.jpg" alt="Why the Drawer Hides Losses">
+
+        <p>For three years the same eleven hand tools lived in the second drawer of a steel cabinet, laid flat on a scrap of carpet so they would not rattle. Then the cabinet was sold and the eleven went onto a sheet of plywood on the wall, each one traced in white paint. Nothing else changed — same tools, same bench, same two people using them. What changed was how fast a missing tool became a known fact. In the drawer it took, on average, until somebody needed the thing. On the wall it took the length of a glance.</p>
+
+        <h2>A drawer requires a deliberate act</h2>
+        <p>A closed drawer is a sealed argument. To find out what is inside, you have to decide to find out: walk over, grip the handle, pull, and look down at an angle that is never quite right because the light is above you and your own head is in the way. Every one of those steps is a small tax, and small taxes are exactly the kind people stop paying when the shop is busy.</p>
+        <p>A wall does not ask for any of that. It is in the visual field of anyone who walks past it, whether or not they were thinking about tools at all. You do not audit a wall; the wall audits itself against you, continuously, using attention you were spending anyway. That is the whole difference in one sentence, and everything else in this piece is a consequence of it.</p>
+        <p>The consequence that matters most is timing. A gap on the wall is discovered at the moment it occurs, or within a few minutes of it. A gap in a drawer is discovered at the moment someone reaches for that specific tool, which may be tomorrow, or in March. By then the trail is cold: nobody remembers who was here, what job was running, or whether the thing went into a van, a pocket, or a bin of offcuts. The loss is the same either way. The <em>recoverability</em> is not.</p>
+
+        <blockquote>
+          <p>A drawer tells you a tool is gone at the exact moment that information has stopped being useful.</p>
+        </blockquote>
+
+        <h2>Stacking is the second mechanism</h2>
+        <p>Depth is the drawer's other trick. A wall is a single layer by construction — you cannot hang a second chisel behind the first one and pretend both are there. A drawer is a volume, and volumes invite stacking. Put a tray of drill bits on top of a pair of tin snips, and the snips leave the world. They are still physically present, but they have left the inventory in every sense that matters, because nobody will confirm them again until the tray comes out.</p>
+        <p>This is why drawers tend to produce a particular kind of surprise: you go looking for something you assumed was long gone and it is there, under two other things, mildly rusted. The reverse surprise happens just as often and stings more. The bottom layer of a drawer is a place where both presence and absence go unverified, which is a strange property for a storage system to have.</p>
+        <p>Sliding makes it worse. Open and close a deep drawer a few dozen times and the contents migrate. What you left at the front is now at the back, wedged under the runner. A shape you would have recognized instantly on a board has become an outline you cannot see at all — which is the argument made at greater length in <a href="the-shape-that-tells-on-you.html">The Shape That Tells on You</a>.</p>
+
+        <div class="bnh-callout">
+          <strong>A cheap test.</strong> Close every drawer, stand where you normally stand, and try to name what is missing. Then open them. The distance between your two answers is roughly the size of the blind spot you have been living with — and it tends to be larger than people expect.
+        </div>
+
+        <h2>The same eleven tools, measured two ways</h2>
+        <p>These are the notes kept during the move, not a study. They are one bench, one pair of hands, and a small notebook. Read them as a description of what happened here rather than a general finding.</p>
+
+        <div class="bnh-table-wrap">
+          <table class="bnh-table">
+            <thead>
+              <tr><th>Situation</th><th>In the drawer</th><th>On the wall</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tool left in a van overnight</td>
+                <td>Noticed when next needed — sometimes days later</td>
+                <td>Noticed at the end-of-day count, same evening</td>
+              </tr>
+              <tr>
+                <td>Tool borrowed by a second person</td>
+                <td>No visible trace; the drawer looks identical either way</td>
+                <td>Empty silhouette, visible from the doorway</td>
+              </tr>
+              <tr>
+                <td>Duplicate quietly accumulating</td>
+                <td>Easy — three of the same driver hid for a year</td>
+                <td>Hard; there is only one hook, so the third has nowhere to go</td>
+              </tr>
+              <tr>
+                <td>Item slid under the runner</td>
+                <td>Reads as missing until the drawer is emptied</td>
+                <td>Not a failure mode that exists</td>
+              </tr>
+              <tr>
+                <td>Deciding whether to buy a replacement</td>
+                <td>Guesswork, so replacements get bought twice</td>
+                <td>Answered by looking at the board</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>The honest case for drawers</h2>
+        <p>None of the above makes drawers wrong. They solve real problems that a wall handles badly, and pretending otherwise leads to a shop full of dusty edges and a floor covered in dropped fasteners.</p>
+        <ul>
+          <li><strong>Dust and air.</strong> Anything hung on an open wall collects whatever the room produces. Fine dust settles on oiled steel and holds moisture against it. A closed drawer is a modest but genuine shelter.</li>
+          <li><strong>Sharp edges at body height.</strong> A row of exposed blades at shoulder level in a narrow room is a hazard you will eventually meet with your forearm. Six square metres does not leave much room to walk around a mistake.</li>
+          <li><strong>Small consumables.</strong> Screws, washers, sanding discs, spare blades. These have no silhouette worth tracing and no meaningful individual identity. Hanging them would be theatre.</li>
+          <li><strong>Sets that only work together.</strong> A boxed set of taps is one object, not fourteen. Splitting it across a wall creates fourteen chances to lose one.</li>
+          <li><strong>Light and glare.</strong> Some benches face a window, and a wall of bright steel in direct sun is genuinely unpleasant to work beside.</li>
+        </ul>
+
+        <h2>The split this bench settled on</h2>
+        <p>After a year of moving things back and forth, the rule that stuck is embarrassingly simple: <strong>anything with a distinct silhouette goes on the wall; anything that lives in a box stays in a drawer, with a written count on the lid.</strong></p>
+        <p>Silhouette is the test because silhouette is what makes absence legible. A pair of pliers, a coping saw, a block plane, a set of long-nose grips — each of these has a shape you can trace once and then recognize forever, at any distance, from any angle. A handful of M6 bolts does not. Trying to force bolts onto a board produces a wall that is busy and uninformative, which is worse than a drawer because it looks organized while telling you nothing.</p>
+        <p>The written count on the lid is the part people skip, and it is the part that does the work. A masking-tape label reading <em>28 discs — checked 14 Feb</em> converts an opaque box into something you can verify in two seconds without emptying it. The count does not need to be exact for small consumables; it needs to be recent enough that a large drop is obvious. When the number on the lid and the number in the box diverge badly, you have learned something. When they match, you have spent two seconds. Both outcomes are fine.</p>
+        <p>Three further conventions came out of the same year. One drawer, one category — mixing categories is how the bottom layer forms. Nothing stacks more than two deep; if it needs a third layer, it needs a second drawer or fewer items. And every drawer gets opened during the evening pass whether or not anyone touched it that day, which is the small discipline described in <a href="end-of-day-count-habit.html">The End-of-Day Count Habit</a>.</p>
+
+        <h2>What the drawer is actually good at</h2>
+        <p>Worth stating plainly, because the framing so far has been unkind. A drawer is excellent at protecting things and terrible at reporting on them. A wall is excellent at reporting and offers no protection at all. Neither is a storage system on its own; together they are one, provided you are deliberate about which job you are asking each to do.</p>
+        <p>The failure mode in most small shops is not choosing drawers. It is choosing drawers by default — putting a tool away in whichever opening is nearest, and then wondering months later why the inventory feels like a rumour. Position should be a decision made once, on purpose, and then left alone. After that the shop mostly runs itself, and the evening pass takes under two minutes instead of turning into an archaeological dig.</p>
+
+        <div class="bnh-note">
+          <h3>A note on scope</h3>
+          <p>This is one small workshop's arrangement, written down so it can be argued with. Different trades, insurance requirements, shared premises, and shops with real theft exposure all have constraints this bench does not face. Treat any of it as a starting point to test against your own room, not as a recommendation about how anyone else should store their tools.</p>
+        </div>
+
+        <div class="bnh-readalso">
+          <p class="bnh-ra-h">Read also</p>
+          <ul>
+            <li><a href="painted-outlines-versus-labels.html">Painted Outlines Versus Labels</a> — why a traced shape reads faster than a printed word.</li>
+            <li><a href="six-square-metres-and-a-count.html">Six Square Metres and a Count</a> — the room this journal is written in, and how it got arranged.</li>
+            <li><a href="what-a-missing-outline-actually-costs.html">What a Missing Outline Actually Costs</a> — the quiet expense of finding out late.</li>
+          </ul>
+        </div>
+
+        <a class="bnh-backlink" href="/safe.html">← Back to the journal</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="bnh-site-footer">
+  <div class="bnh-footer-inner">
+    <div class="bnh-footer-col">
+      <p class="bnh-logo-sm">BENCH<span style="color:var(--bnh-accent)">HOOK</span></p>
+      <p>A small journal about keeping a six-square-metre bench honest — fixed positions, painted silhouettes, and the count at the end of the day.</p>
+    </div>
+    <div class="bnh-footer-col">
+      <p class="bnh-footer-h">Read</p>
+      <a href="/safe.html">Journal</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About</a>
+    </div>
+    <div class="bnh-footer-col">
+      <p class="bnh-footer-h">Site</p>
+      <a href="/app.html">Toolcount</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </div>
+  </div>
+  <p class="bnh-footer-bottom">© 2026 Benchhook. An independent journal about workshop tool inventory. Not affiliated with any tool manufacturer, retailer, or brand.</p>
+</footer>
+</body></html>

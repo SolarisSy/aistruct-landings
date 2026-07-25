@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notches That Earn Their Keep: A Marking System for Repeat Sewing · Blockdraft</title>
+  <meta name="description" content="A four-mark notch system — single for front, double for back, a flagged ease limit, a grain crossing — kept identical across every block you own.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://blockdraft.shop/notches-that-earn-their-keep.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fbf7f2'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23b03050' stroke-width='3'/%3E%3Cpath d='M32 10l6 10h-12z' fill='%23b03050'/%3E%3Cpath d='M14 34l8-6v12z' fill='%232f5f8f'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --bdk-bg:#fbf7f2;
+  --bdk-bg-alt:#f2ecdf;
+  --bdk-text:#2b2622;
+  --bdk-text-soft:#5b534a;
+  --bdk-accent:#b03050;
+  --bdk-mark:#2f5f8f;
+  --bdk-line:#c9bfae;
+  --bdk-radius:8.5px;
+  --bdk-maxw:870px;
+  --bdk-serif:'Book Antiqua','Palatino Linotype',Georgia,serif;
+  --bdk-sans:Geneva,Verdana,'Trebuchet MS',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bdk-bg);color:var(--bdk-text);font-family:var(--bdk-sans);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:var(--bdk-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--bdk-serif);font-weight:400;color:var(--bdk-text);line-height:1.2;margin:0 0 .5em;}
+h1{font-size:2.35rem;letter-spacing:.2px;}
+h2{font-size:1.65rem;margin-top:2.2em;}
+h3{font-size:1.25rem;}
+p{margin:0 0 1.1em;}
+ul,ol{margin:0 0 1.1em;padding-left:1.3em;}
+li{margin-bottom:.4em;}
+.bdk-wrap{max-width:var(--bdk-maxw);margin:0 auto;padding:0 22px;}
+.bdk-notch{display:inline-block;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid var(--bdk-accent);}
+.bdk-notch.bdk-notch--blue{border-top-color:var(--bdk-mark);}
+.bdk-sep{position:relative;border:0;border-top:2px dashed var(--bdk-line);margin:46px 0;}
+.bdk-sep::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--bdk-mark);}
+.bdk-header{border-bottom:2px dashed var(--bdk-line);background:var(--bdk-bg);position:sticky;top:0;z-index:20;}
+.bdk-headbar{max-width:var(--bdk-maxw);margin:0 auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bdk-logo{display:flex;align-items:center;gap:9px;font-family:var(--bdk-serif);font-size:1.4rem;color:var(--bdk-text);}
+.bdk-logo:hover{text-decoration:none;}
+.bdk-logo-mark{width:26px;height:26px;border:2px solid var(--bdk-accent);border-radius:50%;position:relative;flex:none;}
+.bdk-logo-mark::before{content:"";position:absolute;left:50%;top:-2px;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--bdk-accent);}
+.bdk-nav{display:flex;gap:22px;flex-wrap:wrap;font-size:.92rem;}
+.bdk-nav a{color:var(--bdk-text-soft);letter-spacing:.3px;}
+.bdk-nav a:hover{color:var(--bdk-accent);}
+.bdk-footer{border-top:2px dashed var(--bdk-line);margin-top:60px;padding:38px 0 30px;background:var(--bdk-bg-alt);}
+.bdk-foot-grid{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;}
+.bdk-foot-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-text-soft);font-family:var(--bdk-sans);margin-bottom:10px;}
+.bdk-foot-col a{display:block;color:var(--bdk-text);font-size:.92rem;margin-bottom:7px;}
+.bdk-foot-bottom{margin-top:26px;padding-top:18px;border-top:1px dashed var(--bdk-line);font-size:.8rem;color:var(--bdk-text-soft);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;}
+.bdk-news{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);padding:26px;background:var(--bdk-bg-alt);}
+.bdk-news form{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.bdk-news input[type=email]{flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--bdk-line);border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.95rem;background:#fff;}
+.bdk-ok{display:none;margin-top:10px;color:var(--bdk-mark);font-size:.88rem;}
+.bdk-btn{display:inline-block;background:var(--bdk-accent);color:#fff;padding:12px 22px;border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.92rem;letter-spacing:.4px;border:none;cursor:pointer;}
+.bdk-btn:hover{background:#8f2540;text-decoration:none;color:#fff;}
+.bdk-btn--outline{background:transparent;color:var(--bdk-accent);border:1.5px solid var(--bdk-accent);}
+.bdk-btn--outline:hover{background:var(--bdk-accent);color:#fff;}
+.bdk-pattern{display:grid;grid-template-columns:55% 45%;position:relative;align-items:start;}
+.bdk-piece{padding:20px 30px 20px 0;border-right:2px dashed var(--bdk-mark);}
+.bdk-instruction{padding:20px 0 20px 30px;}
+.bdk-stepnum{position:absolute;left:55%;top:24px;transform:translate(-50%,0);width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;border:3px solid var(--bdk-bg);box-shadow:0 0 0 2px var(--bdk-mark);z-index:2;}
+.bdk-pattern + .bdk-pattern{border-top:2px dashed var(--bdk-line);}
+.bdk-piece h3,.bdk-instruction h3{margin-top:0;}
+.bdk-piece .bdk-thumb{border-radius:var(--bdk-radius);overflow:hidden;border:1px solid var(--bdk-line);margin-bottom:12px;}
+.bdk-piece .bdk-thumb img{width:100%;height:190px;object-fit:cover;display:block;}
+.bdk-meta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:6px;display:inline-block;}
+.bdk-dek{color:var(--bdk-text-soft);font-size:.95rem;}
+@media (max-width:640px){
+  .bdk-pattern{grid-template-columns:1fr;}
+  .bdk-piece{border-right:none;border-bottom:2px dashed var(--bdk-mark);padding:20px 0;}
+  .bdk-instruction{padding:20px 0;}
+  .bdk-stepnum{position:static;transform:none;margin-bottom:10px;}
+}
+.bdk-hero{padding:54px 0 20px;}
+.bdk-hero-frame{border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:14px;position:relative;}
+.bdk-hero-frame img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:320px;object-fit:cover;}
+.bdk-hero-frame::before,.bdk-hero-frame::after{content:"";position:absolute;top:50%;width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;}
+.bdk-hero-frame::before{left:-2px;border-left:9px solid var(--bdk-accent);}
+.bdk-hero-frame::after{right:-2px;border-right:9px solid var(--bdk-mark);}
+.bdk-eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--bdk-accent);margin-bottom:10px;}
+.bdk-mock{border:2px solid var(--bdk-text);border-radius:16px;max-width:250px;margin:0 auto;padding:14px;background:#fff;}
+.bdk-mock-bar{display:flex;justify-content:space-between;font-size:.7rem;color:var(--bdk-text-soft);margin-bottom:10px;}
+.bdk-mock-screen{border:2px dashed var(--bdk-mark);border-radius:8px;padding:12px;}
+.bdk-mock-row{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--bdk-line);font-size:.8rem;}
+.bdk-mock-row:last-child{border-bottom:none;}
+.bdk-mock-dot{width:16px;height:16px;border-radius:50%;background:var(--bdk-accent);flex:none;}
+.bdk-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-feat{padding:22px;border-right:2px dashed var(--bdk-line);border-bottom:2px dashed var(--bdk-line);}
+.bdk-feat:nth-child(2n){border-right:none;}
+.bdk-feat h3{font-size:1.05rem;margin-bottom:6px;}
+.bdk-feat p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-feat-grid{grid-template-columns:1fr;}.bdk-feat{border-right:none;}}
+.bdk-term{padding:20px 0;border-bottom:1px dashed var(--bdk-line);}
+.bdk-term dt{font-family:var(--bdk-serif);font-size:1.1rem;color:var(--bdk-accent);margin-bottom:6px;}
+.bdk-term dd{margin:0;color:var(--bdk-text-soft);}
+.bdk-alpha{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-accent);margin:34px 0 4px;}
+.bdk-badge{display:inline-block;background:var(--bdk-bg-alt);border:1px solid var(--bdk-line);border-radius:20px;padding:4px 12px;font-size:.75rem;color:var(--bdk-text-soft);margin-right:6px;}
+.bdk-section{padding:40px 0;}
+.bdk-lead{font-size:1.08rem;color:var(--bdk-text-soft);max-width:640px;}
+.bdk-quote{border-left:3px solid var(--bdk-accent);padding-left:16px;font-style:italic;color:var(--bdk-text-soft);margin:24px 0;}
+.bdk-updated{font-size:.85rem;color:var(--bdk-text-soft);}
+.bdk-team{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-team-card{padding:20px;border-right:2px dashed var(--bdk-line);}
+.bdk-team-card:last-child{border-right:none;}
+.bdk-team-card h3{font-size:1.05rem;margin-bottom:2px;}
+.bdk-team-role{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-team-card p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-team{grid-template-columns:1fr;}.bdk-team-card{border-right:none;border-bottom:2px dashed var(--bdk-line);}.bdk-team-card:last-child{border-bottom:none;}}
+.bdk-artmeta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-byline{font-size:.86rem;color:var(--bdk-text-soft);border-top:1px dashed var(--bdk-line);border-bottom:1px dashed var(--bdk-line);padding:10px 0;margin:0 0 30px;}
+.bdk-artbody{font-size:1.02rem;}
+.bdk-artbody h2{border-top:2px dashed var(--bdk-line);padding-top:26px;}
+.bdk-fig{margin:30px 0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:12px;}
+.bdk-fig img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:auto;}
+.bdk-figcap{font-size:.82rem;color:var(--bdk-text-soft);margin:10px 2px 0;}
+.bdk-callout{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);background:var(--bdk-bg-alt);padding:20px 22px;margin:30px 0;}
+.bdk-callout h3{margin-top:0;font-size:1.05rem;}
+.bdk-callout p:last-child{margin-bottom:0;}
+.bdk-steps{list-style:none;padding:0;counter-reset:bdkstep;margin:28px 0;}
+.bdk-steps li{counter-increment:bdkstep;position:relative;padding:2px 0 18px 52px;border-bottom:1px dashed var(--bdk-line);margin-bottom:18px;}
+.bdk-steps li:last-child{border-bottom:none;margin-bottom:0;}
+.bdk-steps li::before{content:counter(bdkstep);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;box-shadow:0 0 0 2px var(--bdk-mark);}
+.bdk-tablewrap{overflow-x:auto;margin:26px 0;}
+.bdk-table{border-collapse:collapse;width:100%;font-size:.92rem;}
+.bdk-table th,.bdk-table td{border:1px dashed var(--bdk-line);padding:9px 12px;text-align:left;}
+.bdk-table th{font-family:var(--bdk-serif);font-weight:400;background:var(--bdk-bg-alt);}
+.bdk-related{border-top:2px dashed var(--bdk-line);margin-top:46px;padding-top:24px;}
+.bdk-related a{display:block;margin-bottom:8px;}
+  </style>
+</head><body>
+  <header class="bdk-header">
+  <div class="bdk-headbar">
+    <a href="safe.html" class="bdk-logo"><span class="bdk-logo-mark"></span> Blockdraft</a>
+    <nav class="bdk-nav">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Blockbook</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+  <article class="bdk-post">
+    <div class="bdk-wrap">
+      <div class="bdk-section">
+        <span class="bdk-artmeta">Tools &amp; Marking</span>
+        <h1>Notches That Earn Their Keep: A Marking System for Repeat Sewing</h1>
+        <p class="bdk-lead">A consistent notch system turns pattern matching into a five-second glance instead of a guessing game at the ironing board.</p>
+        <p class="bdk-byline">By the Blockdraft desk &middot; March 27, 2026 &middot; Filed under Tools &amp; Marking</p>
+
+        <div class="bdk-artbody">
+
+          <p>Two sleeve pieces on the ironing board, cut from the same charcoal twill, both facing up. One is the left sleeve and one is the right, and for a good thirty seconds there is no way to tell which is which except by holding each against the armhole and squinting. That thirty seconds happens again at the side seams, and again when the skirt back gets pinned to the skirt front upside down. None of it is a skill problem. It is a labeling problem, and the fix costs nothing but a decision made once and then never revisited.</p>
+
+          <div class="bdk-fig">
+            <img src="img/notches-that-earn-their-keep.jpg" alt="Notches That Earn Their Keep: A Marking System for Repeat Sewing">
+            <p class="bdk-figcap">A notch cut outward from the edge: the triangle sits on top of the seam allowance rather than eating into it, so the mark survives trimming and grading.</p>
+          </div>
+
+          <h2>A notch is a sentence, not a decoration</h2>
+
+          <p>Every notch you cut is a short instruction to a future version of yourself who has forgotten everything about today. <em>This edge joins that edge. This one faces forward. Stop easing here.</em> Commercial patterns say those things too, but they say them in whatever dialect that publisher uses, and the dialect changes between envelopes. Your own block set has no such excuse. It can speak one language for the next decade.</p>
+
+          <p>The trouble starts when the notches are decorative — a triangle here because the drafting book had one, a clip there because the fabric was slipping. Marks that do not mean anything specific still cost attention. You look at them, ask what they are for, and get no answer. A system with four marks and four meanings beats a system with eleven marks and a vague feeling.</p>
+
+          <h2>The four marks, and nothing else</h2>
+
+          <p>Here is the whole vocabulary. Single for front, double for back, a flagged notch where ease begins and ends, and a drawn crossing where the grainline meets a seam line. Four marks cover every joining decision a bodice, sleeve, and skirt block will ever ask you to make.</p>
+
+          <div class="bdk-tablewrap">
+            <table class="bdk-table">
+              <thead>
+                <tr><th>Mark</th><th>Where it lives</th><th>What it tells you at the machine</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Single notch</td><td>Every seam edge belonging to a front piece</td><td>This edge faces forward. Match it to another single.</td></tr>
+                <tr><td>Double notch (two triangles, a finger-width apart)</td><td>Every seam edge belonging to a back piece</td><td>This edge faces backward. Never pairs with a single.</td></tr>
+                <tr><td>Flagged notch (single notch with a short pencil bar drawn across it)</td><td>Sleeve cap, armhole, skirt hip curve</td><td>Ease starts or stops here. Between two flags, the longer edge gets distributed.</td></tr>
+                <tr><td>Drawn crossing (a small blue T, never cut)</td><td>Wherever the grainline, if extended, would cross a seam line</td><td>Balance point. If this sits crooked on the body, the piece is hanging off-grain.</td></tr>
+                <tr><td>No mark at all</td><td>Hems, fold lines, center front on the fold</td><td>Deliberate silence. An unmarked edge is never a seam edge.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>The last row is the one people skip, and it does more work than the others. A blank edge that <em>means</em> blank is information. It is also the reason to keep the vocabulary small: the more marks you invent, the less an absent mark can tell you.</p>
+
+          <blockquote class="bdk-quote">The value of a notch system is not in any single notch. It is in the promise that a single triangle has meant &ldquo;front&rdquo; on every piece you have ever cut, without exception, since the day you decided it would.</blockquote>
+
+          <h2>Why it collapses the moment you change it</h2>
+
+          <p>Say the bodice block uses single-for-front. Two years later, drafting a skirt, you decide doubles look tidier on the front because there are fewer pieces to confuse. Now half the block set speaks one language and half speaks another, and neither half is trustworthy — you have to remember which era a piece comes from before you can read it. The system has not been improved. It has been deleted.</p>
+
+          <p>This is the same discipline that makes a single fitting adjustment stick instead of being re-litigated at every muslin, the argument laid out in <a href="the-one-adjustment-rule.html">The One-Adjustment Rule</a>. Consistency is what converts a one-time decision into a permanent saving. A notch convention that drifts is just extra cutting.</p>
+
+          <p>So write it down before you rely on it, and let the written version win any argument with your memory. If a mark on an old piece contradicts the legend, the piece is wrong, not the legend.</p>
+
+          <h2>Cut outward, never into the allowance</h2>
+
+          <p>Cut a notch inward and you have removed a wedge of the seam allowance at exactly the point where you most want it intact. On a curved armhole with a narrow allowance, an inward clip can leave you a few threads from the stitching line — and it disappears entirely the moment you trim or grade. Cut the same notch <em>outward</em>, as a small triangle standing proud of the cutting line, and it survives everything.</p>
+
+          <ul>
+            <li>Keep the triangle short and wide — roughly a quarter inch tall, half an inch at the base. Tall thin points bend over and vanish under the presser foot.</li>
+            <li>Trace the outward triangles onto the fabric as part of the cutting line. You are not clipping the cloth; you are cutting around a bump.</li>
+            <li>On slippery or loosely woven cloth, back the triangle up with a chalk tick on the wrong side. The bump can fray away; the chalk stays for one session, which is all you need.</li>
+            <li>Never place a notch closer than an inch to a corner. Corners already carry enough information.</li>
+          </ul>
+
+          <p>Outward notches also protect the thing that makes a block reusable in the first place: an allowance whose width you can trust everywhere, the case made in <a href="seam-allowance-consistency.html">Why Seam Allowance Consistency Matters More Than Seam Allowance Size</a>.</p>
+
+          <div class="bdk-callout">
+            <h3>Mark the cloth copy the same day</h3>
+            <p>A paper master and a cloth sloper drift apart fast if only one of them gets updated. When you add notches to the paper block, transfer them to the cloth copy in the same sitting — tailor's tacks for the flagged notches, a running thread line for the grain crossings. Some sewists find the cloth copy becomes the version they actually reach for, which is exactly why it cannot be the version with missing marks.</p>
+          </div>
+
+          <h2>Retrofitting a block set you already own</h2>
+
+          <p>You do not need to recut anything. Retrofitting is an evening of quiet work with a pencil, and pieces you never use again simply never get done.</p>
+
+          <ol class="bdk-steps">
+            <li><strong>Write the legend first.</strong> One index card, four rows, taped inside the master envelope. Date it. Everything after this is just applying the card.</li>
+            <li><strong>Sort by piece, not by garment.</strong> All fronts in one stack, all backs in another. Sorting first means you are never deciding front-versus-back and notch-versus-no-notch in the same moment.</li>
+            <li><strong>Draw before you cut.</strong> Pencil the triangles onto the paper edge and leave them uncut for a day. Fresh eyes catch a back piece that wandered into the front stack.</li>
+            <li><strong>Add the flags last.</strong> Ease limits are the only marks that need measuring, and they depend on how you distribute the cap — see <a href="sleeve-cap-ease-myths.html">Sleeve Cap Ease</a> for what those numbers actually describe.</li>
+            <li><strong>Retire contradictions.</strong> Any old piece whose marks disagree with the card gets a diagonal line through the corner and goes to the back of the envelope. Not thrown out — just demoted, so it cannot be picked up by mistake.</li>
+          </ol>
+
+          <p>Whether the master lives on paper or in cloth changes the retrofit slightly; the tradeoffs are covered in <a href="paper-versus-cloth-block.html">Paper Block or Cloth Sloper</a>. The legend card, however, belongs to the envelope either way.</p>
+
+          <h2>What the system quietly buys you</h2>
+
+          <p>Two things, mostly. The first is the thirty seconds at the ironing board, multiplied by every seam of every garment for as long as the block set lasts. The second is harder to notice: pieces that announce their orientation are pieces you stop cutting backwards. A mirrored sleeve, discovered after the cap is stitched, costs a great deal more than a triangle of paper.</p>
+
+          <p>There is a third benefit that only shows up later. When a block finally does need a real change — a shoulder that has shifted, a waist that sits differently than it did when you first measured over the clothes you actually wear, as in <a href="measuring-over-worn-clothes.html">this note on measuring over worn garments</a> — a marked block tells you where the change has to propagate. Move the shoulder point and the flagged ease limits move with it, visibly, because they were labeled. An unmarked block just leaves you guessing which curves were related.</p>
+
+          <div class="bdk-callout">
+            <h3>A note on scope</h3>
+            <p>This is one workroom's convention, written down because writing it down is the whole point. Nothing here is a standard, and a different set of four marks would serve just as well as long as it never changes. Blockdraft publishes notes on drafting and home tailoring for readers who want to think about their own methods, not instructions to follow exactly. If your local sewing tradition or your teacher uses a different vocabulary, keep theirs — the consistency matters far more than the particular shapes.</p>
+          </div>
+
+          <div class="bdk-related">
+            <h3>Read also</h3>
+            <a href="dart-rotation-explained.html">Dart Rotation Explained: Moving Shaping Without Losing Fit</a>
+            <a href="skirt-block-two-darts.html">Building a Skirt Block With Two Darts Instead of One</a>
+            <a href="reading-commercial-patterns-against-your-block.html">Reading a Commercial Pattern Against Your Own Block Before You Cut</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="bdk-footer">
+  <div class="bdk-wrap">
+    <div class="bdk-foot-grid">
+      <div class="bdk-foot-col">
+        <h4>Blockdraft</h4>
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Blockbook app</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Reference</h4>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Elsewhere</h4>
+        <span style="font-size:.85rem;color:var(--bdk-text-soft);">Reader mail: hello@blockdraft.shop</span>
+      </div>
+    </div>
+    <div class="bdk-foot-bottom">
+      <span>&copy; 2026 Blockdraft. Notes on pattern drafting and home tailoring, written by hand.</span>
+      <span>Not affiliated with any pattern brand or sewing machine manufacturer.</span>
+    </div>
+  </div>
+</footer>
+</body></html>

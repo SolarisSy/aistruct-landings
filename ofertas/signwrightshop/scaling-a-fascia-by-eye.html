@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scaling a Fascia by Eye · Signwright</title>
+  <meta name="description" content="How sign painters work out cap height, line spacing, and sightline distance for a fascia board — the arithmetic done before any chalk line goes up.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://signwright.shop/scaling-a-fascia-by-eye.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230f0f0f'/%3E%3Ctext x='32' y='45' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%23c8a33e' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+  <style>
+*,*::before,*::after{box-sizing:border-box;}
+html,body,h1,h2,h3,h4,p,ul,ol,li,figure,blockquote,dl,dd,form{margin:0;padding:0;}
+ul,ol{list-style:none;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button,input{font-family:inherit;font-size:inherit;}
+html{-webkit-text-size-adjust:100%;}
+::selection{background:#c8a33e;color:#0f0f0f;}
+
+:root{
+  --sgw-black:#0f0f0f;
+  --sgw-cream:#f5efe0;
+  --sgw-ink:#f5efe0;
+  --sgw-ink-cream:#181307;
+  --sgw-gold:#c8a33e;
+  --sgw-gold-dim:rgba(200,163,62,.32);
+  --sgw-radius:10px;
+  --sgw-maxw:1045px;
+  --sgw-serif:'Big Caslon','Big Caslon Medium','Book Antiqua',Georgia,'Times New Roman',serif;
+  --sgw-sans:'Trebuchet MS','Trebuchet','Lucida Grande',Tahoma,sans-serif;
+}
+
+html,body{background:var(--sgw-black);}
+body{font-family:var(--sgw-sans);color:var(--sgw-ink);font-size:17px;line-height:1.62;overflow-x:hidden;}
+
+.sgw-inner{max-width:var(--sgw-maxw);margin:0 auto;padding:0 32px;}
+
+.sgw-band{width:100%;padding:88px 0;}
+.sgw-band--dark{background:var(--sgw-black);color:var(--sgw-ink);}
+.sgw-band--light{background:var(--sgw-cream);color:var(--sgw-ink-cream);}
+.sgw-band--hero{padding:120px 0 96px;}
+.sgw-band--tight{padding:64px 0;}
+.sgw-band--cta{padding:96px 0;text-align:center;}
+
+.sgw-head{background:var(--sgw-black);border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-head__row{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:22px 32px;max-width:var(--sgw-maxw);margin:0 auto;}
+.sgw-logo{font-family:var(--sgw-serif);font-size:24px;letter-spacing:.05em;text-transform:uppercase;color:var(--sgw-gold);}
+.sgw-nav{display:flex;gap:26px;flex-wrap:wrap;}
+.sgw-nav a{font-size:12.5px;text-transform:uppercase;letter-spacing:.13em;padding-bottom:5px;border-bottom:1px solid transparent;}
+.sgw-nav a:hover,.sgw-nav a[aria-current]{color:var(--sgw-gold);border-color:var(--sgw-gold);}
+
+.sgw-kicker{display:block;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sgw-gold);margin-bottom:16px;}
+.sgw-band--light .sgw-kicker{color:#8f6a1c;}
+.sgw-h1{font-family:var(--sgw-serif);font-weight:400;font-size:clamp(42px,7vw,96px);line-height:.98;letter-spacing:-.01em;margin-bottom:24px;}
+.sgw-page-h1{font-family:var(--sgw-serif);font-weight:400;font-size:clamp(38px,6vw,74px);line-height:1.03;margin-bottom:20px;}
+.sgw-h2{font-family:var(--sgw-serif);font-weight:400;font-size:clamp(30px,4.2vw,52px);line-height:1.05;margin-bottom:20px;}
+.sgw-h3{font-family:var(--sgw-serif);font-weight:400;font-size:24px;margin-bottom:10px;}
+.sgw-lede{font-size:17.5px;max-width:62ch;opacity:.92;}
+.sgw-lede + .sgw-lede{margin-top:14px;}
+
+.sgw-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;}
+.sgw-hero p{color:#dcd2b8;max-width:48ch;margin-bottom:32px;}
+.sgw-band--light .sgw-hero p{color:#3c3520;}
+.sgw-hero__actions{display:flex;gap:16px;flex-wrap:wrap;}
+.sgw-hero__figure{border:1px solid var(--sgw-gold-dim);border-radius:var(--sgw-radius);overflow:hidden;aspect-ratio:4/5;}
+.sgw-hero__figure img{width:100%;height:100%;object-fit:cover;}
+.sgw-hero__figure--wide{aspect-ratio:16/10;}
+
+.sgw-btn{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;text-transform:uppercase;letter-spacing:.14em;padding:16px 30px;border-radius:var(--sgw-radius);border:1px solid var(--sgw-gold);background:var(--sgw-gold);color:var(--sgw-black);transition:background .15s,color .15s;cursor:pointer;}
+.sgw-btn:hover{background:transparent;color:var(--sgw-gold);}
+.sgw-btn--ghost{background:transparent;color:var(--sgw-gold);}
+.sgw-btn--ghost:hover{background:var(--sgw-gold);color:var(--sgw-black);}
+.sgw-band--light .sgw-btn--ghost{color:#181307;border-color:#181307;}
+.sgw-band--light .sgw-btn--ghost:hover{background:#181307;color:var(--sgw-cream);}
+
+.sgw-lines{margin-top:44px;border-top:1px solid var(--sgw-gold-dim);}
+.sgw-line{display:grid;grid-template-columns:118px 1fr auto;gap:28px;align-items:center;padding:28px 0;border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-line__thumb{width:118px;height:118px;border-radius:var(--sgw-radius);overflow:hidden;border:1px solid var(--sgw-gold-dim);flex-shrink:0;}
+.sgw-line__thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.sgw-line:hover .sgw-line__thumb img{transform:scale(1.05);}
+.sgw-line__meta{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sgw-gold);margin-bottom:8px;}
+.sgw-line__title{font-family:var(--sgw-serif);font-weight:400;font-size:clamp(21px,2.4vw,30px);line-height:1.14;margin-bottom:8px;}
+.sgw-line:hover .sgw-line__title{color:#8f6a1c;}
+.sgw-line__dek{font-size:14px;opacity:.72;max-width:58ch;}
+.sgw-line__arrow{font-family:var(--sgw-serif);font-size:26px;color:var(--sgw-gold);justify-self:end;}
+
+.sgw-sheet{position:relative;border:1px solid var(--sgw-gold-dim);border-radius:var(--sgw-radius);padding:44px 40px;background-image:repeating-linear-gradient(to bottom,rgba(200,163,62,.16),rgba(200,163,62,.16) 1px,transparent 1px,transparent 34px);overflow:hidden;}
+.sgw-sheet::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--sgw-gold-dim);}
+.sgw-sheet__label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sgw-gold);margin-bottom:18px;position:relative;z-index:1;}
+.sgw-sheet__word{font-family:var(--sgw-serif);font-size:clamp(34px,6vw,64px);letter-spacing:.02em;position:relative;z-index:1;}
+.sgw-sheet__cap{position:relative;height:1px;background:var(--sgw-gold);margin-top:18px;}
+.sgw-sheet__cap span{position:absolute;right:0;top:-22px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sgw-gold);}
+
+.sgw-feats{display:grid;grid-template-columns:repeat(2,1fr);margin-top:44px;border-top:1px solid var(--sgw-gold-dim);border-left:1px solid var(--sgw-gold-dim);}
+.sgw-feat{padding:32px 34px;border-right:1px solid var(--sgw-gold-dim);border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-feat__num{display:block;font-family:var(--sgw-serif);font-size:13px;letter-spacing:.1em;color:var(--sgw-gold);margin-bottom:12px;}
+.sgw-feat p{font-size:14.5px;opacity:.78;}
+
+.sgw-steps{margin-top:44px;border-top:1px solid var(--sgw-gold-dim);}
+.sgw-step{display:grid;grid-template-columns:70px 1fr;gap:24px;padding:26px 0;border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-step__num{font-family:var(--sgw-serif);font-size:34px;color:var(--sgw-gold);}
+.sgw-step p{font-size:14.5px;opacity:.8;max-width:60ch;}
+
+.sgw-entries{margin-top:44px;border-top:1px solid var(--sgw-gold-dim);}
+.sgw-entry{padding:26px 0;border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-entry__term{font-family:var(--sgw-serif);font-size:23px;color:var(--sgw-gold);margin-bottom:8px;}
+.sgw-band--light .sgw-entry__term{color:#8f6a1c;}
+.sgw-entry__def{font-size:15px;max-width:70ch;opacity:.9;}
+
+.sgw-news{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;}
+.sgw-news input[type=email]{flex:1;min-width:220px;padding:15px 18px;border-radius:var(--sgw-radius);border:1px solid var(--sgw-gold-dim);background:transparent;color:inherit;font-size:14px;}
+.sgw-news__ok{display:none;margin-top:14px;font-size:13px;color:var(--sgw-gold);}
+
+.sgw-prose{max-width:72ch;}
+.sgw-prose p{margin-bottom:18px;font-size:15.5px;opacity:.92;}
+.sgw-prose h2{font-family:var(--sgw-serif);font-weight:400;font-size:26px;margin:38px 0 14px;}
+.sgw-prose ul{list-style:disc;margin:0 0 18px 22px;}
+.sgw-prose li{margin-bottom:8px;font-size:15px;}
+
+.sgw-foot{background:var(--sgw-black);border-top:1px solid var(--sgw-gold-dim);padding:64px 0 0;}
+.sgw-foot__grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:36px;padding-bottom:48px;max-width:var(--sgw-maxw);margin:0 auto;padding-left:32px;padding-right:32px;}
+.sgw-foot__brand p{margin-top:14px;font-size:14px;color:#c9bf9e;max-width:34ch;}
+.sgw-logo--foot{font-size:21px;}
+.sgw-foot__label{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sgw-gold);margin-bottom:14px;}
+.sgw-foot__col a{display:block;font-size:14px;color:#d8cfb8;padding:6px 0;}
+.sgw-foot__col a:hover{color:var(--sgw-gold);}
+.sgw-foot__base{border-top:1px solid var(--sgw-gold-dim);padding:22px 32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#9a917a;max-width:var(--sgw-maxw);margin:0 auto;}
+.sgw-foot__base a{color:var(--sgw-gold);}
+
+@media (max-width:860px){
+  .sgw-hero{grid-template-columns:1fr;}
+  .sgw-hero__figure{order:-1;aspect-ratio:16/9;}
+  .sgw-feats{grid-template-columns:1fr;}
+  .sgw-line{grid-template-columns:84px 1fr;}
+  .sgw-line__arrow{display:none;}
+  .sgw-foot__grid{grid-template-columns:1fr 1fr;}
+  .sgw-step{grid-template-columns:50px 1fr;}
+}
+@media (max-width:560px){
+  .sgw-band{padding:56px 0;}
+  .sgw-band--hero{padding:78px 0 56px;}
+  .sgw-inner{padding:0 20px;}
+  .sgw-head__row{padding:18px 20px;}
+  .sgw-foot__grid{grid-template-columns:1fr;padding:0 20px 40px;}
+  .sgw-foot__base{padding:20px;}
+  .sgw-line{grid-template-columns:1fr;}
+  .sgw-line__thumb{width:100%;height:180px;}
+  .sgw-nav{gap:14px;}
+}
+  </style>
+</head><body>
+  <header class="sgw-head">
+    <div class="sgw-head__row">
+      <a class="sgw-logo" href="safe.html">Signwright</a>
+      <nav class="sgw-nav" aria-label="Primary">
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Layout Sheet</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+  <article class="sgw-post">
+
+    <section class="sgw-band sgw-band--dark sgw-band--tight">
+      <div class="sgw-inner">
+        <span class="sgw-kicker">Layout</span>
+        <h1 class="sgw-page-h1">Scaling a Fascia by Eye</h1>
+        <p class="sgw-lede">Working out cap height and line spacing before a single chalk mark goes up.</p>
+        <p style="margin-top:18px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sgw-gold);opacity:.85;">Layout &middot; April 15, 2026</p>
+      </div>
+    </section>
+
+    <figure style="max-width:var(--sgw-maxw);margin:0 auto;">
+      <img src="img/scaling-a-fascia-by-eye.jpg" alt="Scaling a Fascia by Eye" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;">
+    </figure>
+
+    <section class="sgw-band sgw-band--light">
+      <div class="sgw-inner sgw-prose">
+
+        <p>A fascia board doesn't come with instructions. A shopfront might be nine feet wide or twenty-six, the board might hang eight feet up or fourteen, and the name going on it might run four letters or four words. None of that changes on delivery day — it has to be worked out beforehand, using nothing more than the building itself, a bit of arithmetic, and a felt-tip held out at arm's length to check the eye's opinion of the numbers. This part of the job looks the least like art and behaves the most like carpentry: measure twice, chalk once, and trust the figures until the eye says otherwise.</p>
+
+        <h2>Working Backward From the Wall</h2>
+        <p>Every fascia job starts with three numbers that have nothing to do with typography: the width of the board, its height above the sidewalk, and the distance from which most people will actually read it. A corner shop on a narrow street might give a passerby only fifteen feet before the sign is overhead and out of the sightline. A board over a parking lot entrance might be read from eighty feet away through a windshield. Neither distance is negotiable — it comes from where the building sits, not from what the client pictures the letters looking like. On site, this usually means standing across the street with a tape measure and a notepad before opening a single tin of paint, sketching the board's outline at scale and marking where the eye lands first.</p>
+
+        <h2>Cap Height Is Not a Guess</h2>
+        <p>Once the board's proportions are on paper, cap height gets worked out as a ratio of the board, not a flat number pulled from a supplier's chart. A working figure that's held up on this bench: cap height runs somewhere around sixty to sixty-five percent of the board's usable height, once a margin is left top and bottom so the letters don't crowd the frame. A fourteen-inch board might carry an eight- or nine-inch cap height with room to spare; a board half that size needs the ratio held just as strictly, or the letters end up looking cramped against the edge even though the arithmetic was correct. Lowercase x-height follows from the cap height rather than getting chosen on its own — roughly two-thirds of it, nudged depending on the letterform, since a rounded, bowl-heavy face tends to read a touch smaller than a squared sans at the same nominal height. <a href="reading-the-optical-line.html">The optical line does the rest of the correcting</a> once the numbers are down on the board.</p>
+
+        <h2>The Sightline Arithmetic</h2>
+        <p>Cap height and viewing distance are tied together by a rule of thumb that keeps proving itself: roughly one inch of cap height for every ten feet a sign needs to stay legible from, though that ratio loosens up close and tightens at speed, where a driver only gets a second or two of actual read time. A fascia meant to be read from the opposite sidewalk, thirty feet off, tends to work at a three-inch cap height with a reasonably bold stroke. Push the same lettering out to a hundred feet — a bulletin set back from a road — and the cap height needs to climb toward eight or ten inches before thin strokes and serifs start dissolving into the background. None of this is exact science; it's a starting figure that gets checked by eye before any chalk goes up on the actual wall.</p>
+
+        <p>A short table of the distances and cap heights that come up most often on this bench — a starting point, not a rule:</p>
+
+        <div style="overflow-x:auto;margin:8px 0 30px;border-radius:var(--sgw-radius);border:1px solid var(--sgw-gold-dim);">
+          <table style="width:100%;border-collapse:collapse;font-size:13.5px;background:#fbf8ee;">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding:12px 14px;background:var(--sgw-ink-cream);color:var(--sgw-cream);font-weight:400;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px;">Viewing distance</th>
+                <th style="text-align:left;padding:12px 14px;background:var(--sgw-ink-cream);color:var(--sgw-cream);font-weight:400;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px;">Cap height</th>
+                <th style="text-align:left;padding:12px 14px;background:var(--sgw-ink-cream);color:var(--sgw-cream);font-weight:400;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px;">Typical setting</th>
+                <th style="text-align:left;padding:12px 14px;background:var(--sgw-ink-cream);color:var(--sgw-cream);font-weight:400;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px;">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">~30 ft</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">~3 in</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">Read from the opposite sidewalk</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">Comfortable at a walking pace</td></tr>
+              <tr><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">~60 ft</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">~5&ndash;6 in</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">Read from a car at a stop or curb</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">Wants a bolder stroke to hold up</td></tr>
+              <tr><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">~100 ft</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">~8&ndash;10 in</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">Set back from a road</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">Thin serifs start to disappear below this</td></tr>
+              <tr><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">150 ft+</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">12 in+</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">Roadside or highway-facing board</td><td style="padding:11px 14px;border-top:1px solid var(--sgw-gold-dim);">Plain sans, minimal ornament</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Spacing by Eye, Not by Ruler</h2>
+        <p>Height solved, spacing is where the ruler stops being much help. Optical spacing — leaving equal-looking gaps between letters rather than equal-measured ones — accounts for the fact that an L next to an O reads differently from an H next to an N at the same nominal gap, because the shapes carry different amounts of visual weight. <a href="the-quarter-inch-habit.html">A consistent margin habit</a> keeps the block honest at the edges, but the letter-to-letter spacing inside it gets set by holding a chalk line at arm's length and squinting, not by dividing the board's width by the letter count. It's slower than working from a spacing chart, and harder to explain to a client standing on the sidewalk asking why the painter keeps stepping back and tilting their head — but a metrically even line of lettering almost always reads as visually uneven once it's forty feet in the air.</p>
+
+        <blockquote style="border-left:3px solid var(--sgw-gold);padding:2px 0 2px 22px;margin:30px 0;font-family:var(--sgw-serif);font-style:italic;font-size:20px;line-height:1.4;color:#181307;">The tape measure gets a fascia into the right neighborhood. Getting it to actually sit right on the wall is still, after everything, a job for the eye.</blockquote>
+
+        <h2>When the Numbers and the Eye Disagree</h2>
+        <p>Every one of these ratios bends occasionally, and knowing when to bend them is most of what separates a good layout from a merely correct one. A board mounted under a deep awning reads darker than the same board in open sun, which can justify pushing cap height up half an inch to compensate for the shade. A name heavy on ascenders and descenders — a script, or a face with a lot of lowercase — eats into its own margins and needs the whole block nudged smaller than the arithmetic suggests. None of these adjustments show up on a spec sheet. They show up standing across the street, looking at the chalked-out layout against the actual wall, in the actual light, at the time of day someone is most likely to be reading it.</p>
+
+        <div style="border:1px solid var(--sgw-gold-dim);border-radius:var(--sgw-radius);padding:26px 28px;margin:30px 0;background:rgba(200,163,62,.08);">
+          <p style="font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#8f6a1c;margin-bottom:10px;">On-Site Check</p>
+          <p style="margin-bottom:0;font-size:14.5px;line-height:1.6;opacity:.95;">A rough check some painters lean on before committing paint: stand at the intended read distance, hold a thumb out at arm's length, and see whether the chalked cap height still reads clearly against the width of the thumbnail. If it doesn't, the ratio table was a starting point, not a verdict.</p>
+        </div>
+
+        <p>Four things worth checking before the first pounce mark goes up:</p>
+        <ul>
+          <li>The board's usable height after trim and any mounting hardware.</li>
+          <li>The typical viewing distance from where most foot or vehicle traffic actually passes.</li>
+          <li>How much the specific name's ascenders and descenders will eat into the cap-height margin.</li>
+          <li>The light and shade the board sits in at the time of day it's most often read.</li>
+        </ul>
+
+        <div style="border:1px solid var(--sgw-gold-dim);border-radius:var(--sgw-radius);padding:24px 26px;margin:34px 0 6px;background:#f0e9d4;">
+          <p style="font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#8f6a1c;margin-bottom:10px;">A Note on These Figures</p>
+          <p style="margin-bottom:0;font-size:13.5px;line-height:1.6;opacity:.9;">These are working ratios from one shop's bench, not an engineering standard. Sign height, spacing, and legibility distance vary by building, sign code, and the specific letterform in use — treat the numbers above as a starting point for further reading, not a specification to build from.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="sgw-band sgw-band--dark">
+      <div class="sgw-inner">
+        <span class="sgw-kicker">Read Also</span>
+        <h2 class="sgw-h2">More From the Journal</h2>
+        <div class="sgw-lines">
+
+          <a class="sgw-line" href="enamel-over-steel.html">
+            <span class="sgw-line__thumb"><img src="img/enamel-over-steel.jpg" alt="Weathered enamel sign on a steel panel above a storefront" loading="lazy"></span>
+            <span class="sgw-line__body">
+              <span class="sgw-line__meta">Materials &middot; February 3, 2026</span>
+              <span class="sgw-line__title">Enamel Over Steel</span>
+              <span class="sgw-line__dek">The old boards on the corner store have outlasted three generations of plastic signage.</span>
+            </span>
+            <span class="sgw-line__arrow">&#8594;</span>
+          </a>
+
+          <a class="sgw-line" href="gold-leaf-in-three-passes.html">
+            <span class="sgw-line__thumb"><img src="img/gold-leaf-in-three-passes.jpg" alt="Sheet of loose gold leaf being laid onto sized lettering" loading="lazy"></span>
+            <span class="sgw-line__body">
+              <span class="sgw-line__meta">Technique &middot; February 21, 2026</span>
+              <span class="sgw-line__title">Gold Leaf in Three Passes</span>
+              <span class="sgw-line__dek">Sizing, laying, and burnishing — the sequence that keeps leaf from lifting.</span>
+            </span>
+            <span class="sgw-line__arrow">&#8594;</span>
+          </a>
+
+          <a class="sgw-line" href="a-brush-does-not-forget.html">
+            <span class="sgw-line__thumb"><img src="img/a-brush-does-not-forget.jpg" alt="Vintage sable lettering quills laid out on a workbench" loading="lazy"></span>
+            <span class="sgw-line__body">
+              <span class="sgw-line__meta">History &middot; March 28, 2026</span>
+              <span class="sgw-line__title">A Brush Does Not Forget</span>
+              <span class="sgw-line__dek">A short account of how sable quills shaped the look of storefront lettering for a century.</span>
+            </span>
+            <span class="sgw-line__arrow">&#8594;</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </article>
+  </main>
+  <footer class="sgw-foot">
+    <div class="sgw-foot__grid">
+      <div class="sgw-foot__brand">
+        <span class="sgw-logo sgw-logo--foot">Signwright</span>
+        <p>A small journal about hand-painted signs, kept by people who still hold a mahlstick. Layout, enamel, gold leaf, scale.</p>
+      </div>
+      <div class="sgw-foot__col">
+        <span class="sgw-foot__label">Read</span>
+        <a href="safe.html">Journal</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="sgw-foot__col">
+        <span class="sgw-foot__label">Site</span>
+        <a href="app.html">Layout Sheet</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="sgw-foot__col">
+        <span class="sgw-foot__label">Legal</span>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+    <div class="sgw-foot__base">
+      <p>&copy; 2026 Signwright. An independent journal. Not affiliated with any sign shop, brand, or manufacturer named in these pages.</p>
+      <p><a href="mailto:hello@signwright.shop">hello@signwright.shop</a></p>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

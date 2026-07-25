@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Storing a Herbarium at Home · Vasculum</title>
+  <meta name="description" content="How to store pressed specimens so they outlast the collector — acid-free folders, a dry dark shelf, pest checks, and the filing logic that keeps a herbarium usable.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://vasculum.shop/storing-a-herbarium-at-home.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23fdfcf6'/%3E%3Cpath d='M32 8C20 20 14 34 20 48C24 56 32 58 32 58C32 58 40 56 44 48C50 34 44 20 32 8Z' fill='none' stroke='%23556b2f' stroke-width='2.5'/%3E%3Cpath d='M32 12L32 54M32 24L24 18M32 24L40 18M32 34L23 29M32 34L41 29M32 44L24 40M32 44L40 40' stroke='%23556b2f' stroke-width='1.6' fill='none'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --vsc-bg:#fdfcf6;
+  --vsc-paper:#fffefb;
+  --vsc-text:#2f3128;
+  --vsc-accent:#556b2f;
+  --vsc-accent-dim:#7c8f5c;
+  --vsc-line:#d8d3bf;
+  --vsc-radius:7px;
+  --vsc-maxw:640px;
+  --vsc-serif:'Garamond','EB Garamond','Apple Garamond','Times New Roman',serif;
+  --vsc-sans:'Seravek','Century Gothic','Futura','Trebuchet MS',sans-serif;
+}
+*{box-sizing:border-box;}
+html{background:var(--vsc-bg);}
+body{margin:0;background:var(--vsc-bg);color:var(--vsc-text);font-family:var(--vsc-serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:var(--vsc-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.vsc-header{border-bottom:1px solid var(--vsc-line);padding:28px 24px;}
+.vsc-header-inner{max-width:var(--vsc-maxw);margin:0 auto;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.vsc-wordmark{font-family:var(--vsc-serif);font-size:26px;font-style:italic;color:var(--vsc-text);letter-spacing:0.5px;}
+.vsc-wordmark:hover{text-decoration:none;color:var(--vsc-accent);}
+.vsc-nav{display:flex;gap:20px;flex-wrap:wrap;}
+.vsc-nav a{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--vsc-text);}
+.vsc-nav a:hover{color:var(--vsc-accent);}
+.vsc-main{max-width:var(--vsc-maxw);margin:0 auto;padding:56px 24px 40px;}
+.vsc-frame{position:relative;margin:0 0 54px;}
+.vsc-frame img{width:100%;border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);background:var(--vsc-paper);}
+.vsc-label{position:absolute;right:14px;bottom:-22px;max-width:230px;background:var(--vsc-paper);border:1px solid var(--vsc-text);border-radius:2px;padding:10px 12px 9px;transform:rotate(-1.1deg);box-shadow:2px 3px 0 rgba(47,49,40,0.08);}
+.vsc-label-eyebrow{display:block;font-family:var(--vsc-sans);font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--vsc-accent);margin-bottom:3px;}
+.vsc-label-title{display:block;font-family:var(--vsc-serif);font-style:italic;font-size:14px;line-height:1.3;color:var(--vsc-text);}
+.vsc-label-meta{display:block;font-family:var(--vsc-sans);font-size:10px;letter-spacing:0.4px;color:#5c5f4f;margin-top:4px;}
+.vsc-hero-head{margin-bottom:36px;}
+.vsc-kicker{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--vsc-accent);}
+h1.vsc-h1{font-family:var(--vsc-serif);font-weight:400;font-size:40px;line-height:1.15;margin:10px 0 14px;}
+.vsc-dek{font-family:var(--vsc-sans);font-size:16px;color:#4c4f41;max-width:520px;}
+.vsc-list{list-style:none;margin:0;padding:0;}
+.vsc-entry{margin-bottom:70px;}
+.vsc-entry:last-child{margin-bottom:0;}
+.vsc-entry-meta{font-family:var(--vsc-sans);font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:var(--vsc-accent);margin:26px 0 8px;}
+.vsc-entry-title{font-family:var(--vsc-serif);font-size:25px;margin:0 0 8px;line-height:1.25;}
+.vsc-entry-title a{color:var(--vsc-text);}
+.vsc-entry-title a:hover{color:var(--vsc-accent);text-decoration:none;}
+.vsc-entry-dek{font-family:var(--vsc-sans);font-size:15px;color:#4c4f41;margin:0;}
+.vsc-rule{border:none;border-top:1px solid var(--vsc-line);margin:64px 0;}
+.vsc-app-section{margin:70px 0;}
+.vsc-app-grid{display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;margin-top:28px;}
+.vsc-app-copy{flex:1 1 260px;}
+.vsc-app-mock{flex:0 0 220px;}
+.vsc-index-card{border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);background:var(--vsc-paper);padding:16px;box-shadow:3px 4px 0 rgba(47,49,40,0.06);}
+.vsc-index-card + .vsc-index-card{margin-top:14px;}
+.vsc-index-card-num{font-family:var(--vsc-sans);font-size:10px;color:var(--vsc-accent);letter-spacing:1px;}
+.vsc-index-card-name{font-family:var(--vsc-serif);font-style:italic;font-size:16px;margin:4px 0;}
+.vsc-index-card-bar{height:4px;border-radius:2px;background:var(--vsc-line);overflow:hidden;margin-top:8px;}
+.vsc-index-card-fill{height:100%;background:var(--vsc-accent);}
+.vsc-features{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.vsc-feature{border-top:1px solid var(--vsc-line);padding-top:14px;}
+.vsc-feature h3{font-family:var(--vsc-serif);font-size:18px;font-weight:400;margin:0 0 6px;}
+.vsc-feature p{font-family:var(--vsc-sans);font-size:14px;color:#4c4f41;margin:0;}
+.vsc-steps{counter-reset:vsc-step;list-style:none;padding:0;margin:28px 0;}
+.vsc-step{position:relative;padding-left:44px;margin-bottom:24px;counter-increment:vsc-step;}
+.vsc-step::before{content:counter(vsc-step);position:absolute;left:0;top:0;width:30px;height:30px;border:1px solid var(--vsc-accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--vsc-sans);font-size:13px;color:var(--vsc-accent);}
+.vsc-step h3{font-family:var(--vsc-serif);font-size:17px;margin:2px 0 4px;}
+.vsc-step p{font-family:var(--vsc-sans);font-size:14px;color:#4c4f41;margin:0;}
+.vsc-cta{display:inline-block;font-family:var(--vsc-sans);font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--vsc-bg);background:var(--vsc-accent);padding:13px 26px;border-radius:var(--vsc-radius);margin-top:8px;}
+.vsc-cta:hover{background:#465a26;text-decoration:none;}
+.vsc-news{border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);padding:28px;margin:70px 0;background:var(--vsc-paper);}
+.vsc-news h2{font-family:var(--vsc-serif);font-weight:400;font-size:22px;margin:0 0 8px;}
+.vsc-news p{font-family:var(--vsc-sans);font-size:14px;color:#4c4f41;margin:0 0 16px;}
+.vsc-news-form{display:flex;gap:10px;flex-wrap:wrap;}
+.vsc-news-form input[type=email]{flex:1 1 200px;padding:11px 14px;border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);font-family:var(--vsc-sans);font-size:14px;background:var(--vsc-bg);color:var(--vsc-text);}
+.vsc-news-form button{border:none;cursor:pointer;font-family:var(--vsc-sans);font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:var(--vsc-bg);background:var(--vsc-accent);padding:11px 20px;border-radius:var(--vsc-radius);}
+.vsc-news-ok{display:none;margin-top:12px;font-family:var(--vsc-sans);font-size:13px;color:var(--vsc-accent);}
+.vsc-about{margin:70px 0;}
+.vsc-about h2{font-family:var(--vsc-serif);font-weight:400;font-size:22px;}
+.vsc-about p{font-family:var(--vsc-serif);font-size:16px;color:#3a3c31;}
+.vsc-article-body{font-family:var(--vsc-serif);font-size:18px;}
+.vsc-article-body p{margin:0 0 22px;}
+.vsc-article-body h2{font-family:var(--vsc-serif);font-weight:400;font-size:24px;margin:44px 0 14px;}
+.vsc-article-body h3{font-family:var(--vsc-serif);font-weight:400;font-size:19px;margin:32px 0 10px;}
+.vsc-article-body ul,.vsc-article-body ol{font-family:var(--vsc-serif);font-size:17px;margin:0 0 22px;padding-left:22px;}
+.vsc-article-body li{margin-bottom:8px;}
+.vsc-pull{font-family:var(--vsc-serif);font-style:italic;font-size:22px;color:var(--vsc-accent);border-left:2px solid var(--vsc-accent);padding-left:20px;margin:40px 0;}
+.vsc-gloss{list-style:none;margin:0;padding:0;}
+.vsc-gloss-item{padding:22px 0;border-top:1px solid var(--vsc-line);}
+.vsc-gloss-item:first-child{border-top:none;}
+.vsc-gloss-term{font-family:var(--vsc-serif);font-style:italic;font-size:19px;margin:0 0 6px;color:var(--vsc-text);}
+.vsc-gloss-def{font-family:var(--vsc-sans);font-size:15px;color:#4c4f41;margin:0;}
+.vsc-faq-item{padding:22px 0;border-top:1px solid var(--vsc-line);}
+.vsc-faq-item:first-child{border-top:none;}
+.vsc-faq-q{font-family:var(--vsc-serif);font-size:19px;margin:0 0 8px;}
+.vsc-faq-a{font-family:var(--vsc-sans);font-size:15px;color:#4c4f41;margin:0;}
+.vsc-legal h2{font-family:var(--vsc-serif);font-weight:400;font-size:21px;margin:38px 0 12px;}
+.vsc-legal p,.vsc-legal li{font-family:var(--vsc-sans);font-size:15px;color:#3a3c31;line-height:1.7;}
+.vsc-legal ul{padding-left:20px;}
+.vsc-footer{border-top:1px solid var(--vsc-line);margin-top:60px;padding:40px 24px 60px;}
+.vsc-footer-inner{max-width:var(--vsc-maxw);margin:0 auto;text-align:left;}
+.vsc-footer-mark{font-family:var(--vsc-serif);font-style:italic;font-size:19px;margin:0 0 4px;}
+.vsc-footer-tag{font-family:var(--vsc-sans);font-size:13px;color:#5c5f4f;margin:0 0 18px;}
+.vsc-footer-nav{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+.vsc-footer-nav a{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--vsc-text);}
+.vsc-footer-fine{font-family:var(--vsc-sans);font-size:12px;color:#7a7d6c;}
+.vsc-callout{border:1px solid var(--vsc-line);border-left:3px solid var(--vsc-accent);border-radius:var(--vsc-radius);background:var(--vsc-paper);padding:18px 20px;margin:32px 0;}
+.vsc-callout p{font-family:var(--vsc-sans);font-size:14px;color:#3a3c31;margin:0;}
+.vsc-callout p strong{color:var(--vsc-accent);}
+.vsc-table-wrap{overflow-x:auto;margin:28px 0;border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);}
+.vsc-table{width:100%;border-collapse:collapse;font-family:var(--vsc-sans);font-size:14px;min-width:480px;}
+.vsc-table th,.vsc-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--vsc-line);}
+.vsc-table th{background:var(--vsc-paper);text-transform:uppercase;font-size:11px;letter-spacing:0.8px;color:var(--vsc-accent);}
+.vsc-table tr:last-child td{border-bottom:none;}
+.vsc-note{border-top:1px solid var(--vsc-line);border-bottom:1px solid var(--vsc-line);padding:20px 0;margin:44px 0;}
+.vsc-note p{font-family:var(--vsc-sans);font-size:13px;color:#5c5f4f;margin:0;line-height:1.7;}
+.vsc-readalso{border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);background:var(--vsc-paper);padding:20px 22px;margin:44px 0;}
+.vsc-readalso h2{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--vsc-accent);margin:0 0 12px;font-weight:400;}
+.vsc-readalso ul{list-style:none;margin:0;padding:0;}
+.vsc-readalso li{margin-bottom:10px;}
+.vsc-readalso li:last-child{margin-bottom:0;}
+.vsc-readalso a{font-family:var(--vsc-serif);font-style:italic;font-size:16px;}
+@media (max-width:600px){
+  h1.vsc-h1{font-size:30px;}
+  .vsc-features{grid-template-columns:1fr;}
+  .vsc-app-grid{flex-direction:column;}
+  .vsc-label{position:static;transform:none;margin-top:12px;max-width:none;}
+  .vsc-frame{margin-bottom:34px;}
+}
+  </style>
+</head><body>
+  <header class="vsc-header">
+    <div class="vsc-header-inner">
+      <a class="vsc-wordmark" href="/">Vasculum</a>
+      <nav class="vsc-nav">
+        <a href="/">Journal</a>
+        <a href="/app.html">Pressbook</a>
+        <a href="/about.html">About</a>
+        <a href="/glossary.html">Glossary</a>
+        <a href="/faq.html">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="vsc-post">
+    <div class="vsc-main">
+      <div class="vsc-hero-head">
+        <span class="vsc-kicker">Storage · May 18, 2026</span>
+        <h1 class="vsc-h1">Storing a Herbarium at Home</h1>
+        <p class="vsc-dek">A shoebox works for a season. A collection meant to outlast you needs acid-free folders, a dry shelf, and a plan for silverfish.</p>
+      </div>
+
+      <div class="vsc-frame">
+        <img src="img/storing-a-herbarium-at-home.jpg" alt="Storing a Herbarium at Home">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Field Note</span>
+          <span class="vsc-label-title">Genus folders, closet shelf</span>
+          <span class="vsc-label-meta">Fourteen years in, no foxing yet</span>
+        </div>
+      </div>
+
+      <div class="vsc-article-body">
+        <p>Most pressed-plant collections die of neglect long after the pressing itself was finished well. The flattening was careful, the color held, the label was written the same week the plant came out of the press — and then the sheet went into a manila folder in a desk drawer, and ten years later it came out brittle at the edges, freckled with rust-colored spots, and smelling faintly of the drawer rather than the plant. None of that damage happened during collection. It happened during storage, slowly, in conditions nobody was watching. A herbarium meant to last is not a display; it is an archive, and archives have different rules than the rest of a house.</p>
+
+        <h2>Why the folder matters more than the box</h2>
+        <p>The single biggest storage mistake is reaching for whatever paper is on hand — a manila folder, a scrapbook page, the cardboard insert from a shirt box. Most of that paper is acidic, and acid migrates. Over years, it travels from the folder into the specimen sheet, then into the plant tissue itself, and the result is the yellow-brown staining collectors call foxing: small, spreading spots that have nothing to do with mold and everything to do with chemistry. Acid-free (buffered, lignin-free) folders and boxes cost more than the alternative, but they are the one material choice in this entire hobby that cannot be substituted later without unloading and reloading every sheet.</p>
+        <p>A basic setup is three layers: the specimen mounted on stiff paper (see <a href="/mounting-without-glue.html">Mounting Without Glue</a> for how to get it there without adhesive that yellows), a single acid-free folder holding one or two sheets, and an archival box sized to hold the folders upright, spine-down, like books rather than stacked flat like pancakes. Stacking flat under weight is how corners crush and petals shatter years after the plant itself has nothing left to give.</p>
+
+        <h2>Where the shelf goes</h2>
+        <p>Light and heat do the same slow damage as acid, just by a different route — they break down pigment and embrittle the paper fiber. A closet shelf, an interior cabinet, or a drawer in a room that doesn't swing wildly in temperature all work better than anything near a window or above a radiator. Basements are a mixed bag: cooler is good, but many basements run damp, and damp is worse than almost anything else on this list.</p>
+        <p>The target most collections aim for is a room that stays reasonably cool and dry year-round, out of direct sun, with some air movement rather than a sealed, airless box. A closed cabinet with the door left slightly ajar, or a box with a few small vents, beats a box sealed tight enough to trap whatever moisture is already inside it.</p>
+
+        <blockquote class="vsc-pull">The box protects the sheet from light and dust. It cannot protect the sheet from the humidity already trapped inside it.</blockquote>
+
+        <h2>Humidity, the quiet threat</h2>
+        <p>A herbarium sheet that has gone properly through the press is dry enough to store, but "dry enough to store" is not "dry forever." Paper and plant tissue are both mildly hygroscopic — they pull moisture back out of humid air over time, especially in a house that runs warm and damp through a summer. That reabsorbed moisture is what eventually invites mold, and it is also what softens a specimen enough for it to shift and crack inside its folder every time the box is handled.</p>
+        <p>Where reliable dehumidification isn't practical, a simple silica gel packet tucked into the storage box — replaced or recharged a few times a year — does a lot of the work quietly. Checking a handful of sheets by touch once a season, especially after a humid stretch, catches a problem while it's still just a slightly limp folder and not yet a spotted specimen.</p>
+
+        <div class="vsc-callout">
+          <p><strong>Pest check:</strong> silverfish and certain small beetles will eat dried plant tissue and the paste in old mounts without hesitation. A quick look under folders every few months, and keeping the storage area free of food debris and standing cardboard, prevents most infestations before they start — a freezer cycle for new or secondhand specimens (several days at a hard freeze, sealed in a bag) is a common precaution before anything joins an existing collection.</p>
+        </div>
+
+        <h2>Organizing so the collection stays usable</h2>
+        <p>A herbarium that can't be searched isn't much different from a box of pressed leaves. Most home collections settle on one of two logics: alphabetical by family, then genus within it, or straight alphabetical by genus if the collection is small enough that families don't add much value yet. Either works — what matters is picking one and sticking to it, because a specimen filed under the wrong logic is functionally lost until someone reshuffles the whole box.</p>
+        <ul>
+          <li>One folder per species is the cleanest unit — it keeps duplicate collections of the same plant together without crowding a folder meant for something else.</li>
+          <li>A running index card or simple list at the front of each box (family, genus, species, sheet count) saves a search through every folder later.</li>
+          <li>Leave growing room. A box packed to its exact current capacity means the next specimen has nowhere to go without reshuffling everything behind it.</li>
+          <li>Keep the label consistent with the filing system — see <a href="/writing-a-label-that-lasts.html">Writing a Label That Lasts</a> for what a label needs to carry so a specimen still means something decades from now.</li>
+        </ul>
+
+        <h3>A starter storage checklist</h3>
+        <div class="vsc-table-wrap">
+          <table class="vsc-table">
+            <thead>
+              <tr><th>Item</th><th>Why it matters</th><th>Rough interval</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Acid-free folders</td><td>Stops acid migration and yellowing</td><td>One-time purchase, per sheet</td></tr>
+              <tr><td>Archival storage box</td><td>Blocks light, dust, and casual handling</td><td>One-time purchase, sized to grow</td></tr>
+              <tr><td>Silica gel packet</td><td>Buffers humidity swings inside the box</td><td>Recharge every 3–4 months</td></tr>
+              <tr><td>Pest inspection</td><td>Catches silverfish/beetle activity early</td><td>Every 2–3 months</td></tr>
+              <tr><td>Index list per box</td><td>Keeps the collection searchable as it grows</td><td>Update with each addition</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>What a shoebox collection eventually needs to become</h2>
+        <p>Almost every serious herbarium starts as a shoebox, and there's nothing wrong with that for a first season of collecting. The point at which it needs a real system is usually somewhere between fifty and a hundred sheets, when finding a specific specimen starts taking longer than it should and the folder is bulging past what the lid can close over cleanly. That's the moment to migrate into acid-free folders and a proper filing order — doing it early, before the collection outgrows a single afternoon's work, is far easier than doing it after years of accumulation. It also pays to think ahead about which specimens are genuinely difficult to keep flat in the first place; see <a href="/the-species-that-refuse-to-flatten.html">The Species That Refuse to Flatten</a> for how those cases change the storage math too.</p>
+
+        <div class="vsc-note">
+          <p>This article covers general archival storage practices for home plant collections and is not a substitute for the specific guidance of an institutional herbarium or conservator, particularly for specimens of scientific or historical value.</p>
+        </div>
+
+        <div class="vsc-readalso">
+          <h2>Read also</h2>
+          <ul>
+            <li><a href="/writing-a-label-that-lasts.html">Writing a Label That Lasts</a></li>
+            <li><a href="/mounting-without-glue.html">Mounting Without Glue</a></li>
+            <li><a href="/reading-an-old-label.html">Reading an Old Label</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="vsc-footer">
+    <div class="vsc-footer-inner">
+      <p class="vsc-footer-mark">Vasculum</p>
+      <p class="vsc-footer-tag">A field journal for the pressed plant.</p>
+      <nav class="vsc-footer-nav">
+        <a href="/about.html">About</a>
+        <a href="/glossary.html">Glossary</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/app.html">Pressbook</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </nav>
+      <p class="vsc-footer-fine">&copy; 2026 Vasculum. Written by hand, kept in a box, occasionally shared. Contact: <a href="mailto:hello@vasculum.shop">hello@vasculum.shop</a></p>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

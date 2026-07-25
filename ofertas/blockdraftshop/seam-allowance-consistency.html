@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why Seam Allowance Consistency Matters More Than Seam Allowance Size · Blockdraft</title>
+  <meta name="description" content="Mixed seam allowances inside one project quietly change the finished measurements. How to audit a pattern, pick a house width, and keep the block itself net.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://blockdraft.shop/seam-allowance-consistency.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fbf7f2'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23b03050' stroke-width='3'/%3E%3Cpath d='M32 10l6 10h-12z' fill='%23b03050'/%3E%3Cpath d='M14 34l8-6v12z' fill='%232f5f8f'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --bdk-bg:#fbf7f2;
+  --bdk-bg-alt:#f2ecdf;
+  --bdk-text:#2b2622;
+  --bdk-text-soft:#5b534a;
+  --bdk-accent:#b03050;
+  --bdk-mark:#2f5f8f;
+  --bdk-line:#c9bfae;
+  --bdk-radius:8.5px;
+  --bdk-maxw:870px;
+  --bdk-serif:'Book Antiqua','Palatino Linotype',Georgia,serif;
+  --bdk-sans:Geneva,Verdana,'Trebuchet MS',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bdk-bg);color:var(--bdk-text);font-family:var(--bdk-sans);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:var(--bdk-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--bdk-serif);font-weight:400;color:var(--bdk-text);line-height:1.2;margin:0 0 .5em;}
+h1{font-size:2.35rem;letter-spacing:.2px;}
+h2{font-size:1.65rem;margin-top:2.2em;}
+h3{font-size:1.25rem;}
+p{margin:0 0 1.1em;}
+ul,ol{margin:0 0 1.1em;padding-left:1.3em;}
+li{margin-bottom:.4em;}
+.bdk-wrap{max-width:var(--bdk-maxw);margin:0 auto;padding:0 22px;}
+.bdk-notch{display:inline-block;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid var(--bdk-accent);}
+.bdk-notch.bdk-notch--blue{border-top-color:var(--bdk-mark);}
+.bdk-sep{position:relative;border:0;border-top:2px dashed var(--bdk-line);margin:46px 0;}
+.bdk-sep::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--bdk-mark);}
+.bdk-header{border-bottom:2px dashed var(--bdk-line);background:var(--bdk-bg);position:sticky;top:0;z-index:20;}
+.bdk-headbar{max-width:var(--bdk-maxw);margin:0 auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bdk-logo{display:flex;align-items:center;gap:9px;font-family:var(--bdk-serif);font-size:1.4rem;color:var(--bdk-text);}
+.bdk-logo:hover{text-decoration:none;}
+.bdk-logo-mark{width:26px;height:26px;border:2px solid var(--bdk-accent);border-radius:50%;position:relative;flex:none;}
+.bdk-logo-mark::before{content:"";position:absolute;left:50%;top:-2px;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--bdk-accent);}
+.bdk-nav{display:flex;gap:22px;flex-wrap:wrap;font-size:.92rem;}
+.bdk-nav a{color:var(--bdk-text-soft);letter-spacing:.3px;}
+.bdk-nav a:hover{color:var(--bdk-accent);}
+.bdk-footer{border-top:2px dashed var(--bdk-line);margin-top:60px;padding:38px 0 30px;background:var(--bdk-bg-alt);}
+.bdk-foot-grid{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;}
+.bdk-foot-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-text-soft);font-family:var(--bdk-sans);margin-bottom:10px;}
+.bdk-foot-col a{display:block;color:var(--bdk-text);font-size:.92rem;margin-bottom:7px;}
+.bdk-foot-bottom{margin-top:26px;padding-top:18px;border-top:1px dashed var(--bdk-line);font-size:.8rem;color:var(--bdk-text-soft);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;}
+.bdk-news{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);padding:26px;background:var(--bdk-bg-alt);}
+.bdk-news form{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.bdk-news input[type=email]{flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--bdk-line);border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.95rem;background:#fff;}
+.bdk-ok{display:none;margin-top:10px;color:var(--bdk-mark);font-size:.88rem;}
+.bdk-btn{display:inline-block;background:var(--bdk-accent);color:#fff;padding:12px 22px;border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.92rem;letter-spacing:.4px;border:none;cursor:pointer;}
+.bdk-btn:hover{background:#8f2540;text-decoration:none;color:#fff;}
+.bdk-btn--outline{background:transparent;color:var(--bdk-accent);border:1.5px solid var(--bdk-accent);}
+.bdk-btn--outline:hover{background:var(--bdk-accent);color:#fff;}
+.bdk-pattern{display:grid;grid-template-columns:55% 45%;position:relative;align-items:start;}
+.bdk-piece{padding:20px 30px 20px 0;border-right:2px dashed var(--bdk-mark);}
+.bdk-instruction{padding:20px 0 20px 30px;}
+.bdk-stepnum{position:absolute;left:55%;top:24px;transform:translate(-50%,0);width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;border:3px solid var(--bdk-bg);box-shadow:0 0 0 2px var(--bdk-mark);z-index:2;}
+.bdk-pattern + .bdk-pattern{border-top:2px dashed var(--bdk-line);}
+.bdk-piece h3,.bdk-instruction h3{margin-top:0;}
+.bdk-piece .bdk-thumb{border-radius:var(--bdk-radius);overflow:hidden;border:1px solid var(--bdk-line);margin-bottom:12px;}
+.bdk-piece .bdk-thumb img{width:100%;height:190px;object-fit:cover;display:block;}
+.bdk-meta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:6px;display:inline-block;}
+.bdk-dek{color:var(--bdk-text-soft);font-size:.95rem;}
+@media (max-width:640px){
+  .bdk-pattern{grid-template-columns:1fr;}
+  .bdk-piece{border-right:none;border-bottom:2px dashed var(--bdk-mark);padding:20px 0;}
+  .bdk-instruction{padding:20px 0;}
+  .bdk-stepnum{position:static;transform:none;margin-bottom:10px;}
+}
+.bdk-hero{padding:54px 0 20px;}
+.bdk-hero-frame{border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:14px;position:relative;}
+.bdk-hero-frame img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:320px;object-fit:cover;}
+.bdk-hero-frame::before,.bdk-hero-frame::after{content:"";position:absolute;top:50%;width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;}
+.bdk-hero-frame::before{left:-2px;border-left:9px solid var(--bdk-accent);}
+.bdk-hero-frame::after{right:-2px;border-right:9px solid var(--bdk-mark);}
+.bdk-eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--bdk-accent);margin-bottom:10px;}
+.bdk-mock{border:2px solid var(--bdk-text);border-radius:16px;max-width:250px;margin:0 auto;padding:14px;background:#fff;}
+.bdk-mock-bar{display:flex;justify-content:space-between;font-size:.7rem;color:var(--bdk-text-soft);margin-bottom:10px;}
+.bdk-mock-screen{border:2px dashed var(--bdk-mark);border-radius:8px;padding:12px;}
+.bdk-mock-row{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--bdk-line);font-size:.8rem;}
+.bdk-mock-row:last-child{border-bottom:none;}
+.bdk-mock-dot{width:16px;height:16px;border-radius:50%;background:var(--bdk-accent);flex:none;}
+.bdk-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-feat{padding:22px;border-right:2px dashed var(--bdk-line);border-bottom:2px dashed var(--bdk-line);}
+.bdk-feat:nth-child(2n){border-right:none;}
+.bdk-feat h3{font-size:1.05rem;margin-bottom:6px;}
+.bdk-feat p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-feat-grid{grid-template-columns:1fr;}.bdk-feat{border-right:none;}}
+.bdk-term{padding:20px 0;border-bottom:1px dashed var(--bdk-line);}
+.bdk-term dt{font-family:var(--bdk-serif);font-size:1.1rem;color:var(--bdk-accent);margin-bottom:6px;}
+.bdk-term dd{margin:0;color:var(--bdk-text-soft);}
+.bdk-alpha{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-accent);margin:34px 0 4px;}
+.bdk-badge{display:inline-block;background:var(--bdk-bg-alt);border:1px solid var(--bdk-line);border-radius:20px;padding:4px 12px;font-size:.75rem;color:var(--bdk-text-soft);margin-right:6px;}
+.bdk-section{padding:40px 0;}
+.bdk-lead{font-size:1.08rem;color:var(--bdk-text-soft);max-width:640px;}
+.bdk-quote{border-left:3px solid var(--bdk-accent);padding-left:16px;font-style:italic;color:var(--bdk-text-soft);margin:24px 0;}
+.bdk-updated{font-size:.85rem;color:var(--bdk-text-soft);}
+.bdk-team{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-team-card{padding:20px;border-right:2px dashed var(--bdk-line);}
+.bdk-team-card:last-child{border-right:none;}
+.bdk-team-card h3{font-size:1.05rem;margin-bottom:2px;}
+.bdk-team-role{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-team-card p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-team{grid-template-columns:1fr;}.bdk-team-card{border-right:none;border-bottom:2px dashed var(--bdk-line);}.bdk-team-card:last-child{border-bottom:none;}}
+.bdk-artmeta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-byline{font-size:.86rem;color:var(--bdk-text-soft);border-top:1px dashed var(--bdk-line);border-bottom:1px dashed var(--bdk-line);padding:10px 0;margin:0 0 30px;}
+.bdk-artbody{font-size:1.02rem;}
+.bdk-artbody h2{border-top:2px dashed var(--bdk-line);padding-top:26px;}
+.bdk-fig{margin:30px 0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:12px;}
+.bdk-fig img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:auto;}
+.bdk-figcap{font-size:.82rem;color:var(--bdk-text-soft);margin:10px 2px 0;}
+.bdk-callout{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);background:var(--bdk-bg-alt);padding:20px 22px;margin:30px 0;}
+.bdk-callout h3{margin-top:0;font-size:1.05rem;}
+.bdk-callout p:last-child{margin-bottom:0;}
+.bdk-steps{list-style:none;padding:0;counter-reset:bdkstep;margin:28px 0;}
+.bdk-steps li{counter-increment:bdkstep;position:relative;padding:2px 0 18px 52px;border-bottom:1px dashed var(--bdk-line);margin-bottom:18px;}
+.bdk-steps li:last-child{border-bottom:none;margin-bottom:0;}
+.bdk-steps li::before{content:counter(bdkstep);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;box-shadow:0 0 0 2px var(--bdk-mark);}
+.bdk-tablewrap{overflow-x:auto;margin:26px 0;}
+.bdk-table{border-collapse:collapse;width:100%;font-size:.92rem;}
+.bdk-table th,.bdk-table td{border:1px dashed var(--bdk-line);padding:9px 12px;text-align:left;}
+.bdk-table th{font-family:var(--bdk-serif);font-weight:400;background:var(--bdk-bg-alt);}
+.bdk-related{border-top:2px dashed var(--bdk-line);margin-top:46px;padding-top:24px;}
+.bdk-related a{display:block;margin-bottom:8px;}
+  </style>
+</head><body>
+  <header class="bdk-header">
+  <div class="bdk-headbar">
+    <a href="safe.html" class="bdk-logo"><span class="bdk-logo-mark"></span> Blockdraft</a>
+    <nav class="bdk-nav">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Blockbook</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+  <article class="bdk-post">
+    <div class="bdk-wrap bdk-section">
+      <span class="bdk-artmeta">Piece Assembly &middot; May 2, 2026</span>
+      <h1>Why Seam Allowance Consistency Matters More Than Seam Allowance Size</h1>
+      <p class="bdk-lead">A pattern with three different seam allowances hidden across its pieces causes more fitting trouble than any single allowance width does.</p>
+      <p class="bdk-byline">Notes from the Blockdraft workroom &middot; about 5 minutes</p>
+
+      <div class="bdk-fig">
+        <img src="img/seam-allowance-consistency.jpg" alt="Why Seam Allowance Consistency Matters More Than Seam Allowance Size">
+        <p class="bdk-figcap">Pattern pieces laid out with allowance lines walked and labeled before anything touches the fabric.</p>
+      </div>
+
+      <div class="bdk-artbody">
+        <p>A friend brought me a shirt she had made twice from the same pattern. Both times the yoke came out narrow, and both times she blamed her sewing. When we laid the tissue pieces on the table and measured, the answer was sitting right there in ink: the fronts carried a 5/8 inch allowance, the yoke carried 3/8, and the sleeve carried something that measured closer to a centimeter. Nobody had sewn anything wrong. The pattern had simply been drafted, or graded, or traced, by more than one hand, and the widths never got reconciled. Every seam she stitched at 5/8 out of habit ate into pieces that had been drawn expecting less.</p>
+
+        <h2>Width Is Preference. Mixing Widths Is a Measurement Change.</h2>
+        <p>People argue about seam allowance width the way they argue about coffee. Half an inch is efficient. Five eighths gives you room to let out. Three eighths is easier on a curve. A centimeter is what a lot of the world already uses. All of these work. None of them is more correct than the others, and the finished garment cannot tell which one you chose, because the finished garment is defined by the stitching line, not the cutting line.</p>
+        <p>What the garment absolutely can tell is whether you were consistent. Every millimeter of mismatch between the allowance drawn on the piece and the allowance you actually stitch becomes a change to the finished measurement, doubled at each seam, and multiplied by the number of vertical seams in the garment. A shirt with two side seams, two armhole seams, and a center back seam gives you ten separate opportunities for a quarter inch to disappear. Stitch that shirt at 5/8 when the pieces were drawn for 3/8, and you have removed something in the neighborhood of two and a half inches from a garment that never had it to spare.</p>
+        <p>That is the whole argument. The width is yours to pick. The mixing is what quietly rewrites the numbers you spent an afternoon establishing when you first built the block, and it does it without ever announcing itself.</p>
+
+        <blockquote class="bdk-quote">Nobody notices the allowance that was correct. Everybody notices the sleeve that will not set, and almost nobody traces it back to a cutting line drawn on a different day.</blockquote>
+
+        <h2>Auditing a Pattern Before You Cut</h2>
+        <p>Twenty minutes of measuring on the table saves a muslin. The audit is unglamorous and it works on any pattern, drafted or purchased, paper or printed at home.</p>
+        <ol class="bdk-steps">
+          <li><strong>Read the envelope, then distrust it.</strong> Note whatever allowance the instructions claim, write it in the corner of your notes, and treat it as a hypothesis rather than a fact.</li>
+          <li><strong>Measure at three points per seam.</strong> Put the ruler perpendicular to the stitching line near the top, middle, and bottom of each seam. Tapered allowances are common and rarely mentioned anywhere in the instructions.</li>
+          <li><strong>Walk the seams that must match.</strong> Side front against side back, sleeve underarm against bodice underarm. If the stitching lines match but the cutting lines diverge, the allowances differ. That divergence is the tell.</li>
+          <li><strong>Check every curve separately.</strong> Armscye, neckline, curved hem, princess seam. These are where a pattern most often narrows its allowance on purpose, and where an unmarked change hurts most.</li>
+          <li><strong>Write what you found on the piece itself,</strong> in a color you do not use for anything else. Not on a sticky note. Not in your head.</li>
+        </ol>
+        <p>The last step is the one people skip, and it is the one that pays. A note written on the tissue survives being interrupted for three weeks. A note in your memory does not survive lunch.</p>
+
+        <h2>Keep the Block Net, Add Allowance at Cutting</h2>
+        <p>Here is the practice that removes most of this problem before it starts: keep your master block at the finished line, with no allowance drawn on it at all.</p>
+
+        <div class="bdk-callout">
+          <h3>The net block recommendation</h3>
+          <p>Draft and store the block <em>net</em> &mdash; stitching line only, zero allowance. Trace it, then add whatever allowance the project needs to the traced copy. The block stays a pure record of your body plus the ease you decided on, and it never has to be un-drawn when you switch from a lined jacket to a soft blouse.</p>
+          <p>The practical benefit shows up when you check fit. On a net block, the measurement across the chest <em>is</em> the finished chest measurement. You can lay a tape on the paper and compare it to a garment you already own without doing arithmetic in your head, which is exactly the comparison described in <a href="measuring-over-worn-clothes.html">measuring over the clothes you actually wear</a>. Add allowance to the block and every one of those checks needs a subtraction first, which is one more place to make a small, invisible error.</p>
+        </div>
+
+        <p>A net block also travels better between uses. Woven shirt, lined vest, and knit tee all want different allowances, and if the block already carries one baked in, you spend the first hour of every project removing it. Tracing a net block and adding allowance takes about five minutes with a double-tracing wheel or a ruler and a steady hand, and those five minutes replace an entire category of confusion.</p>
+
+        <h2>A House Width, Written Down Once</h2>
+        <p>Choose one allowance for the majority of your seams and treat it as the house rule. Then list the exceptions on paper, in a sheet you keep with the block. The point is not that these exact numbers are right for everyone. The point is that <em>your</em> numbers exist somewhere other than your memory.</p>
+
+        <div class="bdk-tablewrap">
+          <table class="bdk-table">
+            <thead>
+              <tr><th>Seam or edge</th><th>Typical width</th><th>Why it differs from the house rule</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Straight vertical seams (side, center back, shoulder)</td><td>House width, e.g. 1/2 in</td><td>The default. Everything else is an exception to this line.</td></tr>
+              <tr><td>Armscye and sleeve cap</td><td>Narrower, often 1/4&ndash;3/8 in</td><td>Tight curves fold badly at full width; a narrow allowance clips less and sits smoother inside the sleeve.</td></tr>
+              <tr><td>Neckline and any faced curve</td><td>Narrower, often 1/4&ndash;3/8 in</td><td>Facings need to turn cleanly; excess bulk on a short radius shows through as ripple.</td></tr>
+              <tr><td>Curved or shaped hem</td><td>Varies; often 3/4&ndash;1 in with a facing instead</td><td>A deep hem cannot follow an outward curve without easing. Many people substitute a shaped facing here.</td></tr>
+              <tr><td>Seams you expect to let out later</td><td>Wider, e.g. 1 in</td><td>Side seams on a first garment from a new block. Extra width is cheap insurance while you are still learning the block.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Print that sheet, or write it by hand, and clip it to the envelope where the block lives. When the block itself gets adjusted &mdash; and if you follow the reasoning in <a href="the-one-adjustment-rule.html">the one-adjustment rule</a>, it gets adjusted once and then stops &mdash; the house sheet does not need to change at all. Allowance policy and fit are separate decisions, and keeping them separate is part of why the block stays usable for years.</p>
+
+        <h2>Marking Exceptions So Future You Can Read Them</h2>
+        <p>Exceptions kept in memory are exceptions that will be forgotten on a Sunday afternoon with the radio on. A few habits that hold up:</p>
+        <ul>
+          <li>Write the width directly on the allowance itself, inside the piece, not in the margin where a rotary cutter will remove it.</li>
+          <li>Use a consistent notation. A number and an arrow pointing at the cutting line beats a paragraph.</li>
+          <li>Where the width changes partway along a seam, mark the transition point with a distinct symbol so it is visible while cutting.</li>
+          <li>Note the date and the project on the traced copy. When two copies of the same piece turn up in a drawer, the date settles which one is current.</li>
+          <li>Keep one copy that is net and unmarked as the reference, and never cut into it.</li>
+        </ul>
+        <p>Notches and marks earn their keep the same way, and the systems interlock &mdash; a notch cut into a 3/8 allowance and a notch cut into a 5/8 allowance sit in different places relative to the stitching line, which is another quiet way that inconsistency shows up as a matching problem later.</p>
+
+        <div class="bdk-callout">
+          <h3>A note on scope</h3>
+          <p>Everything here is a description of how paper, fabric, and measuring tools tend to behave in a home workroom, offered as one way of organizing a personal drafting practice. It is not instruction for professional production, and different traditions of pattern making handle allowances differently for good reasons of their own. Try a habit on a single project before adopting it permanently.</p>
+        </div>
+
+        <div class="bdk-related">
+          <h3>Read also</h3>
+          <a href="notches-that-earn-their-keep.html">Notches That Earn Their Keep: A Marking System for Repeat Sewing</a>
+          <a href="paper-versus-cloth-block.html">Paper Block or Cloth Sloper: Choosing the Master Copy That Lasts</a>
+          <a href="reading-commercial-patterns-against-your-block.html">Reading a Commercial Pattern Against Your Own Block Before You Cut</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="bdk-footer">
+  <div class="bdk-wrap">
+    <div class="bdk-foot-grid">
+      <div class="bdk-foot-col">
+        <h4>Blockdraft</h4>
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Blockbook app</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Reference</h4>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Elsewhere</h4>
+        <span style="font-size:.85rem;color:var(--bdk-text-soft);">Reader mail: hello@blockdraft.shop</span>
+      </div>
+    </div>
+    <div class="bdk-foot-bottom">
+      <span>&copy; 2026 Blockdraft. Notes on pattern drafting and home tailoring, written by hand.</span>
+      <span>Not affiliated with any pattern brand or sewing machine manufacturer.</span>
+    </div>
+  </div>
+</footer>
+</body></html>

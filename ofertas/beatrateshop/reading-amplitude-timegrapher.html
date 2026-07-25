@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reading Amplitude on a Timegrapher · Beatrate</title>
+  <meta name="description" content="A field guide to reading amplitude on a timegrapher — what the degree arc, lift angle setting, and dial-up range actually reveal about a movement.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://beatrate.shop/reading-amplitude-timegrapher.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%232b3f8c'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23c9a765' stroke-width='2'/%3E%3Cline x1='32' y1='32' x2='32' y2='16' stroke='%23f6f5f2' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='32' y1='32' x2='42' y2='36' stroke='%23f6f5f2' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='2.5' fill='%239c7b34'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --brt-bg:#f6f5f2;
+  --brt-surface:#fffdf9;
+  --brt-ink:#191a1c;
+  --brt-ink-soft:#55534c;
+  --brt-brass:#9c7b34;
+  --brt-brass-soft:#c9a765;
+  --brt-brass-wash:#efe6d1;
+  --brt-steel:#2b3f8c;
+  --brt-steel-soft:#5c6db5;
+  --brt-line:#d9d3c2;
+  --brt-radius:13px;
+  --brt-maxw:725px;
+  --brt-margin-w:180px;
+  --brt-serif:Didot,'Bodoni MT','Hoefler Text',Georgia,serif;
+  --brt-sans:'Lucida Sans Unicode','Lucida Grande',Verdana,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body.brt-body{margin:0;background:var(--brt-bg);background-image:linear-gradient(var(--brt-line) 1px,transparent 1px),linear-gradient(90deg,var(--brt-line) 1px,transparent 1px);background-size:34px 34px;background-position:center top;background-attachment:local;color:var(--brt-ink);font-family:var(--brt-sans);font-size:16px;line-height:1.68;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;height:auto;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{font-family:var(--brt-serif);font-weight:400;letter-spacing:.01em;margin:0 0 .5em;color:var(--brt-ink);}
+p{margin:0 0 1.1em;}
+ul,ol{margin:0 0 1.1em;padding-left:1.2em;}
+::selection{background:var(--brt-brass-wash);color:var(--brt-ink);}
+.brt-shell{max-width:calc(var(--brt-maxw) + var(--brt-margin-w) + 88px);margin:0 auto;padding:0 24px;}
+.brt-with-margin{position:relative;padding-left:var(--brt-margin-w);}
+.brt-main{max-width:var(--brt-maxw);}
+.brt-topbar{border-bottom:1px solid var(--brt-line);background:rgba(246,245,242,.92);backdrop-filter:blur(4px);position:sticky;top:0;z-index:40;}
+.brt-nav{max-width:calc(var(--brt-maxw) + var(--brt-margin-w) + 88px);margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.brt-brand{display:flex;align-items:baseline;gap:8px;}
+.brt-brand-mark{width:26px;height:26px;flex:none;}
+.brt-wordmark{font-family:var(--brt-serif);font-style:italic;font-size:1.5rem;letter-spacing:.02em;}
+.brt-wordmark small{display:block;font-family:var(--brt-sans);font-style:normal;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--brt-brass);margin-top:-2px;}
+.brt-navlinks{display:flex;align-items:center;gap:26px;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;flex-wrap:wrap;}
+.brt-navlinks a{padding:4px 0;border-bottom:1px solid transparent;transition:border-color .15s ease,color .15s ease;}
+.brt-navlinks a:hover{border-color:var(--brt-brass);color:var(--brt-brass);}
+.brt-navlinks .brt-navcta{border:1px solid var(--brt-steel);border-radius:var(--brt-radius);padding:8px 16px;color:var(--brt-steel);}
+.brt-navlinks .brt-navcta:hover{background:var(--brt-steel);color:#fff;border-color:var(--brt-steel);}
+.brt-mark{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;border:1px solid var(--brt-brass);font-family:var(--brt-sans);font-size:.62rem;font-weight:700;color:var(--brt-brass);vertical-align:super;margin-left:2px;line-height:1;position:relative;top:-2px;}
+.brt-note{float:left;clear:left;width:calc(var(--brt-margin-w) - 26px);margin:0 0 24px calc(-1 * var(--brt-margin-w));padding:10px 12px 12px;background:var(--brt-surface);border:1px solid var(--brt-line);border-radius:8px;position:relative;font-size:.78rem;line-height:1.55;color:var(--brt-ink-soft);}
+.brt-note::after{content:"";position:absolute;top:14px;right:-27px;width:26px;border-top:1px dotted var(--brt-brass-soft);}
+.brt-note-no{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:var(--brt-brass);color:#fff;font-size:.62rem;font-weight:700;margin-right:6px;}
+.brt-note-label{font-family:var(--brt-sans);text-transform:uppercase;letter-spacing:.08em;font-size:.66rem;color:var(--brt-brass);}
+.brt-hero{padding:44px 0 56px;}
+.brt-hero-kicker{display:flex;align-items:center;gap:10px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brt-steel);margin-bottom:16px;}
+.brt-hero-kicker::before{content:"";width:28px;height:1px;background:var(--brt-brass);}
+.brt-hero h1{font-size:clamp(2.1rem,4.4vw,3.1rem);line-height:1.08;max-width:11.5em;}
+.brt-hero-lede{font-size:1.06rem;color:var(--brt-ink-soft);max-width:42em;margin-top:18px;}
+.brt-hero-media{margin-top:32px;border-radius:var(--brt-radius);overflow:hidden;border:1px solid var(--brt-line);position:relative;}
+.brt-hero-media img{width:100%;}
+.brt-hero-caption{display:flex;justify-content:space-between;gap:12px;font-size:.74rem;color:var(--brt-ink-soft);padding-top:10px;border-top:1px dashed var(--brt-line);margin-top:10px;}
+.brt-figno{font-family:var(--brt-serif);font-style:italic;color:var(--brt-brass);}
+.brt-section{padding:48px 0;border-top:1px solid var(--brt-line);}
+.brt-section:first-of-type{border-top:none;}
+.brt-section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+.brt-kicker{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brt-brass);}
+.brt-section h2{font-size:1.7rem;}
+.brt-section-note{font-size:.86rem;color:var(--brt-ink-soft);max-width:40em;}
+.brt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.brt-card{background:var(--brt-surface);border:1px solid var(--brt-line);border-radius:var(--brt-radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease;}
+.brt-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px -14px rgba(25,26,28,.35);}
+.brt-card-thumb{aspect-ratio:4/3;overflow:hidden;border-bottom:1px solid var(--brt-line);background:var(--brt-brass-wash);}
+.brt-card-thumb img{width:100%;height:100%;object-fit:cover;}
+.brt-card-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;}
+.brt-card-cat{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brt-steel);}
+.brt-card-title{font-family:var(--brt-serif);font-size:1.16rem;line-height:1.28;}
+.brt-card-dek{font-size:.86rem;color:var(--brt-ink-soft);flex:1;}
+.brt-card-meta{font-size:.7rem;color:var(--brt-ink-soft);border-top:1px dashed var(--brt-line);padding-top:8px;margin-top:4px;display:flex;justify-content:space-between;}
+.brt-app{background:var(--brt-ink);color:#f4f1e9;border-radius:var(--brt-radius);padding:44px 32px;margin:8px 0;}
+.brt-app .brt-kicker{color:var(--brt-brass-soft);}
+.brt-app h2{color:#f4f1e9;}
+.brt-app-lede{color:#c8c5ba;max-width:34em;}
+.brt-app-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;margin-top:30px;align-items:center;}
+.brt-app-mock{background:#101114;border:1px solid #3a3c40;border-radius:calc(var(--brt-radius) + 6px);padding:18px;position:relative;}
+.brt-app-mock-screen{background:#191b20;border-radius:9px;padding:16px;border:1px solid #33353b;}
+.brt-app-dial{width:96px;height:96px;border-radius:50%;border:2px solid var(--brt-brass-soft);margin:6px auto 14px;position:relative;background:repeating-conic-gradient(from 0deg,#20222a 0deg 6deg,#191b20 6deg 30deg);}
+.brt-app-dial::after{content:"";position:absolute;inset:26px;border-radius:50%;border:1px dashed var(--brt-steel-soft);}
+.brt-app-row{display:flex;justify-content:space-between;font-size:.72rem;color:#c8c5ba;padding:7px 0;border-top:1px dotted #3a3c40;}
+.brt-app-row:first-of-type{border-top:none;}
+.brt-app-row b{color:#f4f1e9;font-weight:600;}
+.brt-features{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px;}
+.brt-feature{border:1px solid #34363c;border-radius:10px;padding:16px;position:relative;}
+.brt-feature .brt-note-no{background:var(--brt-brass);}
+.brt-feature h3{font-size:1rem;color:#f4f1e9;margin:8px 0 6px;}
+.brt-feature p{font-size:.82rem;color:#bdb9ad;margin:0;}
+.brt-steps{display:flex;gap:0;margin-top:8px;flex-wrap:wrap;}
+.brt-step{flex:1;min-width:170px;position:relative;padding:20px 18px 18px;border:1px solid var(--brt-line);background:var(--brt-surface);}
+.brt-step:first-child{border-radius:var(--brt-radius) 0 0 var(--brt-radius);}
+.brt-step:last-child{border-radius:0 var(--brt-radius) var(--brt-radius) 0;}
+.brt-step + .brt-step{border-left:none;}
+.brt-step-no{width:24px;height:24px;border-radius:50%;border:1px solid var(--brt-brass);color:var(--brt-brass);display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:700;margin-bottom:12px;}
+.brt-step h3{font-size:.98rem;}
+.brt-step p{font-size:.82rem;color:var(--brt-ink-soft);margin:0;}
+.brt-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:var(--brt-radius);font-size:.86rem;letter-spacing:.03em;border:1px solid var(--brt-steel);cursor:pointer;font-family:var(--brt-sans);}
+.brt-btn-primary{background:var(--brt-steel);color:#fff;}
+.brt-btn-primary:hover{background:#233371;}
+.brt-btn-ghost{background:transparent;color:var(--brt-steel);}
+.brt-btn-ghost:hover{background:var(--brt-steel);color:#fff;}
+.brt-form{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
+.brt-input{flex:1;min-width:200px;padding:12px 16px;border-radius:var(--brt-radius);border:1px solid var(--brt-line);background:var(--brt-surface);font-family:var(--brt-sans);font-size:.9rem;color:var(--brt-ink);}
+.brt-input:focus{outline:2px solid var(--brt-brass-soft);outline-offset:1px;}
+.brt-ok{display:none;margin-top:12px;font-size:.82rem;color:var(--brt-steel);}
+.brt-newsletter{background:var(--brt-brass-wash);border-radius:var(--brt-radius);padding:32px;border:1px solid var(--brt-line);}
+.brt-newsletter h2{font-size:1.3rem;}
+.brt-about-blurb{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;align-items:start;}
+.brt-about-blurb img{border-radius:var(--brt-radius);border:1px solid var(--brt-line);}
+.brt-article-head{padding:40px 0 24px;border-bottom:1px solid var(--brt-line);margin-bottom:8px;}
+.brt-breadcrumb{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brt-ink-soft);margin-bottom:16px;}
+.brt-breadcrumb a:hover{color:var(--brt-brass);}
+.brt-article-head h1{font-size:clamp(1.8rem,3.6vw,2.5rem);max-width:14em;}
+.brt-article-head p{color:var(--brt-ink-soft);max-width:40em;}
+.brt-article-body{padding:32px 0 12px;font-size:1.02rem;}
+.brt-article-body h2{font-size:1.35rem;margin-top:1.6em;}
+.brt-article-body h3{font-size:1.1rem;margin-top:1.3em;}
+.brt-glossary-list{display:flex;flex-direction:column;padding:16px 0 12px;}
+.brt-glossary-item{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:18px 0;border-top:1px dashed var(--brt-line);}
+.brt-glossary-item:first-child{border-top:none;}
+.brt-glossary-no{font-family:var(--brt-serif);font-style:italic;color:var(--brt-brass);font-size:1.1rem;}
+.brt-glossary-term{font-family:var(--brt-serif);font-size:1.14rem;margin-bottom:4px;}
+.brt-glossary-def{font-size:.92rem;color:var(--brt-ink-soft);margin:0;}
+.brt-faq-item{border-top:1px solid var(--brt-line);padding:20px 0;}
+.brt-faq-item:first-child{border-top:none;}
+.brt-faq-q{font-family:var(--brt-serif);font-size:1.1rem;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start;}
+.brt-faq-q .brt-mark{position:static;top:0;}
+.brt-faq-a{font-size:.94rem;color:var(--brt-ink-soft);margin:0;padding-left:27px;}
+.brt-team{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px;}
+.brt-team-card{background:var(--brt-surface);border:1px solid var(--brt-line);border-radius:var(--brt-radius);padding:18px;}
+.brt-team-avatar{width:100%;aspect-ratio:1;border-radius:calc(var(--brt-radius) - 4px);overflow:hidden;margin-bottom:12px;background:var(--brt-brass-wash);}
+.brt-team-avatar img{width:100%;height:100%;object-fit:cover;}
+.brt-team-name{font-family:var(--brt-serif);font-size:1.05rem;margin-bottom:2px;}
+.brt-team-role{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--brt-steel);margin-bottom:8px;}
+.brt-team-bio{font-size:.86rem;color:var(--brt-ink-soft);margin:0;}
+.brt-policy-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;}
+.brt-policy-list li{display:flex;gap:12px;font-size:.94rem;color:var(--brt-ink-soft);align-items:flex-start;}
+.brt-policy-list .brt-note-no{flex:none;margin-top:2px;}
+.brt-contact{background:var(--brt-brass-wash);border:1px solid var(--brt-line);border-radius:var(--brt-radius);padding:28px;margin-top:8px;}
+.brt-legal{padding:28px 0 40px;}
+.brt-legal h2{font-size:1.2rem;margin-top:1.6em;}
+.brt-legal p,.brt-legal li{color:var(--brt-ink-soft);font-size:.94rem;}
+.brt-legal a{color:var(--brt-steel);text-decoration:underline;}
+.brt-footer{border-top:1px solid var(--brt-line);margin-top:64px;padding:44px 0 30px;}
+.brt-footer-grid{display:grid;grid-template-columns:1.3fr .8fr .8fr .8fr;gap:28px;}
+.brt-footer-brand .brt-wordmark{font-size:1.3rem;}
+.brt-footer-tag{font-size:.82rem;color:var(--brt-ink-soft);margin-top:10px;max-width:26em;}
+.brt-footer-col h4{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--brt-brass);margin-bottom:12px;}
+.brt-footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:.86rem;}
+.brt-footer-col a:hover{color:var(--brt-brass);}
+.brt-footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.72rem;color:var(--brt-ink-soft);margin-top:36px;padding-top:20px;border-top:1px dashed var(--brt-line);}
+.brt-article-table{width:100%;border-collapse:collapse;margin:0 0 1.4em;font-size:.92rem;}
+.brt-article-table th,.brt-article-table td{padding:10px 12px;border:1px solid var(--brt-line);text-align:left;vertical-align:top;}
+.brt-article-table th{background:var(--brt-brass-wash);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--brt-ink);}
+.brt-article-table td{color:var(--brt-ink-soft);background:var(--brt-surface);}
+.brt-article-body table{overflow-x:auto;display:block;}
+.brt-pullquote{font-family:var(--brt-serif);font-size:1.35rem;line-height:1.4;color:var(--brt-ink);border-left:3px solid var(--brt-brass);padding:4px 0 4px 22px;margin:1.6em 0;font-style:italic;}
+.brt-closing-note{margin-top:32px;padding:20px 22px;background:var(--brt-surface);border:1px solid var(--brt-line);border-radius:var(--brt-radius);font-size:.86rem;color:var(--brt-ink-soft);}
+.brt-closing-note strong{color:var(--brt-ink);display:block;margin-bottom:6px;font-family:var(--brt-serif);font-size:1.02rem;font-style:normal;}
+.brt-readalso{margin-top:28px;padding:22px 24px;background:var(--brt-brass-wash);border:1px solid var(--brt-line);border-radius:var(--brt-radius);}
+.brt-readalso h4{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brt-brass);margin:0 0 12px;font-family:var(--brt-sans);}
+.brt-readalso ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;}
+.brt-readalso a{color:var(--brt-steel);text-decoration:underline;font-size:.94rem;}
+.brt-readalso a:hover{color:var(--brt-ink);}
+@media (max-width:900px){
+  .brt-with-margin{padding-left:0;}
+  .brt-note{float:none;width:auto;margin:0 0 18px;border-left:3px dotted var(--brt-brass);border-radius:6px;}
+  .brt-note::after{display:none;}
+  .brt-grid{grid-template-columns:repeat(2,1fr);}
+  .brt-app-grid{grid-template-columns:1fr;}
+  .brt-about-blurb{grid-template-columns:1fr;}
+  .brt-team{grid-template-columns:1fr 1fr;}
+  .brt-footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:640px){
+  .brt-navlinks{display:none;}
+  .brt-grid{grid-template-columns:1fr;}
+  .brt-features{grid-template-columns:1fr;}
+  .brt-steps{flex-direction:column;}
+  .brt-step,.brt-step:first-child,.brt-step:last-child{border-radius:var(--brt-radius);border-left:1px solid var(--brt-line);}
+  .brt-team{grid-template-columns:1fr;}
+  .brt-footer-grid{grid-template-columns:1fr;}
+  .brt-footer-bottom{flex-direction:column;}
+  .brt-pullquote{font-size:1.15rem;padding-left:16px;}
+}
+  </style>
+</head><body class="brt-body">
+  <header class="brt-topbar">
+    <div class="brt-nav">
+      <a href="safe.html" class="brt-brand" aria-label="Beat Rate home">
+        <svg class="brt-brand-mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#2b3f8c"/><circle cx="32" cy="32" r="22" fill="none" stroke="#c9a765" stroke-width="2"/><line x1="32" y1="32" x2="32" y2="16" stroke="#f6f5f2" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="32" x2="42" y2="36" stroke="#f6f5f2" stroke-width="2.5" stroke-linecap="round"/><circle cx="32" cy="32" r="2.5" fill="#9c7b34"/></svg>
+        <span class="brt-wordmark">Beat Rate<small>Mechanical Watch Journal</small></span>
+      </a>
+      <nav class="brt-navlinks">
+        <a href="safe.html">Journal</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="app.html" class="brt-navcta">Beat Rate App</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="brt-post">
+    <div class="brt-shell">
+      <div class="brt-article-head">
+        <div class="brt-breadcrumb"><a href="safe.html">Journal</a> / <span>Amplitude</span></div>
+        <h1>Reading Amplitude on a Timegrapher</h1>
+        <p>What the dial of lift angle and beat error actually tells you about a movement's health, one degree at a time.</p>
+        <div class="brt-card-meta" style="border-top:none;padding-top:0;margin-top:14px;max-width:260px">
+          <span>Jan 12, 2026</span><span>Amplitude · 7 min</span>
+        </div>
+      </div>
+
+      <figure class="brt-hero-media" style="margin-top:28px">
+        <img src="img/reading-amplitude-timegrapher.jpg" alt="Reading Amplitude on a Timegrapher">
+      </figure>
+      <div class="brt-hero-caption" style="margin-bottom:0">
+        <span><span class="brt-figno">Fig. 01</span> — a live amplitude trace, dial-up, mid-recording</span>
+        <span>Kitchen table, mic on the caseback</span>
+      </div>
+
+      <div class="brt-article-body brt-with-margin">
+
+        <p>The timegrapher's microphone sits against the movement's caseback, listening to two sounds per beat — the pallet fork's entry and exit — and turning them into three lines on a screen: rate, amplitude, and beat error. Of the three, amplitude is the one people misread most often, because it looks like a single tidy number when it is actually the readout of an arc. Set a watch on the anvil, dial up, and the trace settles somewhere around 260 degrees. That figure isn't a grade or a score out of some maximum. It is how far the balance wheel actually swings on each beat, and it's the clearest window a home bench has into how much energy is reaching the escapement right now, this second, not on average.</p>
+
+        <div class="brt-note">
+          <span class="brt-note-no">01</span><span class="brt-note-label">Term</span>
+          <p style="margin-top:6px">Lift angle — the arc, in degrees, that the pallet fork's jewel actually pushes the balance through during one impulse. Caliber-specific, typically 42&ndash;52&deg;, and it has to be entered correctly for the timegrapher's amplitude math to mean anything.</p>
+        </div>
+
+        <h2>The Arc, Not the Score</h2>
+        <p>Picture the balance wheel as a small flywheel on a staff, held at center by the hairspring, rotating one way and then the other, once per beat, forever. Amplitude is the angle it travels before the hairspring's restoring force catches it and pulls it back. A full turn is 360 degrees; a healthy wristwatch balance covers somewhere around 200 to 320 of those degrees, depending on caliber, position, and how recently the mainspring was wound. The timegrapher can't watch the wheel directly through a closed case, so it listens instead — it clocks the timing of the pallet fork's click against the banking pins and calculates the arc from that interval. That calculation depends on one setting the operator types in by hand, which is why two readings of the same watch can disagree by twenty degrees if one of them has the wrong number entered.</p>
+
+        <h2>What the Trace Is Actually Showing</h2>
+        <p>On screen, amplitude usually appears as a line of dots drifting left to right, one dot per beat, plotted against a vertical degree scale — often 180 near the bottom, 320 near the top. A tight, level band of dots means the escapement is releasing energy evenly, beat after beat. A trace that saws up and down, or drifts steadily downward over a few seconds of recording, is describing something happening inside the movement in real time — a pivot catching and releasing, a barrel slipping against its arbor, oil that's gone gummy at one jewel and not another. Rate and beat error sit on their own lines nearby, and it's tempting to look at rate alone, since it answers the obvious question of whether the watch is accurate. But rate without amplitude is half the story. A watch can read close to zero seconds a day at 180 degrees of amplitude and still be in real trouble, because 180 is often too weak an arc to survive the second half of a full wind's torque curve without dropping further. For a completely different, low-tech way to feel that same escapement timing by ear, see <a href="beat-error-with-a-metronome.html">Beat Error, Explained With a Metronome</a>.</p>
+
+        <h2>A Healthy Dial-Up Reading</h2>
+        <p>Fully wound, dial up, on a stable anvil, most mechanical wristwatch calibers from the last seventy years tend to land between about 220 and 300 degrees. Below 220, the balance is running on too little energy to clear the pallet fork reliably through every position the watch will actually be worn in — pockets, wrists, nightstands at odd angles — and a small additional loss, from thickened oil or a worn pivot, can be enough to push it low enough to stop. Above roughly 310, the wheel can start knocking, striking the banking pins hard enough to bounce the impulse jewel out of its intended path, which shows up as an erratic rate rather than a clean one. The comfortable middle isn't a rule stamped on the movement; it's closer to the range most escapements were designed to tolerate, with margin on both sides for the point in the mainspring's unwinding when torque drops and amplitude naturally follows it down.</p>
+
+        <blockquote class="brt-pullquote">An amplitude trace never argues with you. It reports the arc it was given to work with, beat after beat, and leaves the interpretation on the bench.</blockquote>
+
+        <h2>Why the Lift Angle Setting Matters</h2>
+        <p>Every timegrapher asks for a lift angle before it will calculate amplitude, and it's tempting to leave whatever number the last watch used. That figure is caliber-specific, published in the manufacturer's own service documentation, and it directly scales the amplitude math. Enter it wrong and the rate line stays accurate, since rate is measured straight from the timing of the ticks — but the amplitude figure shifts by roughly the same proportion as the error in that setting. A lift angle typed in five degrees low can make an honestly healthy 260-degree balance report itself at 240, right at the edge of where a hobbyist starts second-guessing a movement that was never actually struggling. This is also why lift angle and the <a href="what-regulator-pins-do.html">regulator pins</a> get confused by beginners — one shifts the amplitude reading, the other shifts rate, and they don't touch each other at all.</p>
+
+        <h2>Dial-Up Versus Crown-Down</h2>
+        <p>Turn the same watch crown-down and amplitude tends to fall, often by ten to thirty degrees on an otherwise sound movement, because gravity now pulls the balance staff against a different pivot and jewel, changing friction at that bearing. This positional drop is expected; watchmakers treat it as one data point among several, not a verdict on its own. What deserves a second look is a drop that's unusually large — twenty-plus degrees beyond what the same reference caliber typically shows — or a crown-down reading so low it flirts with stopping. That pattern more often points to a bent balance staff, a chipped jewel, or oil that's migrated away from a single bearing than to a watch simply being old.</p>
+
+        <div style="overflow-x:auto">
+        <table class="brt-article-table">
+          <thead><tr><th>Dial-up amplitude</th><th>What it often suggests</th><th>Where to look</th></tr></thead>
+          <tbody>
+            <tr><td>260&ndash;300&deg;</td><td>Balance receiving full, even energy</td><td>Nothing — this is the target range</td></tr>
+            <tr><td>220&ndash;260&deg;</td><td>Slightly low but usually workable</td><td>Recheck after a full wind; watch the spring's back half</td></tr>
+            <tr><td>180&ndash;220&deg;</td><td>Weak arc, closer to the edge near full discharge</td><td>Pivots, oil condition, mainspring set</td></tr>
+            <tr><td>Below 180&deg;</td><td>Escapement near stalling in some positions</td><td>Full service, not a spot fix</td></tr>
+            <tr><td>Above 310&ndash;320&deg;</td><td>Possible knocking, or a lift-angle entry error</td><td>Confirm lift angle before touching the mainspring</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h2>Taking a Reading Worth Trusting</h2>
+        <p>Most misleading amplitude readings trace back to how the measurement was taken, not to the watch itself. A short, consistent routine removes most of that noise:</p>
+        <ul>
+          <li>Wind the watch fully before measuring — a partially wound spring under-reports its own condition.</li>
+          <li>Let the trace settle a few seconds on the anvil before recording; the first several beats are often noisy.</li>
+          <li>Record dial-up first, then crown-down, then the two side positions, in the same short session.</li>
+          <li>Confirm the correct lift angle is entered before trusting any of the numbers that follow.</li>
+        </ul>
+        <p>None of this replaces a full service history — the trend across weeks and across a case-back's worth of positions matters more than any single reading, the same way it does with a spring's set discussed in <a href="reading-a-mainsprings-set.html">Reading a Mainspring's Set</a>. But a clean, repeatable reading is the difference between chasing a real problem and chasing a measurement artifact.</p>
+
+        <div class="brt-closing-note">
+          <strong>A note on this journal</strong>
+          <p style="margin:0">These notes describe what we've observed on our own bench and in published service literature. They're background reading for people curious about how their own watches behave, not a substitute for a qualified watchmaker's assessment or your movement's specific service documentation.</p>
+        </div>
+
+        <div class="brt-readalso">
+          <h4>Read also</h4>
+          <ul>
+            <li><a href="fast-after-full-wind.html">Why a Watch Runs Fast After a Full Wind</a></li>
+            <li><a href="positional-error-not-a-flaw.html">Positional Error and Why It Isn't a Flaw</a></li>
+            <li><a href="kitchen-table-bench-essentials.html">The Kitchen-Table Bench: What You Actually Need</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </article>
+
+  <footer class="brt-footer">
+    <div class="brt-shell">
+      <div class="brt-footer-grid">
+        <div class="brt-footer-brand">
+          <span class="brt-wordmark">Beat Rate</span>
+          <p class="brt-footer-tag">A journal about the mechanics of old watches — servicing, regulation, amplitude, and the oils that make a balance wheel keep faith with time.</p>
+        </div>
+        <div class="brt-footer-col">
+          <h4>Journal</h4>
+          <ul>
+            <li><a href="safe.html">Latest entries</a></li>
+            <li><a href="glossary.html">Glossary</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="brt-footer-col">
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="about.html">About Beat Rate</a></li>
+            <li><a href="app.html">The Beat Rate app</a></li>
+            <li><a href="mailto:contact@beatrate.shop">contact@beatrate.shop</a></li>
+          </ul>
+        </div>
+        <div class="brt-footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="brt-footer-bottom">
+        <span>&copy; 2026 Beat Rate. Notes from a kitchen-table bench.</span>
+        <span>Reading amplitude, one beat at a time.</span>
+      </div>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

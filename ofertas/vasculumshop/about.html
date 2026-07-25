@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About Vasculum</title>
+<meta name="description" content="Vasculum is an independent journal on herbarium practice, written by a small group of people who press plants. Our mission, our content policy, and how to reach us.">
+<link rel="canonical" href="https://vasculum.shop/about.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23fdfcf6'/%3E%3Cpath d='M32 8C20 20 14 34 20 48C24 56 32 58 32 58C32 58 40 56 44 48C50 34 44 20 32 8Z' fill='none' stroke='%23556b2f' stroke-width='2.5'/%3E%3Cpath d='M32 12L32 54M32 24L24 18M32 24L40 18M32 34L23 29M32 34L41 29M32 44L24 40M32 44L40 40' stroke='%23556b2f' stroke-width='1.6' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{
+  --vsc-bg:#fdfcf6;
+  --vsc-paper:#fffefb;
+  --vsc-text:#2f3128;
+  --vsc-accent:#556b2f;
+  --vsc-line:#d8d3bf;
+  --vsc-radius:7px;
+  --vsc-maxw:640px;
+  --vsc-serif:'Garamond','EB Garamond','Apple Garamond','Times New Roman',serif;
+  --vsc-sans:'Seravek','Century Gothic','Futura','Trebuchet MS',sans-serif;
+}
+*{box-sizing:border-box;}
+html{background:var(--vsc-bg);}
+body{margin:0;background:var(--vsc-bg);color:var(--vsc-text);font-family:var(--vsc-serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:var(--vsc-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.vsc-header{border-bottom:1px solid var(--vsc-line);padding:28px 24px;}
+.vsc-header-inner{max-width:var(--vsc-maxw);margin:0 auto;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.vsc-wordmark{font-family:var(--vsc-serif);font-size:26px;font-style:italic;color:var(--vsc-text);letter-spacing:0.5px;}
+.vsc-wordmark:hover{text-decoration:none;color:var(--vsc-accent);}
+.vsc-nav{display:flex;gap:20px;flex-wrap:wrap;}
+.vsc-nav a{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--vsc-text);}
+.vsc-nav a:hover{color:var(--vsc-accent);}
+.vsc-main{max-width:var(--vsc-maxw);margin:0 auto;padding:56px 24px 40px;}
+.vsc-frame{position:relative;margin:0 0 54px;}
+.vsc-frame img{width:100%;border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);background:var(--vsc-paper);}
+.vsc-label{position:absolute;right:14px;bottom:-22px;max-width:230px;background:var(--vsc-paper);border:1px solid var(--vsc-text);border-radius:2px;padding:10px 12px 9px;transform:rotate(-1.1deg);box-shadow:2px 3px 0 rgba(47,49,40,0.08);}
+.vsc-label-eyebrow{display:block;font-family:var(--vsc-sans);font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--vsc-accent);margin-bottom:3px;}
+.vsc-label-title{display:block;font-family:var(--vsc-serif);font-style:italic;font-size:14px;line-height:1.3;color:var(--vsc-text);}
+.vsc-label-meta{display:block;font-family:var(--vsc-sans);font-size:10px;letter-spacing:0.4px;color:#5c5f4f;margin-top:4px;}
+.vsc-hero-head{margin-bottom:36px;}
+.vsc-kicker{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--vsc-accent);}
+h1.vsc-h1{font-family:var(--vsc-serif);font-weight:400;font-size:40px;line-height:1.15;margin:10px 0 14px;}
+.vsc-dek{font-family:var(--vsc-sans);font-size:16px;color:#4c4f41;max-width:520px;}
+.vsc-rule{border:none;border-top:1px solid var(--vsc-line);margin:64px 0;}
+.vsc-article-body{font-family:var(--vsc-serif);font-size:18px;}
+.vsc-article-body p{margin:0 0 22px;}
+.vsc-article-body h2{font-family:var(--vsc-serif);font-weight:400;font-size:24px;margin:44px 0 14px;}
+.vsc-article-body h3{font-family:var(--vsc-serif);font-weight:400;font-size:19px;margin:32px 0 10px;}
+.vsc-article-body ul,.vsc-article-body ol{font-family:var(--vsc-serif);font-size:17px;margin:0 0 22px;padding-left:22px;}
+.vsc-article-body li{margin-bottom:8px;}
+.vsc-pull{font-family:var(--vsc-serif);font-style:italic;font-size:22px;color:var(--vsc-accent);border-left:2px solid var(--vsc-accent);padding-left:20px;margin:40px 0;}
+.vsc-footer{border-top:1px solid var(--vsc-line);margin-top:60px;padding:40px 24px 60px;}
+.vsc-footer-inner{max-width:var(--vsc-maxw);margin:0 auto;text-align:left;}
+.vsc-footer-mark{font-family:var(--vsc-serif);font-style:italic;font-size:19px;margin:0 0 4px;}
+.vsc-footer-tag{font-family:var(--vsc-sans);font-size:13px;color:#5c5f4f;margin:0 0 18px;}
+.vsc-footer-nav{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+.vsc-footer-nav a{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--vsc-text);}
+.vsc-footer-fine{font-family:var(--vsc-sans);font-size:12px;color:#7a7d6c;}
+@media (max-width:600px){
+  h1.vsc-h1{font-size:30px;}
+  .vsc-label{position:static;transform:none;margin-top:12px;max-width:none;}
+  .vsc-frame{margin-bottom:34px;}
+}
+</style>
+</head>
+<body>
+<header class="vsc-header">
+  <div class="vsc-header-inner">
+    <a class="vsc-wordmark" href="/">Vasculum</a>
+    <nav class="vsc-nav">
+      <a href="/">Journal</a>
+      <a href="/app.html">Pressbook</a>
+      <a href="/about.html">About</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/faq.html">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="vsc-main">
+  <section class="vsc-hero-head">
+    <div class="vsc-frame">
+      <img src="img/about.jpg" alt="A desk with a plant press, loupe, and stack of finished herbarium sheets in folders">
+      <div class="vsc-label">
+        <span class="vsc-label-eyebrow">About</span>
+        <span class="vsc-label-title">Who writes this journal</span>
+      </div>
+    </div>
+    <p class="vsc-kicker">About</p>
+    <h1 class="vsc-h1">Why we keep this journal</h1>
+    <p class="vsc-dek">Vasculum is written by people who press plants themselves, for people who are learning to, or already do.</p>
+  </section>
+
+  <div class="vsc-article-body">
+    <h2>The mission</h2>
+    <p>Herbarium practice is old, quiet work that most people encounter once, in a school botany unit, and then forget entirely. We think that's a loss. Pressing a plant well and labeling it properly is a skill anyone can pick up with a few tools and a handful of habits, and the record it produces — a specimen with a real locality, date, and name attached — outlasts almost anything else you might make in an afternoon outdoors.</p>
+    <p>Vasculum exists to write down the specific, testable parts of that skill: how often to change a blotter, what a label actually needs to say, how to handle a stem that won't flatten. We try to avoid vague encouragement in favor of things you can check against your own press.</p>
+
+    <h2>A small, fictional editorial team</h2>
+    <p>Vasculum is edited by a rotating handful of contributors who collect and press in different climates — coastal, arid, and temperate — which is partly why entries sometimes disagree slightly on timing. A blotter interval that works in a dry inland press will not match one in a humid coastal room, and we would rather show that variation than flatten it into one false rule.</p>
+    <p>Entries are written, reviewed by at least one other contributor who has pressed the species or technique in question, and published without bylines attached to individual posts, since most of what we publish is a synthesis of more than one person's notes.</p>
+
+    <h2>Content policy</h2>
+    <ul>
+      <li>Everything we publish reflects direct pressing and mounting experience, not summarized secondhand advice.</li>
+      <li>We do not accept sponsored posts, paid placements, or product reviews written by the manufacturer.</li>
+      <li>Species names and localities in the journal are illustrative; we do not publish precise coordinates for rare or protected populations.</li>
+      <li>We correct errors when readers point them out, and we note the correction rather than silently editing a published entry.</li>
+      <li>Vasculum does not sell specimens, seeds, or plant material of any kind.</li>
+    </ul>
+
+    <div class="vsc-pull">A specimen without a label is a pressed plant. A specimen with a label is a record.</div>
+
+    <h2>Get in touch</h2>
+    <p>Questions, corrections, or a technique you think we got wrong — write to <a href="mailto:hello@vasculum.shop">hello@vasculum.shop</a>. We read everything, even if a reply takes a while during collecting season.</p>
+  </div>
+</main>
+
+<footer class="vsc-footer">
+  <div class="vsc-footer-inner">
+    <p class="vsc-footer-mark">Vasculum</p>
+    <p class="vsc-footer-tag">A field journal for the pressed plant.</p>
+    <nav class="vsc-footer-nav">
+      <a href="/about.html">About</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/app.html">Pressbook</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+    <p class="vsc-footer-fine">&copy; 2026 Vasculum. Written by hand, kept in a box, occasionally shared. Contact: <a href="mailto:hello@vasculum.shop">hello@vasculum.shop</a></p>
+  </div>
+</footer>
+</body>
+</html>

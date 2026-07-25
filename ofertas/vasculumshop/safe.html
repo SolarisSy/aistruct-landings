@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vasculum — A Field Journal for the Pressed Plant</title>
+<meta name="description" content="Vasculum is an independent journal on herbarium practice: collecting in the field, pressing without ruining the sheet, and writing the label that makes a specimen worth keeping.">
+<link rel="canonical" href="https://vasculum.shop/safe.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23fdfcf6'/%3E%3Cpath d='M32 8C20 20 14 34 20 48C24 56 32 58 32 58C32 58 40 56 44 48C50 34 44 20 32 8Z' fill='none' stroke='%23556b2f' stroke-width='2.5'/%3E%3Cpath d='M32 12L32 54M32 24L24 18M32 24L40 18M32 34L23 29M32 34L41 29M32 44L24 40M32 44L40 40' stroke='%23556b2f' stroke-width='1.6' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{
+  --vsc-bg:#fdfcf6;
+  --vsc-paper:#fffefb;
+  --vsc-text:#2f3128;
+  --vsc-accent:#556b2f;
+  --vsc-accent-dim:#7c8f5c;
+  --vsc-line:#d8d3bf;
+  --vsc-radius:7px;
+  --vsc-maxw:640px;
+  --vsc-serif:'Garamond','EB Garamond','Apple Garamond','Times New Roman',serif;
+  --vsc-sans:'Seravek','Century Gothic','Futura','Trebuchet MS',sans-serif;
+}
+*{box-sizing:border-box;}
+html{background:var(--vsc-bg);}
+body{margin:0;background:var(--vsc-bg);color:var(--vsc-text);font-family:var(--vsc-serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:var(--vsc-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.vsc-header{border-bottom:1px solid var(--vsc-line);padding:28px 24px;}
+.vsc-header-inner{max-width:var(--vsc-maxw);margin:0 auto;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.vsc-wordmark{font-family:var(--vsc-serif);font-size:26px;font-style:italic;color:var(--vsc-text);letter-spacing:0.5px;}
+.vsc-wordmark:hover{text-decoration:none;color:var(--vsc-accent);}
+.vsc-nav{display:flex;gap:20px;flex-wrap:wrap;}
+.vsc-nav a{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--vsc-text);}
+.vsc-nav a:hover{color:var(--vsc-accent);}
+.vsc-main{max-width:var(--vsc-maxw);margin:0 auto;padding:56px 24px 40px;}
+.vsc-frame{position:relative;margin:0 0 54px;}
+.vsc-frame img{width:100%;border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);background:var(--vsc-paper);}
+.vsc-label{position:absolute;right:14px;bottom:-22px;max-width:230px;background:var(--vsc-paper);border:1px solid var(--vsc-text);border-radius:2px;padding:10px 12px 9px;transform:rotate(-1.1deg);box-shadow:2px 3px 0 rgba(47,49,40,0.08);}
+.vsc-label-eyebrow{display:block;font-family:var(--vsc-sans);font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--vsc-accent);margin-bottom:3px;}
+.vsc-label-title{display:block;font-family:var(--vsc-serif);font-style:italic;font-size:14px;line-height:1.3;color:var(--vsc-text);}
+.vsc-label-meta{display:block;font-family:var(--vsc-sans);font-size:10px;letter-spacing:0.4px;color:#5c5f4f;margin-top:4px;}
+.vsc-hero-head{margin-bottom:36px;}
+.vsc-kicker{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--vsc-accent);}
+h1.vsc-h1{font-family:var(--vsc-serif);font-weight:400;font-size:40px;line-height:1.15;margin:10px 0 14px;}
+.vsc-dek{font-family:var(--vsc-sans);font-size:16px;color:#4c4f41;max-width:520px;}
+.vsc-list{list-style:none;margin:0;padding:0;}
+.vsc-entry{margin-bottom:70px;}
+.vsc-entry:last-child{margin-bottom:0;}
+.vsc-entry-meta{font-family:var(--vsc-sans);font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:var(--vsc-accent);margin:26px 0 8px;}
+.vsc-entry-title{font-family:var(--vsc-serif);font-size:25px;margin:0 0 8px;line-height:1.25;}
+.vsc-entry-title a{color:var(--vsc-text);}
+.vsc-entry-title a:hover{color:var(--vsc-accent);text-decoration:none;}
+.vsc-entry-dek{font-family:var(--vsc-sans);font-size:15px;color:#4c4f41;margin:0;}
+.vsc-rule{border:none;border-top:1px solid var(--vsc-line);margin:64px 0;}
+.vsc-app-section{margin:70px 0;}
+.vsc-app-grid{display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;margin-top:28px;}
+.vsc-app-copy{flex:1 1 260px;}
+.vsc-app-mock{flex:0 0 220px;}
+.vsc-index-card{border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);background:var(--vsc-paper);padding:16px;box-shadow:3px 4px 0 rgba(47,49,40,0.06);}
+.vsc-index-card + .vsc-index-card{margin-top:14px;}
+.vsc-index-card-num{font-family:var(--vsc-sans);font-size:10px;color:var(--vsc-accent);letter-spacing:1px;}
+.vsc-index-card-name{font-family:var(--vsc-serif);font-style:italic;font-size:16px;margin:4px 0;}
+.vsc-index-card-bar{height:4px;border-radius:2px;background:var(--vsc-line);overflow:hidden;margin-top:8px;}
+.vsc-index-card-fill{height:100%;background:var(--vsc-accent);}
+.vsc-features{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.vsc-feature{border-top:1px solid var(--vsc-line);padding-top:14px;}
+.vsc-feature h3{font-family:var(--vsc-serif);font-size:18px;font-weight:400;margin:0 0 6px;}
+.vsc-feature p{font-family:var(--vsc-sans);font-size:14px;color:#4c4f41;margin:0;}
+.vsc-steps{counter-reset:vsc-step;list-style:none;padding:0;margin:28px 0;}
+.vsc-step{position:relative;padding-left:44px;margin-bottom:24px;counter-increment:vsc-step;}
+.vsc-step::before{content:counter(vsc-step);position:absolute;left:0;top:0;width:30px;height:30px;border:1px solid var(--vsc-accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--vsc-sans);font-size:13px;color:var(--vsc-accent);}
+.vsc-step h3{font-family:var(--vsc-serif);font-size:17px;margin:2px 0 4px;}
+.vsc-step p{font-family:var(--vsc-sans);font-size:14px;color:#4c4f41;margin:0;}
+.vsc-cta{display:inline-block;font-family:var(--vsc-sans);font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--vsc-bg);background:var(--vsc-accent);padding:13px 26px;border-radius:var(--vsc-radius);margin-top:8px;}
+.vsc-cta:hover{background:#465a26;text-decoration:none;}
+.vsc-news{border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);padding:28px;margin:70px 0;background:var(--vsc-paper);}
+.vsc-news h2{font-family:var(--vsc-serif);font-weight:400;font-size:22px;margin:0 0 8px;}
+.vsc-news p{font-family:var(--vsc-sans);font-size:14px;color:#4c4f41;margin:0 0 16px;}
+.vsc-news-form{display:flex;gap:10px;flex-wrap:wrap;}
+.vsc-news-form input[type=email]{flex:1 1 200px;padding:11px 14px;border:1px solid var(--vsc-line);border-radius:var(--vsc-radius);font-family:var(--vsc-sans);font-size:14px;background:var(--vsc-bg);color:var(--vsc-text);}
+.vsc-news-form button{border:none;cursor:pointer;font-family:var(--vsc-sans);font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:var(--vsc-bg);background:var(--vsc-accent);padding:11px 20px;border-radius:var(--vsc-radius);}
+.vsc-news-ok{display:none;margin-top:12px;font-family:var(--vsc-sans);font-size:13px;color:var(--vsc-accent);}
+.vsc-about{margin:70px 0;}
+.vsc-about h2{font-family:var(--vsc-serif);font-weight:400;font-size:22px;}
+.vsc-about p{font-family:var(--vsc-serif);font-size:16px;color:#3a3c31;}
+.vsc-article-body{font-family:var(--vsc-serif);font-size:18px;}
+.vsc-article-body p{margin:0 0 22px;}
+.vsc-article-body h2{font-family:var(--vsc-serif);font-weight:400;font-size:24px;margin:44px 0 14px;}
+.vsc-article-body h3{font-family:var(--vsc-serif);font-weight:400;font-size:19px;margin:32px 0 10px;}
+.vsc-article-body ul,.vsc-article-body ol{font-family:var(--vsc-serif);font-size:17px;margin:0 0 22px;padding-left:22px;}
+.vsc-article-body li{margin-bottom:8px;}
+.vsc-pull{font-family:var(--vsc-serif);font-style:italic;font-size:22px;color:var(--vsc-accent);border-left:2px solid var(--vsc-accent);padding-left:20px;margin:40px 0;}
+.vsc-gloss{list-style:none;margin:0;padding:0;}
+.vsc-gloss-item{padding:22px 0;border-top:1px solid var(--vsc-line);}
+.vsc-gloss-item:first-child{border-top:none;}
+.vsc-gloss-term{font-family:var(--vsc-serif);font-style:italic;font-size:19px;margin:0 0 6px;color:var(--vsc-text);}
+.vsc-gloss-def{font-family:var(--vsc-sans);font-size:15px;color:#4c4f41;margin:0;}
+.vsc-faq-item{padding:22px 0;border-top:1px solid var(--vsc-line);}
+.vsc-faq-item:first-child{border-top:none;}
+.vsc-faq-q{font-family:var(--vsc-serif);font-size:19px;margin:0 0 8px;}
+.vsc-faq-a{font-family:var(--vsc-sans);font-size:15px;color:#4c4f41;margin:0;}
+.vsc-legal h2{font-family:var(--vsc-serif);font-weight:400;font-size:21px;margin:38px 0 12px;}
+.vsc-legal p,.vsc-legal li{font-family:var(--vsc-sans);font-size:15px;color:#3a3c31;line-height:1.7;}
+.vsc-legal ul{padding-left:20px;}
+.vsc-footer{border-top:1px solid var(--vsc-line);margin-top:60px;padding:40px 24px 60px;}
+.vsc-footer-inner{max-width:var(--vsc-maxw);margin:0 auto;text-align:left;}
+.vsc-footer-mark{font-family:var(--vsc-serif);font-style:italic;font-size:19px;margin:0 0 4px;}
+.vsc-footer-tag{font-family:var(--vsc-sans);font-size:13px;color:#5c5f4f;margin:0 0 18px;}
+.vsc-footer-nav{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+.vsc-footer-nav a{font-family:var(--vsc-sans);font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--vsc-text);}
+.vsc-footer-fine{font-family:var(--vsc-sans);font-size:12px;color:#7a7d6c;}
+@media (max-width:600px){
+  h1.vsc-h1{font-size:30px;}
+  .vsc-features{grid-template-columns:1fr;}
+  .vsc-app-grid{flex-direction:column;}
+  .vsc-label{position:static;transform:none;margin-top:12px;max-width:none;}
+  .vsc-frame{margin-bottom:34px;}
+}
+</style>
+</head>
+<body>
+<header class="vsc-header">
+  <div class="vsc-header-inner">
+    <a class="vsc-wordmark" href="/">Vasculum</a>
+    <nav class="vsc-nav">
+      <a href="/">Journal</a>
+      <a href="/app.html">Pressbook</a>
+      <a href="/about.html">About</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/faq.html">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="vsc-main">
+  <section class="vsc-hero-head">
+    <div class="vsc-frame">
+      <img src="img/hero.jpg" alt="A pressed fern frond mounted on cream paper with a small printed specimen label in the lower corner">
+      <div class="vsc-label">
+        <span class="vsc-label-eyebrow">Vasculum Journal</span>
+        <span class="vsc-label-title">Notes on collecting, pressing, and keeping</span>
+        <span class="vsc-label-meta">Est. 2026 · Field &amp; Desk</span>
+      </div>
+    </div>
+    <p class="vsc-kicker">The Journal</p>
+    <h1 class="vsc-h1">Pressing without ruining it</h1>
+    <p class="vsc-dek">Short, specific notes on herbarium practice — the humidity in the press, the day you change the blotters, and the minimum a label needs to say before a specimen means anything twenty years from now.</p>
+  </section>
+
+  <hr class="vsc-rule">
+
+  <ul class="vsc-list">
+    <li class="vsc-entry">
+      <div class="vsc-frame">
+        <img src="img/the-blotter-change-interval.jpg" alt="Stack of blotting paper sheets used inside a plant press, one sheet peeled back to show a pressed leaf">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Fig. 1</span>
+          <span class="vsc-label-title">Blotter stack, day two</span>
+        </div>
+      </div>
+      <p class="vsc-entry-meta">Pressing · January 14, 2026</p>
+      <h2 class="vsc-entry-title"><a href="the-blotter-change-interval.html">The Blotter-Change Interval</a></h2>
+      <p class="vsc-entry-dek">The single habit that separates a flat, true-colored sheet from a brown, mildewed one — and how to tell when the paper is actually done absorbing.</p>
+    </li>
+
+    <li class="vsc-entry">
+      <div class="vsc-frame">
+        <img src="img/writing-a-label-that-lasts.jpg" alt="Handwritten herbarium label with locality, date, and collector fields, resting beside a pressed specimen">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Fig. 2</span>
+          <span class="vsc-label-title">Six lines, one specimen</span>
+        </div>
+      </div>
+      <p class="vsc-entry-meta">Labels · February 3, 2026</p>
+      <h2 class="vsc-entry-title"><a href="writing-a-label-that-lasts.html">Writing a Label That Lasts</a></h2>
+      <p class="vsc-entry-dek">Six lines of information turn a pressed plant into a record. Anything less, and a good specimen becomes an unlabeled scrap in a box.</p>
+    </li>
+
+    <li class="vsc-entry">
+      <div class="vsc-frame">
+        <img src="img/collecting-without-a-plan.jpg" alt="An open vasculum field collecting case on a trail with notebook and pencil beside it">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Fig. 3</span>
+          <span class="vsc-label-title">Vasculum, open, mid-walk</span>
+        </div>
+      </div>
+      <p class="vsc-entry-meta">Collecting · February 21, 2026</p>
+      <h2 class="vsc-entry-title"><a href="collecting-without-a-plan.html">Collecting Without a Plan</a></h2>
+      <p class="vsc-entry-dek">A walk with a vasculum in hand is not the same as collecting. Notes on what to bring, what to leave, and why the plan matters more than the basket.</p>
+    </li>
+
+    <li class="vsc-entry">
+      <div class="vsc-frame">
+        <img src="img/what-humidity-does-to-a-press.jpg" alt="Wooden plant press with straps, sitting near a window, condensation visible on a nearby pane">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Fig. 4</span>
+          <span class="vsc-label-title">Press by the north window</span>
+        </div>
+      </div>
+      <p class="vsc-entry-meta">Pressing · March 10, 2026</p>
+      <h2 class="vsc-entry-title"><a href="what-humidity-does-to-a-press.html">What Humidity Does to a Press</a></h2>
+      <p class="vsc-entry-dek">Too dry and the leaf shatters at the vein; too damp and it never really leaves the press. Reading the room a plant is pressed in.</p>
+    </li>
+
+    <li class="vsc-entry">
+      <div class="vsc-frame">
+        <img src="img/the-species-that-refuse-to-flatten.jpg" alt="A thick succulent stem sliced lengthwise before pressing, laid beside a finished flat specimen">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Fig. 5</span>
+          <span class="vsc-label-title">Split before pressed</span>
+        </div>
+      </div>
+      <p class="vsc-entry-meta">Field Notes · April 2, 2026</p>
+      <h2 class="vsc-entry-title"><a href="the-species-that-refuse-to-flatten.html">The Species That Refuse to Flatten</a></h2>
+      <p class="vsc-entry-dek">Succulents, cones, and thick stems resist the press on principle. A few workarounds that don't involve giving up.</p>
+    </li>
+
+    <li class="vsc-entry">
+      <div class="vsc-frame">
+        <img src="img/a-short-history-of-the-plant-press.jpg" alt="An old wooden slatted plant press beside a modern aluminum ventilated frame, shown together for comparison">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Fig. 6</span>
+          <span class="vsc-label-title">Two frames, one idea</span>
+        </div>
+      </div>
+      <p class="vsc-entry-meta">History · April 25, 2026</p>
+      <h2 class="vsc-entry-title"><a href="a-short-history-of-the-plant-press.html">A Short History of the Plant Press</a></h2>
+      <p class="vsc-entry-dek">From folded paper under a rock to the slatted wooden frame still sold today — how the tool settled on a shape and stayed there.</p>
+    </li>
+
+    <li class="vsc-entry">
+      <div class="vsc-frame">
+        <img src="img/storing-a-herbarium-at-home.jpg" alt="Acid-free archival folders holding pressed specimens, stacked inside a labeled storage box">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Fig. 7</span>
+          <span class="vsc-label-title">Folder box, shelf three</span>
+        </div>
+      </div>
+      <p class="vsc-entry-meta">Storage · May 18, 2026</p>
+      <h2 class="vsc-entry-title"><a href="storing-a-herbarium-at-home.html">Storing a Herbarium at Home</a></h2>
+      <p class="vsc-entry-dek">A shoebox works for a season. A collection meant to outlast you needs acid-free folders, a dry shelf, and a plan for silverfish.</p>
+    </li>
+
+    <li class="vsc-entry">
+      <div class="vsc-frame">
+        <img src="img/reading-an-old-label.jpg" alt="A faded, handwritten herbarium label from decades ago with abbreviated locality notes, held up to the light">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Fig. 8</span>
+          <span class="vsc-label-title">1962, ink gone brown</span>
+        </div>
+      </div>
+      <p class="vsc-entry-meta">Archives · June 9, 2026</p>
+      <h2 class="vsc-entry-title"><a href="reading-an-old-label.html">Reading an Old Label</a></h2>
+      <p class="vsc-entry-dek">Faded ink, an abbreviated county name, a collector's initials instead of a name — notes on decoding a specimen someone else pressed decades ago.</p>
+    </li>
+
+    <li class="vsc-entry">
+      <div class="vsc-frame">
+        <img src="img/mounting-without-glue.jpg" alt="A pressed specimen attached to archival paper with thin linen tape hinges instead of glue">
+        <div class="vsc-label">
+          <span class="vsc-label-eyebrow">Fig. 9</span>
+          <span class="vsc-label-title">Hinged, not glued</span>
+        </div>
+      </div>
+      <p class="vsc-entry-meta">Mounting · July 1, 2026</p>
+      <h2 class="vsc-entry-title"><a href="mounting-without-glue.html">Mounting Without Glue</a></h2>
+      <p class="vsc-entry-dek">Adhesive yellows, glue lines crack, and future botanists will thank you for using linen tape and paper hinges instead.</p>
+    </li>
+  </ul>
+
+  <hr class="vsc-rule">
+
+  <section class="vsc-app-section" id="pressbook">
+    <p class="vsc-kicker">The Companion App</p>
+    <h2 style="font-family:var(--vsc-serif);font-weight:400;font-size:28px;margin:8px 0 0;">Pressbook</h2>
+    <div class="vsc-app-grid">
+      <div class="vsc-app-copy">
+        <p style="font-family:var(--vsc-sans);font-size:15px;color:#4c4f41;">Pressbook is where we keep track of what's in the press right now, what's due for a blotter change, and what still needs a finished label. It grew out of the index cards we used to keep pinned above the desk.</p>
+        <ul class="vsc-features">
+          <li class="vsc-feature">
+            <h3>Press log</h3>
+            <p>Track every sheet in the press by date entered and expected drying time.</p>
+          </li>
+          <li class="vsc-feature">
+            <h3>Blotter reminders</h3>
+            <p>A gentle nudge on the schedule you set, not a fixed rule for every plant.</p>
+          </li>
+          <li class="vsc-feature">
+            <h3>Label builder</h3>
+            <p>Fill six fields once, print a label sized for a standard herbarium sheet.</p>
+          </li>
+          <li class="vsc-feature">
+            <h3>Locality notes</h3>
+            <p>Attach coordinates, habitat, and associated species to any entry.</p>
+          </li>
+          <li class="vsc-feature">
+            <h3>Collection index</h3>
+            <p>Browse specimens by family, date, or collecting trip.</p>
+          </li>
+          <li class="vsc-feature">
+            <h3>Export sheet</h3>
+            <p>Generate a printable record for a folder or a shared collection.</p>
+          </li>
+        </ul>
+        <a class="vsc-cta" href="/app.html">See how Pressbook works</a>
+      </div>
+      <div class="vsc-app-mock">
+        <div class="vsc-index-card">
+          <span class="vsc-index-card-num">No. 014</span>
+          <p class="vsc-index-card-name">Athyrium filix-femina</p>
+          <div class="vsc-index-card-bar"><div class="vsc-index-card-fill" style="width:82%;"></div></div>
+        </div>
+        <div class="vsc-index-card">
+          <span class="vsc-index-card-num">No. 015</span>
+          <p class="vsc-index-card-name">Quercus alba, leaf</p>
+          <div class="vsc-index-card-bar"><div class="vsc-index-card-fill" style="width:45%;"></div></div>
+        </div>
+        <div class="vsc-index-card">
+          <span class="vsc-index-card-num">No. 016</span>
+          <p class="vsc-index-card-name">Trifolium pratense</p>
+          <div class="vsc-index-card-bar"><div class="vsc-index-card-fill" style="width:100%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vsc-news">
+    <h2>A short note, roughly monthly</h2>
+    <p>New entries from the journal and the occasional field observation. No noise, no schedule beyond "when there's something worth writing down."</p>
+    <form class="vsc-news-form" onsubmit="return sub(event)">
+      <input type="email" required placeholder="you@example.com" aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+    <p class="vsc-news-ok" id="ok">You're on the list. Thank you.</p>
+  </section>
+
+  <section class="vsc-about">
+    <h2>About this journal</h2>
+    <p>Vasculum is written by a small group of people who press plants because it is slow, exact work that rewards attention. We are not a store and we do not sell specimens. We write down what we've learned about keeping a herbarium so the next person doesn't have to relearn it by ruining a season's worth of collecting.</p>
+    <p><a href="/about.html">Read more about Vasculum &rarr;</a></p>
+  </section>
+</main>
+
+<footer class="vsc-footer">
+  <div class="vsc-footer-inner">
+    <p class="vsc-footer-mark">Vasculum</p>
+    <p class="vsc-footer-tag">A field journal for the pressed plant.</p>
+    <nav class="vsc-footer-nav">
+      <a href="/about.html">About</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/app.html">Pressbook</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+    <p class="vsc-footer-fine">&copy; 2026 Vasculum. Written by hand, kept in a box, occasionally shared. Contact: <a href="mailto:hello@vasculum.shop">hello@vasculum.shop</a></p>
+  </div>
+</footer>
+
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body>
+</html>

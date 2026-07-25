@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>When a Spine Should Stay Broken · Kettlestitch</title>
+  <meta name="description" content="An editorial look at restoration ethics: why rebuilding a spine can erase a book's own history, and when visible, honest stabilization is the better repair.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://kettlestitch.shop/when-a-spine-should-stay-broken.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f3ece2'/%3E%3Cg stroke='%237d2b2b' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 20 L50 44'/%3E%3Cpath d='M14 44 L50 20'/%3E%3Cpath d='M14 32 L50 32'/%3E%3C/g%3E%3C/svg%3E">
+  <style>
+:root{
+  --kst-bg:#f3ece2;
+  --kst-paper:#f8f3ea;
+  --kst-paper-dark:#ece3d3;
+  --kst-ink:#241f1a;
+  --kst-ink-soft:#544b40;
+  --kst-accent:#7d2b2b;
+  --kst-accent-soft:#a9564f;
+  --kst-line:#d7c9b2;
+  --kst-radius:8px;
+  --kst-maxw:665px;
+  --kst-shell:1240px;
+  --kst-gutter:64px;
+  --kst-serif:'Palatino Linotype',Palatino,'URW Palladio L',Georgia,serif;
+  --kst-sans:'Century Gothic','CenturyGothic',AppleGothic,'Futura',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;counter-reset:kstfolio;background-color:var(--kst-bg);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.14  0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");color:var(--kst-ink);font-family:var(--kst-serif);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--kst-accent)}
+a:hover{color:var(--kst-ink)}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--kst-serif);font-weight:400;margin:0 0 .5em;color:var(--kst-ink)}
+.kst-h1{font-size:clamp(2rem,4.6vw,2.85rem);line-height:1.12;letter-spacing:.2px}
+.kst-h2{font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.2}
+.kst-h3{font-size:1.18rem;line-height:1.32}
+.kst-lede{font-size:1.12rem;color:var(--kst-ink-soft);max-width:var(--kst-maxw);margin:0 0 1.2em}
+.kst-prose{max-width:var(--kst-maxw)}
+.kst-prose p{margin:0 0 1.1em}
+.kst-prose h2{margin-top:1.7em}
+.kst-prose ul,.kst-prose ol{max-width:var(--kst-maxw);padding-left:1.3em;margin:0 0 1.2em}
+.kst-prose li{margin-bottom:.5em}
+.kst-prose blockquote{margin:1.4em 0;padding:.2em 0 .2em 1.2em;border-left:3px solid var(--kst-accent);color:var(--kst-ink-soft);font-style:italic}
+.kst-shell{max-width:var(--kst-shell);margin:0 auto;padding:0 28px}
+.kst-skiplink{position:absolute;left:-999px;top:0;background:var(--kst-accent);color:#f8f3ea;padding:10px 16px;z-index:200}
+.kst-skiplink:focus{left:12px;top:12px}
+.kst-header{border-bottom:1px solid var(--kst-line);background:var(--kst-paper);position:relative}
+.kst-header::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--kst-line)}
+.kst-headerbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0;flex-wrap:wrap}
+.kst-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--kst-ink)}
+.kst-brand:hover{color:var(--kst-ink)}
+.kst-brandmark{flex:none}
+.kst-brandtext{display:flex;flex-direction:column;line-height:1.05}
+.kst-brandname{font-family:var(--kst-serif);font-size:1.4rem;letter-spacing:.3px}
+.kst-brandtag{font-family:var(--kst-sans);font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--kst-accent)}
+.kst-nav{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--kst-sans);font-size:.78rem;letter-spacing:.6px;text-transform:uppercase}
+.kst-navlink{color:var(--kst-ink);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.kst-navlink:hover{color:var(--kst-accent);border-bottom-color:var(--kst-accent)}
+.kst-section{padding:56px 0;border-bottom:1px solid var(--kst-line);counter-increment:kstfolio;position:relative}
+.kst-section--tight{padding:40px 0}
+.kst-section--hero{padding:52px 0 60px}
+.kst-section:last-of-type{border-bottom:none}
+.kst-kicker{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .8em;display:block}
+.kst-folio{margin-top:44px;padding-top:14px;border-top:1px solid var(--kst-line);text-align:center;font-family:var(--kst-sans);font-size:.72rem;letter-spacing:3px;color:var(--kst-ink-soft)}
+.kst-folio::before{content:"— " counter(kstfolio,decimal-leading-zero) " —"}
+.kst-spread{display:grid;grid-template-columns:1fr 1fr;gap:var(--kst-gutter);align-items:start;position:relative}
+.kst-spread::before{content:"";position:absolute;left:calc(50% - 1px);top:0;bottom:0;width:2px;background:linear-gradient(90deg,transparent,rgba(36,31,26,.14),transparent)}
+.kst-spread--items{align-items:stretch}
+@media(max-width:860px){.kst-spread{grid-template-columns:1fr;gap:32px}.kst-spread::before{display:none}}
+.kst-leaf{background:var(--kst-paper);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:26px;box-shadow:0 1px 0 rgba(36,31,26,.05)}
+.kst-leaf--verso{border-right-width:1px}
+.kst-leaf--recto{border-left-width:1px}
+.kst-leaf--plain{background:transparent;border:none;padding:0;box-shadow:none}
+.kst-leaf--img{padding:0;overflow:hidden}
+.kst-leaf--img img{width:100%;height:100%;object-fit:cover;display:block}
+.kst-card{display:flex;flex-direction:column;height:100%}
+.kst-card-thumb{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:calc(var(--kst-radius) - 2px);margin:-26px -26px 16px;border-bottom:1px solid var(--kst-line)}
+.kst-card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.kst-card-meta{font-family:var(--kst-sans);font-size:.68rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .5em;display:flex;gap:10px;flex-wrap:wrap}
+.kst-card-meta span+span{color:var(--kst-ink-soft)}
+.kst-card h3{margin:0 0 .4em}
+.kst-card h3 a{color:var(--kst-ink);text-decoration:none}
+.kst-card h3 a:hover{color:var(--kst-accent)}
+.kst-card p{color:var(--kst-ink-soft);margin:0 0 1em;flex:1}
+.kst-card-link{font-family:var(--kst-sans);font-size:.74rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--kst-accent);text-decoration:none;margin-top:auto}
+.kst-card-link:hover{color:var(--kst-ink)}
+.kst-hero-eyebrow{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .9em}
+.kst-hero-actions{display:flex;gap:14px;margin-top:1.6em;flex-wrap:wrap}
+.kst-btn{font-family:var(--kst-sans);font-size:.78rem;letter-spacing:1.3px;text-transform:uppercase;text-decoration:none;padding:13px 26px;border-radius:var(--kst-radius);display:inline-block;border:1px solid var(--kst-accent)}
+.kst-btn--solid{background:var(--kst-accent);color:#f8f3ea}
+.kst-btn--solid:hover{background:#611f1f;color:#f8f3ea}
+.kst-btn--outline{color:var(--kst-accent);background:transparent}
+.kst-btn--outline:hover{background:var(--kst-accent);color:#f8f3ea}
+.kst-mock{background:var(--kst-paper-dark);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:20px;font-family:var(--kst-sans)}
+.kst-mock-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.kst-mock-bar strong{font-family:var(--kst-serif);font-size:1.05rem;font-weight:400}
+.kst-mock-dot{width:9px;height:9px;border-radius:50%;background:var(--kst-accent);display:inline-block}
+.kst-mock-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px dashed var(--kst-line);font-size:.82rem}
+.kst-mock-row:first-of-type{border-top:none}
+.kst-mock-stitch{width:16px;height:16px;flex:none;border-radius:3px;border:1.5px solid var(--kst-accent);position:relative}
+.kst-mock-stitch::after{content:"";position:absolute;left:2px;right:2px;top:50%;height:1.5px;background:var(--kst-accent)}
+.kst-mock-row-check .kst-mock-stitch{background:var(--kst-accent)}
+.kst-mock-total{margin-top:14px;padding-top:12px;border-top:1px solid var(--kst-line);display:flex;justify-content:space-between;align-items:baseline}
+.kst-mock-total b{font-family:var(--kst-serif);font-size:1.7rem;font-weight:400;color:var(--kst-accent)}
+.kst-mock-total span{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--kst-ink-soft)}
+.kst-feat h3{display:flex;align-items:center;gap:10px}
+.kst-feat-num{font-family:var(--kst-sans);font-size:.78rem;color:var(--kst-accent);border:1px solid var(--kst-accent);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex:none}
+.kst-steps{counter-reset:kststep}
+.kst-step{display:flex;gap:16px;padding:16px 0;border-top:1px dashed var(--kst-line)}
+.kst-step:first-child{border-top:none}
+.kst-step::before{counter-increment:kststep;content:counter(kststep,decimal-leading-zero);font-family:var(--kst-sans);font-size:.78rem;color:var(--kst-accent);flex:none;padding-top:.2em}
+.kst-qa{border-top:1px solid var(--kst-line);padding:20px 0}
+.kst-qa:last-child{padding-bottom:0}
+.kst-qa h3{margin-bottom:.35em}
+.kst-qa p{color:var(--kst-ink-soft);margin:0;max-width:var(--kst-maxw)}
+.kst-term{border-top:1px solid var(--kst-line);padding:16px 0}
+.kst-term:first-child{border-top:none}
+.kst-term dt{font-family:var(--kst-serif);font-size:1.1rem;color:var(--kst-accent);margin-bottom:.25em}
+.kst-term dd{margin:0;color:var(--kst-ink-soft);max-width:var(--kst-maxw)}
+.kst-news{background:var(--kst-paper);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:30px}
+.kst-news form{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.kst-news input[type=email]{flex:1;min-width:200px;font-family:var(--kst-sans);font-size:.85rem;padding:12px 14px;border:1px solid var(--kst-line);border-radius:var(--kst-radius);background:#fff;color:var(--kst-ink)}
+.kst-news button{font-family:var(--kst-sans);font-size:.78rem;letter-spacing:1.2px;text-transform:uppercase;background:var(--kst-accent);color:#f8f3ea;border:none;border-radius:var(--kst-radius);padding:12px 22px;cursor:pointer}
+.kst-news button:hover{background:#611f1f}
+.kst-newsok{display:none;margin-top:10px;font-family:var(--kst-sans);font-size:.8rem;color:var(--kst-accent)}
+.kst-crumb{font-family:var(--kst-sans);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--kst-ink-soft);margin-bottom:1.4em}
+.kst-crumb a{color:var(--kst-ink-soft);text-decoration:none}
+.kst-crumb a:hover{color:var(--kst-accent)}
+.kst-article-head{max-width:var(--kst-maxw)}
+.kst-article-cover{border-radius:var(--kst-radius);overflow:hidden;border:1px solid var(--kst-line);margin:26px 0 8px}
+.kst-byline{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--kst-ink-soft);margin:1em 0 0}
+.kst-related h3{margin-bottom:.3em}
+.kst-footer{background:var(--kst-ink);color:#e6dfd2;padding:52px 0 30px}
+.kst-footer a{color:#e6dfd2;text-decoration:none}
+.kst-footer a:hover{color:#e7c9c9}
+.kst-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.kst-footer-brand{font-family:var(--kst-serif);font-size:1.3rem;margin-bottom:.4em}
+.kst-footer-desc{color:#b9b0a0;max-width:320px;font-size:.92rem}
+.kst-footer h4{font-family:var(--kst-sans);font-size:.7rem;letter-spacing:1.8px;text-transform:uppercase;color:#b9b0a0;margin:0 0 .9em}
+.kst-footer ul{list-style:none;padding:0;margin:0;font-family:var(--kst-sans);font-size:.85rem}
+.kst-footer li{margin-bottom:.6em}
+.kst-footer-bottom{margin-top:40px;padding-top:20px;border-top:1px solid #3a352d;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--kst-sans);font-size:.72rem;color:#8b8272}
+@media(max-width:760px){.kst-footer-grid{grid-template-columns:1fr}.kst-card-thumb{margin:-26px -26px 16px}}
+  </style>
+</head><body>
+<a class="kst-skiplink" href="#main">Skip to content</a>
+<header class="kst-header">
+  <div class="kst-shell kst-headerbar">
+    <a class="kst-brand" href="safe.html">
+      <svg class="kst-brandmark" width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#f3ece2" stroke="#d7c9b2"/><g stroke="#7d2b2b" stroke-width="4" stroke-linecap="round"><path d="M14 20 L50 44"/><path d="M14 44 L50 20"/><path d="M14 32 L50 32"/></g></svg>
+      <span class="kst-brandtext"><span class="kst-brandname">Kettlestitch</span><span class="kst-brandtag">Bookbinding &amp; Repair Journal</span></span>
+    </a>
+    <nav class="kst-nav" aria-label="Primary">
+      <a class="kst-navlink" href="safe.html">Journal</a>
+      <a class="kst-navlink" href="app.html">Signature Count</a>
+      <a class="kst-navlink" href="glossary.html">Glossary</a>
+      <a class="kst-navlink" href="faq.html">FAQ</a>
+      <a class="kst-navlink" href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<article class="kst-post">
+  <div class="kst-shell">
+    <section class="kst-section kst-section--tight">
+      <div class="kst-article-head">
+        <p class="kst-crumb"><a href="safe.html">Journal</a> / Restoration Ethics</p>
+        <span class="kst-kicker">Restoration Ethics</span>
+        <h1 class="kst-h1">When a Spine Should Stay Broken</h1>
+        <p class="kst-lede">Not every crack is a problem to solve. Sometimes the honest choice is to stabilize the damage and leave it visible.</p>
+        <p class="kst-byline">Kettlestitch Journal · February 21, 2026</p>
+      </div>
+
+      <div class="kst-article-cover">
+        <img src="img/when-a-spine-should-stay-broken.jpg" alt="When a Spine Should Stay Broken" loading="lazy">
+      </div>
+
+      <div class="kst-prose">
+        <p>A customer walked in last spring with a family Bible so cracked along the front joint that the board swung loose on a single strip of cloth. She used the word "fix," and what she meant was invisible — as good as new, as if the break had never happened. When we explained what invisible would actually cost, stripping the original spine covering, discarding a strip of leather that had traveled through three generations of hands, replacing it with something we made ourselves, she paused and asked if there was another way. There usually is. A crack is not always a wound that needs closing. Sometimes it is the clearest record a book has of what it survived, and covering it over erases evidence that no rebuild can put back.</p>
+
+        <h2 class="kst-h2">A Crack Is Not Always a Defect</h2>
+        <p>Binders are trained to see damage as a problem waiting for a fix, and most of the time that instinct is correct. A detached signature, a torn fold, a spine that no longer holds the boards square — these are structural failures, and structural failures need structural answers. But a crack at the joint of an otherwise sound book belongs to a different category. It tells you the book was opened flat, probably often, probably for reading rather than display. A worn corner tells you where it sat on a shelf. A cracked hinge with the sewing still intact underneath tells you the covering failed before the structure did. None of that is damage in the sense of something gone wrong. It is wear, and wear is information.</p>
+
+        <h2 class="kst-h2">Reading What the Damage Recorded</h2>
+        <p>The habit worth holding onto, before any tool touches the book, is separating what happened to it from what is actually wrong with it. That starts with the same discipline behind <a href="counting-signatures-before-you-touch-anything.html">counting what's really there before doing anything else</a>: you don't decide what a repair needs until you know exactly what you're looking at, fold by fold, break by break. A crack that runs cleanly along one joint and stops is a different animal from cracking that recurs at the same point across several openings — one is an event, the other is a pattern the book will keep repeating no matter what gets done to it. Reading that difference correctly changes the whole plan. Treat an event like a pattern and you over-restore a book that never needed it. Treat a pattern like an event and the crack comes back within the year.</p>
+
+        <h2 class="kst-h2">Stabilize, Without Erasing</h2>
+        <p>Where the crack really is just wear, stabilization does the job a rebuild would do, minus the loss. The goal is to keep the break from spreading and keep the boards attached, using materials that consolidate what's already there instead of replacing it.</p>
+
+        <aside class="kst-leaf" style="margin:1.6em 0">
+          <h3 class="kst-h3">What stabilizing a joint usually involves</h3>
+          <ul>
+            <li>Thin paste worked into the crack line itself, not spread over it</li>
+            <li>A strip of toned tissue bridging the break from the inside, invisible once the book is closed</li>
+            <li>Light support at the hinge where the boards have started to separate</li>
+            <li>No new leather, no new cloth, and no attempt to match the original color exactly</li>
+          </ul>
+        </aside>
+
+        <p>The book still looks like what happened to it. Run a finger along the joint and you can still feel where it broke, but the boards hold, the crack stops traveling, and the object keeps the only record it will ever have of that particular event.</p>
+
+        <blockquote>A spine that has been quietly rebuilt doesn't lie to you. It just stops telling you anything at all.</blockquote>
+
+        <h2 class="kst-h2">When Rebuilding Is Still the Right Call</h2>
+        <p>None of this is an argument against rebuilding. Some books need it, and pretending otherwise is its own kind of dishonesty — a spine so far gone it can no longer protect the text block is a structural failure, not a record worth preserving. The distinction worth holding onto is between damage that threatens the book going forward and damage that only describes what already happened to it.</p>
+
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;margin:0 0 1.4em;font-family:var(--kst-sans);font-size:.86rem">
+            <thead>
+              <tr style="border-bottom:1px solid var(--kst-line)">
+                <th style="text-align:left;padding:10px 12px 10px 0;color:var(--kst-ink-soft);font-weight:400;letter-spacing:.5px;text-transform:uppercase;font-size:.66rem">Condition of the spine</th>
+                <th style="text-align:left;padding:10px 12px;color:var(--kst-ink-soft);font-weight:400;letter-spacing:.5px;text-transform:uppercase;font-size:.66rem">What it usually indicates</th>
+                <th style="text-align:left;padding:10px 0 10px 12px;color:var(--kst-ink-soft);font-weight:400;letter-spacing:.5px;text-transform:uppercase;font-size:.66rem">Typical approach</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px dashed var(--kst-line)">
+                <td style="padding:10px 12px 10px 0">Single clean crack at the joint, boards still attached</td>
+                <td style="padding:10px 12px">Opened flat often; structure otherwise sound</td>
+                <td style="padding:10px 0 10px 12px">Consolidate along the crack line, no rebuild</td>
+              </tr>
+              <tr style="border-bottom:1px dashed var(--kst-line)">
+                <td style="padding:10px 12px 10px 0">Cracking that repeats at the same fold across the text block</td>
+                <td style="padding:10px 12px">Grain mismatch from the original binding</td>
+                <td style="padding:10px 12px">Rebuild only if the volume needs daily handling</td>
+              </tr>
+              <tr style="border-bottom:1px dashed var(--kst-line)">
+                <td style="padding:10px 12px 10px 0">Spine detached, sewing intact underneath</td>
+                <td style="padding:10px 12px">Covering material failed, not the structure</td>
+                <td style="padding:10px 0 10px 12px">Reattach or match the spine piece; sewing untouched</td>
+              </tr>
+              <tr style="border-bottom:1px dashed var(--kst-line)">
+                <td style="padding:10px 12px 10px 0">Old repair tape or glue masking a prior break</td>
+                <td style="padding:10px 12px">A previous attempt to hide the history</td>
+                <td style="padding:10px 0 10px 12px">Remove the failing repair, stabilize honestly</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 12px 10px 0">Provenance marks near the damage — inscriptions, shelf wear, a binder's ticket</td>
+                <td style="padding:10px 12px">Wear that is itself part of the object's record</td>
+                <td style="padding:10px 0 10px 12px">Leave visible; treat only for stability</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Grain direction matters here too. A spine that keeps cracking at the same fold, the kind covered in <a href="paper-grain-and-why-it-cracks.html">why a fold cut against the grain fails on a predictable line</a>, is telling you the original stock was cut the wrong way, and no amount of careful stabilizing stops it from happening again. That's a structural problem wearing the costume of a wear pattern, and it needs to be treated like one.</p>
+
+        <h2 class="kst-h2">Naming the Decision Out Loud</h2>
+        <p>The part of this that actually matters to the person handing you the book is saying the choice out loud before making it, not after. We tell an owner plainly: this spine can be rebuilt to look new, or it can be stabilized to look like what it is, and here is what each choice keeps and what it gives up. Most people, once the tradeoff is named, choose to keep the history. A few don't, and that's a legitimate choice too — a book that needs to function daily on a desk has different requirements than one that sits closed on a shelf. What doesn't happen here is making that call silently, on the owner's behalf, by defaulting to whichever repair looks more finished when it's done.</p>
+
+        <aside class="kst-leaf" style="margin:1.8em 0 0;background:var(--kst-paper-dark)">
+          <p style="margin:0;color:var(--kst-ink-soft)">This entry describes the kind of judgment calls made case by case at the bench, not a valuation or authentication opinion. A book with real historical or monetary significance is worth a conservator's assessment of that specific material before any repair begins, ours or anyone else's.</p>
+        </aside>
+      </div>
+
+      <div class="kst-related" style="margin-top:2.6em;padding-top:1.8em;border-top:1px solid var(--kst-line);max-width:var(--kst-maxw)">
+        <h3 class="kst-h3">Read also</h3>
+        <ul>
+          <li><a href="reading-the-broken-fold.html">Reading the Broken Fold</a></li>
+          <li><a href="the-hollow-back-explained.html">The Hollow Back, Explained</a></li>
+          <li><a href="a-shelf-of-quiet-failures.html">A Shelf of Quiet Failures</a></li>
+        </ul>
+      </div>
+
+      <div class="kst-folio"></div>
+    </section>
+  </div>
+</article>
+
+</main>
+<footer class="kst-footer">
+  <div class="kst-shell kst-footer-grid">
+    <div>
+      <div class="kst-footer-brand">Kettlestitch</div>
+      <p class="kst-footer-desc">A journal about the physical work of keeping books together — sewing signatures, rebuilding spines, and knowing when a repair should be left alone. Written from the bench, not the showroom.</p>
+    </div>
+    <div>
+      <h4>Read</h4>
+      <ul>
+        <li><a href="safe.html">Journal</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li>
+        <li><a href="mailto:hello@kettlestitch.shop">hello@kettlestitch.shop</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="kst-shell kst-footer-bottom">
+    <span>&copy; 2026 Kettlestitch. An independent binder's journal.</span>
+    <span>Not affiliated with any publisher, library, or auction house.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

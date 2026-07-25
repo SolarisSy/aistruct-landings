@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paper Block or Cloth Sloper: Choosing the Master Copy That Lasts · Blockdraft</title>
+  <meta name="description" content="Paper masters tear at the fold; cloth slopers survive handling but resist edits. A working comparison of the two block formats, and how to keep both in sync.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://blockdraft.shop/paper-versus-cloth-block.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fbf7f2'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23b03050' stroke-width='3'/%3E%3Cpath d='M32 10l6 10h-12z' fill='%23b03050'/%3E%3Cpath d='M14 34l8-6v12z' fill='%232f5f8f'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --bdk-bg:#fbf7f2;
+  --bdk-bg-alt:#f2ecdf;
+  --bdk-text:#2b2622;
+  --bdk-text-soft:#5b534a;
+  --bdk-accent:#b03050;
+  --bdk-mark:#2f5f8f;
+  --bdk-line:#c9bfae;
+  --bdk-radius:8.5px;
+  --bdk-maxw:870px;
+  --bdk-serif:'Book Antiqua','Palatino Linotype',Georgia,serif;
+  --bdk-sans:Geneva,Verdana,'Trebuchet MS',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bdk-bg);color:var(--bdk-text);font-family:var(--bdk-sans);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:var(--bdk-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--bdk-serif);font-weight:400;color:var(--bdk-text);line-height:1.2;margin:0 0 .5em;}
+h1{font-size:2.35rem;letter-spacing:.2px;}
+h2{font-size:1.65rem;margin-top:2.2em;}
+h3{font-size:1.25rem;}
+p{margin:0 0 1.1em;}
+ul,ol{margin:0 0 1.1em;padding-left:1.3em;}
+li{margin-bottom:.4em;}
+.bdk-wrap{max-width:var(--bdk-maxw);margin:0 auto;padding:0 22px;}
+.bdk-notch{display:inline-block;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid var(--bdk-accent);}
+.bdk-notch.bdk-notch--blue{border-top-color:var(--bdk-mark);}
+.bdk-sep{position:relative;border:0;border-top:2px dashed var(--bdk-line);margin:46px 0;}
+.bdk-sep::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--bdk-mark);}
+.bdk-header{border-bottom:2px dashed var(--bdk-line);background:var(--bdk-bg);position:sticky;top:0;z-index:20;}
+.bdk-headbar{max-width:var(--bdk-maxw);margin:0 auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bdk-logo{display:flex;align-items:center;gap:9px;font-family:var(--bdk-serif);font-size:1.4rem;color:var(--bdk-text);}
+.bdk-logo:hover{text-decoration:none;}
+.bdk-logo-mark{width:26px;height:26px;border:2px solid var(--bdk-accent);border-radius:50%;position:relative;flex:none;}
+.bdk-logo-mark::before{content:"";position:absolute;left:50%;top:-2px;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--bdk-accent);}
+.bdk-nav{display:flex;gap:22px;flex-wrap:wrap;font-size:.92rem;}
+.bdk-nav a{color:var(--bdk-text-soft);letter-spacing:.3px;}
+.bdk-nav a:hover{color:var(--bdk-accent);}
+.bdk-footer{border-top:2px dashed var(--bdk-line);margin-top:60px;padding:38px 0 30px;background:var(--bdk-bg-alt);}
+.bdk-foot-grid{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;}
+.bdk-foot-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-text-soft);font-family:var(--bdk-sans);margin-bottom:10px;}
+.bdk-foot-col a{display:block;color:var(--bdk-text);font-size:.92rem;margin-bottom:7px;}
+.bdk-foot-bottom{margin-top:26px;padding-top:18px;border-top:1px dashed var(--bdk-line);font-size:.8rem;color:var(--bdk-text-soft);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;}
+.bdk-news{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);padding:26px;background:var(--bdk-bg-alt);}
+.bdk-news form{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.bdk-news input[type=email]{flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--bdk-line);border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.95rem;background:#fff;}
+.bdk-ok{display:none;margin-top:10px;color:var(--bdk-mark);font-size:.88rem;}
+.bdk-btn{display:inline-block;background:var(--bdk-accent);color:#fff;padding:12px 22px;border-radius:var(--bdk-radius);font-family:var(--bdk-sans);font-size:.92rem;letter-spacing:.4px;border:none;cursor:pointer;}
+.bdk-btn:hover{background:#8f2540;text-decoration:none;color:#fff;}
+.bdk-btn--outline{background:transparent;color:var(--bdk-accent);border:1.5px solid var(--bdk-accent);}
+.bdk-btn--outline:hover{background:var(--bdk-accent);color:#fff;}
+.bdk-pattern{display:grid;grid-template-columns:55% 45%;position:relative;align-items:start;}
+.bdk-piece{padding:20px 30px 20px 0;border-right:2px dashed var(--bdk-mark);}
+.bdk-instruction{padding:20px 0 20px 30px;}
+.bdk-stepnum{position:absolute;left:55%;top:24px;transform:translate(-50%,0);width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;border:3px solid var(--bdk-bg);box-shadow:0 0 0 2px var(--bdk-mark);z-index:2;}
+.bdk-pattern + .bdk-pattern{border-top:2px dashed var(--bdk-line);}
+.bdk-piece h3,.bdk-instruction h3{margin-top:0;}
+.bdk-piece .bdk-thumb{border-radius:var(--bdk-radius);overflow:hidden;border:1px solid var(--bdk-line);margin-bottom:12px;}
+.bdk-piece .bdk-thumb img{width:100%;height:190px;object-fit:cover;display:block;}
+.bdk-meta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:6px;display:inline-block;}
+.bdk-dek{color:var(--bdk-text-soft);font-size:.95rem;}
+@media (max-width:640px){
+  .bdk-pattern{grid-template-columns:1fr;}
+  .bdk-piece{border-right:none;border-bottom:2px dashed var(--bdk-mark);padding:20px 0;}
+  .bdk-instruction{padding:20px 0;}
+  .bdk-stepnum{position:static;transform:none;margin-bottom:10px;}
+}
+.bdk-hero{padding:54px 0 20px;}
+.bdk-hero-frame{border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:14px;position:relative;}
+.bdk-hero-frame img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:320px;object-fit:cover;}
+.bdk-hero-frame::before,.bdk-hero-frame::after{content:"";position:absolute;top:50%;width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;}
+.bdk-hero-frame::before{left:-2px;border-left:9px solid var(--bdk-accent);}
+.bdk-hero-frame::after{right:-2px;border-right:9px solid var(--bdk-mark);}
+.bdk-eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--bdk-accent);margin-bottom:10px;}
+.bdk-mock{border:2px solid var(--bdk-text);border-radius:16px;max-width:250px;margin:0 auto;padding:14px;background:#fff;}
+.bdk-mock-bar{display:flex;justify-content:space-between;font-size:.7rem;color:var(--bdk-text-soft);margin-bottom:10px;}
+.bdk-mock-screen{border:2px dashed var(--bdk-mark);border-radius:8px;padding:12px;}
+.bdk-mock-row{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--bdk-line);font-size:.8rem;}
+.bdk-mock-row:last-child{border-bottom:none;}
+.bdk-mock-dot{width:16px;height:16px;border-radius:50%;background:var(--bdk-accent);flex:none;}
+.bdk-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-feat{padding:22px;border-right:2px dashed var(--bdk-line);border-bottom:2px dashed var(--bdk-line);}
+.bdk-feat:nth-child(2n){border-right:none;}
+.bdk-feat h3{font-size:1.05rem;margin-bottom:6px;}
+.bdk-feat p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-feat-grid{grid-template-columns:1fr;}.bdk-feat{border-right:none;}}
+.bdk-term{padding:20px 0;border-bottom:1px dashed var(--bdk-line);}
+.bdk-term dt{font-family:var(--bdk-serif);font-size:1.1rem;color:var(--bdk-accent);margin-bottom:6px;}
+.bdk-term dd{margin:0;color:var(--bdk-text-soft);}
+.bdk-alpha{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--bdk-accent);margin:34px 0 4px;}
+.bdk-badge{display:inline-block;background:var(--bdk-bg-alt);border:1px solid var(--bdk-line);border-radius:20px;padding:4px 12px;font-size:.75rem;color:var(--bdk-text-soft);margin-right:6px;}
+.bdk-section{padding:40px 0;}
+.bdk-lead{font-size:1.08rem;color:var(--bdk-text-soft);max-width:640px;}
+.bdk-quote{border-left:3px solid var(--bdk-accent);padding-left:16px;font-style:italic;color:var(--bdk-text-soft);margin:24px 0;}
+.bdk-updated{font-size:.85rem;color:var(--bdk-text-soft);}
+.bdk-team{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);overflow:hidden;}
+.bdk-team-card{padding:20px;border-right:2px dashed var(--bdk-line);}
+.bdk-team-card:last-child{border-right:none;}
+.bdk-team-card h3{font-size:1.05rem;margin-bottom:2px;}
+.bdk-team-role{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-team-card p{font-size:.9rem;color:var(--bdk-text-soft);margin:0;}
+@media (max-width:640px){.bdk-team{grid-template-columns:1fr;}.bdk-team-card{border-right:none;border-bottom:2px dashed var(--bdk-line);}.bdk-team-card:last-child{border-bottom:none;}}
+.bdk-artmeta{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--bdk-mark);margin-bottom:8px;display:block;}
+.bdk-byline{font-size:.86rem;color:var(--bdk-text-soft);border-top:1px dashed var(--bdk-line);border-bottom:1px dashed var(--bdk-line);padding:10px 0;margin:0 0 30px;}
+.bdk-artbody{font-size:1.02rem;}
+.bdk-artbody h2{border-top:2px dashed var(--bdk-line);padding-top:26px;}
+.bdk-fig{margin:30px 0;border:2px dashed var(--bdk-line);border-radius:var(--bdk-radius);padding:12px;}
+.bdk-fig img{border-radius:calc(var(--bdk-radius) - 4px);width:100%;height:auto;}
+.bdk-figcap{font-size:.82rem;color:var(--bdk-text-soft);margin:10px 2px 0;}
+.bdk-callout{border:2px dashed var(--bdk-mark);border-radius:var(--bdk-radius);background:var(--bdk-bg-alt);padding:20px 22px;margin:30px 0;}
+.bdk-callout h3{margin-top:0;font-size:1.05rem;}
+.bdk-callout p:last-child{margin-bottom:0;}
+.bdk-steps{list-style:none;padding:0;counter-reset:bdkstep;margin:28px 0;}
+.bdk-steps li{counter-increment:bdkstep;position:relative;padding:2px 0 18px 52px;border-bottom:1px dashed var(--bdk-line);margin-bottom:18px;}
+.bdk-steps li:last-child{border-bottom:none;margin-bottom:0;}
+.bdk-steps li::before{content:counter(bdkstep);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--bdk-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--bdk-serif);font-size:.95rem;box-shadow:0 0 0 2px var(--bdk-mark);}
+.bdk-tablewrap{overflow-x:auto;margin:26px 0;}
+.bdk-table{border-collapse:collapse;width:100%;font-size:.92rem;}
+.bdk-table th,.bdk-table td{border:1px dashed var(--bdk-line);padding:9px 12px;text-align:left;}
+.bdk-table th{font-family:var(--bdk-serif);font-weight:400;background:var(--bdk-bg-alt);}
+.bdk-related{border-top:2px dashed var(--bdk-line);margin-top:46px;padding-top:24px;}
+.bdk-related a{display:block;margin-bottom:8px;}
+  </style>
+</head><body>
+  <header class="bdk-header">
+  <div class="bdk-headbar">
+    <a href="safe.html" class="bdk-logo"><span class="bdk-logo-mark"></span> Blockdraft</a>
+    <nav class="bdk-nav">
+      <a href="safe.html">Journal</a>
+      <a href="app.html">Blockbook</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+  <article class="bdk-post">
+    <div class="bdk-wrap">
+      <div class="bdk-hero">
+        <span class="bdk-artmeta">Block Fundamentals</span>
+        <h1>Paper Block or Cloth Sloper: Choosing the Master Copy That Lasts</h1>
+        <p class="bdk-dek">A paper master copy tears at the fold eventually — this note compares paper and cloth slopers as long-term masters.</p>
+        <p class="bdk-byline">Blockdraft Journal &middot; May 24, 2026 &middot; About a nine-minute read</p>
+        <div class="bdk-hero-frame">
+          <img src="img/paper-versus-cloth-block.jpg" alt="Paper Block or Cloth Sloper: Choosing the Master Copy That Lasts">
+        </div>
+      </div>
+
+      <div class="bdk-artbody">
+        <p>The bodice block I drafted three winters ago lives in a cardboard tube behind the door, and last month I pulled it out to trace a shirt. The centre front had gone soft where it folds. Not torn — soft, like a bill that has been through too many pockets. The waist notch had opened into a small ragged hole from being pinned in the same spot maybe two hundred times. I could still use it. But I traced it once more onto fresh paper before I did anything else, because I could see the day coming when I would not be able to. That is the whole question this note is about: what should the <em>real</em> copy of your block be made of, once you have earned one?</p>
+
+        <h2>What a master copy is actually for</h2>
+        <p>A master is not the pattern you cut from. It is the thing every cutting pattern descends from. You trace it, add seam allowance to the tracing, add design lines to the tracing, and the master goes back in the tube untouched. If you cut into your master you no longer have a master — you have a pattern for one garment and a memory of a block.</p>
+        <p>That distinction sounds pedantic until you have lost a good block. Getting a block to fit takes measuring carefully, sewing a test, and making the corrections stick — the slow part of the work, described in <a href="the-one-adjustment-rule.html">The One-Adjustment Rule</a>. Redoing it from scratch is not a small chore. So the master deserves a material chosen deliberately, not whatever happened to be on the table the night you finished.</p>
+
+        <div class="bdk-fig">
+          <img src="img/paper-versus-cloth-block.jpg" alt="A paper bodice block and a stitched cloth sloper of the same size laid side by side on a work table">
+          <p class="bdk-figcap">The same bodice held two ways: paper on the left, still crisp at the armhole and already creased at centre front; a stabilised cloth sloper on the right, which hangs instead of folds.</p>
+        </div>
+
+        <h2>Paper: fast, flat, and quietly perishable</h2>
+        <p>Paper is where nearly everyone starts, and it earns that place. You can trace a paper block in four minutes. You can slash it, spread it, tape a wedge into it, and see the change with your eye before you commit to it. Dart rotation on paper is almost a physical proof — you pivot around a point and watch shaping move, which is the whole argument in <a href="dart-rotation-explained.html">Dart Rotation Explained</a>. Try that in cloth and you are doing surgery.</p>
+        <p>Paper also stacks. Twelve paper blocks weigh nothing and fit in a portfolio. You can write on them freely: a note in the armhole reading "raised 6 mm — Feb, works" is worth more than any tidy label.</p>
+        <p>What paper gives up is time. It fails in three predictable ways, and it is worth naming them so you notice them early:</p>
+        <ul>
+          <li><strong>Fold lines.</strong> Wherever the block is folded to store, the fibres break down. The line goes fuzzy, then it lies a millimetre off from where it was. A single fold across a chest width is enough to make two tracings disagree.</li>
+          <li><strong>Pin holes.</strong> Each pin at the same notch enlarges the hole. Eventually the notch is a slot, and you are guessing at its centre.</li>
+          <li><strong>Edge wear.</strong> The traced-against edge shaves down under a pencil, especially on curves. Six tracings will not show it. Sixty might.</li>
+        </ul>
+
+        <blockquote class="bdk-quote">A block does not usually fail all at once. It drifts a millimetre at a time, and every tracing inherits the drift of the tracing before it.</blockquote>
+
+        <h2>Cloth: heavier, slower, and much harder to kill</h2>
+        <p>A cloth sloper is the same block cut in a stable woven — often a firm cotton, sometimes fused with a light interfacing so the edges cannot stretch — and stitched together into a shell. It sounds fussy. It is fussy. It also survives handling in a way paper simply does not.</p>
+        <p>Two things a cloth master does that paper cannot. First, it hangs. You can put it on a form or on yourself and look at how the shoulder sits, whether the side seam falls straight, whether the waist wants to ride. A paper block cannot tell you that; a paper block can only tell you about flat measurements. Second, it does not care about being stored. Roll it, hang it, fold it in a drawer for a year — a stabilised cotton shell comes back the same shape.</p>
+        <p>The cost is editing. Amending cloth means unpicking a seam, cutting a new panel, or accepting a taped patch that is honestly a bit ugly and slightly inaccurate. Cloth is bad at experiments. It is very good at holding a conclusion.</p>
+
+        <h2>Side by side, honestly</h2>
+        <div class="bdk-tablewrap">
+          <table class="bdk-table">
+            <thead>
+              <tr><th>Consideration</th><th>Paper master</th><th>Cloth sloper</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Speed of tracing</td>
+                <td>Fast. Lay it down, weight it, trace, done.</td>
+                <td>Slower. The shell must be laid flat and coaxed; seamed areas resist lying truly flat.</td>
+              </tr>
+              <tr>
+                <td>Ease of amendment</td>
+                <td>Excellent. Slash, spread, tape, retrue. Reversible with a fresh tracing.</td>
+                <td>Poor. Unpicking and re-cutting a panel; edits tend to accumulate as visible repairs.</td>
+              </tr>
+              <tr>
+                <td>Durability over years</td>
+                <td>Degrades at folds, pin holes and traced edges; how fast depends on paper weight and use.</td>
+                <td>Tends to survive long handling; the weak points are seam stress and fraying, both repairable.</td>
+              </tr>
+              <tr>
+                <td>Checking drape and hang</td>
+                <td>Not possible — it stays flat by nature.</td>
+                <td>Its main advantage. You can see shoulder slope and side-seam behaviour on a body or form.</td>
+              </tr>
+              <tr>
+                <td>Storage</td>
+                <td>Light and stackable, but folding is what damages it. A tube or flat drawer is kinder.</td>
+                <td>Bulky and needs a hanger or box; indifferent to creasing.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bdk-callout">
+          <h3>A note on "stabilised"</h3>
+          <p>When people say a cloth sloper is stabilised, they usually mean the pieces were fused with a light woven interfacing before assembly, or cut from a firm cotton that does not give when pulled on the bias. The purpose is simple: a master that stretches is not a master. If you can tug the armhole and change its shape, whatever you trace from it will be a slightly different block each time. Some sewists test this by pinching a curved edge and pulling gently — if it lengthens visibly, it may be worth adding a stabiliser before trusting the shell as a reference.</p>
+        </div>
+
+        <h2>The arrangement that works: cloth for conclusions, paper for questions</h2>
+        <p>You do not have to pick one. The setup that has held up best for me is two masters that know about each other.</p>
+        <p>The cloth sloper is the validated block. It represents the fit you accepted after a test garment, and it does not change casually. When it does change, that is an event you write down. The paper copy is the working master — traced from the cloth, used for everyday tracing, slashing, and design work. Paper copies are cheap and expendable. When a paper working copy gets soft at the folds, you throw it away and trace a new one from the cloth, which has not moved.</p>
+        <p>What ties them together is a habit rather than a system:</p>
+        <ol class="bdk-steps">
+          <li><strong>Date and version both.</strong> Write directly on the cloth in marker and on the paper in pencil: <em>Bodice v3 — Mar 2026</em>. If the two labels disagree, you know which one to trust and which one to retrace.</li>
+          <li><strong>Record the change, not just the result.</strong> On the cloth, near the correction, note what moved and why: "shoulder raised 8 mm, back drag lines." Six months later the number alone means nothing.</li>
+          <li><strong>Retrace on a schedule, not on failure.</strong> Make a fresh paper copy every so often, before the old one is unusable — a soft fold that has already drifted is a bad thing to copy from.</li>
+          <li><strong>Keep the markings identical.</strong> Grainline, balance points and notches must transfer to every copy in the same places, which is exactly why a small fixed vocabulary of marks pays off.</li>
+        </ol>
+        <p>That last point is where most versioning falls apart. If your cloth sloper has four notches and the paper copy has six, you have two blocks, not one block in two formats.</p>
+
+        <h2>Choosing, if you only want one</h2>
+        <p>Some situations do point clearly one way. If you are still refining fit — still changing something after each garment — stay on paper. Editing is the whole activity right now, and cloth punishes editing. If your block has been stable through several finished garments and you find yourself tracing it constantly, cloth starts to look like insurance rather than ceremony.</p>
+        <p>Storage matters more than people expect. A flat drawer or a wide tube makes paper last far longer; if all you have is a folder that forces a fold across the chest, that fold will decide the lifespan for you. And if you share the block — a partner, a class, anyone else's hands — cloth tolerates that better.</p>
+
+        <div class="bdk-callout">
+          <h3>Read also</h3>
+          <a href="measuring-over-worn-clothes.html">Why Measuring Over the Clothes You Actually Wear Changes the Block</a>
+          <a href="notches-that-earn-their-keep.html">Notches That Earn Their Keep: A Marking System for Repeat Sewing</a>
+          <a href="reading-commercial-patterns-against-your-block.html">Reading a Commercial Pattern Against Your Own Block Before You Cut</a>
+        </div>
+
+        <div class="bdk-callout">
+          <h3>A closing note</h3>
+          <p>Everything here is one sewist's working practice, offered as description rather than instruction. Papers, cottons, storage conditions and hands all differ, and what wears out quickly in one workroom may last years in another. Treat the comparison as a starting point for your own testing, and let your own blocks — and the way they age on your shelf — settle the argument.</p>
+        </div>
+
+        <div class="bdk-related">
+          <h3>More from the journal</h3>
+          <a href="sleeve-cap-ease-myths.html">Sleeve Cap Ease: What the Numbers on Your Pattern Actually Mean</a>
+          <a href="skirt-block-two-darts.html">Building a Skirt Block With Two Darts Instead of One</a>
+          <a href="seam-allowance-consistency.html">Why Seam Allowance Consistency Matters More Than Seam Allowance Size</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="bdk-footer">
+  <div class="bdk-wrap">
+    <div class="bdk-foot-grid">
+      <div class="bdk-foot-col">
+        <h4>Blockdraft</h4>
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Blockbook app</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Reference</h4>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="bdk-foot-col">
+        <h4>Elsewhere</h4>
+        <span style="font-size:.85rem;color:var(--bdk-text-soft);">Reader mail: hello@blockdraft.shop</span>
+      </div>
+    </div>
+    <div class="bdk-foot-bottom">
+      <span>&copy; 2026 Blockdraft. Notes on pattern drafting and home tailoring, written by hand.</span>
+      <span>Not affiliated with any pattern brand or sewing machine manufacturer.</span>
+    </div>
+  </div>
+</footer>
+</body></html>

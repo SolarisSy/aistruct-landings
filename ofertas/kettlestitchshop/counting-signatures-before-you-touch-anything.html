@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Counting Signatures Before You Touch Anything · Kettlestitch</title>
+  <meta name="description" content="Collation is the least interesting step in any repair, and skipping it is the fastest way to make the sewing, the trimming, and the spine all harder later.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://kettlestitch.shop/counting-signatures-before-you-touch-anything.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f3ece2'/%3E%3Cg stroke='%237d2b2b' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 20 L50 44'/%3E%3Cpath d='M14 44 L50 20'/%3E%3Cpath d='M14 32 L50 32'/%3E%3C/g%3E%3C/svg%3E">
+  <style>
+:root{
+  --kst-bg:#f3ece2;
+  --kst-paper:#f8f3ea;
+  --kst-paper-dark:#ece3d3;
+  --kst-ink:#241f1a;
+  --kst-ink-soft:#544b40;
+  --kst-accent:#7d2b2b;
+  --kst-accent-soft:#a9564f;
+  --kst-line:#d7c9b2;
+  --kst-radius:8px;
+  --kst-maxw:665px;
+  --kst-shell:1240px;
+  --kst-gutter:64px;
+  --kst-serif:'Palatino Linotype',Palatino,'URW Palladio L',Georgia,serif;
+  --kst-sans:'Century Gothic','CenturyGothic',AppleGothic,'Futura',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;counter-reset:kstfolio;background-color:var(--kst-bg);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.14  0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");color:var(--kst-ink);font-family:var(--kst-serif);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--kst-accent)}
+a:hover{color:var(--kst-ink)}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--kst-serif);font-weight:400;margin:0 0 .5em;color:var(--kst-ink)}
+.kst-h1{font-size:clamp(2rem,4.6vw,2.85rem);line-height:1.12;letter-spacing:.2px}
+.kst-h2{font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.2}
+.kst-h3{font-size:1.18rem;line-height:1.32}
+.kst-lede{font-size:1.12rem;color:var(--kst-ink-soft);max-width:var(--kst-maxw);margin:0 0 1.2em}
+.kst-prose{max-width:var(--kst-maxw)}
+.kst-prose p{margin:0 0 1.1em}
+.kst-prose h2{margin-top:1.7em}
+.kst-prose ul,.kst-prose ol{max-width:var(--kst-maxw);padding-left:1.3em;margin:0 0 1.2em}
+.kst-prose li{margin-bottom:.5em}
+.kst-prose blockquote{margin:1.4em 0;padding:.2em 0 .2em 1.2em;border-left:3px solid var(--kst-accent);color:var(--kst-ink-soft);font-style:italic}
+.kst-shell{max-width:var(--kst-shell);margin:0 auto;padding:0 28px}
+.kst-skiplink{position:absolute;left:-999px;top:0;background:var(--kst-accent);color:#f8f3ea;padding:10px 16px;z-index:200}
+.kst-skiplink:focus{left:12px;top:12px}
+.kst-header{border-bottom:1px solid var(--kst-line);background:var(--kst-paper);position:relative}
+.kst-header::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--kst-line)}
+.kst-headerbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0;flex-wrap:wrap}
+.kst-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--kst-ink)}
+.kst-brand:hover{color:var(--kst-ink)}
+.kst-brandmark{flex:none}
+.kst-brandtext{display:flex;flex-direction:column;line-height:1.05}
+.kst-brandname{font-family:var(--kst-serif);font-size:1.4rem;letter-spacing:.3px}
+.kst-brandtag{font-family:var(--kst-sans);font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--kst-accent)}
+.kst-nav{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--kst-sans);font-size:.78rem;letter-spacing:.6px;text-transform:uppercase}
+.kst-navlink{color:var(--kst-ink);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.kst-navlink:hover{color:var(--kst-accent);border-bottom-color:var(--kst-accent)}
+.kst-section{padding:56px 0;border-bottom:1px solid var(--kst-line);counter-increment:kstfolio;position:relative}
+.kst-section--tight{padding:40px 0}
+.kst-section--hero{padding:52px 0 60px}
+.kst-section:last-of-type{border-bottom:none}
+.kst-kicker{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .8em;display:block}
+.kst-folio{margin-top:44px;padding-top:14px;border-top:1px solid var(--kst-line);text-align:center;font-family:var(--kst-sans);font-size:.72rem;letter-spacing:3px;color:var(--kst-ink-soft)}
+.kst-folio::before{content:"— " counter(kstfolio,decimal-leading-zero) " —"}
+.kst-spread{display:grid;grid-template-columns:1fr 1fr;gap:var(--kst-gutter);align-items:start;position:relative}
+.kst-spread::before{content:"";position:absolute;left:calc(50% - 1px);top:0;bottom:0;width:2px;background:linear-gradient(90deg,transparent,rgba(36,31,26,.14),transparent)}
+.kst-spread--items{align-items:stretch}
+@media(max-width:860px){.kst-spread{grid-template-columns:1fr;gap:32px}.kst-spread::before{display:none}}
+.kst-leaf{background:var(--kst-paper);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:26px;box-shadow:0 1px 0 rgba(36,31,26,.05)}
+.kst-leaf--verso{border-right-width:1px}
+.kst-leaf--recto{border-left-width:1px}
+.kst-leaf--plain{background:transparent;border:none;padding:0;box-shadow:none}
+.kst-leaf--img{padding:0;overflow:hidden}
+.kst-leaf--img img{width:100%;height:100%;object-fit:cover;display:block}
+.kst-card{display:flex;flex-direction:column;height:100%}
+.kst-card-thumb{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:calc(var(--kst-radius) - 2px);margin:-26px -26px 16px;border-bottom:1px solid var(--kst-line)}
+.kst-card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.kst-card-meta{font-family:var(--kst-sans);font-size:.68rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .5em;display:flex;gap:10px;flex-wrap:wrap}
+.kst-card-meta span+span{color:var(--kst-ink-soft)}
+.kst-card h3{margin:0 0 .4em}
+.kst-card h3 a{color:var(--kst-ink);text-decoration:none}
+.kst-card h3 a:hover{color:var(--kst-accent)}
+.kst-card p{color:var(--kst-ink-soft);margin:0 0 1em;flex:1}
+.kst-card-link{font-family:var(--kst-sans);font-size:.74rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--kst-accent);text-decoration:none;margin-top:auto}
+.kst-card-link:hover{color:var(--kst-ink)}
+.kst-hero-eyebrow{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .9em}
+.kst-hero-actions{display:flex;gap:14px;margin-top:1.6em;flex-wrap:wrap}
+.kst-btn{font-family:var(--kst-sans);font-size:.78rem;letter-spacing:1.3px;text-transform:uppercase;text-decoration:none;padding:13px 26px;border-radius:var(--kst-radius);display:inline-block;border:1px solid var(--kst-accent)}
+.kst-btn--solid{background:var(--kst-accent);color:#f8f3ea}
+.kst-btn--solid:hover{background:#611f1f;color:#f8f3ea}
+.kst-btn--outline{color:var(--kst-accent);background:transparent}
+.kst-btn--outline:hover{background:var(--kst-accent);color:#f8f3ea}
+.kst-mock{background:var(--kst-paper-dark);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:20px;font-family:var(--kst-sans)}
+.kst-mock-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.kst-mock-bar strong{font-family:var(--kst-serif);font-size:1.05rem;font-weight:400}
+.kst-mock-dot{width:9px;height:9px;border-radius:50%;background:var(--kst-accent);display:inline-block}
+.kst-mock-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px dashed var(--kst-line);font-size:.82rem}
+.kst-mock-row:first-of-type{border-top:none}
+.kst-mock-stitch{width:16px;height:16px;flex:none;border-radius:3px;border:1.5px solid var(--kst-accent);position:relative}
+.kst-mock-stitch::after{content:"";position:absolute;left:2px;right:2px;top:50%;height:1.5px;background:var(--kst-accent)}
+.kst-mock-row-check .kst-mock-stitch{background:var(--kst-accent)}
+.kst-mock-total{margin-top:14px;padding-top:12px;border-top:1px solid var(--kst-line);display:flex;justify-content:space-between;align-items:baseline}
+.kst-mock-total b{font-family:var(--kst-serif);font-size:1.7rem;font-weight:400;color:var(--kst-accent)}
+.kst-mock-total span{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--kst-ink-soft)}
+.kst-feat h3{display:flex;align-items:center;gap:10px}
+.kst-feat-num{font-family:var(--kst-sans);font-size:.78rem;color:var(--kst-accent);border:1px solid var(--kst-accent);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex:none}
+.kst-steps{counter-reset:kststep}
+.kst-step{display:flex;gap:16px;padding:16px 0;border-top:1px dashed var(--kst-line)}
+.kst-step:first-child{border-top:none}
+.kst-step::before{counter-increment:kststep;content:counter(kststep,decimal-leading-zero);font-family:var(--kst-sans);font-size:.78rem;color:var(--kst-accent);flex:none;padding-top:.2em}
+.kst-qa{border-top:1px solid var(--kst-line);padding:20px 0}
+.kst-qa:last-child{padding-bottom:0}
+.kst-qa h3{margin-bottom:.35em}
+.kst-qa p{color:var(--kst-ink-soft);margin:0;max-width:var(--kst-maxw)}
+.kst-term{border-top:1px solid var(--kst-line);padding:16px 0}
+.kst-term:first-child{border-top:none}
+.kst-term dt{font-family:var(--kst-serif);font-size:1.1rem;color:var(--kst-accent);margin-bottom:.25em}
+.kst-term dd{margin:0;color:var(--kst-ink-soft);max-width:var(--kst-maxw)}
+.kst-news{background:var(--kst-paper);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:30px}
+.kst-news form{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.kst-news input[type=email]{flex:1;min-width:200px;font-family:var(--kst-sans);font-size:.85rem;padding:12px 14px;border:1px solid var(--kst-line);border-radius:var(--kst-radius);background:#fff;color:var(--kst-ink)}
+.kst-news button{font-family:var(--kst-sans);font-size:.78rem;letter-spacing:1.2px;text-transform:uppercase;background:var(--kst-accent);color:#f8f3ea;border:none;border-radius:var(--kst-radius);padding:12px 22px;cursor:pointer}
+.kst-news button:hover{background:#611f1f}
+.kst-newsok{display:none;margin-top:10px;font-family:var(--kst-sans);font-size:.8rem;color:var(--kst-accent)}
+.kst-crumb{font-family:var(--kst-sans);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--kst-ink-soft);margin-bottom:1.4em}
+.kst-crumb a{color:var(--kst-ink-soft);text-decoration:none}
+.kst-crumb a:hover{color:var(--kst-accent)}
+.kst-article-head{max-width:var(--kst-maxw)}
+.kst-article-cover{border-radius:var(--kst-radius);overflow:hidden;border:1px solid var(--kst-line);margin:26px 0 8px}
+.kst-byline{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--kst-ink-soft);margin:1em 0 0}
+.kst-related h3{margin-bottom:.3em}
+.kst-footer{background:var(--kst-ink);color:#e6dfd2;padding:52px 0 30px}
+.kst-footer a{color:#e6dfd2;text-decoration:none}
+.kst-footer a:hover{color:#e7c9c9}
+.kst-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.kst-footer-brand{font-family:var(--kst-serif);font-size:1.3rem;margin-bottom:.4em}
+.kst-footer-desc{color:#b9b0a0;max-width:320px;font-size:.92rem}
+.kst-footer h4{font-family:var(--kst-sans);font-size:.7rem;letter-spacing:1.8px;text-transform:uppercase;color:#b9b0a0;margin:0 0 .9em}
+.kst-footer ul{list-style:none;padding:0;margin:0;font-family:var(--kst-sans);font-size:.85rem}
+.kst-footer li{margin-bottom:.6em}
+.kst-footer-bottom{margin-top:40px;padding-top:20px;border-top:1px solid #3a352d;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--kst-sans);font-size:.72rem;color:#8b8272}
+@media(max-width:760px){.kst-footer-grid{grid-template-columns:1fr}.kst-card-thumb{margin:-26px -26px 16px}}
+.kst-callout{background:var(--kst-paper-dark);border:1px solid var(--kst-line);border-left:3px solid var(--kst-accent);border-radius:var(--kst-radius);padding:20px 24px;margin:1.6em 0;max-width:var(--kst-maxw)}
+.kst-callout p{margin:0}
+.kst-callout p+p{margin-top:.7em}
+.kst-callout-label{font-family:var(--kst-sans);font-size:.68rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--kst-accent);display:block;margin-bottom:.5em}
+.kst-note{background:transparent;border:1px dashed var(--kst-line);border-radius:var(--kst-radius);padding:18px 22px;margin:1.8em 0;max-width:var(--kst-maxw)}
+.kst-note p{margin:0;color:var(--kst-ink-soft);font-size:.92rem}
+.kst-note-label{font-family:var(--kst-sans);font-size:.68rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--kst-ink-soft);display:block;margin-bottom:.5em}
+.kst-table-wrap{overflow-x:auto;margin:1.4em 0;max-width:var(--kst-maxw);border:1px solid var(--kst-line);border-radius:var(--kst-radius)}
+.kst-table{width:100%;border-collapse:collapse;font-size:.88rem;font-family:var(--kst-sans);min-width:480px}
+.kst-table caption{text-align:left;font-family:var(--kst-sans);font-size:.68rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--kst-ink-soft);padding:12px 14px 0}
+.kst-table th,.kst-table td{padding:11px 14px;text-align:left;border-top:1px solid var(--kst-line);vertical-align:top}
+.kst-table thead th{border-top:none;background:var(--kst-paper-dark);color:var(--kst-ink);font-weight:600;letter-spacing:.4px}
+.kst-table tbody tr:nth-child(even){background:rgba(125,43,43,.03)}
+.kst-readalso{background:var(--kst-paper);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:24px 26px;margin:2em 0 0;max-width:var(--kst-maxw)}
+.kst-readalso h3{font-size:.95rem;margin:0 0 .8em}
+.kst-readalso ul{list-style:none;margin:0;padding:0;font-family:var(--kst-sans);font-size:.88rem}
+.kst-readalso li{margin-bottom:.65em;padding-left:1.1em;position:relative}
+.kst-readalso li::before{content:"—";position:absolute;left:0;color:var(--kst-accent)}
+.kst-readalso li:last-child{margin-bottom:0}
+  </style>
+</head><body>
+<a class="kst-skiplink" href="#main">Skip to content</a>
+<header class="kst-header">
+  <div class="kst-shell kst-headerbar">
+    <a class="kst-brand" href="safe.html">
+      <svg class="kst-brandmark" width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#f3ece2" stroke="#d7c9b2"/><g stroke="#7d2b2b" stroke-width="4" stroke-linecap="round"><path d="M14 20 L50 44"/><path d="M14 44 L50 20"/><path d="M14 32 L50 32"/></g></svg>
+      <span class="kst-brandtext"><span class="kst-brandname">Kettlestitch</span><span class="kst-brandtag">Bookbinding &amp; Repair Journal</span></span>
+    </a>
+    <nav class="kst-nav" aria-label="Primary">
+      <a class="kst-navlink" href="safe.html">Journal</a>
+      <a class="kst-navlink" href="app.html">Signature Count</a>
+      <a class="kst-navlink" href="glossary.html">Glossary</a>
+      <a class="kst-navlink" href="faq.html">FAQ</a>
+      <a class="kst-navlink" href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<article class="kst-post">
+<section class="kst-section kst-section--hero">
+  <div class="kst-shell">
+    <p class="kst-crumb"><a href="safe.html">Journal</a> / Signatures</p>
+    <div class="kst-article-head">
+      <span class="kst-kicker">Signatures</span>
+      <h1 class="kst-h1">Counting Signatures Before You Touch Anything</h1>
+      <p class="kst-lede">It is the least interesting step in any repair, and skipping it is the fastest way to make the second half harder.</p>
+      <p class="kst-byline">June 19, 2026 · Filed under Signatures</p>
+    </div>
+    <div class="kst-article-cover">
+      <img src="img/counting-signatures-before-you-touch-anything.jpg" alt="Counting Signatures Before You Touch Anything" loading="lazy">
+    </div>
+
+    <div class="kst-prose">
+      <p>A disbound novel from the 1930s sits on the bench in eleven loose gatherings, the spine glue long gone brittle, the old sewing cut in three places by whoever tried to fix it last. Before a single needle touches this book, before any decision gets made about thread weight or which folds still need support, someone has to count. Not read — count. Every signature, in the order it left the loose pile, checked against itself and against what should be there. It is the least interesting hour of any repair job, and it is also the hour that determines whether the next six go smoothly or turn into a slow unpicking of assumptions made too early.</p>
+
+      <h2 class="kst-h2">The Step Everyone Wants to Skip</h2>
+      <p>Collation has no craft romance to it. There is no needle, no thread, no satisfying click of a fold seating properly against a straight edge — just a stack of gatherings and the plain arithmetic of making sure they are all present, in order, and belong to the same book. It is easy to see why it gets rushed. A binder eager to start sewing looks at a pile of signatures and sees a book that is basically fine, just loose. But basically fine is exactly the assumption collation exists to test, and a repair built on top of an uncounted stack carries that uncertainty into every later step, where it is far more expensive to find.</p>
+
+      <h2 class="kst-h2">What You're Actually Counting</h2>
+      <p>A signature is a folded unit of pages — four, eight, sixteen, sometimes more — gathered together with its neighbors to form the block of a book. Older printed books usually mark each one with a signature mark, a small letter or number tucked into the bottom margin of the first page of the gathering, put there centuries ago for exactly this purpose: so the person assembling the book by hand could check the order before binding. Reading those marks in sequence is the fastest way to confirm nothing is missing, reversed, or borrowed from another copy entirely — a real hazard when repairing a book that has been rebound once already, sometimes with a stray gathering from a different printing mixed in. The same care that goes into reading a <a href="reading-the-broken-fold.html">broken fold</a> for its history applies here: the marks are recording something, and skipping past them means guessing at information the book was already offering for free.</p>
+
+      <h2 class="kst-h2">A Collation Checklist, In Practice</h2>
+      <p>On the bench, the process is unglamorous and repetitive by design. It goes roughly like this, gathering by gathering:</p>
+      <ul>
+        <li>Locate the signature mark, or count the leaves if the book predates or omits marking.</li>
+        <li>Confirm the fold direction and grain match the neighboring gatherings.</li>
+        <li>Check that no leaf is a later, tipped-in replacement with a visibly different paper stock.</li>
+        <li>Note any gathering that is thinner or thicker than its neighbors — a sign of a missing or extra leaf.</li>
+        <li>Record the running order on a slip before moving to the next gathering, rather than trusting memory across eleven or twenty of them.</li>
+      </ul>
+      <p>None of these steps requires special tools. What they require is patience, and a willingness to stop and recount when a number looks wrong instead of talking yourself into it being close enough.</p>
+
+      <div class="kst-callout">
+        <span class="kst-callout-label">Bench Note</span>
+        <p>A gathering that collates "close enough" is usually a gathering that will need to be recollated later, after the sewing is already in and the mistake is buried under thread. The five extra minutes spent recounting a gathering that feels a leaf short almost always cost less than unpicking finished sewing to find out where that leaf actually went.</p>
+      </div>
+
+      <blockquote>Collation does not make a book easier to repair. It makes the repair honest — you sew what is actually there, not what you assumed was there when you started.</blockquote>
+
+      <h2 class="kst-h2">When the Count Doesn't Match the Book</h2>
+      <p>Sometimes the count comes up short, and the honest answer is to stop and figure out why before proceeding. A missing gathering might be sitting loose in the box the book arrived in, overlooked on first sort. It might have been removed decades ago and never returned. Or the book itself might be a composite — two partial copies bound together at some point to make one complete-looking volume, a practice more common in older working libraries than people expect. Each of those has a different answer, and none of them is solved by sewing around the gap and hoping it reads fine closed. The <a href="awls-needles-and-the-right-amount-of-force.html">force a needle needs to pass cleanly through a fold</a> depends on knowing exactly which folds are being asked to hold the block together — a question collation answers and guessing does not.</p>
+
+      <div class="kst-table-wrap">
+        <table class="kst-table">
+          <caption>What a mismatched count usually means</caption>
+          <thead>
+            <tr><th scope="col">Symptom</th><th scope="col">Likely cause</th><th scope="col">Next step</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>One gathering noticeably thinner</td><td>A leaf removed or lost during a prior repair</td><td>Check nearby storage for a loose leaf before continuing</td></tr>
+            <tr><td>Signature marks skip a letter</td><td>A full gathering missing from the block</td><td>Confirm against a second copy or bibliographic record if one exists</td></tr>
+            <tr><td>Paper stock changes mid-gathering</td><td>A later replacement leaf tipped in by hand</td><td>Note it and treat separately, not as original structure</td></tr>
+            <tr><td>Two gatherings share the same mark</td><td>A stray signature from a different printing or copy</td><td>Verify which belongs to this book before binding either in</td></tr>
+            <tr><td>Fold direction reverses partway through</td><td>A gathering bound in upside down at some earlier point</td><td>Reorient before sewing, not after</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="kst-h2">The Tool We Built for the Boring Part</h2>
+      <p>None of the judgment above gets any easier with software — reading a signature mark, spotting a mismatched paper stock, deciding whether a gathering belongs to the book, all of that still happens by eye and by hand. What software helps with is the part that has nothing to do with judgment: keeping a running tally across twenty or thirty gatherings without losing your place, especially when the phone rings or the count gets interrupted halfway through. That is the entire premise behind <a href="app.html">Signature Count</a>, the small companion tool we built for this one unglamorous task — it does nothing more than hold the number steady while your attention is on the book, not on remembering where you left off.</p>
+    </div>
+
+    <div class="kst-note">
+      <span class="kst-note-label">A note on scope</span>
+      <p>This entry describes how we approach collation on the bench before repair begins — it is a record of a working process, not a substitute for hands-on training. Every book carries its own printing and binding history, and an unfamiliar case is always worth slowing down for.</p>
+    </div>
+
+    <div class="kst-readalso">
+      <h3>Read also</h3>
+      <ul>
+        <li><a href="kettle-stitch-versus-chain-stitch.html">Kettle Stitch Versus Chain Stitch</a></li>
+        <li><a href="when-a-spine-should-stay-broken.html">When a Spine Should Stay Broken</a></li>
+        <li><a href="a-shelf-of-quiet-failures.html">A Shelf of Quiet Failures</a></li>
+      </ul>
+    </div>
+
+    <div class="kst-folio"></div>
+  </div>
+</section>
+</article>
+
+</main>
+<footer class="kst-footer">
+  <div class="kst-shell kst-footer-grid">
+    <div>
+      <div class="kst-footer-brand">Kettlestitch</div>
+      <p class="kst-footer-desc">A journal about the physical work of keeping books together — sewing signatures, rebuilding spines, and knowing when a repair should be left alone. Written from the bench, not the showroom.</p>
+    </div>
+    <div>
+      <h4>Read</h4>
+      <ul>
+        <li><a href="safe.html">Journal</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li>
+        <li><a href="mailto:hello@kettlestitch.shop">hello@kettlestitch.shop</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="kst-shell kst-footer-bottom">
+    <span>&copy; 2026 Kettlestitch. An independent binder's journal.</span>
+    <span>Not affiliated with any publisher, library, or auction house.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

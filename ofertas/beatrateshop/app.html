@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beat Rate App — A Quiet Log for the Watches You Service</title>
+<meta name="description" content="Beat Rate is a companion app for logging amplitude, beat error, and positional rate on the mechanical watches you own or service — no account required to start.">
+<link rel="canonical" href="https://beatrate.shop/app.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%232b3f8c'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23c9a765' stroke-width='2'/%3E%3Cline x1='32' y1='32' x2='32' y2='16' stroke='%23f6f5f2' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='32' y1='32' x2='42' y2='36' stroke='%23f6f5f2' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='2.5' fill='%239c7b34'/%3E%3C/svg%3E">
+<style>
+:root{
+  --brt-bg:#f6f5f2;
+  --brt-surface:#fffdf9;
+  --brt-ink:#191a1c;
+  --brt-ink-soft:#55534c;
+  --brt-brass:#9c7b34;
+  --brt-brass-soft:#c9a765;
+  --brt-brass-wash:#efe6d1;
+  --brt-steel:#2b3f8c;
+  --brt-steel-soft:#5c6db5;
+  --brt-line:#d9d3c2;
+  --brt-radius:13px;
+  --brt-maxw:725px;
+  --brt-margin-w:180px;
+  --brt-serif:Didot,'Bodoni MT','Hoefler Text',Georgia,serif;
+  --brt-sans:'Lucida Sans Unicode','Lucida Grande',Verdana,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body.brt-body{margin:0;background:var(--brt-bg);background-image:linear-gradient(var(--brt-line) 1px,transparent 1px),linear-gradient(90deg,var(--brt-line) 1px,transparent 1px);background-size:34px 34px;background-position:center top;background-attachment:local;color:var(--brt-ink);font-family:var(--brt-sans);font-size:16px;line-height:1.68;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;height:auto;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{font-family:var(--brt-serif);font-weight:400;letter-spacing:.01em;margin:0 0 .5em;color:var(--brt-ink);}
+p{margin:0 0 1.1em;}
+ul,ol{margin:0 0 1.1em;padding-left:1.2em;}
+::selection{background:var(--brt-brass-wash);color:var(--brt-ink);}
+.brt-shell{max-width:calc(var(--brt-maxw) + var(--brt-margin-w) + 88px);margin:0 auto;padding:0 24px;}
+.brt-with-margin{position:relative;padding-left:var(--brt-margin-w);}
+.brt-main{max-width:var(--brt-maxw);}
+.brt-topbar{border-bottom:1px solid var(--brt-line);background:rgba(246,245,242,.92);backdrop-filter:blur(4px);position:sticky;top:0;z-index:40;}
+.brt-nav{max-width:calc(var(--brt-maxw) + var(--brt-margin-w) + 88px);margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.brt-brand{display:flex;align-items:baseline;gap:8px;}
+.brt-brand-mark{width:26px;height:26px;flex:none;}
+.brt-wordmark{font-family:var(--brt-serif);font-style:italic;font-size:1.5rem;letter-spacing:.02em;}
+.brt-wordmark small{display:block;font-family:var(--brt-sans);font-style:normal;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--brt-brass);margin-top:-2px;}
+.brt-navlinks{display:flex;align-items:center;gap:26px;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;flex-wrap:wrap;}
+.brt-navlinks a{padding:4px 0;border-bottom:1px solid transparent;transition:border-color .15s ease,color .15s ease;}
+.brt-navlinks a:hover{border-color:var(--brt-brass);color:var(--brt-brass);}
+.brt-navlinks .brt-navcta{border:1px solid var(--brt-steel);border-radius:var(--brt-radius);padding:8px 16px;color:var(--brt-steel);}
+.brt-navlinks .brt-navcta:hover{background:var(--brt-steel);color:#fff;border-color:var(--brt-steel);}
+.brt-mark{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;border:1px solid var(--brt-brass);font-family:var(--brt-sans);font-size:.62rem;font-weight:700;color:var(--brt-brass);vertical-align:super;margin-left:2px;line-height:1;position:relative;top:-2px;}
+.brt-note{float:left;clear:left;width:calc(var(--brt-margin-w) - 26px);margin:0 0 24px calc(-1 * var(--brt-margin-w));padding:10px 12px 12px;background:var(--brt-surface);border:1px solid var(--brt-line);border-radius:8px;position:relative;font-size:.78rem;line-height:1.55;color:var(--brt-ink-soft);}
+.brt-note::after{content:"";position:absolute;top:14px;right:-27px;width:26px;border-top:1px dotted var(--brt-brass-soft);}
+.brt-note-no{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:var(--brt-brass);color:#fff;font-size:.62rem;font-weight:700;margin-right:6px;}
+.brt-note-label{font-family:var(--brt-sans);text-transform:uppercase;letter-spacing:.08em;font-size:.66rem;color:var(--brt-brass);}
+.brt-hero{padding:44px 0 40px;}
+.brt-hero-kicker{display:flex;align-items:center;gap:10px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brt-steel);margin-bottom:16px;}
+.brt-hero-kicker::before{content:"";width:28px;height:1px;background:var(--brt-brass);}
+.brt-hero h1{font-size:clamp(2.1rem,4.4vw,3.1rem);line-height:1.08;max-width:11.5em;}
+.brt-hero-lede{font-size:1.06rem;color:var(--brt-ink-soft);max-width:42em;margin-top:18px;}
+.brt-section{padding:48px 0;border-top:1px solid var(--brt-line);}
+.brt-section:first-of-type{border-top:none;}
+.brt-section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+.brt-kicker{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brt-brass);}
+.brt-section h2{font-size:1.7rem;}
+.brt-section-note{font-size:.86rem;color:var(--brt-ink-soft);max-width:40em;}
+.brt-app{background:var(--brt-ink);color:#f4f1e9;border-radius:var(--brt-radius);padding:44px 32px;margin:8px 0;}
+.brt-app .brt-kicker{color:var(--brt-brass-soft);}
+.brt-app h2{color:#f4f1e9;}
+.brt-app-lede{color:#c8c5ba;max-width:34em;}
+.brt-app-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;margin-top:30px;align-items:center;}
+.brt-app-mock{background:#101114;border:1px solid #3a3c40;border-radius:calc(var(--brt-radius) + 6px);padding:18px;position:relative;}
+.brt-app-mock-screen{background:#191b20;border-radius:9px;padding:16px;border:1px solid #33353b;}
+.brt-app-dial{width:96px;height:96px;border-radius:50%;border:2px solid var(--brt-brass-soft);margin:6px auto 14px;position:relative;background:repeating-conic-gradient(from 0deg,#20222a 0deg 6deg,#191b20 6deg 30deg);}
+.brt-app-dial::after{content:"";position:absolute;inset:26px;border-radius:50%;border:1px dashed var(--brt-steel-soft);}
+.brt-app-row{display:flex;justify-content:space-between;font-size:.72rem;color:#c8c5ba;padding:7px 0;border-top:1px dotted #3a3c40;}
+.brt-app-row:first-of-type{border-top:none;}
+.brt-app-row b{color:#f4f1e9;font-weight:600;}
+.brt-features{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px;}
+.brt-feature{border:1px solid #34363c;border-radius:10px;padding:16px;position:relative;}
+.brt-feature .brt-note-no{background:var(--brt-brass);}
+.brt-feature h3{font-size:1rem;color:#f4f1e9;margin:8px 0 6px;}
+.brt-feature p{font-size:.82rem;color:#bdb9ad;margin:0;}
+.brt-steps{display:flex;gap:0;margin-top:8px;flex-wrap:wrap;}
+.brt-step{flex:1;min-width:170px;position:relative;padding:20px 18px 18px;border:1px solid var(--brt-line);background:var(--brt-surface);}
+.brt-step:first-child{border-radius:var(--brt-radius) 0 0 var(--brt-radius);}
+.brt-step:last-child{border-radius:0 var(--brt-radius) var(--brt-radius) 0;}
+.brt-step + .brt-step{border-left:none;}
+.brt-step-no{width:24px;height:24px;border-radius:50%;border:1px solid var(--brt-brass);color:var(--brt-brass);display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:700;margin-bottom:12px;}
+.brt-step h3{font-size:.98rem;}
+.brt-step p{font-size:.82rem;color:var(--brt-ink-soft);margin:0;}
+.brt-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:var(--brt-radius);font-size:.86rem;letter-spacing:.03em;border:1px solid var(--brt-steel);cursor:pointer;font-family:var(--brt-sans);}
+.brt-btn-primary{background:var(--brt-steel);color:#fff;}
+.brt-btn-primary:hover{background:#233371;}
+.brt-btn-ghost{background:transparent;color:var(--brt-steel);}
+.brt-btn-ghost:hover{background:var(--brt-steel);color:#fff;}
+.brt-faq-item{border-top:1px solid var(--brt-line);padding:20px 0;}
+.brt-faq-item:first-child{border-top:none;}
+.brt-faq-q{font-family:var(--brt-serif);font-size:1.08rem;margin-bottom:8px;display:flex;gap:10px;}
+.brt-faq-q .brt-mark{position:static;top:0;}
+.brt-faq-a{font-size:.92rem;color:var(--brt-ink-soft);margin:0;padding-left:27px;}
+.brt-footer{border-top:1px solid var(--brt-line);margin-top:64px;padding:44px 0 30px;}
+.brt-footer-grid{display:grid;grid-template-columns:1.3fr .8fr .8fr .8fr;gap:28px;}
+.brt-footer-brand .brt-wordmark{font-size:1.3rem;}
+.brt-footer-tag{font-size:.82rem;color:var(--brt-ink-soft);margin-top:10px;max-width:26em;}
+.brt-footer-col h4{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--brt-brass);margin-bottom:12px;}
+.brt-footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:.86rem;}
+.brt-footer-col a:hover{color:var(--brt-brass);}
+.brt-footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.72rem;color:var(--brt-ink-soft);margin-top:36px;padding-top:20px;border-top:1px dashed var(--brt-line);}
+@media (max-width:900px){
+  .brt-with-margin{padding-left:0;}
+  .brt-note{float:none;width:auto;margin:0 0 18px;border-left:3px dotted var(--brt-brass);border-radius:6px;}
+  .brt-note::after{display:none;}
+  .brt-app-grid{grid-template-columns:1fr;}
+  .brt-footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:640px){
+  .brt-navlinks{display:none;}
+  .brt-features{grid-template-columns:1fr;}
+  .brt-steps{flex-direction:column;}
+  .brt-step,.brt-step:first-child,.brt-step:last-child{border-radius:var(--brt-radius);border-left:1px solid var(--brt-line);}
+  .brt-footer-grid{grid-template-columns:1fr;}
+  .brt-footer-bottom{flex-direction:column;}
+}
+</style>
+</head>
+<body class="brt-body">
+<header class="brt-topbar">
+  <div class="brt-nav">
+    <a href="safe.html" class="brt-brand" aria-label="Beat Rate home">
+      <svg class="brt-brand-mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#2b3f8c"/><circle cx="32" cy="32" r="22" fill="none" stroke="#c9a765" stroke-width="2"/><line x1="32" y1="32" x2="32" y2="16" stroke="#f6f5f2" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="32" x2="42" y2="36" stroke="#f6f5f2" stroke-width="2.5" stroke-linecap="round"/><circle cx="32" cy="32" r="2.5" fill="#9c7b34"/></svg>
+      <span class="brt-wordmark">Beat Rate<small>Mechanical Watch Journal</small></span>
+    </a>
+    <nav class="brt-navlinks">
+      <a href="safe.html">Journal</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="app.html" class="brt-navcta">Beat Rate App</a>
+    </nav>
+  </div>
+</header>
+
+<main class="brt-shell">
+
+  <section class="brt-hero">
+    <div class="brt-hero-kicker">Companion app</div>
+    <h1>Beat Rate — a quiet log for the watches you service</h1>
+    <p class="brt-hero-lede">Most of what we write about here is a number: amplitude in degrees, beat error in milliseconds, rate in seconds a day. Beat Rate is the app version of the same notebook — a place to log those numbers against a specific watch and see the trend, instead of remembering it.</p>
+  </section>
+
+  <section class="brt-section">
+    <div class="brt-app">
+      <div class="brt-kicker">What it does</div>
+      <h2>Six things Beat Rate keeps track of</h2>
+      <div class="brt-features">
+        <div class="brt-feature">
+          <span class="brt-note-no">01</span>
+          <h3>Amplitude log</h3>
+          <p>Record dial-up, dial-down, and both crown positions after every service, and watch how the arc changes over months.</p>
+        </div>
+        <div class="brt-feature">
+          <span class="brt-note-no">02</span>
+          <h3>Beat error history</h3>
+          <p>Track beat error before and after adjustment, per movement, so you can see whether a fix actually held.</p>
+        </div>
+        <div class="brt-feature">
+          <span class="brt-note-no">03</span>
+          <h3>Rate by position</h3>
+          <p>Six-position rate entries laid out on one card, with the spread between best and worst position calculated automatically.</p>
+        </div>
+        <div class="brt-feature">
+          <span class="brt-note-no">04</span>
+          <h3>Service journal</h3>
+          <p>A simple entry per service — date, what was done, which oils were used — attached permanently to the watch.</p>
+        </div>
+        <div class="brt-feature">
+          <span class="brt-note-no">05</span>
+          <h3>Multiple watches</h3>
+          <p>Keep a separate card for every movement you own or service, each with its own history and notes.</p>
+        </div>
+        <div class="brt-feature">
+          <span class="brt-note-no">06</span>
+          <h3>Private by default</h3>
+          <p>Entries live on your device unless you choose to back them up. No public profile, no feed, nothing to share.</p>
+        </div>
+      </div>
+      <div class="brt-app-grid" style="margin-top:36px">
+        <p style="margin:0;color:#c8c5ba;max-width:34em">Beat Rate doesn't grade your watch or tell you what to buy. It just keeps the numbers where you can find them again.</p>
+        <div class="brt-app-mock">
+          <div class="brt-app-mock-screen">
+            <div class="brt-app-dial"></div>
+            <div class="brt-app-row"><span>Amplitude, dial-up</span><b>271&deg;</b></div>
+            <div class="brt-app-row"><span>Amplitude, crown-down</span><b>252&deg;</b></div>
+            <div class="brt-app-row"><span>Beat error</span><b>0.4ms</b></div>
+            <div class="brt-app-row"><span>Last service</span><b>Mar 2026</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="brt-section">
+    <div class="brt-section-head">
+      <div>
+        <div class="brt-kicker">How it works</div>
+        <h2>From reading to record in three steps</h2>
+      </div>
+    </div>
+    <div class="brt-steps">
+      <div class="brt-step">
+        <div class="brt-step-no">1</div>
+        <h3>Take a reading</h3>
+        <p>Use a timegrapher, an app-based acoustic reading, or your own count against a metronome — Beat Rate doesn't care which.</p>
+      </div>
+      <div class="brt-step">
+        <div class="brt-step-no">2</div>
+        <h3>Log it against the watch</h3>
+        <p>Enter amplitude, beat error, and rate under that watch's card, with the date and position noted.</p>
+      </div>
+      <div class="brt-step">
+        <div class="brt-step-no">3</div>
+        <h3>Watch the trend</h3>
+        <p>Over several services, a slow drop in amplitude or a growing positional spread becomes visible instead of anecdotal.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="brt-section">
+    <div class="brt-section-head">
+      <div>
+        <div class="brt-kicker">Before you ask</div>
+        <h2>Mini FAQ</h2>
+      </div>
+    </div>
+    <div class="brt-faq-item">
+      <p class="brt-faq-q"><span class="brt-mark">1</span> Does Beat Rate diagnose problems for me?</p>
+      <p class="brt-faq-a">No. It logs the numbers you enter and shows you the trend across services. Interpreting a reading is still on you or your watchmaker.</p>
+    </div>
+    <div class="brt-faq-item">
+      <p class="brt-faq-q"><span class="brt-mark">2</span> Do I need a timegrapher to use it?</p>
+      <p class="brt-faq-a">No — some entries come from a shop's printed report, others from an estimate. The log is only as precise as what you put in.</p>
+    </div>
+    <div class="brt-faq-item">
+      <p class="brt-faq-q"><span class="brt-mark">3</span> Is my data shared anywhere?</p>
+      <p class="brt-faq-a">Entries stay on your device by default. See our <a href="privacy.html" style="color:var(--brt-steel);text-decoration:underline">privacy policy</a> for the optional backup details.</p>
+    </div>
+  </section>
+
+  <section class="brt-section">
+    <div class="brt-newsletter" style="background:var(--brt-brass-wash);border-radius:var(--brt-radius);padding:32px;border:1px solid var(--brt-line);text-align:left">
+      <h2 style="font-size:1.3rem">Curious about Beat Rate?</h2>
+      <p class="brt-section-note">Read the journal first, or get in touch with questions about the app.</p>
+      <p style="margin-top:16px"><a href="safe.html" class="brt-btn brt-btn-primary">Read the journal &rarr;</a> <a href="about.html" class="brt-btn brt-btn-ghost" style="margin-left:8px">About Beat Rate</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="brt-footer">
+  <div class="brt-shell">
+    <div class="brt-footer-grid">
+      <div class="brt-footer-brand">
+        <span class="brt-wordmark">Beat Rate</span>
+        <p class="brt-footer-tag">A journal about the mechanics of old watches — servicing, regulation, amplitude, and the oils that make a balance wheel keep faith with time.</p>
+      </div>
+      <div class="brt-footer-col">
+        <h4>Journal</h4>
+        <ul>
+          <li><a href="safe.html">Latest entries</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="brt-footer-col">
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="about.html">About Beat Rate</a></li>
+          <li><a href="app.html">The Beat Rate app</a></li>
+          <li><a href="mailto:contact@beatrate.shop">contact@beatrate.shop</a></li>
+        </ul>
+      </div>
+      <div class="brt-footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="brt-footer-bottom">
+      <span>&copy; 2026 Beat Rate. Notes from a kitchen-table bench.</span>
+      <span>Reading amplitude, one beat at a time.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choosing Thread Weight for Old Paper · Kettlestitch</title>
+  <meta name="description" content="Matching linen thread gauge to paper condition when resewing an old book, and the tradeoffs of going too heavy or too fine on a brittle fold.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://kettlestitch.shop/choosing-thread-weight-for-old-paper.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f3ece2'/%3E%3Cg stroke='%237d2b2b' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 20 L50 44'/%3E%3Cpath d='M14 44 L50 20'/%3E%3Cpath d='M14 32 L50 32'/%3E%3C/g%3E%3C/svg%3E">
+  <style>
+:root{
+  --kst-bg:#f3ece2;
+  --kst-paper:#f8f3ea;
+  --kst-paper-dark:#ece3d3;
+  --kst-ink:#241f1a;
+  --kst-ink-soft:#544b40;
+  --kst-accent:#7d2b2b;
+  --kst-accent-soft:#a9564f;
+  --kst-line:#d7c9b2;
+  --kst-radius:8px;
+  --kst-maxw:665px;
+  --kst-shell:1240px;
+  --kst-gutter:64px;
+  --kst-serif:'Palatino Linotype',Palatino,'URW Palladio L',Georgia,serif;
+  --kst-sans:'Century Gothic','CenturyGothic',AppleGothic,'Futura',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;counter-reset:kstfolio;background-color:var(--kst-bg);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.14  0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");color:var(--kst-ink);font-family:var(--kst-serif);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--kst-accent)}
+a:hover{color:var(--kst-ink)}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--kst-serif);font-weight:400;margin:0 0 .5em;color:var(--kst-ink)}
+.kst-h1{font-size:clamp(2rem,4.6vw,2.85rem);line-height:1.12;letter-spacing:.2px}
+.kst-h2{font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.2}
+.kst-h3{font-size:1.18rem;line-height:1.32}
+.kst-lede{font-size:1.12rem;color:var(--kst-ink-soft);max-width:var(--kst-maxw);margin:0 0 1.2em}
+.kst-prose{max-width:var(--kst-maxw)}
+.kst-prose p{margin:0 0 1.1em}
+.kst-prose h2{margin-top:1.7em}
+.kst-prose ul,.kst-prose ol{max-width:var(--kst-maxw);padding-left:1.3em;margin:0 0 1.2em}
+.kst-prose li{margin-bottom:.5em}
+.kst-prose blockquote{margin:1.4em 0;padding:.2em 0 .2em 1.2em;border-left:3px solid var(--kst-accent);color:var(--kst-ink-soft);font-style:italic}
+.kst-shell{max-width:var(--kst-shell);margin:0 auto;padding:0 28px}
+.kst-skiplink{position:absolute;left:-999px;top:0;background:var(--kst-accent);color:#f8f3ea;padding:10px 16px;z-index:200}
+.kst-skiplink:focus{left:12px;top:12px}
+.kst-header{border-bottom:1px solid var(--kst-line);background:var(--kst-paper);position:relative}
+.kst-header::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--kst-line)}
+.kst-headerbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0;flex-wrap:wrap}
+.kst-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--kst-ink)}
+.kst-brand:hover{color:var(--kst-ink)}
+.kst-brandmark{flex:none}
+.kst-brandtext{display:flex;flex-direction:column;line-height:1.05}
+.kst-brandname{font-family:var(--kst-serif);font-size:1.4rem;letter-spacing:.3px}
+.kst-brandtag{font-family:var(--kst-sans);font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--kst-accent)}
+.kst-nav{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--kst-sans);font-size:.78rem;letter-spacing:.6px;text-transform:uppercase}
+.kst-navlink{color:var(--kst-ink);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.kst-navlink:hover{color:var(--kst-accent);border-bottom-color:var(--kst-accent)}
+.kst-section{padding:56px 0;border-bottom:1px solid var(--kst-line);counter-increment:kstfolio;position:relative}
+.kst-section--tight{padding:40px 0}
+.kst-section--hero{padding:52px 0 60px}
+.kst-section:last-of-type{border-bottom:none}
+.kst-kicker{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .8em;display:block}
+.kst-folio{margin-top:44px;padding-top:14px;border-top:1px solid var(--kst-line);text-align:center;font-family:var(--kst-sans);font-size:.72rem;letter-spacing:3px;color:var(--kst-ink-soft)}
+.kst-folio::before{content:"— " counter(kstfolio,decimal-leading-zero) " —"}
+.kst-spread{display:grid;grid-template-columns:1fr 1fr;gap:var(--kst-gutter);align-items:start;position:relative}
+.kst-spread::before{content:"";position:absolute;left:calc(50% - 1px);top:0;bottom:0;width:2px;background:linear-gradient(90deg,transparent,rgba(36,31,26,.14),transparent)}
+.kst-spread--items{align-items:stretch}
+@media(max-width:860px){.kst-spread{grid-template-columns:1fr;gap:32px}.kst-spread::before{display:none}}
+.kst-leaf{background:var(--kst-paper);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:26px;box-shadow:0 1px 0 rgba(36,31,26,.05)}
+.kst-leaf--verso{border-right-width:1px}
+.kst-leaf--recto{border-left-width:1px}
+.kst-leaf--plain{background:transparent;border:none;padding:0;box-shadow:none}
+.kst-leaf--img{padding:0;overflow:hidden}
+.kst-leaf--img img{width:100%;height:100%;object-fit:cover;display:block}
+.kst-card{display:flex;flex-direction:column;height:100%}
+.kst-card-thumb{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:calc(var(--kst-radius) - 2px);margin:-26px -26px 16px;border-bottom:1px solid var(--kst-line)}
+.kst-card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.kst-card-meta{font-family:var(--kst-sans);font-size:.68rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .5em;display:flex;gap:10px;flex-wrap:wrap}
+.kst-card-meta span+span{color:var(--kst-ink-soft)}
+.kst-card h3{margin:0 0 .4em}
+.kst-card h3 a{color:var(--kst-ink);text-decoration:none}
+.kst-card h3 a:hover{color:var(--kst-accent)}
+.kst-card p{color:var(--kst-ink-soft);margin:0 0 1em;flex:1}
+.kst-card-link{font-family:var(--kst-sans);font-size:.74rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--kst-accent);text-decoration:none;margin-top:auto}
+.kst-card-link:hover{color:var(--kst-ink)}
+.kst-hero-eyebrow{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--kst-accent);margin:0 0 .9em}
+.kst-hero-actions{display:flex;gap:14px;margin-top:1.6em;flex-wrap:wrap}
+.kst-btn{font-family:var(--kst-sans);font-size:.78rem;letter-spacing:1.3px;text-transform:uppercase;text-decoration:none;padding:13px 26px;border-radius:var(--kst-radius);display:inline-block;border:1px solid var(--kst-accent)}
+.kst-btn--solid{background:var(--kst-accent);color:#f8f3ea}
+.kst-btn--solid:hover{background:#611f1f;color:#f8f3ea}
+.kst-btn--outline{color:var(--kst-accent);background:transparent}
+.kst-btn--outline:hover{background:var(--kst-accent);color:#f8f3ea}
+.kst-mock{background:var(--kst-paper-dark);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:20px;font-family:var(--kst-sans)}
+.kst-mock-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.kst-mock-bar strong{font-family:var(--kst-serif);font-size:1.05rem;font-weight:400}
+.kst-mock-dot{width:9px;height:9px;border-radius:50%;background:var(--kst-accent);display:inline-block}
+.kst-mock-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px dashed var(--kst-line);font-size:.82rem}
+.kst-mock-row:first-of-type{border-top:none}
+.kst-mock-stitch{width:16px;height:16px;flex:none;border-radius:3px;border:1.5px solid var(--kst-accent);position:relative}
+.kst-mock-stitch::after{content:"";position:absolute;left:2px;right:2px;top:50%;height:1.5px;background:var(--kst-accent)}
+.kst-mock-row-check .kst-mock-stitch{background:var(--kst-accent)}
+.kst-mock-total{margin-top:14px;padding-top:12px;border-top:1px solid var(--kst-line);display:flex;justify-content:space-between;align-items:baseline}
+.kst-mock-total b{font-family:var(--kst-serif);font-size:1.7rem;font-weight:400;color:var(--kst-accent)}
+.kst-mock-total span{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--kst-ink-soft)}
+.kst-feat h3{display:flex;align-items:center;gap:10px}
+.kst-feat-num{font-family:var(--kst-sans);font-size:.78rem;color:var(--kst-accent);border:1px solid var(--kst-accent);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex:none}
+.kst-steps{counter-reset:kststep}
+.kst-step{display:flex;gap:16px;padding:16px 0;border-top:1px dashed var(--kst-line)}
+.kst-step:first-child{border-top:none}
+.kst-step::before{counter-increment:kststep;content:counter(kststep,decimal-leading-zero);font-family:var(--kst-sans);font-size:.78rem;color:var(--kst-accent);flex:none;padding-top:.2em}
+.kst-qa{border-top:1px solid var(--kst-line);padding:20px 0}
+.kst-qa:last-child{padding-bottom:0}
+.kst-qa h3{margin-bottom:.35em}
+.kst-qa p{color:var(--kst-ink-soft);margin:0;max-width:var(--kst-maxw)}
+.kst-term{border-top:1px solid var(--kst-line);padding:16px 0}
+.kst-term:first-child{border-top:none}
+.kst-term dt{font-family:var(--kst-serif);font-size:1.1rem;color:var(--kst-accent);margin-bottom:.25em}
+.kst-term dd{margin:0;color:var(--kst-ink-soft);max-width:var(--kst-maxw)}
+.kst-news{background:var(--kst-paper);border:1px solid var(--kst-line);border-radius:var(--kst-radius);padding:30px}
+.kst-news form{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.kst-news input[type=email]{flex:1;min-width:200px;font-family:var(--kst-sans);font-size:.85rem;padding:12px 14px;border:1px solid var(--kst-line);border-radius:var(--kst-radius);background:#fff;color:var(--kst-ink)}
+.kst-news button{font-family:var(--kst-sans);font-size:.78rem;letter-spacing:1.2px;text-transform:uppercase;background:var(--kst-accent);color:#f8f3ea;border:none;border-radius:var(--kst-radius);padding:12px 22px;cursor:pointer}
+.kst-news button:hover{background:#611f1f}
+.kst-newsok{display:none;margin-top:10px;font-family:var(--kst-sans);font-size:.8rem;color:var(--kst-accent)}
+.kst-crumb{font-family:var(--kst-sans);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--kst-ink-soft);margin-bottom:1.4em}
+.kst-crumb a{color:var(--kst-ink-soft);text-decoration:none}
+.kst-crumb a:hover{color:var(--kst-accent)}
+.kst-article-head{max-width:var(--kst-maxw)}
+.kst-article-cover{border-radius:var(--kst-radius);overflow:hidden;border:1px solid var(--kst-line);margin:26px 0 8px}
+.kst-byline{font-family:var(--kst-sans);font-size:.72rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--kst-ink-soft);margin:1em 0 0}
+.kst-related h3{margin-bottom:.3em}
+.kst-footer{background:var(--kst-ink);color:#e6dfd2;padding:52px 0 30px}
+.kst-footer a{color:#e6dfd2;text-decoration:none}
+.kst-footer a:hover{color:#e7c9c9}
+.kst-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.kst-footer-brand{font-family:var(--kst-serif);font-size:1.3rem;margin-bottom:.4em}
+.kst-footer-desc{color:#b9b0a0;max-width:320px;font-size:.92rem}
+.kst-footer h4{font-family:var(--kst-sans);font-size:.7rem;letter-spacing:1.8px;text-transform:uppercase;color:#b9b0a0;margin:0 0 .9em}
+.kst-footer ul{list-style:none;padding:0;margin:0;font-family:var(--kst-sans);font-size:.85rem}
+.kst-footer li{margin-bottom:.6em}
+.kst-footer-bottom{margin-top:40px;padding-top:20px;border-top:1px solid #3a352d;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--kst-sans);font-size:.72rem;color:#8b8272}
+@media(max-width:760px){.kst-footer-grid{grid-template-columns:1fr}.kst-card-thumb{margin:-26px -26px 16px}}
+  </style>
+</head><body>
+  <a class="kst-skiplink" href="#main">Skip to content</a>
+  <header class="kst-header">
+    <div class="kst-shell kst-headerbar">
+      <a class="kst-brand" href="safe.html">
+        <svg class="kst-brandmark" width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#f3ece2" stroke="#d7c9b2"/><g stroke="#7d2b2b" stroke-width="4" stroke-linecap="round"><path d="M14 20 L50 44"/><path d="M14 44 L50 20"/><path d="M14 32 L50 32"/></g></svg>
+        <span class="kst-brandtext"><span class="kst-brandname">Kettlestitch</span><span class="kst-brandtag">Bookbinding &amp; Repair Journal</span></span>
+      </a>
+      <nav class="kst-nav" aria-label="Primary">
+        <a class="kst-navlink" href="safe.html">Journal</a>
+        <a class="kst-navlink" href="app.html">Signature Count</a>
+        <a class="kst-navlink" href="glossary.html">Glossary</a>
+        <a class="kst-navlink" href="faq.html">FAQ</a>
+        <a class="kst-navlink" href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+
+  <article class="kst-post">
+
+    <section class="kst-section kst-section--tight">
+      <div class="kst-shell kst-article-head">
+        <p class="kst-crumb"><a href="safe.html">Journal</a> / Materials</p>
+        <span class="kst-kicker">Materials</span>
+        <h1 class="kst-h1">Choosing Thread Weight for Old Paper</h1>
+        <p class="kst-lede">Thread that is strong enough to hold and gentle enough not to cut a fold that has already gone brittle.</p>
+        <div class="kst-article-cover"><img src="img/choosing-thread-weight-for-old-paper.jpg" alt="Choosing Thread Weight for Old Paper" loading="lazy"></div>
+        <p class="kst-byline">From the bench · March 27, 2026</p>
+      </div>
+    </section>
+
+    <section class="kst-section">
+      <div class="kst-shell kst-prose">
+
+        <p>A spool of 25/3 linen thread looks almost identical to a spool of 18/3 sitting next to it on the same shelf — same waxed sheen, same tidy cross-wind, same faint smell of flax. The difference only shows up once the needle goes through paper that has spent sixty or eighty years getting less flexible instead of more. Reach for the heavier gauge and it does its job of holding the signature together, then quietly saws a slit through the fold over the following months. Reach for the lighter one and it slides through cleanly, then snaps the first time the book gets opened flat on a desk. Thread weight is a small decision in the sequence of a rebind, and one of the easiest to get backwards.</p>
+
+        <h2 class="kst-h2">What the Number on the Spool Actually Means</h2>
+        <p>Linen thread is sold under a weight-and-ply notation, something like "25/3" or "18/3" printed small on the label, and the two numbers pull in opposite directions. The first is a weight rating — the higher it climbs, the finer each individual strand is. The second is how many of those strands got twisted together into the thread you're actually holding. A 25/3 is thinner per strand than an 18/3, but plied three ways just the same, the finished 18/3 comes out noticeably heavier and stronger overall. None of that tells you what either one will do to a hundred-year-old fold, though. That part only comes from testing the thread against the specific paper in front of you, not from the label.</p>
+
+        <h2 class="kst-h2">Reading the Paper Before Opening the Drawer</h2>
+        <p>Before any thread gets chosen, the paper gets read. Hold a signature up to raking light and the fiber structure shows itself — long and interlocked in an older cotton rag sheet, short and dusty in a wood-pulp sheet that's spent decades acidifying from the inside. Run a thumbnail lightly along an existing crease and listen: a soft give means the fold still has some flex left in it, while a dry crackle means it's closer to snapping than folding. The <a href="reading-the-broken-fold.html">fold itself is where the paper tells you what it will tolerate a second time</a>, and that reading has to happen before any thread touches it, not after a first pass proves the gauge was wrong.</p>
+
+        <h2 class="kst-h2">Where Heavier Thread Starts Cutting</h2>
+        <p>Under normal sewing tension, a heavier thread behaves almost like a straightedge dragged along the fold. On supple paper that resistance barely registers. On paper that has lost most of its flexibility, the sewing holes don't stay round — they elongate, then connect, until the fold has a perforated line running through it that the thread itself put there. The book looks sewn correctly the day it leaves the bench. The failure shows up later, usually the third or fourth time someone opens it past a certain angle.</p>
+
+        <blockquote>The thread that holds a signature together on day one can be the same thread that saws it apart by year three.</blockquote>
+
+        <h2 class="kst-h2">Where Finer Thread Quietly Fails</h2>
+        <p>The opposite mistake is less visible in the moment and more frustrating later. A thread chosen too light for the job tends to fail at the kettle stitch knots, right where tension concentrates every time the text block flexes open. A snapped thread inside a closed book gives no warning — no fraying edge, no loose page hanging out — until the whole signature separates the next time it's handled. That stress is rarely isolated to the thread alone; it's often <a href="paper-grain-and-why-it-cracks.html">the same load a fold already carries from its grain direction</a>, so an under-strength thread and a marginal fold tend to compound each other rather than cancel out.</p>
+
+        <div class="kst-leaf" style="max-width:var(--kst-maxw);margin:1.6em 0">
+          <span class="kst-kicker" style="margin-bottom:.6em">On the Bench</span>
+          <p style="margin:0;color:var(--kst-ink-soft)">A 1911 hymnal came in with paper thin enough to see a fingerprint through it under raking light. The standard 18/3 that worked fine on the rest of that season's projects tore a visible line through the second test fold before a single full pass was sewn. Dropping to a doubled 30/3 and waxing it heavily solved the tearing, but it took three ruined scraps of endpaper to find that out — which is the actual argument for testing on scrap first, not for trusting a gauge chosen from memory.</p>
+        </div>
+
+        <h2 class="kst-h2">A Rough Match, Not a Formula</h2>
+        <p>The table below reflects general tendencies from bench work, not a rule that applies to every sheet of paper that looks similar on first glance. Two books from the same decade can behave completely differently depending on the mill, the storage conditions, and how many times they've already been opened past their limit.</p>
+
+        <div style="overflow-x:auto;margin:1.6em 0">
+          <table style="width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px">
+            <thead>
+              <tr style="border-bottom:2px solid var(--kst-accent)">
+                <th style="text-align:left;padding:8px 10px 8px 0">Paper Condition</th>
+                <th style="text-align:left;padding:8px 10px">Typical Thread</th>
+                <th style="text-align:left;padding:8px 10px">Needle</th>
+                <th style="text-align:left;padding:8px 0 8px 10px">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--kst-line)">
+                <td style="padding:10px 10px 10px 0">Supple, minimal browning</td>
+                <td style="padding:10px">25/3 or 30/3 linen</td>
+                <td style="padding:10px">#16–18 curved</td>
+                <td style="padding:10px 0 10px 10px;color:var(--kst-ink-soft)">Standard weight holds without extra slack in the fold</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--kst-line)">
+                <td style="padding:10px 10px 10px 0">Moderate brittleness, slight browning</td>
+                <td style="padding:10px">18/3 linen, waxed</td>
+                <td style="padding:10px">#18 curved</td>
+                <td style="padding:10px 0 10px 10px;color:var(--kst-ink-soft)">Wax cuts friction, which matters more once the paper resists</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--kst-line)">
+                <td style="padding:10px 10px 10px 0">Significant brittleness, short fold life</td>
+                <td style="padding:10px">30/3 doubled</td>
+                <td style="padding:10px">#20 fine</td>
+                <td style="padding:10px 0 10px 10px;color:var(--kst-ink-soft)">Two finer passes spread load across more fiber than one heavy pass</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--kst-line)">
+                <td style="padding:10px 10px 10px 0">Powdery or flaking at the fold</td>
+                <td style="padding:10px">Guard before sewing</td>
+                <td style="padding:10px">—</td>
+                <td style="padding:10px 0 10px 10px;color:var(--kst-ink-soft)">Sewing alone may not be the right first step at this stage</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 10px 10px 0">Mixed condition across one text block</td>
+                <td style="padding:10px">Match the weakest signature</td>
+                <td style="padding:10px">Varies</td>
+                <td style="padding:10px 0 10px 10px;color:var(--kst-ink-soft)">Sewing to the average treats the strongest fold as the standard</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="kst-h2">Tension, Wax, and the Needle's Job</h2>
+        <p>Gauge is only half the equation. Hand tension and wax do as much work as the thread itself, especially on paper that's already lost some of its give. A heavily waxed thread moves through a fold with less drag, which matters because drag — not thickness alone — is what tears the paper. Before threading the needle on the actual signature, a few checks earn their five minutes:</p>
+        <ul>
+          <li>Pull a short length of the chosen thread taut and note how much give it has before it feels like it's cutting into a fingertip</li>
+          <li>Fold a scrap of similar-weight paper double and see how the gauge sits in the crease under light tension</li>
+          <li>Wax the thread if the paper shows any drag resistance during that scrap test</li>
+          <li>Sew the most damaged or least valuable signature first, so the test is informative rather than costly</li>
+        </ul>
+        <p>None of this replaces judgment built from handling enough books to feel the difference between paper that's merely old and paper that's actually failing. It just narrows the guessing before the needle goes in for real.</p>
+
+        <div class="kst-leaf" style="max-width:var(--kst-maxw);margin:1.8em 0 0">
+          <span class="kst-kicker" style="margin-bottom:.6em">A Note, Not a Recommendation</span>
+          <p style="margin:0;color:var(--kst-ink-soft)">This piece describes tradeoffs observed across a range of bench projects — it isn't a chart to follow without looking at the book in front of you. Paper varies by mill, by decade, and by how it was stored for however many years came before it reached the workbench. The only test that means anything is a scrap pass against the actual signature, not a table on a screen.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="kst-section kst-related">
+      <div class="kst-shell">
+        <span class="kst-kicker">Read Also</span>
+        <h3 class="kst-h2">More from the journal</h3>
+        <div class="kst-spread kst-spread--items" style="grid-template-columns:repeat(3,1fr);margin-top:20px">
+
+          <article class="kst-leaf kst-card">
+            <div class="kst-card-thumb"><img src="img/reading-the-broken-fold.jpg" alt="Close-up of a torn book signature fold" loading="lazy"></div>
+            <p class="kst-card-meta"><span>Signatures</span></p>
+            <h3><a href="reading-the-broken-fold.html">Reading the Broken Fold</a></h3>
+            <p>Before any needle touches the paper, the fold itself tells you what happened and what it will tolerate a second time.</p>
+            <a class="kst-card-link" href="reading-the-broken-fold.html">Read the entry →</a>
+          </article>
+
+          <article class="kst-leaf kst-card">
+            <div class="kst-card-thumb"><img src="img/paper-grain-and-why-it-cracks.jpg" alt="Sheet of paper being folded to test grain direction" loading="lazy"></div>
+            <p class="kst-card-meta"><span>Paper Care</span></p>
+            <h3><a href="paper-grain-and-why-it-cracks.html">Paper Grain and Why It Cracks</a></h3>
+            <p>A fold made against the grain looks fine for a while, then fails all at once along a line you could have predicted.</p>
+            <a class="kst-card-link" href="paper-grain-and-why-it-cracks.html">Read the entry →</a>
+          </article>
+
+          <article class="kst-leaf kst-card">
+            <div class="kst-card-thumb"><img src="img/awls-needles-and-the-right-amount-of-force.jpg" alt="Bookbinding awl and curved needles laid on a workbench" loading="lazy"></div>
+            <p class="kst-card-meta"><span>Tools</span></p>
+            <h3><a href="awls-needles-and-the-right-amount-of-force.html">Awls, Needles, and the Right Amount of Force</a></h3>
+            <p>The workbench gets the attention. The hand tools, and how lightly you hold them, decide most of the outcome.</p>
+            <a class="kst-card-link" href="awls-needles-and-the-right-amount-of-force.html">Read the entry →</a>
+          </article>
+
+        </div>
+        <div class="kst-folio"></div>
+      </div>
+    </section>
+
+  </article>
+
+  </main>
+  <footer class="kst-footer">
+    <div class="kst-shell kst-footer-grid">
+      <div>
+        <div class="kst-footer-brand">Kettlestitch</div>
+        <p class="kst-footer-desc">A journal about the physical work of keeping books together — sewing signatures, rebuilding spines, and knowing when a repair should be left alone. Written from the bench, not the showroom.</p>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="safe.html">Journal</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="mailto:hello@kettlestitch.shop">hello@kettlestitch.shop</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="kst-shell kst-footer-bottom">
+      <span>&copy; 2026 Kettlestitch. An independent binder's journal.</span>
+      <span>Not affiliated with any publisher, library, or auction house.</span>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

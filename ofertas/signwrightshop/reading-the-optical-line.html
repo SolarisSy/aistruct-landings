@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reading the Optical Line · Signwright</title>
+  <meta name="description" content="How optical letter spacing corrects what a ruler gets wrong on a hand-painted sign, and why painters mark a fascia by eye before reaching for a straightedge.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://signwright.shop/reading-the-optical-line.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230f0f0f'/%3E%3Ctext x='32' y='45' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%23c8a33e' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+  <style>
+*,*::before,*::after{box-sizing:border-box;}
+html,body,h1,h2,h3,h4,p,ul,ol,li,figure,blockquote,dl,dd,form{margin:0;padding:0;}
+ul,ol{list-style:none;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button,input{font-family:inherit;font-size:inherit;}
+html{-webkit-text-size-adjust:100%;}
+::selection{background:#c8a33e;color:#0f0f0f;}
+
+:root{
+  --sgw-black:#0f0f0f;
+  --sgw-cream:#f5efe0;
+  --sgw-ink:#f5efe0;
+  --sgw-ink-cream:#181307;
+  --sgw-gold:#c8a33e;
+  --sgw-gold-dim:rgba(200,163,62,.32);
+  --sgw-radius:10px;
+  --sgw-maxw:1045px;
+  --sgw-serif:'Big Caslon','Big Caslon Medium','Book Antiqua',Georgia,'Times New Roman',serif;
+  --sgw-sans:'Trebuchet MS','Trebuchet','Lucida Grande',Tahoma,sans-serif;
+}
+
+html,body{background:var(--sgw-black);}
+body{font-family:var(--sgw-sans);color:var(--sgw-ink);font-size:17px;line-height:1.62;overflow-x:hidden;}
+
+.sgw-inner{max-width:var(--sgw-maxw);margin:0 auto;padding:0 32px;}
+
+.sgw-band{width:100%;padding:88px 0;}
+.sgw-band--dark{background:var(--sgw-black);color:var(--sgw-ink);}
+.sgw-band--light{background:var(--sgw-cream);color:var(--sgw-ink-cream);}
+.sgw-band--hero{padding:120px 0 96px;}
+.sgw-band--tight{padding:64px 0;}
+.sgw-band--cta{padding:96px 0;text-align:center;}
+
+.sgw-head{background:var(--sgw-black);border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-head__row{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:22px 32px;max-width:var(--sgw-maxw);margin:0 auto;}
+.sgw-logo{font-family:var(--sgw-serif);font-size:24px;letter-spacing:.05em;text-transform:uppercase;color:var(--sgw-gold);}
+.sgw-nav{display:flex;gap:26px;flex-wrap:wrap;}
+.sgw-nav a{font-size:12.5px;text-transform:uppercase;letter-spacing:.13em;padding-bottom:5px;border-bottom:1px solid transparent;}
+.sgw-nav a:hover,.sgw-nav a[aria-current]{color:var(--sgw-gold);border-color:var(--sgw-gold);}
+
+.sgw-kicker{display:block;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sgw-gold);margin-bottom:16px;}
+.sgw-band--light .sgw-kicker{color:#8f6a1c;}
+.sgw-h1{font-family:var(--sgw-serif);font-weight:400;font-size:clamp(42px,7vw,96px);line-height:.98;letter-spacing:-.01em;margin-bottom:24px;}
+.sgw-page-h1{font-family:var(--sgw-serif);font-weight:400;font-size:clamp(38px,6vw,74px);line-height:1.03;margin-bottom:20px;}
+.sgw-h2{font-family:var(--sgw-serif);font-weight:400;font-size:clamp(30px,4.2vw,52px);line-height:1.05;margin-bottom:20px;}
+.sgw-h3{font-family:var(--sgw-serif);font-weight:400;font-size:24px;margin-bottom:10px;}
+.sgw-lede{font-size:17.5px;max-width:62ch;opacity:.92;}
+.sgw-lede + .sgw-lede{margin-top:14px;}
+
+.sgw-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;}
+.sgw-hero p{color:#dcd2b8;max-width:48ch;margin-bottom:32px;}
+.sgw-band--light .sgw-hero p{color:#3c3520;}
+.sgw-hero__actions{display:flex;gap:16px;flex-wrap:wrap;}
+.sgw-hero__figure{border:1px solid var(--sgw-gold-dim);border-radius:var(--sgw-radius);overflow:hidden;aspect-ratio:4/5;}
+.sgw-hero__figure img{width:100%;height:100%;object-fit:cover;}
+.sgw-hero__figure--wide{aspect-ratio:16/10;}
+
+.sgw-btn{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;text-transform:uppercase;letter-spacing:.14em;padding:16px 30px;border-radius:var(--sgw-radius);border:1px solid var(--sgw-gold);background:var(--sgw-gold);color:var(--sgw-black);transition:background .15s,color .15s;cursor:pointer;}
+.sgw-btn:hover{background:transparent;color:var(--sgw-gold);}
+.sgw-btn--ghost{background:transparent;color:var(--sgw-gold);}
+.sgw-btn--ghost:hover{background:var(--sgw-gold);color:var(--sgw-black);}
+.sgw-band--light .sgw-btn--ghost{color:#181307;border-color:#181307;}
+.sgw-band--light .sgw-btn--ghost:hover{background:#181307;color:var(--sgw-cream);}
+
+.sgw-lines{margin-top:44px;border-top:1px solid var(--sgw-gold-dim);}
+.sgw-line{display:grid;grid-template-columns:118px 1fr auto;gap:28px;align-items:center;padding:28px 0;border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-line__thumb{width:118px;height:118px;border-radius:var(--sgw-radius);overflow:hidden;border:1px solid var(--sgw-gold-dim);flex-shrink:0;}
+.sgw-line__thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.sgw-line:hover .sgw-line__thumb img{transform:scale(1.05);}
+.sgw-line__meta{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sgw-gold);margin-bottom:8px;}
+.sgw-line__title{font-family:var(--sgw-serif);font-weight:400;font-size:clamp(21px,2.4vw,30px);line-height:1.14;margin-bottom:8px;}
+.sgw-line:hover .sgw-line__title{color:#8f6a1c;}
+.sgw-line__dek{font-size:14px;opacity:.72;max-width:58ch;}
+.sgw-line__arrow{font-family:var(--sgw-serif);font-size:26px;color:var(--sgw-gold);justify-self:end;}
+
+.sgw-sheet{position:relative;border:1px solid var(--sgw-gold-dim);border-radius:var(--sgw-radius);padding:44px 40px;background-image:repeating-linear-gradient(to bottom,rgba(200,163,62,.16),rgba(200,163,62,.16) 1px,transparent 1px,transparent 34px);overflow:hidden;}
+.sgw-sheet::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--sgw-gold-dim);}
+.sgw-sheet__label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sgw-gold);margin-bottom:18px;position:relative;z-index:1;}
+.sgw-sheet__word{font-family:var(--sgw-serif);font-size:clamp(34px,6vw,64px);letter-spacing:.02em;position:relative;z-index:1;}
+.sgw-sheet__cap{position:relative;height:1px;background:var(--sgw-gold);margin-top:18px;}
+.sgw-sheet__cap span{position:absolute;right:0;top:-22px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sgw-gold);}
+
+.sgw-feats{display:grid;grid-template-columns:repeat(2,1fr);margin-top:44px;border-top:1px solid var(--sgw-gold-dim);border-left:1px solid var(--sgw-gold-dim);}
+.sgw-feat{padding:32px 34px;border-right:1px solid var(--sgw-gold-dim);border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-feat__num{display:block;font-family:var(--sgw-serif);font-size:13px;letter-spacing:.1em;color:var(--sgw-gold);margin-bottom:12px;}
+.sgw-feat p{font-size:14.5px;opacity:.78;}
+
+.sgw-steps{margin-top:44px;border-top:1px solid var(--sgw-gold-dim);}
+.sgw-step{display:grid;grid-template-columns:70px 1fr;gap:24px;padding:26px 0;border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-step__num{font-family:var(--sgw-serif);font-size:34px;color:var(--sgw-gold);}
+.sgw-step p{font-size:14.5px;opacity:.8;max-width:60ch;}
+
+.sgw-entries{margin-top:44px;border-top:1px solid var(--sgw-gold-dim);}
+.sgw-entry{padding:26px 0;border-bottom:1px solid var(--sgw-gold-dim);}
+.sgw-entry__term{font-family:var(--sgw-serif);font-size:23px;color:var(--sgw-gold);margin-bottom:8px;}
+.sgw-band--light .sgw-entry__term{color:#8f6a1c;}
+.sgw-entry__def{font-size:15px;max-width:70ch;opacity:.9;}
+
+.sgw-news{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;}
+.sgw-news input[type=email]{flex:1;min-width:220px;padding:15px 18px;border-radius:var(--sgw-radius);border:1px solid var(--sgw-gold-dim);background:transparent;color:inherit;font-size:14px;}
+.sgw-news__ok{display:none;margin-top:14px;font-size:13px;color:var(--sgw-gold);}
+
+.sgw-prose{max-width:72ch;}
+.sgw-prose p{margin-bottom:18px;font-size:15.5px;opacity:.92;}
+.sgw-prose h2{font-family:var(--sgw-serif);font-weight:400;font-size:26px;margin:38px 0 14px;}
+.sgw-prose ul{list-style:disc;margin:0 0 18px 22px;}
+.sgw-prose li{margin-bottom:8px;font-size:15px;}
+
+.sgw-foot{background:var(--sgw-black);border-top:1px solid var(--sgw-gold-dim);padding:64px 0 0;}
+.sgw-foot__grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:36px;padding-bottom:48px;max-width:var(--sgw-maxw);margin:0 auto;padding-left:32px;padding-right:32px;}
+.sgw-foot__brand p{margin-top:14px;font-size:14px;color:#c9bf9e;max-width:34ch;}
+.sgw-logo--foot{font-size:21px;}
+.sgw-foot__label{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sgw-gold);margin-bottom:14px;}
+.sgw-foot__col a{display:block;font-size:14px;color:#d8cfb8;padding:6px 0;}
+.sgw-foot__col a:hover{color:var(--sgw-gold);}
+.sgw-foot__base{border-top:1px solid var(--sgw-gold-dim);padding:22px 32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#9a917a;max-width:var(--sgw-maxw);margin:0 auto;}
+.sgw-foot__base a{color:var(--sgw-gold);}
+
+@media (max-width:860px){
+  .sgw-hero{grid-template-columns:1fr;}
+  .sgw-hero__figure{order:-1;aspect-ratio:16/9;}
+  .sgw-feats{grid-template-columns:1fr;}
+  .sgw-line{grid-template-columns:84px 1fr;}
+  .sgw-line__arrow{display:none;}
+  .sgw-foot__grid{grid-template-columns:1fr 1fr;}
+  .sgw-step{grid-template-columns:50px 1fr;}
+}
+@media (max-width:560px){
+  .sgw-band{padding:56px 0;}
+  .sgw-band--hero{padding:78px 0 56px;}
+  .sgw-inner{padding:0 20px;}
+  .sgw-head__row{padding:18px 20px;}
+  .sgw-foot__grid{grid-template-columns:1fr;padding:0 20px 40px;}
+  .sgw-foot__base{padding:20px;}
+  .sgw-line{grid-template-columns:1fr;}
+  .sgw-line__thumb{width:100%;height:180px;}
+  .sgw-nav{gap:14px;}
+}
+
+/* article extras — reading-the-optical-line */
+.sgw-prose a{color:#8f6a1c;text-decoration:underline;}
+.sgw-prose blockquote.sgw-pull{font-family:var(--sgw-serif);font-style:italic;font-size:22px;line-height:1.4;color:#8f6a1c;border-left:3px solid var(--sgw-gold);padding:4px 0 4px 24px;margin:34px 0;}
+.sgw-prose .sgw-callout{border:1px solid var(--sgw-gold-dim);border-left:3px solid var(--sgw-gold);border-radius:var(--sgw-radius);background:rgba(200,163,62,.08);padding:20px 22px;margin:30px 0;}
+.sgw-prose .sgw-callout p{margin:0;font-size:14.5px;opacity:1;}
+.sgw-prose .sgw-callout strong{color:#8f6a1c;}
+.sgw-table-wrap{overflow-x:auto;margin:26px 0;border:1px solid var(--sgw-gold-dim);border-radius:var(--sgw-radius);}
+.sgw-table{width:100%;min-width:540px;border-collapse:collapse;font-size:13.5px;}
+.sgw-table th,.sgw-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--sgw-gold-dim);vertical-align:top;}
+.sgw-table th{background:rgba(200,163,62,.12);text-transform:uppercase;font-size:11px;letter-spacing:.08em;color:#8f6a1c;}
+.sgw-table tr:last-child td{border-bottom:none;}
+.sgw-prose .sgw-note{border-top:1px solid var(--sgw-gold-dim);border-bottom:1px solid var(--sgw-gold-dim);padding:20px 0;margin:36px 0;}
+.sgw-prose .sgw-note p{margin:0;font-size:13px;opacity:.75;line-height:1.7;}
+.sgw-prose .sgw-readalso{border:1px solid var(--sgw-gold-dim);border-radius:var(--sgw-radius);background:rgba(200,163,62,.06);padding:22px 24px;margin:36px 0 8px;}
+.sgw-prose .sgw-readalso__label{margin:0 0 12px;font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:#8f6a1c;}
+.sgw-prose .sgw-readalso ul{list-style:none;margin:0;padding:0;}
+.sgw-prose .sgw-readalso li{margin-bottom:10px;font-size:15px;}
+.sgw-prose .sgw-readalso li:last-child{margin-bottom:0;}
+  </style>
+</head><body>
+  <header class="sgw-head">
+    <div class="sgw-head__row">
+      <a class="sgw-logo" href="safe.html">Signwright</a>
+      <nav class="sgw-nav" aria-label="Primary">
+        <a href="safe.html">Journal</a>
+        <a href="app.html">Layout Sheet</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="sgw-post">
+    <section class="sgw-band sgw-band--dark sgw-band--hero">
+      <div class="sgw-inner sgw-hero">
+        <div>
+          <span class="sgw-kicker">Layout · January 14, 2026</span>
+          <h1 class="sgw-page-h1">Reading the Optical Line</h1>
+          <p class="sgw-lede">Why a ruler gets the spacing wrong and a trained eye gets it right.</p>
+        </div>
+        <figure class="sgw-hero__figure sgw-hero__figure--wide"><img src="img/reading-the-optical-line.jpg" alt="Reading the Optical Line" loading="lazy"></figure>
+      </div>
+    </section>
+
+    <section class="sgw-band sgw-band--light">
+      <div class="sgw-inner sgw-prose">
+
+        <p>On a wet Tuesday in a shop that still smells faintly of turpentine and chalk dust, a painter named Costas holds a folded slip of paper against a half-marked fascia and just looks at it. The straightedge is still in the toolbox. He isn't measuring the gap between the O and the P — he's reading it, the way he's read ten thousand letter pairs before this one, and what his eye tells him doesn't match what a ruler would insist on. This is the disagreement at the center of every hand-lettered sign meant to be read from across a street: optical spacing against metric spacing, and the two part ways exactly where the reading gets hardest.</p>
+
+        <h2>What the Ruler Actually Measures</h2>
+        <p>A ruler is honest about exactly one thing: the straight-line distance between two points. Laid against a row of capital letters, it reports the gap between the right edge of one letterform's bounding box and the left edge of the next, and it reports that number with total confidence regardless of what shape actually sits inside those edges. The trouble is that almost no letter fills its own bounding box evenly. A capital H runs full height and nearly full width on both sides, ink pressed right up against the invisible rectangle that contains it. A capital O does nothing of the sort — its curve falls away from that rectangle on every side, leaving quiet corners of white the ruler never accounts for, because the ruler was never measuring the letter. It was measuring the box.</p>
+
+        <h2>The Letters That Lie About Their Own Width</h2>
+        <p>Three families of letters cause most of the trouble on a layout: the straight-sided (H, I, L, N), the round (O, C, G, Q), and the pointed (A, V, W, and to a lesser degree T and Y). Set a straight-sided pair at a given ruler distance and the word reads correctly, since both letters carry their weight all the way to the edge of the box. Set that same ruler distance next to a round letter and the gap suddenly looks wider than its neighbors, because the curve's shoulder has already retreated inward before the measured gap even begins. Pointed letters split the difference unevenly along their own height — tight near the base, open near the tip — which is part of why a fixed rule like <a href="the-quarter-inch-habit.html">a flat quarter-inch between every pair</a> tends to break down the moment a word mixes letterforms, and almost every word does.</p>
+
+        <h2>Marking a Fascia by Eye</h2>
+        <p>Watch a sign painter lay out a name on a board and the sequence rarely opens with a tape measure. A chalk line gets snapped for the baseline, the letters get blocked in loosely with a soft pencil — full width, rough spacing — and then the painter steps back from the board, sometimes clear across the shop, to view the word from something close to the distance it will actually be read at. Gaps get closed beside a round letter, opened beside a straight one, and the whole line gets read again before a brush touches paint. Some painters keep a hand mirror on the bench for exactly this step, since a reversed word breaks the habit of reading it as language and leaves only the shapes to judge. None of this is guesswork. It's a correction built on the same instinct a type designer relies on when kerning a typeface, just worked by hand, board by board, letter pair by letter pair.</p>
+
+        <blockquote class="sgw-pull">A ruler will tell you the exact distance between two shapes. It has never once told you whether the word between them looks even from across the street.</blockquote>
+
+        <p>That gap between what's measured and what's seen is why a metrically perfect layout can still look wrong hanging twelve feet up on a shopfront, and why a layout that would fail a ruler check can read as perfectly even from the sidewalk. The eye isn't sloppier than the ruler in this exchange. It's simply answering a different question, and the trained hand behind <a href="a-brush-does-not-forget.html">a brush that does not forget</a> is largely what turns that answer into something reliable rather than a guess repeated over a career.</p>
+
+        <div class="sgw-callout"><p><strong>A way to check your own eye:</strong> photograph the loose layout on a phone and shrink the image down to a thumbnail, or squint at the board from across the room. Reducing the scale strips away the temptation to measure mechanically, and any gap that reads unevenly at that distance will usually read unevenly from the street as well.</p></div>
+
+        <h2>A Working Table of Common Corrections</h2>
+        <p>None of what follows is a fixed formula — typeface, board size, and viewing distance all shift it slightly — but these are the pairings that turn up on nearly every hand-lettered job.</p>
+
+        <div class="sgw-table-wrap">
+          <table class="sgw-table">
+            <thead><tr><th>Letter pairing</th><th>What the ruler suggests</th><th>Typical optical correction</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td>Two straight stems (H beside N)</td><td>Equal ruler gap reads correctly</td><td>Little to no adjustment</td><td>Both letters carry weight to the very edge of their own box</td></tr>
+              <tr><td>Straight stem beside a round letter (N beside O)</td><td>Equal ruler gap looks too wide</td><td>Close the gap slightly</td><td>The curve's shoulder retreats from its own bounding box, leaving false air</td></tr>
+              <tr><td>Two round letters together (O beside O)</td><td>Ruler gap looks widest of all</td><td>Close further than a single round pairing</td><td>Both letters lose density near the edge, compounding the gap</td></tr>
+              <tr><td>Pointed letter beside a straight one (A beside N)</td><td>Ruler gap reads uneven top to bottom</td><td>Close near the point, hold ruler distance near the base</td><td>The point carries almost no weight where the stem carries full weight</td></tr>
+              <tr><td>A numeral or punctuation beside a capital</td><td>Ruler gap often reads too tight</td><td>Open the gap slightly</td><td>Small forms need more breathing room than their measured width suggests</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Why the Correction Still Has to Be Learned by Hand</h2>
+        <p>None of this transfers cleanly to a printed rule, which is part of why optical spacing tends to stay a shop skill passed hand to hand rather than a formula written down and followed. A few habits do seem to shorten the time it takes to develop it:</p>
+        <ul>
+          <li>Mark the same short word a dozen times on scrap board, varying only the spacing, then compare the results from across the room rather than up close.</li>
+          <li>Lay a metrically even version of a word beside an optically corrected one and note exactly where the eye starts to disagree with the tape.</li>
+          <li>Practice on round-heavy words first — a name full of O's and C's exposes optical gaps faster than one built mostly from straight stems.</li>
+          <li>Come back to a finished layout the next morning, with a rested eye, before committing it to paint.</li>
+        </ul>
+        <p>It takes longer than most people expect, and it rarely announces the moment it clicks. One board simply starts looking right without a ruler in hand, and the next board after it does too — and somewhere in that stretch, the straightedge stops being the first tool reached for and becomes the last one, kept mostly for baselines and long horizontals where a level answer really is the correct answer.</p>
+
+        <div class="sgw-note"><p>This article describes a general convention in hand-lettering layout for educational purposes, not a fixed formula. Optical adjustment varies by typeface, board size, viewing distance, and the individual painter's eye. Treat the guidance above as a starting point for practice, not a substitute for training under a working sign painter.</p></div>
+
+        <div class="sgw-readalso">
+          <p class="sgw-readalso__label">Read also</p>
+          <ul>
+            <li><a href="scaling-a-fascia-by-eye.html">Scaling a Fascia by Eye</a></li>
+            <li><a href="the-pounce-pattern-revival.html">The Pounce Pattern Revival</a></li>
+            <li><a href="why-vinyl-fades-and-paint-doesnt.html">Why Vinyl Fades and Paint Doesn't</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </article>
+
+  <footer class="sgw-foot">
+    <div class="sgw-foot__grid">
+      <div class="sgw-foot__brand">
+        <span class="sgw-logo sgw-logo--foot">Signwright</span>
+        <p>A small journal about hand-painted signs, kept by people who still hold a mahlstick. Layout, enamel, gold leaf, scale.</p>
+      </div>
+      <div class="sgw-foot__col">
+        <span class="sgw-foot__label">Read</span>
+        <a href="safe.html">Journal</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="sgw-foot__col">
+        <span class="sgw-foot__label">Site</span>
+        <a href="app.html">Layout Sheet</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="sgw-foot__col">
+        <span class="sgw-foot__label">Legal</span>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+    <div class="sgw-foot__base">
+      <p>&copy; 2026 Signwright. An independent journal. Not affiliated with any sign shop, brand, or manufacturer named in these pages.</p>
+      <p><a href="mailto:hello@signwright.shop">hello@signwright.shop</a></p>
+    </div>
+  </footer>
+  <script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

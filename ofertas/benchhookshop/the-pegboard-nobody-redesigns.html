@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pegboard Nobody Redesigns · Benchhook</title>
+<meta name="description" content="Pegboards get hung on day one and never rethought. The tells of a stale board, why moving one hook feels like a project, and a light annual review.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://benchhook.shop/the-pegboard-nobody-redesigns.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%231f2124'/%3E%3Ccircle cx='16' cy='11' r='3' fill='none' stroke='%23f0a500' stroke-width='2'/%3E%3Crect x='9' y='17' width='14' height='9' rx='2' fill='none' stroke='%23f0a500' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bnh-bg:#1f2124;
+  --bnh-bg2:#17181a;
+  --bnh-card:#26282c;
+  --bnh-line:#3a3d42;
+  --bnh-text:#e6e8ea;
+  --bnh-mute:#a4a7ac;
+  --bnh-panel:#eeeae1;
+  --bnh-ink:#232320;
+  --bnh-ink-mute:#5c584f;
+  --bnh-accent:#f0a500;
+  --bnh-accent-dim:#c98600;
+  --bnh-radius:6.5px;
+  --bnh-maxw:995px;
+  --bnh-serif:'Bell MT','Bell MT Std',Cambria,Georgia,'Times New Roman',serif;
+  --bnh-sans:Consolas,'Lucida Console','Courier New',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background-color:var(--bnh-bg);background-image:radial-gradient(circle,rgba(255,255,255,.055) 1.4px,transparent 1.6px);background-size:26px 26px;color:var(--bnh-text);font-family:var(--bnh-sans);line-height:1.5;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+h1,h2,h3,h4{font-family:var(--bnh-serif);font-weight:700;margin:0 0 .5em;}
+.bnh-wrap{max-width:var(--bnh-maxw);margin:0 auto;padding:0 20px;}
+.bnh-site-header{position:sticky;top:0;z-index:20;background:var(--bnh-bg2);border-bottom:2px solid var(--bnh-accent);}
+.bnh-header-inner{max-width:var(--bnh-maxw);margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.bnh-logo{font-family:var(--bnh-serif);font-size:1.3rem;letter-spacing:.03em;text-decoration:none;color:var(--bnh-text);font-weight:700;}
+.bnh-logo span{color:var(--bnh-accent);}
+.bnh-logo-sm{font-family:var(--bnh-serif);font-size:1.05rem;color:var(--bnh-text);margin:0 0 .5em;font-weight:700;}
+.bnh-nav{display:flex;gap:22px;flex-wrap:wrap;}
+.bnh-nav a{text-decoration:none;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bnh-mute);border-bottom:1px solid transparent;padding-bottom:3px;transition:color .15s,border-color .15s;}
+.bnh-nav a:hover,.bnh-nav a:focus{color:var(--bnh-accent);border-color:var(--bnh-accent);}
+.bnh-hero{max-width:var(--bnh-maxw);margin:26px auto 10px;padding:0 20px;}
+.bnh-hero-frame{position:relative;border-radius:var(--bnh-radius);overflow:hidden;border:2px solid var(--bnh-accent);background:var(--bnh-bg2);}
+.bnh-hero-frame img{width:100%;height:min(46vw,380px);object-fit:cover;filter:grayscale(.1) contrast(1.05);}
+.bnh-hero-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,16,18,.92) 0%,rgba(15,16,18,.35) 55%,rgba(15,16,18,.05) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:26px;}
+.bnh-hero-kicker{font-family:var(--bnh-sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bnh-accent);margin-bottom:.5em;}
+.bnh-hero-overlay h1{font-size:clamp(1.5rem,4vw,2.35rem);color:#fff;max-width:640px;margin:0 0 .3em;}
+.bnh-hero-overlay p{color:#d8d9da;max-width:560px;font-size:.95rem;margin:0;}
+.bnh-section{max-width:var(--bnh-maxw);margin:0 auto;padding:44px 20px;}
+.bnh-section-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:22px;border-bottom:1px solid var(--bnh-line);padding-bottom:12px;}
+.bnh-section-head h2{font-size:1.4rem;}
+.bnh-section-tag{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bnh-accent);}
+.bnh-pegboard{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+.bnh-card{display:flex;flex-direction:column;text-decoration:none;color:inherit;}
+.bnh-thumb{position:relative;aspect-ratio:1/1;border-radius:var(--bnh-radius);overflow:hidden;border:1.5px solid var(--bnh-line);background:#151617;transition:border-color .15s,transform .15s;}
+.bnh-card:hover .bnh-thumb{border-color:var(--bnh-accent);transform:translateY(-2px);}
+.bnh-thumb img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.05);}
+.bnh-thumb::before,.bnh-thumb::after{content:"";position:absolute;top:7px;width:8px;height:8px;border-radius:50%;background:var(--bnh-bg);border:2px solid var(--bnh-accent);}
+.bnh-thumb::before{left:7px;}
+.bnh-thumb::after{right:7px;}
+.bnh-badge{position:absolute;right:6px;bottom:6px;width:26px;height:26px;border-radius:50%;background:rgba(15,16,18,.82);border:1px solid var(--bnh-accent);display:flex;align-items:center;justify-content:center;}
+.bnh-badge svg{width:14px;height:14px;stroke:var(--bnh-accent);}
+.bnh-cardbody{padding:10px 1px 0;}
+.bnh-cat{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bnh-accent);}
+.bnh-card h3{font-size:.98rem;line-height:1.28;margin:.4em 0;color:var(--bnh-text);}
+.bnh-dek{font-size:.78rem;color:var(--bnh-mute);line-height:1.45;margin:0;}
+.bnh-meta{font-size:.68rem;color:#6f7377;margin-top:.5em;letter-spacing:.03em;}
+@media (max-width:900px){.bnh-pegboard{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:620px){.bnh-pegboard{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:400px){.bnh-pegboard{grid-template-columns:1fr;}}
+.bnh-panel-wrap{padding:34px 20px 60px;}
+.bnh-panel{max-width:var(--bnh-maxw);margin:0 auto;background:var(--bnh-panel);color:var(--bnh-ink);border-radius:var(--bnh-radius);padding:clamp(26px,5vw,64px);border:1px solid #d9d3c2;}
+.bnh-panel h1{color:var(--bnh-ink);font-size:clamp(1.7rem,4vw,2.3rem);}
+.bnh-panel h2{color:var(--bnh-ink);font-size:1.3rem;margin-top:1.6em;}
+.bnh-panel h3{color:var(--bnh-ink);font-size:1.08rem;margin-top:1.3em;}
+.bnh-panel p{font-family:var(--bnh-serif);font-size:1.02rem;line-height:1.72;margin:0 0 1.15em;max-width:70ch;}
+.bnh-panel li{font-family:var(--bnh-serif);font-size:1.02rem;line-height:1.68;margin-bottom:.5em;}
+.bnh-kicker{font-family:var(--bnh-sans);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bnh-accent-dim);margin-bottom:.7em;}
+.bnh-byline{font-family:var(--bnh-sans);font-size:.76rem;color:var(--bnh-ink-mute);letter-spacing:.03em;margin:0 0 2em;padding-bottom:1.4em;border-bottom:1px dashed #cfc7b0;}
+.bnh-panel-thumb{width:100%;border-radius:var(--bnh-radius);margin:1.6em 0;border:1px solid #d9d3c2;}
+.bnh-callout{background:#e4ddc7;border-left:3px solid var(--bnh-accent-dim);border-radius:0 var(--bnh-radius) var(--bnh-radius) 0;padding:14px 18px;font-family:var(--bnh-sans);font-size:.85rem;color:var(--bnh-ink);margin:1.6em 0;}
+.bnh-backlink{display:inline-block;margin-top:2em;font-family:var(--bnh-sans);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bnh-ink);text-decoration:none;border-bottom:1px solid var(--bnh-accent-dim);}
+.bnh-app-section{background:var(--bnh-bg2);border-radius:var(--bnh-radius);border:1px solid var(--bnh-line);padding:36px;}
+.bnh-app-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;}
+.bnh-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;}
+.bnh-feat{background:var(--bnh-card);border:1px solid var(--bnh-line);border-radius:var(--bnh-radius);padding:16px;}
+.bnh-feat svg{width:22px;height:22px;stroke:var(--bnh-accent);margin-bottom:.6em;}
+.bnh-feat h4{font-size:.92rem;margin-bottom:.35em;}
+.bnh-feat p{font-size:.78rem;color:var(--bnh-mute);margin:0;line-height:1.5;}
+.bnh-mockup{background:#151617;border:1.5px solid var(--bnh-line);border-radius:var(--bnh-radius);padding:18px;}
+.bnh-mockup-head{display:flex;justify-content:space-between;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bnh-mute);border-bottom:1px solid var(--bnh-line);padding-bottom:10px;margin-bottom:8px;}
+.bnh-mockrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--bnh-line);font-size:.82rem;}
+.bnh-mockrow:last-child{border-bottom:none;}
+.bnh-dot{width:9px;height:9px;border-radius:50%;border:2px solid var(--bnh-accent);flex-shrink:0;}
+.bnh-dot.bnh-dot-empty{border-color:#7a3f3f;background:transparent;}
+.bnh-dot.bnh-dot-full{background:var(--bnh-accent);}
+.bnh-mockrow .bnh-mname{flex:1;}
+.bnh-mockrow .bnh-mcount{color:var(--bnh-mute);font-variant-numeric:tabular-nums;}
+.bnh-btn{display:inline-block;background:var(--bnh-accent);color:#1f1a0c;font-family:var(--bnh-sans);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;padding:.8em 1.5em;border-radius:var(--bnh-radius);border:none;text-decoration:none;cursor:pointer;transition:filter .15s,transform .15s;}
+.bnh-btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.bnh-btn-ghost{background:transparent;color:var(--bnh-accent);border:1.5px solid var(--bnh-accent);}
+.bnh-btn-dark{background:var(--bnh-ink);color:var(--bnh-panel);}
+.bnh-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;}
+.bnh-step{border:1px dashed var(--bnh-line);border-radius:var(--bnh-radius);padding:16px;position:relative;}
+.bnh-step-num{font-family:var(--bnh-serif);font-size:1.6rem;color:var(--bnh-accent);display:block;margin-bottom:.2em;}
+.bnh-step h4{font-size:.9rem;margin-bottom:.3em;}
+.bnh-step p{font-size:.78rem;color:var(--bnh-mute);margin:0;}
+.bnh-about-blurb{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start;}
+.bnh-about-blurb p{color:var(--bnh-mute);font-size:.92rem;line-height:1.65;}
+.bnh-newsletter{background:linear-gradient(135deg,#26282c,#1a1b1d);border:1px solid var(--bnh-line);border-radius:var(--bnh-radius);padding:30px;text-align:center;}
+.bnh-newsletter h2{font-size:1.2rem;}
+.bnh-newsletter p{color:var(--bnh-mute);font-size:.85rem;max-width:46ch;margin:0 auto 1.2em;}
+.bnh-nl-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:420px;margin:0 auto;}
+.bnh-nl-form input[type=email]{flex:1;min-width:200px;background:#151617;border:1px solid var(--bnh-line);border-radius:var(--bnh-radius);padding:.8em 1em;color:var(--bnh-text);font-family:var(--bnh-sans);font-size:.85rem;}
+.bnh-nl-ok{display:none;margin-top:10px;font-size:.8rem;color:var(--bnh-accent);}
+.bnh-faq-item{border-bottom:1px dashed #cfc7b0;padding:14px 0;}
+.bnh-faq-item summary{font-family:var(--bnh-serif);font-size:1.05rem;cursor:pointer;color:var(--bnh-ink);list-style:none;position:relative;padding-right:30px;}
+.bnh-faq-item summary::-webkit-details-marker{display:none;}
+.bnh-faq-item summary::after{content:"+";position:absolute;right:0;top:0;color:var(--bnh-accent-dim);font-size:1.2rem;}
+.bnh-faq-item[open] summary::after{content:"–";}
+.bnh-faq-item p{margin-top:.7em;}
+.bnh-glossary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 44px;}
+.bnh-gterm{border-bottom:1px dashed #cfc7b0;padding:14px 0;}
+.bnh-gterm dt{font-family:var(--bnh-serif);font-weight:700;font-size:1.02rem;color:var(--bnh-ink);}
+.bnh-gterm dd{margin:.35em 0 0;font-size:.92rem;color:var(--bnh-ink-mute);font-family:var(--bnh-serif);line-height:1.55;}
+@media (max-width:700px){.bnh-glossary-grid{grid-template-columns:1fr;}}
+.bnh-policy-list{list-style:none;margin:0;padding:0;}
+.bnh-policy-list li{padding-left:1.4em;position:relative;}
+.bnh-policy-list li::before{content:"—";position:absolute;left:0;color:var(--bnh-accent-dim);}
+.bnh-contact-box{background:#e4ddc7;border-radius:var(--bnh-radius);padding:18px 20px;font-family:var(--bnh-sans);font-size:.85rem;display:inline-block;margin-top:.5em;}
+.bnh-site-footer{background:var(--bnh-bg2);border-top:2px solid var(--bnh-accent);margin-top:20px;padding:40px 20px 16px;}
+.bnh-footer-inner{max-width:var(--bnh-maxw);margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;}
+.bnh-footer-col p{color:var(--bnh-mute);font-size:.82rem;line-height:1.55;margin:0;}
+.bnh-footer-h{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bnh-accent);margin:0 0 .8em;}
+.bnh-footer-col a{display:block;font-size:.82rem;color:var(--bnh-mute);text-decoration:none;margin-bottom:.55em;}
+.bnh-footer-col a:hover{color:var(--bnh-accent);}
+.bnh-footer-bottom{max-width:var(--bnh-maxw);margin:26px auto 0;padding-top:16px;border-top:1px solid var(--bnh-line);font-size:.72rem;color:#6f7377;}
+@media (max-width:800px){
+  .bnh-app-grid{grid-template-columns:1fr;}
+  .bnh-feat-grid{grid-template-columns:repeat(2,1fr);}
+  .bnh-steps{grid-template-columns:1fr;}
+  .bnh-about-blurb{grid-template-columns:1fr;}
+  .bnh-footer-inner{grid-template-columns:1fr;}
+}
+@media (max-width:480px){.bnh-feat-grid{grid-template-columns:1fr;}}
+.bnh-team-card{background:#e4ddc7;border-radius:var(--bnh-radius);padding:18px 20px;}
+.bnh-team-card h3{margin-top:0;font-size:1.02rem;}
+.bnh-team-card p{font-family:var(--bnh-serif);font-size:.92rem;margin:0;color:var(--bnh-ink-mute);line-height:1.6;}
+.bnh-team-role{font-family:var(--bnh-sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bnh-accent-dim);}
+.bnh-panel .bnh-about-blurb{gap:26px;}
+
+/* article-specific */
+.bnh-post p a,.bnh-post li a{color:var(--bnh-ink);text-decoration:none;border-bottom:1px solid var(--bnh-accent-dim);}
+.bnh-post p a:hover,.bnh-post li a:hover{color:var(--bnh-accent-dim);}
+.bnh-tablewrap{overflow-x:auto;margin:1.7em 0;-webkit-overflow-scrolling:touch;}
+.bnh-post table{width:100%;min-width:540px;border-collapse:collapse;font-family:var(--bnh-sans);font-size:.82rem;color:var(--bnh-ink);}
+.bnh-post caption{caption-side:bottom;font-family:var(--bnh-sans);font-size:.72rem;color:var(--bnh-ink-mute);text-align:left;padding-top:10px;}
+.bnh-post th{text-align:left;background:#e4ddc7;border-bottom:2px solid var(--bnh-accent-dim);padding:10px 12px;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;}
+.bnh-post td{border-bottom:1px dashed #cfc7b0;padding:10px 12px;vertical-align:top;line-height:1.55;}
+.bnh-post tbody tr:last-child td{border-bottom:none;}
+.bnh-pull{margin:1.9em 0;padding:.1em 0 .1em 22px;border-left:3px solid var(--bnh-accent-dim);}
+.bnh-pull p{font-family:var(--bnh-serif);font-style:italic;font-size:1.2rem;line-height:1.5;margin:0;color:var(--bnh-ink);max-width:56ch;}
+.bnh-note{background:#e4ddc7;border:1px solid #d3cab2;border-radius:var(--bnh-radius);padding:18px 22px;margin:2.2em 0 0;}
+.bnh-note h3{margin-top:0;font-size:1.02rem;}
+.bnh-note p:last-child{margin-bottom:0;}
+.bnh-readalso{border:1px dashed #cfc7b0;border-radius:var(--bnh-radius);padding:18px 22px;margin:1.6em 0 0;}
+.bnh-ra-h{font-family:var(--bnh-sans);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bnh-accent-dim);margin:0 0 .8em;}
+.bnh-readalso ul{list-style:none;margin:0;padding:0;}
+.bnh-readalso li{margin-bottom:.55em;font-size:.98rem;}
+.bnh-readalso li:last-child{margin-bottom:0;}
+.bnh-readalso a{color:var(--bnh-ink);text-decoration:none;border-bottom:1px solid var(--bnh-accent-dim);}
+</style>
+</head>
+<body>
+<header class="bnh-site-header">
+  <div class="bnh-header-inner">
+    <a class="bnh-logo" href="/safe.html">BENCH<span>HOOK</span></a>
+    <nav class="bnh-nav">
+      <a href="/safe.html">Journal</a>
+      <a href="/app.html">Toolcount</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="bnh-panel-wrap">
+  <article class="bnh-post bnh-panel">
+    <span class="bnh-kicker">Fixtures</span>
+    <h1>The Pegboard Nobody Redesigns</h1>
+    <p class="bnh-byline">Fixtures &middot; Apr 27, 2026 &middot; Most pegboards are hung once and never rethought again, even after the tool mix changes completely.</p>
+
+    <p>A pegboard usually goes up on the first weekend. The bench is bare, half the boxes are still taped shut, and whoever is holding the drill has a clear mental picture of a shop that does not exist yet. Holes get marked. Hooks go in at a comfortable height. Then the work changes twice over, three tools leave and five arrive, and the board stays exactly as it was — the oldest decision in the room, made by the person who knew the least about the room.</p>
+
+    <img class="bnh-panel-thumb" src="img/the-pegboard-nobody-redesigns.jpg" alt="The Pegboard Nobody Redesigns">
+
+    <h2>Designed on day one, by a stranger</h2>
+    <p>That stranger is you, minus every hour you have logged since. On installation day the layout is a guess wearing the clothes of a plan. Sockets go left because sockets went left in the shop where you learned. A long clear stretch is reserved for clamps you intend to buy. The drill sits dead centre because it felt important, and on that day it was.</p>
+    <p>None of this is unreasonable. It is simply written before the evidence arrives, and the evidence arrives slowly. A run of work shows up that needs three hex sizes forty times a week. A tool you were certain about goes untouched for eighteen months. Someone borrows the second hammer and it never comes home. In our own six square metres, the layout that lasted longest was never the best one — it was the one nobody wanted to spend an afternoon undoing.</p>
+
+    <h2>The tells of a stale board</h2>
+    <p>A stale board does not look broken. It looks lived in, which is exactly why it passes inspection every time you glance at it. You have to look for specific things instead.</p>
+    <ul>
+      <li>An outline with nothing in it, every day, for months. That is not a gap — a gap gets filled at five o'clock. That is a vacancy, and it is the loudest signal a wall can send. We wrote about the difference in <a href="the-shape-that-tells-on-you.html">The Shape That Tells on You</a>.</li>
+      <li>A tool hanging on a bare hook with no painted shape beneath it, because it arrived after the paint dried and nobody wanted to open the tin again.</li>
+      <li>One crowded corner where three hooks do the work of eight, and everything hangs at a slight angle to clear its neighbour.</li>
+      <li>Half a board that is simply empty, holding the ghost of a category of work you stopped doing years ago.</li>
+      <li>A hook you reach past. Every shop has one. The tool on it is fine; the position is wrong for the hand that uses it.</li>
+    </ul>
+
+    <div class="bnh-tablewrap">
+      <table>
+        <caption>A quick reading of five common tells. None of these require rebuilding the wall.</caption>
+        <thead>
+          <tr><th>What you see</th><th>What it usually means</th><th>Smallest useful move</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Outline empty for months</td><td>The tool left the shop, or lives somewhere else now</td><td>Retire the outline; leave the hook for reassignment</td></tr>
+          <tr><td>Tool with no outline</td><td>It arrived after the board was painted</td><td>Trace it where it currently hangs before deciding it belongs there</td></tr>
+          <tr><td>Crowded corner, angled tools</td><td>The board grew around one heavy-use zone</td><td>Move one item out per visit, not eight at once</td></tr>
+          <tr><td>Empty half</td><td>A whole kind of work ended</td><td>Leave it empty one more season, then reclaim it deliberately</td></tr>
+          <tr><td>A hook you reach past</td><td>Position, not tool, is the problem</td><td>Swap it with a neighbour and watch for a week</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <blockquote class="bnh-pull">
+      <p>A board goes stale on the day it stops being the fastest way to answer "where is it" — and nobody announces that day.</p>
+    </blockquote>
+
+    <h2>Why moving one hook feels like a project</h2>
+    <p>Mostly it is framing. "Redesign the pegboard" is a Saturday. "Move one hook" is ninety seconds. The mind quietly files the second under the first, and then nothing happens, because Saturdays are expensive and ninety seconds are not.</p>
+    <p>Paint does the rest. Once shapes are on the wall, moving a tool means either living with a wrong silhouette or repainting, and repainting means matching the colour, and matching means a trip to buy more. The very thing that made the board honest also made it heavy. That tradeoff is worth understanding before you commit to it — we laid out both sides in <a href="painted-outlines-versus-labels.html">Painted Outlines Versus Labels</a>.</p>
+    <p>There is a third reason, less flattering. A board you built yourself feels like a judgement you already made. Rearranging it reads, faintly, as admitting the first pass was wrong. It was not wrong. It was early.</p>
+
+    <h2>A review, not a redesign</h2>
+    <p>The alternative to a redesign is a walk. Once a year — pick a date you will remember, the week the clocks change works well — stand in front of the board with a pencil and nothing else. No tools come down. Nothing gets moved that day.</p>
+    <ul>
+      <li>Mark every outline that has been empty since the last review. Not empty today; empty as a habit.</li>
+      <li>Mark every tool hanging without a shape under it.</li>
+      <li>Count the tools in the busiest quarter of the board and the tools in the quietest quarter. Write the two numbers on the pencil list.</li>
+      <li>Note the one hook you reach past. Just one, even if there are three.</li>
+      <li>Put the list in a drawer for a week. Then act on the two smallest items and ignore the rest.</li>
+    </ul>
+    <p>Two changes a year is a slow rate, and it is enough. It also keeps the wall recognisable, which matters more than optimal placement — a board that changes shape every month is as unreadable as one that never changes at all. Frequency is the honest sorting key here, the same principle we apply to restocking rather than filing things alphabetically.</p>
+
+    <div class="bnh-callout">
+      <strong>One habit that does the reviewing for you:</strong> if the shop already runs a short end-of-day count, the stale outlines announce themselves. An outline that comes up empty on the count sheet twenty evenings in a row has already made the argument — you only have to read it.
+    </div>
+
+    <h2>The wall stops being read once it stops being trusted</h2>
+    <p>This is the part that matters more than layout. A pegboard works because it is a record: the shape says the tool belongs here, so the eye can check a whole wall in one pass. That only holds while the record is accurate. Let two or three outlines go wrong — one for a tool that left, one for a tool that moved — and the surface loses its authority. Not partly. Entirely.</p>
+    <p>After that, people stop consulting the board and start searching. They open drawers. They ask. The wall becomes decoration with holes in it, and the honest bookkeeping it used to do quietly disappears, which is precisely the failure mode a drawer has by design and a wall was supposed to avoid. Once searching becomes the default behaviour in a shop, no amount of repainting brings the trust back on its own — the outlines have to be right for a while before anyone believes them again.</p>
+    <p>So the argument for the annual walk is not tidiness. It is credibility maintenance. A board that is 90 percent accurate is not 90 percent useful; it tends to be closer to zero, because nobody can tell which tenth is lying.</p>
+
+    <div class="bnh-note">
+      <h3>Editorial note</h3>
+      <p>This is a description of how fixed-position storage behaves in small shops, drawn from our own bench and from readers who write in. Shops differ, and so do the tools and the hands using them. Treat any interval here — annual, weekly, one season — as a starting point to adjust, not a rule to follow.</p>
+    </div>
+
+    <div class="bnh-readalso">
+      <p class="bnh-ra-h">Read also</p>
+      <ul>
+        <li><a href="six-square-metres-and-a-count.html">Six Square Metres and a Count</a></li>
+        <li><a href="restocking-by-frequency-not-alphabet.html">Restocking by Frequency, Not Alphabet</a></li>
+        <li><a href="what-a-missing-outline-actually-costs.html">What a Missing Outline Actually Costs</a></li>
+      </ul>
+    </div>
+
+    <a class="bnh-backlink" href="/safe.html">&larr; Back to the journal</a>
+  </article>
+</section>
+
+<footer class="bnh-site-footer">
+  <div class="bnh-footer-inner">
+    <div class="bnh-footer-col">
+      <p class="bnh-logo-sm">BENCH<span style="color:var(--bnh-accent)">HOOK</span></p>
+      <p>A small journal about keeping a six-square-metre bench honest — fixed positions, painted silhouettes, and the count at the end of the day.</p>
+    </div>
+    <div class="bnh-footer-col">
+      <p class="bnh-footer-h">Read</p>
+      <a href="/safe.html">Journal</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About</a>
+    </div>
+    <div class="bnh-footer-col">
+      <p class="bnh-footer-h">Site</p>
+      <a href="/app.html">Toolcount</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </div>
+  </div>
+  <p class="bnh-footer-bottom">© 2026 Benchhook. An independent journal about workshop tool inventory. Not affiliated with any tool manufacturer, retailer, or brand.</p>
+</footer>
+</body>
+</html>

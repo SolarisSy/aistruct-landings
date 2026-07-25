@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — Mechanical Watchmaking Terms | Beat Rate</title>
+<meta name="description" content="A plain-language glossary of mechanical watchmaking terms — amplitude, beat error, escapement, mainspring, regulation, and more — as used on Beat Rate.">
+<link rel="canonical" href="https://beatrate.shop/glossary.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%232b3f8c'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23c9a765' stroke-width='2'/%3E%3Cline x1='32' y1='32' x2='32' y2='16' stroke='%23f6f5f2' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='32' y1='32' x2='42' y2='36' stroke='%23f6f5f2' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='2.5' fill='%239c7b34'/%3E%3C/svg%3E">
+<style>
+:root{
+  --brt-bg:#f6f5f2;
+  --brt-surface:#fffdf9;
+  --brt-ink:#191a1c;
+  --brt-ink-soft:#55534c;
+  --brt-brass:#9c7b34;
+  --brt-brass-soft:#c9a765;
+  --brt-brass-wash:#efe6d1;
+  --brt-steel:#2b3f8c;
+  --brt-steel-soft:#5c6db5;
+  --brt-line:#d9d3c2;
+  --brt-radius:13px;
+  --brt-maxw:725px;
+  --brt-margin-w:180px;
+  --brt-serif:Didot,'Bodoni MT','Hoefler Text',Georgia,serif;
+  --brt-sans:'Lucida Sans Unicode','Lucida Grande',Verdana,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body.brt-body{margin:0;background:var(--brt-bg);background-image:linear-gradient(var(--brt-line) 1px,transparent 1px),linear-gradient(90deg,var(--brt-line) 1px,transparent 1px);background-size:34px 34px;background-position:center top;background-attachment:local;color:var(--brt-ink);font-family:var(--brt-sans);font-size:16px;line-height:1.68;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;height:auto;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{font-family:var(--brt-serif);font-weight:400;letter-spacing:.01em;margin:0 0 .5em;color:var(--brt-ink);}
+p{margin:0 0 1.1em;}
+::selection{background:var(--brt-brass-wash);color:var(--brt-ink);}
+.brt-shell{max-width:calc(var(--brt-maxw) + var(--brt-margin-w) + 88px);margin:0 auto;padding:0 24px;}
+.brt-main{max-width:var(--brt-maxw);}
+.brt-topbar{border-bottom:1px solid var(--brt-line);background:rgba(246,245,242,.92);backdrop-filter:blur(4px);position:sticky;top:0;z-index:40;}
+.brt-nav{max-width:calc(var(--brt-maxw) + var(--brt-margin-w) + 88px);margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.brt-brand{display:flex;align-items:baseline;gap:8px;}
+.brt-brand-mark{width:26px;height:26px;flex:none;}
+.brt-wordmark{font-family:var(--brt-serif);font-style:italic;font-size:1.5rem;letter-spacing:.02em;}
+.brt-wordmark small{display:block;font-family:var(--brt-sans);font-style:normal;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--brt-brass);margin-top:-2px;}
+.brt-navlinks{display:flex;align-items:center;gap:26px;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;flex-wrap:wrap;}
+.brt-navlinks a{padding:4px 0;border-bottom:1px solid transparent;transition:border-color .15s ease,color .15s ease;}
+.brt-navlinks a:hover{border-color:var(--brt-brass);color:var(--brt-brass);}
+.brt-navlinks .brt-navcta{border:1px solid var(--brt-steel);border-radius:var(--brt-radius);padding:8px 16px;color:var(--brt-steel);}
+.brt-navlinks .brt-navcta:hover{background:var(--brt-steel);color:#fff;border-color:var(--brt-steel);}
+.brt-article-head{padding:40px 0 24px;border-bottom:1px solid var(--brt-line);margin-bottom:8px;}
+.brt-breadcrumb{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brt-ink-soft);margin-bottom:16px;}
+.brt-breadcrumb a:hover{color:var(--brt-brass);}
+.brt-article-head h1{font-size:clamp(1.8rem,3.6vw,2.5rem);max-width:14em;}
+.brt-article-head p{color:var(--brt-ink-soft);max-width:40em;}
+.brt-glossary-list{display:flex;flex-direction:column;padding:16px 0 12px;}
+.brt-glossary-item{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:18px 0;border-top:1px dashed var(--brt-line);}
+.brt-glossary-item:first-child{border-top:none;}
+.brt-glossary-no{font-family:var(--brt-serif);font-style:italic;color:var(--brt-brass);font-size:1.1rem;}
+.brt-glossary-term{font-family:var(--brt-serif);font-size:1.14rem;margin-bottom:4px;}
+.brt-glossary-def{font-size:.92rem;color:var(--brt-ink-soft);margin:0;}
+.brt-footer{border-top:1px solid var(--brt-line);margin-top:64px;padding:44px 0 30px;}
+.brt-footer-grid{display:grid;grid-template-columns:1.3fr .8fr .8fr .8fr;gap:28px;}
+.brt-footer-brand .brt-wordmark{font-size:1.3rem;}
+.brt-footer-tag{font-size:.82rem;color:var(--brt-ink-soft);margin-top:10px;max-width:26em;}
+.brt-footer-col h4{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--brt-brass);margin-bottom:12px;}
+.brt-footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:.86rem;}
+.brt-footer-col a:hover{color:var(--brt-brass);}
+.brt-footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.72rem;color:var(--brt-ink-soft);margin-top:36px;padding-top:20px;border-top:1px dashed var(--brt-line);}
+@media (max-width:640px){
+  .brt-navlinks{display:none;}
+  .brt-footer-grid{grid-template-columns:1fr;}
+  .brt-footer-bottom{flex-direction:column;}
+}
+</style>
+</head>
+<body class="brt-body">
+<header class="brt-topbar">
+  <div class="brt-nav">
+    <a href="safe.html" class="brt-brand" aria-label="Beat Rate home">
+      <svg class="brt-brand-mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#2b3f8c"/><circle cx="32" cy="32" r="22" fill="none" stroke="#c9a765" stroke-width="2"/><line x1="32" y1="32" x2="32" y2="16" stroke="#f6f5f2" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="32" x2="42" y2="36" stroke="#f6f5f2" stroke-width="2.5" stroke-linecap="round"/><circle cx="32" cy="32" r="2.5" fill="#9c7b34"/></svg>
+      <span class="brt-wordmark">Beat Rate<small>Mechanical Watch Journal</small></span>
+    </a>
+    <nav class="brt-navlinks">
+      <a href="safe.html">Journal</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="app.html" class="brt-navcta">Beat Rate App</a>
+    </nav>
+  </div>
+</header>
+
+<main class="brt-shell brt-main">
+
+  <div class="brt-article-head">
+    <div class="brt-breadcrumb"><a href="safe.html">Journal</a> / Glossary</div>
+    <h1>A short lexicon of mechanical watchmaking</h1>
+    <p>Terms as we use them across the journal — written for a reader with pliers on the table, not a textbook in hand.</p>
+  </div>
+
+  <div class="brt-glossary-list">
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">01</span>
+      <div>
+        <div class="brt-glossary-term">Amplitude</div>
+        <p class="brt-glossary-def">The arc, measured in degrees, that the balance wheel swings through on each half-beat. A well-serviced movement usually reads somewhere between 220&deg; and 300&deg; dial-up, tapering somewhat when the watch is turned crown-down.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">02</span>
+      <div>
+        <div class="brt-glossary-term">Beat error</div>
+        <p class="brt-glossary-def">The difference in time between the "tick" and the "tock" of a healthy escapement, which should otherwise be perfectly even. Measured in milliseconds, and usually corrected by rotating the hairspring stud.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">03</span>
+      <div>
+        <div class="brt-glossary-term">Isochronism</div>
+        <p class="brt-glossary-def">A balance spring's tendency to keep the same period of oscillation whether its swing is wide or narrow. No spring achieves this perfectly, which is part of why rate changes as a mainspring unwinds.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">04</span>
+      <div>
+        <div class="brt-glossary-term">Positional error</div>
+        <p class="brt-glossary-def">The spread in rate a movement shows when measured in different positions — dial up, dial down, crown up, crown down, and so on — caused mainly by gravity acting differently on the balance and its pivots.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">05</span>
+      <div>
+        <div class="brt-glossary-term">Mainspring</div>
+        <p class="brt-glossary-def">The coiled ribbon of spring steel or alloy that stores energy when the watch is wound and releases it gradually through the gear train to keep the watch running.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">06</span>
+      <div>
+        <div class="brt-glossary-term">Barrel</div>
+        <p class="brt-glossary-def">The toothed drum that houses the mainspring, transmitting its torque to the gear train through the barrel's outer teeth as the spring unwinds.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">07</span>
+      <div>
+        <div class="brt-glossary-term">Escapement</div>
+        <p class="brt-glossary-def">The assembly — usually escape wheel plus pallet fork in a lever escapement — that converts the continuous rotation of the gear train into small, periodic impulses to the balance wheel.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">08</span>
+      <div>
+        <div class="brt-glossary-term">Pallet fork</div>
+        <p class="brt-glossary-def">The lever-shaped component that locks and releases the escape wheel in turn, passing a small push to the balance wheel with every swing and, in the process, giving the watch its audible tick.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">09</span>
+      <div>
+        <div class="brt-glossary-term">Balance wheel</div>
+        <p class="brt-glossary-def">The oscillating wheel, paired with the hairspring, that acts as the watch's timekeeping regulator — its steady back-and-forth swing divides time into equal beats.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">10</span>
+      <div>
+        <div class="brt-glossary-term">Hairspring (balance spring)</div>
+        <p class="brt-glossary-def">A fine coiled spring attached to the balance staff that pulls the balance wheel back after each swing, setting the natural period of oscillation together with the balance's mass.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">11</span>
+      <div>
+        <div class="brt-glossary-term">Regulator</div>
+        <p class="brt-glossary-def">A small lever, usually carrying two pins, that changes the effective free length of the hairspring — and with it the watch's rate — without needing to touch the spring itself.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">12</span>
+      <div>
+        <div class="brt-glossary-term">Free-sprung balance</div>
+        <p class="brt-glossary-def">A design that regulates rate through small weighted screws or a variable-inertia rim on the balance itself, rather than through regulator pins — generally considered less prone to disturbance once set.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">13</span>
+      <div>
+        <div class="brt-glossary-term">Timegrapher</div>
+        <p class="brt-glossary-def">An instrument that listens to the escapement's ticking through a microphone and translates the pattern into rate, amplitude, and beat error — the main diagnostic tool at a home bench.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">14</span>
+      <div>
+        <div class="brt-glossary-term">Lift angle</div>
+        <p class="brt-glossary-def">The angle, in degrees, that the balance wheel rotates while receiving its impulse from the pallet fork. A timegrapher needs this value entered correctly to calculate amplitude accurately.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">15</span>
+      <div>
+        <div class="brt-glossary-term">Jewel</div>
+        <p class="brt-glossary-def">A small synthetic ruby or sapphire bearing set into the plates or bridges, used at pivot points and impulse surfaces to reduce friction and wear compared with bare metal.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">16</span>
+      <div>
+        <div class="brt-glossary-term">Endshake &amp; sideshake</div>
+        <p class="brt-glossary-def">The small amount of intentional play a pivot has along its axis (endshake) and across it (sideshake) — too little causes friction and stopping, too much causes instability and noise.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">17</span>
+      <div>
+        <div class="brt-glossary-term">Keyless works</div>
+        <p class="brt-glossary-def">The set of small levers and wheels behind the crown that let a single stem both wind the mainspring and, when pulled out, set the hands — named for replacing the separate winding key of pocket watches.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">18</span>
+      <div>
+        <div class="brt-glossary-term">Power reserve</div>
+        <p class="brt-glossary-def">The length of time a movement will continue to run on a full wind before the mainspring's torque drops too low to maintain the balance's amplitude.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">19</span>
+      <div>
+        <div class="brt-glossary-term">Click &amp; ratchet</div>
+        <p class="brt-glossary-def">A small spring-loaded pawl (the click) that engages the teeth of the ratchet wheel, allowing the mainspring to be wound in one direction while preventing it from unwinding back through the crown.</p>
+      </div>
+    </div>
+
+    <div class="brt-glossary-item">
+      <span class="brt-glossary-no">20</span>
+      <div>
+        <div class="brt-glossary-term">Poise</div>
+        <p class="brt-glossary-def">The balance of mass around a balance wheel's axis. A wheel that is not poised runs faster or slower depending on which side faces up, contributing to positional error.</p>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="brt-footer">
+  <div class="brt-shell">
+    <div class="brt-footer-grid">
+      <div class="brt-footer-brand">
+        <span class="brt-wordmark">Beat Rate</span>
+        <p class="brt-footer-tag">A journal about the mechanics of old watches — servicing, regulation, amplitude, and the oils that make a balance wheel keep faith with time.</p>
+      </div>
+      <div class="brt-footer-col">
+        <h4>Journal</h4>
+        <ul>
+          <li><a href="safe.html">Latest entries</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="brt-footer-col">
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="about.html">About Beat Rate</a></li>
+          <li><a href="app.html">The Beat Rate app</a></li>
+          <li><a href="mailto:contact@beatrate.shop">contact@beatrate.shop</a></li>
+        </ul>
+      </div>
+      <div class="brt-footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="brt-footer-bottom">
+      <span>&copy; 2026 Beat Rate. Notes from a kitchen-table bench.</span>
+      <span>Reading amplitude, one beat at a time.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
