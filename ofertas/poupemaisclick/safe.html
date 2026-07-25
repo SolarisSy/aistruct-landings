@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poupe Mais — separe uma parte antes que ela suma</title>
+  <meta name="description" content="Poupe Mais ajuda você a guardar dinheiro com método: reserve uma fatia do salário, acompanhe cada meta e veja a reserva crescer mês a mês — sem depender do que sobra no fim." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://poupemais.click/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Poupe Mais — separe uma parte antes que ela suma" />
+  <meta property="og:description" content="Reserve uma fatia do salário, acompanhe metas e veja a reserva crescer mês a mês." />
+  <meta property="og:url" content="https://poupemais.click/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='9' fill='%237a2d3f'/%3E%3Ctext x='32' y='45' font-size='32' font-family='%22Book Antiqua%22,Georgia,serif' font-weight='700' fill='%23f6efe7' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" />
+
+  <!-- Utmify Pixel Google -->
+  <script>
+    window.googlePixelId = "6a5c2403330a95e4d9ed8ca6";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --wine:#7a2d3f; --wine-dk:#5c2130; --gold:#b98a3e; --ink:#231a1d;
+      --blush:#f6efe7; --paper:#fdfaf6; --line:#e7dcd2; --muted:#6a5c5f;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:Verdana,Geneva,'DejaVu Sans',sans-serif;color:var(--ink);background:var(--paper);line-height:1.62;font-size:15px}
+    h1,h2,h3{font-family:'Book Antiqua','Palatino Linotype',Georgia,serif;line-height:1.18;color:var(--ink)}
+    .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+    a{color:var(--wine)}
+    a:hover{text-decoration:underline}
+
+    header{background:var(--paper);border-bottom:2px solid var(--wine)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+    .brand{display:flex;align-items:center;gap:11px;font-family:'Book Antiqua',Georgia,serif;font-weight:700;font-size:22px;color:var(--wine)}
+    .brand .mark{width:33px;height:33px;border-radius:6px;background:var(--wine);color:var(--blush);display:grid;place-items:center;font-family:'Book Antiqua',serif;font-weight:700}
+    .nav nav a{margin-left:24px;color:var(--muted);font-size:14px}
+    @media(max-width:640px){.nav nav{display:none}}
+
+    /* hero editorial centrado + numero grande de reserva */
+    .hero{background:var(--blush);padding:70px 0 44px;text-align:center}
+    .hero h1{font-size:40px;max-width:18ch;margin:0 auto 16px}
+    .hero p{font-size:18px;color:var(--muted);max-width:54ch;margin:0 auto 24px}
+    .cta{display:inline-block;background:var(--wine);color:var(--blush);padding:14px 28px;font-weight:700;letter-spacing:.02em}
+    .cta:hover{background:var(--wine-dk);text-decoration:none}
+    .figure{margin-top:34px}
+    .figure .big{font-family:'Book Antiqua',Georgia,serif;font-size:52px;color:var(--wine);font-weight:700}
+    .figure .cap{font-size:13px;color:var(--muted);letter-spacing:.04em}
+    .track{max-width:420px;margin:16px auto 0;height:10px;background:#eaded3;border:1px solid var(--line)}
+    .track i{display:block;height:100%;width:68%;background:var(--gold)}
+
+    section{padding:54px 0}
+    .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+    .sec-head{max-width:56ch;margin-bottom:30px}
+    .sec-head h2{font-size:28px;margin-bottom:10px}
+    .sec-head p{color:var(--muted)}
+
+    /* recursos: lista com marcador serifado, coluna unica larga */
+    .list .item{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--line)}
+    .list .item:last-child{border-bottom:1px solid var(--line)}
+    .list .num{font-family:'Book Antiqua',Georgia,serif;font-size:22px;color:var(--gold);font-weight:700}
+    .list h3{font-size:18px;margin-bottom:5px}
+    .list p{color:var(--muted);max-width:70ch}
+
+    .steps{background:var(--blush)}
+    .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+    @media(max-width:760px){.cols{grid-template-columns:1fr}}
+    .col h3{font-size:18px;margin-bottom:6px}
+    .col p{color:var(--muted)}
+    .col .tag{display:inline-block;font-family:'Book Antiqua',serif;color:var(--wine);border:1px solid var(--wine);border-radius:3px;padding:1px 9px;font-size:13px;margin-bottom:10px}
+
+    .faq details{border-bottom:1px solid var(--line);padding:15px 0}
+    .faq summary{font-family:'Book Antiqua',Georgia,serif;font-weight:700;font-size:17px;cursor:pointer;color:var(--ink)}
+    .faq p{margin-top:9px;color:var(--muted);max-width:66ch}
+
+    .disc{background:var(--blush);border-top:2px solid var(--wine)}
+    .disc .wrap{padding:26px 22px;font-size:13px;color:var(--muted)}
+    footer{background:var(--ink);color:#d3c3c8;padding:30px 0}
+    footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px}
+    footer a{color:var(--blush)}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><span class="mark">P</span> Poupe Mais</div>
+      <nav>
+        <a href="#recursos">Como ajuda</a>
+        <a href="#como">O método</a>
+        <a href="#duvidas">Dúvidas</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="kick">Reserva pessoal com método</p>
+      <h1>Guardar não é o que sobra — é o que você separa primeiro.</h1>
+      <p>O Poupe Mais inverte a lógica do fim do mês: você reserva uma fatia assim que o dinheiro entra, define metas com prazo e vê a reserva crescer, depósito a depósito.</p>
+      <a class="cta" href="#recursos">Começar a organizar</a>
+      <div class="figure">
+        <div class="big">R$ 3.400</div>
+        <div class="cap">exemplo de reserva de emergência — 68% da meta de R$ 5.000</div>
+        <div class="track"><i></i></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="recursos" class="wrap">
+    <div class="sec-head">
+      <p class="kick">Como ajuda</p>
+      <h2>Ferramentas simples para transformar intenção em reserva</h2>
+      <p>Sem conectar banco, sem promessa de rendimento. É disciplina organizada de um jeito que dá para manter.</p>
+    </div>
+    <div class="list">
+      <div class="item"><div class="num">01</div><div><h3>Separe antes de gastar</h3><p>Defina uma porcentagem ou um valor fixo para reservar assim que a renda cai. O que fica para gastar já vem descontado do que você guardou.</p></div></div>
+      <div class="item"><div class="num">02</div><div><h3>Uma meta por objetivo</h3><p>Reserva de emergência, viagem, matrícula, troca de aparelho. Cada meta tem valor, prazo e uma barra que mostra o quanto falta.</p></div></div>
+      <div class="item"><div class="num">03</div><div><h3>Depósitos que você registra</h3><p>Cada aporte entra em segundos e soma na meta certa. Ver o número subir é o que sustenta o hábito nos meses difíceis.</p></div></div>
+      <div class="item"><div class="num">04</div><div><h3>Lembrete do aporte</h3><p>Escolha o dia do mês para separar e receba o aviso. Poupar deixa de depender da memória e vira rotina.</p></div></div>
+      <div class="item"><div class="num">05</div><div><h3>Visão de quanto já guardou</h3><p>Some todas as metas e veja o total reservado até aqui. É o painel que lembra por que vale a pena continuar.</p></div></div>
+    </div>
+  </section>
+
+  <section id="como" class="steps">
+    <div class="wrap">
+      <div class="sec-head"><p class="kick">O método</p><h2>Três passos, um hábito</h2></div>
+      <div class="cols">
+        <div class="col"><span class="tag">Primeiro</span><h3>Defina a fatia</h3><p>Decida quanto separar por mês — comece pequeno, o importante é começar. Um valor constante vale mais que um grande de vez em quando.</p></div>
+        <div class="col"><span class="tag">Depois</span><h3>Aporte no dia certo</h3><p>Guarde assim que a renda entra, antes das outras despesas. Registre o depósito e veja a meta avançar.</p></div>
+        <div class="col"><span class="tag">Sempre</span><h3>Revise e aumente</h3><p>A cada mês, confira o progresso e, quando der, suba um pouco a fatia. Pequenos ajustes constroem uma reserva real.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="duvidas" class="wrap faq">
+    <div class="sec-head"><p class="kick">Dúvidas</p><h2>Perguntas frequentes</h2></div>
+    <details><summary>O Poupe Mais é um investimento ou rende juros?</summary><p>Não. É uma ferramenta de organização pessoal para ajudar você a separar e acompanhar sua reserva. Não guardamos dinheiro, não pagamos rendimento e não recomendamos investimentos.</p></details>
+    <details><summary>Quanto devo guardar por mês?</summary><p>O valor é seu. Muita gente começa com uma fatia pequena e constante e aumenta com o tempo. O método vale para qualquer valor — o que conta é a regularidade.</p></details>
+    <details><summary>Serve se meu salário muda todo mês?</summary><p>Sim. Você pode reservar uma porcentagem em vez de um valor fixo, de modo que o aporte acompanha o quanto entrou naquele mês.</p></details>
+    <details><summary>Preciso informar dados bancários?</summary><p>Não. Você registra os aportes manualmente. Não pedimos acesso à sua conta e não fazemos qualquer movimentação de dinheiro.</p></details>
+  </section>
+
+  <div class="disc">
+    <div class="wrap">
+      <strong>Aviso:</strong> Poupe Mais é uma ferramenta de organização e planejamento financeiro pessoal, de caráter informativo e educativo. Não constitui aconselhamento financeiro, contábil ou recomendação de investimento, não guarda valores nem paga rendimento, e não garante resultados — toda decisão financeira é de responsabilidade do usuário. Este site não é afiliado ao Google nem a qualquer instituição financeira.
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div>© <span id="y"></span> Poupe Mais — organização financeira pessoal</div>
+      <div><a href="/privacidade.html">Privacidade</a> &nbsp;·&nbsp; <a href="/termos.html">Termos</a></div>
+    </div>
+  </footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>

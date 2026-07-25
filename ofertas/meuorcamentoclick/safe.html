@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Orçamento — enxergue o mês antes que ele acabe</title>
+  <meta name="description" content="Meu Orçamento é um caderno digital de finanças: registre despesas, agrupe por categoria, defina limites e veja em uma tela quanto ainda pode gastar até o próximo pagamento." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://meuorcamento.click/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Meu Orçamento — enxergue o mês antes que ele acabe" />
+  <meta property="og:description" content="Despesas por categoria, limites por envelope e um resumo do mês numa tela só." />
+  <meta property="og:url" content="https://meuorcamento.click/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23c2410c'/%3E%3Ctext x='32' y='45' font-size='32' font-family='Cambria,Georgia,serif' font-weight='700' fill='%23faf6ee' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E" />
+
+  <!-- Utmify Pixel Google -->
+  <script>
+    window.googlePixelId = "6a5c2403330a95e4d9ed8ca6";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --clay:#c2410c; --clay-dk:#9a3412; --amber:#e8a33d; --ink:#2b2015;
+      --cream:#faf6ee; --paper:#fffdf9; --line:#ece1cf; --muted:#6b5d4c;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:Tahoma,Geneva,Verdana,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
+    h1,h2,h3{font-family:Cambria,Constantia,Georgia,serif;line-height:1.2;color:var(--ink)}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+    a{color:var(--clay);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    header{background:var(--cream);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+    .brand{display:flex;align-items:center;gap:10px;font-family:Cambria,Georgia,serif;font-weight:700;font-size:21px}
+    .brand .mark{width:32px;height:32px;border-radius:7px;background:var(--clay);color:var(--cream);display:grid;place-items:center;font-family:Cambria,serif;font-weight:700}
+    .nav nav a{margin-left:24px;color:var(--muted);font-size:15px}
+    @media(max-width:640px){.nav nav{display:none}}
+
+    /* hero: texto largo + tres pilulas de categoria (nao painel) */
+    .hero{background:linear-gradient(180deg,var(--cream),var(--paper));padding:66px 0 34px}
+    .hero h1{font-size:42px;max-width:15ch;margin-bottom:16px}
+    .hero p{font-size:18px;color:var(--muted);max-width:56ch;margin-bottom:24px}
+    .cta{display:inline-block;background:var(--clay);color:var(--cream);padding:13px 24px;border-radius:8px;font-weight:700}
+    .cta:hover{background:var(--clay-dk);text-decoration:none}
+    .pills{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px;background:var(--paper)}
+    .pill b{color:var(--clay)}
+
+    section{padding:54px 0}
+    .kick{font-family:Tahoma,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:8px}
+    .sec-head{max-width:58ch;margin-bottom:32px}
+    .sec-head h2{font-size:29px;margin-bottom:10px}
+    .sec-head p{color:var(--muted)}
+
+    /* recursos: 2 colunas grandes */
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+    .card{border:1px solid var(--line);border-left:4px solid var(--clay);border-radius:8px;padding:22px;background:var(--cream)}
+    .card .ic{font-size:24px;margin-bottom:10px}
+    .card h3{font-size:19px;margin-bottom:7px}
+    .card p{font-size:15px;color:var(--muted)}
+
+    /* como funciona: timeline horizontal numerada */
+    .steps{background:var(--cream)}
+    .tl{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    @media(max-width:760px){.tl{grid-template-columns:1fr}}
+    .tl .s{position:relative;padding-top:14px;border-top:3px solid var(--amber)}
+    .tl .s b{font-family:Cambria,serif;font-size:15px;color:var(--clay);display:block;margin-bottom:6px}
+    .tl .s h3{font-size:18px;margin-bottom:6px}
+    .tl .s p{font-size:15px;color:var(--muted)}
+
+    .faq details{border-bottom:1px solid var(--line);padding:15px 0}
+    .faq summary{font-family:Cambria,Georgia,serif;font-weight:700;font-size:17px;cursor:pointer;color:var(--ink)}
+    .faq p{margin-top:9px;color:var(--muted);font-size:15px;max-width:66ch}
+
+    .disc{background:var(--cream);border-top:1px solid var(--line)}
+    .disc .wrap{padding:26px 22px;font-size:13px;color:var(--muted)}
+    footer{background:var(--ink);color:#d8cbb8;padding:30px 0}
+    footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px}
+    footer a{color:var(--cream)}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><span class="mark">O</span> Meu Orçamento</div>
+      <nav>
+        <a href="#recursos">Recursos</a>
+        <a href="#como">Passo a passo</a>
+        <a href="#duvidas">Dúvidas</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="kick">Orçamento pessoal, sem planilha</p>
+      <h1>O fim do mês deixa de ser surpresa quando você anota o começo.</h1>
+      <p>Meu Orçamento junta suas despesas, agrupa por categoria e mostra, numa tela só, quanto de cada envelope ainda resta — para você decidir o próximo gasto com informação, não no susto.</p>
+      <a class="cta" href="#recursos">Ver os recursos</a>
+      <div class="pills">
+        <span class="pill">Moradia <b>R$ 1.150</b></span>
+        <span class="pill">Mercado <b>R$ 680</b></span>
+        <span class="pill">Reserva <b>R$ 400</b></span>
+      </div>
+    </div>
+  </div>
+
+  <section id="recursos" class="wrap">
+    <div class="sec-head">
+      <p class="kick">Recursos</p>
+      <h2>O básico bem feito — que dá para manter todo mês</h2>
+      <p>Nada de conectar banco ou decorar fórmula. Você anota, o app soma e mostra o que importa.</p>
+    </div>
+    <div class="grid2">
+      <div class="card"><div class="ic">📁</div><h3>Envelopes por categoria</h3><p>Distribua o salário entre moradia, mercado, transporte, contas e lazer, com um teto para cada. Quando um envelope aperta, você vê antes de estourar.</p></div>
+      <div class="card"><div class="ic">⏱️</div><h3>Lançamento em dois toques</h3><p>Gastou? Registra valor e categoria em segundos. Em uma semana o histórico já revela os gastos que passam despercebidos.</p></div>
+      <div class="card"><div class="ic">📆</div><h3>Contas na data certa</h3><p>Cadastre os vencimentos e receba o aviso antes do prazo. Boleto pago no dia é juros que você não paga por esquecimento.</p></div>
+      <div class="card"><div class="ic">🎯</div><h3>Metas com prazo</h3><p>Reserva de emergência, uma viagem, a troca do celular: defina valor e mês e acompanhe o quanto falta a cada depósito.</p></div>
+      <div class="card"><div class="ic">🧮</div><h3>Resumo do mês</h3><p>Entrou, saiu, sobrou. Um número claro para fechar o mês e ajustar os limites do próximo com o que você aprendeu.</p></div>
+      <div class="card"><div class="ic">🔒</div><h3>Sem senha de banco</h3><p>Você digita o que quer registrar. Nada de acesso automático à conta — a organização é sua e fica com você.</p></div>
+    </div>
+  </section>
+
+  <section id="como" class="steps">
+    <div class="wrap">
+      <div class="sec-head"><p class="kick">Passo a passo</p><h2>Do zero ao mês organizado em uma tarde</h2></div>
+      <div class="tl">
+        <div class="s"><b>Etapa 1</b><h3>Monte os envelopes</h3><p>Informe quanto entra por mês e reparta entre as categorias da sua rotina. Dá para ajustar depois, sem retrabalho.</p></div>
+        <div class="s"><b>Etapa 2</b><h3>Anote conforme gasta</h3><p>Cada compra vira um lançamento rápido. Você começa a enxergar onde o dinheiro escapa sem perceber.</p></div>
+        <div class="s"><b>Etapa 3</b><h3>Feche e recomece</h3><p>No fim do mês, leia o resumo e reajuste os limites. Planejar fica mais fácil a cada ciclo que passa.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="duvidas" class="wrap faq">
+    <div class="sec-head"><p class="kick">Dúvidas</p><h2>Perguntas frequentes</h2></div>
+    <details><summary>Meu Orçamento recomenda onde investir?</summary><p>Não. É uma ferramenta de organização do orçamento pessoal. Não indicamos investimentos nem prometemos rendimento — a proposta é ajudar você a enxergar e planejar o próprio dinheiro.</p></details>
+    <details><summary>Funciona para renda variável ou autônomo?</summary><p>Sim. Como você mesmo lança as entradas, dá para registrar renda que muda de mês para mês, dividir por semana ou por projeto e acompanhar do mesmo jeito.</p></details>
+    <details><summary>Preciso saber usar planilha?</summary><p>Não. Foi feito justamente para quem não quer planilha: categorias prontas, lançamento em dois toques e um resumo que qualquer pessoa entende.</p></details>
+    <details><summary>Onde ficam meus dados?</summary><p>Você controla o que registra e quando. Não pedimos acesso à sua conta bancária e não fazemos leitura automática de extrato.</p></details>
+  </section>
+
+  <div class="disc">
+    <div class="wrap">
+      <strong>Aviso:</strong> Meu Orçamento é uma ferramenta de organização e planejamento financeiro pessoal, de caráter informativo e educativo. Não constitui aconselhamento financeiro, contábil ou recomendação de investimento, e não garante resultados — toda decisão financeira é de responsabilidade do usuário. Este site não é afiliado ao Google nem a qualquer instituição financeira.
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div>© <span id="y"></span> Meu Orçamento — organização financeira pessoal</div>
+      <div><a href="/privacidade.html">Privacidade</a> &nbsp;·&nbsp; <a href="/termos.html">Termos</a></div>
+    </div>
+  </footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
