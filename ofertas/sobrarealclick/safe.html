@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobra Real — organização financeira pessoal, mês a mês</title>
+<meta name="description" content="Sobra Real é um painel simples para anotar o que entra, o que sai e o que sobra no seu mês — sem conectar conta bancária e sem promessa de rendimento.">
+<link rel="canonical" href="https://sobrareal.click/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sobra Real — organização financeira pessoal, mês a mês">
+<meta property="og:description" content="Um painel para anotar entradas, saídas e o que sobra no fim do mês. Sem conectar banco, sem promessa de retorno.">
+<meta property="og:url" content="https://sobrareal.click/">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e0603a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='32' font-weight='700' fill='%23ffffff' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+
+<!-- Utmify Pixel Google -->
+  <script>
+    window.googlePixelId = "6a5c2403330a95e4d9ed8ca6";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+<style>
+:root{
+  --accent:#e0603a;
+  --accent-dark:#b84a29;
+  --ink:#1f2530;
+  --bg:#f4f6f8;
+  --panel:#ffffff;
+  --line:#dfe3e8;
+  --muted:#5c6472;
+  --slate-900:#1b2028;
+  --slate-800:#242a34;
+  --slate-700:#333b48;
+  --up:#2f7d5b;
+  --down:#b84a29;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Tahoma,Geneva,Verdana,sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.sr-brand{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  color:var(--ink);
+  margin:0 0 .5em;
+}
+a{color:var(--accent-dark);}
+img{max-width:100%;display:block;}
+.sr-wrap{max-width:1120px;margin:0 auto;padding:0 20px;}
+.sr-small-wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+/* header */
+header.sr-site{
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;
+}
+.sr-site-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;
+}
+.sr-brand{
+  font-size:22px;letter-spacing:.2px;display:flex;align-items:center;gap:8px;
+}
+.sr-brand .sr-dot{
+  width:10px;height:10px;border-radius:3px;background:var(--accent);
+  display:inline-block;
+}
+.sr-nav-links{display:flex;gap:26px;list-style:none;margin:0;padding:0;}
+.sr-nav-links a{
+  color:var(--slate-700);text-decoration:none;font-size:14px;font-weight:bold;
+}
+.sr-nav-links a:hover{color:var(--accent-dark);}
+.sr-nav-cta{
+  background:var(--accent);color:#fff;border:none;border-radius:6px;
+  padding:9px 16px;font-size:14px;font-weight:bold;text-decoration:none;
+  font-family:Tahoma,Geneva,Verdana,sans-serif;
+}
+.sr-nav-cta:hover{background:var(--accent-dark);}
+.burger{display:none;}
+
+/* hero / dashboard */
+.sr-hero{
+  background:linear-gradient(180deg,#eef1f4 0%,var(--bg) 60%);
+  padding:52px 0 40px;
+  border-bottom:1px solid var(--line);
+}
+.sr-hero-grid{
+  display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;
+}
+.sr-eyebrow{
+  display:inline-block;font-size:12px;font-weight:bold;letter-spacing:.6px;
+  text-transform:uppercase;color:var(--accent-dark);
+  background:#fbe4da;border:1px solid #f2c3ae;border-radius:999px;
+  padding:5px 12px;margin-bottom:14px;
+}
+.sr-hero h1{font-size:34px;line-height:1.22;}
+.sr-hero p.sr-lead{font-size:16px;color:var(--muted);max-width:46ch;margin:14px 0 22px;}
+.sr-hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.sr-btn-primary{
+  background:var(--accent);color:#fff;border:none;border-radius:6px;
+  padding:13px 22px;font-size:15px;font-weight:bold;text-decoration:none;
+  display:inline-block;
+}
+.sr-btn-primary:hover{background:var(--accent-dark);}
+.sr-btn-ghost{
+  background:transparent;color:var(--slate-800);border:1px solid var(--line);
+  border-radius:6px;padding:13px 22px;font-size:15px;font-weight:bold;
+  text-decoration:none;display:inline-block;
+}
+.sr-btn-ghost:hover{border-color:var(--accent);color:var(--accent-dark);}
+.sr-hero-note{margin-top:14px;font-size:12.5px;color:var(--muted);}
+
+/* dashboard mockup */
+.sr-dash{
+  background:var(--slate-900);
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 18px 40px rgba(27,32,40,.28);
+}
+.sr-dash-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.sr-dash-title{color:#cfd4dc;font-size:12px;font-weight:bold;letter-spacing:.4px;text-transform:uppercase;}
+.sr-dash-dots span{width:8px;height:8px;border-radius:50%;display:inline-block;margin-left:5px;background:#4b5361;}
+.sr-kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
+.sr-kpi-tile{
+  background:var(--slate-800);border:1px solid var(--slate-700);border-radius:10px;
+  padding:12px 10px;
+}
+.sr-kpi-tile .sr-label{color:#9aa2b1;font-size:11px;text-transform:uppercase;letter-spacing:.4px;}
+.sr-kpi-tile .sr-value{color:#fff;font-size:19px;font-weight:bold;margin-top:4px;font-family:Georgia,serif;}
+.sr-kpi-tile.sr-up .sr-value{color:#7fd6ac;}
+.sr-kpi-tile.sr-down .sr-value{color:#f0a98a;}
+.sr-kpi-tile .sr-bar{height:4px;border-radius:3px;background:#3a4150;margin-top:9px;overflow:hidden;}
+.sr-kpi-tile .sr-bar i{display:block;height:100%;background:var(--accent);}
+.sr-widget-row{display:grid;grid-template-columns:1.3fr 1fr;gap:10px;}
+.sr-widget{
+  background:var(--slate-800);border:1px solid var(--slate-700);border-radius:10px;padding:12px;
+}
+.sr-widget h4{color:#e7e9ee;font-size:12px;margin:0 0 8px;text-transform:uppercase;letter-spacing:.4px;}
+.sr-chip-list{display:flex;flex-direction:column;gap:7px;}
+.sr-chip{display:flex;justify-content:space-between;font-size:12px;color:#c3c8d1;}
+.sr-chip b{color:#fff;font-weight:normal;}
+.sr-ring{
+  width:78px;height:78px;border-radius:50%;margin:4px auto 8px;
+  background:conic-gradient(var(--accent) 0deg 137deg,#3a4150 137deg 360deg);
+  display:flex;align-items:center;justify-content:center;
+}
+.sr-ring span{
+  width:56px;height:56px;border-radius:50%;background:var(--slate-800);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:bold;
+}
+.sr-ring-cap{text-align:center;font-size:11px;color:#9aa2b1;}
+.sr-dash-foot{font-size:10.5px;color:#6f7789;margin-top:10px;text-align:right;}
+
+/* generic section */
+section{padding:56px 0;}
+.sr-section-head{max-width:640px;margin:0 auto 34px;text-align:center;}
+.sr-section-head h2{font-size:27px;}
+.sr-section-head p{color:var(--muted);font-size:15px;}
+.sr-kicker{
+  font-size:12px;font-weight:bold;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--accent-dark);margin-bottom:8px;display:block;
+}
+
+/* features grid = widgets */
+.sr-feat-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:18px;
+}
+.sr-feat-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:20px;position:relative;
+}
+.sr-feat-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--accent);border-radius:12px 12px 0 0;
+}
+.sr-feat-ico{
+  width:40px;height:40px;border-radius:9px;background:#fbe4da;
+  display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:12px;
+}
+.sr-feat-card h3{font-size:16.5px;margin-bottom:6px;}
+.sr-feat-card p{font-size:14px;color:var(--muted);margin:0;}
+
+/* how it works */
+.sr-steps{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:step;
+}
+.sr-step{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 18px;
+}
+.sr-step .sr-num{
+  width:30px;height:30px;border-radius:8px;background:var(--slate-900);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;
+  font-weight:bold;font-size:14px;margin-bottom:12px;
+}
+.sr-step h3{font-size:15.5px;margin-bottom:6px;}
+.sr-step p{font-size:13.5px;color:var(--muted);margin:0;}
+
+/* faq */
+.sr-faq{max-width:760px;margin:0 auto;}
+.sr-faq-item{
+  border:1px solid var(--line);border-radius:10px;background:var(--panel);
+  padding:16px 18px;margin-bottom:12px;
+}
+.sr-faq-item h3{font-size:15.5px;margin-bottom:7px;color:var(--slate-900);}
+.sr-faq-item p{font-size:14px;color:var(--muted);margin:0;}
+
+/* disclaimer */
+.sr-disclaimer{
+  background:#eef1f4;border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:8px;padding:16px 18px;font-size:13px;color:var(--muted);
+  max-width:900px;margin:0 auto;
+}
+
+/* newsletter */
+.sr-news{
+  background:var(--slate-900);border-radius:14px;padding:32px;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;
+}
+.sr-news h2{color:#fff;font-size:22px;}
+.sr-news p{color:#b7bdc9;font-size:14px;}
+.sr-news form{display:flex;gap:10px;flex-wrap:wrap;}
+.sr-news input[type=email]{
+  flex:1;min-width:180px;padding:12px 14px;border-radius:6px;border:1px solid var(--slate-700);
+  background:var(--slate-800);color:#fff;font-family:Tahoma,Geneva,Verdana,sans-serif;font-size:14px;
+}
+.sr-news button{
+  background:var(--accent);color:#fff;border:none;border-radius:6px;padding:12px 18px;
+  font-weight:bold;font-size:14px;cursor:pointer;font-family:Tahoma,Geneva,Verdana,sans-serif;
+}
+.sr-news button:hover{background:var(--accent-dark);}
+#ok{display:none;color:#7fd6ac;font-size:13px;margin-top:8px;}
+
+/* footer */
+footer.sr-site{
+  background:var(--slate-900);color:#aab1bd;padding:44px 0 24px;margin-top:20px;
+}
+.sr-foot-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;margin-bottom:28px;
+}
+.sr-foot-brand .sr-brand{color:#fff;}
+.sr-foot-brand p{font-size:13px;color:#8a92a3;max-width:34ch;}
+footer.sr-site h4{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.4px;margin:0 0 12px;}
+footer.sr-site ul{list-style:none;margin:0;padding:0;}
+footer.sr-site li{margin-bottom:9px;}
+footer.sr-site a{color:#aab1bd;text-decoration:none;font-size:13.5px;}
+footer.sr-site a:hover{color:#fff;}
+.sr-foot-bottom{
+  border-top:1px solid var(--slate-700);padding-top:18px;
+  font-size:12px;color:#6f7789;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+
+@media (max-width:860px){
+  .sr-hero-grid{grid-template-columns:1fr;}
+  .sr-feat-grid{grid-template-columns:1fr;}
+  .sr-steps{grid-template-columns:1fr;}
+  .sr-foot-grid{grid-template-columns:1fr;}
+  .sr-news{grid-template-columns:1fr;}
+  .sr-nav-links{display:none;}
+  .sr-hero h1{font-size:27px;}
+  .sr-widget-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header class="sr-site">
+  <div class="sr-wrap sr-site-nav">
+    <div class="sr-brand"><span class="sr-dot"></span>Sobra Real</div>
+    <ul class="sr-nav-links">
+      <li><a href="#recursos">Recursos</a></li>
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#duvidas">Dúvidas</a></li>
+    </ul>
+    <a class="sr-nav-cta" href="#recursos">Ver o painel</a>
+  </div>
+</header>
+
+<section class="sr-hero">
+  <div class="sr-wrap sr-hero-grid">
+    <div>
+      <span class="sr-eyebrow">Organização pessoal</span>
+      <h1>Anote o que entra, o que sai e o que sobra — sem planilha, sem senha de banco.</h1>
+      <p class="sr-lead">O Sobra Real é um caderno digital para o seu dinheiro do mês: você lança à mão, ele soma, separa por categoria e mostra o que realmente sobrou no dia 30.</p>
+      <div class="sr-hero-actions">
+        <a class="sr-btn-primary" href="#recursos">Conhecer os recursos</a>
+        <a class="sr-btn-ghost" href="#como-funciona">Ver como funciona</a>
+      </div>
+      <p class="sr-hero-note">Sem conexão com conta bancária. Sem promessa de rendimento. Uso pessoal, lançamento manual.</p>
+    </div>
+    <div class="sr-dash" aria-hidden="true">
+      <div class="sr-dash-top">
+        <span class="sr-dash-title">Painel do mês · exemplo</span>
+        <span class="sr-dash-dots"><span></span><span></span><span></span></span>
+      </div>
+      <div class="sr-kpi-row">
+        <div class="sr-kpi-tile sr-up">
+          <div class="sr-label">Entrou</div>
+          <div class="sr-value">R$ 3.240</div>
+          <div class="sr-bar"><i style="width:78%"></i></div>
+        </div>
+        <div class="sr-kpi-tile sr-down">
+          <div class="sr-label">Saiu</div>
+          <div class="sr-value">R$ 2.860</div>
+          <div class="sr-bar"><i style="width:64%"></i></div>
+        </div>
+        <div class="sr-kpi-tile">
+          <div class="sr-label">Sobrou</div>
+          <div class="sr-value">R$ 380</div>
+          <div class="sr-bar"><i style="width:22%"></i></div>
+        </div>
+      </div>
+      <div class="sr-widget-row">
+        <div class="sr-widget">
+          <h4>Por categoria</h4>
+          <div class="sr-chip-list">
+            <div class="sr-chip"><span>Mercado</span><b>R$ 610</b></div>
+            <div class="sr-chip"><span>Transporte</span><b>R$ 340</b></div>
+            <div class="sr-chip"><span>Contas fixas</span><b>R$ 980</b></div>
+            <div class="sr-chip"><span>Lazer</span><b>R$ 210</b></div>
+          </div>
+        </div>
+        <div class="sr-widget">
+          <h4>Meta do mês</h4>
+          <div class="sr-ring"><span>62%</span></div>
+          <div class="sr-ring-cap">Reserva de emergência</div>
+        </div>
+      </div>
+      <div class="sr-dash-foot">Dados ilustrativos — não representam usuário real</div>
+    </div>
+  </div>
+</section>
+
+<section id="recursos">
+  <div class="sr-wrap">
+    <div class="sr-section-head">
+      <span class="sr-kicker">Recursos</span>
+      <h2>Seis telas para organizar o mês, não para prometer nada</h2>
+      <p>Cada recurso resolve uma parte específica da bagunça financeira do dia a dia — do lançamento simples ao aviso de conta perto de vencer.</p>
+    </div>
+    <div class="sr-feat-grid">
+      <div class="sr-feat-card">
+        <div class="sr-feat-ico">📊</div>
+        <h3>Orçamento por categoria</h3>
+        <p>Você define quanto pretende gastar em mercado, transporte, contas fixas e lazer, e o painel mostra em tempo real quanto já foi usado de cada faixa.</p>
+      </div>
+      <div class="sr-feat-card">
+        <div class="sr-feat-ico">🧾</div>
+        <h3>Lançamento rápido de gastos</h3>
+        <p>Toque em "novo gasto", digite o valor e escolha a categoria — leva menos tempo do que abrir uma planilha no celular no meio do supermercado.</p>
+      </div>
+      <div class="sr-feat-card">
+        <div class="sr-feat-ico">🎯</div>
+        <h3>Metas de guardar</h3>
+        <p>Separe um valor por mês para um objetivo — reserva, uma viagem, o conserto do carro — e acompanhe o percentual alcançado sem fórmula nenhuma.</p>
+      </div>
+      <div class="sr-feat-card">
+        <div class="sr-feat-ico">🔔</div>
+        <h3>Lembrete de contas a vencer</h3>
+        <p>Cadastre o boleto do aluguel, a fatura do cartão e a mensalidade da escola; o painel avisa alguns dias antes de cada vencimento.</p>
+      </div>
+      <div class="sr-feat-card">
+        <div class="sr-feat-ico">📅</div>
+        <h3>Resumo do mês</h3>
+        <p>No fechamento, uma tela reúne o que entrou, o que saiu e o que sobrou, categoria por categoria, para comparar com o mês anterior.</p>
+      </div>
+      <div class="sr-feat-card">
+        <div class="sr-feat-ico">🔒</div>
+        <h3>Sem senha de banco</h3>
+        <p>O lançamento é manual — o Sobra Real não pede acesso à sua conta, agência ou senha de internet banking em nenhuma etapa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" style="background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="sr-wrap">
+    <div class="sr-section-head">
+      <span class="sr-kicker">Como funciona</span>
+      <h2>Três passos, sem integração bancária</h2>
+    </div>
+    <div class="sr-steps">
+      <div class="sr-step">
+        <div class="sr-num">1</div>
+        <h3>Você cria as categorias</h3>
+        <p>Mercado, transporte, contas fixas, lazer — ou os nomes que fizerem sentido para a sua rotina.</p>
+      </div>
+      <div class="sr-step">
+        <div class="sr-num">2</div>
+        <h3>Lança o que entra e o que sai</h3>
+        <p>Um valor de cada vez, direto na tela do celular ou do computador, no momento em que acontece.</p>
+      </div>
+      <div class="sr-step">
+        <div class="sr-num">3</div>
+        <h3>Acompanha o que sobra</h3>
+        <p>No fechamento do mês, o painel mostra o saldo por categoria e o total que restou.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="duvidas">
+  <div class="sr-wrap">
+    <div class="sr-section-head">
+      <span class="sr-kicker">Dúvidas</span>
+      <h2>Perguntas frequentes</h2>
+    </div>
+    <div class="sr-faq">
+      <div class="sr-faq-item">
+        <h3>Preciso conectar minha conta do banco?</h3>
+        <p>Não. Todo lançamento é feito manualmente por você — o Sobra Real não solicita agência, conta ou senha de internet banking em nenhum momento.</p>
+      </div>
+      <div class="sr-faq-item">
+        <h3>O Sobra Real indica onde investir ou promete algum retorno?</h3>
+        <p>Não. É uma ferramenta de organização e registro de gastos. Não recomenda produtos financeiros, não indica aplicações e não garante rendimento, lucro ou resultado de nenhum tipo.</p>
+      </div>
+      <div class="sr-faq-item">
+        <h3>Dá para usar em família ou é só individual?</h3>
+        <p>Cada pessoa organiza o próprio painel. Se a casa tem mais de uma fonte de renda, cada um pode acompanhar separadamente e comparar o fechamento do mês.</p>
+      </div>
+      <div class="sr-faq-item">
+        <h3>O que acontece se eu esquecer de lançar um gasto?</h3>
+        <p>Nada trava. Você lança quando lembrar; o resumo do mês só considera o que foi registrado, então quanto mais próximo do dia do gasto, mais próximo do real o fechamento fica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sr-small-wrap">
+    <div class="sr-disclaimer">
+      O Sobra Real é uma ferramenta de organização e planejamento financeiro pessoal. Não constitui aconselhamento de investimento, não recomenda produtos financeiros e não garante resultado, rendimento ou economia de nenhum valor. Não é afiliado ao Google nem a qualquer instituição financeira.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sr-wrap">
+    <div class="sr-news">
+      <div>
+        <h2>Avisos sobre novidades do painel</h2>
+        <p>Deixe seu e-mail para receber atualizações de recursos. Sem spam, sem venda de dados a terceiros.</p>
+      </div>
+      <div>
+        <form onsubmit="return sub(event)">
+          <input type="email" placeholder="seu@email.com" required>
+          <button type="submit">Quero receber</button>
+        </form>
+        <div id="ok">Recebido — obrigado por acompanhar.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="sr-site">
+  <div class="sr-wrap">
+    <div class="sr-foot-grid">
+      <div class="sr-foot-brand">
+        <div class="sr-brand"><span class="sr-dot"></span>Sobra Real</div>
+        <p style="margin-top:10px;">Painel de organização financeira pessoal para anotar entradas, saídas e o que sobra no mês.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="#recursos">Recursos</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacidade.html">Política de Privacidade</a></li>
+          <li><a href="/termos.html">Termos de Uso</a></li>
+          <li><a href="mailto:contato@sobrareal.click">contato@sobrareal.click</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sr-foot-bottom">
+      <span>© <span id="y"></span> Sobra Real. Todos os direitos reservados.</span>
+      <span>Ferramenta de organização pessoal — não é instituição financeira.</span>
+    </div>
+  </div>
+</footer>
+
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){}e.target.reset();return false;}</script>
+<script>var y=document.getElementById('y');if(y){y.textContent=new Date().getFullYear();}</script>
+</body>
+</html>

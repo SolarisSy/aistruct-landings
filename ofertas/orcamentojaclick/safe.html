@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orçamento Já — organize o dinheiro do mês em blocos simples</title>
+<meta name="description" content="Orçamento Já é uma ferramenta para organizar gastos, metas e contas do mês em blocos claros. Sem conectar conta bancária, sem senha, sem promessa de rendimento.">
+<link rel="canonical" href="https://orcamentoja.click/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Orçamento Já — organize o dinheiro do mês em blocos simples">
+<meta property="og:description" content="Ferramenta de planejamento financeiro pessoal: orçamento por categoria, metas e lembretes de conta, num painel direto ao ponto.">
+<meta property="og:url" content="https://orcamentoja.click/">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23b45309'/%3E%3Crect x='3' y='3' width='58' height='58' fill='none' stroke='%23231a10' stroke-width='5'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='34' font-weight='700' fill='%23231a10' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E">
+
+<!-- Utmify Pixel Google -->
+  <script>
+    window.googlePixelId = "6a5c2403330a95e4d9ed8ca6";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+<style>
+  :root{
+    --ink:#231a10;
+    --bg:#faf6f0;
+    --accent:#b45309;
+    --accent-dark:#8a3f07;
+    --paper:#ffffff;
+    --border:4px solid var(--ink);
+    --font-display: Rockwell, "Franklin Gothic Medium", "Courier New", serif;
+    --font-body: Arial, Helvetica, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.55;
+    font-size:16px;
+  }
+  img{max-width:100%;display:block;}
+  a{color:var(--accent-dark);}
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-0.01em;line-height:1.1;}
+  .oj-wrap{max-width:1120px;margin:0 auto;padding:0 20px;}
+  .oj-mono{font-family:"Courier New",monospace;}
+
+  /* HEADER */
+  header.oj-site{
+    position:sticky;top:0;z-index:50;
+    background:var(--bg);
+    border-bottom:var(--border);
+  }
+  .oj-header-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 20px;max-width:1120px;margin:0 auto;
+    flex-wrap:wrap;gap:10px;
+  }
+  .oj-brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:var(--font-display);font-weight:700;font-size:1.3rem;
+    color:var(--ink);text-decoration:none;
+  }
+  .oj-brand-mark{
+    width:34px;height:34px;background:var(--accent);
+    border:3px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-weight:700;color:var(--ink);
+  }
+  nav.oj-main-nav{display:flex;gap:0;flex-wrap:wrap;border:3px solid var(--ink);}
+  nav.oj-main-nav a{
+    display:block;padding:10px 16px;
+    font-family:var(--font-body);font-weight:700;font-size:0.86rem;
+    text-transform:uppercase;letter-spacing:0.04em;
+    text-decoration:none;color:var(--ink);
+    border-left:3px solid var(--ink);
+  }
+  nav.oj-main-nav a:first-child{border-left:none;}
+  nav.oj-main-nav a:hover{background:var(--accent);color:var(--ink);}
+
+  /* HERO */
+  .oj-hero{
+    border-bottom:var(--border);
+    background:
+      repeating-linear-gradient(135deg, transparent 0 28px, rgba(35,26,16,0.035) 28px 30px);
+  }
+  .oj-hero-grid{
+    max-width:1120px;margin:0 auto;padding:56px 20px 64px;
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:44px;align-items:start;
+  }
+  .oj-eyebrow{
+    display:inline-block;font-family:"Courier New",monospace;font-weight:700;
+    font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;
+    background:var(--ink);color:var(--bg);padding:5px 10px;margin-bottom:18px;
+  }
+  .oj-hero h1{font-size:2.5rem;margin-bottom:18px;}
+  .oj-hero p.oj-lead{font-size:1.08rem;max-width:46ch;margin-bottom:26px;color:#3a2c1a;}
+  .oj-hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .oj-btn{
+    display:inline-block;font-family:var(--font-body);font-weight:700;
+    text-decoration:none;padding:14px 26px;border:3px solid var(--ink);
+    font-size:0.95rem;text-transform:uppercase;letter-spacing:0.03em;
+  }
+  .oj-btn-solid{background:var(--accent);color:var(--ink);}
+  .oj-btn-solid:hover{background:var(--accent-dark);color:var(--bg);}
+  .oj-btn-ghost{background:var(--bg);color:var(--ink);}
+  .oj-btn-ghost:hover{background:var(--ink);color:var(--bg);}
+  .oj-hero-note{font-size:0.82rem;color:#5a4a34;margin-top:10px;font-family:"Courier New",monospace;}
+
+  /* MOCK LEDGER CARD */
+  .oj-ledger{
+    background:var(--paper);border:var(--border);
+  }
+  .oj-ledger-head{
+    display:flex;justify-content:space-between;align-items:center;
+    background:var(--ink);color:var(--bg);padding:12px 16px;
+    font-family:"Courier New",monospace;font-weight:700;font-size:0.85rem;
+    text-transform:uppercase;letter-spacing:0.05em;
+  }
+  .oj-ledger-body{padding:16px;}
+  .oj-ledger-row{margin-bottom:14px;}
+  .oj-ledger-row:last-child{margin-bottom:0;}
+  .oj-ledger-row .oj-lr-top{
+    display:flex;justify-content:space-between;font-size:0.86rem;margin-bottom:6px;
+    font-family:"Courier New",monospace;
+  }
+  .oj-lr-bar{height:14px;background:var(--bg);border:2px solid var(--ink);position:relative;}
+  .oj-lr-bar span{display:block;height:100%;background:var(--accent);}
+  .oj-ledger-foot{
+    border-top:3px solid var(--ink);padding:14px 16px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:"Courier New",monospace;
+  }
+  .oj-ledger-foot .oj-big-num{font-size:1.6rem;font-weight:700;}
+
+  /* SECTIONS */
+  section{padding:64px 0;border-bottom:var(--border);}
+  section:last-of-type{border-bottom:none;}
+  .oj-section-head{max-width:60ch;margin-bottom:38px;}
+  .oj-section-head .oj-eyebrow{margin-bottom:14px;}
+  .oj-section-head h2{font-size:1.9rem;margin-bottom:10px;}
+  .oj-section-head p{color:#3a2c1a;}
+
+  /* FEATURES */
+  .oj-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:var(--border);}
+  .oj-feat{
+    background:var(--paper);padding:26px 24px;
+    border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  }
+  .oj-feat-grid .oj-feat:nth-child(3n){border-right:none;}
+  .oj-feat-grid .oj-feat:nth-child(n+4){border-bottom:none;}
+  .oj-feat-icon{
+    width:46px;height:46px;background:var(--bg);border:3px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:14px;
+  }
+  .oj-feat h3{font-size:1.08rem;margin-bottom:8px;}
+  .oj-feat p{font-size:0.92rem;color:#3a2c1a;}
+
+  /* COMO FUNCIONA */
+  .oj-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:var(--border);}
+  .oj-step{
+    background:var(--paper);padding:28px 24px;position:relative;
+    border-right:3px solid var(--ink);
+  }
+  .oj-steps .oj-step:last-child{border-right:none;}
+  .oj-step .oj-step-num{
+    font-family:"Courier New",monospace;font-weight:700;font-size:2.6rem;
+    color:var(--accent);line-height:1;margin-bottom:10px;
+  }
+  .oj-step h3{font-size:1.05rem;margin-bottom:8px;}
+  .oj-step p{font-size:0.9rem;color:#3a2c1a;}
+
+  /* FAQ */
+  .oj-faq-list{border:var(--border);background:var(--paper);}
+  .oj-faq-item{border-bottom:3px solid var(--ink);}
+  .oj-faq-list .oj-faq-item:last-child{border-bottom:none;}
+  .oj-faq-item summary{
+    cursor:pointer;padding:18px 22px;font-weight:700;font-size:0.98rem;
+    list-style:none;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--font-display);
+  }
+  .oj-faq-item summary::-webkit-details-marker{display:none;}
+  .oj-faq-item summary::after{
+    content:"+";font-family:"Courier New",monospace;font-size:1.3rem;color:var(--accent);
+    margin-left:12px;flex-shrink:0;
+  }
+  .oj-faq-item[open] summary::after{content:"–";}
+  .oj-faq-item .oj-faq-a{padding:0 22px 20px;font-size:0.92rem;color:#3a2c1a;max-width:70ch;}
+
+  /* DISCLAIMER */
+  .oj-disclaimer-box{
+    border:3px dashed var(--accent-dark);background:var(--paper);
+    padding:20px 22px;font-size:0.86rem;color:#4a3a24;
+  }
+  .oj-disclaimer-box strong{color:var(--ink);}
+
+  /* NEWSLETTER */
+  .oj-newsletter{
+    background:var(--ink);color:var(--bg);
+  }
+  .oj-newsletter-inner{
+    display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+    padding:44px 0;
+  }
+  .oj-newsletter h2{color:var(--bg);font-size:1.5rem;margin-bottom:6px;}
+  .oj-newsletter p{color:#d8cdbc;font-size:0.9rem;max-width:42ch;}
+  .oj-nl-form{display:flex;gap:0;flex-wrap:wrap;border:3px solid var(--bg);}
+  .oj-nl-form input[type=email]{
+    padding:13px 14px;border:none;background:var(--bg);color:var(--ink);
+    font-family:var(--font-body);font-size:0.92rem;min-width:220px;
+  }
+  .oj-nl-form button{
+    padding:13px 20px;background:var(--accent);border:none;border-left:3px solid var(--bg);
+    color:var(--ink);font-weight:700;text-transform:uppercase;font-size:0.85rem;cursor:pointer;
+  }
+  .oj-nl-form button:hover{background:var(--bg);}
+  #ok{display:none;margin-top:10px;font-family:"Courier New",monospace;font-size:0.85rem;color:var(--accent);}
+
+  /* FOOTER */
+  footer.oj-site{background:var(--ink);color:#cbbfa9;padding:40px 0 26px;font-size:0.85rem;}
+  .oj-foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:28px;margin-bottom:26px;}
+  .oj-foot-col h4{color:var(--bg);font-family:var(--font-display);font-size:0.95rem;margin-bottom:12px;}
+  .oj-foot-col a{display:block;color:#cbbfa9;text-decoration:none;margin-bottom:8px;}
+  .oj-foot-col a:hover{color:var(--accent);}
+  .oj-foot-bottom{border-top:2px solid #4a3d2c;padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:0.78rem;color:#9a8c74;}
+
+  @media (max-width:860px){
+    .oj-hero-grid{grid-template-columns:1fr;}
+    .oj-feat-grid{grid-template-columns:1fr 1fr;}
+    .oj-feat-grid .oj-feat:nth-child(3n){border-right:3px solid var(--ink);}
+    .oj-feat-grid .oj-feat:nth-child(2n){border-right:none;}
+    .oj-feat-grid .oj-feat:nth-child(n+4){border-bottom:3px solid var(--ink);}
+    .oj-feat-grid .oj-feat:last-child{border-bottom:none;}
+    .oj-steps{grid-template-columns:1fr;}
+    .oj-step{border-right:none;border-bottom:3px solid var(--ink);}
+    .oj-steps .oj-step:last-child{border-bottom:none;}
+    nav.oj-main-nav{width:100%;}
+    nav.oj-main-nav a{flex:1;text-align:center;padding:10px 8px;font-size:0.75rem;}
+  }
+  @media (max-width:520px){
+    .oj-hero h1{font-size:1.9rem;}
+    .oj-section-head h2{font-size:1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="oj-site">
+  <div class="oj-header-row">
+    <a href="/" class="oj-brand">
+      <span class="oj-brand-mark">O</span>
+      Orçamento Já
+    </a>
+    <nav class="oj-main-nav">
+      <a href="#recursos">Recursos</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+  </div>
+</header>
+
+<section class="oj-hero">
+  <div class="oj-hero-grid">
+    <div>
+      <span class="oj-eyebrow">Planejamento pessoal</span>
+      <h1>O salário some antes do dia 20. A gente organiza pra você ver aonde ele foi.</h1>
+      <p class="oj-lead">Orçamento Já divide o mês em blocos: moradia, contas fixas, mercado, o que sobra. Sem planilha em branco, sem conectar seu banco, sem senha de ninguém guardada.</p>
+      <div class="oj-hero-cta">
+        <a href="#recursos" class="oj-btn oj-btn-solid">Ver os recursos</a>
+        <a href="#como-funciona" class="oj-btn oj-btn-ghost">Como funciona</a>
+      </div>
+      <p class="oj-hero-note">Gratuito para uso pessoal · não conecta conta bancária · não é consultoria de investimento</p>
+    </div>
+    <div class="oj-ledger">
+      <div class="oj-ledger-head"><span>Resumo · Julho</span><span>Bloco 4/4</span></div>
+      <div class="oj-ledger-body">
+        <div class="oj-ledger-row">
+          <div class="oj-lr-top"><span>Moradia</span><span>R$ 850</span></div>
+          <div class="oj-lr-bar"><span style="width:62%"></span></div>
+        </div>
+        <div class="oj-ledger-row">
+          <div class="oj-lr-top"><span>Mercado</span><span>R$ 480</span></div>
+          <div class="oj-lr-bar"><span style="width:41%"></span></div>
+        </div>
+        <div class="oj-ledger-row">
+          <div class="oj-lr-top"><span>Contas fixas</span><span>R$ 310</span></div>
+          <div class="oj-lr-bar"><span style="width:26%"></span></div>
+        </div>
+        <div class="oj-ledger-row">
+          <div class="oj-lr-top"><span>Reserva do mês</span><span>R$ 200</span></div>
+          <div class="oj-lr-bar"><span style="width:17%"></span></div>
+        </div>
+      </div>
+      <div class="oj-ledger-foot">
+        <span>Ainda livre em julho</span>
+        <span class="oj-big-num">R$ 340</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recursos">
+  <div class="oj-wrap">
+    <div class="oj-section-head">
+      <span class="oj-eyebrow">Recursos</span>
+      <h2>Seis blocos, um painel só</h2>
+      <p>Cada recurso resolve uma parte específica do mês — do dia em que a conta de luz vence até a folga que sobra no fim de semana.</p>
+    </div>
+    <div class="oj-feat-grid">
+      <div class="oj-feat">
+        <div class="oj-feat-icon">📊</div>
+        <h3>Orçamento por categoria</h3>
+        <p>Você define um teto para moradia, mercado, transporte e lazer. O painel mostra quanto já foi usado de cada teto, em números, não em gráfico de pizza confuso.</p>
+      </div>
+      <div class="oj-feat">
+        <div class="oj-feat-icon">🧾</div>
+        <h3>Registro rápido de gastos</h3>
+        <p>Anota um gasto em três toques: valor, categoria, pronto. Sem formulário longo, sem foto de nota fiscal obrigatória.</p>
+      </div>
+      <div class="oj-feat">
+        <div class="oj-feat-icon">🎯</div>
+        <h3>Metas com prazo</h3>
+        <p>Guardar R$ 900 até dezembro para o conserto do carro, por exemplo. O app divide o valor pelas semanas que faltam e avisa se o ritmo caiu.</p>
+      </div>
+      <div class="oj-feat">
+        <div class="oj-feat-icon">🔔</div>
+        <h3>Lembrete de conta</h3>
+        <p>Cadastre o dia de vencimento do aluguel, da internet, do plano de saúde. Um aviso simples chega três dias antes, sem depender de e-mail.</p>
+      </div>
+      <div class="oj-feat">
+        <div class="oj-feat-icon">📅</div>
+        <h3>Resumo do mês</h3>
+        <p>No fim de cada mês, um retrato de uma tela só: quanto entrou, quanto saiu, qual categoria estourou o teto.</p>
+      </div>
+      <div class="oj-feat">
+        <div class="oj-feat-icon">🔒</div>
+        <h3>Sem conta bancária conectada</h3>
+        <p>Você digita os valores que quiser registrar. Nada de sincronização automática, nada de senha de banco armazenada em lugar nenhum.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona">
+  <div class="oj-wrap">
+    <div class="oj-section-head">
+      <span class="oj-eyebrow">Passo a passo</span>
+      <h2>Três telas até o primeiro orçamento pronto</h2>
+      <p>Não existe cadastro longo. O primeiro orçamento fica pronto no tempo de uma xícara de café esfriar.</p>
+    </div>
+    <div class="oj-steps">
+      <div class="oj-step">
+        <div class="oj-step-num oj-mono">01</div>
+        <h3>Divida o mês em blocos</h3>
+        <p>Escolha as categorias que fazem sentido pra sua rotina — moradia, mercado, transporte, o que for — e defina um teto para cada uma.</p>
+      </div>
+      <div class="oj-step">
+        <div class="oj-step-num oj-mono">02</div>
+        <h3>Registre o que sai</h3>
+        <p>Toda vez que um gasto acontecer, jogue no bloco certo. Em uma semana o painel já mostra um padrão real, não uma estimativa chutada.</p>
+      </div>
+      <div class="oj-step">
+        <div class="oj-step-num oj-mono">03</div>
+        <h3>Revise no fim do mês</h3>
+        <p>Veja qual bloco estourou e por quê. No mês seguinte, ajuste o teto — o orçamento muda com você, não o contrário.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="duvidas">
+  <div class="oj-wrap">
+    <div class="oj-section-head">
+      <span class="oj-eyebrow">Perguntas frequentes</span>
+      <h2>Antes de começar</h2>
+    </div>
+    <div class="oj-faq-list">
+      <details class="oj-faq-item" open>
+        <summary>O Orçamento Já indica onde investir meu dinheiro?</summary>
+        <p class="oj-faq-a">Não. A ferramenta serve para organizar gastos, metas e contas do dia a dia. Ela não recomenda ações, fundos, criptomoeda nem qualquer tipo de aplicação financeira, e não promete rendimento algum.</p>
+      </details>
+      <details class="oj-faq-item">
+        <summary>Preciso conectar minha conta do banco?</summary>
+        <p class="oj-faq-a">Não. Os valores são digitados por você. Isso é proposital: evita pedir acesso a dados bancários e mantém o controle inteiro nas suas mãos.</p>
+      </details>
+      <details class="oj-faq-item">
+        <summary>Serve para quem já usa planilha?</summary>
+        <p class="oj-faq-a">Serve principalmente para quem parou de atualizar a planilha depois da segunda semana. A ideia aqui é reduzir o registro a poucos toques, sem perder a categoria de cada gasto.</p>
+      </details>
+      <details class="oj-faq-item">
+        <summary>O uso tem algum custo?</summary>
+        <p class="oj-faq-a">O uso pessoal é gratuito. Não há cobrança para criar orçamento, registrar gasto ou acompanhar metas.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="oj-wrap">
+    <div class="oj-disclaimer-box">
+      <strong>Aviso importante:</strong> o Orçamento Já é uma ferramenta de organização e planejamento financeiro pessoal. Ela não constitui aconselhamento de investimento, não recomenda produtos financeiros e não garante qualquer resultado sobre economia, rendimento ou lucro. As decisões financeiras seguem sendo de responsabilidade exclusiva de quem usa a ferramenta. O Orçamento Já não é afiliado ao Google, a bancos ou a instituições financeiras.
+    </div>
+  </div>
+</section>
+
+<div class="oj-newsletter">
+  <div class="oj-wrap oj-newsletter-inner">
+    <div>
+      <h2>Aviso quando sair recurso novo</h2>
+      <p>Sem spam, sem venda de e-mail. Só um aviso quando algo novo entrar no ar.</p>
+    </div>
+    <div>
+      <form class="oj-nl-form" onsubmit="return sub(event)">
+        <input type="email" placeholder="seu e-mail" required>
+        <button type="submit">Avisar</button>
+      </form>
+      <div id="ok">Pronto, anotado por aqui.</div>
+    </div>
+  </div>
+</div>
+
+<footer class="oj-site">
+  <div class="oj-wrap">
+    <div class="oj-foot-grid">
+      <div class="oj-foot-col">
+        <h4>Orçamento Já</h4>
+        <a href="#recursos">Recursos</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#duvidas">Dúvidas</a>
+      </div>
+      <div class="oj-foot-col">
+        <h4>Legal</h4>
+        <a href="/privacidade.html">Política de Privacidade</a>
+        <a href="/termos.html">Termos de Uso</a>
+      </div>
+      <div class="oj-foot-col">
+        <h4>Contato</h4>
+        <a href="mailto:contato@orcamentoja.click">contato@orcamentoja.click</a>
+      </div>
+    </div>
+    <div class="oj-foot-bottom">
+      <span>© <span id="y"></span> Orçamento Já. Todos os direitos reservados.</span>
+      <span>Ferramenta de organização financeira pessoal · não é aconselhamento de investimento</span>
+    </div>
+  </div>
+</footer>
+
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){}e.target.reset();return false;}</script>
+<script>var y=document.getElementById('y');if(y){y.textContent=new Date().getFullYear();}</script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conta Boa — organize o orçamento da sua casa em um só lugar</title>
+<meta name="description" content="Conta Boa é um app de organização financeira pessoal: junte contas, metas e gastos do mês em uma tela só, sem precisar de senha de banco.">
+<link rel="canonical" href="https://contaboa.click/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Conta Boa — organização financeira pessoal">
+<meta property="og:description" content="Junte contas, metas e gastos do mês em uma tela só, sem senha de banco e sem promessa de rendimento.">
+<meta property="og:url" content="https://contaboa.click/">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e7490'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' fill='%23f2f8f9' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<!-- Utmify Pixel Google -->
+  <script>
+    window.googlePixelId = "6a5c2403330a95e4d9ed8ca6";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+<style>
+  :root{
+    --accent:#0e7490;
+    --accent-dark:#0b5566;
+    --ink:#12252b;
+    --bg:#f2f8f9;
+    --card:#ffffff;
+    --line:#d9e6e8;
+    --muted:#4d6367;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"Lucida Sans","Lucida Grande","Segoe UI",sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:Constantia,Georgia,serif;
+    color:var(--ink);
+    line-height:1.2;
+    margin:0 0 .5em;
+  }
+  a{color:var(--accent-dark);}
+  img{max-width:100%;}
+  .cb-wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  /* header */
+  header.cb-site{
+    position:sticky;top:0;z-index:20;
+    background:var(--card);
+    border-bottom:1px solid var(--line);
+  }
+  header.cb-site .cb-bar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 24px;max-width:1120px;margin:0 auto;
+  }
+  .cb-brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:Constantia,Georgia,serif;font-weight:700;font-size:1.25rem;
+    color:var(--ink);text-decoration:none;
+  }
+  .cb-brand .cb-mark{
+    width:34px;height:34px;border-radius:9px;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-family:Constantia,Georgia,serif;font-weight:700;
+  }
+  nav.cb-main{display:flex;gap:28px;}
+  nav.cb-main a{
+    text-decoration:none;color:var(--muted);font-size:.95rem;font-weight:600;
+  }
+  nav.cb-main a:hover{color:var(--accent-dark);}
+  .nav-toggle{display:none;}
+
+  /* hero */
+  .cb-hero{
+    padding:64px 0 56px;
+  }
+  .cb-hero .cb-grid{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;
+  }
+  .cb-eyebrow{
+    display:inline-block;font-size:.8rem;letter-spacing:.06em;font-weight:700;
+    text-transform:uppercase;color:var(--accent-dark);
+    background:#dcf0f2;padding:6px 12px;border-radius:100px;margin-bottom:18px;
+  }
+  .cb-hero h1{font-size:2.5rem;max-width:20ch;}
+  .cb-hero p.cb-lead{font-size:1.08rem;color:var(--muted);max-width:46ch;margin-bottom:26px;}
+  .cb-hero .cb-cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .cb-btn{
+    display:inline-block;padding:13px 24px;border-radius:9px;
+    font-weight:700;text-decoration:none;font-size:.98rem;
+    border:2px solid transparent;
+  }
+  .cb-btn-primary{background:var(--accent);color:#fff;}
+  .cb-btn-primary:hover{background:var(--accent-dark);}
+  .cb-btn-ghost{background:transparent;border-color:var(--line);color:var(--ink);}
+  .cb-btn-ghost:hover{border-color:var(--accent);}
+  .cb-hero .cb-microcopy{font-size:.85rem;color:var(--muted);margin-top:12px;}
+
+  /* mockup card */
+  .cb-mockup{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:26px;
+    box-shadow:0 18px 40px -22px rgba(18,37,43,.35);
+  }
+  .cb-mockup .cb-row-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .cb-mockup .cb-row-top .cb-who{font-size:.8rem;color:var(--muted);font-weight:600;}
+  .cb-mockup .cb-dot-row{display:flex;gap:6px;}
+  .cb-mockup .cb-dot{width:8px;height:8px;border-radius:50%;background:var(--line);}
+  .cb-mockup .cb-saldo-label{font-size:.8rem;color:var(--muted);font-weight:600;margin-bottom:4px;}
+  .cb-mockup .cb-saldo{
+    font-family:Constantia,Georgia,serif;font-size:2.1rem;font-weight:700;
+    color:var(--ink);margin-bottom:18px;
+  }
+  .cb-mockup .cb-bars{display:flex;align-items:flex-end;gap:8px;height:96px;margin-bottom:18px;}
+  .cb-mockup .cb-bars .cb-b{flex:1;background:linear-gradient(180deg,var(--accent),var(--accent-dark));border-radius:6px 6px 2px 2px;}
+  .cb-mockup .cb-lines{display:flex;flex-direction:column;gap:10px;}
+  .cb-mockup .cb-line-item{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:.85rem;padding:9px 0;border-top:1px solid var(--line);
+  }
+  .cb-mockup .cb-line-item .cb-tag{
+    display:inline-flex;align-items:center;gap:6px;color:var(--muted);
+  }
+  .cb-mockup .cb-line-item .cb-val{font-weight:700;}
+  .cb-mockup .cb-val.cb-neg{color:#9d3b3b;}
+  .cb-mockup .cb-val.cb-pos{color:var(--accent-dark);}
+
+  section{padding:56px 0;}
+  .cb-section-head{max-width:60ch;margin:0 auto 40px;text-align:center;}
+  .cb-section-head h2{font-size:1.9rem;}
+  .cb-section-head p{color:var(--muted);}
+
+  /* features */
+  .cb-features{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .cb-feat-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  .cb-feat{
+    border:1px solid var(--line);border-radius:14px;padding:24px;background:var(--bg);
+  }
+  .cb-feat .cb-ico{font-size:1.6rem;display:block;margin-bottom:12px;}
+  .cb-feat h3{font-size:1.08rem;margin-bottom:8px;}
+  .cb-feat p{font-size:.92rem;color:var(--muted);margin:0;}
+
+  /* como funciona */
+  .cb-steps{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;counter-reset:step;
+  }
+  .cb-step{position:relative;padding-left:52px;}
+  .cb-step .cb-n{
+    position:absolute;left:0;top:0;
+    width:38px;height:38px;border-radius:10px;background:var(--accent);
+    color:#fff;font-family:Constantia,Georgia,serif;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cb-step h3{font-size:1.05rem;margin-bottom:6px;}
+  .cb-step p{color:var(--muted);font-size:.92rem;margin:0;}
+
+  /* FAQ — elemento central */
+  .cb-faq-section{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .cb-faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+  details.cb-faq{
+    border:1px solid var(--line);border-radius:14px;background:var(--bg);
+    padding:4px 22px;
+  }
+  details.cb-faq summary{
+    cursor:pointer;list-style:none;padding:18px 0;
+    font-family:Constantia,Georgia,serif;font-weight:700;font-size:1.08rem;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+  }
+  details.cb-faq summary::-webkit-details-marker{display:none;}
+  details.cb-faq summary .cb-plus{
+    flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);
+    color:var(--accent-dark);display:flex;align-items:center;justify-content:center;
+    font-size:1rem;font-weight:700;
+  }
+  details.cb-faq[open] summary .cb-plus{background:var(--accent);color:#fff;}
+  details.cb-faq p{color:var(--muted);margin:0 0 20px;font-size:.96rem;max-width:64ch;}
+
+  /* disclaimer */
+  .cb-disclaimer{
+    max-width:820px;margin:0 auto;background:#eaf4f5;border:1px solid var(--line);
+    border-radius:12px;padding:20px 24px;font-size:.86rem;color:var(--muted);
+  }
+  .cb-disclaimer strong{color:var(--ink);}
+
+  /* newsletter */
+  .cb-nl{
+    background:var(--accent-dark);color:#eaf6f7;border-radius:16px;
+    padding:36px 32px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;
+  }
+  .cb-nl h3{color:#fff;font-size:1.3rem;margin-bottom:4px;}
+  .cb-nl p{margin:0;color:#cfe7ea;font-size:.92rem;}
+  .cb-nl form{display:flex;gap:10px;flex-wrap:wrap;}
+  .cb-nl input[type=email]{
+    padding:12px 14px;border-radius:8px;border:1px solid transparent;min-width:220px;font-size:.92rem;
+    font-family:inherit;
+  }
+  .cb-nl button{
+    padding:12px 20px;border-radius:8px;border:none;background:#fff;color:var(--accent-dark);
+    font-weight:700;cursor:pointer;
+  }
+  #ok{display:none;margin-top:10px;color:#d7f4d1;font-size:.85rem;}
+
+  /* footer */
+  footer.cb-site{background:var(--ink);color:#c6d3d5;padding:48px 0 26px;margin-top:20px;}
+  footer.cb-site .cb-fgrid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;margin-bottom:32px;
+  }
+  footer.cb-site h4{color:#fff;font-family:Constantia,Georgia,serif;font-size:1rem;margin-bottom:14px;}
+  footer.cb-site p{color:#9fb2b4;font-size:.88rem;}
+  footer.cb-site ul{list-style:none;margin:0;padding:0;}
+  footer.cb-site li{margin-bottom:9px;}
+  footer.cb-site a{color:#c6d3d5;text-decoration:none;font-size:.9rem;}
+  footer.cb-site a:hover{color:#fff;}
+  .cb-fbottom{
+    border-top:1px solid #24393e;padding-top:20px;
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;
+    font-size:.8rem;color:#7f9497;
+  }
+
+  @media (max-width:860px){
+    .cb-hero .cb-grid{grid-template-columns:1fr;}
+    .cb-feat-grid{grid-template-columns:1fr 1fr;}
+    .cb-steps{grid-template-columns:1fr;}
+    footer.cb-site .cb-fgrid{grid-template-columns:1fr;}
+    nav.cb-main{display:none;}
+  }
+  @media (max-width:560px){
+    .cb-feat-grid{grid-template-columns:1fr;}
+    .cb-hero h1{font-size:2rem;}
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1b1e;
+      --card:#152427;
+      --ink:#eaf3f4;
+      --line:#28393c;
+      --muted:#9db4b7;
+    }
+    .cb-eyebrow{background:#173338;color:#8fd8e0;}
+    .cb-mockup{box-shadow:0 18px 40px -22px rgba(0,0,0,.6);}
+    .cb-nl input[type=email]{background:#eaf6f7;}
+  }
+</style>
+</head>
+<body>
+
+<header class="cb-site">
+  <div class="cb-bar">
+    <a href="/" class="cb-brand"><span class="cb-mark">C</span> Conta Boa</a>
+    <nav class="cb-main">
+      <a href="#recursos">Recursos</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="cb-hero">
+    <div class="cb-wrap cb-grid">
+      <div>
+        <span class="cb-eyebrow">Organização financeira pessoal</span>
+        <h1>Suas contas do mês, num painel só, sem abrir seis abas do banco.</h1>
+        <p class="cb-lead">O Conta Boa junta o que entra, o que sai e o que falta pagar numa única tela. Você anota, categoriza e acompanha — sem conectar conta bancária e sem senha de ninguém.</p>
+        <div class="cb-cta-row">
+          <a href="#recursos" class="cb-btn cb-btn-primary">Ver como funciona</a>
+          <a href="#duvidas" class="cb-btn cb-btn-ghost">Tirar dúvidas</a>
+        </div>
+        <p class="cb-microcopy">Gratuito para uso pessoal · sem cartão para começar · dados ficam no seu aparelho</p>
+      </div>
+      <div class="cb-mockup" aria-hidden="true">
+        <div class="cb-row-top">
+          <span class="cb-who">Resumo de julho</span>
+          <span class="cb-dot-row"><span class="cb-dot"></span><span class="cb-dot"></span><span class="cb-dot"></span></span>
+        </div>
+        <div class="cb-saldo-label">Sobra prevista até o fim do mês</div>
+        <div class="cb-saldo">R$ 612,40</div>
+        <div class="cb-bars">
+          <div class="cb-b" style="height:38%"></div>
+          <div class="cb-b" style="height:62%"></div>
+          <div class="cb-b" style="height:44%"></div>
+          <div class="cb-b" style="height:80%"></div>
+          <div class="cb-b" style="height:56%"></div>
+          <div class="cb-b" style="height:70%"></div>
+        </div>
+        <div class="cb-lines">
+          <div class="cb-line-item"><span class="cb-tag">🧾 Aluguel</span><span class="cb-val cb-neg">- R$ 1.150,00</span></div>
+          <div class="cb-line-item"><span class="cb-tag">🔔 Internet (vence dia 28)</span><span class="cb-val cb-neg">- R$ 99,90</span></div>
+          <div class="cb-line-item"><span class="cb-tag">🎯 Reserva de emergência</span><span class="cb-val cb-pos">+ R$ 200,00</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cb-features" id="recursos">
+    <div class="cb-wrap">
+      <div class="cb-section-head">
+        <h2>O essencial para não perder o fio da meada</h2>
+        <p>Seis telas, um propósito: você sabe pra onde o dinheiro está indo antes do fim do mês te contar sozinho.</p>
+      </div>
+      <div class="cb-feat-grid">
+        <div class="cb-feat">
+          <span class="cb-ico">📊</span>
+          <h3>Orçamento por categoria</h3>
+          <p>Separe moradia, alimentação, transporte e lazer em blocos com limite próprio, definidos por você.</p>
+        </div>
+        <div class="cb-feat">
+          <span class="cb-ico">🧾</span>
+          <h3>Controle de gastos do dia a dia</h3>
+          <p>Lance uma compra em segundos e veja na hora quanto ainda cabe na categoria daquele gasto.</p>
+        </div>
+        <div class="cb-feat">
+          <span class="cb-ico">🎯</span>
+          <h3>Metas com prazo</h3>
+          <p>Coloque um valor e uma data — o painel mostra quanto falta guardar por semana para chegar lá.</p>
+        </div>
+        <div class="cb-feat">
+          <span class="cb-ico">🔔</span>
+          <h3>Lembrete de contas fixas</h3>
+          <p>Aluguel, internet, plano de saúde: um aviso simples antes do vencimento, sem letra miúda.</p>
+        </div>
+        <div class="cb-feat">
+          <span class="cb-ico">📅</span>
+          <h3>Resumo do mês</h3>
+          <p>No fechamento, um retrato do que entrou, do que saiu e do que sobrou — sem gráfico difícil de ler.</p>
+        </div>
+        <div class="cb-feat">
+          <span class="cb-ico">🔒</span>
+          <h3>Sem senha de banco</h3>
+          <p>Você digita os valores manualmente. Nenhum login bancário é pedido, guardado ou compartilhado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-funciona">
+    <div class="cb-wrap">
+      <div class="cb-section-head">
+        <h2>Como funciona, em três passos</h2>
+        <p>Nada de planilha travada nem curso prévio. Dá pra montar o primeiro orçamento numa pausa do café.</p>
+      </div>
+      <div class="cb-steps">
+        <div class="cb-step">
+          <span class="cb-n">1</span>
+          <h3>Monte suas categorias</h3>
+          <p>Escolha as caixinhas que fazem sentido pra sua rotina e dê um limite mensal pra cada uma.</p>
+        </div>
+        <div class="cb-step">
+          <span class="cb-n">2</span>
+          <h3>Anote o que gastar</h3>
+          <p>Cada compra vira um lançamento rápido. O painel recalcula o que sobra na hora.</p>
+        </div>
+        <div class="cb-step">
+          <span class="cb-n">3</span>
+          <h3>Acompanhe o fechamento</h3>
+          <p>No fim do mês, veja o retrato completo e ajuste os limites para o mês seguinte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cb-faq-section" id="duvidas">
+    <div class="cb-wrap">
+      <div class="cb-section-head">
+        <h2>Perguntas antes de começar</h2>
+        <p>O que costuma aparecer na cabeça de quem está decidindo se vale organizar as contas por aqui.</p>
+      </div>
+      <div class="cb-faq-list">
+        <details class="cb-faq" open>
+          <summary>Preciso conectar minha conta do banco?<span class="cb-plus">+</span></summary>
+          <p>Não. Os lançamentos são digitados por você. O Conta Boa não pede login bancário, não acessa extrato automaticamente e não guarda senha de instituição financeira nenhuma.</p>
+        </details>
+        <details class="cb-faq">
+          <summary>O app promete algum tipo de rendimento?<span class="cb-plus">+</span></summary>
+          <p>Não. O Conta Boa é uma ferramenta de organização e planejamento — não é gestora de investimentos, não indica aplicação financeira e não garante ganho de nenhum valor guardado.</p>
+        </details>
+        <details class="cb-faq">
+          <summary>Dá pra usar para mais de uma pessoa da casa?<span class="cb-plus">+</span></summary>
+          <p>O painel foi pensado para uso individual por enquanto. Cada pessoa organiza seu próprio orçamento; compartilhar categorias entre contas ainda não está disponível.</p>
+        </details>
+        <details class="cb-faq">
+          <summary>Meus dados de gasto ficam salvos em algum servidor?<span class="cb-plus">+</span></summary>
+          <p>Os lançamentos ficam associados ao seu uso do app. Detalhes de retenção, cookies de medição e contato estão descritos por completo na nossa <a href="/privacidade.html">política de privacidade</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cb-wrap">
+      <div class="cb-disclaimer">
+        <strong>Aviso importante:</strong> o Conta Boa é uma ferramenta de organização e planejamento financeiro pessoal. Não constitui aconselhamento de investimento, não indica produtos financeiros e não garante qualquer resultado sobre valores guardados ou investidos. O Conta Boa não é afiliado ao Google nem a nenhuma instituição financeira.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cb-wrap">
+      <div class="cb-nl">
+        <div>
+          <h3>Fica sabendo de novidades do app</h3>
+          <p>Um aviso ocasional quando lançarmos uma tela nova. Sem spam, sem venda de e-mail.</p>
+        </div>
+        <form onsubmit="return sub(event)">
+          <input type="email" required placeholder="seu e-mail">
+          <button type="submit">Quero saber</button>
+        </form>
+      </div>
+      <p id="ok">Prontinho — se cadastrarmos algo novo, avisamos por aqui.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="cb-site">
+  <div class="cb-wrap">
+    <div class="cb-fgrid">
+      <div>
+        <h4>Conta Boa</h4>
+        <p>Um painel simples para organizar orçamento, gastos e metas do dia a dia — sem promessa de rendimento e sem senha de banco.</p>
+      </div>
+      <div>
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="/privacidade.html">Política de privacidade</a></li>
+          <li><a href="/termos.html">Termos de uso</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#recursos">Recursos</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="cb-fbottom">
+      <span>© <span id="y"></span> Conta Boa. Todos os direitos reservados.</span>
+      <span>Ferramenta de organização financeira pessoal — não é aconselhamento de investimento.</span>
+    </div>
+  </div>
+</footer>
+
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){}e.target.reset();return false;}</script>
+<script>var y=document.getElementById('y');if(y){y.textContent=new Date().getFullYear();}</script>
+</body>
+</html>
