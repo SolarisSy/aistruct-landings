@@ -314,34 +314,13 @@
             }
         });
 
-        // Modificar a função de tratamento de erro em handleSubmit para anexar errorData
-        document.getElementById('ff-checkout-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            // ... (início da função handleSubmit)
-            try {
-                const response = await fetch('/api/criar-pix', { /* ... */ });
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error('Erro da API ao criar PIX (dentro do if !response.ok):', errorData); 
-                    // Anexar errorData ao objeto de erro para acesso no catch
-                    const err = new Error(errorData.error || `Erro HTTP: ${response.status}`);
-                    err.errorData = errorData;
-                    throw err;
-                }
-                // ... (restante do try)
-            } catch (error) {
-                console.error('Erro no handleSubmit (bloco catch principal):', error);
-                let displayMessage = `Erro ao criar PIX: ${error.message}`;
-                if (error.errorData && error.errorData.details) {
-                    const detailsString = typeof error.errorData.details === 'object' ? JSON.stringify(error.errorData.details) : error.errorData.details;
-                    displayMessage += ` Detalhes: ${detailsString}`;
-                }
-                updateLoadingIndicator(displayMessage + " Verifique o console para o objeto de erro completo.");
-                if (error.errorData) {
-                    console.error('[Frontend Debug] Detalhes completos do erro da API (criar-pix no catch):', error.errorData);
-                }
-            }
-        });
+        // [REMOVIDO] Havia aqui um segundo listener de submit no mesmo formulário —
+        // esqueleto inacabado do template: o fetch ia com opções vazias ({ /* ... */ }),
+        // então saía como GET e a rota /api/criar-pix (só POST) devolvia 405; em seguida
+        // tentava response.json() de um corpo vazio (SyntaxError) e chamava
+        // updateLoadingIndicator(), que não existe (ReferenceError). Rodava em paralelo
+        // com o handler real do script.js e engolia a mensagem de erro de verdade.
+        // O submit é tratado exclusivamente em script.js.
 
         // Dentro da função checkPaymentStatus, no bloco catch
         async function checkPaymentStatus(transactionId) {

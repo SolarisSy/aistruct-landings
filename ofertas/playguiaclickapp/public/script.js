@@ -111,13 +111,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitButton = form ? form.querySelector('button[type="submit"]') : null;
     const playerNameInput = document.getElementById('player-name');
 
-    // Lê o valor em CENTAVOS da URL ou usa um padrão
+    // Valor a cobrar. A página EXIBE `?preco=` (em reais) e antes só cobrava
+    // `?valor=` (em centavos) — quem chegasse com só `preco` via R$47,90 na tela
+    // e era cobrado R$36,00 (o padrão). Agora `preco` é convertido e usado como
+    // fallback, então o valor cobrado é sempre o valor exibido.
     const urlParamsOnLoad = new URLSearchParams(window.location.search);
     const valorUrlCentavos = parseInt(urlParamsOnLoad.get('valor'), 10);
-    const amountFromUrl = !isNaN(valorUrlCentavos) && valorUrlCentavos > 0 ? valorUrlCentavos : 3600; // Padrão 3600 se inválido/ausente
+    const precoUrlReais = parseFloat(urlParamsOnLoad.get('preco'));
+    let amountFromUrl = 3600;
+    if (!isNaN(valorUrlCentavos) && valorUrlCentavos > 0) {
+        amountFromUrl = valorUrlCentavos;
+    } else if (!isNaN(precoUrlReais) && precoUrlReais > 0) {
+        amountFromUrl = Math.round(precoUrlReais * 100);
+    }
 
     let currentTransactionId = null;
     let pollingIntervalId = null;
+
+    // Validação de CPF (dígitos verificadores) — mesma regra que o gateway aplica.
+    function cpfValido(cpf) {
+        const d = String(cpf || '').replace(/\D/g, '');
+        if (d.length !== 11 || /^(\d)\1{10}$/.test(d)) return false;
+        for (let corte = 9; corte <= 10; corte++) {
+            let soma = 0;
+            for (let i = 0; i < corte; i++) soma += parseInt(d[i], 10) * (corte + 1 - i);
+            let dig = (soma * 10) % 11;
+            if (dig === 10) dig = 0;
+            if (dig !== parseInt(d[corte], 10)) return false;
+        }
+        return true;
+    }
     let loadingIntervalId = null;
     let currentMessageIndex = 0;
     let currentOrderAmount = 0; // Variável para armazenar o valor do pedido atual em centavos
@@ -173,6 +196,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const dob = document.getElementById('dob').value;
         const phone = document.getElementById('phone').value.replace(/\D/g, '');
             const promoCode = '';
+
+        // O gateway valida o dígito verificador do CPF e recusa a cobrança inteira.
+        // Checar aqui evita a ida de rede e dá o aviso no campo certo.
+        if (!cpfValido(cpf)) {
+            stopLoadingAnimation();
+            statusMessage.textContent = 'CPF inválido. Confira os números e tente novamente.';
+            statusMessage.className = 'error';
+            const cpfInput = document.getElementById('cpf');
+            if (cpfInput) { cpfInput.classList.add('input-error-highlight'); cpfInput.focus(); }
+            return;
+        }
 
         // Usa o valor lido da URL (em centavos)
         const pixAmount = amountFromUrl;
@@ -248,26 +282,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Resposta NÃO foi OK (status 4xx, 5xx)
                     console.error('Erro do servidor ao gerar PIX para FF:', response.status, data);
                 
-                    let errorMessage = 'Erro desconhecido ao gerar PIX para FF. Tente novamente.';
-                if (response.status === 400 && data) {
-                    // Erro 400 - Provavelmente validação da SharkPay
-                    errorMessage = data.details || data.error || 'Erro de validação nos dados.';
-                    // Tenta ser mais específico se for erro de documento/CPF
-                    if (data.sharkPayError?.customer?.document) {
-                        errorMessage = 'CPF inválido ou incorreto. Por favor, verifique.';
-                        // Opcional: Adicionar highlight no campo CPF
-                        const cpfInput = document.getElementById('cpf');
-                        if(cpfInput) { 
-                            cpfInput.classList.add('input-error-highlight'); // Precisa definir .input-error-highlight no CSS
-                            cpfInput.focus(); // Foca no campo
-                        } 
-                    }
+                    let errorMessage = 'Erro desconhecido ao gerar PIX. Tente novamente.';
+                // O gateway aponta o campo recusado em details.details (ex.: "payer.taxId").
+                // Antes isso caía num `data.details` que era objeto e virava
+                // "[object Object]" na tela — daí o "bugou e não exibiu o motivo".
+                const campos = (data && data.details && data.details.details) || {};
+                const nomesCampos = Object.keys(campos).join(' ');
+
+                if (nomesCampos.includes('taxId')) {
+                    errorMessage = 'CPF inválido. Confira os números e tente novamente.';
+                    const cpfInput = document.getElementById('cpf');
+                    if (cpfInput) { cpfInput.classList.add('input-error-highlight'); cpfInput.focus(); }
+                } else if (nomesCampos.includes('email')) {
+                    errorMessage = 'E-mail inválido. Confira e tente novamente.';
+                } else if (nomesCampos.includes('phone')) {
+                    errorMessage = 'Telefone inválido. Use DDD + número.';
+                } else if (nomesCampos.includes('name')) {
+                    errorMessage = 'Nome inválido. Informe seu nome completo.';
                 } else if (data && data.error) {
-                    // Outros erros com mensagem definida pelo nosso backend
                     errorMessage = data.error;
-                    if (data.details) {
-                         errorMessage += `: ${data.details}`;
-                    }
                 }
                 
                 statusMessage.textContent = errorMessage;
