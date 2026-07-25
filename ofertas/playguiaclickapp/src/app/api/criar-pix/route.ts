@@ -1,122 +1,109 @@
 import { NextResponse } from 'next/server';
 import axios, { isAxiosError } from 'axios';
 
-const BLACKCAT_API_URL = 'https://api.blackcatpagamentos.com/v1/transactions';
-// BlackCat usa PUBLIC_KEY e SECRET_KEY para autenticação Basic Auth
-const BLACKCAT_PUBLIC_KEY = process.env.PUBLIC_KEY;
-const BLACKCAT_SECRET_KEY = process.env.SECRET_KEY; 
+// StreetPays — gateway PIX (conta Solas, perfil solaris).
+// Valores em CENTAVOS. Auth = Bearer da "Chave de API" (Financeiro -> Integrações).
+const STREETPAYS_API = 'https://api.streetpays.com.br/v1';
+const API_KEY = process.env.STREETPAYS_API_KEY;
+
+// O que aparece no extrato do comprador = items[].name (+ description).
+const PRODUCT_NAME = process.env.PRODUCT_NAME || 'Pacote de créditos';
 
 interface Item {
-    title: string;
+    title?: string;
+    name?: string;
     quantity: number;
     unitPrice: number;
-    tangible?: boolean;
 }
 
+// StreetPays recusa cobrança abaixo das taxas acumuladas (fixa ~R$2,99 + ~3%).
+const MIN_AMOUNT = 500;
+
 export async function POST(request: Request) {
-    if (!BLACKCAT_PUBLIC_KEY || !BLACKCAT_SECRET_KEY) {
-        console.error("Erro: Chaves da BlackCat (PUBLIC_KEY e SECRET_KEY) não definidas.");
-        return NextResponse.json({ error: "Configuração do servidor incompleta." }, { status: 500 });
+    if (!API_KEY) {
+        console.error('Erro: STREETPAYS_API_KEY não definida.');
+        return NextResponse.json({ error: 'Configuração do servidor incompleta.' }, { status: 500 });
     }
 
     try {
-        // Detecta o domínio dinamicamente a partir dos headers da requisição
         const headers = request.headers;
-        const protocol = headers.get('x-forwarded-proto') || 'http';
+        const protocol = headers.get('x-forwarded-proto') || 'https';
         const host = headers.get('host') || 'localhost:3000';
         const publicServerUrl = `${protocol}://${host}`;
 
         const body = await request.json();
-        console.log('Recebido no endpoint /api/criar-pix:', body);
-
         const { amount, items, customer, metadata } = body;
 
-        if (!amount || !items || !customer || !customer.name || !customer.document?.number) {
+        if (!amount || !items || !customer?.name || !customer?.document?.number) {
             return NextResponse.json({ error: 'Dados incompletos para criar PIX.' }, { status: 400 });
         }
+        if (Number(amount) < MIN_AMOUNT) {
+            return NextResponse.json(
+                { error: 'Valor abaixo do mínimo aceito pelo gateway.' }, { status: 400 });
+        }
 
-        const pixData = {
-            paymentMethod: 'pix',
-            amount: amount,
-            items: items.map((item: Item) => ({
-                title: item.title,
-                quantity: item.quantity,
-                unitPrice: item.unitPrice,
-                tangible: item.tangible || false
-            })),
-            customer: {
+        // externalRef é ECOADO no webhook — é por aqui que o clickid volta pra atribuição.
+        const externalRef = String(
+            metadata?.clickid || metadata?.src || metadata?.rtkcid || `pg_${Date.now()}`
+        );
+
+        const payload = {
+            amount: Number(amount),
+            currency: 'BRL',
+            method: 'PIX',
+            description: PRODUCT_NAME,
+            externalRef,
+            notificationUrl: `${publicServerUrl}/api/streetpays-webhook`,
+            payer: {
                 name: customer.name,
-                document: customer.document,
-                email: customer.email,
-                phone: customer.phone
+                taxId: String(customer.document.number).replace(/\D/g, ''),
+                email: customer.email || undefined,
+                phone: customer.phone ? String(customer.phone).replace(/\D/g, '') : undefined,
             },
-            // Usa a URL detectada dinamicamente para o postback
-            postbackUrl: `${publicServerUrl}/api/blackcat-webhook`,
-            metadata: JSON.stringify({
-                ...metadata,
-                platform: "FFCheckoutGA-NextJS"
-            })
+            // DIGITAL: PHYSICAL exigiria data.delivery (endereço) e o create falharia.
+            items: (items as Item[]).map((item) => ({
+                quantity: item.quantity,
+                name: item.name || item.title || PRODUCT_NAME,
+                price: item.unitPrice,
+                type: 'DIGITAL' as const,
+            })),
         };
 
-        console.log('Payload para BlackCat:', JSON.stringify(pixData, null, 2));
-        
-        // BlackCat usa PUBLIC_KEY:SECRET_KEY para Basic Auth
-        const basicAuth = Buffer.from(`${BLACKCAT_PUBLIC_KEY}:${BLACKCAT_SECRET_KEY}`).toString('base64');
-        const blackcatResponse = await axios.post(BLACKCAT_API_URL, pixData, {
+        const resp = await axios.post(`${STREETPAYS_API}/payment`, payload, {
             headers: {
-                'Authorization': `Basic ${basicAuth}`,
-                'Content-Type': 'application/json'
-            }
+                Authorization: `Bearer ${API_KEY}`,
+                'Content-Type': 'application/json',
+                accept: 'application/json',
+            },
+            timeout: 30000,
         });
 
-        console.log('Resposta da BlackCat:', blackcatResponse.data);
-
-        if (blackcatResponse.data && blackcatResponse.data.id && blackcatResponse.data.pix && blackcatResponse.data.pix.qrcode) {
+        // PIX copia-e-cola do StreetPays = data.copypaste (não pix.qrcode como na BlackCat).
+        const copypaste = resp.data?.data?.copypaste;
+        if (resp.data?.id && copypaste) {
             return NextResponse.json({
                 message: 'PIX criado com sucesso!',
-                transactionId: blackcatResponse.data.id.toString(),
-                pixCode: blackcatResponse.data.pix.qrcode,
-                status: blackcatResponse.data.status || 'pending_payment'
+                transactionId: String(resp.data.id),
+                pixCode: copypaste,
+                status: 'pending_payment',
             });
-        } else {
-            console.error('Resposta inesperada da BlackCat (campos esperados ausentes):', blackcatResponse.data);
-            return NextResponse.json({ 
-                error: 'Resposta inesperada da BlackCat ao criar PIX (campos ausentes).',
-                details: blackcatResponse.data
-            }, { status: 500 });
         }
+
+        console.error('Resposta inesperada do StreetPays:', resp.data);
+        return NextResponse.json(
+            { error: 'Resposta inesperada do gateway ao criar PIX.', details: resp.data },
+            { status: 500 });
     } catch (error) {
         if (isAxiosError(error)) {
-            console.error('Erro ao criar PIX na BlackCat:', error.response ? error.response.data : error.message);
-        
-            let errorMessage = 'Erro ao comunicar com o gateway de pagamento.';
-            let errorDetails: unknown = error.message;
-            let blackcatErrorData = null;
-            const status = error.response?.status || 500;
-
-            if (error.response && error.response.data) {
-                const responseData = error.response.data as { message?: string, errors?: { field: string, message: string }[] };
-                blackcatErrorData = responseData;
-                errorDetails = responseData.message || JSON.stringify(responseData.errors || responseData);
-                if (responseData.errors && Array.isArray(responseData.errors) && responseData.errors.length > 0) {
-                     const firstError = responseData.errors[0];
-                     if (firstError.field && firstError.message) {
-                         errorMessage = `Erro no campo ${firstError.field}: ${firstError.message}`;
-                     } else if (firstError.message) {
-                         errorMessage = firstError.message;
-                     }
-                } else if (responseData.message) {
-                   errorMessage = responseData.message;
-                }
-            }
-            
-            return NextResponse.json({
-                error: errorMessage,
-                details: errorDetails,
-                blackcatError: blackcatErrorData
-            }, { status });
+            const data = error.response?.data as { message?: string; error?: string } | undefined;
+            console.error('Erro ao criar PIX no StreetPays:', data || error.message);
+            return NextResponse.json(
+                {
+                    error: data?.message || data?.error || 'Erro ao comunicar com o gateway.',
+                    details: data ?? error.message,
+                },
+                { status: error.response?.status || 500 });
         }
-        
         console.error('Erro desconhecido:', error);
         return NextResponse.json({ error: 'Ocorreu um erro inesperado.' }, { status: 500 });
     }
