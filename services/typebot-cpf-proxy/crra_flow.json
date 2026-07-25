@@ -1135,7 +1135,7 @@
           "id": "rs9uh1e98ml3fwirv7vhr2bs",
           "type": "Code",
           "options": {
-            "content": "const urlParams = new URLSearchParams(window.location.search);\nconst utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ttclid'];\nconst utmQuery = utmKeys\n  .filter(key => urlParams.has(key))\n  .map(key => `${key}=${encodeURIComponent(urlParams.get(key))}`)\n  .join('&');\n\nconst finalUrl = `https://pay.asegupag.com/checkout/9e94cca3-f46e-4e45-a57b-e430f0aa6782${utmQuery ? '?' + utmQuery : ''}`;\nwindow.location.href = finalUrl;"
+            "content": "const urlParams = new URLSearchParams(window.location.search);\nconst utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ttclid'];\nconst parts = utmKeys\n  .filter(key => urlParams.has(key))\n  .map(key => `${key}=${encodeURIComponent(urlParams.get(key))}`);\n\n// click id do Google (gclid/gbraid/wbraid) -> src= pro checkout (atribuicao offline por gclid via topperpay-bridge)\nconst cid = ['{{gclid}}', '{{gbraid}}', '{{wbraid}}'].find(v => v && v.indexOf('{{') === -1 && v !== 'undefined')\n          || urlParams.get('gclid') || urlParams.get('gbraid') || urlParams.get('wbraid') || '';\nif (cid) parts.unshift('src=' + encodeURIComponent(cid));\n\nconst query = parts.join('&');\nconst finalUrl = `https://pay.asegupag.com/checkout/9e94cca3-f46e-4e45-a57b-e430f0aa6782${query ? '?' + query : ''}`;\nwindow.location.href = finalUrl;"
           }
         }
       ]
