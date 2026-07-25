@@ -128,6 +128,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTransactionId = null;
     let pollingIntervalId = null;
 
+    // ---- clique do anúncio (gclid) ----------------------------------------
+    // O gclid é a chave da atribuição: vai no externalRef da cobrança, volta
+    // ecoado no webhook e é o que liga a venda ao clique no Google Ads.
+    // Ordem: URL desta página > o que o utm-handler guardou na home (mesmo
+    // domínio, mesmo localStorage) > vazio (venda sem origem identificada).
+    function obterClickId() {
+        const qs = new URLSearchParams(window.location.search);
+        const daUrl = qs.get('gclid') || qs.get('src') || qs.get('clickid');
+        if (daUrl) return daUrl;
+        try {
+            const guardado = JSON.parse(localStorage.getItem('utm_data') || '{}');
+            return guardado.gclid || '';
+        } catch (e) {
+            return '';
+        }
+    }
+
     // Validação de CPF (dígitos verificadores) — mesma regra que o gateway aplica.
     function cpfValido(cpf) {
         const d = String(cpf || '').replace(/\D/g, '');
@@ -239,7 +256,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 playerName: playerName,
                 dateOfBirth: dob,
                     promoCodeApplied: promoCode,
-                    gameName: 'FF'
+                    gameName: 'FF',
+                    // vai virar externalRef na cobrança -> volta no webhook -> conversão
+                    clickid: obterClickId()
             }
         };
         
