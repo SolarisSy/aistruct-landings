@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Box That Never Closes · Foolscap</title>
+  <meta name="description" content="A single unfinished box explains why 'start fresh' fails on a household archive, and why logging what's inside once works better than sorting it again.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://foolscap.shop/the-box-that-never-closes.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='4' fill='%23f4f1e8'/%3E%3Crect x='6' y='10' width='13' height='44' fill='%238a3324'/%3E%3Ctext x='40' y='43' font-family='Georgia,serif' font-size='28' fill='%2323201a' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+  <style>
+:root{
+  --shm-bg:#f4f1e8;
+  --shm-bg-raised:#efe9d8;
+  --shm-text:#23201a;
+  --shm-text-dim:#5c564a;
+  --shm-accent:#8a3324;
+  --shm-accent-ink:#6e281c;
+  --shm-line:rgba(35,32,26,.18);
+  --shm-line-soft:rgba(35,32,26,.09);
+  --shm-radius:2px;
+  --shm-maxw:845px;
+  --shm-tab-w:120px;
+  --shm-serif:Charter,Georgia,'Iowan Old Style','Times New Roman',serif;
+  --shm-sans:Corbel,Calibri,'Trebuchet MS',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{font-size:16px;}
+body{margin:0;font-family:var(--shm-sans);color:var(--shm-text);line-height:1.6;background-color:var(--shm-bg);background-image:repeating-linear-gradient(to bottom,transparent 0 78px,var(--shm-line-soft) 78px 79px);}
+img{max-width:100%;height:auto;display:block;}
+a{color:var(--shm-accent);}
+h1,h2,h3{font-family:var(--shm-serif);font-weight:600;color:var(--shm-text);}
+p{margin:0 0 14px;}
+ul,ol{margin:0 0 14px;padding-left:22px;}
+li{margin-bottom:6px;}
+.shm-bar{max-width:var(--shm-maxw);margin:0 auto;padding:0 20px;}
+.shm-masthead{border-bottom:1px solid var(--shm-line);padding-top:22px;}
+.shm-masthead-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px;padding-bottom:14px;}
+.shm-wordmark{font-family:var(--shm-serif);font-size:1.7rem;color:var(--shm-text);text-decoration:none;letter-spacing:.01em;}
+.shm-wordmark-dot{color:var(--shm-accent);}
+.shm-tagline{margin:0;font-size:.82rem;color:var(--shm-text-dim);font-style:italic;}
+.shm-nav{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;padding:12px 0 16px;border-top:1px solid var(--shm-line-soft);margin-top:2px;}
+.shm-nav a{color:var(--shm-text);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;}
+.shm-nav a:hover{border-color:var(--shm-accent);color:var(--shm-accent);}
+.shm-main{max-width:calc(var(--shm-maxw) + var(--shm-tab-w) + 28px);margin:0 auto;padding:0 20px 56px;position:relative;}
+.shm-shell{max-width:var(--shm-maxw);width:100%;background:var(--shm-bg-raised);border:1px solid var(--shm-line);padding:30px 24px 40px;margin:0 auto;}
+.shm-tab{position:static;width:100%;background:var(--shm-accent);color:#f3ead9;border:1px solid var(--shm-accent-ink);padding:9px 16px;display:flex;align-items:center;gap:14px;font-family:var(--shm-sans);margin-bottom:0;}
+.shm-tab-series{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+.shm-tab-number{font-family:var(--shm-serif);font-size:.95rem;letter-spacing:.05em;font-variant-numeric:tabular-nums;}
+@media (min-width:901px){
+  .shm-main{padding-left:calc(var(--shm-tab-w) + 48px);}
+  .shm-shell{margin:0;border-top:1px solid var(--shm-line);}
+  .shm-tab{position:absolute;left:20px;top:46px;width:var(--shm-tab-w);min-height:190px;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 8px;}
+  .shm-tab-series,.shm-tab-number{writing-mode:vertical-rl;transform:rotate(180deg);}
+}
+.shm-btn{display:inline-block;font-family:var(--shm-sans);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:11px 22px;border-radius:var(--shm-radius);border:1px solid var(--shm-accent);color:#f4ede0;background:var(--shm-accent);}
+.shm-btn:hover{background:var(--shm-accent-ink);border-color:var(--shm-accent-ink);}
+.shm-btn-ghost{background:transparent;color:var(--shm-accent);}
+.shm-btn-ghost:hover{background:var(--shm-accent);color:#f4ede0;}
+.shm-hero{display:flex;flex-direction:column;gap:22px;padding:26px 0 26px;border-bottom:1px solid var(--shm-line);}
+.shm-hero-eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 10px;}
+.shm-hero h1{font-size:1.7rem;line-height:1.2;margin:0 0 12px;}
+.shm-hero p{color:var(--shm-text-dim);font-size:1rem;margin:0 0 16px;}
+.shm-hero-figure{margin:0;}
+.shm-hero-figure img{width:100%;border-radius:var(--shm-radius);border:1px solid var(--shm-line);}
+.shm-hero-figcap{font-size:.72rem;color:var(--shm-text-dim);margin-top:6px;font-style:italic;}
+@media (min-width:641px){
+  .shm-hero{flex-direction:row;align-items:center;}
+  .shm-hero-text{flex:1.1;}
+  .shm-hero-figure{flex:.9;}
+  .shm-hero h1{font-size:2.05rem;}
+}
+.shm-section-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin:34px 0 4px;}
+.shm-section-head h2{font-size:1.3rem;margin:0;}
+.shm-section-head span{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-index{margin-top:20px;}
+.shm-slip{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--shm-line);}
+.shm-slip:first-child{border-top:1px solid var(--shm-line);}
+.shm-slip-thumb{width:76px;height:76px;object-fit:cover;border-radius:var(--shm-radius);border:1px solid var(--shm-line);filter:sepia(.1) contrast(1.02);}
+.shm-slip-meta{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-slip-title{font-size:1.05rem;margin:.3em 0 .22em;}
+.shm-slip-title a{color:inherit;text-decoration:none;}
+.shm-slip-title a:hover{text-decoration:underline;}
+.shm-slip-dek{color:var(--shm-text-dim);font-size:.88rem;margin:0;}
+@media (min-width:641px){
+  .shm-slip{grid-template-columns:96px 1fr;gap:20px;padding:22px 0;}
+  .shm-slip-thumb{width:96px;height:96px;}
+  .shm-slip-title{font-size:1.22rem;}
+  .shm-slip-dek{font-size:.94rem;}
+}
+.shm-mock{border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:#fbf8f0;overflow:hidden;}
+.shm-mock-bar{background:var(--shm-text);color:#f4ede0;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;}
+.shm-mock-body{padding:14px;display:grid;gap:9px;}
+.shm-mock-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:var(--shm-bg);}
+.shm-mock-row-title{font-family:var(--shm-serif);font-size:.88rem;}
+.shm-mock-row-sub{font-size:.7rem;color:var(--shm-text-dim);}
+.shm-mock-row-tag{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);border:1px solid var(--shm-accent);border-radius:var(--shm-radius);padding:2px 6px;white-space:nowrap;}
+.shm-app-teaser{display:flex;flex-direction:column;gap:22px;padding:30px 0;border-bottom:1px solid var(--shm-line);}
+.shm-app-teaser h2{font-size:1.3rem;margin:0 0 10px;}
+.shm-app-teaser p{color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-app-teaser{flex-direction:row;align-items:center;}}
+.shm-features{display:grid;grid-template-columns:1fr;gap:1px;background:var(--shm-line);border:1px solid var(--shm-line);margin:24px 0;}
+.shm-feature{background:var(--shm-bg-raised);padding:20px 18px;}
+.shm-feature-icon{width:24px;height:24px;color:var(--shm-accent);}
+.shm-feature h3{font-size:1rem;margin:10px 0 6px;}
+.shm-feature p{margin:0;font-size:.88rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-features{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:901px){.shm-features{grid-template-columns:repeat(3,1fr);}}
+.shm-steps{counter-reset:shmstep;margin:24px 0;padding:0;list-style:none;}
+.shm-steps li{counter-increment:shmstep;position:relative;padding:2px 0 22px 36px;border-left:1px solid var(--shm-line);margin-left:13px;}
+.shm-steps li:last-child{border-color:transparent;padding-bottom:2px;}
+.shm-steps li::before{content:counter(shmstep);position:absolute;left:-14px;top:-2px;width:26px;height:26px;border-radius:50%;background:var(--shm-accent);color:#f4ede0;font-family:var(--shm-serif);font-size:.82rem;display:flex;align-items:center;justify-content:center;}
+.shm-steps h3{margin:0 0 4px;font-size:.98rem;}
+.shm-steps p{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-mini-faq{margin:24px 0;}
+.shm-mini-faq-item{padding:14px 0;border-bottom:1px solid var(--shm-line);}
+.shm-mini-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-mini-faq-q{font-family:var(--shm-serif);font-size:.98rem;margin:0 0 6px;}
+.shm-mini-faq-a{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-newsletter{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:22px;margin:28px 0;background:var(--shm-bg-raised);}
+.shm-newsletter h2{margin-top:0;font-size:1.15rem;}
+.shm-newsletter p{color:var(--shm-text-dim);font-size:.9rem;}
+.shm-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.shm-newsletter input[type=email]{flex:1 1 200px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);font-family:var(--shm-sans);background:var(--shm-bg);color:var(--shm-text);font-size:.9rem;}
+.shm-newsletter-ok{display:none;margin-top:10px;font-size:.85rem;color:var(--shm-accent);}
+.shm-about-blurb{padding:24px 0;border-top:1px solid var(--shm-line);font-size:.92rem;color:var(--shm-text-dim);}
+.shm-about-blurb h2{font-size:1.15rem;color:var(--shm-text);margin:0 0 10px;}
+.shm-team{display:grid;grid-template-columns:1fr;gap:16px;margin:22px 0;}
+.shm-team-card{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:16px;background:var(--shm-bg-raised);}
+.shm-team-card h3{font-size:.98rem;margin:0 0 4px;}
+.shm-team-role{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 8px;}
+.shm-team-card p{margin:0;font-size:.85rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-team{grid-template-columns:repeat(3,1fr);}}
+.shm-prose{padding:26px 0 10px;}
+.shm-prose h1{font-size:1.7rem;margin:0 0 6px;}
+.shm-prose .shm-lede{color:var(--shm-text-dim);font-size:.95rem;margin:0 0 24px;}
+.shm-prose h2{font-size:1.2rem;margin:30px 0 10px;border-top:1px solid var(--shm-line);padding-top:18px;}
+.shm-prose address{font-style:normal;}
+.shm-glossary{padding:16px 0 4px;}
+.shm-gloss-entry{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-gloss-entry:first-child{border-top:1px solid var(--shm-line);}
+.shm-gloss-term{font-family:var(--shm-serif);font-size:1.02rem;margin:0 0 6px;color:var(--shm-text);}
+.shm-gloss-letter{color:var(--shm-accent);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-right:8px;border:1px solid var(--shm-accent);padding:1px 5px;border-radius:var(--shm-radius);}
+.shm-gloss-def{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-faq{padding:16px 0 4px;}
+.shm-faq-item{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-faq-q{font-family:var(--shm-serif);font-size:1rem;margin:0 0 8px;color:var(--shm-text);}
+.shm-faq-q-mark{color:var(--shm-accent);margin-right:6px;}
+.shm-faq-a{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-footer{border-top:1px solid var(--shm-line);margin-top:10px;padding:24px 0 46px;font-size:.8rem;color:var(--shm-text-dim);}
+.shm-footer-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px;padding:0;list-style:none;}
+.shm-footer-links a{color:var(--shm-text-dim);text-decoration:none;}
+.shm-footer-links a:hover{color:var(--shm-accent);}
+.shm-footer-fine{font-size:.74rem;opacity:.8;margin:0;}
+.shm-cta-band{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:24px;margin:30px 0 10px;background:var(--shm-bg-raised);text-align:center;}
+.shm-cta-band h2{margin:0 0 8px;}
+.shm-cta-band p{color:var(--shm-text-dim);max-width:520px;margin:0 auto 16px;}
+.shm-callout{border:1px solid var(--shm-line);border-left:4px solid var(--shm-accent);background:var(--shm-bg-raised);padding:16px 18px;margin:22px 0;border-radius:var(--shm-radius);}
+.shm-callout p{margin:0;font-size:.92rem;}
+.shm-callout p+p{margin-top:8px;}
+.shm-callout strong{color:var(--shm-accent);}
+.shm-post blockquote{margin:26px 0;padding:2px 0 2px 20px;border-left:3px solid var(--shm-accent);font-family:var(--shm-serif);font-size:1.15rem;font-style:italic;color:var(--shm-text);}
+.shm-post blockquote p{margin:0;}
+.shm-table-wrap{overflow-x:auto;margin:20px 0;border:1px solid var(--shm-line);border-radius:var(--shm-radius);}
+.shm-table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:560px;}
+.shm-table th,.shm-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--shm-line);vertical-align:top;}
+.shm-table th{font-family:var(--shm-serif);font-weight:600;color:var(--shm-text);border-bottom:2px solid var(--shm-line);background:var(--shm-bg-raised);}
+.shm-table td{color:var(--shm-text-dim);}
+.shm-table tr:last-child td{border-bottom:none;}
+.shm-note{border:1px dashed var(--shm-line);border-radius:var(--shm-radius);padding:16px 18px;margin:28px 0 10px;font-size:.86rem;color:var(--shm-text-dim);}
+.shm-note strong{color:var(--shm-text);}
+.shm-readalso{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:18px 20px;margin:30px 0 6px;background:var(--shm-bg-raised);}
+.shm-readalso h2{margin:0 0 10px;font-size:1rem;border:none;padding:0;}
+.shm-readalso ul{margin:0;padding-left:20px;}
+.shm-readalso li{margin-bottom:6px;font-size:.9rem;}
+.shm-readalso a{text-decoration:none;}
+.shm-readalso a:hover{text-decoration:underline;}
+  </style>
+</head><body>
+  <header class="shm-masthead">
+    <div class="shm-bar">
+      <div class="shm-masthead-top">
+        <a class="shm-wordmark" href="safe.html">Foolscap<span class="shm-wordmark-dot">.</span></a>
+        <p class="shm-tagline">Field notes on keeping a household paper archive in order</p>
+      </div>
+      <nav class="shm-nav" aria-label="Primary">
+        <a href="safe.html">Home</a>
+        <a href="app.html">Boxlist</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="shm-post">
+    <div class="shm-main">
+      <div class="shm-shell">
+        <div class="shm-prose">
+          <p class="shm-hero-eyebrow">Storage · March 9, 2026</p>
+          <h1>The Box That Never Closes</h1>
+          <p class="shm-lede">Every household has one box that was never quite finished. What it says about the rest of the archive, and what to do with it instead of starting over.</p>
+
+          <figure class="shm-hero-figure">
+            <img src="img/the-box-that-never-closes.jpg" alt="The Box That Never Closes">
+            <figcaption class="shm-hero-figcap">A box that closes, technically, if nobody leans on the lid. Nothing inside needs a new folder — it needs one line in an index.</figcaption>
+          </figure>
+
+          <p>Every house has one. Not the junk drawer — a box. It lives in a closet, or wedged under a guest bed, three-quarters full of paper that someone meant to sort out over a weekend that never arrived. The lid still closes, technically, if nobody leans on it. Inside: a school photo with no date on the back, a warranty card for a dishwasher that left the kitchen years ago, and a rubber band that gave up its stretch sometime around a move nobody quite remembers. This one box says more about a household archive than any of the neatly labeled ones sitting next to it on the shelf, because it shows exactly where the system stalled — and exactly where it can be picked back up without starting over.</p>
+
+          <h2>The Box Everyone Recognizes</h2>
+          <p>Ask around and the box changes shape but keeps its character. In one house it's a shoebox of ticket stubs and a single unpaid parking citation for a car sold a decade ago. In another it's a manila folder gone soft at the corners, holding a mix of report cards, a passport photo, and a receipt for a washing-machine repair that no longer matters to anyone. The contents rarely match whatever label is on the outside, if there's a label at all.</p>
+          <p>What they share is a kind of suspended intention. Nothing in the box is trash, exactly, and nothing in it is filed, exactly. Everything was set aside "for later," and later kept not arriving. It isn't clutter in the ordinary sense — clutter accumulates by accident. This box accumulated on purpose, one deferred decision at a time, which is part of why it feels heavier to deal with than its actual weight in paper would suggest.</p>
+
+          <h2>Why Starting Over Always Loses</h2>
+          <p>The instinct, once the box gets noticed, is to empty it onto the table and begin again: sort into piles, buy the right folders, do it properly this time. It rarely survives contact with the actual paper. Fifteen minutes in, the piles have multiplied past the folders bought for them, one stubborn decision about an undated photo has stalled the whole operation, and the box goes back together in worse shape than it started — because now it's been opened and abandoned twice instead of once.</p>
+          <p>The problem isn't really time. It's that "start fresh" asks a single sitting to make every decision the box has been avoiding for years — what to keep, what to log, what to release — all at once, and in whatever order the paper happens to come out, rather than an order that would make the decisions easier. A system that depends on one heroic afternoon fails for much the same reason a January resolution to finally organize the garage rarely survives February: it needs a level of attention no ordinary week can supply twice in a row.</p>
+
+          <div class="shm-callout">
+            <p><strong>The one-question test:</strong> Before reaching for a fresh folder, ask one thing about the box: has anyone opened it in the last year for a reason other than to feel vaguely guilty about it? If the answer is no, the box doesn't need sorting. It needs one line in the household index and a lid that closes.</p>
+          </div>
+
+          <h2>What's Actually Inside</h2>
+          <p>Open the box properly — not to sort it, just to look — and the contents tend to fall into a small number of categories, box after box, house after house. None of them require a decision made on the spot. They require a decision made once, written down, and then left alone.</p>
+
+          <div class="shm-table-wrap">
+            <table class="shm-table">
+              <thead>
+                <tr><th>What's in the box</th><th>Why it landed there</th><th>What a log does with it</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Warranty card for an appliance long gone</td><td>Filed when the appliance was new, forgotten once it left the house</td><td>One dated line, then routed to the disposal ledger</td></tr>
+                <tr><td>A folder of old report cards</td><td>Someone meant to build a scrapbook around them, someday</td><td>Given its own index entry — no scrapbook required</td></tr>
+                <tr><td>Loose photographs, no date</td><td>Nobody wanted to be the one who guessed wrong</td><td>A range note ("early 2000s, before the move") instead of a false exact date</td></tr>
+                <tr><td>Manuals for a car sold years ago</td><td>"Might still need this" outlived the car itself</td><td>Marked for release, not re-boxed for another decade</td></tr>
+                <tr><td>A single folder labeled "Important"</td><td>The universal admission that sorting stalled out</td><td>Opened once, split by actual content, the label retired</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Logging Beats Sorting</h2>
+          <p>The single change that finishes more boxes than any purge ever does: stop asking "where does this go" and start asking "when did this arrive, and what is it." That's the whole logic behind treating <a href="order-of-arrival.html">order of arrival</a> as the organizing principle instead of topic — the box doesn't need a taxonomy, it needs a log. A dishwasher warranty from six years ago doesn't need a folder tab of its own; it needs one line in an index noting what it is, roughly when it entered the house, and where it currently sits. The folder underneath it can stay exactly as disordered as it already is, as long as the log says what's in it.</p>
+          <p>This is the point where the box stops being an unfinished project and starts being a finished entry.</p>
+
+          <blockquote><p>A box doesn't need to be finished. It needs to be findable.</p></blockquote>
+
+          <h2>The Five Minutes That Actually Finish It</h2>
+          <p>Closing the box that never closes doesn't take an afternoon. It takes about five minutes, done once, without touching most of what's inside.</p>
+          <ol>
+            <li>Open the lid and look — don't pull anything out yet, just see broadly what's in there.</li>
+            <li>Give the box one line in the household index: a date range and a two-word description beats a perfect label every time.</li>
+            <li>Pull out anything that's obviously finished — an expired warranty, a manual for an appliance that's gone — and route it toward a disposal ledger instead of back into the box.</li>
+            <li>Leave everything else exactly where it sits. The box closes because it's logged, not because it's organized.</li>
+          </ol>
+
+          <h2>What "Closed" Really Means</h2>
+          <p>A box that's logged but not sorted isn't a failure state — it's most of a household archive, most of the time. The <a href="the-manila-drawer.html">manila drawer</a> down the hall survives for the same reason: it was never asked to be tidy, only to be known. What ages out of a box over the years — the dead warranties, the manuals for appliances that left with the last move — belongs on a disposal ledger, not in a new folder with a better label. What's left earns its line in the index and quietly stops being a problem anyone has to solve twice.</p>
+
+          <div class="shm-note">
+            <p><strong>A note on scope:</strong> This describes one common pattern in home paper archives, not a method fitted to any single household's situation. What's safe to log-and-release versus what belongs in longer-term storage varies by document type and by family circumstance, and anything carrying legal or financial weight deserves its own judgment rather than a blanket rule.</p>
+          </div>
+
+          <div class="shm-readalso">
+            <h2>Read also</h2>
+            <ul>
+              <li><a href="seven-year-shelf.html">What Actually Survives Seven Years in a Closet</a></li>
+              <li><a href="disposal-ledger.html">Keeping a Disposal Ledger</a></li>
+              <li><a href="the-year-i-numbered-everything.html">The Year I Numbered Everything</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="shm-footer">
+    <div class="shm-bar">
+      <ul class="shm-footer-links">
+        <li><a href="safe.html">Home</a></li>
+        <li><a href="app.html">Boxlist</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+      <p class="shm-footer-fine">&copy; 2026 Foolscap. An independent journal about home paper archiving, kept by hand. Not affiliated with any library, records office, or storage vendor. Contact: hello@foolscap.shop</p>
+    </div>
+  </footer>
+</body></html>

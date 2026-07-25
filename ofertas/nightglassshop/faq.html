@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FAQ — Backyard Astronomy Questions | Nightglass</title>
+<meta name="description" content="Common questions about observing plans, ephemerides, basic optics, and the Nightglass site and Nightlist app — answered plainly.">
+<link rel="canonical" href="https://nightglass.shop/faq.html">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='4' fill='%230d1117'/%3E%3Cpath d='M14.5 3.5a8 8 0 1 0 6.6 12.4A6.4 6.4 0 0 1 14.5 3.5z' fill='%23e0b25b'/%3E%3Ccircle cx='18.5' cy='6.5' r='1' fill='%23cf4636'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ng-bg:#0d1117;
+  --ng-bg-raised:#111720;
+  --ng-bg-zebra:#121820;
+  --ng-text:#d8dee6;
+  --ng-text-muted:#8894a3;
+  --ng-heading:#f2e9da;
+  --ng-red:#cf4636;
+  --ng-amber:#e0b25b;
+  --ng-line:#1f2732;
+  --ng-radius:3px;
+  --ng-maxw:1020px;
+  --ng-serif:'Hoefler Text','Book Antiqua',Garamond,Georgia,serif;
+  --ng-sans:'Avenir Next','Century Gothic',Verdana,sans-serif;
+}
+*{box-sizing:border-box;}
+html{background:var(--ng-bg);}
+body{margin:0;background:var(--ng-bg);color:var(--ng-text);font-family:var(--ng-sans);line-height:1.62;font-size:15.5px;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+h1,h2,h3,h4{font-family:var(--ng-serif);color:var(--ng-heading);font-weight:400;line-height:1.28;margin:0;}
+p{margin:0 0 14px;}
+a{color:var(--ng-amber);text-decoration:none;}
+a:hover{color:var(--ng-red);}
+.ng-container{max-width:var(--ng-maxw);margin:0 auto;padding:0 22px;}
+.ng-main{padding-bottom:10px;}
+.ng-nav{position:sticky;top:0;z-index:80;height:44px;background:#0a0e13;border-bottom:1px solid var(--ng-line);}
+.ng-nav-inner{max-width:var(--ng-maxw);margin:0 auto;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;}
+.ng-brand{display:flex;align-items:center;gap:8px;font-family:var(--ng-serif);font-size:17px;color:var(--ng-amber);letter-spacing:.2px;}
+.ng-brand-icon{color:var(--ng-red);flex:none;}
+.ng-nav-links{display:flex;align-items:center;gap:20px;font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;}
+.ng-nav-links a{color:var(--ng-text-muted);}
+.ng-nav-links a:hover{color:var(--ng-amber);}
+.ng-nav-cta{color:#0d1117!important;background:var(--ng-red);padding:6px 12px;border-radius:var(--ng-radius);}
+.ng-nav-cta:hover{background:var(--ng-amber)!important;color:#0d1117!important;}
+@media (max-width:700px){.ng-nav-links{gap:12px;font-size:11px;}.ng-brand span{display:none;}}
+@media (max-width:520px){.ng-nav-links a:not(.ng-nav-cta){display:none;}.ng-nav-inner{justify-content:space-between;}}
+.ng-page-head{padding:36px 0 22px;border-bottom:1px solid var(--ng-line);}
+.ng-page-head h1{font-size:25px;margin:6px 0 8px;}
+.ng-page-head p{color:var(--ng-text-muted);max-width:620px;margin:0;}
+.ng-kicker{display:inline-block;font-family:var(--ng-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ng-red);margin-bottom:10px;}
+.ng-section-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--ng-red);padding-bottom:9px;margin:36px 0 6px;gap:10px;flex-wrap:wrap;}
+.ng-section-head h2{font-size:20px;}
+.ng-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ng-text-muted);}
+.ng-faq-item{border-bottom:1px solid var(--ng-line);padding:15px 0;}
+.ng-faq-item summary{cursor:pointer;font-family:var(--ng-serif);font-size:15.5px;color:var(--ng-heading);list-style:none;}
+.ng-faq-item summary::-webkit-details-marker{display:none;}
+.ng-faq-item summary::before{content:'+ ';color:var(--ng-red);}
+.ng-faq-item[open] summary::before{content:'\2013 ';}
+.ng-faq-item p{margin:10px 0 0;color:var(--ng-text-muted);font-size:13.5px;}
+.ng-footer{border-top:1px solid var(--ng-line);background:#0a0e13;margin-top:44px;}
+.ng-footer-inner{max-width:var(--ng-maxw);margin:0 auto;padding:36px 22px 18px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:24px;}
+@media (max-width:700px){.ng-footer-inner{grid-template-columns:1fr 1fr;}}
+.ng-footer-col h3{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--ng-amber);margin:0 0 10px;font-family:var(--ng-sans);}
+.ng-footer-col a{display:block;color:var(--ng-text-muted);font-size:12.5px;margin-bottom:8px;}
+.ng-footer-col a:hover{color:var(--ng-amber);}
+.ng-brand-footer{margin-bottom:10px;}
+.ng-footer-about p{font-size:12.5px;color:var(--ng-text-muted);max-width:280px;margin:0;}
+.ng-footer-bottom{max-width:var(--ng-maxw);margin:0 auto;padding:16px 22px 30px;font-size:11.5px;color:#5c6774;border-top:1px solid var(--ng-line);}
+</style>
+</head>
+<body>
+<header class="ng-nav">
+  <div class="ng-nav-inner">
+    <a class="ng-brand" href="safe.html">
+      <svg class="ng-brand-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M14.5 3.5a8 8 0 1 0 6.6 12.4A6.4 6.4 0 0 1 14.5 3.5z" fill="currentColor"/></svg>
+      <span>Nightglass</span>
+    </a>
+    <nav class="ng-nav-links" aria-label="Primary">
+      <a href="safe.html">Journal</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a class="ng-nav-cta" href="app.html">Nightlist App</a>
+    </nav>
+  </div>
+</header>
+<main class="ng-main">
+  <div class="ng-container">
+
+    <div class="ng-page-head">
+      <span class="ng-kicker">FAQ</span>
+      <h1>Frequently Asked</h1>
+      <p>Questions that come up often about observing plans, ephemerides, basic optics, and about the journal and the Nightlist app themselves.</p>
+    </div>
+
+    <div class="ng-section-head">
+      <h2>Observing &amp; planning</h2>
+      <span class="ng-eyebrow">Twelve common ones</span>
+    </div>
+    <div>
+
+      <details class="ng-faq-item">
+        <summary>Can I actually see planets from a light-polluted backyard?</summary>
+        <p>Yes, in most cases. Planets are point sources of steady, fairly bright light, so they hold up against sky glow far better than faint deep-sky objects do. Jupiter, Venus, and Saturn are usually visible from a Bortle 6–7 yard on a clear night.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>What's the difference between an observing plan and an ephemeris?</summary>
+        <p>An ephemeris is raw predicted position data — where an object will be, and when. An observing plan takes that data and filters it against your actual horizon, schedule, and sky conditions to decide what's worth setting up for.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>How far in advance should I plan a session?</summary>
+        <p>A same-day check in the afternoon is usually enough for casual sessions — weather and seeing forecasts don't hold up well more than a day or two out. For a specific event like a bright pass or a conjunction, checking the timing a few days ahead avoids a last-minute scramble.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>Do I need a telescope to get started?</summary>
+        <p>No. A decent pair of binoculars, held steady or braced against something solid, resolves far more than most beginners expect — lunar craters, Jupiter's brighter moons, and a handful of star clusters are all within reach.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>Why does the same object look different from one night to the next?</summary>
+        <p>Seeing and transparency both shift night to night, sometimes hour to hour. A planet can look crisp one evening and washed-out and shimmering the next, even with identical gear and the same target altitude.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>Is a full moon the best time to look at the Moon itself?</summary>
+        <p>Not really. Under full illumination, shadows disappear and the surface flattens out. The terminator line — visible during any other phase — is where craters and ridges actually show relief.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>How do I know if my telescope needs collimation?</summary>
+        <p>A star that looks like a lopsided or asymmetric blur at moderate magnification, rather than a clean point with faint rings, is the usual sign. A quick check with a defocused bright star at the start of a session catches most collimation drift early.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>What's a reasonable first upgrade after starter binoculars?</summary>
+        <p>Often it's not a telescope at all — it's a tripod adapter for the binoculars you already have. Removing hand shake improves the view more than most people expect before jumping to a bigger aperture.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>How long does it take for night vision to adjust?</summary>
+        <p>A meaningful gain shows up within ten minutes, with most of the adaptation complete by twenty to thirty. A single glance at a bright phone screen resets a large part of that progress.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>Why do stars twinkle but planets usually don't?</summary>
+        <p>Stars are so distant they act as point sources, so atmospheric turbulence bends and scatters their light noticeably. Planets, being close enough to show a tiny disc rather than a true point, average that turbulence out and appear steadier.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>Does cloud cover ruin an entire night's plan?</summary>
+        <p>Not always — partial or shifting cloud can still leave gaps worth using, especially for bright targets like the Moon or planets. A dense, unbroken deck is the real dealbreaker; scattered cloud is often just an inconvenience.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>What's the single biggest factor in a good backyard session?</summary>
+        <p>Preparation, more than gear or even sky darkness. Knowing what will actually clear your horizon, having eyes adjusted before starting, and picking targets suited to the night's conditions consistently beats better equipment used without a plan.</p>
+      </details>
+
+    </div>
+
+    <div class="ng-section-head">
+      <h2>About the site &amp; app</h2>
+      <span class="ng-eyebrow">A few more</span>
+    </div>
+    <div>
+
+      <details class="ng-faq-item">
+        <summary>Is Nightglass written by professional astronomers?</summary>
+        <p>No — it's written by hobbyists observing from ordinary suburban conditions, cross-checked against public reference material for the astronomy itself. See the <a href="about.html">About page</a> for our content policy.</p>
+      </details>
+
+      <details class="ng-faq-item">
+        <summary>Does the site sell anything?</summary>
+        <p>No. Nightglass doesn't sell products, courses, or memberships. The only thing you can sign up for is an occasional email when there's a new note worth reading.</p>
+      </details>
+
+    </div>
+
+  </div>
+</main>
+<footer class="ng-footer">
+  <div class="ng-footer-inner">
+    <div class="ng-footer-col ng-footer-about">
+      <div class="ng-brand ng-brand-footer">
+        <svg class="ng-brand-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M14.5 3.5a8 8 0 1 0 6.6 12.4A6.4 6.4 0 0 1 14.5 3.5z" fill="currentColor"/></svg>
+        <span>Nightglass</span>
+      </div>
+      <p>Notes from a Bortle 7 backyard: what's actually visible tonight, and how to plan for it the afternoon before.</p>
+    </div>
+    <div class="ng-footer-col">
+      <h3>Journal</h3>
+      <a href="safe.html">Latest notes</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="ng-footer-col">
+      <h3>Nightlist</h3>
+      <a href="app.html">Overview</a>
+      <a href="app.html#faq">App FAQ</a>
+    </div>
+    <div class="ng-footer-col">
+      <h3>Legal</h3>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="ng-footer-bottom">&copy; 2026 Nightglass. An independent backyard-astronomy journal. Not affiliated with any observatory, agency, or manufacturer.</div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body>
+</html>

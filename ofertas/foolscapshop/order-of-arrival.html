@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order of Arrival, Not Order by Topic · Foolscap</title>
+  <meta name="description" content="Subject folders promise order but keep getting renamed. A case for arranging a household paper archive by arrival order instead, and how to number it.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://foolscap.shop/order-of-arrival.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='4' fill='%23f4f1e8'/%3E%3Crect x='6' y='10' width='13' height='44' fill='%238a3324'/%3E%3Ctext x='40' y='43' font-family='Georgia,serif' font-size='28' fill='%2323201a' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+  <style>
+:root{
+  --shm-bg:#f4f1e8;
+  --shm-bg-raised:#efe9d8;
+  --shm-text:#23201a;
+  --shm-text-dim:#5c564a;
+  --shm-accent:#8a3324;
+  --shm-accent-ink:#6e281c;
+  --shm-line:rgba(35,32,26,.18);
+  --shm-line-soft:rgba(35,32,26,.09);
+  --shm-radius:2px;
+  --shm-maxw:845px;
+  --shm-tab-w:120px;
+  --shm-serif:Charter,Georgia,'Iowan Old Style','Times New Roman',serif;
+  --shm-sans:Corbel,Calibri,'Trebuchet MS',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{font-size:16px;}
+body{margin:0;font-family:var(--shm-sans);color:var(--shm-text);line-height:1.6;background-color:var(--shm-bg);background-image:repeating-linear-gradient(to bottom,transparent 0 78px,var(--shm-line-soft) 78px 79px);}
+img{max-width:100%;height:auto;display:block;}
+a{color:var(--shm-accent);}
+h1,h2,h3{font-family:var(--shm-serif);font-weight:600;color:var(--shm-text);}
+p{margin:0 0 14px;}
+ul,ol{margin:0 0 14px;padding-left:22px;}
+li{margin-bottom:6px;}
+.shm-bar{max-width:var(--shm-maxw);margin:0 auto;padding:0 20px;}
+.shm-masthead{border-bottom:1px solid var(--shm-line);padding-top:22px;}
+.shm-masthead-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px;padding-bottom:14px;}
+.shm-wordmark{font-family:var(--shm-serif);font-size:1.7rem;color:var(--shm-text);text-decoration:none;letter-spacing:.01em;}
+.shm-wordmark-dot{color:var(--shm-accent);}
+.shm-tagline{margin:0;font-size:.82rem;color:var(--shm-text-dim);font-style:italic;}
+.shm-nav{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;padding:12px 0 16px;border-top:1px solid var(--shm-line-soft);margin-top:2px;}
+.shm-nav a{color:var(--shm-text);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;}
+.shm-nav a:hover{border-color:var(--shm-accent);color:var(--shm-accent);}
+.shm-main{max-width:calc(var(--shm-maxw) + var(--shm-tab-w) + 28px);margin:0 auto;padding:0 20px 56px;position:relative;}
+.shm-shell{max-width:var(--shm-maxw);width:100%;background:var(--shm-bg-raised);border:1px solid var(--shm-line);padding:30px 24px 40px;margin:0 auto;}
+.shm-tab{position:static;width:100%;background:var(--shm-accent);color:#f3ead9;border:1px solid var(--shm-accent-ink);padding:9px 16px;display:flex;align-items:center;gap:14px;font-family:var(--shm-sans);margin-bottom:0;}
+.shm-tab-series{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+.shm-tab-number{font-family:var(--shm-serif);font-size:.95rem;letter-spacing:.05em;font-variant-numeric:tabular-nums;}
+@media (min-width:901px){
+  .shm-main{padding-left:calc(var(--shm-tab-w) + 48px);}
+  .shm-shell{margin:0;border-top:1px solid var(--shm-line);}
+  .shm-tab{position:absolute;left:20px;top:46px;width:var(--shm-tab-w);min-height:190px;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 8px;}
+  .shm-tab-series,.shm-tab-number{writing-mode:vertical-rl;transform:rotate(180deg);}
+}
+.shm-btn{display:inline-block;font-family:var(--shm-sans);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:11px 22px;border-radius:var(--shm-radius);border:1px solid var(--shm-accent);color:#f4ede0;background:var(--shm-accent);}
+.shm-btn:hover{background:var(--shm-accent-ink);border-color:var(--shm-accent-ink);}
+.shm-btn-ghost{background:transparent;color:var(--shm-accent);}
+.shm-btn-ghost:hover{background:var(--shm-accent);color:#f4ede0;}
+.shm-hero{display:flex;flex-direction:column;gap:22px;padding:26px 0 26px;border-bottom:1px solid var(--shm-line);}
+.shm-hero-eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 10px;}
+.shm-hero h1{font-size:1.7rem;line-height:1.2;margin:0 0 12px;}
+.shm-hero p{color:var(--shm-text-dim);font-size:1rem;margin:0 0 16px;}
+.shm-hero-figure{margin:0;}
+.shm-hero-figure img{width:100%;border-radius:var(--shm-radius);border:1px solid var(--shm-line);}
+.shm-hero-figcap{font-size:.72rem;color:var(--shm-text-dim);margin-top:6px;font-style:italic;}
+@media (min-width:641px){
+  .shm-hero{flex-direction:row;align-items:center;}
+  .shm-hero-text{flex:1.1;}
+  .shm-hero-figure{flex:.9;}
+  .shm-hero h1{font-size:2.05rem;}
+}
+.shm-section-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin:34px 0 4px;}
+.shm-section-head h2{font-size:1.3rem;margin:0;}
+.shm-section-head span{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-index{margin-top:20px;}
+.shm-slip{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--shm-line);}
+.shm-slip:first-child{border-top:1px solid var(--shm-line);}
+.shm-slip-thumb{width:76px;height:76px;object-fit:cover;border-radius:var(--shm-radius);border:1px solid var(--shm-line);filter:sepia(.1) contrast(1.02);}
+.shm-slip-meta{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-slip-title{font-size:1.05rem;margin:.3em 0 .22em;}
+.shm-slip-title a{color:inherit;text-decoration:none;}
+.shm-slip-title a:hover{text-decoration:underline;}
+.shm-slip-dek{color:var(--shm-text-dim);font-size:.88rem;margin:0;}
+@media (min-width:641px){
+  .shm-slip{grid-template-columns:96px 1fr;gap:20px;padding:22px 0;}
+  .shm-slip-thumb{width:96px;height:96px;}
+  .shm-slip-title{font-size:1.22rem;}
+  .shm-slip-dek{font-size:.94rem;}
+}
+.shm-mock{border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:#fbf8f0;overflow:hidden;}
+.shm-mock-bar{background:var(--shm-text);color:#f4ede0;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;}
+.shm-mock-body{padding:14px;display:grid;gap:9px;}
+.shm-mock-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:var(--shm-bg);}
+.shm-mock-row-title{font-family:var(--shm-serif);font-size:.88rem;}
+.shm-mock-row-sub{font-size:.7rem;color:var(--shm-text-dim);}
+.shm-mock-row-tag{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);border:1px solid var(--shm-accent);border-radius:var(--shm-radius);padding:2px 6px;white-space:nowrap;}
+.shm-app-teaser{display:flex;flex-direction:column;gap:22px;padding:30px 0;border-bottom:1px solid var(--shm-line);}
+.shm-app-teaser h2{font-size:1.3rem;margin:0 0 10px;}
+.shm-app-teaser p{color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-app-teaser{flex-direction:row;align-items:center;}}
+.shm-features{display:grid;grid-template-columns:1fr;gap:1px;background:var(--shm-line);border:1px solid var(--shm-line);margin:24px 0;}
+.shm-feature{background:var(--shm-bg-raised);padding:20px 18px;}
+.shm-feature-icon{width:24px;height:24px;color:var(--shm-accent);}
+.shm-feature h3{font-size:1rem;margin:10px 0 6px;}
+.shm-feature p{margin:0;font-size:.88rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-features{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:901px){.shm-features{grid-template-columns:repeat(3,1fr);}}
+.shm-steps{counter-reset:shmstep;margin:24px 0;padding:0;list-style:none;}
+.shm-steps li{counter-increment:shmstep;position:relative;padding:2px 0 22px 36px;border-left:1px solid var(--shm-line);margin-left:13px;}
+.shm-steps li:last-child{border-color:transparent;padding-bottom:2px;}
+.shm-steps li::before{content:counter(shmstep);position:absolute;left:-14px;top:-2px;width:26px;height:26px;border-radius:50%;background:var(--shm-accent);color:#f4ede0;font-family:var(--shm-serif);font-size:.82rem;display:flex;align-items:center;justify-content:center;}
+.shm-steps h3{margin:0 0 4px;font-size:.98rem;}
+.shm-steps p{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-mini-faq{margin:24px 0;}
+.shm-mini-faq-item{padding:14px 0;border-bottom:1px solid var(--shm-line);}
+.shm-mini-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-mini-faq-q{font-family:var(--shm-serif);font-size:.98rem;margin:0 0 6px;}
+.shm-mini-faq-a{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-newsletter{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:22px;margin:28px 0;background:var(--shm-bg-raised);}
+.shm-newsletter h2{margin-top:0;font-size:1.15rem;}
+.shm-newsletter p{color:var(--shm-text-dim);font-size:.9rem;}
+.shm-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.shm-newsletter input[type=email]{flex:1 1 200px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);font-family:var(--shm-sans);background:var(--shm-bg);color:var(--shm-text);font-size:.9rem;}
+.shm-newsletter-ok{display:none;margin-top:10px;font-size:.85rem;color:var(--shm-accent);}
+.shm-about-blurb{padding:24px 0;border-top:1px solid var(--shm-line);font-size:.92rem;color:var(--shm-text-dim);}
+.shm-about-blurb h2{font-size:1.15rem;color:var(--shm-text);margin:0 0 10px;}
+.shm-team{display:grid;grid-template-columns:1fr;gap:16px;margin:22px 0;}
+.shm-team-card{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:16px;background:var(--shm-bg-raised);}
+.shm-team-card h3{font-size:.98rem;margin:0 0 4px;}
+.shm-team-role{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 8px;}
+.shm-team-card p{margin:0;font-size:.85rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-team{grid-template-columns:repeat(3,1fr);}}
+.shm-prose{padding:26px 0 10px;}
+.shm-prose h1{font-size:1.7rem;margin:0 0 6px;}
+.shm-prose .shm-lede{color:var(--shm-text-dim);font-size:.95rem;margin:0 0 24px;}
+.shm-prose h2{font-size:1.2rem;margin:30px 0 10px;border-top:1px solid var(--shm-line);padding-top:18px;}
+.shm-prose address{font-style:normal;}
+.shm-glossary{padding:16px 0 4px;}
+.shm-gloss-entry{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-gloss-entry:first-child{border-top:1px solid var(--shm-line);}
+.shm-gloss-term{font-family:var(--shm-serif);font-size:1.02rem;margin:0 0 6px;color:var(--shm-text);}
+.shm-gloss-letter{color:var(--shm-accent);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-right:8px;border:1px solid var(--shm-accent);padding:1px 5px;border-radius:var(--shm-radius);}
+.shm-gloss-def{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-faq{padding:16px 0 4px;}
+.shm-faq-item{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-faq-q{font-family:var(--shm-serif);font-size:1rem;margin:0 0 8px;color:var(--shm-text);}
+.shm-faq-q-mark{color:var(--shm-accent);margin-right:6px;}
+.shm-faq-a{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-footer{border-top:1px solid var(--shm-line);margin-top:10px;padding:24px 0 46px;font-size:.8rem;color:var(--shm-text-dim);}
+.shm-footer-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px;padding:0;list-style:none;}
+.shm-footer-links a{color:var(--shm-text-dim);text-decoration:none;}
+.shm-footer-links a:hover{color:var(--shm-accent);}
+.shm-footer-fine{font-size:.74rem;opacity:.8;margin:0;}
+.shm-cta-band{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:24px;margin:30px 0 10px;background:var(--shm-bg-raised);text-align:center;}
+.shm-cta-band h2{margin:0 0 8px;}
+.shm-cta-band p{color:var(--shm-text-dim);max-width:520px;margin:0 auto 16px;}
+  </style>
+</head><body>
+  <header class="shm-masthead">
+    <div class="shm-bar">
+      <div class="shm-masthead-top">
+        <a class="shm-wordmark" href="safe.html">Foolscap<span class="shm-wordmark-dot">.</span></a>
+        <p class="shm-tagline">Field notes on keeping a household paper archive in order</p>
+      </div>
+      <nav class="shm-nav" aria-label="Primary">
+        <a href="safe.html">Home</a>
+        <a href="app.html">Boxlist</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="shm-post">
+    <div class="shm-main">
+      <div class="shm-tab">
+        <span class="shm-tab-series">Method</span>
+        <span class="shm-tab-number">014.1</span>
+      </div>
+      <div class="shm-shell">
+        <div class="shm-prose">
+
+          <p class="shm-hero-eyebrow">Method · Jan 14, 2026</p>
+          <h1>Order of Arrival, Not Order by Topic</h1>
+          <p class="shm-lede">A household archive rarely fails because a document is missing. It fails because the shelf was reorganized by subject, and nobody remembers which subject won.</p>
+
+          <figure class="shm-hero-figure">
+            <img src="img/order-of-arrival.jpg" alt="Order of Arrival, Not Order by Topic">
+            <figcaption class="shm-hero-figcap">A shelf arranged by arrival order: each folder numbered when it entered the house, not when someone decided what it was about.</figcaption>
+          </figure>
+
+          <p>Somewhere in most houses there is a drawer, a bin, or a hanging-file box that used to have a system. Insurance here, warranties there, medical on the left, school papers on the right. It made sense the day it was built. A year or two later, nobody can say which of four plausible folders holds the roof estimate from the contractor who never called back, and the household has quietly split into two archives: the one on paper, and the one in the memory of whoever built the folders. That second archive doesn't survive the person who holds it. A move, a change in who's paying the bills, a death in the family, and the paper reverts to what it always was underneath the labels — an unordered pile someone has to re-sort from zero.</p>
+
+          <h2>The Decision Nobody Remembers Making</h2>
+          <p>Subject filing asks a question every time a paper enters the house: what is this, actually, for filing purposes? A car insurance renewal is arguably an insurance document, arguably a car document, and arguably just this year's mail. The person filing it in March decides one way. The person filing the near-identical renewal the following March, tired and holding a toddler, decides the other way, or starts a new folder called "Cars 2025" because the old one is already stuffed. Nothing about the paper changed. The decision changed, because it was never really about the paper — it was about a mood, and how full the folder looked that afternoon. A system that depends on the same judgment being made the same way, indefinitely, by whoever happens to be standing at the file cabinet, is not a system. It's a habit, and habits fray.</p>
+
+          <div class="shm-cta-band">
+            <p><strong>A two-minute check:</strong> open the folder you'd call "Insurance" and pull the oldest and newest item, side by side. If you can't tell which came first without reading the printed dates, the folder has stopped doing the one job a shelf needs to do.</p>
+          </div>
+
+          <h2>What a Subject Folder Actually Promises</h2>
+          <p>A subject folder makes an implicit promise: everything about this topic, together, in one place. For a while it keeps that promise well. Then a child ages out of the pediatrician and into a dentist whose paperwork doesn't fit the old "Kids — Medical" folder, so a new one starts next to it, and now two homes exist for one subject with no note saying which is current. Or a homeowner's policy renews under a new carrier, but the old carrier's claim history — the proof that matters if the same roof leaks again — stays behind in a folder labeled with a company nobody deals with anymore. The subject didn't fail on its own terms. Subjects aren't stable categories; they're labels for how someone was thinking about a paper on the day they filed it, and every day after is a slow drift from that accuracy that nobody schedules time to correct.</p>
+
+          <h2>Series, Not Subjects</h2>
+          <p>Archivists were sorting through this problem long before anyone owned a filing cabinet at home, and they mostly solved it by refusing the subject question entirely. A <a href="series-not-folders.html">series</a>, in archival terms, isn't a topic — it's the record of a recurring activity: every renewal notice a household has received, every statement from one bank account, every report card in order. A series doesn't ask what a document is about; it asks what generated it, and that question tends to hold steady for the document's whole life, because the activity behind it — renewing a policy, paying a mortgage, enrolling in a grade — doesn't get reinterpreted by whoever happens to be filing that afternoon. Arrange those series by the order things arrived, and the shelf ends up showing not just what happened, but the sequence it happened in — often the detail that settles a dispute with an insurer, a school, or a contractor, years later.</p>
+
+          <blockquote>Subject is an opinion, revised every time someone stands at the file cabinet in a hurry. Arrival is a fact that never needs to be re-decided.</blockquote>
+
+          <h2>A Number Doesn't Argue With You</h2>
+          <p>The mechanism that makes arrival order work is almost insultingly plain: a number. The next piece of paper that comes into the house takes the next number, written once, in the order it showed up, regardless of what it's about. There's no decision to make, no folder to choose between, no argument about whether the vet bill belongs under "Pets," "Medical," or this year's mail. It belongs under 214, because 214 was next. Writing a <a href="call-number-home.html">call number</a> for a home archive can sound bureaucratic, right up until it's placed next to the alternative — re-litigating the subject question every time a paper shows up. A number doesn't care what mood the filer was in, doesn't drift, doesn't need renaming when a carrier changes, and doesn't require anyone to remember a scheme invented three years ago by someone who has since moved out. It just counts.</p>
+
+          <h2>What Retrieval Actually Requires</h2>
+          <p>The honest objection here is retrieval. Nobody keeps a warranty card to admire its number; they keep it to find it again in four years when the appliance breaks. Arrival order doesn't solve that by itself — it solves storage, and storage is only half the problem. The other half is a short, separate index: one line per item, noting the number, a rough description, and the date, kept wherever is convenient, a notebook, a spreadsheet, an index card box. That's where "subject" gets to live safely, as a searchable word, without corresponding to a physical location. Look up "washer," find the number, walk to the shelf, and count. Keeping something and finding something stop competing for the same folder once two separate tools handle them instead of one.</p>
+
+          <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;margin:8px 0 20px;font-size:.9rem;">
+              <thead>
+                <tr>
+                  <th style="text-align:left;padding:10px 12px;border-bottom:2px solid var(--shm-line);color:var(--shm-text-dim);font-weight:600;">Question</th>
+                  <th style="text-align:left;padding:10px 12px;border-bottom:2px solid var(--shm-line);color:var(--shm-text-dim);font-weight:600;">Subject-based shelf</th>
+                  <th style="text-align:left;padding:10px 12px;border-bottom:2px solid var(--shm-line);color:var(--shm-text-dim);font-weight:600;">Arrival-order shelf</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">Where does a new paper go?</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">Wherever it seems to fit best, decided fresh each time</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">The next open slot; no decision required</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">Who can refile it correctly later?</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">Only whoever remembers the original logic</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">Anyone; there is no logic to remember</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">What proves when it arrived?</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">Usually nothing written down</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">The position on the shelf itself</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">A category's meaning changes over time</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">The whole folder becomes ambiguous, gets split or merged incorrectly</td>
+                  <td style="padding:10px 12px;border-bottom:1px solid var(--shm-line);">Nothing changes; the index simply adds a note</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 12px;">How is a paper found later?</td>
+                  <td style="padding:10px 12px;">Guess the current label, open several folders</td>
+                  <td style="padding:10px 12px;">Look up the word in the index, walk to the number</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>Three signs tend to show up together once a shelf has been organized by subject for too long:</p>
+          <ul>
+            <li>A folder tab with more than one name taped over the previous one.</li>
+            <li>A document that could belong in three different places, and currently lives in none.</li>
+            <li>Nobody but the one person who built the system can find anything in it.</li>
+          </ul>
+
+          <div class="shm-newsletter">
+            <p><strong>A note on scope:</strong> this describes one organizing principle drawn from how archives are arranged professionally, not a claim that every drawer needs renumbering this weekend. Some categories are genuinely stable — a single folder for property deeds rarely causes trouble on its own. The narrower question worth testing on your own shelf: does a category's meaning shift over time, or does more than one person decide where things go in it? If either is true, arrival order tends to hold up longer than a label chosen once and never revisited.</p>
+          </div>
+
+          <div class="shm-section-head">
+            <h2>Read also</h2>
+            <span>3 related entries</span>
+          </div>
+          <div class="shm-index">
+            <article class="shm-slip">
+              <img class="shm-slip-thumb" src="img/seven-year-shelf.jpg" alt="A closet shelf holding several years of paper boxes">
+              <div>
+                <p class="shm-slip-meta">Longevity</p>
+                <h3 class="shm-slip-title"><a href="seven-year-shelf.html">What Actually Survives Seven Years in a Closet</a></h3>
+                <p class="shm-slip-dek">Paper degrades on its own schedule, not the one printed on the folder. A look at what actually holds up over seven years in a closet, attic, or garage box.</p>
+              </div>
+            </article>
+            <article class="shm-slip">
+              <img class="shm-slip-thumb" src="img/the-manila-drawer.jpg" alt="An open drawer of manila folders next to a stack of plastic bins">
+              <div>
+                <p class="shm-slip-meta">Materials</p>
+                <h3 class="shm-slip-title"><a href="the-manila-drawer.html">Why the Manila Drawer Still Wins</a></h3>
+                <p class="shm-slip-dek">Plastic bins solved one problem and created three others. A case for the unglamorous manila folder, and where it still beats anything newer.</p>
+              </div>
+            </article>
+            <article class="shm-slip">
+              <img class="shm-slip-thumb" src="img/the-year-i-numbered-everything.jpg" alt="A yearly journal page listing archive progress by month">
+              <div>
+                <p class="shm-slip-meta">Journal</p>
+                <h3 class="shm-slip-title"><a href="the-year-i-numbered-everything.html">The Year I Numbered Everything</a></h3>
+                <p class="shm-slip-dek">A first-person log of one year spent assigning a call number to every document in a house — what took an afternoon, and what took four months.</p>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="shm-footer">
+    <div class="shm-bar">
+      <ul class="shm-footer-links">
+        <li><a href="safe.html">Home</a></li>
+        <li><a href="app.html">Boxlist</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+      <p class="shm-footer-fine">&copy; 2026 Foolscap. An independent journal about home paper archiving, kept by hand. Not affiliated with any library, records office, or storage vendor. Contact: hello@foolscap.shop</p>
+    </div>
+  </footer>
+</body></html>

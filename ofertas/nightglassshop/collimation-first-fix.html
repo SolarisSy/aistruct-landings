@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The One Adjustment That Fixes Most Blurry Reflectors · Nightglass</title>
+  <meta name="description" content="Soft or lopsided stars through a reflector usually aren't the sky's fault. A walkthrough of checking collimation before you blame seeing or the eyepiece.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://nightglass.shop/collimation-first-fix.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='4' fill='%230d1117'/%3E%3Cpath d='M14.5 3.5a8 8 0 1 0 6.6 12.4A6.4 6.4 0 0 1 14.5 3.5z' fill='%23e0b25b'/%3E%3Ccircle cx='18.5' cy='6.5' r='1' fill='%23cf4636'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --ng-bg:#0d1117;
+  --ng-bg-raised:#111720;
+  --ng-bg-zebra:#121820;
+  --ng-text:#d8dee6;
+  --ng-text-muted:#8894a3;
+  --ng-heading:#f2e9da;
+  --ng-red:#cf4636;
+  --ng-amber:#e0b25b;
+  --ng-line:#1f2732;
+  --ng-radius:3px;
+  --ng-maxw:1020px;
+  --ng-serif:'Hoefler Text','Book Antiqua',Garamond,Georgia,serif;
+  --ng-sans:'Avenir Next','Century Gothic',Verdana,sans-serif;
+}
+*{box-sizing:border-box;}
+html{background:var(--ng-bg);}
+body{margin:0;background:var(--ng-bg);color:var(--ng-text);font-family:var(--ng-sans);line-height:1.62;font-size:15.5px;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+h1,h2,h3,h4{font-family:var(--ng-serif);color:var(--ng-heading);font-weight:400;line-height:1.28;margin:0;}
+p{margin:0 0 14px;}
+a{color:var(--ng-amber);text-decoration:none;}
+a:hover{color:var(--ng-red);}
+.ng-container{max-width:var(--ng-maxw);margin:0 auto;padding:0 22px;}
+.ng-main{padding-bottom:10px;}
+.ng-nav{position:sticky;top:0;z-index:80;height:44px;background:#0a0e13;border-bottom:1px solid var(--ng-line);}
+.ng-nav-inner{max-width:var(--ng-maxw);margin:0 auto;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;}
+.ng-brand{display:flex;align-items:center;gap:8px;font-family:var(--ng-serif);font-size:17px;color:var(--ng-amber);letter-spacing:.2px;}
+.ng-brand-icon{color:var(--ng-red);flex:none;}
+.ng-nav-links{display:flex;align-items:center;gap:20px;font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;}
+.ng-nav-links a{color:var(--ng-text-muted);}
+.ng-nav-links a:hover{color:var(--ng-amber);}
+.ng-nav-cta{color:#0d1117!important;background:var(--ng-red);padding:6px 12px;border-radius:var(--ng-radius);}
+.ng-nav-cta:hover{background:var(--ng-amber)!important;color:#0d1117!important;}
+@media (max-width:700px){.ng-nav-links{gap:12px;font-size:11px;}.ng-brand span{display:none;}}
+@media (max-width:520px){.ng-nav-links a:not(.ng-nav-cta){display:none;}.ng-nav-inner{justify-content:space-between;}}
+.ng-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;padding:38px 0 30px;border-bottom:1px solid var(--ng-line);}
+@media (max-width:760px){.ng-hero{grid-template-columns:1fr;padding-top:26px;}}
+.ng-hero-fig img{width:100%;border-radius:var(--ng-radius);border:1px solid var(--ng-line);}
+.ng-hero-cap{font-size:12px;color:var(--ng-text-muted);margin-top:8px;font-style:italic;}
+.ng-kicker{display:inline-block;font-family:var(--ng-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ng-red);margin-bottom:10px;}
+.ng-hero-body h1{font-size:27px;margin-bottom:10px;}
+.ng-hero-body p{color:var(--ng-text-muted);font-size:15px;}
+.ng-hero-meta{display:flex;gap:14px;margin-top:16px;font-size:12px;color:var(--ng-text-muted);flex-wrap:wrap;}
+.ng-hero-meta b{color:var(--ng-amber);font-weight:400;}
+.ng-table-wrap{overflow-x:auto;margin:22px 0 8px;}
+.ng-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px;}
+.ng-table th{text-align:left;font-family:var(--ng-sans);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ng-amber);border-bottom:1px solid var(--ng-red);padding:9px 12px;white-space:nowrap;}
+.ng-table td{padding:9px 12px;border-bottom:1px solid var(--ng-line);white-space:nowrap;}
+.ng-table tbody tr:nth-child(odd){background:var(--ng-bg-zebra);}
+.ng-table tbody tr:hover{background:#182130;}
+.ng-section-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--ng-red);padding-bottom:9px;margin:44px 0 6px;gap:10px;flex-wrap:wrap;}
+.ng-section-head h2{font-size:20px;}
+.ng-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ng-text-muted);}
+.ng-posts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:26px 0 10px;}
+@media (max-width:900px){.ng-posts{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.ng-posts{grid-template-columns:1fr;}}
+.ng-post{border:1px solid var(--ng-line);border-radius:var(--ng-radius);overflow:hidden;background:var(--ng-bg-raised);display:flex;flex-direction:column;transition:border-color .15s;}
+.ng-post:hover{border-color:var(--ng-amber);}
+.ng-post img{width:100%;aspect-ratio:16/10;object-fit:cover;border-bottom:1px solid var(--ng-line);}
+.ng-post-body{padding:14px 16px 18px;display:flex;flex-direction:column;gap:7px;flex:1;}
+.ng-post-cat{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ng-red);}
+.ng-post-title{font-family:var(--ng-serif);font-size:17.5px;color:var(--ng-heading);margin:0;}
+.ng-post a.ng-post-title{color:var(--ng-heading);}
+.ng-post a.ng-post-title:hover{color:var(--ng-amber);}
+.ng-post-dek{font-size:13px;color:var(--ng-text-muted);flex:1;margin:0;}
+.ng-post-date{font-size:11px;color:#5c6774;}
+.ng-mock{border:1px solid var(--ng-line);border-radius:var(--ng-radius);background:linear-gradient(180deg,#141b23,#0d1117);padding:18px;}
+.ng-mock-bar{display:flex;gap:6px;margin-bottom:14px;}
+.ng-mock-dot{width:8px;height:8px;border-radius:50%;background:var(--ng-line);}
+.ng-mock-dot.is-amber{background:var(--ng-amber);}
+.ng-mock-dot.is-red{background:var(--ng-red);}
+.ng-mock-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--ng-line);font-size:13px;}
+.ng-mock-row:last-child{border-bottom:none;}
+.ng-mock-tag{color:var(--ng-amber);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;}
+.ng-mock-val{color:var(--ng-text-muted);font-size:12.5px;}
+.ng-features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:24px 0 10px;}
+@media (max-width:780px){.ng-features{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.ng-features{grid-template-columns:1fr;}}
+.ng-feature{border:1px solid var(--ng-line);border-radius:var(--ng-radius);padding:18px;background:var(--ng-bg-raised);}
+.ng-feature-icon{color:var(--ng-red);margin-bottom:10px;}
+.ng-feature h3{font-size:14.5px;margin:0 0 6px;color:var(--ng-heading);font-family:var(--ng-sans);}
+.ng-feature p{font-size:13px;color:var(--ng-text-muted);margin:0;}
+.ng-steps{counter-reset:ng-step;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:10px 0 8px;}
+@media (max-width:760px){.ng-steps{grid-template-columns:1fr;}}
+.ng-step{position:relative;padding-left:40px;}
+.ng-step::before{counter-increment:ng-step;content:counter(ng-step);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;border:1px solid var(--ng-red);color:var(--ng-amber);display:flex;align-items:center;justify-content:center;font-family:var(--ng-serif);font-size:13px;}
+.ng-step h3{font-size:14.5px;margin:0 0 6px;font-family:var(--ng-sans);color:var(--ng-heading);}
+.ng-step p{font-size:13px;color:var(--ng-text-muted);margin:0;}
+.ng-faq-item{border-bottom:1px solid var(--ng-line);padding:15px 0;}
+.ng-faq-item summary{cursor:pointer;font-family:var(--ng-serif);font-size:15.5px;color:var(--ng-heading);list-style:none;}
+.ng-faq-item summary::-webkit-details-marker{display:none;}
+.ng-faq-item summary::before{content:'+ ';color:var(--ng-red);}
+.ng-faq-item[open] summary::before{content:'\2013 ';}
+.ng-faq-item p{margin:10px 0 0;color:var(--ng-text-muted);font-size:13.5px;}
+.ng-gloss{padding:18px 0 10px;}
+.ng-gloss-item{padding:15px 0;border-bottom:1px solid var(--ng-line);display:grid;grid-template-columns:190px 1fr;gap:20px;}
+@media (max-width:640px){.ng-gloss-item{grid-template-columns:1fr;gap:4px;}}
+.ng-gloss-term{font-family:var(--ng-serif);color:var(--ng-amber);font-size:15.5px;}
+.ng-gloss-def{font-size:13.5px;color:var(--ng-text);margin:0;}
+.ng-news{border:1px solid var(--ng-line);border-radius:var(--ng-radius);background:var(--ng-bg-raised);padding:26px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin:38px 0;}
+.ng-news-copy h3{margin:0 0 4px;font-size:17px;}
+.ng-news-copy p{margin:0;font-size:12.5px;color:var(--ng-text-muted);max-width:360px;}
+.ng-news-form{display:flex;gap:8px;flex-wrap:wrap;}
+.ng-news-form input{background:var(--ng-bg);border:1px solid var(--ng-line);border-radius:var(--ng-radius);padding:9px 12px;color:var(--ng-text);font-family:var(--ng-sans);font-size:13px;min-width:210px;}
+.ng-news-form button{background:var(--ng-red);border:none;border-radius:var(--ng-radius);padding:9px 16px;color:#fff;font-family:var(--ng-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;}
+.ng-news-form button:hover{background:var(--ng-amber);color:#0d1117;}
+.ng-news-ok{display:none;color:var(--ng-amber);font-size:12px;margin-top:8px;width:100%;}
+.ng-team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:18px 0 10px;}
+@media (max-width:760px){.ng-team{grid-template-columns:1fr;}}
+.ng-team-card{border:1px solid var(--ng-line);border-radius:var(--ng-radius);padding:16px;background:var(--ng-bg-raised);}
+.ng-team-name{font-family:var(--ng-serif);font-size:15.5px;color:var(--ng-heading);}
+.ng-team-role{color:var(--ng-red);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;margin:3px 0 8px;display:block;}
+.ng-team-card p{font-size:13px;color:var(--ng-text-muted);margin:0;}
+.ng-contact{border:1px solid var(--ng-line);border-radius:var(--ng-radius);background:var(--ng-bg-raised);padding:22px;margin:10px 0 40px;max-width:720px;}
+.ng-contact h3{font-size:16px;margin:0 0 8px;}
+.ng-contact p{font-size:13.5px;color:var(--ng-text-muted);margin:0 0 4px;}
+.ng-btn{display:inline-block;background:var(--ng-red);color:#fff!important;padding:11px 22px;border-radius:var(--ng-radius);font-family:var(--ng-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;}
+.ng-btn:hover{background:var(--ng-amber);color:#0d1117!important;}
+.ng-btn-ghost{border:1px solid var(--ng-amber);color:var(--ng-amber)!important;background:transparent;}
+.ng-btn-ghost:hover{background:var(--ng-amber);color:#0d1117!important;}
+.ng-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;align-items:center;}
+.ng-page-head{padding:36px 0 22px;border-bottom:1px solid var(--ng-line);}
+.ng-page-head h1{font-size:25px;margin:6px 0 8px;}
+.ng-page-head p{color:var(--ng-text-muted);max-width:620px;margin:0;}
+.ng-prose{padding:26px 0 46px;max-width:720px;}
+.ng-prose h2{font-size:18.5px;margin:30px 0 10px;}
+.ng-prose p{font-size:14.5px;color:var(--ng-text);}
+.ng-prose ul{margin:0 0 14px 20px;color:var(--ng-text);font-size:14.5px;}
+.ng-prose li{margin-bottom:6px;}
+.ng-prose strong{color:var(--ng-heading);font-weight:600;}
+.ng-app-hero{display:grid;grid-template-columns:1fr 1fr;gap:34px;padding:38px 0 30px;border-bottom:1px solid var(--ng-line);align-items:center;}
+@media (max-width:760px){.ng-app-hero{grid-template-columns:1fr;}}
+.ng-app-hero h1{font-size:27px;margin-bottom:12px;}
+.ng-app-hero p{color:var(--ng-text-muted);font-size:15px;}
+.ng-footer{border-top:1px solid var(--ng-line);background:#0a0e13;margin-top:44px;}
+.ng-footer-inner{max-width:var(--ng-maxw);margin:0 auto;padding:36px 22px 18px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:24px;}
+@media (max-width:700px){.ng-footer-inner{grid-template-columns:1fr 1fr;}}
+.ng-footer-col h3{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--ng-amber);margin:0 0 10px;font-family:var(--ng-sans);}
+.ng-footer-col a{display:block;color:var(--ng-text-muted);font-size:12.5px;margin-bottom:8px;}
+.ng-footer-col a:hover{color:var(--ng-amber);}
+.ng-brand-footer{margin-bottom:10px;}
+.ng-footer-about p{font-size:12.5px;color:var(--ng-text-muted);max-width:280px;margin:0;}
+.ng-footer-bottom{max-width:var(--ng-maxw);margin:0 auto;padding:16px 22px 30px;font-size:11.5px;color:#5c6774;border-top:1px solid var(--ng-line);}
+  </style>
+</head><body>
+  <header class="ng-nav">
+  <div class="ng-nav-inner">
+    <a class="ng-brand" href="safe.html">
+      <svg class="ng-brand-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M14.5 3.5a8 8 0 1 0 6.6 12.4A6.4 6.4 0 0 1 14.5 3.5z" fill="currentColor"/></svg>
+      <span>Nightglass</span>
+    </a>
+    <nav class="ng-nav-links" aria-label="Primary">
+      <a href="safe.html">Journal</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a class="ng-nav-cta" href="app.html">Nightlist App</a>
+    </nav>
+  </div>
+</header>
+  <article class="ng-post" style="max-width:var(--ng-maxw);margin:0 auto;border:none;border-radius:0;background:transparent;">
+    <div class="ng-container">
+      <div class="ng-page-head" style="border-bottom:1px solid var(--ng-line);">
+        <span class="ng-kicker">Optics &amp; Gear</span>
+        <h1>The One Adjustment That Fixes Most Blurry Reflectors</h1>
+        <p>Before blaming the sky, the seeing, or the eyepiece, there's one mirror alignment check that solves more blurry views than all three combined.</p>
+        <div class="ng-hero-meta"><span>May 19, 2026</span><span>·</span><span>9 min read</span></div>
+      </div>
+
+      <div class="ng-prose">
+        <img src="img/collimation-first-fix.jpg" alt="The One Adjustment That Fixes Most Blurry Reflectors" style="border-radius:var(--ng-radius);border:1px solid var(--ng-line);margin:22px 0;">
+
+        <p>Second week of April, I set up the 8-inch on the driveway with a plan to split a couple of doubles and see how much detail Jupiter would give up at Bortle 7. Focused on Sirius first, just to get a feel for the air. What came back wasn't a point of light. It was a soft, lopsided smear with a faint tail hanging off one side, and no amount of fine-focusing tightened it up. My first thought was seeing — the kind of low, boiling turbulence that ruins a night no matter what you point at. My second thought, twenty minutes later after the smear hadn't changed shape once, was that I was wrong.</p>
+
+        <h2>The symptom that gives it away</h2>
+        <p>Bad seeing blurs stars evenly and the blur pulses — it swells and calms with the air, sometimes second to second. What I was looking at didn't pulse. It sat there, consistently off-center, consistently comet-shaped in the same direction no matter which star I aimed at. That consistency is the tell. Turbulence is a moving target; a misaligned mirror produces the same lopsided image on every star in the eyepiece, all night, in any direction you point the tube. If the smear looks identical on Sirius and on a star forty degrees away, the atmosphere isn't the variable — the optical path is.</p>
+
+        <p>Reflectors go out of collimation more than people expect, and not always dramatically. A telescope that traveled to a dark-sky site in the trunk, a tube that got nudged putting it away, temperature swings that flex the mirror cell over a season — any of it can shift the primary or secondary by a fraction of a degree. That's enough to turn a star into a smudge with a tail, especially at higher magnification where the flaw has more room to show.</p>
+
+        <blockquote>A star that won't come to a clean point no matter how you focus isn't asking for a better eyepiece. It's asking whether the mirrors are actually looking at each other.</blockquote>
+
+        <h2>Ruling out the usual suspects first</h2>
+        <p>Before touching any adjustment screw, it's worth spending five minutes ruling out the boring explanations, because collimation is the last thing to check, not the first — mostly because it's the one thing you can actually fix on the spot, so it pays to confirm the problem is really there before you go turning screws in the dark.</p>
+        <ul>
+          <li><strong>Cool-down.</strong> A mirror pulled from a warm house into a cool yard distorts slightly as it equalizes. Give a reflector 30–45 minutes outside before judging star shape.</li>
+          <li><strong>Dew or fogging.</strong> A thin film on the corrector or secondary softens everything evenly — check with a red light at a glancing angle.</li>
+          <li><strong>Eyepiece quality at the edge of its range.</strong> A cheap eyepiece pushed past its comfortable magnification blurs, but the blur is usually symmetric, not one-sided.</li>
+          <li><strong>Genuinely bad seeing.</strong> Confirmed by watching a bright star pulse and shimmer over 10–15 seconds rather than holding a static, skewed shape.</li>
+        </ul>
+        <p>If none of those match what's in the eyepiece, the check that usually explains it is a look at how light is actually traveling from the primary mirror to the eye, which is where <a href="reading-a-bortle-map.html">how much sky glow is in your yard</a> stops being the relevant variable entirely.</p>
+
+        <h2>The one check that separates it from everything else</h2>
+        <p>The fastest field test doesn't need tools: point at a moderately bright star, rack it slightly out of focus, and look at the diffraction pattern — the star should swell into a set of concentric rings around a small dark shadow (the secondary mirror's obstruction) sitting dead center. If that shadow is pushed off to one side instead of centered in the rings, the mirrors aren't aligned on the same optical axis, and that offset is exactly what turns a point of light into a comet-shaped smear at focus.</p>
+
+        <div class="ng-mock" style="margin:20px 0;">
+          <div class="ng-mock-bar"><span class="ng-mock-dot is-red"></span><span class="ng-mock-dot"></span><span class="ng-mock-dot is-amber"></span></div>
+          <div class="ng-mock-row"><span class="ng-mock-tag">Symptom</span><span class="ng-mock-val">Consistent, non-pulsing blur/tail on every star</span></div>
+          <div class="ng-mock-row"><span class="ng-mock-tag">Quick test</span><span class="ng-mock-val">Defocused star, check shadow centering in the rings</span></div>
+          <div class="ng-mock-row"><span class="ng-mock-tag">Likely cause</span><span class="ng-mock-val">Primary or secondary mirror shifted out of axis</span></div>
+          <div class="ng-mock-row"><span class="ng-mock-tag">Not the cause</span><span class="ng-mock-val">Atmospheric seeing, eyepiece, dew</span></div>
+        </div>
+
+        <p>This is a mechanical alignment issue, not an optics-quality issue — it shows up the same way on a telescope that cost very little and one that cost a great deal. Rings that are round and evenly spaced but shifted off-center point to the secondary; rings that stay centered but the whole star still won't sharpen up point toward the primary. Either way, the fix is a set of adjustment screws at the back of the tube (or on the secondary holder), turned in small increments while re-checking the star, not a swap of any part.</p>
+
+        <div class="ng-mock" style="margin:20px 0;background:linear-gradient(180deg,#171016,#0d1117);border-color:#3a1f1f;">
+          <div style="font-family:var(--ng-serif);color:var(--ng-amber);font-size:14.5px;margin-bottom:6px;">Field note</div>
+          <p style="margin:0;font-size:13.5px;color:var(--ng-text-muted);">This page describes what to look for, not step-by-step mechanical instructions for a specific telescope model — those vary enough by design (Newtonian push-pull screws vs. SCT secondary knobs) that following your scope's own manual matters more than a generic sequence.</p>
+        </div>
+
+        <h2>What a properly aligned reflector actually looks like</h2>
+        <p>Once the shadow sits centered in the defocused rings, refocus on that same star and the difference is usually immediate — the tail disappears, the point tightens, and faint companions that were smeared into the glare of a brighter primary star start separating out. It's the same reason <a href="binoculars-before-telescope.html">a well-aligned pair of binoculars outperforms a fancier instrument that's out of adjustment</a> — alignment quality often matters more than raw specification.</p>
+
+        <div class="ng-table-wrap">
+          <table class="ng-table">
+            <thead><tr><th>What you see</th><th>Pulses with air?</th><th>Same on every star?</th><th>Most likely cause</th></tr></thead>
+            <tbody>
+              <tr><td>Soft, shimmering blur</td><td>Yes</td><td>Varies</td><td>Atmospheric seeing</td></tr>
+              <tr><td>Comet-shaped tail, static</td><td>No</td><td>Yes</td><td>Collimation offset</td></tr>
+              <tr><td>Hazy halo, dims edges</td><td>No</td><td>Yes, worsens over minutes</td><td>Dew on optics</td></tr>
+              <tr><td>Fuzzy at all focus points</td><td>No</td><td>Yes</td><td>Not fully cooled down</td></tr>
+              <tr><td>Sharp center, distorted edge of field</td><td>No</td><td>Only at field edge</td><td>Eyepiece field-curvature limit</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Building the check into a normal setup routine</h2>
+        <p>The habit that saves the most frustration is doing the defocused-star check early, before committing the rest of the night to a target list — the same forward-looking approach covered in <a href="planning-the-night-before.html">what's worth checking the afternoon before a clear night</a>. Pick a moderately bright star near the zenith once cool-down is done, defocus it, glance at the ring pattern, and only then move on to the actual observing plan. It takes under a minute and answers the "is it the sky or is it me" question before an hour gets spent chasing a phantom seeing problem.</p>
+
+        <p>None of this requires a trip to a dark site to confirm — collimation checks work fine from a driveway under streetlight glow, since the ring pattern comes from a single star's own light, not from contrast against the background sky.</p>
+
+        <div style="border:1px solid var(--ng-line);border-radius:var(--ng-radius);background:var(--ng-bg-raised);padding:16px 18px;margin:26px 0;">
+          <strong style="color:var(--ng-heading);">Read also</strong>
+          <ul style="margin:10px 0 0 20px;">
+            <li><a href="binoculars-before-telescope.html">Why the Best First Upgrade Is a Better Pair of Binoculars</a></li>
+            <li><a href="planning-the-night-before.html">Everything I Check the Afternoon Before a Clear Night</a></li>
+            <li><a href="reading-a-bortle-map.html">What a Bortle Map Doesn't Tell You Until You're Standing in the Yard</a></li>
+          </ul>
+        </div>
+
+        <p style="font-size:12.5px;color:var(--ng-text-muted);">These are general notes from personal backyard observing, not a service manual for any specific instrument. Always follow the collimation procedure documented by your telescope's manufacturer.</p>
+      </div>
+    </div>
+  </article>
+  <footer class="ng-footer">
+  <div class="ng-footer-inner">
+    <div class="ng-footer-col ng-footer-about">
+      <div class="ng-brand ng-brand-footer">
+        <svg class="ng-brand-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M14.5 3.5a8 8 0 1 0 6.6 12.4A6.4 6.4 0 0 1 14.5 3.5z" fill="currentColor"/></svg>
+        <span>Nightglass</span>
+      </div>
+      <p>Notes from a Bortle 7 backyard: what's actually visible tonight, and how to plan for it the afternoon before.</p>
+    </div>
+    <div class="ng-footer-col">
+      <h3>Journal</h3>
+      <a href="safe.html">Latest notes</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="ng-footer-col">
+      <h3>Nightlist</h3>
+      <a href="app.html">Overview</a>
+      <a href="app.html#faq">App FAQ</a>
+    </div>
+    <div class="ng-footer-col">
+      <h3>Legal</h3>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="ng-footer-bottom">&copy; 2026 Nightglass. An independent backyard-astronomy journal. Not affiliated with any observatory, agency, or manufacturer.</div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

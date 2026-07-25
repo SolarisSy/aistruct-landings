@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raingauge Log &mdash; Companion App | Barograph</title>
+<meta name="description" content="Raingauge Log is a simple daily logbook app for home weather observation: fixed-hour entries, reference checks, and a season view instead of a single monthly average.">
+<link rel="canonical" href="https://barograph.shop/app.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23eef2f4' stroke='%2316232b' stroke-width='6'/%3E%3Cline x1='50' y1='50' x2='73' y2='31' stroke='%23b21f2d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%2316232b'/%3E%3Ccircle cx='50' cy='16' r='3' fill='%2316232b'/%3E%3Ccircle cx='50' cy='84' r='3' fill='%2316232b'/%3E%3Ccircle cx='16' cy='50' r='3' fill='%2316232b'/%3E%3Ccircle cx='84' cy='50' r='3' fill='%2316232b'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bgb-bg:#eef2f4;
+  --bgb-surface:#e4e9ec;
+  --bgb-text:#16232b;
+  --bgb-muted:#4b5b64;
+  --bgb-accent:#b21f2d;
+  --bgb-line:rgba(22,35,43,.16);
+  --bgb-line-strong:rgba(22,35,43,.34);
+  --bgb-radius:1px;
+  --bgb-maxw:1240px;
+  --bgb-serif:'Century Schoolbook','Century Schoolbook L',Georgia,'Times New Roman',serif;
+  --bgb-sans:Tahoma,Geneva,Verdana,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--bgb-bg);color:var(--bgb-text);font-family:var(--bgb-sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+a{color:var(--bgb-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--bgb-serif);font-weight:700;line-height:1.22;margin:0 0 .5em;color:var(--bgb-text);}
+p{margin:0 0 1em;}
+img{max-width:100%;display:block;height:auto;}
+ul{margin:0;padding:0;}
+.bgb-container{max-width:var(--bgb-maxw);margin:0 auto;padding:0 20px;}
+.bgb-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+/* masthead */
+.bgb-masthead{background:var(--bgb-bg);}
+.bgb-masthead-rule-top{height:3px;background:var(--bgb-text);}
+.bgb-masthead-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bgb-masthead-left,.bgb-masthead-right{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--bgb-muted);display:flex;flex-direction:column;gap:2px;flex:1;min-width:150px;}
+.bgb-masthead-right{text-align:right;align-items:flex-end;}
+.bgb-masthead-title{font-family:var(--bgb-serif);font-size:42px;font-weight:700;color:var(--bgb-text);text-align:center;letter-spacing:.01em;}
+.bgb-masthead-title:hover{text-decoration:none;color:var(--bgb-accent);}
+.bgb-masthead-rule-mid{height:1px;background:var(--bgb-line-strong);}
+.bgb-nav{border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-nav-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:9px 20px;display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;}
+.bgb-nav-inner a{color:var(--bgb-text);}
+.bgb-nav-inner a:hover{color:var(--bgb-accent);}
+.bgb-nav-inner a.bgb-nav-current{color:var(--bgb-accent);border-bottom:2px solid var(--bgb-accent);}
+
+/* full-bleed station table */
+.bgb-table-wrap{width:100%;background:var(--bgb-surface);border-top:1px solid var(--bgb-line-strong);border-bottom:3px double var(--bgb-text);}
+.bgb-table-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:14px 20px 18px;overflow-x:auto;}
+.bgb-table-title{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--bgb-muted);margin-bottom:8px;}
+table.bgb-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px;}
+.bgb-table th,.bgb-table td{padding:7px 10px;border-bottom:1px solid var(--bgb-line);text-align:left;white-space:nowrap;}
+.bgb-table th{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--bgb-muted);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-table td.bgb-num,.bgb-table th.bgb-num{text-align:right;font-variant-numeric:tabular-nums;}
+.bgb-table tbody tr:last-child td{border-bottom:none;}
+.bgb-table tbody tr:nth-child(even){background:rgba(22,35,43,.035);}
+.bgb-table-note{font-size:11.5px;color:var(--bgb-muted);margin-top:8px;}
+
+/* hero */
+.bgb-hero{padding:34px 0 6px;}
+.bgb-hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;}
+.bgb-hero-kicker{color:var(--bgb-accent);text-transform:uppercase;font-size:12px;letter-spacing:.08em;font-weight:700;}
+.bgb-hero h1{font-size:33px;margin-top:6px;}
+.bgb-hero-standfirst{font-size:16px;color:var(--bgb-muted);}
+.bgb-hero-img{border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);}
+
+/* generic page header (non-home pages) */
+.bgb-page-head{padding:34px 0 10px;border-bottom:2px solid var(--bgb-text);margin-bottom:26px;}
+.bgb-page-kicker{color:var(--bgb-accent);text-transform:uppercase;font-size:12px;letter-spacing:.08em;font-weight:700;}
+.bgb-page-head h1{font-size:32px;margin-top:6px;}
+.bgb-page-head p{color:var(--bgb-muted);font-size:15.5px;max-width:760px;}
+
+/* section head */
+.bgb-section-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--bgb-text);padding-bottom:6px;margin:36px 0 18px;gap:12px;flex-wrap:wrap;}
+.bgb-section-head h2{font-size:19px;margin:0;text-transform:uppercase;letter-spacing:.03em;}
+.bgb-section-head span{font-size:11.5px;color:var(--bgb-muted);text-transform:uppercase;letter-spacing:.05em;}
+
+/* three newspaper columns w/ vertical rules */
+.bgb-columns{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;column-gap:24px;padding-bottom:10px;}
+.bgb-rule-v{background:var(--bgb-line-strong);width:1px;}
+.bgb-col{display:flex;flex-direction:column;gap:28px;}
+.bgb-article-thumb{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);margin-bottom:10px;filter:grayscale(.15);}
+.bgb-kicker{color:var(--bgb-accent);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.bgb-article h3{font-size:17.5px;margin:6px 0 6px;}
+.bgb-article h3 a{color:var(--bgb-text);}
+.bgb-article h3 a:hover{color:var(--bgb-accent);text-decoration:none;}
+.bgb-dek{font-size:13.5px;color:var(--bgb-muted);margin:0 0 8px;}
+.bgb-meta{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--bgb-muted);}
+
+/* app / phone mockup */
+.bgb-app-section{margin:46px 0 10px;padding:32px 0;border-top:1px solid var(--bgb-line-strong);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-app-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:36px;align-items:center;}
+.bgb-phone{justify-self:center;width:230px;border:2px solid var(--bgb-text);border-radius:14px;padding:10px 8px;background:var(--bgb-bg);}
+.bgb-phone-screen{background:var(--bgb-surface);border:1px solid var(--bgb-line-strong);border-radius:6px;padding:10px;}
+.bgb-phone-bar{height:8px;background:var(--bgb-text);border-radius:2px;margin-bottom:8px;width:58%;}
+.bgb-phone-row{display:flex;justify-content:space-between;font-size:9.5px;padding:5px 0;border-bottom:1px solid var(--bgb-line);}
+.bgb-phone-chart{display:flex;align-items:flex-end;gap:4px;height:48px;margin-top:8px;}
+.bgb-phone-chart span{flex:1;background:var(--bgb-accent);opacity:.75;border-radius:1px 1px 0 0;}
+.bgb-app-copy .bgb-kicker{display:block;margin-bottom:6px;}
+
+/* features (bulletin style, not cards) */
+.bgb-features{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--bgb-line-strong);margin-top:22px;}
+.bgb-feature{padding:18px 22px;border-right:1px solid var(--bgb-line);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-feature:nth-child(3n){border-right:none;}
+.bgb-feature-icon{color:var(--bgb-accent);display:block;margin-bottom:8px;}
+.bgb-feature h3{font-size:15px;margin:0 0 6px;}
+.bgb-feature p{font-size:13.5px;color:var(--bgb-muted);margin:0;}
+
+/* steps */
+.bgb-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:20px 0 10px;}
+.bgb-step{border-top:3px solid var(--bgb-accent);padding-top:10px;}
+.bgb-step-num{font-family:var(--bgb-serif);font-size:24px;color:var(--bgb-muted);display:block;margin-bottom:4px;}
+.bgb-step h3{font-size:15px;}
+.bgb-step p{font-size:13.5px;color:var(--bgb-muted);margin:0;}
+
+/* faq */
+.bgb-faq-item{border-bottom:1px solid var(--bgb-line);padding:16px 0;}
+.bgb-faq-item h3{font-size:16px;margin:0 0 6px;}
+.bgb-faq-item p{margin:0;color:var(--bgb-muted);font-size:14.5px;}
+
+/* newsletter */
+.bgb-newsletter{border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);padding:22px;background:var(--bgb-surface);margin:38px 0;}
+.bgb-newsletter h2{font-size:18px;}
+.bgb-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.bgb-newsletter input[type=email]{flex:1;min-width:200px;padding:10px 12px;border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);font-family:var(--bgb-sans);background:var(--bgb-bg);color:var(--bgb-text);}
+.bgb-ok{display:none;color:var(--bgb-accent);font-size:13px;margin-top:8px;}
+
+.bgb-btn{display:inline-block;padding:10px 18px;background:var(--bgb-accent);color:#fff;border:none;border-radius:var(--bgb-radius);font-family:var(--bgb-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;}
+.bgb-btn:hover{opacity:.9;text-decoration:none;}
+
+/* about */
+.bgb-about-blurb{margin:36px 0;padding-top:20px;border-top:1px solid var(--bgb-line-strong);}
+.bgb-team{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:18px;}
+.bgb-team-member{border-top:2px solid var(--bgb-text);padding-top:10px;}
+.bgb-team-member h3{font-size:15.5px;margin:0 0 2px;}
+.bgb-team-role{font-size:11.5px;color:var(--bgb-accent);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;}
+.bgb-team-member p{font-size:13.5px;color:var(--bgb-muted);}
+.bgb-policy-list{margin:14px 0 0;padding-left:20px;}
+.bgb-policy-list li{font-size:14.5px;color:var(--bgb-muted);margin-bottom:8px;}
+
+/* glossary */
+.bgb-glossary-list{margin-top:10px;}
+.bgb-gloss-item{display:grid;grid-template-columns:230px 1fr;gap:20px;padding:14px 0;border-bottom:1px solid var(--bgb-line);}
+.bgb-gloss-term{font-family:var(--bgb-serif);font-weight:700;font-size:16px;}
+.bgb-gloss-def{color:var(--bgb-muted);font-size:14.5px;}
+
+/* legal pages */
+.bgb-legal{margin:10px 0 50px;max-width:800px;}
+.bgb-legal h2{font-size:18px;margin-top:32px;}
+.bgb-legal p,.bgb-legal li{color:var(--bgb-muted);font-size:14.5px;}
+.bgb-legal ul{padding-left:20px;margin-bottom:1em;}
+
+/* footer */
+.bgb-footer{border-top:3px double var(--bgb-text);margin-top:54px;background:var(--bgb-surface);}
+.bgb-footer-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:30px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;}
+.bgb-footer-col h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;color:var(--bgb-muted);}
+.bgb-footer-col a{display:block;color:var(--bgb-text);font-size:13.5px;margin-bottom:6px;}
+.bgb-footer-col p{font-size:13px;color:var(--bgb-muted);margin:0;}
+.bgb-footer-bottom{border-top:1px solid var(--bgb-line);padding:14px 20px;text-align:center;font-size:11.5px;color:var(--bgb-muted);max-width:var(--bgb-maxw);margin:0 auto;}
+
+/* responsive */
+@media (max-width:900px){
+  .bgb-hero-grid{grid-template-columns:1fr;}
+  .bgb-columns{grid-template-columns:1fr;}
+  .bgb-rule-v{display:none;}
+  .bgb-col{gap:22px;}
+  .bgb-app-grid{grid-template-columns:1fr;}
+  .bgb-phone{margin-bottom:10px;}
+  .bgb-features{grid-template-columns:repeat(2,1fr);}
+  .bgb-features .bgb-feature:nth-child(3n){border-right:1px solid var(--bgb-line);}
+  .bgb-features .bgb-feature:nth-child(2n){border-right:none;}
+  .bgb-steps{grid-template-columns:1fr;}
+  .bgb-team{grid-template-columns:1fr;}
+  .bgb-footer-inner{grid-template-columns:1fr 1fr;}
+  .bgb-gloss-item{grid-template-columns:1fr;gap:4px;}
+  .bgb-masthead-inner{flex-direction:column;text-align:center;}
+  .bgb-masthead-left,.bgb-masthead-right{align-items:center;text-align:center;}
+}
+@media (max-width:560px){
+  .bgb-footer-inner{grid-template-columns:1fr;}
+  .bgb-features{grid-template-columns:1fr;}
+  .bgb-features .bgb-feature{border-right:none;}
+  .bgb-masthead-title{font-size:30px;}
+  .bgb-hero h1{font-size:24px;}
+  .bgb-page-head h1{font-size:26px;}
+}
+
+</style>
+</head>
+<body>
+<header class="bgb-masthead">
+  <div class="bgb-masthead-rule-top"></div>
+  <div class="bgb-masthead-inner">
+    <div class="bgb-masthead-left">
+      <span>Backyard Station Bulletin</span>
+      <span>Observation series &mdash; Year 3</span>
+    </div>
+    <a href="safe.html" class="bgb-masthead-title">Barograph</a>
+    <div class="bgb-masthead-right">
+      <span>Companion app</span>
+      <span>Raingauge Log</span>
+    </div>
+  </div>
+  <div class="bgb-masthead-rule-mid"></div>
+  <nav class="bgb-nav">
+    <div class="bgb-nav-inner">
+      <a href="safe.html">Home</a>
+      <a href="app.html">Raingauge Log</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="bgb-container">
+    <section class="bgb-page-head">
+      <span class="bgb-page-kicker">Companion App</span>
+      <h1>Raingauge Log</h1>
+      <p>A small, focused app for keeping a home weather log: a daily entry, a reference check, and a season view that does not collapse into a single monthly number. Built by the same people who write Barograph, for the same kind of backyard record.</p>
+    </section>
+
+    <section class="bgb-app-section" style="border-top:none;padding-top:0;">
+      <div class="bgb-app-grid">
+        <div class="bgb-app-copy">
+          <span class="bgb-kicker">Why it exists</span>
+          <h2>One entry a day, kept honest</h2>
+          <p>Most weather apps show you someone else's forecast. Raingauge Log is the opposite: it is a place to record what your own instruments actually read, flag the day something looked off, and compare this month to the same month last year without redoing the math by hand.</p>
+          <a class="bgb-btn" href="#faq">Read the mini-FAQ</a>
+        </div>
+        <div class="bgb-phone">
+          <div class="bgb-phone-screen">
+            <div class="bgb-phone-bar"></div>
+            <div class="bgb-phone-row"><span>Today, 12:00</span><span>Logged</span></div>
+            <div class="bgb-phone-row"><span>Reference check</span><span>+0.1&deg;F</span></div>
+            <div class="bgb-phone-row"><span>Streak</span><span>142 days</span></div>
+            <div class="bgb-phone-row"><span>Season vs. last</span><span>&minus;1.2&deg;F</span></div>
+            <div class="bgb-phone-chart">
+              <span style="height:35%"></span><span style="height:50%"></span><span style="height:75%"></span>
+              <span style="height:60%"></span><span style="height:85%"></span><span style="height:40%"></span>
+              <span style="height:65%"></span><span style="height:55%"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="bgb-section-head">
+      <h2>What it does</h2>
+      <span>6 core features</span>
+    </div>
+    <div class="bgb-features">
+      <div class="bgb-feature">
+        <svg class="bgb-feature-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="17" rx="1"/><path d="M3 9h18M8 3v3M16 3v3"/></svg>
+        <h3>Daily entry, fixed hour</h3>
+        <p>Log a reading at the same time each day, with a spot to note anything unusual about the sky, wind, or instrument.</p>
+      </div>
+      <div class="bgb-feature">
+        <svg class="bgb-feature-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <h3>Reference-check reminder</h3>
+        <p>A periodic nudge to compare your instrument against a known reference point, and a place to log the offset.</p>
+      </div>
+      <div class="bgb-feature">
+        <svg class="bgb-feature-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l5-6 4 4 8-9"/><path d="M15 6h5v5"/></svg>
+        <h3>Season, not month</h3>
+        <p>Rolling season views instead of a single monthly average, so a run of unusual days stays visible in the summary.</p>
+      </div>
+      <div class="bgb-feature">
+        <svg class="bgb-feature-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3v18M5 3h10l-2 4 2 4H5"/></svg>
+        <h3>Drift flags</h3>
+        <p>If a reading drifts slowly away from your reference over several weeks, the app flags the pattern instead of the single day.</p>
+      </div>
+      <div class="bgb-feature">
+        <svg class="bgb-feature-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 10h16M10 4v16"/></svg>
+        <h3>Plain export</h3>
+        <p>Export the raw daily log as a simple table, for anyone who wants to keep their own copy or graph it elsewhere.</p>
+      </div>
+      <div class="bgb-feature">
+        <svg class="bgb-feature-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+        <h3>No forecast, no push noise</h3>
+        <p>The app does not push forecasts or alerts. It is a logbook, checked when you choose to check it.</p>
+      </div>
+    </div>
+
+    <div class="bgb-section-head">
+      <h2>How it works</h2>
+      <span>Three steps</span>
+    </div>
+    <div class="bgb-steps">
+      <div class="bgb-step">
+        <span class="bgb-step-num">01</span>
+        <h3>Set a fixed reading time</h3>
+        <p>Pick one hour of the day to log &mdash; noon and sunrise are common choices &mdash; and keep it consistent.</p>
+      </div>
+      <div class="bgb-step">
+        <span class="bgb-step-num">02</span>
+        <h3>Log the reading and any note</h3>
+        <p>Enter temperature, pressure, and rainfall if you track it, with an optional field note.</p>
+      </div>
+      <div class="bgb-step">
+        <span class="bgb-step-num">03</span>
+        <h3>Check the season view</h3>
+        <p>Every few weeks, look at the rolling season chart instead of a single average to see the shape of the record.</p>
+      </div>
+    </div>
+
+    <div class="bgb-section-head" id="faq">
+      <h2>Mini-FAQ</h2>
+      <span>App specific</span>
+    </div>
+    <div class="bgb-faq-list">
+      <div class="bgb-faq-item">
+        <h3>Does Raingauge Log connect to a specific brand of station?</h3>
+        <p>No. It is entry-agnostic &mdash; you type in whatever your own instruments read, whether that is a mechanical barometer, a simple thermometer, or a digital station.</p>
+      </div>
+      <div class="bgb-faq-item">
+        <h3>Does it give a forecast?</h3>
+        <p>No. It only records what you observed. Forecasting is outside what the app tries to do.</p>
+      </div>
+      <div class="bgb-faq-item">
+        <h3>Can I use it without logging every single day?</h3>
+        <p>Yes. Gaps in the log are shown as gaps, not filled in or estimated, so the record stays honest about what was actually observed.</p>
+      </div>
+      <div class="bgb-faq-item">
+        <h3>Is there a cost?</h3>
+        <p>The core logbook and season view are free to use. See the full site FAQ for more on how the project is run.</p>
+      </div>
+    </div>
+
+    <section class="bgb-newsletter">
+      <h2>Notes from the log, occasionally</h2>
+      <p>The same low-volume list as the main site &mdash; a note when something new is posted, nothing else.</p>
+      <form onsubmit="return sub(event)">
+        <input type="email" required placeholder="you@example.com" aria-label="Email address">
+        <button class="bgb-btn" type="submit">Subscribe</button>
+      </form>
+      <div class="bgb-ok" id="ok">Thanks &mdash; you're on the list.</div>
+    </section>
+  </div>
+
+</main>
+<footer class="bgb-footer">
+  <div class="bgb-footer-inner">
+    <div class="bgb-footer-col">
+      <h4>Barograph</h4>
+      <p>An independent notebook on backyard weather observation &mdash; home stations, long series, and calibration without a laboratory. Updated from one station's log, not a forecast service.</p>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Read</h4>
+      <a href="safe.html">Home</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Companion</h4>
+      <a href="app.html">Raingauge Log</a>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="bgb-footer-bottom">
+    <span>&copy; 2026 Barograph. Field notes from a home weather station, not a forecasting authority.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+
+</body>
+</html>

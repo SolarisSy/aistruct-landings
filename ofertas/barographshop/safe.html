@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Barograph &mdash; Notes on a Home Weather Station</title>
+<meta name="description" content="A three-year backyard weather log: what the monthly average hides, and how to calibrate a home station without a laboratory.">
+<link rel="canonical" href="https://barograph.shop/safe.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23eef2f4' stroke='%2316232b' stroke-width='6'/%3E%3Cline x1='50' y1='50' x2='73' y2='31' stroke='%23b21f2d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%2316232b'/%3E%3Ccircle cx='50' cy='16' r='3' fill='%2316232b'/%3E%3Ccircle cx='50' cy='84' r='3' fill='%2316232b'/%3E%3Ccircle cx='16' cy='50' r='3' fill='%2316232b'/%3E%3Ccircle cx='84' cy='50' r='3' fill='%2316232b'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bgb-bg:#eef2f4;
+  --bgb-surface:#e4e9ec;
+  --bgb-text:#16232b;
+  --bgb-muted:#4b5b64;
+  --bgb-accent:#b21f2d;
+  --bgb-line:rgba(22,35,43,.16);
+  --bgb-line-strong:rgba(22,35,43,.34);
+  --bgb-radius:1px;
+  --bgb-maxw:1240px;
+  --bgb-serif:'Century Schoolbook','Century Schoolbook L',Georgia,'Times New Roman',serif;
+  --bgb-sans:Tahoma,Geneva,Verdana,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--bgb-bg);color:var(--bgb-text);font-family:var(--bgb-sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+a{color:var(--bgb-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--bgb-serif);font-weight:700;line-height:1.22;margin:0 0 .5em;color:var(--bgb-text);}
+p{margin:0 0 1em;}
+img{max-width:100%;display:block;height:auto;}
+ul{margin:0;padding:0;}
+.bgb-container{max-width:var(--bgb-maxw);margin:0 auto;padding:0 20px;}
+.bgb-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+/* masthead */
+.bgb-masthead{background:var(--bgb-bg);}
+.bgb-masthead-rule-top{height:3px;background:var(--bgb-text);}
+.bgb-masthead-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bgb-masthead-left,.bgb-masthead-right{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--bgb-muted);display:flex;flex-direction:column;gap:2px;flex:1;min-width:150px;}
+.bgb-masthead-right{text-align:right;align-items:flex-end;}
+.bgb-masthead-title{font-family:var(--bgb-serif);font-size:42px;font-weight:700;color:var(--bgb-text);text-align:center;letter-spacing:.01em;}
+.bgb-masthead-title:hover{text-decoration:none;color:var(--bgb-accent);}
+.bgb-masthead-rule-mid{height:1px;background:var(--bgb-line-strong);}
+.bgb-nav{border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-nav-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:9px 20px;display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;}
+.bgb-nav-inner a{color:var(--bgb-text);}
+.bgb-nav-inner a:hover{color:var(--bgb-accent);}
+.bgb-nav-inner a.bgb-nav-current{color:var(--bgb-accent);border-bottom:2px solid var(--bgb-accent);}
+
+/* full-bleed station table */
+.bgb-table-wrap{width:100%;background:var(--bgb-surface);border-top:1px solid var(--bgb-line-strong);border-bottom:3px double var(--bgb-text);}
+.bgb-table-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:14px 20px 18px;overflow-x:auto;}
+.bgb-table-title{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--bgb-muted);margin-bottom:8px;}
+table.bgb-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px;}
+.bgb-table th,.bgb-table td{padding:7px 10px;border-bottom:1px solid var(--bgb-line);text-align:left;white-space:nowrap;}
+.bgb-table th{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--bgb-muted);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-table td.bgb-num,.bgb-table th.bgb-num{text-align:right;font-variant-numeric:tabular-nums;}
+.bgb-table tbody tr:last-child td{border-bottom:none;}
+.bgb-table tbody tr:nth-child(even){background:rgba(22,35,43,.035);}
+.bgb-table-note{font-size:11.5px;color:var(--bgb-muted);margin-top:8px;}
+
+/* hero */
+.bgb-hero{padding:34px 0 6px;}
+.bgb-hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;}
+.bgb-hero-kicker{color:var(--bgb-accent);text-transform:uppercase;font-size:12px;letter-spacing:.08em;font-weight:700;}
+.bgb-hero h1{font-size:33px;margin-top:6px;}
+.bgb-hero-standfirst{font-size:16px;color:var(--bgb-muted);}
+.bgb-hero-img{border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);}
+
+/* generic page header (non-home pages) */
+.bgb-page-head{padding:34px 0 10px;border-bottom:2px solid var(--bgb-text);margin-bottom:26px;}
+.bgb-page-kicker{color:var(--bgb-accent);text-transform:uppercase;font-size:12px;letter-spacing:.08em;font-weight:700;}
+.bgb-page-head h1{font-size:32px;margin-top:6px;}
+.bgb-page-head p{color:var(--bgb-muted);font-size:15.5px;max-width:760px;}
+
+/* section head */
+.bgb-section-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--bgb-text);padding-bottom:6px;margin:36px 0 18px;gap:12px;flex-wrap:wrap;}
+.bgb-section-head h2{font-size:19px;margin:0;text-transform:uppercase;letter-spacing:.03em;}
+.bgb-section-head span{font-size:11.5px;color:var(--bgb-muted);text-transform:uppercase;letter-spacing:.05em;}
+
+/* three newspaper columns w/ vertical rules */
+.bgb-columns{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;column-gap:24px;padding-bottom:10px;}
+.bgb-rule-v{background:var(--bgb-line-strong);width:1px;}
+.bgb-col{display:flex;flex-direction:column;gap:28px;}
+.bgb-article-thumb{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);margin-bottom:10px;filter:grayscale(.15);}
+.bgb-kicker{color:var(--bgb-accent);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.bgb-article h3{font-size:17.5px;margin:6px 0 6px;}
+.bgb-article h3 a{color:var(--bgb-text);}
+.bgb-article h3 a:hover{color:var(--bgb-accent);text-decoration:none;}
+.bgb-dek{font-size:13.5px;color:var(--bgb-muted);margin:0 0 8px;}
+.bgb-meta{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--bgb-muted);}
+
+/* app / phone mockup */
+.bgb-app-section{margin:46px 0 10px;padding:32px 0;border-top:1px solid var(--bgb-line-strong);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-app-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:36px;align-items:center;}
+.bgb-phone{justify-self:center;width:230px;border:2px solid var(--bgb-text);border-radius:14px;padding:10px 8px;background:var(--bgb-bg);}
+.bgb-phone-screen{background:var(--bgb-surface);border:1px solid var(--bgb-line-strong);border-radius:6px;padding:10px;}
+.bgb-phone-bar{height:8px;background:var(--bgb-text);border-radius:2px;margin-bottom:8px;width:58%;}
+.bgb-phone-row{display:flex;justify-content:space-between;font-size:9.5px;padding:5px 0;border-bottom:1px solid var(--bgb-line);}
+.bgb-phone-chart{display:flex;align-items:flex-end;gap:4px;height:48px;margin-top:8px;}
+.bgb-phone-chart span{flex:1;background:var(--bgb-accent);opacity:.75;border-radius:1px 1px 0 0;}
+.bgb-app-copy .bgb-kicker{display:block;margin-bottom:6px;}
+
+/* features (bulletin style, not cards) */
+.bgb-features{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--bgb-line-strong);margin-top:22px;}
+.bgb-feature{padding:18px 22px;border-right:1px solid var(--bgb-line);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-feature:nth-child(3n){border-right:none;}
+.bgb-feature-icon{color:var(--bgb-accent);display:block;margin-bottom:8px;}
+.bgb-feature h3{font-size:15px;margin:0 0 6px;}
+.bgb-feature p{font-size:13.5px;color:var(--bgb-muted);margin:0;}
+
+/* steps */
+.bgb-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:20px 0 10px;}
+.bgb-step{border-top:3px solid var(--bgb-accent);padding-top:10px;}
+.bgb-step-num{font-family:var(--bgb-serif);font-size:24px;color:var(--bgb-muted);display:block;margin-bottom:4px;}
+.bgb-step h3{font-size:15px;}
+.bgb-step p{font-size:13.5px;color:var(--bgb-muted);margin:0;}
+
+/* faq */
+.bgb-faq-item{border-bottom:1px solid var(--bgb-line);padding:16px 0;}
+.bgb-faq-item h3{font-size:16px;margin:0 0 6px;}
+.bgb-faq-item p{margin:0;color:var(--bgb-muted);font-size:14.5px;}
+
+/* newsletter */
+.bgb-newsletter{border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);padding:22px;background:var(--bgb-surface);margin:38px 0;}
+.bgb-newsletter h2{font-size:18px;}
+.bgb-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.bgb-newsletter input[type=email]{flex:1;min-width:200px;padding:10px 12px;border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);font-family:var(--bgb-sans);background:var(--bgb-bg);color:var(--bgb-text);}
+.bgb-ok{display:none;color:var(--bgb-accent);font-size:13px;margin-top:8px;}
+
+.bgb-btn{display:inline-block;padding:10px 18px;background:var(--bgb-accent);color:#fff;border:none;border-radius:var(--bgb-radius);font-family:var(--bgb-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;}
+.bgb-btn:hover{opacity:.9;text-decoration:none;}
+
+/* about */
+.bgb-about-blurb{margin:36px 0;padding-top:20px;border-top:1px solid var(--bgb-line-strong);}
+.bgb-team{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:18px;}
+.bgb-team-member{border-top:2px solid var(--bgb-text);padding-top:10px;}
+.bgb-team-member h3{font-size:15.5px;margin:0 0 2px;}
+.bgb-team-role{font-size:11.5px;color:var(--bgb-accent);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;}
+.bgb-team-member p{font-size:13.5px;color:var(--bgb-muted);}
+.bgb-policy-list{margin:14px 0 0;padding-left:20px;}
+.bgb-policy-list li{font-size:14.5px;color:var(--bgb-muted);margin-bottom:8px;}
+
+/* glossary */
+.bgb-glossary-list{margin-top:10px;}
+.bgb-gloss-item{display:grid;grid-template-columns:230px 1fr;gap:20px;padding:14px 0;border-bottom:1px solid var(--bgb-line);}
+.bgb-gloss-term{font-family:var(--bgb-serif);font-weight:700;font-size:16px;}
+.bgb-gloss-def{color:var(--bgb-muted);font-size:14.5px;}
+
+/* legal pages */
+.bgb-legal{margin:10px 0 50px;max-width:800px;}
+.bgb-legal h2{font-size:18px;margin-top:32px;}
+.bgb-legal p,.bgb-legal li{color:var(--bgb-muted);font-size:14.5px;}
+.bgb-legal ul{padding-left:20px;margin-bottom:1em;}
+
+/* footer */
+.bgb-footer{border-top:3px double var(--bgb-text);margin-top:54px;background:var(--bgb-surface);}
+.bgb-footer-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:30px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;}
+.bgb-footer-col h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;color:var(--bgb-muted);}
+.bgb-footer-col a{display:block;color:var(--bgb-text);font-size:13.5px;margin-bottom:6px;}
+.bgb-footer-col p{font-size:13px;color:var(--bgb-muted);margin:0;}
+.bgb-footer-bottom{border-top:1px solid var(--bgb-line);padding:14px 20px;text-align:center;font-size:11.5px;color:var(--bgb-muted);max-width:var(--bgb-maxw);margin:0 auto;}
+
+/* responsive */
+@media (max-width:900px){
+  .bgb-hero-grid{grid-template-columns:1fr;}
+  .bgb-columns{grid-template-columns:1fr;}
+  .bgb-rule-v{display:none;}
+  .bgb-col{gap:22px;}
+  .bgb-app-grid{grid-template-columns:1fr;}
+  .bgb-phone{margin-bottom:10px;}
+  .bgb-features{grid-template-columns:repeat(2,1fr);}
+  .bgb-features .bgb-feature:nth-child(3n){border-right:1px solid var(--bgb-line);}
+  .bgb-features .bgb-feature:nth-child(2n){border-right:none;}
+  .bgb-steps{grid-template-columns:1fr;}
+  .bgb-team{grid-template-columns:1fr;}
+  .bgb-footer-inner{grid-template-columns:1fr 1fr;}
+  .bgb-gloss-item{grid-template-columns:1fr;gap:4px;}
+  .bgb-masthead-inner{flex-direction:column;text-align:center;}
+  .bgb-masthead-left,.bgb-masthead-right{align-items:center;text-align:center;}
+}
+@media (max-width:560px){
+  .bgb-footer-inner{grid-template-columns:1fr;}
+  .bgb-features{grid-template-columns:1fr;}
+  .bgb-features .bgb-feature{border-right:none;}
+  .bgb-masthead-title{font-size:30px;}
+  .bgb-hero h1{font-size:24px;}
+  .bgb-page-head h1{font-size:26px;}
+}
+
+</style>
+</head>
+<body>
+<header class="bgb-masthead">
+  <div class="bgb-masthead-rule-top"></div>
+  <div class="bgb-masthead-inner">
+    <div class="bgb-masthead-left">
+      <span>Backyard Station Bulletin</span>
+      <span>Observation series &mdash; Year 3</span>
+    </div>
+    <a href="safe.html" class="bgb-masthead-title">Barograph</a>
+    <div class="bgb-masthead-right">
+      <span>Companion app</span>
+      <span>Raingauge Log</span>
+    </div>
+  </div>
+  <div class="bgb-masthead-rule-mid"></div>
+  <nav class="bgb-nav">
+    <div class="bgb-nav-inner">
+      <a href="safe.html">Home</a>
+      <a href="app.html">Raingauge Log</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="bgb-table-wrap">
+    <div class="bgb-table-inner">
+      <div class="bgb-table-title">Station Log &mdash; Specimen Week, Late June 2026</div>
+      <table class="bgb-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th class="bgb-num">High</th>
+            <th class="bgb-num">Low</th>
+            <th class="bgb-num">Pressure (mb)</th>
+            <th>Trend</th>
+            <th class="bgb-num">Rain (in)</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Mon 15</td><td class="bgb-num">78.4</td><td class="bgb-num">61.2</td><td class="bgb-num">1015.8</td><td>Steady</td><td class="bgb-num">0.00</td><td>Clear, light haze at dusk</td></tr>
+          <tr><td>Tue 16</td><td class="bgb-num">81.1</td><td class="bgb-num">63.5</td><td class="bgb-num">1013.2</td><td>Falling</td><td class="bgb-num">0.00</td><td>Cirrus moving in from west</td></tr>
+          <tr><td>Wed 17</td><td class="bgb-num">79.6</td><td class="bgb-num">64.9</td><td class="bgb-num">1009.7</td><td>Falling</td><td class="bgb-num">0.18</td><td>Brief afternoon shower</td></tr>
+          <tr><td>Thu 18</td><td class="bgb-num">74.2</td><td class="bgb-num">60.3</td><td class="bgb-num">1011.4</td><td>Rising</td><td class="bgb-num">0.42</td><td>Overnight rain, gauge checked twice</td></tr>
+          <tr><td>Fri 19</td><td class="bgb-num">77.8</td><td class="bgb-num">58.7</td><td class="bgb-num">1016.9</td><td>Rising</td><td class="bgb-num">0.00</td><td>Clear, low humidity</td></tr>
+          <tr><td>Sat 20</td><td class="bgb-num">83.0</td><td class="bgb-num">62.4</td><td class="bgb-num">1017.5</td><td>Steady</td><td class="bgb-num">0.00</td><td>Warmest noon reading of the week</td></tr>
+          <tr><td>Sun 21</td><td class="bgb-num">80.5</td><td class="bgb-num">63.8</td><td class="bgb-num">1014.6</td><td>Falling</td><td class="bgb-num">0.05</td><td>Fog before 7am, cleared by 9</td></tr>
+        </tbody>
+      </table>
+      <p class="bgb-table-note">A single specimen week pulled from the running log, kept here as an example of the format &mdash; not a live feed. Full method notes in the Glossary and FAQ.</p>
+    </div>
+  </div>
+
+  <div class="bgb-container">
+    <section class="bgb-hero">
+      <div class="bgb-hero-grid">
+        <div class="bgb-hero-copy">
+          <span class="bgb-hero-kicker">From the Log</span>
+          <h1>A Three-Year Backyard Record, and What the Monthly Average Leaves Out</h1>
+          <p class="bgb-hero-standfirst">Barograph is a running notebook from one home weather station &mdash; noon readings, a home barometer, and a rain gauge kept honest against a borrowed reference. The site exists to show the daily record behind the summary, and to work through calibration questions a lab would answer in an afternoon and a backyard has to answer over a season.</p>
+        </div>
+        <img class="bgb-hero-img" src="img/hero.jpg" alt="Home weather station instruments on a porch shelf">
+      </div>
+    </section>
+
+    <div class="bgb-section-head">
+      <h2>Field Notes</h2>
+      <span>9 recent entries</span>
+    </div>
+    <div class="bgb-columns">
+      <div class="bgb-col">
+        <article class="bgb-article">
+          <img class="bgb-article-thumb" src="img/three-summers-of-noon-readings.jpg" alt="What Three Summers of Noon Readings Actually Show">
+          <span class="bgb-kicker">Data Series</span>
+          <h3><a href="#">What Three Summers of Noon Readings Actually Show</a></h3>
+          <p class="bgb-dek">A single fixed hour, tracked for three years, turns out to hide as much as it reveals.</p>
+          <p class="bgb-meta">2026-02-14</p>
+        </article>
+        <article class="bgb-article">
+          <img class="bgb-article-thumb" src="img/the-monthly-average-problem.jpg" alt="The Monthly Average Hides the Day It Happened">
+          <span class="bgb-kicker">Method</span>
+          <h3><a href="#">The Monthly Average Hides the Day It Happened</a></h3>
+          <p class="bgb-dek">Two months with the same mean can contain completely different weeks.</p>
+          <p class="bgb-meta">2026-01-09</p>
+        </article>
+        <article class="bgb-article">
+          <img class="bgb-article-thumb" src="img/calibrating-a-barometer-without-a-lab.jpg" alt="Calibrating a Home Barometer Without a Lab">
+          <span class="bgb-kicker">Calibration</span>
+          <h3><a href="#">Calibrating a Home Barometer Without a Lab</a></h3>
+          <p class="bgb-dek">A borrowed reference reading and a notebook are usually enough to start.</p>
+          <p class="bgb-meta">2026-01-22</p>
+        </article>
+      </div>
+      <div class="bgb-rule-v"></div>
+      <div class="bgb-col">
+        <article class="bgb-article">
+          <img class="bgb-article-thumb" src="img/screen-placement-and-radiant-error.jpg" alt="Screen Placement and the Half-Degree of Radiant Error">
+          <span class="bgb-kicker">Instruments</span>
+          <h3><a href="#">Screen Placement and the Half-Degree of Radiant Error</a></h3>
+          <p class="bgb-dek">Moving a thermometer eighteen inches changed three years of afternoon highs.</p>
+          <p class="bgb-meta">2026-03-03</p>
+        </article>
+        <article class="bgb-article">
+          <img class="bgb-article-thumb" src="img/reading-the-trend-arrow-correctly.jpg" alt="Reading the Trend Arrow Correctly, or Not at All">
+          <span class="bgb-kicker">Field Notes</span>
+          <h3><a href="#">Reading the Trend Arrow Correctly, or Not at All</a></h3>
+          <p class="bgb-dek">The little arrow on a home barometer answers a narrower question than most people think.</p>
+          <p class="bgb-meta">2026-03-27</p>
+        </article>
+        <article class="bgb-article">
+          <img class="bgb-article-thumb" src="img/a-year-of-fog-mornings.jpg" alt="A Year of Fog Mornings, Counted by Hand">
+          <span class="bgb-kicker">Microclimate</span>
+          <h3><a href="#">A Year of Fog Mornings, Counted by Hand</a></h3>
+          <p class="bgb-dek">Counting fog by eye instead of instrument turned into the most useful log of the year.</p>
+          <p class="bgb-meta">2026-04-18</p>
+        </article>
+      </div>
+      <div class="bgb-rule-v"></div>
+      <div class="bgb-col">
+        <article class="bgb-article">
+          <img class="bgb-article-thumb" src="img/the-drift-nobody-notices.jpg" alt="The Drift Nobody Notices Until the Second Winter">
+          <span class="bgb-kicker">Archive</span>
+          <h3><a href="#">The Drift Nobody Notices Until the Second Winter</a></h3>
+          <p class="bgb-dek">Sensors do not fail loudly; they wander a little every season until a check catches it.</p>
+          <p class="bgb-meta">2026-05-06</p>
+        </article>
+        <article class="bgb-article">
+          <img class="bgb-article-thumb" src="img/comparing-two-thermometers-a-decade-apart.jpg" alt="Comparing Two Thermometers a Decade Apart">
+          <span class="bgb-kicker">Records</span>
+          <h3><a href="#">Comparing Two Thermometers a Decade Apart</a></h3>
+          <p class="bgb-dek">Retiring an old instrument meant a month of parallel readings before trusting the new one.</p>
+          <p class="bgb-meta">2026-05-29</p>
+        </article>
+        <article class="bgb-article">
+          <img class="bgb-article-thumb" src="img/what-the-almanac-gets-quietly-wrong.jpg" alt="What the Almanac Gets Quietly Wrong">
+          <span class="bgb-kicker">Almanac</span>
+          <h3><a href="#">What the Almanac Gets Quietly Wrong</a></h3>
+          <p class="bgb-dek">Old folk rules made in a different climate zone still get repeated as if local.</p>
+          <p class="bgb-meta">2026-06-20</p>
+        </article>
+      </div>
+    </div>
+
+    <section class="bgb-app-section">
+      <div class="bgb-app-grid">
+        <div class="bgb-phone">
+          <div class="bgb-phone-screen">
+            <div class="bgb-phone-bar"></div>
+            <div class="bgb-phone-row"><span>Noon reading</span><span>78.4&deg;F</span></div>
+            <div class="bgb-phone-row"><span>Pressure</span><span>1015.8 mb</span></div>
+            <div class="bgb-phone-row"><span>Rain today</span><span>0.00 in</span></div>
+            <div class="bgb-phone-row"><span>Trend</span><span>Steady</span></div>
+            <div class="bgb-phone-chart">
+              <span style="height:40%"></span><span style="height:65%"></span><span style="height:30%"></span>
+              <span style="height:80%"></span><span style="height:55%"></span><span style="height:70%"></span>
+              <span style="height:45%"></span>
+            </div>
+          </div>
+        </div>
+        <div class="bgb-app-copy">
+          <span class="bgb-kicker">Companion App</span>
+          <h2>Raingauge Log</h2>
+          <p>The notebook this site is built on started as a paper log, then a spreadsheet, then Raingauge Log &mdash; a small app for keeping a daily station record, checking it against a reference point, and seeing a season at a glance instead of just a monthly mean.</p>
+          <a class="bgb-btn" href="app.html">See how it works</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bgb-newsletter">
+      <h2>A note when a new entry is logged</h2>
+      <p>No forecasts, no daily digest &mdash; just a short note when a new field note or method piece is posted.</p>
+      <form onsubmit="return sub(event)">
+        <input type="email" required placeholder="you@example.com" aria-label="Email address">
+        <button class="bgb-btn" type="submit">Subscribe</button>
+      </form>
+      <div class="bgb-ok" id="ok">Thanks &mdash; you're on the list.</div>
+    </section>
+
+    <section class="bgb-about-blurb">
+      <h2>About this log</h2>
+      <p>Barograph is written by a small group of backyard observers keeping one long station record and comparing notes on method. No products are sold here. Read more on the <a href="about.html">About</a> page, or browse the <a href="glossary.html">Glossary</a> for the terms used throughout the log.</p>
+    </section>
+  </div>
+
+</main>
+<footer class="bgb-footer">
+  <div class="bgb-footer-inner">
+    <div class="bgb-footer-col">
+      <h4>Barograph</h4>
+      <p>An independent notebook on backyard weather observation &mdash; home stations, long series, and calibration without a laboratory. Updated from one station's log, not a forecast service.</p>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Read</h4>
+      <a href="safe.html">Home</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Companion</h4>
+      <a href="app.html">Raingauge Log</a>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="bgb-footer-bottom">
+    <span>&copy; 2026 Barograph. Field notes from a home weather station, not a forecasting authority.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+
+</body>
+</html>

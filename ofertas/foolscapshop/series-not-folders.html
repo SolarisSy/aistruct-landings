@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Series, Not Folders · Foolscap</title>
+  <meta name="description" content="Archival 'series' sorts papers by who made them and why, not by subject — a filing idea from records management, translated for a kitchen drawer.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://foolscap.shop/series-not-folders.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='4' fill='%23f4f1e8'/%3E%3Crect x='6' y='10' width='13' height='44' fill='%238a3324'/%3E%3Ctext x='40' y='43' font-family='Georgia,serif' font-size='28' fill='%2323201a' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+  <style>
+:root{
+  --shm-bg:#f4f1e8;
+  --shm-bg-raised:#efe9d8;
+  --shm-text:#23201a;
+  --shm-text-dim:#5c564a;
+  --shm-accent:#8a3324;
+  --shm-accent-ink:#6e281c;
+  --shm-line:rgba(35,32,26,.18);
+  --shm-line-soft:rgba(35,32,26,.09);
+  --shm-radius:2px;
+  --shm-maxw:845px;
+  --shm-tab-w:120px;
+  --shm-serif:Charter,Georgia,'Iowan Old Style','Times New Roman',serif;
+  --shm-sans:Corbel,Calibri,'Trebuchet MS',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{font-size:16px;}
+body{margin:0;font-family:var(--shm-sans);color:var(--shm-text);line-height:1.6;background-color:var(--shm-bg);background-image:repeating-linear-gradient(to bottom,transparent 0 78px,var(--shm-line-soft) 78px 79px);}
+img{max-width:100%;height:auto;display:block;}
+a{color:var(--shm-accent);}
+h1,h2,h3{font-family:var(--shm-serif);font-weight:600;color:var(--shm-text);}
+p{margin:0 0 14px;}
+ul,ol{margin:0 0 14px;padding-left:22px;}
+li{margin-bottom:6px;}
+.shm-bar{max-width:var(--shm-maxw);margin:0 auto;padding:0 20px;}
+.shm-masthead{border-bottom:1px solid var(--shm-line);padding-top:22px;}
+.shm-masthead-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px;padding-bottom:14px;}
+.shm-wordmark{font-family:var(--shm-serif);font-size:1.7rem;color:var(--shm-text);text-decoration:none;letter-spacing:.01em;}
+.shm-wordmark-dot{color:var(--shm-accent);}
+.shm-tagline{margin:0;font-size:.82rem;color:var(--shm-text-dim);font-style:italic;}
+.shm-nav{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;padding:12px 0 16px;border-top:1px solid var(--shm-line-soft);margin-top:2px;}
+.shm-nav a{color:var(--shm-text);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;}
+.shm-nav a:hover{border-color:var(--shm-accent);color:var(--shm-accent);}
+.shm-main{max-width:calc(var(--shm-maxw) + var(--shm-tab-w) + 28px);margin:0 auto;padding:0 20px 56px;position:relative;}
+.shm-shell{max-width:var(--shm-maxw);width:100%;background:var(--shm-bg-raised);border:1px solid var(--shm-line);padding:30px 24px 40px;margin:0 auto;}
+.shm-tab{position:static;width:100%;background:var(--shm-accent);color:#f3ead9;border:1px solid var(--shm-accent-ink);padding:9px 16px;display:flex;align-items:center;gap:14px;font-family:var(--shm-sans);margin-bottom:0;}
+.shm-tab-series{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+.shm-tab-number{font-family:var(--shm-serif);font-size:.95rem;letter-spacing:.05em;font-variant-numeric:tabular-nums;}
+@media (min-width:901px){
+  .shm-main{padding-left:calc(var(--shm-tab-w) + 48px);}
+  .shm-shell{margin:0;border-top:1px solid var(--shm-line);}
+  .shm-tab{position:absolute;left:20px;top:46px;width:var(--shm-tab-w);min-height:190px;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 8px;}
+  .shm-tab-series,.shm-tab-number{writing-mode:vertical-rl;transform:rotate(180deg);}
+}
+.shm-btn{display:inline-block;font-family:var(--shm-sans);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:11px 22px;border-radius:var(--shm-radius);border:1px solid var(--shm-accent);color:#f4ede0;background:var(--shm-accent);}
+.shm-btn:hover{background:var(--shm-accent-ink);border-color:var(--shm-accent-ink);}
+.shm-btn-ghost{background:transparent;color:var(--shm-accent);}
+.shm-btn-ghost:hover{background:var(--shm-accent);color:#f4ede0;}
+.shm-hero{display:flex;flex-direction:column;gap:22px;padding:26px 0 26px;border-bottom:1px solid var(--shm-line);}
+.shm-hero-eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 10px;}
+.shm-hero h1{font-size:1.7rem;line-height:1.2;margin:0 0 12px;}
+.shm-hero p{color:var(--shm-text-dim);font-size:1rem;margin:0 0 16px;}
+.shm-hero-figure{margin:0;}
+.shm-hero-figure img{width:100%;border-radius:var(--shm-radius);border:1px solid var(--shm-line);}
+.shm-hero-figcap{font-size:.72rem;color:var(--shm-text-dim);margin-top:6px;font-style:italic;}
+@media (min-width:641px){
+  .shm-hero{flex-direction:row;align-items:center;}
+  .shm-hero-text{flex:1.1;}
+  .shm-hero-figure{flex:.9;}
+  .shm-hero h1{font-size:2.05rem;}
+}
+.shm-section-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin:34px 0 4px;}
+.shm-section-head h2{font-size:1.3rem;margin:0;}
+.shm-section-head span{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-index{margin-top:20px;}
+.shm-slip{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--shm-line);}
+.shm-slip:first-child{border-top:1px solid var(--shm-line);}
+.shm-slip-thumb{width:76px;height:76px;object-fit:cover;border-radius:var(--shm-radius);border:1px solid var(--shm-line);filter:sepia(.1) contrast(1.02);}
+.shm-slip-meta{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-slip-title{font-size:1.05rem;margin:.3em 0 .22em;}
+.shm-slip-title a{color:inherit;text-decoration:none;}
+.shm-slip-title a:hover{text-decoration:underline;}
+.shm-slip-dek{color:var(--shm-text-dim);font-size:.88rem;margin:0;}
+@media (min-width:641px){
+  .shm-slip{grid-template-columns:96px 1fr;gap:20px;padding:22px 0;}
+  .shm-slip-thumb{width:96px;height:96px;}
+  .shm-slip-title{font-size:1.22rem;}
+  .shm-slip-dek{font-size:.94rem;}
+}
+.shm-mock{border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:#fbf8f0;overflow:hidden;}
+.shm-mock-bar{background:var(--shm-text);color:#f4ede0;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;}
+.shm-mock-body{padding:14px;display:grid;gap:9px;}
+.shm-mock-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:var(--shm-bg);}
+.shm-mock-row-title{font-family:var(--shm-serif);font-size:.88rem;}
+.shm-mock-row-sub{font-size:.7rem;color:var(--shm-text-dim);}
+.shm-mock-row-tag{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);border:1px solid var(--shm-accent);border-radius:var(--shm-radius);padding:2px 6px;white-space:nowrap;}
+.shm-app-teaser{display:flex;flex-direction:column;gap:22px;padding:30px 0;border-bottom:1px solid var(--shm-line);}
+.shm-app-teaser h2{font-size:1.3rem;margin:0 0 10px;}
+.shm-app-teaser p{color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-app-teaser{flex-direction:row;align-items:center;}}
+.shm-features{display:grid;grid-template-columns:1fr;gap:1px;background:var(--shm-line);border:1px solid var(--shm-line);margin:24px 0;}
+.shm-feature{background:var(--shm-bg-raised);padding:20px 18px;}
+.shm-feature-icon{width:24px;height:24px;color:var(--shm-accent);}
+.shm-feature h3{font-size:1rem;margin:10px 0 6px;}
+.shm-feature p{margin:0;font-size:.88rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-features{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:901px){.shm-features{grid-template-columns:repeat(3,1fr);}}
+.shm-steps{counter-reset:shmstep;margin:24px 0;padding:0;list-style:none;}
+.shm-steps li{counter-increment:shmstep;position:relative;padding:2px 0 22px 36px;border-left:1px solid var(--shm-line);margin-left:13px;}
+.shm-steps li:last-child{border-color:transparent;padding-bottom:2px;}
+.shm-steps li::before{content:counter(shmstep);position:absolute;left:-14px;top:-2px;width:26px;height:26px;border-radius:50%;background:var(--shm-accent);color:#f4ede0;font-family:var(--shm-serif);font-size:.82rem;display:flex;align-items:center;justify-content:center;}
+.shm-steps h3{margin:0 0 4px;font-size:.98rem;}
+.shm-steps p{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-mini-faq{margin:24px 0;}
+.shm-mini-faq-item{padding:14px 0;border-bottom:1px solid var(--shm-line);}
+.shm-mini-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-mini-faq-q{font-family:var(--shm-serif);font-size:.98rem;margin:0 0 6px;}
+.shm-mini-faq-a{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-newsletter{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:22px;margin:28px 0;background:var(--shm-bg-raised);}
+.shm-newsletter h2{margin-top:0;font-size:1.15rem;}
+.shm-newsletter p{color:var(--shm-text-dim);font-size:.9rem;}
+.shm-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.shm-newsletter input[type=email]{flex:1 1 200px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);font-family:var(--shm-sans);background:var(--shm-bg);color:var(--shm-text);font-size:.9rem;}
+.shm-newsletter-ok{display:none;margin-top:10px;font-size:.85rem;color:var(--shm-accent);}
+.shm-about-blurb{padding:24px 0;border-top:1px solid var(--shm-line);font-size:.92rem;color:var(--shm-text-dim);}
+.shm-about-blurb h2{font-size:1.15rem;color:var(--shm-text);margin:0 0 10px;}
+.shm-team{display:grid;grid-template-columns:1fr;gap:16px;margin:22px 0;}
+.shm-team-card{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:16px;background:var(--shm-bg-raised);}
+.shm-team-card h3{font-size:.98rem;margin:0 0 4px;}
+.shm-team-role{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 8px;}
+.shm-team-card p{margin:0;font-size:.85rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-team{grid-template-columns:repeat(3,1fr);}}
+.shm-prose{padding:26px 0 10px;}
+.shm-prose h1{font-size:1.7rem;margin:0 0 6px;}
+.shm-prose .shm-lede{color:var(--shm-text-dim);font-size:.95rem;margin:0 0 24px;}
+.shm-prose h2{font-size:1.2rem;margin:30px 0 10px;border-top:1px solid var(--shm-line);padding-top:18px;}
+.shm-prose address{font-style:normal;}
+.shm-glossary{padding:16px 0 4px;}
+.shm-gloss-entry{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-gloss-entry:first-child{border-top:1px solid var(--shm-line);}
+.shm-gloss-term{font-family:var(--shm-serif);font-size:1.02rem;margin:0 0 6px;color:var(--shm-text);}
+.shm-gloss-letter{color:var(--shm-accent);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-right:8px;border:1px solid var(--shm-accent);padding:1px 5px;border-radius:var(--shm-radius);}
+.shm-gloss-def{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-faq{padding:16px 0 4px;}
+.shm-faq-item{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-faq-q{font-family:var(--shm-serif);font-size:1rem;margin:0 0 8px;color:var(--shm-text);}
+.shm-faq-q-mark{color:var(--shm-accent);margin-right:6px;}
+.shm-faq-a{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-footer{border-top:1px solid var(--shm-line);margin-top:10px;padding:24px 0 46px;font-size:.8rem;color:var(--shm-text-dim);}
+.shm-footer-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px;padding:0;list-style:none;}
+.shm-footer-links a{color:var(--shm-text-dim);text-decoration:none;}
+.shm-footer-links a:hover{color:var(--shm-accent);}
+.shm-footer-fine{font-size:.74rem;opacity:.8;margin:0;}
+.shm-cta-band{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:24px;margin:30px 0 10px;background:var(--shm-bg-raised);text-align:center;}
+.shm-cta-band h2{margin:0 0 8px;}
+.shm-cta-band p{color:var(--shm-text-dim);max-width:520px;margin:0 auto 16px;}
+.shm-post{max-width:var(--shm-maxw);margin:0 auto;padding:26px 20px 48px;}
+.shm-post-eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 8px;}
+.shm-post h1{font-size:1.7rem;line-height:1.24;margin:0 0 10px;}
+.shm-post-dek{color:var(--shm-text-dim);font-size:1rem;margin:0 0 16px;max-width:700px;}
+.shm-post-byline{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-text-dim);margin:0 0 22px;padding-bottom:20px;border-bottom:1px solid var(--shm-line);}
+.shm-post-cover{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--shm-line);border-radius:var(--shm-radius);margin:0 0 26px;}
+.shm-post p{font-size:1rem;max-width:700px;}
+.shm-post h2{font-size:1.28rem;margin:36px 0 12px;padding-top:20px;border-top:1px solid var(--shm-line);max-width:700px;}
+.shm-post ul,.shm-post ol{max-width:700px;}
+.shm-post li{font-size:.95rem;}
+@media (min-width:641px){.shm-post h1{font-size:2rem;}}
+.shm-pullquote{border-left:3px solid var(--shm-accent);margin:30px 0;padding:2px 0 2px 22px;max-width:660px;font-family:var(--shm-serif);font-size:1.28rem;line-height:1.46;color:var(--shm-text);}
+.shm-pullquote cite{display:block;margin-top:10px;font-family:var(--shm-sans);font-size:.7rem;color:var(--shm-text-dim);font-style:normal;text-transform:uppercase;letter-spacing:.06em;}
+.shm-callout{background:var(--shm-bg-raised);border:1px solid var(--shm-line);border-left:3px solid var(--shm-accent);border-radius:var(--shm-radius);padding:18px 20px;margin:28px 0;max-width:660px;}
+.shm-callout h4{font-family:var(--shm-sans);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--shm-accent);margin:0 0 8px;}
+.shm-callout p{font-size:.9rem;margin:0;}
+.shm-callout p+p{margin-top:8px;}
+.shm-table-wrap{margin:28px 0;overflow-x:auto;border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:var(--shm-bg-raised);}
+table.shm-table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:560px;}
+.shm-table th,.shm-table td{padding:10px 14px;border-bottom:1px solid var(--shm-line);text-align:left;vertical-align:top;}
+.shm-table th{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--shm-text-dim);background:var(--shm-bg);}
+.shm-table tbody tr:last-child td{border-bottom:none;}
+.shm-table-note{font-size:.74rem;color:var(--shm-text-dim);padding:10px 14px 14px;margin:0;font-style:italic;}
+.shm-note-box{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:18px 20px;margin:40px 0 8px;max-width:700px;}
+.shm-note-box h4{font-family:var(--shm-sans);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--shm-text-dim);margin:0 0 8px;}
+.shm-note-box p{font-size:.85rem;color:var(--shm-text-dim);margin:0;}
+.shm-readalso{border-top:1px solid var(--shm-line);margin-top:42px;padding-top:6px;max-width:700px;}
+.shm-readalso h3{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--shm-text-dim);margin:20px 0 0;font-family:var(--shm-sans);}
+  </style>
+</head><body>
+  <header class="shm-masthead">
+  <div class="shm-bar">
+    <div class="shm-masthead-top">
+      <a class="shm-wordmark" href="safe.html">Foolscap<span class="shm-wordmark-dot">.</span></a>
+      <p class="shm-tagline">Field notes on keeping a household paper archive in order</p>
+    </div>
+    <nav class="shm-nav" aria-label="Primary">
+      <a href="safe.html">Home</a>
+      <a href="app.html">Boxlist</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+  <article class="shm-post">
+    <p class="shm-post-eyebrow">Method</p>
+    <h1>Series, Not Folders</h1>
+    <p class="shm-post-dek">Folders group by subject. Series group by function and by when something arrived. The difference matters more than it sounds.</p>
+    <p class="shm-post-byline">Method &middot; May 24, 2026</p>
+
+    <img class="shm-post-cover" src="img/series-not-folders.jpg" alt="Series, Not Folders">
+
+    <p>A folder says what a paper is about. A series says why it exists and where it came from, and those turn out to be two different filing systems wearing the same manila costume. Anyone who has stood in front of a drawer stuffed with a decade of insurance letters, warranty cards, and one baffling notice from a homeowners association has felt the limit of the subject folder: everything about "the house" lives in one place, but a claim form filed three years ago and a claim form filed last month have almost nothing to do with each other except the word "house" printed at the top. Records managers solved this problem a long time ago, for reasons that had nothing to do with kitchen drawers, and the solution travels better than it has any right to.</p>
+
+    <h2>What a Series Actually Is</h2>
+    <p>In records management, a series is a group of records that share the same function, the same creator, and roughly the same shape over time &mdash; not the same subject. A city clerk's office keeps a series of building permits, a series of marriage licenses, a series of budget resolutions, each accumulating in its own sequence year after year, each governed by its own retention rule. A single folder about "downtown redevelopment" might touch all three, and that is exactly why no records office keeps a folder like that. The permit belongs with other permits because it was created the same way, processed by the same office, and will be needed &mdash; or safely retired &mdash; on roughly the same schedule as every other permit, not because it happens to concern the same building as a budget line ten pages away.</p>
+
+    <h2>Why Function Tends to Beat Topic</h2>
+    <p>The reason this matters is retention, not tidiness. A permit and a budget resolution might both get thrown into a "redevelopment" folder if the sorting rule is subject, and the moment that happens, the folder inherits the shortest reasonable lifespan of anything inside it, or, more often, nobody applies any lifespan at all, because a mixed folder is hard to judge as a whole. A series can be judged as a whole precisely because everything in it was born the same way: permits get one answer, licenses get another, resolutions get a third. The paper's function tends to tell you what to do with it eventually. Its subject, on its own, tells you almost nothing about when it's safe to let go.</p>
+
+    <h2>The Kitchen-Drawer Version</h2>
+    <p>None of this requires an office or a formal retention schedule to be worth borrowing. A household produces its own small, steady output of function-shaped paper: things a bank sends every month, things a utility sends every month, things an insurer sends once a year, one-off things a school or a lawyer sends rarely but that matter for a long stretch afterward. Sorted by subject &mdash; "the car," "the house," "the kids" &mdash; an insurance renewal and a repair estimate for the same car end up side by side, even though one is likely disposable within a year and the other might matter if a claim comes up later. Sorted by series, <a href="order-of-arrival.html">by who sent it and how often</a>, the renewal joins eleven other renewals from the same insurer in the order they arrived, and the estimate joins other repair paperwork that keeps its own separate rhythm entirely.</p>
+
+    <blockquote class="shm-pullquote">A folder answers "what is this about." A series answers "what happens to this next" &mdash; and only one of those two questions is worth filing by.</blockquote>
+
+    <h2>Naming a Series by What Made It</h2>
+    <p>A workable test, borrowed almost exactly from the records-management version: ask who produced this paper and what job it was doing, not what it happens to describe. A tax document belongs with other tax documents because of the office that issued it and the year it covers, not because it mentions a house that also has its own maintenance pile. A warranty card belongs with the warranty series because it does one recurring job &mdash; proving a purchase date if something breaks &mdash; not because it's about a specific appliance. Once a paper is named by its producing function, the series it belongs to tends to be obvious within a few seconds, and the sequence inside that series is just the order things arrived, which is the whole argument in <a href="the-manila-drawer.html">a related piece on why the plain manila drawer still wins</a> over anything more elaborate.</p>
+
+    <div class="shm-callout">
+      <h4>The one-question test</h4>
+      <p>Before filing a paper, ask "does this repeat, and who sends it?" rather than "what is this about?" If the answer names a sender and a rough interval &mdash; monthly, yearly, per event &mdash; the paper belongs in that sender's series. If there's no repeat and no clear sender-function, it may genuinely be a one-off, and forcing a series onto it does more harm than a plain miscellaneous spot would.</p>
+    </div>
+
+    <h2>Where the Analogy Runs Out</h2>
+    <p>The records-management version of a series comes with staff, an approved retention schedule, and a professional's judgment about what counts as the same function. A household has none of that, and pretending otherwise turns a useful idea into an overbuilt hobby. Some paper genuinely is a one-off &mdash; a single letter about a single event that will never repeat &mdash; and forcing it into a series built for recurring documents just adds a label nobody needed. The households that seem to keep this working over several years tend to treat "series" as a tool for the recurring stuff and leave a plain miscellaneous spot for everything else, rather than inventing a new series for every stray page that shows up once.</p>
+
+    <div class="shm-table-wrap">
+      <table class="shm-table">
+        <thead>
+          <tr>
+            <th>Series</th>
+            <th>New entry triggered by</th>
+            <th>Typical span kept</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Utility statements</td><td>Each billing cycle, per provider</td><td>1&ndash;2 years</td><td>One series per provider, not per address</td></tr>
+          <tr><td>Insurance renewals &amp; claims</td><td>Each renewal or claim event</td><td>Life of the policy plus a few years</td><td>Claims often outlast the renewal that triggered them</td></tr>
+          <tr><td>Tax-year documents</td><td>Once per filing year</td><td>Around seven years</td><td>Closed as a unit once that year is filed</td></tr>
+          <tr><td>Warranty &amp; receipts</td><td>Each purchase worth tracking</td><td>Length of the warranty term</td><td>Ordered by purchase date, not by item</td></tr>
+          <tr><td>School &amp; medical letters</td><td>Each correspondence received</td><td>Varies; often kept long-term</td><td>One series per person, not per topic</td></tr>
+        </tbody>
+      </table>
+      <p class="shm-table-note">A starting shape, not a fixed rule &mdash; some households merge rows, some split a single row into two.</p>
+    </div>
+
+    <h2>A Small Working List</h2>
+    <p>Getting started rarely means resorting everything at once. It tends to mean picking one drawer's worth of recurring paper and asking, for each item, which sender-function it belongs to before it goes back in. A short list that many households find they already have, once they look:</p>
+    <ul>
+      <li>Bank and card statements, one series per account, ordered by statement date.</li>
+      <li>Utility bills, one series per provider, ordered by billing month.</li>
+      <li>Insurance paperwork, one series per policy, ordered by renewal or claim date.</li>
+      <li>Tax-year folders, one per year, closed once that year is filed.</li>
+      <li>Everything else that doesn't repeat, in a single miscellaneous holding spot until it either repeats or clearly never will.</li>
+    </ul>
+    <p>The last line matters as much as the first four. A series only earns its keep once something has actually repeated; treating a single letter as the founding document of a brand-new series is how folders quietly turn back into subject-sorted piles wearing a fancier name.</p>
+
+    <div class="shm-note-box">
+      <h4>A note on scope</h4>
+      <p>This piece describes a filing idea borrowed from records management and one way it might translate to a household drawer. It isn't a retention schedule, a legal requirement, or advice about what any specific household must keep or discard. If a formal recordkeeping obligation applies to a particular document, the issuing institution or a qualified professional is the right place to ask, not a filing essay.</p>
+    </div>
+
+    <div class="shm-readalso">
+      <h3>Read also</h3>
+      <div class="shm-index">
+        <div class="shm-slip">
+          <img class="shm-slip-thumb" src="img/seven-year-shelf.jpg" alt="What Actually Survives Seven Years in a Closet">
+          <div>
+            <p class="shm-slip-meta">Method</p>
+            <p class="shm-slip-title"><a href="seven-year-shelf.html">What Actually Survives Seven Years in a Closet</a></p>
+            <p class="shm-slip-dek">Paper, tape, and staples age at different rates than the retention rule assumes.</p>
+          </div>
+        </div>
+        <div class="shm-slip">
+          <img class="shm-slip-thumb" src="img/call-number-home.jpg" alt="Writing a Call Number for a Home Archive">
+          <div>
+            <p class="shm-slip-meta">Method</p>
+            <p class="shm-slip-title"><a href="call-number-home.html">Writing a Call Number for a Home Archive</a></p>
+            <p class="shm-slip-dek">A short code on a folder tab can carry a series and its order at a glance.</p>
+          </div>
+        </div>
+        <div class="shm-slip">
+          <img class="shm-slip-thumb" src="img/the-year-i-numbered-everything.jpg" alt="The Year I Numbered Everything">
+          <div>
+            <p class="shm-slip-meta">Journal</p>
+            <p class="shm-slip-title"><a href="the-year-i-numbered-everything.html">The Year I Numbered Everything</a></p>
+            <p class="shm-slip-dek">A full year spent turning a subject-sorted drawer into something closer to a series.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <footer class="shm-footer">
+  <div class="shm-bar">
+    <ul class="shm-footer-links">
+      <li><a href="safe.html">Home</a></li>
+      <li><a href="app.html">Boxlist</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <p class="shm-footer-fine">&copy; 2026 Foolscap. An independent journal about home paper archiving, kept by hand. Not affiliated with any library, records office, or storage vendor. Contact: hello@foolscap.shop</p>
+  </div>
+</footer>
+</body></html>

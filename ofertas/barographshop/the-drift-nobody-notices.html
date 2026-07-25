@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Drift Nobody Notices Until the Second Winter · Barograph</title>
+  <meta name="description" content="A three-year home weather log shows how a thermometer and a barometer quietly wander season to season, and why one calibration at setup is never the last one needed.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://barograph.shop/the-drift-nobody-notices.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23eef2f4' stroke='%2316232b' stroke-width='6'/%3E%3Cline x1='50' y1='50' x2='73' y2='31' stroke='%23b21f2d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%2316232b'/%3E%3Ccircle cx='50' cy='16' r='3' fill='%2316232b'/%3E%3Ccircle cx='50' cy='84' r='3' fill='%2316232b'/%3E%3Ccircle cx='16' cy='50' r='3' fill='%2316232b'/%3E%3Ccircle cx='84' cy='50' r='3' fill='%2316232b'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --bgb-bg:#eef2f4;
+  --bgb-surface:#e4e9ec;
+  --bgb-text:#16232b;
+  --bgb-muted:#4b5b64;
+  --bgb-accent:#b21f2d;
+  --bgb-line:rgba(22,35,43,.16);
+  --bgb-line-strong:rgba(22,35,43,.34);
+  --bgb-radius:1px;
+  --bgb-maxw:1240px;
+  --bgb-serif:'Century Schoolbook','Century Schoolbook L',Georgia,'Times New Roman',serif;
+  --bgb-sans:Tahoma,Geneva,Verdana,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--bgb-bg);color:var(--bgb-text);font-family:var(--bgb-sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+a{color:var(--bgb-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--bgb-serif);font-weight:700;line-height:1.22;margin:0 0 .5em;color:var(--bgb-text);}
+p{margin:0 0 1em;}
+img{max-width:100%;display:block;height:auto;}
+ul{margin:0;padding:0;}
+.bgb-container{max-width:var(--bgb-maxw);margin:0 auto;padding:0 20px;}
+.bgb-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+.bgb-masthead{background:var(--bgb-bg);}
+.bgb-masthead-rule-top{height:3px;background:var(--bgb-text);}
+.bgb-masthead-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bgb-masthead-left,.bgb-masthead-right{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--bgb-muted);display:flex;flex-direction:column;gap:2px;flex:1;min-width:150px;}
+.bgb-masthead-right{text-align:right;align-items:flex-end;}
+.bgb-masthead-title{font-family:var(--bgb-serif);font-size:42px;font-weight:700;color:var(--bgb-text);text-align:center;letter-spacing:.01em;}
+.bgb-masthead-title:hover{text-decoration:none;color:var(--bgb-accent);}
+.bgb-masthead-rule-mid{height:1px;background:var(--bgb-line-strong);}
+.bgb-nav{border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-nav-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:9px 20px;display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;}
+.bgb-nav-inner a{color:var(--bgb-text);}
+.bgb-nav-inner a:hover{color:var(--bgb-accent);}
+.bgb-nav-inner a.bgb-nav-current{color:var(--bgb-accent);border-bottom:2px solid var(--bgb-accent);}
+.bgb-table-wrap{width:100%;background:var(--bgb-surface);border-top:1px solid var(--bgb-line-strong);border-bottom:3px double var(--bgb-text);}
+.bgb-table-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:14px 20px 18px;overflow-x:auto;}
+.bgb-table-title{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--bgb-muted);margin-bottom:8px;}
+table.bgb-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px;}
+.bgb-table th,.bgb-table td{padding:7px 10px;border-bottom:1px solid var(--bgb-line);text-align:left;white-space:nowrap;}
+.bgb-table th{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--bgb-muted);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-table td.bgb-num,.bgb-table th.bgb-num{text-align:right;font-variant-numeric:tabular-nums;}
+.bgb-table tbody tr:last-child td{border-bottom:none;}
+.bgb-table tbody tr:nth-child(even){background:rgba(22,35,43,.035);}
+.bgb-table-note{font-size:11.5px;color:var(--bgb-muted);margin-top:8px;}
+.bgb-hero{padding:34px 0 6px;}
+.bgb-hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;}
+.bgb-hero-kicker{color:var(--bgb-accent);text-transform:uppercase;font-size:12px;letter-spacing:.08em;font-weight:700;}
+.bgb-hero h1{font-size:33px;margin-top:6px;}
+.bgb-hero-standfirst{font-size:16px;color:var(--bgb-muted);}
+.bgb-hero-img{border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);}
+.bgb-page-head{padding:34px 0 10px;border-bottom:2px solid var(--bgb-text);margin-bottom:26px;}
+.bgb-page-kicker{color:var(--bgb-accent);text-transform:uppercase;font-size:12px;letter-spacing:.08em;font-weight:700;}
+.bgb-page-head h1{font-size:32px;margin-top:6px;}
+.bgb-page-head p{color:var(--bgb-muted);font-size:15.5px;max-width:760px;}
+.bgb-section-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--bgb-text);padding-bottom:6px;margin:36px 0 18px;gap:12px;flex-wrap:wrap;}
+.bgb-section-head h2{font-size:19px;margin:0;text-transform:uppercase;letter-spacing:.03em;}
+.bgb-section-head span{font-size:11.5px;color:var(--bgb-muted);text-transform:uppercase;letter-spacing:.05em;}
+.bgb-columns{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;column-gap:24px;padding-bottom:10px;}
+.bgb-rule-v{background:var(--bgb-line-strong);width:1px;}
+.bgb-col{display:flex;flex-direction:column;gap:28px;}
+.bgb-article-thumb{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);margin-bottom:10px;filter:grayscale(.15);}
+.bgb-kicker{color:var(--bgb-accent);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.bgb-article h3{font-size:17.5px;margin:6px 0 6px;}
+.bgb-article h3 a{color:var(--bgb-text);}
+.bgb-article h3 a:hover{color:var(--bgb-accent);text-decoration:none;}
+.bgb-dek{font-size:13.5px;color:var(--bgb-muted);margin:0 0 8px;}
+.bgb-meta{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--bgb-muted);}
+.bgb-app-section{margin:46px 0 10px;padding:32px 0;border-top:1px solid var(--bgb-line-strong);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-app-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:36px;align-items:center;}
+.bgb-phone{justify-self:center;width:230px;border:2px solid var(--bgb-text);border-radius:14px;padding:10px 8px;background:var(--bgb-bg);}
+.bgb-phone-screen{background:var(--bgb-surface);border:1px solid var(--bgb-line-strong);border-radius:6px;padding:10px;}
+.bgb-phone-bar{height:8px;background:var(--bgb-text);border-radius:2px;margin-bottom:8px;width:58%;}
+.bgb-phone-row{display:flex;justify-content:space-between;font-size:9.5px;padding:5px 0;border-bottom:1px solid var(--bgb-line);}
+.bgb-phone-chart{display:flex;align-items:flex-end;gap:4px;height:48px;margin-top:8px;}
+.bgb-phone-chart span{flex:1;background:var(--bgb-accent);opacity:.75;border-radius:1px 1px 0 0;}
+.bgb-app-copy .bgb-kicker{display:block;margin-bottom:6px;}
+.bgb-features{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--bgb-line-strong);margin-top:22px;}
+.bgb-feature{padding:18px 22px;border-right:1px solid var(--bgb-line);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-feature:nth-child(3n){border-right:none;}
+.bgb-feature-icon{color:var(--bgb-accent);display:block;margin-bottom:8px;}
+.bgb-feature h3{font-size:15px;margin:0 0 6px;}
+.bgb-feature p{font-size:13.5px;color:var(--bgb-muted);margin:0;}
+.bgb-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:20px 0 10px;}
+.bgb-step{border-top:3px solid var(--bgb-accent);padding-top:10px;}
+.bgb-step-num{font-family:var(--bgb-serif);font-size:24px;color:var(--bgb-muted);display:block;margin-bottom:4px;}
+.bgb-step h3{font-size:15px;}
+.bgb-step p{font-size:13.5px;color:var(--bgb-muted);margin:0;}
+.bgb-faq-item{border-bottom:1px solid var(--bgb-line);padding:16px 0;}
+.bgb-faq-item h3{font-size:16px;margin:0 0 6px;}
+.bgb-faq-item p{margin:0;color:var(--bgb-muted);font-size:14.5px;}
+.bgb-newsletter{border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);padding:22px;background:var(--bgb-surface);margin:38px 0;}
+.bgb-newsletter h2{font-size:18px;}
+.bgb-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.bgb-newsletter input[type=email]{flex:1;min-width:200px;padding:10px 12px;border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);font-family:var(--bgb-sans);background:var(--bgb-bg);color:var(--bgb-text);}
+.bgb-ok{display:none;color:var(--bgb-accent);font-size:13px;margin-top:8px;}
+.bgb-btn{display:inline-block;padding:10px 18px;background:var(--bgb-accent);color:#fff;border:none;border-radius:var(--bgb-radius);font-family:var(--bgb-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;}
+.bgb-btn:hover{opacity:.9;text-decoration:none;}
+.bgb-about-blurb{margin:36px 0;padding-top:20px;border-top:1px solid var(--bgb-line-strong);}
+.bgb-team{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:18px;}
+.bgb-team-member{border-top:2px solid var(--bgb-text);padding-top:10px;}
+.bgb-team-member h3{font-size:15.5px;margin:0 0 2px;}
+.bgb-team-role{font-size:11.5px;color:var(--bgb-accent);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;}
+.bgb-team-member p{font-size:13.5px;color:var(--bgb-muted);}
+.bgb-policy-list{margin:14px 0 0;padding-left:20px;}
+.bgb-policy-list li{font-size:14.5px;color:var(--bgb-muted);margin-bottom:8px;}
+.bgb-glossary-list{margin-top:10px;}
+.bgb-gloss-item{display:grid;grid-template-columns:230px 1fr;gap:20px;padding:14px 0;border-bottom:1px solid var(--bgb-line);}
+.bgb-gloss-term{font-family:var(--bgb-serif);font-weight:700;font-size:16px;}
+.bgb-gloss-def{color:var(--bgb-muted);font-size:14.5px;}
+.bgb-legal{margin:10px 0 50px;max-width:800px;}
+.bgb-legal h2{font-size:18px;margin-top:32px;}
+.bgb-legal p,.bgb-legal li{color:var(--bgb-muted);font-size:14.5px;}
+.bgb-legal ul{padding-left:20px;margin-bottom:1em;}
+.bgb-footer{border-top:3px double var(--bgb-text);margin-top:54px;background:var(--bgb-surface);}
+.bgb-footer-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:30px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;}
+.bgb-footer-col h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;color:var(--bgb-muted);}
+.bgb-footer-col a{display:block;color:var(--bgb-text);font-size:13.5px;margin-bottom:6px;}
+.bgb-footer-col p{font-size:13px;color:var(--bgb-muted);margin:0;}
+.bgb-footer-bottom{border-top:1px solid var(--bgb-line);padding:14px 20px;text-align:center;font-size:11.5px;color:var(--bgb-muted);max-width:var(--bgb-maxw);margin:0 auto;}
+@media (max-width:900px){
+  .bgb-hero-grid{grid-template-columns:1fr;}
+  .bgb-columns{grid-template-columns:1fr;}
+  .bgb-rule-v{display:none;}
+  .bgb-col{gap:22px;}
+  .bgb-app-grid{grid-template-columns:1fr;}
+  .bgb-phone{margin-bottom:10px;}
+  .bgb-features{grid-template-columns:repeat(2,1fr);}
+  .bgb-features .bgb-feature:nth-child(3n){border-right:1px solid var(--bgb-line);}
+  .bgb-features .bgb-feature:nth-child(2n){border-right:none;}
+  .bgb-steps{grid-template-columns:1fr;}
+  .bgb-team{grid-template-columns:1fr;}
+  .bgb-footer-inner{grid-template-columns:1fr 1fr;}
+  .bgb-gloss-item{grid-template-columns:1fr;gap:4px;}
+  .bgb-masthead-inner{flex-direction:column;text-align:center;}
+  .bgb-masthead-left,.bgb-masthead-right{align-items:center;text-align:center;}
+}
+@media (max-width:560px){
+  .bgb-footer-inner{grid-template-columns:1fr;}
+  .bgb-features{grid-template-columns:1fr;}
+  .bgb-features .bgb-feature{border-right:none;}
+  .bgb-masthead-title{font-size:30px;}
+  .bgb-hero h1{font-size:24px;}
+  .bgb-page-head h1{font-size:26px;}
+}
+.bgb-post{padding:6px 0 40px;}
+.bgb-post-cover{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);margin:0 0 26px;filter:grayscale(.1);}
+.bgb-post-byline{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--bgb-muted);margin:0 0 22px;}
+.bgb-post p{font-size:16px;max-width:760px;}
+.bgb-post h2{font-size:21px;margin-top:38px;padding-bottom:6px;border-bottom:1px solid var(--bgb-line);max-width:760px;}
+.bgb-post ul,.bgb-post ol{margin:0 0 1.2em;padding-left:22px;max-width:760px;}
+.bgb-post li{margin-bottom:.55em;font-size:15.5px;}
+.bgb-pullquote{border-left:4px solid var(--bgb-accent);margin:30px 0;padding:4px 0 4px 22px;max-width:720px;font-family:var(--bgb-serif);font-size:21px;line-height:1.42;color:var(--bgb-text);}
+.bgb-pullquote cite{display:block;margin-top:10px;font-family:var(--bgb-sans);font-size:11.5px;color:var(--bgb-muted);font-style:normal;text-transform:uppercase;letter-spacing:.06em;}
+.bgb-callout{background:var(--bgb-surface);border:1px solid var(--bgb-line-strong);border-left:4px solid var(--bgb-accent);border-radius:var(--bgb-radius);padding:18px 22px;margin:28px 0;max-width:720px;}
+.bgb-callout h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--bgb-accent);margin:0 0 8px;}
+.bgb-callout p{font-size:14.5px;}
+.bgb-callout p:last-child{margin-bottom:0;}
+.bgb-note{border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);padding:18px 22px;margin:40px 0 6px;max-width:760px;}
+.bgb-note h4{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--bgb-muted);margin:0 0 8px;}
+.bgb-note p{font-size:13.5px;color:var(--bgb-muted);}
+.bgb-note p:last-child{margin-bottom:0;}
+.bgb-readalso{border-top:2px solid var(--bgb-text);margin-top:44px;padding-top:22px;}
+.bgb-readalso h3{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--bgb-muted);margin:0 0 16px;}
+.bgb-readalso-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media (max-width:900px){.bgb-readalso-grid{grid-template-columns:1fr;}}
+  </style>
+</head><body>
+  <header class="bgb-masthead">
+  <div class="bgb-masthead-rule-top"></div>
+  <div class="bgb-masthead-inner">
+    <div class="bgb-masthead-left">
+      <span>Backyard Station Bulletin</span>
+      <span>Observation series &mdash; Year 3</span>
+    </div>
+    <a href="safe.html" class="bgb-masthead-title">Barograph</a>
+    <div class="bgb-masthead-right">
+      <span>Companion app</span>
+      <span>Raingauge Log</span>
+    </div>
+  </div>
+  <div class="bgb-masthead-rule-mid"></div>
+  <nav class="bgb-nav">
+    <div class="bgb-nav-inner">
+      <a href="safe.html">Home</a>
+      <a href="app.html">Raingauge Log</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+</header>
+  <main>
+    <div class="bgb-container">
+      <article class="bgb-post">
+        <section class="bgb-page-head">
+          <span class="bgb-page-kicker">Archive</span>
+          <h1>The Drift Nobody Notices Until the Second Winter</h1>
+          <p>Sensors do not fail loudly; they wander a little every season until a check catches it.</p>
+        </section>
+        <p class="bgb-post-byline">Calibration Notes &middot; May 6, 2026</p>
+
+        <img class="bgb-post-cover" src="img/the-drift-nobody-notices.jpg" alt="The Drift Nobody Notices Until the Second Winter">
+
+        <p>The first year, every reading felt trustworthy by default. The thermometer had come out of its box a month earlier, the barometer had been checked once against a borrowed aneroid at a neighbor's kitchen table, and the numbers went straight into the log without a second thought. It was the second winter, not the first, when a Tuesday morning reading looked wrong for no obvious reason &mdash; not stuck, not broken, just quietly off by a margin too small to matter on any single day and too consistent to be noise once enough of those days were lined up in a column. That gap is the subject of this piece: the slow wander an instrument develops after enough seasons of heat, damp, cold, and ordinary handling, and the case for checking it again and again instead of once at setup and never again.</p>
+
+        <h2>What Drift Actually Looks Like</h2>
+        <p>Drift is not a malfunction in the usual sense. Nothing beeps, nothing sticks, and the instrument keeps producing a number every time you look at it. What changes is the relationship between that number and the air outside. An aneroid barometer's capsule flexes very slightly less after enough seasons of temperature swings, which nudges every pressure reading up or down by a hair. A thermometer mounted in a plastic housing can start reading a touch warm as the housing itself absorbs a little more sun than it did when new, or a touch cool once the mounting bracket has flexed and shaded the bulb differently than it did on day one. None of this shows up as an error message. It shows up, if it shows up at all, as a log that no longer quite agrees with a second instrument kept for comparison.</p>
+        <p>In this station's log, the barometer's discrepancy against a spare unit crept from roughly nothing in month three to a fairly steady 1 to 2 millibars high by month fourteen. The thermometer's gap against an indoor reference took longer to show and was smaller, a matter of a few tenths of a degree, but by the second winter it was consistent enough that the daily low readings had a visible, if modest, upward lean that had nothing to do with the actual weather.</p>
+
+        <h2>The Habit That Hides It</h2>
+        <p>The reason drift goes unnoticed for so long is not carelessness, exactly &mdash; it is the very reasonable assumption that a calibration performed once should keep holding. An instrument arrives, gets set against something trustworthy at install, and from then on is treated as a finished, settled fact rather than a running claim that needs re-checking. That habit works fine for a season or two. It works less well for a log meant to run for years, because a log that is never checked again quietly starts absorbing the instrument's drift as if it were part of the weather itself. A slowly rising set of "low" readings can look, on a chart, exactly like a slowly warming winter. Only a side-by-side comparison against something independent can tell the two apart, and a one-time setup check never gets a second chance to run that comparison.</p>
+
+        <blockquote class="bgb-pullquote">A log that is never checked against anything else isn't recording the weather anymore. It's recording the weather plus whatever the instrument has slowly become.<cite>Station log, third winter</cite></blockquote>
+
+        <h2>Reading the Second-Winter Signal</h2>
+        <p>The mismatch here surfaced almost by accident. A second thermometer, kept indoors mainly as a curiosity, was brought outside for a week during the second winter to answer an unrelated question about a drafty window. Placed briefly beside the working outdoor unit, it disagreed by about half a degree on the first morning, then by a similar amount on each of the following mornings. Eleven mornings of paired readings put the average gap at roughly 0.4 to 0.7 degrees, small enough to dismiss as instrument variance if it had only happened once, but steady enough across nearly two weeks to look like something real. The barometer's own gap, tracked the same way against a stored reference unit pulled out for the occasion, had grown from the earlier 1 to 2 millibars to something closer to 2 to 3 by that point &mdash; a detail that lines up with the kind of long-run instrument comparison described in <a href="calibrating-a-barometer-without-a-lab.html">calibrating a home barometer without a lab</a>.</p>
+
+        <div class="bgb-callout">
+          <h4>What a two-point check catches</h4>
+          <p>A single reading tells you almost nothing about drift, because you have no way to know if today's number is typical. Two readings, taken from two different instruments at the same moment, tell you whether they agree. Repeating that pairing across several consecutive mornings &mdash; not just one &mdash; is what separates a real, persistent gap from an ordinary bad morning.</p>
+        </div>
+
+        <h2>Building a Recurring Check Into the Log</h2>
+        <p>Once the second-winter gap had been noticed, the fix was less about the instrument and more about the habit around it. A one-time calibration was replaced with a recurring one, built into the log itself rather than left to memory:</p>
+        <ul>
+          <li>Keep a second, independent instrument specifically for comparison, not as a backup to swap in when the first one breaks.</li>
+          <li>Run the comparison for at least three consecutive mornings each time, since a single paired reading can't distinguish drift from an ordinary off day.</li>
+          <li>Check on a fixed point in the calendar &mdash; this log now checks near each solstice &mdash; rather than only when a reading feels wrong, since drift is exactly the kind of thing that doesn't feel wrong until it's large.</li>
+          <li>Record the raw gap in the log alongside the adjusted number, so the size of the drift is itself part of the record, not discarded once a correction is applied.</li>
+        </ul>
+        <p>The comparison instrument doesn't need to be fancier than the one it's checking; it mostly needs to be independent, kept somewhere its own conditions won't drift in the same direction at the same time. Over a longer run, that second instrument becomes its own small archive, which is roughly the same logic behind retiring an aging unit described in <a href="comparing-two-thermometers-a-decade-apart.html">comparing two thermometers a decade apart</a>.</p>
+
+        <div class="bgb-table-wrap">
+          <div class="bgb-table-inner">
+            <div class="bgb-table-title">Three Winters of Reference Checks, Same Station</div>
+            <table class="bgb-table">
+              <thead>
+                <tr>
+                  <th>Winter</th>
+                  <th class="bgb-num">Thermometer gap</th>
+                  <th class="bgb-num">Barometer gap</th>
+                  <th>Mornings compared</th>
+                  <th>Log note</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Year 1</td><td class="bgb-num">~0.1&deg;F</td><td class="bgb-num">~0.3 mb</td><td>3</td><td>Within normal instrument variance</td></tr>
+                <tr><td>Year 2 (first check)</td><td class="bgb-num">~0.5&deg;F</td><td class="bgb-num">~1.5 mb</td><td>11</td><td>Gap noticed by accident, not by schedule</td></tr>
+                <tr><td>Year 2 (repeat, solstice)</td><td class="bgb-num">~0.6&deg;F</td><td class="bgb-num">~1.9 mb</td><td>7</td><td>First scheduled recurring check</td></tr>
+                <tr><td>Year 3, summer</td><td class="bgb-num">~0.4&deg;F</td><td class="bgb-num">~1.1 mb</td><td>7</td><td>Barometer capsule replaced between checks</td></tr>
+                <tr><td>Year 3, winter</td><td class="bgb-num">~0.3&deg;F</td><td class="bgb-num">~1.0 mb</td><td>7</td><td>Gap stable, no further adjustment made</td></tr>
+              </tbody>
+            </table>
+            <p class="bgb-table-note">Gaps are averages against a second, independent instrument, rounded to the nearest tenth. They describe one station's own log, not a manufacturer specification.</p>
+          </div>
+        </div>
+
+        <h2>What the Recurring Check Changed</h2>
+        <p>The practical effect was less about any single corrected number and more about what the three-year log could now be trusted to say. Before the recurring check existed, a slow rise in morning lows across a winter could mean a genuinely milder season, an instrument quietly drifting warm, or some mix of both, with no way to tell which from the log alone. After it existed, the raw-versus-reference gap sat right next to the reading, and a reader of the log &mdash; including its own keeper, a year later &mdash; could see at a glance how much of any trend was weather and how much was instrument. That distinction turns out to matter most exactly when a season looks unusual, which is also when the temptation to trust the raw number without question is strongest.</p>
+
+        <div class="bgb-note">
+          <h4>A note on scope</h4>
+          <p>This piece describes one household's record-keeping habit and the reasoning behind a recurring reference check. It is not an evaluation of any particular instrument brand or model, does not claim a fixed rate of drift for any device, and isn't a substitute for a manufacturer's own calibration guidance. If an instrument's accuracy matters for a formal or professional purpose, the manufacturer's documentation or a metrology service is the right place to ask, not a backyard log.</p>
+        </div>
+
+        <div class="bgb-readalso">
+          <h3>Read also</h3>
+          <div class="bgb-readalso-grid">
+            <article class="bgb-article">
+              <img class="bgb-article-thumb" src="img/three-summers-of-noon-readings.jpg" alt="What Three Summers of Noon Readings Actually Show">
+              <span class="bgb-kicker">Data Series</span>
+              <h3><a href="three-summers-of-noon-readings.html">What Three Summers of Noon Readings Actually Show</a></h3>
+              <p class="bgb-dek">A single fixed hour, tracked for three years, turns out to hide as much as it reveals.</p>
+              <p class="bgb-meta">2026-02-14</p>
+            </article>
+            <article class="bgb-article">
+              <img class="bgb-article-thumb" src="img/the-monthly-average-problem.jpg" alt="The Monthly Average Hides the Day It Happened">
+              <span class="bgb-kicker">Method</span>
+              <h3><a href="the-monthly-average-problem.html">The Monthly Average Hides the Day It Happened</a></h3>
+              <p class="bgb-dek">Two months with the same mean can contain completely different weeks.</p>
+              <p class="bgb-meta">2026-01-09</p>
+            </article>
+            <article class="bgb-article">
+              <img class="bgb-article-thumb" src="img/screen-placement-and-radiant-error.jpg" alt="Screen Placement and the Half-Degree of Radiant Error">
+              <span class="bgb-kicker">Instruments</span>
+              <h3><a href="screen-placement-and-radiant-error.html">Screen Placement and the Half-Degree of Radiant Error</a></h3>
+              <p class="bgb-dek">Moving a thermometer eighteen inches changed three years of afternoon highs.</p>
+              <p class="bgb-meta">2026-03-03</p>
+            </article>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer class="bgb-footer">
+  <div class="bgb-footer-inner">
+    <div class="bgb-footer-col">
+      <h4>Barograph</h4>
+      <p>An independent notebook on backyard weather observation &mdash; home stations, long series, and calibration without a laboratory. Updated from one station's log, not a forecast service.</p>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Read</h4>
+      <a href="safe.html">Home</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Companion</h4>
+      <a href="app.html">Raingauge Log</a>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="bgb-footer-bottom">
+    <span>&copy; 2026 Barograph. Field notes from a home weather station, not a forecasting authority.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

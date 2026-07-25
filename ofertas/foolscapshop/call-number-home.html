@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing a Call Number for a Home Archive · Foolscap</title>
+<meta name="description" content="How to build a three-part call number for home archive boxes — category, sequence, and closing year — without any library science background.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://foolscap.shop/call-number-home.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='4' fill='%23f4f1e8'/%3E%3Crect x='6' y='10' width='13' height='44' fill='%238a3324'/%3E%3Ctext x='40' y='43' font-family='Georgia,serif' font-size='28' fill='%2323201a' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --shm-bg:#f4f1e8;
+  --shm-bg-raised:#efe9d8;
+  --shm-text:#23201a;
+  --shm-text-dim:#5c564a;
+  --shm-accent:#8a3324;
+  --shm-accent-ink:#6e281c;
+  --shm-line:rgba(35,32,26,.18);
+  --shm-line-soft:rgba(35,32,26,.09);
+  --shm-radius:2px;
+  --shm-maxw:845px;
+  --shm-tab-w:120px;
+  --shm-serif:Charter,Georgia,'Iowan Old Style','Times New Roman',serif;
+  --shm-sans:Corbel,Calibri,'Trebuchet MS',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{font-size:16px;}
+body{margin:0;font-family:var(--shm-sans);color:var(--shm-text);line-height:1.6;background-color:var(--shm-bg);background-image:repeating-linear-gradient(to bottom,transparent 0 78px,var(--shm-line-soft) 78px 79px);}
+img{max-width:100%;height:auto;display:block;}
+a{color:var(--shm-accent);}
+h1,h2,h3{font-family:var(--shm-serif);font-weight:600;color:var(--shm-text);}
+p{margin:0 0 14px;}
+ul,ol{margin:0 0 14px;padding-left:22px;}
+li{margin-bottom:6px;}
+.shm-bar{max-width:var(--shm-maxw);margin:0 auto;padding:0 20px;}
+.shm-masthead{border-bottom:1px solid var(--shm-line);padding-top:22px;}
+.shm-masthead-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px;padding-bottom:14px;}
+.shm-wordmark{font-family:var(--shm-serif);font-size:1.7rem;color:var(--shm-text);text-decoration:none;letter-spacing:.01em;}
+.shm-wordmark-dot{color:var(--shm-accent);}
+.shm-tagline{margin:0;font-size:.82rem;color:var(--shm-text-dim);font-style:italic;}
+.shm-nav{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;padding:12px 0 16px;border-top:1px solid var(--shm-line-soft);margin-top:2px;}
+.shm-nav a{color:var(--shm-text);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;}
+.shm-nav a:hover{border-color:var(--shm-accent);color:var(--shm-accent);}
+.shm-main{max-width:calc(var(--shm-maxw) + var(--shm-tab-w) + 28px);margin:0 auto;padding:0 20px 56px;position:relative;}
+.shm-shell{max-width:var(--shm-maxw);width:100%;background:var(--shm-bg-raised);border:1px solid var(--shm-line);padding:30px 24px 40px;margin:0 auto;}
+.shm-tab{position:static;width:100%;background:var(--shm-accent);color:#f3ead9;border:1px solid var(--shm-accent-ink);padding:9px 16px;display:flex;align-items:center;gap:14px;font-family:var(--shm-sans);margin-bottom:0;}
+.shm-tab-series{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+.shm-tab-number{font-family:var(--shm-serif);font-size:.95rem;letter-spacing:.05em;font-variant-numeric:tabular-nums;}
+@media (min-width:901px){
+  .shm-main{padding-left:calc(var(--shm-tab-w) + 48px);}
+  .shm-shell{margin:0;border-top:1px solid var(--shm-line);}
+  .shm-tab{position:absolute;left:20px;top:46px;width:var(--shm-tab-w);min-height:190px;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 8px;}
+  .shm-tab-series,.shm-tab-number{writing-mode:vertical-rl;transform:rotate(180deg);}
+}
+.shm-btn{display:inline-block;font-family:var(--shm-sans);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:11px 22px;border-radius:var(--shm-radius);border:1px solid var(--shm-accent);color:#f4ede0;background:var(--shm-accent);}
+.shm-btn:hover{background:var(--shm-accent-ink);border-color:var(--shm-accent-ink);}
+.shm-btn-ghost{background:transparent;color:var(--shm-accent);}
+.shm-btn-ghost:hover{background:var(--shm-accent);color:#f4ede0;}
+.shm-hero{display:flex;flex-direction:column;gap:22px;padding:26px 0 26px;border-bottom:1px solid var(--shm-line);}
+.shm-hero-eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 10px;}
+.shm-hero h1{font-size:1.7rem;line-height:1.2;margin:0 0 12px;}
+.shm-hero p{color:var(--shm-text-dim);font-size:1rem;margin:0 0 16px;}
+.shm-hero-figure{margin:0;}
+.shm-hero-figure img{width:100%;border-radius:var(--shm-radius);border:1px solid var(--shm-line);}
+.shm-hero-figcap{font-size:.72rem;color:var(--shm-text-dim);margin-top:6px;font-style:italic;}
+@media (min-width:641px){
+  .shm-hero{flex-direction:row;align-items:center;}
+  .shm-hero-text{flex:1.1;}
+  .shm-hero-figure{flex:.9;}
+  .shm-hero h1{font-size:2.05rem;}
+}
+.shm-section-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin:34px 0 4px;}
+.shm-section-head h2{font-size:1.3rem;margin:0;}
+.shm-section-head span{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-index{margin-top:20px;}
+.shm-slip{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--shm-line);}
+.shm-slip:first-child{border-top:1px solid var(--shm-line);}
+.shm-slip-thumb{width:76px;height:76px;object-fit:cover;border-radius:var(--shm-radius);border:1px solid var(--shm-line);filter:sepia(.1) contrast(1.02);}
+.shm-slip-meta{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-slip-title{font-size:1.05rem;margin:.3em 0 .22em;}
+.shm-slip-title a{color:inherit;text-decoration:none;}
+.shm-slip-title a:hover{text-decoration:underline;}
+.shm-slip-dek{color:var(--shm-text-dim);font-size:.88rem;margin:0;}
+@media (min-width:641px){
+  .shm-slip{grid-template-columns:96px 1fr;gap:20px;padding:22px 0;}
+  .shm-slip-thumb{width:96px;height:96px;}
+  .shm-slip-title{font-size:1.22rem;}
+  .shm-slip-dek{font-size:.94rem;}
+}
+.shm-mock{border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:#fbf8f0;overflow:hidden;}
+.shm-mock-bar{background:var(--shm-text);color:#f4ede0;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;}
+.shm-mock-body{padding:14px;display:grid;gap:9px;}
+.shm-mock-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:var(--shm-bg);}
+.shm-mock-row-title{font-family:var(--shm-serif);font-size:.88rem;}
+.shm-mock-row-sub{font-size:.7rem;color:var(--shm-text-dim);}
+.shm-mock-row-tag{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);border:1px solid var(--shm-accent);border-radius:var(--shm-radius);padding:2px 6px;white-space:nowrap;}
+.shm-app-teaser{display:flex;flex-direction:column;gap:22px;padding:30px 0;border-bottom:1px solid var(--shm-line);}
+.shm-app-teaser h2{font-size:1.3rem;margin:0 0 10px;}
+.shm-app-teaser p{color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-app-teaser{flex-direction:row;align-items:center;}}
+.shm-features{display:grid;grid-template-columns:1fr;gap:1px;background:var(--shm-line);border:1px solid var(--shm-line);margin:24px 0;}
+.shm-feature{background:var(--shm-bg-raised);padding:20px 18px;}
+.shm-feature-icon{width:24px;height:24px;color:var(--shm-accent);}
+.shm-feature h3{font-size:1rem;margin:10px 0 6px;}
+.shm-feature p{margin:0;font-size:.88rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-features{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:901px){.shm-features{grid-template-columns:repeat(3,1fr);}}
+.shm-steps{counter-reset:shmstep;margin:24px 0;padding:0;list-style:none;}
+.shm-steps li{counter-increment:shmstep;position:relative;padding:2px 0 22px 36px;border-left:1px solid var(--shm-line);margin-left:13px;}
+.shm-steps li:last-child{border-color:transparent;padding-bottom:2px;}
+.shm-steps li::before{content:counter(shmstep);position:absolute;left:-14px;top:-2px;width:26px;height:26px;border-radius:50%;background:var(--shm-accent);color:#f4ede0;font-family:var(--shm-serif);font-size:.82rem;display:flex;align-items:center;justify-content:center;}
+.shm-steps h3{margin:0 0 4px;font-size:.98rem;}
+.shm-steps p{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-mini-faq{margin:24px 0;}
+.shm-mini-faq-item{padding:14px 0;border-bottom:1px solid var(--shm-line);}
+.shm-mini-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-mini-faq-q{font-family:var(--shm-serif);font-size:.98rem;margin:0 0 6px;}
+.shm-mini-faq-a{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-newsletter{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:22px;margin:28px 0;background:var(--shm-bg-raised);}
+.shm-newsletter h2{margin-top:0;font-size:1.15rem;}
+.shm-newsletter p{color:var(--shm-text-dim);font-size:.9rem;}
+.shm-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.shm-newsletter input[type=email]{flex:1 1 200px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);font-family:var(--shm-sans);background:var(--shm-bg);color:var(--shm-text);font-size:.9rem;}
+.shm-newsletter-ok{display:none;margin-top:10px;font-size:.85rem;color:var(--shm-accent);}
+.shm-about-blurb{padding:24px 0;border-top:1px solid var(--shm-line);font-size:.92rem;color:var(--shm-text-dim);}
+.shm-about-blurb h2{font-size:1.15rem;color:var(--shm-text);margin:0 0 10px;}
+.shm-team{display:grid;grid-template-columns:1fr;gap:16px;margin:22px 0;}
+.shm-team-card{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:16px;background:var(--shm-bg-raised);}
+.shm-team-card h3{font-size:.98rem;margin:0 0 4px;}
+.shm-team-role{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 8px;}
+.shm-team-card p{margin:0;font-size:.85rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-team{grid-template-columns:repeat(3,1fr);}}
+.shm-prose{padding:26px 0 10px;}
+.shm-prose h1{font-size:1.7rem;margin:0 0 6px;}
+.shm-prose .shm-lede{color:var(--shm-text-dim);font-size:.95rem;margin:0 0 24px;}
+.shm-prose h2{font-size:1.2rem;margin:30px 0 10px;border-top:1px solid var(--shm-line);padding-top:18px;}
+.shm-prose address{font-style:normal;}
+.shm-glossary{padding:16px 0 4px;}
+.shm-gloss-entry{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-gloss-entry:first-child{border-top:1px solid var(--shm-line);}
+.shm-gloss-term{font-family:var(--shm-serif);font-size:1.02rem;margin:0 0 6px;color:var(--shm-text);}
+.shm-gloss-letter{color:var(--shm-accent);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-right:8px;border:1px solid var(--shm-accent);padding:1px 5px;border-radius:var(--shm-radius);}
+.shm-gloss-def{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-faq{padding:16px 0 4px;}
+.shm-faq-item{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-faq-q{font-family:var(--shm-serif);font-size:1rem;margin:0 0 8px;color:var(--shm-text);}
+.shm-faq-q-mark{color:var(--shm-accent);margin-right:6px;}
+.shm-faq-a{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-footer{border-top:1px solid var(--shm-line);margin-top:10px;padding:24px 0 46px;font-size:.8rem;color:var(--shm-text-dim);}
+.shm-footer-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px;padding:0;list-style:none;}
+.shm-footer-links a{color:var(--shm-text-dim);text-decoration:none;}
+.shm-footer-links a:hover{color:var(--shm-accent);}
+.shm-footer-fine{font-size:.74rem;opacity:.8;margin:0;}
+.shm-cta-band{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:24px;margin:30px 0 10px;background:var(--shm-bg-raised);text-align:center;}
+.shm-cta-band h2{margin:0 0 8px;}
+.shm-cta-band p{color:var(--shm-text-dim);max-width:520px;margin:0 auto 16px;}
+.shm-post-figure{margin:20px 0 6px;}
+.shm-post-figure img{border-radius:var(--shm-radius);border:1px solid var(--shm-line);}
+.shm-post-figure figcaption{font-size:.72rem;color:var(--shm-text-dim);margin-top:6px;font-style:italic;}
+.shm-prose blockquote{margin:26px 0;padding:2px 0 2px 20px;border-left:3px solid var(--shm-accent);}
+.shm-prose blockquote p{font-family:var(--shm-serif);font-style:italic;font-size:1.18rem;line-height:1.5;color:var(--shm-text);margin:0;}
+.shm-callout{margin:24px 0;padding:16px 18px;border:1px solid var(--shm-line);border-left:3px solid var(--shm-accent);background:var(--shm-bg-raised);border-radius:var(--shm-radius);}
+.shm-callout-label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--shm-accent);margin-bottom:8px;}
+.shm-callout p{margin:0;font-size:.92rem;color:var(--shm-text);}
+.shm-table-wrap{overflow-x:auto;margin:22px 0;border:1px solid var(--shm-line);border-radius:var(--shm-radius);}
+.shm-prose table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:520px;}
+.shm-prose th,.shm-prose td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--shm-line);vertical-align:top;}
+.shm-prose thead th{font-family:var(--shm-serif);font-weight:600;background:var(--shm-bg-raised);border-bottom:1px solid var(--shm-text);}
+.shm-prose tbody tr:last-child td{border-bottom:none;}
+.shm-endnote{margin:28px 0 8px;padding:16px 18px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:var(--shm-bg-raised);}
+.shm-endnote p{margin:0;font-size:.86rem;color:var(--shm-text-dim);}
+.shm-read-also{margin:30px 0 6px;padding:18px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:var(--shm-bg-raised);}
+.shm-read-also h2{margin:0 0 12px !important;font-size:1rem !important;border-top:none !important;padding-top:0 !important;}
+.shm-read-also ul{margin:0;padding-left:20px;}
+.shm-read-also li{margin-bottom:6px;font-size:.92rem;}
+</style>
+</head>
+<body>
+<header class="shm-masthead">
+  <div class="shm-bar">
+    <div class="shm-masthead-top">
+      <a class="shm-wordmark" href="safe.html">Foolscap<span class="shm-wordmark-dot">.</span></a>
+      <p class="shm-tagline">Field notes on keeping a household paper archive in order</p>
+    </div>
+    <nav class="shm-nav" aria-label="Primary">
+      <a href="safe.html">Home</a>
+      <a href="app.html">Boxlist</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<article class="shm-main shm-post">
+  <div class="shm-tab">
+    <span class="shm-tab-series">Cataloging</span>
+    <span class="shm-tab-number">014.2</span>
+  </div>
+  <div class="shm-shell">
+    <section class="shm-prose">
+      <p class="shm-hero-eyebrow">Cataloging · February 21, 2026</p>
+      <h1>Writing a Call Number for a Home Archive</h1>
+      <p class="shm-lede">A call number does not need a library science degree — it needs three parts, written the same way every time, on paper that will still be readable in a decade.</p>
+
+      <figure class="shm-post-figure">
+        <img src="img/call-number-home.jpg" alt="Writing a Call Number for a Home Archive">
+        <figcaption>A three-part number, written on a separate label rather than the box itself.</figcaption>
+      </figure>
+
+      <p>Every household archive eventually produces the same small crisis: a box comes down off a closet shelf, and nobody can say, at a glance, which decade it belongs to. The masking tape has gone amber and brittle at the corners. Someone wrote "MISC" on the flap in marker, which was an accurate label the day it was written and has been useless every day since. A call number is built to solve exactly this — not the larger, slower question of how to organize an entire household's paper, but the mechanical one of getting from a written number to the correct shelf in under ten seconds. The term comes from library science, but a household version needs none of that training. It needs three parts, written the same way, every single time.</p>
+
+      <h2>A Call Number Is an Address, Not a Description</h2>
+      <p>Most home labeling systems fail for the same reason: they try to describe contents rather than assign a location. "Old tax stuff," "kitchen receipts maybe," "Dad's papers" — these are true statements about what a box holds, and they become worthless within a few years, once the person who wrote them has forgotten the context or moved out of the house entirely. A description degrades along with memory. An address doesn't, because it was never trying to explain anything in the first place. It just points.</p>
+      <p>Think of it the way a street address works. "The house with the blue door and the overgrown hedge" is a description, and it's useless to a driver who has never seen the hedge. "214 Maple Street" is an address, and it works for a stranger who has never been to town. A call number aims for that same kind of durability — something a stranger, or a future and slightly more forgetful version of yourself, can follow without any translation.</p>
+
+      <h2>The Three Parts, in Plain Terms</h2>
+      <p>A workable home call number has three segments, and each one answers a different question:</p>
+      <ul>
+        <li><strong>Category code</strong> — three or four letters for the general area, such as TAX, INS, WAR, or COR. This narrows a search to one shelf or drawer, and nothing more than that.</li>
+        <li><strong>Sequence number</strong> — where this box falls in the order it was closed, within its category. Not a subject subdivision, just a running count: 001, 002, 014.</li>
+        <li><strong>Closing year</strong> — the year the box was sealed and set aside, not the year the earliest document inside it happened to be created.</li>
+      </ul>
+      <p>Put together, a number like TAX-014-19 tells a household roughly what a library call number tells a stranger in the stacks: which section, which specific item within that section, and about when it was shelved. Nothing about the number describes what's inside beyond the category code, and that part is deliberate.</p>
+
+      <h2>Order of Arrival, Not Order by Topic</h2>
+      <p>The sequence number is the part people tend to get wrong first, usually by trying to make it mean something extra. They'll leave gaps for future subcategories, or renumber boxes by how important the contents seem, or start a fresh sequence every time a filing cabinet gets reorganized. All of this defeats the purpose. The sequence should track <a href="order-of-arrival.html">order of arrival</a> — the plain chronological fact of when a box was closed — because that's one of the few properties of a home archive that never has to be re-decided later. Topic is negotiable; a single receipt could belong under "home repair" or "insurance documentation" depending on the day someone sorts it. The order a box was sealed in already happened, and it isn't going to change its mind.</p>
+
+      <blockquote><p>A call number is not supposed to be interesting. It is supposed to still mean the same thing to someone who has never met you.</p></blockquote>
+
+      <h2>Writing It So It Still Reads in a Decade</h2>
+      <p>The number only does its job if it survives as long as the box does. Marker ink on cardboard tends to bleed and fade at roughly the pace the cardboard itself weakens, so a number written directly on a box flap may already be hard to make out by the time anyone opens that box again. A separate label — an index card, a printed sticker, even a strip of masking tape with the number written in pencil — tends to hold up better than ink applied straight to the box, especially in a garage or attic where humidity does most of the damage described in <a href="dust-and-clip-rust.html">how dust and rust actually form</a>. Pencil in particular doesn't fade the way ballpoint or marker can; it just needs a surface it won't rub cleanly off of.</p>
+      <p>Write the same three-part number in at least two places: once on the label attached to the box, and once on whatever master list tracks the whole archive, whether that's a notebook, a spreadsheet, or an app built for the purpose. If the two ever disagree, the box wins — because the box is the object someone is actually standing in front of when it matters.</p>
+
+      <div class="shm-callout">
+        <span class="shm-callout-label">Before You Number the Whole Archive</span>
+        <p>Pick five boxes from different categories and assign call numbers to those first. Then try to find one of them again, a week later, using only the number written on the master list. If it takes longer than it reasonably should, the scheme likely has a gap — usually in how the category codes were chosen — and it's far cheaper to fix on five boxes than on fifty.</p>
+      </div>
+
+      <h2>A Working Example</h2>
+      <p>A small household archive rarely needs more than five or six category codes to get started. Here's what a first pass might look like across a closet and a garage shelf:</p>
+      <div class="shm-table-wrap">
+        <table>
+          <thead>
+            <tr><th>Call Number</th><th>Category</th><th>Contents</th><th>Date Range</th><th>Location</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>TAX-014-19</td><td>TAX</td><td>Income tax returns and receipts</td><td>2016–2019</td><td>Closet shelf, box 3</td></tr>
+            <tr><td>INS-006-22</td><td>INS</td><td>Auto and home insurance policies</td><td>2020–2022</td><td>Filing drawer, second row</td></tr>
+            <tr><td>WAR-002-21</td><td>WAR</td><td>Appliance manuals and warranty cards</td><td>2018–2021</td><td>Garage shelf, bin A</td></tr>
+            <tr><td>COR-021-23</td><td>COR</td><td>Letters, cards, and personal correspondence</td><td>2021–2023</td><td>Closet shelf, box 5</td></tr>
+            <tr><td>MED-009-20</td><td>MED</td><td>Household medical statements and forms</td><td>2017–2020</td><td>Filing drawer, back row</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Where the Scheme Usually Breaks</h2>
+      <p>A few patterns tend to show up once a household call number scheme has been running for a year or two:</p>
+      <ul>
+        <li>Too many categories from the start. Five or six codes cover most homes; a seventh gets invented every time someone hesitates over where a box belongs, and within a year there are twenty codes nobody quite remembers.</li>
+        <li>The sequence number quietly turns into a subject code, once someone decides "these should really be together" and starts skipping numbers to leave room.</li>
+        <li>The master list stops getting updated after a move, and the numbers written on the boxes no longer match anything on paper.</li>
+      </ul>
+      <p>None of these mistakes are fatal on their own, but each one takes longer to unwind the longer it's allowed to run.</p>
+
+      <div class="shm-endnote">
+        <p>This entry describes one workable pattern for labeling a home archive, drawn from household experience rather than professional archival training. It isn't a substitute for guidance from a records management professional, and results will vary by household, by how many boxes are involved, and by how consistently the scheme gets followed over time.</p>
+      </div>
+
+      <div class="shm-read-also">
+        <h2>Read Also</h2>
+        <ul>
+          <li><a href="the-manila-drawer.html">Why the Manila Drawer Still Wins</a></li>
+          <li><a href="series-not-folders.html">Series, Not Folders</a></li>
+          <li><a href="the-year-i-numbered-everything.html">The Year I Numbered Everything</a></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</article>
+
+<footer class="shm-footer">
+  <div class="shm-bar">
+    <ul class="shm-footer-links">
+      <li><a href="safe.html">Home</a></li>
+      <li><a href="app.html">Boxlist</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <p class="shm-footer-fine">&copy; 2026 Foolscap. An independent journal about home paper archiving, kept by hand. Not affiliated with any library, records office, or storage vendor. Contact: hello@foolscap.shop</p>
+  </div>
+</footer>
+</body>
+</html>

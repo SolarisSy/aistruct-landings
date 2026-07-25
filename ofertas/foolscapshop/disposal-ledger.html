@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keeping a Disposal Ledger · Foolscap</title>
+  <meta name="description" content="Why a household archive needs a written record of what it discarded, not just what it kept — a simple ledger for logging disposal decisions over time.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://foolscap.shop/disposal-ledger.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='4' fill='%23f4f1e8'/%3E%3Crect x='6' y='10' width='13' height='44' fill='%238a3324'/%3E%3Ctext x='40' y='43' font-family='Georgia,serif' font-size='28' fill='%2323201a' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+  <style>
+:root{
+  --shm-bg:#f4f1e8;
+  --shm-bg-raised:#efe9d8;
+  --shm-text:#23201a;
+  --shm-text-dim:#5c564a;
+  --shm-accent:#8a3324;
+  --shm-accent-ink:#6e281c;
+  --shm-line:rgba(35,32,26,.18);
+  --shm-line-soft:rgba(35,32,26,.09);
+  --shm-radius:2px;
+  --shm-maxw:845px;
+  --shm-tab-w:120px;
+  --shm-serif:Charter,Georgia,'Iowan Old Style','Times New Roman',serif;
+  --shm-sans:Corbel,Calibri,'Trebuchet MS',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{font-size:16px;}
+body{margin:0;font-family:var(--shm-sans);color:var(--shm-text);line-height:1.6;background-color:var(--shm-bg);background-image:repeating-linear-gradient(to bottom,transparent 0 78px,var(--shm-line-soft) 78px 79px);}
+img{max-width:100%;height:auto;display:block;}
+a{color:var(--shm-accent);}
+h1,h2,h3{font-family:var(--shm-serif);font-weight:600;color:var(--shm-text);}
+p{margin:0 0 14px;}
+ul,ol{margin:0 0 14px;padding-left:22px;}
+li{margin-bottom:6px;}
+.shm-bar{max-width:var(--shm-maxw);margin:0 auto;padding:0 20px;}
+.shm-masthead{border-bottom:1px solid var(--shm-line);padding-top:22px;}
+.shm-masthead-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px;padding-bottom:14px;}
+.shm-wordmark{font-family:var(--shm-serif);font-size:1.7rem;color:var(--shm-text);text-decoration:none;letter-spacing:.01em;}
+.shm-wordmark-dot{color:var(--shm-accent);}
+.shm-tagline{margin:0;font-size:.82rem;color:var(--shm-text-dim);font-style:italic;}
+.shm-nav{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;padding:12px 0 16px;border-top:1px solid var(--shm-line-soft);margin-top:2px;}
+.shm-nav a{color:var(--shm-text);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;}
+.shm-nav a:hover{border-color:var(--shm-accent);color:var(--shm-accent);}
+.shm-main{max-width:calc(var(--shm-maxw) + var(--shm-tab-w) + 28px);margin:0 auto;padding:0 20px 56px;position:relative;}
+.shm-shell{max-width:var(--shm-maxw);width:100%;background:var(--shm-bg-raised);border:1px solid var(--shm-line);padding:30px 24px 40px;margin:0 auto;}
+.shm-tab{position:static;width:100%;background:var(--shm-accent);color:#f3ead9;border:1px solid var(--shm-accent-ink);padding:9px 16px;display:flex;align-items:center;gap:14px;font-family:var(--shm-sans);margin-bottom:0;}
+.shm-tab-series{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+.shm-tab-number{font-family:var(--shm-serif);font-size:.95rem;letter-spacing:.05em;font-variant-numeric:tabular-nums;}
+@media (min-width:901px){
+  .shm-main{padding-left:calc(var(--shm-tab-w) + 48px);}
+  .shm-shell{margin:0;border-top:1px solid var(--shm-line);}
+  .shm-tab{position:absolute;left:20px;top:46px;width:var(--shm-tab-w);min-height:190px;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 8px;}
+  .shm-tab-series,.shm-tab-number{writing-mode:vertical-rl;transform:rotate(180deg);}
+}
+.shm-btn{display:inline-block;font-family:var(--shm-sans);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:11px 22px;border-radius:var(--shm-radius);border:1px solid var(--shm-accent);color:#f4ede0;background:var(--shm-accent);}
+.shm-btn:hover{background:var(--shm-accent-ink);border-color:var(--shm-accent-ink);}
+.shm-btn-ghost{background:transparent;color:var(--shm-accent);}
+.shm-btn-ghost:hover{background:var(--shm-accent);color:#f4ede0;}
+.shm-hero{display:flex;flex-direction:column;gap:22px;padding:26px 0 26px;border-bottom:1px solid var(--shm-line);}
+.shm-hero-eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 10px;}
+.shm-hero h1{font-size:1.7rem;line-height:1.2;margin:0 0 12px;}
+.shm-hero p{color:var(--shm-text-dim);font-size:1rem;margin:0 0 16px;}
+.shm-hero-figure{margin:0;}
+.shm-hero-figure img{width:100%;border-radius:var(--shm-radius);border:1px solid var(--shm-line);}
+.shm-hero-figcap{font-size:.72rem;color:var(--shm-text-dim);margin-top:6px;font-style:italic;}
+@media (min-width:641px){
+  .shm-hero{flex-direction:row;align-items:center;}
+  .shm-hero-text{flex:1.1;}
+  .shm-hero-figure{flex:.9;}
+  .shm-hero h1{font-size:2.05rem;}
+}
+.shm-section-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin:34px 0 4px;}
+.shm-section-head h2{font-size:1.3rem;margin:0;}
+.shm-section-head span{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-index{margin-top:20px;}
+.shm-slip{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--shm-line);}
+.shm-slip:first-child{border-top:1px solid var(--shm-line);}
+.shm-slip-thumb{width:76px;height:76px;object-fit:cover;border-radius:var(--shm-radius);border:1px solid var(--shm-line);filter:sepia(.1) contrast(1.02);}
+.shm-slip-meta{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--shm-accent);}
+.shm-slip-title{font-size:1.05rem;margin:.3em 0 .22em;}
+.shm-slip-title a{color:inherit;text-decoration:none;}
+.shm-slip-title a:hover{text-decoration:underline;}
+.shm-slip-dek{color:var(--shm-text-dim);font-size:.88rem;margin:0;}
+@media (min-width:641px){
+  .shm-slip{grid-template-columns:96px 1fr;gap:20px;padding:22px 0;}
+  .shm-slip-thumb{width:96px;height:96px;}
+  .shm-slip-title{font-size:1.22rem;}
+  .shm-slip-dek{font-size:.94rem;}
+}
+.shm-mock{border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:#fbf8f0;overflow:hidden;}
+.shm-mock-bar{background:var(--shm-text);color:#f4ede0;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;}
+.shm-mock-body{padding:14px;display:grid;gap:9px;}
+.shm-mock-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);background:var(--shm-bg);}
+.shm-mock-row-title{font-family:var(--shm-serif);font-size:.88rem;}
+.shm-mock-row-sub{font-size:.7rem;color:var(--shm-text-dim);}
+.shm-mock-row-tag{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);border:1px solid var(--shm-accent);border-radius:var(--shm-radius);padding:2px 6px;white-space:nowrap;}
+.shm-app-teaser{display:flex;flex-direction:column;gap:22px;padding:30px 0;border-bottom:1px solid var(--shm-line);}
+.shm-app-teaser h2{font-size:1.3rem;margin:0 0 10px;}
+.shm-app-teaser p{color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-app-teaser{flex-direction:row;align-items:center;}}
+.shm-features{display:grid;grid-template-columns:1fr;gap:1px;background:var(--shm-line);border:1px solid var(--shm-line);margin:24px 0;}
+.shm-feature{background:var(--shm-bg-raised);padding:20px 18px;}
+.shm-feature-icon{width:24px;height:24px;color:var(--shm-accent);}
+.shm-feature h3{font-size:1rem;margin:10px 0 6px;}
+.shm-feature p{margin:0;font-size:.88rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-features{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:901px){.shm-features{grid-template-columns:repeat(3,1fr);}}
+.shm-steps{counter-reset:shmstep;margin:24px 0;padding:0;list-style:none;}
+.shm-steps li{counter-increment:shmstep;position:relative;padding:2px 0 22px 36px;border-left:1px solid var(--shm-line);margin-left:13px;}
+.shm-steps li:last-child{border-color:transparent;padding-bottom:2px;}
+.shm-steps li::before{content:counter(shmstep);position:absolute;left:-14px;top:-2px;width:26px;height:26px;border-radius:50%;background:var(--shm-accent);color:#f4ede0;font-family:var(--shm-serif);font-size:.82rem;display:flex;align-items:center;justify-content:center;}
+.shm-steps h3{margin:0 0 4px;font-size:.98rem;}
+.shm-steps p{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-mini-faq{margin:24px 0;}
+.shm-mini-faq-item{padding:14px 0;border-bottom:1px solid var(--shm-line);}
+.shm-mini-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-mini-faq-q{font-family:var(--shm-serif);font-size:.98rem;margin:0 0 6px;}
+.shm-mini-faq-a{margin:0;color:var(--shm-text-dim);font-size:.88rem;}
+.shm-newsletter{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:22px;margin:28px 0;background:var(--shm-bg-raised);}
+.shm-newsletter h2{margin-top:0;font-size:1.15rem;}
+.shm-newsletter p{color:var(--shm-text-dim);font-size:.9rem;}
+.shm-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.shm-newsletter input[type=email]{flex:1 1 200px;padding:10px 12px;border:1px solid var(--shm-line);border-radius:var(--shm-radius);font-family:var(--shm-sans);background:var(--shm-bg);color:var(--shm-text);font-size:.9rem;}
+.shm-newsletter-ok{display:none;margin-top:10px;font-size:.85rem;color:var(--shm-accent);}
+.shm-about-blurb{padding:24px 0;border-top:1px solid var(--shm-line);font-size:.92rem;color:var(--shm-text-dim);}
+.shm-about-blurb h2{font-size:1.15rem;color:var(--shm-text);margin:0 0 10px;}
+.shm-team{display:grid;grid-template-columns:1fr;gap:16px;margin:22px 0;}
+.shm-team-card{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:16px;background:var(--shm-bg-raised);}
+.shm-team-card h3{font-size:.98rem;margin:0 0 4px;}
+.shm-team-role{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--shm-accent);margin:0 0 8px;}
+.shm-team-card p{margin:0;font-size:.85rem;color:var(--shm-text-dim);}
+@media (min-width:641px){.shm-team{grid-template-columns:repeat(3,1fr);}}
+.shm-prose{padding:26px 0 10px;}
+.shm-prose h1{font-size:1.7rem;margin:0 0 6px;}
+.shm-prose .shm-lede{color:var(--shm-text-dim);font-size:.95rem;margin:0 0 24px;}
+.shm-prose h2{font-size:1.2rem;margin:30px 0 10px;border-top:1px solid var(--shm-line);padding-top:18px;}
+.shm-prose address{font-style:normal;}
+.shm-glossary{padding:16px 0 4px;}
+.shm-gloss-entry{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-gloss-entry:first-child{border-top:1px solid var(--shm-line);}
+.shm-gloss-term{font-family:var(--shm-serif);font-size:1.02rem;margin:0 0 6px;color:var(--shm-text);}
+.shm-gloss-letter{color:var(--shm-accent);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-right:8px;border:1px solid var(--shm-accent);padding:1px 5px;border-radius:var(--shm-radius);}
+.shm-gloss-def{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-faq{padding:16px 0 4px;}
+.shm-faq-item{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-faq-q{font-family:var(--shm-serif);font-size:1rem;margin:0 0 8px;color:var(--shm-text);}
+.shm-faq-q-mark{color:var(--shm-accent);margin-right:6px;}
+.shm-faq-a{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-footer{border-top:1px solid var(--shm-line);margin-top:10px;padding:24px 0 46px;font-size:.8rem;color:var(--shm-text-dim);}
+.shm-footer-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px;padding:0;list-style:none;}
+.shm-footer-links a{color:var(--shm-text-dim);text-decoration:none;}
+.shm-footer-links a:hover{color:var(--shm-accent);}
+.shm-footer-fine{font-size:.74rem;opacity:.8;margin:0;}
+.shm-cta-band{border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:24px;margin:30px 0 10px;background:var(--shm-bg-raised);text-align:center;}
+.shm-cta-band h2{margin:0 0 8px;}
+.shm-cta-band p{color:var(--shm-text-dim);max-width:520px;margin:0 auto 16px;}
+
+/* single-post additions */
+.shm-post-meta{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--shm-accent);margin:0 0 20px;}
+.shm-post-cover{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--shm-line);border-radius:var(--shm-radius);margin:0 0 20px;filter:sepia(.06) contrast(1.02);}
+.shm-prose blockquote{margin:26px 0;padding:2px 0 2px 20px;border-left:3px solid var(--shm-accent);font-family:var(--shm-serif);font-size:1.15rem;line-height:1.45;color:var(--shm-text);font-style:italic;}
+.shm-callout{background:var(--shm-bg);border:1px solid var(--shm-line);border-left:4px solid var(--shm-accent);border-radius:var(--shm-radius);padding:16px 20px;margin:26px 0;}
+.shm-callout h3{font-family:var(--shm-sans);font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--shm-accent);margin:0 0 8px;}
+.shm-callout p{font-size:.9rem;color:var(--shm-text-dim);margin-bottom:6px;}
+.shm-callout ul{margin:8px 0 0 18px;font-size:.9rem;color:var(--shm-text-dim);}
+.shm-callout li{margin-bottom:6px;}
+.shm-table-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--shm-line);border-radius:var(--shm-radius);}
+.shm-table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;background:var(--shm-bg);}
+.shm-table th{text-align:left;font-family:var(--shm-sans);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--shm-accent);border-bottom:1px solid var(--shm-accent);padding:9px 12px;background:var(--shm-bg-raised);}
+.shm-table td{padding:9px 12px;border-bottom:1px solid var(--shm-line);vertical-align:top;}
+.shm-table tbody tr:nth-child(even){background:var(--shm-bg-raised);}
+.shm-table tbody tr:last-child td{border-bottom:none;}
+.shm-table-note{font-size:.78rem;color:var(--shm-text-dim);margin:8px 0 0;font-style:italic;}
+.shm-note-box{border-top:1px solid var(--shm-line);border-bottom:1px solid var(--shm-line);padding:16px 0;margin:32px 0;}
+.shm-note-box p{font-size:.85rem;color:var(--shm-text-dim);margin:0;}
+.shm-note-box strong{color:var(--shm-text);}
+.shm-read-also{background:var(--shm-bg-raised);border:1px solid var(--shm-line);border-radius:var(--shm-radius);padding:18px 20px;margin:32px 0 6px;}
+.shm-read-also h3{font-family:var(--shm-sans);font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--shm-text-dim);margin:0 0 10px;}
+.shm-read-also ul{list-style:none;margin:0;padding:0;}
+.shm-read-also li{padding:8px 0;border-bottom:1px solid var(--shm-line);margin:0;}
+.shm-read-also li:last-child{border-bottom:none;}
+.shm-read-also a{font-family:var(--shm-serif);font-size:.95rem;color:var(--shm-text);text-decoration:none;}
+.shm-read-also a:hover{color:var(--shm-accent);}
+@media (max-width:560px){
+  .shm-prose blockquote{font-size:1.05rem;}
+}
+  </style>
+</head><body>
+  <header class="shm-masthead">
+    <div class="shm-bar">
+      <div class="shm-masthead-top">
+        <a class="shm-wordmark" href="safe.html">Foolscap<span class="shm-wordmark-dot">.</span></a>
+        <p class="shm-tagline">Field notes on keeping a household paper archive in order</p>
+      </div>
+      <nav class="shm-nav" aria-label="Primary">
+        <a href="safe.html">Home</a>
+        <a href="app.html">Boxlist</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="shm-post">
+    <div class="shm-main">
+      <div class="shm-tab">
+        <span class="shm-tab-series">Disposal</span>
+        <span class="shm-tab-number">Apr 15, 2026</span>
+      </div>
+      <div class="shm-shell">
+        <div class="shm-prose">
+          <h1>Keeping a Disposal Ledger</h1>
+          <p class="shm-lede">The hardest part of an archive is not keeping things — it is deciding, on paper, why something left. A simple ledger for the documents you let go.</p>
+          <p class="shm-post-meta">Disposal &middot; April 15, 2026</p>
+          <img class="shm-post-cover" src="img/disposal-ledger.jpg" alt="Keeping a Disposal Ledger">
+
+          <p>On a Sunday afternoon in March, a box of receipts from a car sold two years earlier finally went into the recycling pile, behind a stack of expired insurance cards and four years of pay stubs nobody had looked at since the mortgage closed. Letting go of the paper wasn't the hard part — most of it had been sitting there long enough that nobody could remember why it mattered. The hard part came an hour later, standing in the kitchen with no way to say what had actually left the house that day, or why each piece had been judged safe to release. A keep-everything archive habit answers "do we still have it" well. It has nothing to say about what didn't make it to the next shelf.</p>
+
+          <h2>The Archive That Only Grows</h2>
+          <p>Most home archives are built around a single instinct: keep it, in case. That instinct is not wrong — a policy folder or a school transcript is cheap to store and expensive to reconstruct, and <a href="order-of-arrival.html">filing by order of arrival rather than by subject</a> makes the keeping side of the system genuinely reliable. But an archive that only ever adds tends to become a different problem over the years: boxes that were full a decade ago are still full, now holding paper that stopped mattering to anyone long ago, crowding out the shelf space current documents need. The habit that makes keeping easy doesn't come with a matching habit for letting go, so the archive keeps expanding in one direction only, until a closet, an attic corner, or a filing cabinet drawer runs out of room.</p>
+
+          <h2>What a Disposal Ledger Actually Records</h2>
+          <p>A disposal ledger is nothing more than a page, a notebook, or a spreadsheet row kept every time something physically leaves the archive — shredded, recycled, returned, or handed off to someone else. It needs only three fields to be useful: what the item was, described specifically enough that a future reader would recognize it; the date it left; and the reason it was judged safe to release. That third field does almost all of the real work. A ledger that records only dates and item names is really just an inventory of absence — useful for confirming that something is gone, but silent on whether the decision was sound. Writing "vehicle registration, 2019 sedan, sold 2024" next to the reason "vehicle no longer owned, title transferred" turns a one-line disposal into something a household could defend later, or repeat with confidence the next time a similar document comes up.</p>
+
+          <h2>Why "Why" Is the Hardest Column to Fill In</h2>
+          <p>Dates and descriptions are easy to write because they are simply observed. The reason field asks for a judgment, and judgment is where most people stall — which is exactly why that column gets skipped in practice, and why so few households end up with any disposal record at all. It helps to write the reason using the same handful of recurring categories every time, rather than composing a fresh justification for each item: retention period met, superseded by a newer document, no longer relevant to a person or asset in the household, or duplicate of something already logged elsewhere. A reason that fits one of those categories can be written in five seconds. A reason that doesn't fit any of them is usually a sign the item wasn't actually ready to leave yet.</p>
+          <blockquote>A pile of discarded paper explains nothing on its own. A single written reason next to it explains almost everything.</blockquote>
+
+          <h2>A Ledger in Practice</h2>
+          <p>None of this needs to be elaborate. A working ledger kept by one household over the course of a year might look something like the entries below — short enough to fill in without dread, specific enough to mean something if anyone ever asks.</p>
+          <div class="shm-table-wrap">
+            <table class="shm-table">
+              <thead>
+                <tr><th>Date</th><th>Item</th><th>Reason for disposal</th><th>Disposition</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Jan 2026</td><td>Prior-year tax worksheets (originals filed with preparer)</td><td>Retention period met; return finalized</td><td>Shredded</td></tr>
+                <tr><td>Feb 2026</td><td>Warranty card, dishwasher (unit replaced 2023)</td><td>Superseded; appliance no longer owned</td><td>Recycled</td></tr>
+                <tr><td>Apr 2026</td><td>Duplicate copy, home insurance policy</td><td>Duplicate of copy already logged in another series</td><td>Recycled</td></tr>
+                <tr><td>Jun 2026</td><td>Vehicle registration, prior sedan</td><td>No longer relevant; vehicle sold, title transferred</td><td>Returned to buyer</td></tr>
+                <tr><td>Sep 2026</td><td>Prior-cycle passport</td><td>Superseded by renewed document</td><td>Shredded</td></tr>
+              </tbody>
+            </table>
+            <p class="shm-table-note">One household's actual entries, kept as a running log rather than sorted by category.</p>
+          </div>
+
+          <h2>Before Something Leaves the Shelf</h2>
+          <p>It tends to help to run through the same short list of questions every time an item is being considered for disposal, rather than deciding case by case from scratch.</p>
+          <div class="shm-callout">
+            <h3>Three Questions Before It Leaves</h3>
+            <p>Worth asking in order, before a document goes in the recycling or shred pile:</p>
+            <ul>
+              <li>Is there a practical reason this specific document type is still needed — a warranty still in effect, a return window still open, a filing period not yet closed?</li>
+              <li>Does a duplicate, a scanned copy, or a record held by another party (a bank, an employer, an agency) already cover what this page would prove?</li>
+              <li>Would a future version of this household actually recognize why this was safe to release, based on the reason about to be written down?</li>
+            </ul>
+          </div>
+
+          <h2>The Ledger Becomes Its Own Record</h2>
+          <p>After a year or two, the disposal ledger stops feeling like a housekeeping chore and starts reading like a short history of the household itself — the year a car was sold, the year a mortgage closed, the year an old address stopped mattering. It also tends to solve a particular failure mode described in <a href="the-box-that-never-closes.html">the piece on the box that never quite gets finished</a>: without a ledger, an undecided box just sits there indefinitely, because there is no record showing what has already been reviewed and released, and no easy way to tell a decided box from an undecided one. A dated disposal entry is proof that a box was looked at, not just moved from one corner of the closet to another.</p>
+
+          <div class="shm-note-box">
+            <p><strong>A note on what this is:</strong> the format above reflects one way of logging household disposal decisions by hand, not a legal retention schedule or a professional records-management standard. How long any specific document tends to be worth keeping before disposal depends on factors particular to each household and its own records; when in doubt, the more conservative choice is usually to keep something a while longer rather than log it as disposed.</p>
+          </div>
+
+          <div class="shm-read-also">
+            <h3>Read also</h3>
+            <ul>
+              <li><a href="seven-year-shelf.html">What Actually Survives Seven Years in a Closet</a></li>
+              <li><a href="dust-and-clip-rust.html">Where the Dust Actually Comes From</a></li>
+              <li><a href="series-not-folders.html">Series, Not Folders</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="shm-footer">
+    <div class="shm-bar">
+      <ul class="shm-footer-links">
+        <li><a href="safe.html">Home</a></li>
+        <li><a href="app.html">Boxlist</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+      <p class="shm-footer-fine">&copy; 2026 Foolscap. An independent journal about home paper archiving, kept by hand. Not affiliated with any library, records office, or storage vendor. Contact: hello@foolscap.shop</p>
+    </div>
+  </footer>
+</body></html>

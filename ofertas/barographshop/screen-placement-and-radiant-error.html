@@ -1,0 +1,318 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Screen Placement and the Half-Degree of Radiant Error · Barograph</title>
+  <meta name="description" content="A three-year backyard weather log shows how moving a thermometer eighteen inches introduced a small, steady warm bias in summer afternoon readings.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://barograph.shop/screen-placement-and-radiant-error.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23eef2f4' stroke='%2316232b' stroke-width='6'/%3E%3Cline x1='50' y1='50' x2='73' y2='31' stroke='%23b21f2d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%2316232b'/%3E%3Ccircle cx='50' cy='16' r='3' fill='%2316232b'/%3E%3Ccircle cx='50' cy='84' r='3' fill='%2316232b'/%3E%3Ccircle cx='16' cy='50' r='3' fill='%2316232b'/%3E%3Ccircle cx='84' cy='50' r='3' fill='%2316232b'/%3E%3C/svg%3E">
+  <style>
+:root{
+  --bgb-bg:#eef2f4;
+  --bgb-surface:#e4e9ec;
+  --bgb-text:#16232b;
+  --bgb-muted:#4b5b64;
+  --bgb-accent:#b21f2d;
+  --bgb-line:rgba(22,35,43,.16);
+  --bgb-line-strong:rgba(22,35,43,.34);
+  --bgb-radius:1px;
+  --bgb-maxw:1240px;
+  --bgb-serif:'Century Schoolbook','Century Schoolbook L',Georgia,'Times New Roman',serif;
+  --bgb-sans:Tahoma,Geneva,Verdana,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--bgb-bg);color:var(--bgb-text);font-family:var(--bgb-sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+a{color:var(--bgb-accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{font-family:var(--bgb-serif);font-weight:700;line-height:1.22;margin:0 0 .5em;color:var(--bgb-text);}
+p{margin:0 0 1em;}
+img{max-width:100%;display:block;height:auto;}
+ul{margin:0;padding:0;}
+.bgb-container{max-width:var(--bgb-maxw);margin:0 auto;padding:0 20px;}
+.bgb-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+.bgb-masthead{background:var(--bgb-bg);}
+.bgb-masthead-rule-top{height:3px;background:var(--bgb-text);}
+.bgb-masthead-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bgb-masthead-left,.bgb-masthead-right{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--bgb-muted);display:flex;flex-direction:column;gap:2px;flex:1;min-width:150px;}
+.bgb-masthead-right{text-align:right;align-items:flex-end;}
+.bgb-masthead-title{font-family:var(--bgb-serif);font-size:42px;font-weight:700;color:var(--bgb-text);text-align:center;letter-spacing:.01em;}
+.bgb-masthead-title:hover{text-decoration:none;color:var(--bgb-accent);}
+.bgb-masthead-rule-mid{height:1px;background:var(--bgb-line-strong);}
+.bgb-nav{border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-nav-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:9px 20px;display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;}
+.bgb-nav-inner a{color:var(--bgb-text);}
+.bgb-nav-inner a:hover{color:var(--bgb-accent);}
+.bgb-nav-inner a.bgb-nav-current{color:var(--bgb-accent);border-bottom:2px solid var(--bgb-accent);}
+.bgb-table-wrap{width:100%;background:var(--bgb-surface);border-top:1px solid var(--bgb-line-strong);border-bottom:3px double var(--bgb-text);}
+.bgb-table-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:14px 20px 18px;overflow-x:auto;}
+.bgb-table-title{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--bgb-muted);margin-bottom:8px;}
+table.bgb-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px;}
+.bgb-table th,.bgb-table td{padding:7px 10px;border-bottom:1px solid var(--bgb-line);text-align:left;white-space:nowrap;}
+.bgb-table th{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--bgb-muted);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-table td.bgb-num,.bgb-table th.bgb-num{text-align:right;font-variant-numeric:tabular-nums;}
+.bgb-table tbody tr:last-child td{border-bottom:none;}
+.bgb-table tbody tr:nth-child(even){background:rgba(22,35,43,.035);}
+.bgb-table-note{font-size:11.5px;color:var(--bgb-muted);margin-top:8px;}
+.bgb-hero{padding:34px 0 6px;}
+.bgb-hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;}
+.bgb-hero-kicker{color:var(--bgb-accent);text-transform:uppercase;font-size:12px;letter-spacing:.08em;font-weight:700;}
+.bgb-hero h1{font-size:33px;margin-top:6px;}
+.bgb-hero-standfirst{font-size:16px;color:var(--bgb-muted);}
+.bgb-hero-img{border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);}
+.bgb-page-head{padding:34px 0 10px;border-bottom:2px solid var(--bgb-text);margin-bottom:26px;}
+.bgb-page-kicker{color:var(--bgb-accent);text-transform:uppercase;font-size:12px;letter-spacing:.08em;font-weight:700;}
+.bgb-page-head h1{font-size:32px;margin-top:6px;}
+.bgb-page-head p{color:var(--bgb-muted);font-size:15.5px;max-width:760px;}
+.bgb-section-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--bgb-text);padding-bottom:6px;margin:36px 0 18px;gap:12px;flex-wrap:wrap;}
+.bgb-section-head h2{font-size:19px;margin:0;text-transform:uppercase;letter-spacing:.03em;}
+.bgb-section-head span{font-size:11.5px;color:var(--bgb-muted);text-transform:uppercase;letter-spacing:.05em;}
+.bgb-columns{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;column-gap:24px;padding-bottom:10px;}
+.bgb-rule-v{background:var(--bgb-line-strong);width:1px;}
+.bgb-col{display:flex;flex-direction:column;gap:28px;}
+.bgb-article-thumb{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);margin-bottom:10px;filter:grayscale(.15);}
+.bgb-kicker{color:var(--bgb-accent);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.bgb-article h3{font-size:17.5px;margin:6px 0 6px;}
+.bgb-article h3 a{color:var(--bgb-text);}
+.bgb-article h3 a:hover{color:var(--bgb-accent);text-decoration:none;}
+.bgb-dek{font-size:13.5px;color:var(--bgb-muted);margin:0 0 8px;}
+.bgb-meta{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--bgb-muted);}
+.bgb-app-section{margin:46px 0 10px;padding:32px 0;border-top:1px solid var(--bgb-line-strong);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-app-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:36px;align-items:center;}
+.bgb-phone{justify-self:center;width:230px;border:2px solid var(--bgb-text);border-radius:14px;padding:10px 8px;background:var(--bgb-bg);}
+.bgb-phone-screen{background:var(--bgb-surface);border:1px solid var(--bgb-line-strong);border-radius:6px;padding:10px;}
+.bgb-phone-bar{height:8px;background:var(--bgb-text);border-radius:2px;margin-bottom:8px;width:58%;}
+.bgb-phone-row{display:flex;justify-content:space-between;font-size:9.5px;padding:5px 0;border-bottom:1px solid var(--bgb-line);}
+.bgb-phone-chart{display:flex;align-items:flex-end;gap:4px;height:48px;margin-top:8px;}
+.bgb-phone-chart span{flex:1;background:var(--bgb-accent);opacity:.75;border-radius:1px 1px 0 0;}
+.bgb-app-copy .bgb-kicker{display:block;margin-bottom:6px;}
+.bgb-features{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--bgb-line-strong);margin-top:22px;}
+.bgb-feature{padding:18px 22px;border-right:1px solid var(--bgb-line);border-bottom:1px solid var(--bgb-line-strong);}
+.bgb-feature:nth-child(3n){border-right:none;}
+.bgb-feature-icon{color:var(--bgb-accent);display:block;margin-bottom:8px;}
+.bgb-feature h3{font-size:15px;margin:0 0 6px;}
+.bgb-feature p{font-size:13.5px;color:var(--bgb-muted);margin:0;}
+.bgb-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:20px 0 10px;}
+.bgb-step{border-top:3px solid var(--bgb-accent);padding-top:10px;}
+.bgb-step-num{font-family:var(--bgb-serif);font-size:24px;color:var(--bgb-muted);display:block;margin-bottom:4px;}
+.bgb-step h3{font-size:15px;}
+.bgb-step p{font-size:13.5px;color:var(--bgb-muted);margin:0;}
+.bgb-faq-item{border-bottom:1px solid var(--bgb-line);padding:16px 0;}
+.bgb-faq-item h3{font-size:16px;margin:0 0 6px;}
+.bgb-faq-item p{margin:0;color:var(--bgb-muted);font-size:14.5px;}
+.bgb-newsletter{border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);padding:22px;background:var(--bgb-surface);margin:38px 0;}
+.bgb-newsletter h2{font-size:18px;}
+.bgb-newsletter form{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.bgb-newsletter input[type=email]{flex:1;min-width:200px;padding:10px 12px;border:1px solid var(--bgb-line-strong);border-radius:var(--bgb-radius);font-family:var(--bgb-sans);background:var(--bgb-bg);color:var(--bgb-text);}
+.bgb-ok{display:none;color:var(--bgb-accent);font-size:13px;margin-top:8px;}
+.bgb-btn{display:inline-block;padding:10px 18px;background:var(--bgb-accent);color:#fff;border:none;border-radius:var(--bgb-radius);font-family:var(--bgb-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;}
+.bgb-btn:hover{opacity:.9;text-decoration:none;}
+.bgb-about-blurb{margin:36px 0;padding-top:20px;border-top:1px solid var(--bgb-line-strong);}
+.bgb-team{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:18px;}
+.bgb-team-member{border-top:2px solid var(--bgb-text);padding-top:10px;}
+.bgb-team-member h3{font-size:15.5px;margin:0 0 2px;}
+.bgb-team-role{font-size:11.5px;color:var(--bgb-accent);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;}
+.bgb-team-member p{font-size:13.5px;color:var(--bgb-muted);}
+.bgb-policy-list{margin:14px 0 0;padding-left:20px;}
+.bgb-policy-list li{font-size:14.5px;color:var(--bgb-muted);margin-bottom:8px;}
+.bgb-glossary-list{margin-top:10px;}
+.bgb-gloss-item{display:grid;grid-template-columns:230px 1fr;gap:20px;padding:14px 0;border-bottom:1px solid var(--bgb-line);}
+.bgb-gloss-term{font-family:var(--bgb-serif);font-weight:700;font-size:16px;}
+.bgb-gloss-def{color:var(--bgb-muted);font-size:14.5px;}
+.bgb-legal{margin:10px 0 50px;max-width:800px;}
+.bgb-legal h2{font-size:18px;margin-top:32px;}
+.bgb-legal p,.bgb-legal li{color:var(--bgb-muted);font-size:14.5px;}
+.bgb-legal ul{padding-left:20px;margin-bottom:1em;}
+.bgb-footer{border-top:3px double var(--bgb-text);margin-top:54px;background:var(--bgb-surface);}
+.bgb-footer-inner{max-width:var(--bgb-maxw);margin:0 auto;padding:30px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;}
+.bgb-footer-col h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;color:var(--bgb-muted);}
+.bgb-footer-col a{display:block;color:var(--bgb-text);font-size:13.5px;margin-bottom:6px;}
+.bgb-footer-col p{font-size:13px;color:var(--bgb-muted);margin:0;}
+.bgb-footer-bottom{border-top:1px solid var(--bgb-line);padding:14px 20px;text-align:center;font-size:11.5px;color:var(--bgb-muted);max-width:var(--bgb-maxw);margin:0 auto;}
+@media (max-width:900px){
+  .bgb-hero-grid{grid-template-columns:1fr;}
+  .bgb-columns{grid-template-columns:1fr;}
+  .bgb-rule-v{display:none;}
+  .bgb-col{gap:22px;}
+  .bgb-app-grid{grid-template-columns:1fr;}
+  .bgb-phone{margin-bottom:10px;}
+  .bgb-features{grid-template-columns:repeat(2,1fr);}
+  .bgb-features .bgb-feature:nth-child(3n){border-right:1px solid var(--bgb-line);}
+  .bgb-features .bgb-feature:nth-child(2n){border-right:none;}
+  .bgb-steps{grid-template-columns:1fr;}
+  .bgb-team{grid-template-columns:1fr;}
+  .bgb-footer-inner{grid-template-columns:1fr 1fr;}
+  .bgb-gloss-item{grid-template-columns:1fr;gap:4px;}
+  .bgb-masthead-inner{flex-direction:column;text-align:center;}
+  .bgb-masthead-left,.bgb-masthead-right{align-items:center;text-align:center;}
+}
+@media (max-width:560px){
+  .bgb-footer-inner{grid-template-columns:1fr;}
+  .bgb-features{grid-template-columns:1fr;}
+  .bgb-features .bgb-feature{border-right:none;}
+  .bgb-masthead-title{font-size:30px;}
+  .bgb-hero h1{font-size:24px;}
+  .bgb-page-head h1{font-size:26px;}
+}
+</style>
+</head><body>
+  <header class="bgb-masthead">
+  <div class="bgb-masthead-rule-top"></div>
+  <div class="bgb-masthead-inner">
+    <div class="bgb-masthead-left">
+      <span>Backyard Station Bulletin</span>
+      <span>Observation series &mdash; Year 3</span>
+    </div>
+    <a href="safe.html" class="bgb-masthead-title">Barograph</a>
+    <div class="bgb-masthead-right">
+      <span>Companion app</span>
+      <span>Raingauge Log</span>
+    </div>
+  </div>
+  <div class="bgb-masthead-rule-mid"></div>
+  <nav class="bgb-nav">
+    <div class="bgb-nav-inner">
+      <a href="safe.html">Home</a>
+      <a href="app.html">Raingauge Log</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+</header>
+  <article class="bgb-post">
+    <div class="bgb-container">
+
+      <header class="bgb-page-head">
+        <span class="bgb-page-kicker">Instruments</span>
+        <h1>Screen Placement and the Half-Degree of Radiant Error</h1>
+        <p>Moving a thermometer eighteen inches changed three years of afternoon highs.</p>
+        <p class="bgb-meta">March 3, 2026</p>
+      </header>
+
+      <img class="bgb-hero-img" src="img/screen-placement-and-radiant-error.jpg" alt="Screen Placement and the Half-Degree of Radiant Error">
+
+      <p>The bracket had rusted through sometime over the winter, which is a small unglamorous fact and the whole reason any of this happened. In April of the second year, the outdoor thermometer came off its post on the north side of the yard and went up, meant to be temporary, on a hook screwed into the shed's siding &mdash; eighteen inches west and about ten inches lower than where it had hung for the previous eleven months. It stayed there for the rest of the log. Nobody wrote down that it had moved, because nobody thought there was anything worth writing down.</p>
+
+      <h2>A Post That Wasn't Supposed to Move</h2>
+      <p>The shed wall faces southwest and takes direct sun from roughly eleven in the morning through four in the afternoon in the warmer months, longer once the sun tracks higher at midday. The old fence post, by contrast, sat under the partial shade of a maple that leafed out by May and didn't lose its cover until October. Neither spot was a proper instrument screen &mdash; the louvered box that lets air pass while blocking direct and reflected sun is the standard for a reason &mdash; but the fence post came closer to it than a hook on a sun-facing wall ever would.</p>
+      <p>None of that registered at the time. The reading was taken the same way every afternoon: walk out, note the number, walk back in. What changed was not the ritual. It was the clapboard behind the thermometer's bulb, radiating stored heat back at it for five months a year.</p>
+
+      <h2>What Radiant Error Actually Means</h2>
+      <p>Radiant error is not a flaw in the thermometer. It is a flaw in what surrounds it. A simple outdoor instrument measures the temperature of the air touching its sensing element, and that element also exchanges heat by radiation with anything nearby it can, in effect, see: sunlit siding, a paved path, a metal rail. Near the shaded fence post, the surrounding surfaces stayed close to air temperature through the afternoon. Against the wall, the clapboard itself can run well above air temperature on a clear day, and some of that heat reaches the thermometer whether or not direct sunlight ever touches the bulb.</p>
+      <p>The effect is not dramatic on any single afternoon. It shows up as a small, steady lean in the same direction, on the kind of day where the sun does what it usually does. That is exactly the shape of error <a href="the-monthly-average-problem.html">a monthly average is built to hide</a>, since averaging smooths out anything that behaves consistently rather than randomly.</p>
+
+      <blockquote>The bracket took twenty minutes to install and three summers to notice. Nothing about the number looked wrong on any single day it was read.</blockquote>
+
+      <h2>Finding the Break Point in Three Years of Readings</h2>
+      <p>Nothing in the log itself flagged the move. The reading for April 14 looks like the reading for April 13, off by the usual day-to-day scatter, not the abrupt jump an instrument fault would produce. What eventually surfaced the change was a comparison the log wasn't originally built for: plotting this station's daily high against a public reading from a reference station nine miles away, month over month, and watching the gap between the two drift instead of hold steady.</p>
+      <p>For the first eleven months, the gap between the two stations' summer afternoon highs averaged a few tenths of a degree, this station running slightly warm &mdash; plausible enough, since the open yard gets more sun exposure overall than mowed grass with a proper screen. Starting in month twelve, the same summer gap widened and held there, month after month, through two more full summers. Winter months barely moved, which fit the radiant explanation: low sun angle and short days meant the wall rarely faced direct light for more than an hour or two, if at all.</p>
+
+      <section class="bgb-newsletter">
+        <h2>A note on standard exposure</h2>
+        <p>Most published siting guidance for a simple outdoor thermometer calls for roughly waist-to-shoulder height, over grass or bare ground rather than pavement, several feet clear of any wall or fence that takes direct sun, and shielded from both rain and direct sunlight while still open to moving air. None of that is a hard requirement for a backyard log &mdash; it is simply the baseline this series gets measured against when comparing one stretch of years to another.</p>
+      </section>
+
+      <h2>The Half-Degree, By Season</h2>
+      <p>Splitting the three years at the month the thermometer moved and averaging the gap against the reference station by season makes the pattern easy to see in one table:</p>
+
+      <div class="bgb-table-wrap">
+        <div class="bgb-table-inner">
+          <div class="bgb-table-title">Average Gap vs. Reference Station, By Season</div>
+          <table class="bgb-table">
+            <thead>
+              <tr>
+                <th>Season</th>
+                <th class="bgb-num">Before the Move</th>
+                <th class="bgb-num">After the Move</th>
+                <th class="bgb-num">Change</th>
+                <th>Likely Driver</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Summer (Jun&ndash;Aug)</td><td class="bgb-num">+0.4&deg;F</td><td class="bgb-num">+0.9&deg;F</td><td class="bgb-num">+0.5&deg;F</td><td>Long, direct wall exposure</td></tr>
+              <tr><td>Spring (Mar&ndash;May)</td><td class="bgb-num">+0.3&deg;F</td><td class="bgb-num">+0.6&deg;F</td><td class="bgb-num">+0.3&deg;F</td><td>Moderate midday sun angle</td></tr>
+              <tr><td>Fall (Sep&ndash;Nov)</td><td class="bgb-num">+0.3&deg;F</td><td class="bgb-num">+0.5&deg;F</td><td class="bgb-num">+0.2&deg;F</td><td>Shorter exposure window</td></tr>
+              <tr><td>Winter (Dec&ndash;Feb)</td><td class="bgb-num">+0.2&deg;F</td><td class="bgb-num">+0.2&deg;F</td><td class="bgb-num">0.0&deg;F</td><td>Low sun angle, little direct hit</td></tr>
+            </tbody>
+          </table>
+          <p class="bgb-table-note">Gap is this station's afternoon high minus the reference station's afternoon high, averaged over matching calendar days and rounded to the nearest tenth of a degree.</p>
+        </div>
+      </div>
+
+      <h2>What a Half-Degree Bias Does to a Series</h2>
+      <p>Half a degree, in isolation, is close to nothing. It is well within the range two honest thermometers can disagree on any given afternoon. The problem is not the size of the shift; it's that it stayed in one direction for three summers running, which is precisely the pattern <a href="the-drift-nobody-notices.html">a slow instrument drift</a> also produces &mdash; and the two are easy to mix up if the only thing being compared is a station against its own earlier self, with no outside reference at all.</p>
+      <p>A short checklist, worth running before trusting one stretch of a home log against another:</p>
+      <ul class="bgb-policy-list">
+        <li>Has anything near the sensor changed &mdash; a wall repainted, a fence replaced, a tree removed or grown in?</li>
+        <li>Does the current spot face a large paved or masonry surface that sits in full sun for several hours?</li>
+        <li>Is the mounting height and surrounding surface roughly the same as it was at the start of the series?</li>
+        <li>Does a nearby reference reading, even an imperfect one, show the same gap holding steady, or drifting?</li>
+        <li>Does the pattern track with season the way a sun-exposure effect would, rather than showing up year-round?</li>
+      </ul>
+
+      <section class="bgb-about-blurb">
+        <h2>About this record</h2>
+        <p>This piece describes one placement change found in one station's log, and the method used to find it. It is a description of what happened in this particular data set, not a siting standard, a calibration guide, or an instruction for how to position any instrument. Readers keeping their own log should treat it as an illustration of what to look for, not a set of steps to follow.</p>
+      </section>
+
+      <div class="bgb-section-head">
+        <h2>Read Also</h2>
+        <span>From the log</span>
+      </div>
+      <div class="bgb-columns">
+        <div class="bgb-col">
+          <article class="bgb-article">
+            <span class="bgb-kicker">Data Series</span>
+            <h3><a href="three-summers-of-noon-readings.html">What Three Summers of Noon Readings Actually Show</a></h3>
+            <p class="bgb-dek">A single fixed hour, tracked for three years, turns out to hide as much as it reveals.</p>
+          </article>
+        </div>
+        <div class="bgb-rule-v"></div>
+        <div class="bgb-col">
+          <article class="bgb-article">
+            <span class="bgb-kicker">Calibration</span>
+            <h3><a href="calibrating-a-barometer-without-a-lab.html">Calibrating a Home Barometer Without a Lab</a></h3>
+            <p class="bgb-dek">A borrowed reference reading and a notebook are usually enough to start.</p>
+          </article>
+        </div>
+        <div class="bgb-rule-v"></div>
+        <div class="bgb-col">
+          <article class="bgb-article">
+            <span class="bgb-kicker">Records</span>
+            <h3><a href="comparing-two-thermometers-a-decade-apart.html">Comparing Two Thermometers a Decade Apart</a></h3>
+            <p class="bgb-dek">Retiring an old instrument meant a month of parallel readings before trusting the new one.</p>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </article>
+  <footer class="bgb-footer">
+  <div class="bgb-footer-inner">
+    <div class="bgb-footer-col">
+      <h4>Barograph</h4>
+      <p>An independent notebook on backyard weather observation &mdash; home stations, long series, and calibration without a laboratory. Updated from one station's log, not a forecast service.</p>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Read</h4>
+      <a href="safe.html">Home</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Companion</h4>
+      <a href="app.html">Raingauge Log</a>
+    </div>
+    <div class="bgb-footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="bgb-footer-bottom">
+    <span>&copy; 2026 Barograph. Field notes from a home weather station, not a forecasting authority.</span>
+  </div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body></html>

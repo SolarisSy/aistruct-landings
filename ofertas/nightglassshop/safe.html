@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nightglass — Backyard Astronomy Notes from a Bortle 7 Sky</title>
+<meta name="description" content="A field notebook for backyard astronomy: what's actually visible under a light-polluted sky, monthly charts, and how to plan the night before you go out.">
+<link rel="canonical" href="https://nightglass.shop/safe.html">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='4' fill='%230d1117'/%3E%3Cpath d='M14.5 3.5a8 8 0 1 0 6.6 12.4A6.4 6.4 0 0 1 14.5 3.5z' fill='%23e0b25b'/%3E%3Ccircle cx='18.5' cy='6.5' r='1' fill='%23cf4636'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ng-bg:#0d1117;
+  --ng-bg-raised:#111720;
+  --ng-bg-zebra:#121820;
+  --ng-text:#d8dee6;
+  --ng-text-muted:#8894a3;
+  --ng-heading:#f2e9da;
+  --ng-red:#cf4636;
+  --ng-amber:#e0b25b;
+  --ng-line:#1f2732;
+  --ng-radius:3px;
+  --ng-maxw:1020px;
+  --ng-serif:'Hoefler Text','Book Antiqua',Garamond,Georgia,serif;
+  --ng-sans:'Avenir Next','Century Gothic',Verdana,sans-serif;
+}
+*{box-sizing:border-box;}
+html{background:var(--ng-bg);}
+body{margin:0;background:var(--ng-bg);color:var(--ng-text);font-family:var(--ng-sans);line-height:1.62;font-size:15.5px;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+h1,h2,h3,h4{font-family:var(--ng-serif);color:var(--ng-heading);font-weight:400;line-height:1.28;margin:0;}
+p{margin:0 0 14px;}
+a{color:var(--ng-amber);text-decoration:none;}
+a:hover{color:var(--ng-red);}
+.ng-container{max-width:var(--ng-maxw);margin:0 auto;padding:0 22px;}
+.ng-main{padding-bottom:10px;}
+.ng-nav{position:sticky;top:0;z-index:80;height:44px;background:#0a0e13;border-bottom:1px solid var(--ng-line);}
+.ng-nav-inner{max-width:var(--ng-maxw);margin:0 auto;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;}
+.ng-brand{display:flex;align-items:center;gap:8px;font-family:var(--ng-serif);font-size:17px;color:var(--ng-amber);letter-spacing:.2px;}
+.ng-brand-icon{color:var(--ng-red);flex:none;}
+.ng-nav-links{display:flex;align-items:center;gap:20px;font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;}
+.ng-nav-links a{color:var(--ng-text-muted);}
+.ng-nav-links a:hover{color:var(--ng-amber);}
+.ng-nav-cta{color:#0d1117!important;background:var(--ng-red);padding:6px 12px;border-radius:var(--ng-radius);}
+.ng-nav-cta:hover{background:var(--ng-amber)!important;color:#0d1117!important;}
+@media (max-width:700px){.ng-nav-links{gap:12px;font-size:11px;}.ng-brand span{display:none;}}
+@media (max-width:520px){.ng-nav-links a:not(.ng-nav-cta){display:none;}.ng-nav-inner{justify-content:space-between;}}
+.ng-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;padding:38px 0 30px;border-bottom:1px solid var(--ng-line);}
+@media (max-width:760px){.ng-hero{grid-template-columns:1fr;padding-top:26px;}}
+.ng-hero-fig img{width:100%;border-radius:var(--ng-radius);border:1px solid var(--ng-line);}
+.ng-hero-cap{font-size:12px;color:var(--ng-text-muted);margin-top:8px;font-style:italic;}
+.ng-kicker{display:inline-block;font-family:var(--ng-sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ng-red);margin-bottom:10px;}
+.ng-hero-body h1{font-size:27px;margin-bottom:10px;}
+.ng-hero-body p{color:var(--ng-text-muted);font-size:15px;}
+.ng-hero-meta{display:flex;gap:14px;margin-top:16px;font-size:12px;color:var(--ng-text-muted);flex-wrap:wrap;}
+.ng-hero-meta b{color:var(--ng-amber);font-weight:400;}
+.ng-table-wrap{overflow-x:auto;margin:22px 0 8px;}
+.ng-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px;}
+.ng-table th{text-align:left;font-family:var(--ng-sans);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ng-amber);border-bottom:1px solid var(--ng-red);padding:9px 12px;white-space:nowrap;}
+.ng-table td{padding:9px 12px;border-bottom:1px solid var(--ng-line);white-space:nowrap;}
+.ng-table tbody tr:nth-child(odd){background:var(--ng-bg-zebra);}
+.ng-table tbody tr:hover{background:#182130;}
+.ng-section-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--ng-red);padding-bottom:9px;margin:44px 0 6px;gap:10px;flex-wrap:wrap;}
+.ng-section-head h2{font-size:20px;}
+.ng-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ng-text-muted);}
+.ng-posts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:26px 0 10px;}
+@media (max-width:900px){.ng-posts{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.ng-posts{grid-template-columns:1fr;}}
+.ng-post{border:1px solid var(--ng-line);border-radius:var(--ng-radius);overflow:hidden;background:var(--ng-bg-raised);display:flex;flex-direction:column;transition:border-color .15s;}
+.ng-post:hover{border-color:var(--ng-amber);}
+.ng-post img{width:100%;aspect-ratio:16/10;object-fit:cover;border-bottom:1px solid var(--ng-line);}
+.ng-post-body{padding:14px 16px 18px;display:flex;flex-direction:column;gap:7px;flex:1;}
+.ng-post-cat{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ng-red);}
+.ng-post-title{font-family:var(--ng-serif);font-size:17.5px;color:var(--ng-heading);margin:0;}
+.ng-post a.ng-post-title{color:var(--ng-heading);}
+.ng-post a.ng-post-title:hover{color:var(--ng-amber);}
+.ng-post-dek{font-size:13px;color:var(--ng-text-muted);flex:1;margin:0;}
+.ng-post-date{font-size:11px;color:#5c6774;}
+.ng-mock{border:1px solid var(--ng-line);border-radius:var(--ng-radius);background:linear-gradient(180deg,#141b23,#0d1117);padding:18px;}
+.ng-mock-bar{display:flex;gap:6px;margin-bottom:14px;}
+.ng-mock-dot{width:8px;height:8px;border-radius:50%;background:var(--ng-line);}
+.ng-mock-dot.is-amber{background:var(--ng-amber);}
+.ng-mock-dot.is-red{background:var(--ng-red);}
+.ng-mock-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--ng-line);font-size:13px;}
+.ng-mock-row:last-child{border-bottom:none;}
+.ng-mock-tag{color:var(--ng-amber);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;}
+.ng-mock-val{color:var(--ng-text-muted);font-size:12.5px;}
+.ng-btn{display:inline-block;background:var(--ng-red);color:#fff!important;padding:11px 22px;border-radius:var(--ng-radius);font-family:var(--ng-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;}
+.ng-btn:hover{background:var(--ng-amber);color:#0d1117!important;}
+.ng-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;align-items:center;}
+.ng-news{border:1px solid var(--ng-line);border-radius:var(--ng-radius);background:var(--ng-bg-raised);padding:26px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin:38px 0;}
+.ng-news-copy h3{margin:0 0 4px;font-size:17px;}
+.ng-news-copy p{margin:0;font-size:12.5px;color:var(--ng-text-muted);max-width:360px;}
+.ng-news-form{display:flex;gap:8px;flex-wrap:wrap;}
+.ng-news-form input{background:var(--ng-bg);border:1px solid var(--ng-line);border-radius:var(--ng-radius);padding:9px 12px;color:var(--ng-text);font-family:var(--ng-sans);font-size:13px;min-width:210px;}
+.ng-news-form button{background:var(--ng-red);border:none;border-radius:var(--ng-radius);padding:9px 16px;color:#fff;font-family:var(--ng-sans);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;}
+.ng-news-form button:hover{background:var(--ng-amber);color:#0d1117;}
+.ng-news-ok{display:none;color:var(--ng-amber);font-size:12px;margin-top:8px;width:100%;}
+.ng-prose{padding:8px 0 20px;max-width:720px;}
+.ng-prose p{font-size:14.5px;color:var(--ng-text);}
+.ng-footer{border-top:1px solid var(--ng-line);background:#0a0e13;margin-top:44px;}
+.ng-footer-inner{max-width:var(--ng-maxw);margin:0 auto;padding:36px 22px 18px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:24px;}
+@media (max-width:700px){.ng-footer-inner{grid-template-columns:1fr 1fr;}}
+.ng-footer-col h3{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--ng-amber);margin:0 0 10px;font-family:var(--ng-sans);}
+.ng-footer-col a{display:block;color:var(--ng-text-muted);font-size:12.5px;margin-bottom:8px;}
+.ng-footer-col a:hover{color:var(--ng-amber);}
+.ng-brand-footer{margin-bottom:10px;}
+.ng-footer-about p{font-size:12.5px;color:var(--ng-text-muted);max-width:280px;margin:0;}
+.ng-footer-bottom{max-width:var(--ng-maxw);margin:0 auto;padding:16px 22px 30px;font-size:11.5px;color:#5c6774;border-top:1px solid var(--ng-line);}
+</style>
+</head>
+<body>
+<header class="ng-nav">
+  <div class="ng-nav-inner">
+    <a class="ng-brand" href="safe.html">
+      <svg class="ng-brand-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M14.5 3.5a8 8 0 1 0 6.6 12.4A6.4 6.4 0 0 1 14.5 3.5z" fill="currentColor"/></svg>
+      <span>Nightglass</span>
+    </a>
+    <nav class="ng-nav-links" aria-label="Primary">
+      <a href="safe.html">Journal</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a class="ng-nav-cta" href="app.html">Nightlist App</a>
+    </nav>
+  </div>
+</header>
+<main class="ng-main">
+  <div class="ng-container">
+
+    <section class="ng-hero">
+      <div class="ng-hero-fig">
+        <img src="img/hero.jpg" alt="A naked-eye line of planets above a suburban rooftop horizon, chart for this month">
+        <p class="ng-hero-cap">Chart of the month: a rough sketch of what sits above the rooftops after dark, drawn from the backyard, not a planetarium dome.</p>
+      </div>
+      <div class="ng-hero-body">
+        <span class="ng-kicker">Field Notes · Chart Of The Month</span>
+        <h1>What Bortle 7 Still Lets You See</h1>
+        <p>Nightglass is a notebook, not a catalog. Most of what's written here happens on a small paved patio with a streetlight two houses down and a phone flashlight for finding dropped eyepiece caps. The sky is never black — it's usually a dull orange-grey — and the point of this journal is figuring out what's still worth looking at anyway.</p>
+        <p>Below is a rough weekly reference for a mid-latitude suburban yard: what tends to clear the roofline, when it's typically worth stepping outside, and which targets hold up under wasted light. Treat the times as a starting point, not a schedule — actual timing shifts with your latitude, horizon, and the week itself.</p>
+        <div class="ng-hero-meta">
+          <span><b>Sky class:</b> Bortle 6–7</span>
+          <span><b>Setup:</b> 8x42 binoculars + 6" reflector</span>
+          <span><b>Updated:</b> monthly</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="ng-table-wrap">
+      <table class="ng-table">
+        <thead>
+          <tr><th>Object</th><th>Typical window</th><th>Direction</th><th>Naked eye?</th><th>Notes from the yard</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Moon (waxing gibbous)</td><td>~21:00–01:00</td><td>East to South</td><td>Yes</td><td>Terminator ridges are the actual show, not the full disc</td></tr>
+          <tr><td>Venus</td><td>Just before sunrise</td><td>East-southeast</td><td>Yes</td><td>Brightest point of light in the pre-dawn sky most weeks</td></tr>
+          <tr><td>Jupiter</td><td>Late evening</td><td>East</td><td>Yes</td><td>Four Galilean moons show up in steadied binoculars</td></tr>
+          <tr><td>Saturn</td><td>Early evening, low</td><td>Southwest</td><td>Faint</td><td>Ring tilt is subtle without a telescope; roofline gets it first</td></tr>
+          <tr><td>Orion Nebula (M42)</td><td>After 22:00, winter months</td><td>South</td><td>Binoculars help</td><td>Best away from a direct streetlight sightline</td></tr>
+          <tr><td>A bright ISS pass</td><td>Varies by week</td><td>West to East</td><td>Yes</td><td>Worth a pass-time check the same evening, not the same month</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ng-prose">
+      <p>This journal keeps things at that scale on purpose. There's no observatory-grade advice here — just what's held up across a lot of ordinary nights with ordinary gear, written down so the next cloudy stretch doesn't erase what worked.</p>
+    </div>
+
+    <div class="ng-section-head">
+      <h2>Latest Notes</h2>
+      <span class="ng-eyebrow">Observing &amp; planning</span>
+    </div>
+    <div class="ng-posts">
+
+      <article class="ng-post">
+        <img src="img/five-planets-dawn-line.jpg" alt="Line of planets above a horizon before sunrise">
+        <div class="ng-post-body">
+          <span class="ng-post-cat">Ephemeris</span>
+          <h3 class="ng-post-title"><a class="ng-post-title" href="five-planets-dawn-line.html">The Five-Planet Line You Can Actually See From a Driveway</a></h3>
+          <p class="ng-post-dek">Not every "planet parade" headline holds up once streetlights get involved. Here's what actually cleared the roofline and what got lost in the glow.</p>
+          <span class="ng-post-date">January 14, 2026</span>
+        </div>
+      </article>
+
+      <article class="ng-post">
+        <img src="img/reading-a-bortle-map.jpg" alt="Sky glow map over a suburban neighborhood at dusk">
+        <div class="ng-post-body">
+          <span class="ng-post-cat">Sky Planning</span>
+          <h3 class="ng-post-title"><a class="ng-post-title" href="reading-a-bortle-map.html">What a Bortle Map Doesn't Tell You Until You're Standing in the Yard</a></h3>
+          <p class="ng-post-dek">The map said Bortle 6. The actual sky over the fence line said something closer to a bright 7. A note on trusting the map less than the horizon.</p>
+          <span class="ng-post-date">February 3, 2026</span>
+        </div>
+      </article>
+
+      <article class="ng-post">
+        <img src="img/binoculars-before-telescope.jpg" alt="A pair of binoculars resting on a porch railing at night">
+        <div class="ng-post-body">
+          <span class="ng-post-cat">Optics &amp; Gear</span>
+          <h3 class="ng-post-title"><a class="ng-post-title" href="binoculars-before-telescope.html">Why the Best First Upgrade Is a Better Pair of Binoculars</a></h3>
+          <p class="ng-post-dek">A wider aperture telescope sounds like the obvious next step. In a lit backyard, it usually isn't — here's the case for spending on glass you already own.</p>
+          <span class="ng-post-date">February 24, 2026</span>
+        </div>
+      </article>
+
+      <article class="ng-post">
+        <img src="img/moon-terminator-notebook.jpg" alt="Close view of the lunar terminator line with crater shadows">
+        <div class="ng-post-body">
+          <span class="ng-post-cat">Moon</span>
+          <h3 class="ng-post-title"><a class="ng-post-title" href="moon-terminator-notebook.html">The Terminator Line Is the Only Time the Moon Gets Interesting</a></h3>
+          <p class="ng-post-dek">Full moon nights are the ones people picture, and the ones with the least to actually look at. Notes on tracking the shadow line instead.</p>
+          <span class="ng-post-date">March 10, 2026</span>
+        </div>
+      </article>
+
+      <article class="ng-post">
+        <img src="img/planning-the-night-before.jpg" alt="Notebook and star chart on a kitchen table in the afternoon">
+        <div class="ng-post-body">
+          <span class="ng-post-cat">Sky Planning</span>
+          <h3 class="ng-post-title"><a class="ng-post-title" href="planning-the-night-before.html">Everything I Check the Afternoon Before a Clear Night</a></h3>
+          <p class="ng-post-dek">Clear skies get wasted more often by a lack of a plan than by clouds. The short list that gets run through before the gear ever comes out.</p>
+          <span class="ng-post-date">April 2, 2026</span>
+        </div>
+      </article>
+
+      <article class="ng-post">
+        <img src="img/orion-nebula-suburban-glow.jpg" alt="Faint nebula glow through binoculars above rooftops">
+        <div class="ng-post-body">
+          <span class="ng-post-cat">Deep Sky</span>
+          <h3 class="ng-post-title"><a class="ng-post-title" href="orion-nebula-suburban-glow.html">Finding the Orion Nebula Through a Wall of Streetlight</a></h3>
+          <p class="ng-post-dek">M42 is supposed to be an easy target. It is, once you stop looking for it where the photos say it should be brightest.</p>
+          <span class="ng-post-date">April 28, 2026</span>
+        </div>
+      </article>
+
+      <article class="ng-post">
+        <img src="img/collimation-first-fix.jpg" alt="Reflector telescope tube open for collimation adjustment">
+        <div class="ng-post-body">
+          <span class="ng-post-cat">Optics &amp; Gear</span>
+          <h3 class="ng-post-title"><a class="ng-post-title" href="collimation-first-fix.html">The One Adjustment That Fixes Most Blurry Reflectors</a></h3>
+          <p class="ng-post-dek">Before blaming the sky, the seeing, or the eyepiece, there's one mirror alignment check that solves more blurry views than all three combined.</p>
+          <span class="ng-post-date">May 19, 2026</span>
+        </div>
+      </article>
+
+      <article class="ng-post">
+        <img src="img/iss-pass-timing-notes.jpg" alt="Bright satellite streak crossing a dusk sky">
+        <div class="ng-post-body">
+          <span class="ng-post-cat">Ephemeris</span>
+          <h3 class="ng-post-title"><a class="ng-post-title" href="iss-pass-timing-notes.html">Timing a Bright ISS Pass Without an App Open the Whole Time</a></h3>
+          <p class="ng-post-dek">A pass is over in about six minutes. Here's the low-effort routine for actually being outside, facing the right way, when it happens.</p>
+          <span class="ng-post-date">June 9, 2026</span>
+        </div>
+      </article>
+
+      <article class="ng-post">
+        <img src="img/red-light-habits.jpg" alt="Red-filtered flashlight beam on a garden path at night">
+        <div class="ng-post-body">
+          <span class="ng-post-cat">Beginner</span>
+          <h3 class="ng-post-title"><a class="ng-post-title" href="red-light-habits.html">Small Habits That Actually Preserve Night Vision</a></h3>
+          <p class="ng-post-dek">Red flashlights get all the attention. The habits that make more of a difference are smaller, and easier to skip on a cold night.</p>
+          <span class="ng-post-date">July 1, 2026</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="ng-section-head">
+      <h2>Nightlist, the companion app</h2>
+      <span class="ng-eyebrow">Planning tool</span>
+    </div>
+    <section class="ng-hero" style="border-bottom:none;padding-bottom:8px;">
+      <div>
+        <p>Nightlist grew out of the same list this journal runs through every clear afternoon: moonrise, moon illumination, which planets clear the roofline, and what's realistically visible from a fixed backyard horizon. It's a planning list, not a star map — built for one spot, not the whole sky.</p>
+        <div class="ng-cta-row">
+          <a class="ng-btn" href="app.html">See how Nightlist works</a>
+        </div>
+      </div>
+      <div class="ng-mock">
+        <div class="ng-mock-bar"><span class="ng-mock-dot is-red"></span><span class="ng-mock-dot is-amber"></span><span class="ng-mock-dot"></span></div>
+        <div class="ng-mock-row"><span class="ng-mock-tag">Tonight's window</span><span class="ng-mock-val">21:40 – 00:15</span></div>
+        <div class="ng-mock-row"><span class="ng-mock-tag">Moon</span><span class="ng-mock-val">Waxing, 62% lit</span></div>
+        <div class="ng-mock-row"><span class="ng-mock-tag">Best target</span><span class="ng-mock-val">Jupiter, East</span></div>
+        <div class="ng-mock-row"><span class="ng-mock-tag">Horizon note</span><span class="ng-mock-val">Roofline clears ~35°</span></div>
+      </div>
+    </section>
+
+    <div class="ng-news">
+      <div class="ng-news-copy">
+        <h3>A short note, most weeks</h3>
+        <p>New field notes and the occasional chart update, sent when there's actually something worth sending. No spam, no schedule promises.</p>
+      </div>
+      <form class="ng-news-form" onsubmit="return sub(event)">
+        <input type="email" placeholder="you@example.com" required aria-label="Email address">
+        <button type="submit">Subscribe</button>
+        <span class="ng-news-ok" id="ok">Thanks — you're on the list.</span>
+      </form>
+    </div>
+
+  </div>
+</main>
+<footer class="ng-footer">
+  <div class="ng-footer-inner">
+    <div class="ng-footer-col ng-footer-about">
+      <div class="ng-brand ng-brand-footer">
+        <svg class="ng-brand-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M14.5 3.5a8 8 0 1 0 6.6 12.4A6.4 6.4 0 0 1 14.5 3.5z" fill="currentColor"/></svg>
+        <span>Nightglass</span>
+      </div>
+      <p>Notes from a Bortle 7 backyard: what's actually visible tonight, and how to plan for it the afternoon before.</p>
+    </div>
+    <div class="ng-footer-col">
+      <h3>Journal</h3>
+      <a href="safe.html">Latest notes</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="ng-footer-col">
+      <h3>Nightlist</h3>
+      <a href="app.html">Overview</a>
+      <a href="app.html#faq">App FAQ</a>
+    </div>
+    <div class="ng-footer-col">
+      <h3>Legal</h3>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="ng-footer-bottom">&copy; 2026 Nightglass. An independent backyard-astronomy journal. Not affiliated with any observatory, agency, or manufacturer.</div>
+</footer>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{localStorage.setItem('nl','1');}catch(_){ }e.target.reset();return false;}</script>
+</body>
+</html>

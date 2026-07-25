@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FAQ — Personal Paper Archiving Questions | Foolscap</title>
+<meta name="description" content="Common questions about personal paper archiving — document series, boxes, call numbers, disposal — plus a few about Foolscap and the Boxlist app.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://foolscap.shop/faq.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='4' fill='%23f4f1e8'/%3E%3Crect x='6' y='10' width='13' height='44' fill='%238a3324'/%3E%3Ctext x='40' y='43' font-family='Georgia,serif' font-size='28' fill='%2323201a' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --shm-bg:#f4f1e8;
+  --shm-bg-raised:#efe9d8;
+  --shm-text:#23201a;
+  --shm-text-dim:#5c564a;
+  --shm-accent:#8a3324;
+  --shm-accent-ink:#6e281c;
+  --shm-line:rgba(35,32,26,.18);
+  --shm-line-soft:rgba(35,32,26,.09);
+  --shm-radius:2px;
+  --shm-maxw:845px;
+  --shm-tab-w:120px;
+  --shm-serif:Charter,Georgia,'Iowan Old Style','Times New Roman',serif;
+  --shm-sans:Corbel,Calibri,'Trebuchet MS',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{font-size:16px;}
+body{
+  margin:0;
+  font-family:var(--shm-sans);
+  color:var(--shm-text);
+  line-height:1.6;
+  background-color:var(--shm-bg);
+  background-image:repeating-linear-gradient(to bottom,transparent 0 78px,var(--shm-line-soft) 78px 79px);
+}
+img{max-width:100%;height:auto;display:block;}
+a{color:var(--shm-accent);}
+h1,h2,h3{font-family:var(--shm-serif);font-weight:600;color:var(--shm-text);}
+p{margin:0 0 14px;}
+ul,ol{margin:0 0 14px;padding-left:22px;}
+li{margin-bottom:6px;}
+.shm-bar{max-width:var(--shm-maxw);margin:0 auto;padding:0 20px;}
+.shm-masthead{border-bottom:1px solid var(--shm-line);padding-top:22px;}
+.shm-masthead-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px;padding-bottom:14px;}
+.shm-wordmark{font-family:var(--shm-serif);font-size:1.7rem;color:var(--shm-text);text-decoration:none;letter-spacing:.01em;}
+.shm-wordmark-dot{color:var(--shm-accent);}
+.shm-tagline{margin:0;font-size:.82rem;color:var(--shm-text-dim);font-style:italic;}
+.shm-nav{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;padding:12px 0 16px;border-top:1px solid var(--shm-line-soft);margin-top:2px;}
+.shm-nav a{color:var(--shm-text);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;}
+.shm-nav a:hover{border-color:var(--shm-accent);color:var(--shm-accent);}
+.shm-main{max-width:calc(var(--shm-maxw) + var(--shm-tab-w) + 28px);margin:0 auto;padding:0 20px 56px;position:relative;}
+.shm-shell{max-width:var(--shm-maxw);width:100%;background:var(--shm-bg-raised);border:1px solid var(--shm-line);padding:30px 24px 40px;margin:0 auto;}
+.shm-tab{position:static;width:100%;background:var(--shm-accent);color:#f3ead9;border:1px solid var(--shm-accent-ink);padding:9px 16px;display:flex;align-items:center;gap:14px;font-family:var(--shm-sans);margin-bottom:0;}
+.shm-tab-series{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+.shm-tab-number{font-family:var(--shm-serif);font-size:.95rem;letter-spacing:.05em;font-variant-numeric:tabular-nums;}
+@media (min-width:901px){
+  .shm-main{padding-left:calc(var(--shm-tab-w) + 48px);}
+  .shm-shell{margin:0;border-top:1px solid var(--shm-line);}
+  .shm-tab{position:absolute;left:20px;top:46px;width:var(--shm-tab-w);min-height:190px;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 8px;}
+  .shm-tab-series,.shm-tab-number{writing-mode:vertical-rl;transform:rotate(180deg);}
+}
+.shm-prose{padding:26px 0 10px;}
+.shm-prose h1{font-size:1.7rem;margin:0 0 6px;}
+.shm-prose .shm-lede{color:var(--shm-text-dim);font-size:.95rem;margin:0 0 24px;}
+.shm-faq{padding:16px 0 4px;}
+.shm-faq-item{padding:16px 0;border-bottom:1px solid var(--shm-line);}
+.shm-faq-item:first-child{border-top:1px solid var(--shm-line);}
+.shm-faq-q{font-family:var(--shm-serif);font-size:1rem;margin:0 0 8px;color:var(--shm-text);}
+.shm-faq-q-mark{color:var(--shm-accent);margin-right:6px;}
+.shm-faq-a{margin:0;color:var(--shm-text-dim);font-size:.9rem;}
+.shm-footer{border-top:1px solid var(--shm-line);margin-top:10px;padding:24px 0 46px;font-size:.8rem;color:var(--shm-text-dim);}
+.shm-footer-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px;padding:0;list-style:none;}
+.shm-footer-links a{color:var(--shm-text-dim);text-decoration:none;}
+.shm-footer-links a:hover{color:var(--shm-accent);}
+.shm-footer-fine{font-size:.74rem;opacity:.8;margin:0;}
+</style>
+</head>
+<body>
+<header class="shm-masthead">
+  <div class="shm-bar">
+    <div class="shm-masthead-top">
+      <a class="shm-wordmark" href="safe.html">Foolscap<span class="shm-wordmark-dot">.</span></a>
+      <p class="shm-tagline">Field notes on keeping a household paper archive in order</p>
+    </div>
+    <nav class="shm-nav" aria-label="Primary">
+      <a href="safe.html">Home</a>
+      <a href="app.html">Boxlist</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="shm-main">
+  <div class="shm-tab">
+    <span class="shm-tab-series">Query Log</span>
+    <span class="shm-tab-number">020.4</span>
+  </div>
+  <div class="shm-shell">
+    <section class="shm-prose">
+      <h1>Frequently asked questions</h1>
+      <p class="shm-lede">Questions readers send us most, about archiving paper at home and about the site itself.</p>
+    </section>
+
+    <div class="shm-faq">
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>Do I need any formal training to start a personal archive?</p>
+        <p class="shm-faq-a">No. Everything we describe on Foolscap is meant for someone with a shelf, a few boxes, and an afternoon. The vocabulary borrows from archival science, but the method scales down to a household without much trouble.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>What's the difference between filing and archiving?</p>
+        <p class="shm-faq-a">Filing usually means putting a document somewhere so it can be found again next week. Archiving adds a layer on top — a call number, a retention plan, and a record of what happened to a document over years, not just where it sits today.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>How do I decide what to keep for seven years versus indefinitely?</p>
+        <p class="shm-faq-a">Most households use a rough rule tied to how long a document could plausibly still matter — tax paperwork tends to follow a multi-year window, while certificates and deeds tend to stay indefinitely. We write about specific categories in the journal rather than giving one blanket number, since retention rules vary by document and by household.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>Should I organize by subject or by date?</p>
+        <p class="shm-faq-a">We lean toward order of arrival — filing by when a document entered the archive — because subject categories tend to get renamed and reshuffled over the years, while an arrival date never changes. See <a href="order-of-arrival.html">Order of Arrival, Not Order by Topic</a> for the longer case.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>What kind of folder holds up best over time?</p>
+        <p class="shm-faq-a">Manila stock tends to hold its shape and resist tearing at the fold better than many lighter alternatives, though the folder is only part of the picture — how and where it's stored matters just as much. See <a href="the-manila-drawer.html">Why the Manila Drawer Still Wins</a>.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>Is it safe to store paper archives in a garage or attic?</p>
+        <p class="shm-faq-a">It can work, but temperature swings and humidity in an uninsulated space tend to be harder on paper than a closet inside the living space. If a garage or attic is the only option, an airtight-ish container off the floor tends to help more than the container material itself.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>What causes old paper to turn brittle?</p>
+        <p class="shm-faq-a">A mix of factors — the acidity of the original paper stock, light exposure, and fluctuating humidity all play a role. We go into more depth in <a href="seven-year-shelf.html">What Actually Survives Seven Years in a Closet</a>.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>How do I create a call number if I've never used one before?</p>
+        <p class="shm-faq-a">Start with three parts: a series code, a sequence number, and the year it was assigned. Write it the same way on every folder from day one. The full walkthrough is in <a href="call-number-home.html">Writing a Call Number for a Home Archive</a>.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>What should I do with documents I no longer need?</p>
+        <p class="shm-faq-a">Log what left and why before it goes, even in one line. It sounds like extra work, but it's the only thing that prevents the "did we keep that or not" question a year later. See <a href="disposal-ledger.html">Keeping a Disposal Ledger</a>.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>Can I mix digital scans with a paper archive?</p>
+        <p class="shm-faq-a">Yes, and many households do — but we'd suggest keeping the ledger entry (call number, location, retention note) attached to the physical box regardless of whether a scan also exists, so the two systems don't drift apart.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>How often should I review a household archive?</p>
+        <p class="shm-faq-a">Once a year is common, timed around whatever natural checkpoint already exists in a household — tax season, a move, or the start of a school year.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>What is Boxlist and how does it relate to Foolscap?</p>
+        <p class="shm-faq-a">Boxlist is a companion app we built to log boxes, series, and call numbers without a spreadsheet. It follows the same method described on the journal, but it isn't required to use any of the ideas here. See the <a href="app.html">Boxlist page</a>.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>Does Boxlist require a subscription?</p>
+        <p class="shm-faq-a">The core ledger works entirely on your own device with no account required. Details are on the <a href="app.html">app page</a>.</p>
+      </div>
+
+      <div class="shm-faq-item">
+        <p class="shm-faq-q"><span class="shm-faq-q-mark">Q.</span>How do I contact Foolscap with a correction or question?</p>
+        <p class="shm-faq-a">Email <a href="mailto:hello@foolscap.shop">hello@foolscap.shop</a>. We read every message, and we note corrections on the entry they apply to rather than editing silently.</p>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="shm-footer">
+  <div class="shm-bar">
+    <ul class="shm-footer-links">
+      <li><a href="safe.html">Home</a></li>
+      <li><a href="app.html">Boxlist</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <p class="shm-footer-fine">&copy; 2026 Foolscap. An independent journal about home paper archiving, kept by hand. Not affiliated with any library, records office, or storage vendor. Contact: hello@foolscap.shop</p>
+  </div>
+</footer>
+</body>
+</html>
