@@ -2,26 +2,38 @@
 topperpay-bridge — webhook do gateway TopperPay/asegupag -> conversao no Google Ads.
 
 CONTEXTO (funil CRR/roxo do bomb): as ofertas rodam Google Ads com Adspect. O Adspect
-captura {p:gclid} e passa adiante (arg_passthru) -> o gclid chega no checkout TopperPay
-via ?src=<gclid>. Quando a venda e aprovada, o TopperPay dispara este webhook.
+captura {p:gclid} e passa adiante (arg_passthru) -> o gclid chega no chat/Typebot e o
+Code block do checkout manda `?src=<gclid>&utm_content=<gclid>`.
+
+⚠️ POR QUE utm_content TAMBEM: o webhook "Compra aprovada" do TopperPay tem 15 campos
+(paymentId, status, paymentMethod, totalValue, pixCode, customer, offer, product,
+utm_campaign, utm_content, utm_medium, utm_source, utm_term, createdAt, updatedAt) e
+NENHUM `src` — provado no payload real 27/07/2026. O `src` chega no checkout mas nao
+volta no webhook; os utm_* voltam. Entao o click id viaja em utm_content.
 
 Este serviço NAO poe pixel em pagina nenhuma (a money e cloakada; pixel client-side
-exporia a money ao Google). Em vez disso faz OFFLINE CONVERSION IMPORT por gclid:
-  webhook "Compra aprovada" -> extrai gclid+valor -> grava numa Google Sheet ->
-  Google Ads importa a Sheet (agendado) -> casa por gclid -> atribui a campanha.
-O Google nunca ve a money — so recebe (gclid, valor, hora).
+exporia a money ao Google). Em vez disso faz OFFLINE CONVERSION IMPORT por gclid.
+
+DOIS caminhos de entrega (podem coexistir):
+  A) CSV servido por este bridge  -> Google Ads "Importacoes programadas" (HTTPS).
+     Nao precisa de Sheet nem Apps Script. Endpoint: GET /conversions.csv?token=...
+  B) Google Sheet via Apps Script -> setar GADS_SHEET_WEBHOOK_URL.
 
 Rotas:
-  POST /webhook          <- o TopperPay cola aqui (evento "Compra aprovada")
-  GET  /healthz          <- 200 ok
-  GET  /info             <- config (enabled/dormente)
-  GET  /debug/stats      <- contadores
-  GET  /debug/recent     <- ultimos eventos (payload cru — pra confirmar que o gclid vem)
+  POST /webhook           <- o TopperPay cola aqui (evento "Compra aprovada")
+  GET  /conversions.csv   <- CSV no formato do Google Ads (offline import por gclid)
+  GET  /healthz  /info    <- saude e config
+  GET  /debug/stats       <- contadores (memoria)
+  GET  /debug/recent      <- ultimos eventos crus (contem PII do comprador — uso interno)
+  GET  /debug/sales       <- vendas persistidas SEM PII (auditoria)
 
 ENV:
-  TOPPERPAY_TOKEN        - se setado, exige ?token=<x> (ou header X-Token) no /webhook
-  GCLID_FIELDS           - CSV de campos onde procurar o gclid (default: src,gclid,utm_src,utm.src)
-  GADS_SHEET_WEBHOOK_URL - URL /exec do Apps Script da Sheet. SEM ela = DORMENTE (so loga/conta).
+  TOPPERPAY_TOKEN        - se setado, exige ?token=<x> (ou header X-Token) no /webhook e no CSV
+  GCLID_FIELDS           - CSV de campos onde procurar o click id
+                           (default: src,gclid,utm_content,utm_term,utm_src,utm.src,tracking)
+  DB_PATH                - default /data/bridge.db (volume). Fallback /tmp/bridge.db.
+  CSV_WINDOW_DAYS        - janela do /conversions.csv (default 30). O Google deduplica reimport.
+  GADS_SHEET_WEBHOOK_URL - opcional: URL /exec do Apps Script (caminho B)
   GADS_SHEET_SECRET      - secret compartilhado com o Apps Script
   GADS_CONVERSION_NAME   - nome EXATO da conversion action no Google Ads (ex: "Compra")
   GADS_CURRENCY          - default BRL
@@ -29,11 +41,15 @@ ENV:
 """
 from __future__ import annotations
 
+import csv
+import io
 import logging
 import os
 import re
+import sqlite3
+import threading
 from collections import deque
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 import httpx
@@ -46,16 +62,18 @@ log = logging.getLogger("topperpay-bridge")
 
 TOKEN = os.environ.get("TOPPERPAY_TOKEN", "").strip() or None
 GCLID_FIELDS = [f.strip() for f in os.environ.get(
-    "GCLID_FIELDS", "src,gclid,utm_src,utm.src,tracking,utm_source").split(",") if f.strip()]
+    "GCLID_FIELDS",
+    "src,gclid,utm_content,utm_term,utm_src,utm.src,tracking").split(",") if f.strip()]
 SHEET_URL = os.environ.get("GADS_SHEET_WEBHOOK_URL", "").strip() or None
 SHEET_SECRET = os.environ.get("GADS_SHEET_SECRET", "").strip() or None
 CONVERSION_NAME = os.environ.get("GADS_CONVERSION_NAME", "Compra").strip()
 CURRENCY = os.environ.get("GADS_CURRENCY", "BRL").strip()
 TZ_OFFSET = os.environ.get("TZ_OFFSET", "-03:00").strip()
+CSV_WINDOW_DAYS = int(os.environ.get("CSV_WINDOW_DAYS", "30"))
 
-# eventos que contam como venda (o TopperPay manda "Compra aprovada")
+# eventos que contam como venda (o TopperPay manda status APPROVED / "Compra aprovada")
 PAID_HINTS = re.compile(r"aprovad|approved|paid|pago|compra", re.I)
-# gclid do Google: longo, alfanumerico + -_ . Nao vazio, nao "None"
+# click id do Google: longo, alfanumerico + -_ . Nao vazio, nao "None", nao " "
 GCLID_RE = re.compile(r"^[A-Za-z0-9_\-\.]{20,}$")
 
 app = FastAPI(title="topperpay-bridge")
@@ -63,29 +81,107 @@ app = FastAPI(title="topperpay-bridge")
 STATS = {
     "received": 0,        # POSTs no /webhook
     "paid": 0,            # eventos de compra aprovada
-    "with_gclid": 0,      # tinham gclid
-    "no_gclid": 0,        # sem gclid (nao atribui)
-    "sheet_sent": 0,      # gravado na Sheet
+    "with_gclid": 0,      # tinham click id
+    "no_gclid": 0,        # sem click id (nao atribui)
+    "persisted": 0,       # gravado no sqlite
+    "db_error": 0,
+    "sheet_sent": 0,      # gravado na Sheet (caminho B)
     "sheet_ok": 0,
     "sheet_error": 0,
-    "sheet_disabled": 0,  # dormente (sem GADS_SHEET_WEBHOOK_URL)
+    "sheet_disabled": 0,
+    "csv_served": 0,      # downloads do CSV (o Google importando)
     "forbidden": 0,
     "ignored": 0,         # evento nao-compra (pix gerado, etc)
 }
 RECENT: deque = deque(maxlen=40)
 
+# ---------------------------------------------------------------- persistencia
+DB_LOCK = threading.Lock()
+DB_PATH = os.environ.get("DB_PATH", "/data/bridge.db").strip()
 
+DDL = """
+CREATE TABLE IF NOT EXISTS conversions (
+  payment_id   TEXT PRIMARY KEY,
+  gclid        TEXT,
+  amount       REAL,
+  currency     TEXT,
+  conv_name    TEXT,
+  conv_time    TEXT,
+  offer_id     TEXT,
+  offer_title  TEXT,
+  utm_content  TEXT,
+  utm_source   TEXT,
+  status       TEXT,
+  created_at   TEXT
+);
+CREATE INDEX IF NOT EXISTS ix_conv_time ON conversions(conv_time);
+"""
+
+
+def _db() -> sqlite3.Connection | None:
+    global DB_PATH
+    for path in (DB_PATH, "/tmp/bridge.db"):
+        try:
+            d = os.path.dirname(path)
+            if d:
+                os.makedirs(d, exist_ok=True)
+            con = sqlite3.connect(path, timeout=10)
+            con.executescript(DDL)
+            con.commit()
+            if path != DB_PATH:
+                log.warning("DB_PATH %s indisponivel — usando %s (NAO persiste em recreate)",
+                            DB_PATH, path)
+                DB_PATH = path
+            return con
+        except Exception as e:  # noqa: BLE001
+            log.error("sqlite %s: %s", path, e)
+    return None
+
+
+def _persist(row: dict) -> None:
+    with DB_LOCK:
+        con = _db()
+        if con is None:
+            STATS["db_error"] += 1
+            return
+        try:
+            con.execute(
+                """INSERT INTO conversions
+                   (payment_id, gclid, amount, currency, conv_name, conv_time, offer_id,
+                    offer_title, utm_content, utm_source, status, created_at)
+                   VALUES (:payment_id, :gclid, :amount, :currency, :conv_name, :conv_time,
+                           :offer_id, :offer_title, :utm_content, :utm_source, :status, :created_at)
+                   ON CONFLICT(payment_id) DO UPDATE SET
+                     gclid=COALESCE(excluded.gclid, conversions.gclid),
+                     amount=excluded.amount, status=excluded.status""",
+                row,
+            )
+            con.commit()
+            STATS["persisted"] += 1
+        except Exception as e:  # noqa: BLE001
+            STATS["db_error"] += 1
+            log.error("persist: %s", e)
+        finally:
+            con.close()
+
+
+# ---------------------------------------------------------------- helpers
 def _now() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
 
 
-def _conv_time() -> str:
-    # "YYYY-MM-DD HH:MM:SS-03:00" — formato do Google Ads offline import
+def _tz() -> timezone:
     off = TZ_OFFSET.replace(":", "")
     sign = 1 if off.startswith("+") else -1
-    hh = int(off[1:3]); mm = int(off[3:5]) if len(off) >= 5 else 0
-    tz = timezone(sign * timedelta(hours=hh, minutes=mm))
-    return datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S") + TZ_OFFSET
+    hh = int(off[1:3])
+    mm = int(off[3:5]) if len(off) >= 5 else 0
+    return timezone(sign * timedelta(hours=hh, minutes=mm))
+
+
+def _conv_time(when: datetime | None = None) -> str:
+    """'YYYY-MM-DD HH:MM:SS-03:00' — formato aceito no offline import do Google Ads."""
+    dt = (when or datetime.now(timezone.utc)).astimezone(_tz())
+    return dt.strftime("%Y-%m-%d %H:%M:%S") + TZ_OFFSET
 
 
 def _record(outcome: str, **extra) -> None:
@@ -111,16 +207,14 @@ def _walk_find(data: Any, key: str) -> str | None:
     return None
 
 
-def _extract_gclid(payload: dict) -> str | None:
-    """Acha o gclid no payload. O checkout recebe ?src=<gclid>; o TopperPay deve
-    ecoar em src/utm. Testa varios campos e valida o formato (evita lixo)."""
+def _extract_gclid(payload: dict) -> tuple[str | None, str | None]:
+    """Acha o click id e diz em QUAL campo achou (pra saber se o carrier funcionou)."""
     for field in GCLID_FIELDS:
-        # suporta 'utm.src' -> procura 'src' dentro de 'utm'
-        parts = field.split(".")
+        parts = field.split(".")           # 'utm.src' -> procura 'src'
         v = _walk_find(payload, parts[-1])
         if v and GCLID_RE.match(v) and v.lower() not in ("none", "null", "undefined"):
-            return v
-    return None
+            return v, field
+    return None, None
 
 
 def _parse_brl(s: Any) -> float | None:
@@ -142,19 +236,19 @@ def _parse_brl(s: Any) -> float | None:
 
 
 def _extract_amount(payload: dict) -> float | None:
-    for k in ("total_price", "amount", "value", "total", "valor", "price", "net_amount"):
+    for k in ("totalValue", "total_price", "amount", "value", "total", "valor", "price", "net_amount"):
         v = _walk_find(payload, k)
         a = _parse_brl(v)
         if a is not None:
-            # centavos? gateways as vezes mandam int em centavos
-            if isinstance(v, (int, float)) and float(v).is_integer() and a >= 1000:
+            # TopperPay manda CENTAVOS em totalValue (6790 = R$ 67,90)
+            if a >= 1000 and float(a).is_integer():
                 a = a / 100.0
             return a
     return None
 
 
 def _extract_order(payload: dict) -> str | None:
-    for k in ("transaction_id", "order_id", "id", "sale_id", "code", "hash"):
+    for k in ("paymentId", "transaction_id", "order_id", "id", "sale_id", "code", "hash"):
         v = _walk_find(payload, k)
         if v:
             return v
@@ -169,16 +263,16 @@ def _is_paid(payload: dict) -> bool:
     return False
 
 
-def _send_to_sheet(gclid: str, amount: float | None, order: str | None) -> None:
+def _send_to_sheet(gclid: str, amount: float | None, order: str | None, conv_time: str) -> None:
+    """Caminho B (opcional): Apps Script -> Google Sheet."""
     if not SHEET_URL:
         STATS["sheet_disabled"] += 1
-        _record("sheet_disabled", gclid=gclid[:12] + "…", amount=amount, order=order)
         return
     body = {
         "secret": SHEET_SECRET or "",
         "gclid": gclid,
         "conversion_name": CONVERSION_NAME,
-        "conversion_time": _conv_time(),
+        "conversion_time": conv_time,
         "conversion_value": f"{(amount or 0):.2f}",
         "conversion_currency": CURRENCY,
         "order_id": order or "",
@@ -188,27 +282,43 @@ def _send_to_sheet(gclid: str, amount: float | None, order: str | None) -> None:
         r = httpx.post(SHEET_URL, json=body, timeout=20, follow_redirects=True)
         if r.status_code < 300:
             STATS["sheet_ok"] += 1
-            _record("sheet_ok", gclid=gclid[:12] + "…", amount=amount, order=order)
         else:
             STATS["sheet_error"] += 1
             _record("sheet_error", status=r.status_code, body=r.text[:120])
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         STATS["sheet_error"] += 1
         _record("sheet_error", err=str(e)[:120])
 
 
+def _authorized(request: Request) -> bool:
+    if not TOKEN:
+        return True
+    got = request.query_params.get("token") or request.headers.get("x-token")
+    if got == TOKEN:
+        return True
+    # Google Ads scheduled import aceita usuario/senha (HTTP Basic) — senha = token
+    auth = request.headers.get("authorization", "")
+    if auth.lower().startswith("basic "):
+        import base64
+        try:
+            raw = base64.b64decode(auth.split(" ", 1)[1]).decode("utf-8", "ignore")
+            return raw.split(":", 1)[-1] == TOKEN
+        except Exception:  # noqa: BLE001
+            return False
+    return False
+
+
+# ---------------------------------------------------------------- rotas
 @app.post("/webhook")
 async def webhook(request: Request):
     STATS["received"] += 1
-    if TOKEN:
-        got = request.query_params.get("token") or request.headers.get("x-token")
-        if got != TOKEN:
-            STATS["forbidden"] += 1
-            _record("forbidden")
-            return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
+    if not _authorized(request):
+        STATS["forbidden"] += 1
+        _record("forbidden")
+        return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
     try:
         payload = await request.json()
-    except Exception:
+    except Exception:  # noqa: BLE001
         payload = {"_raw": (await request.body()).decode("utf-8", "ignore")[:2000]}
 
     if not _is_paid(payload):
@@ -217,23 +327,80 @@ async def webhook(request: Request):
         return {"ok": True, "handled": "ignored (nao e compra aprovada)"}
 
     STATS["paid"] += 1
-    gclid = _extract_gclid(payload)
+    gclid, found_in = _extract_gclid(payload)
     amount = _extract_amount(payload)
     order = _extract_order(payload)
+    conv_time = _conv_time()
 
-    # sempre guarda o payload cru (pra inspecionar o formato real do TopperPay)
-    _record("paid", gclid=(gclid[:14] + "…") if gclid else None, amount=amount,
-            order=order, keys=list(payload.keys())[:15], raw=payload)
+    _record("paid", gclid=(gclid[:14] + "…") if gclid else None, gclid_field=found_in,
+            amount=amount, order=order, keys=list(payload.keys())[:15], raw=payload)
+
+    _persist({
+        "payment_id": order or f"noid-{_now()}",
+        "gclid": gclid,
+        "amount": amount,
+        "currency": CURRENCY,
+        "conv_name": CONVERSION_NAME,
+        "conv_time": conv_time,
+        "offer_id": _walk_find(payload.get("offer") or {}, "id"),
+        "offer_title": _walk_find(payload.get("offer") or {}, "title"),
+        "utm_content": _walk_find(payload, "utm_content"),
+        "utm_source": _walk_find(payload, "utm_source"),
+        "status": _walk_find(payload, "status"),
+        "created_at": _now(),
+    })
 
     if not gclid:
         STATS["no_gclid"] += 1
-        log.warning("compra aprovada SEM gclid — order=%s amount=%s keys=%s",
-                    order, amount, list(payload.keys())[:15])
+        log.warning("compra aprovada SEM click id — order=%s amount=%s utm_content=%r",
+                    order, amount, _walk_find(payload, "utm_content"))
         return {"ok": True, "handled": "paid_no_gclid", "order": order}
 
     STATS["with_gclid"] += 1
-    _send_to_sheet(gclid, amount, order)
-    return {"ok": True, "handled": "paid", "gclid_tail": gclid[-6:], "amount": amount}
+    _send_to_sheet(gclid, amount, order, conv_time)
+    return {"ok": True, "handled": "paid", "gclid_field": found_in,
+            "gclid_tail": gclid[-6:], "amount": amount}
+
+
+@app.get("/conversions.csv")
+def conversions_csv(request: Request, days: int | None = None):
+    """CSV no formato do Google Ads (Importacoes programadas -> HTTPS).
+
+    Cabecalho oficial do offline click conversion import. O Google deduplica
+    reimportacao da mesma (gclid, conversion name, conversion time).
+    """
+    if not _authorized(request):
+        STATS["forbidden"] += 1
+        return PlainTextResponse("forbidden", status_code=403)
+
+    window = days or CSV_WINDOW_DAYS
+    since = (datetime.now(_tz()) - timedelta(days=window)).strftime("%Y-%m-%d")
+    rows: list[tuple] = []
+    with DB_LOCK:
+        con = _db()
+        if con is not None:
+            try:
+                rows = con.execute(
+                    """SELECT gclid, conv_name, conv_time, amount, currency
+                       FROM conversions
+                       WHERE gclid IS NOT NULL AND gclid <> '' AND conv_time >= ?
+                       ORDER BY conv_time""",
+                    (since,),
+                ).fetchall()
+            finally:
+                con.close()
+
+    buf = io.StringIO()
+    w = csv.writer(buf, lineterminator="\n")
+    w.writerow([f"Parameters:TimeZone={TZ_OFFSET}"])
+    w.writerow(["Google Click ID", "Conversion Name", "Conversion Time",
+                "Conversion Value", "Conversion Currency"])
+    for gclid, name, ctime, amount, cur in rows:
+        w.writerow([gclid, name or CONVERSION_NAME, ctime,
+                    f"{(amount or 0):.2f}", cur or CURRENCY])
+
+    STATS["csv_served"] += 1
+    return PlainTextResponse(buf.getvalue(), media_type="text/csv")
 
 
 @app.get("/healthz")
@@ -243,13 +410,31 @@ def healthz():
 
 @app.get("/info")
 def info():
+    n = na = 0
+    with DB_LOCK:
+        con = _db()
+        if con is not None:
+            try:
+                n = con.execute("SELECT COUNT(*) FROM conversions").fetchone()[0]
+                na = con.execute(
+                    "SELECT COUNT(*) FROM conversions WHERE gclid IS NOT NULL AND gclid <> ''"
+                ).fetchone()[0]
+            finally:
+                con.close()
     return {
         "service": "topperpay-bridge",
-        "conversion_enabled": bool(SHEET_URL),
-        "state": "ativo (grava na Sheet)" if SHEET_URL else "DORMENTE (sem GADS_SHEET_WEBHOOK_URL — so loga)",
+        "conversion_enabled": True,
+        "delivery": {
+            "csv": "/conversions.csv (Google Ads -> Importacoes programadas, HTTPS)",
+            "sheet": bool(SHEET_URL),
+        },
         "conversion_name": CONVERSION_NAME,
         "currency": CURRENCY,
         "gclid_fields": GCLID_FIELDS,
+        "csv_window_days": CSV_WINDOW_DAYS,
+        "db_path": DB_PATH,
+        "sales_stored": n,
+        "sales_with_gclid": na,
         "token_required": bool(TOKEN),
     }
 
@@ -260,5 +445,33 @@ def debug_stats():
 
 
 @app.get("/debug/recent")
-def debug_recent():
+def debug_recent(request: Request):
+    """Payload cru (contem PII do comprador) — exige token."""
+    if not _authorized(request):
+        return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
     return list(RECENT)
+
+
+@app.get("/debug/sales")
+def debug_sales(request: Request, limit: int = 50):
+    """Vendas persistidas SEM PII — auditoria da marcacao."""
+    if not _authorized(request):
+        return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
+    out = []
+    with DB_LOCK:
+        con = _db()
+        if con is not None:
+            try:
+                con.row_factory = sqlite3.Row
+                for r in con.execute(
+                    """SELECT payment_id, gclid, amount, conv_time, offer_title,
+                              utm_content, utm_source, status
+                       FROM conversions ORDER BY conv_time DESC LIMIT ?""", (limit,)
+                ):
+                    d = dict(r)
+                    if d.get("gclid"):
+                        d["gclid"] = d["gclid"][:10] + "…" + d["gclid"][-4:]
+                    out.append(d)
+            finally:
+                con.close()
+    return out

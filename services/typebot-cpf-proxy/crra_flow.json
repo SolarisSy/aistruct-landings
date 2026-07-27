@@ -1135,7 +1135,7 @@
           "id": "rs9uh1e98ml3fwirv7vhr2bs",
           "type": "Code",
           "options": {
-            "content": "const urlParams = new URLSearchParams(window.location.search);\nconst utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ttclid'];\nconst parts = utmKeys\n  .filter(key => urlParams.has(key))\n  .map(key => `${key}=${encodeURIComponent(urlParams.get(key))}`);\n\n// click id do Google (gclid/gbraid/wbraid) -> src= pro checkout (atribuicao offline por gclid via topperpay-bridge)\nconst cid = ['{{gclid}}', '{{gbraid}}', '{{wbraid}}'].find(v => v && v.indexOf('{{') === -1 && v !== 'undefined')\n          || urlParams.get('gclid') || urlParams.get('gbraid') || urlParams.get('wbraid') || '';\nif (cid) parts.unshift('src=' + encodeURIComponent(cid));\n\nconst query = parts.join('&');\nconst finalUrl = `https://pay.asegupag.com/checkout/9e94cca3-f46e-4e45-a57b-e430f0aa6782${query ? '?' + query : ''}`;\nwindow.location.href = finalUrl;"
+            "content": "const urlParams = new URLSearchParams(window.location.search);\n\n// click id do Google. {{gclid}} SEM ASPAS de proposito: o Typebot troca {{var}} pelo\n// NOME da variavel e injeta o valor como parametro da funcao. Entre aspas (bug ate\n// 27/07/2026) o script mandava o ID da variavel no lugar do gclid.\nconst cid = String({{gclid}} || {{gbraid}} || {{wbraid}}\n  || urlParams.get('gclid') || urlParams.get('gbraid') || urlParams.get('wbraid') || '');\n\nconst utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'ttclid'];\nconst parts = utmKeys\n  .filter(key => urlParams.has(key))\n  .map(key => `${key}=${encodeURIComponent(urlParams.get(key))}`);\n\nif (cid) {\n  parts.unshift('src=' + encodeURIComponent(cid));\n  // utm_content = CARRIER: o webhook do TopperPay nao tem campo src, mas devolve os utm_*.\n  parts.push('utm_content=' + encodeURIComponent(cid));\n} else if (urlParams.has('utm_content')) {\n  parts.push('utm_content=' + encodeURIComponent(urlParams.get('utm_content')));\n}\n\nconst query = parts.join('&');\nconst finalUrl = `https://pay.asegupag.com/checkout/9e94cca3-f46e-4e45-a57b-e430f0aa6782${query ? '?' + query : ''}`;\nwindow.location.href = finalUrl;"
           }
         }
       ]
@@ -2459,7 +2459,7 @@
       "description": "Central de Atendimento Correios",
       "imageUrl": "https://storage.chatcrrbrasil.online/typebot/public/workspaces/cm3ohdgf50008tbtysa6mss0z/typebots/cm3ohdlnl000ctbtyo6wzxw3b/ogImage?v=1732022831806",
       "favIconUrl": "https://storage.chatcrrbrasil.online/typebot/public/workspaces/cm3ohdgf50008tbtysa6mss0z/typebots/cm3ohdlnl000ctbtyo6wzxw3b/favIcon?v=1732022810313",
-      "customHeadCode": "<script\n  src=\"https://cdn.utmify.com.br/scripts/utms/latest.js\"\n  data-utmify-prevent-xcod-sck\n  data-utmify-prevent-subids\n  async\n  defer\n></script>\n<script>\n  window.googlePixelId = \"69456a75797f8fc1bf5ac180\";\n  var a = document.createElement(\"script\");\n  a.setAttribute(\"async\", \"\");\n  a.setAttribute(\"defer\", \"\");\n  a.setAttribute(\"src\", \"https://cdn.utmify.com.br/scripts/pixel/pixel-google.js\");\n  document.head.appendChild(a);\n</script>"
+      "customHeadCode": "<script\n  src=\"https://cdn.utmify.com.br/scripts/utms/latest.js\"\n  data-utmify-prevent-xcod-sck\n  data-utmify-prevent-subids\n  async\n  defer\n></script>\n"
     }
   },
   "createdAt": "2025-02-19T14:10:02.503Z",
