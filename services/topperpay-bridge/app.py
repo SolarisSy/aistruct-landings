@@ -221,6 +221,21 @@ def _conv_time(when: datetime | None = None) -> str:
     return dt.strftime("%Y-%m-%d %H:%M:%S") + TZ_OFFSET
 
 
+def _csv_time(iso: str) -> str:
+    """Converte o conv_time guardado (ISO '2026-07-27 11:31:50-03:00') pro formato que o
+    UPLOAD POR ARQUIVO do Google Ads aceita: 'MM/DD/YYYY HH:MM:SS'.
+
+    🚫 REFUTADO 27/07/2026 na conta do Bombilio: o ISO com offset — que é o formato da
+    Google Ads API — foi rejeitado nas 9 linhas com
+    "The value '2026-07-27 11:31:50-03:00' in column 'Conversion Time' is invalid."
+    O fuso vai no cabecalho Parameters:TimeZone, entao aqui NAO se manda offset.
+    """
+    try:
+        return datetime.fromisoformat(iso).strftime("%m/%d/%Y %H:%M:%S")
+    except (ValueError, TypeError):
+        return iso
+
+
 def _record(outcome: str, **extra) -> None:
     RECENT.appendleft({"at": _now(), "outcome": outcome, **extra})
 
@@ -469,7 +484,7 @@ def conversions_csv(request: Request, days: int | None = None, hours: int | None
     for gclid, _name, ctime, amount, cur in rows:
         # sempre o nome ATUAL da env (nao o gravado): se a acao for renomeada no Google
         # Ads, as conversoes antigas continuam casando sem precisar mexer no banco
-        w.writerow([gclid, CONVERSION_NAME, ctime,
+        w.writerow([gclid, CONVERSION_NAME, _csv_time(ctime),
                     f"{(amount or 0):.2f}", cur or CURRENCY])
 
     STATS["csv_served"] += 1
