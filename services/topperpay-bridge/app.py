@@ -417,18 +417,28 @@ async def webhook(request: Request):
 
 
 @app.get("/conversions.csv")
-def conversions_csv(request: Request, days: int | None = None):
+def conversions_csv(request: Request, days: int | None = None, hours: int | None = None):
     """CSV no formato do Google Ads (Importacoes programadas -> HTTPS).
 
     Cabecalho oficial do offline click conversion import. O Google deduplica
-    reimportacao da mesma (gclid, conversion name, conversion time).
+    reimportacao da mesma (gclid, conversion name, conversion time) — entao a MESMA
+    URL pode ser agendada varias vezes ao dia sem duplicar conversao.
+
+    ?hours=N  -> so as conversoes das ultimas N horas (agendamento de hora em hora,
+                 relatorio de upload limpo, sem linhas 'duplicada')
+    ?days=N   -> janela em dias (default CSV_WINDOW_DAYS=90, pega retroativo)
     """
     if not _authorized(request):
         STATS["forbidden"] += 1
         return PlainTextResponse("forbidden", status_code=403)
 
-    window = days or CSV_WINDOW_DAYS
-    since = (datetime.now(_tz()) - timedelta(days=window)).strftime("%Y-%m-%d")
+    now = datetime.now(_tz())
+    if hours:
+        # conv_time e string "YYYY-MM-DD HH:MM:SS-03:00" (offset fixo) -> comparacao
+        # lexicografica com o mesmo formato funciona
+        since = (now - timedelta(hours=hours)).strftime("%Y-%m-%d %H:%M:%S")
+    else:
+        since = (now - timedelta(days=days or CSV_WINDOW_DAYS)).strftime("%Y-%m-%d")
     rows: list[tuple] = []
     with DB_LOCK:
         con = _db()
