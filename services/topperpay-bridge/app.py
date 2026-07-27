@@ -452,6 +452,24 @@ def debug_recent(request: Request):
     return list(RECENT)
 
 
+@app.post("/debug/forget")
+def debug_forget(request: Request, payment_id: str):
+    """Apaga uma venda do banco — usado pra tirar sonda de QA antes do import."""
+    if not _authorized(request):
+        return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
+    n = 0
+    with DB_LOCK:
+        con = _db()
+        if con is not None:
+            try:
+                cur = con.execute("DELETE FROM conversions WHERE payment_id = ?", (payment_id,))
+                con.commit()
+                n = cur.rowcount
+            finally:
+                con.close()
+    return {"ok": True, "deleted": n, "payment_id": payment_id}
+
+
 @app.get("/debug/sales")
 def debug_sales(request: Request, limit: int = 50):
     """Vendas persistidas SEM PII — auditoria da marcacao."""
