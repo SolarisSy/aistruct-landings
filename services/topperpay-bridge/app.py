@@ -450,8 +450,10 @@ def conversions_csv(request: Request, days: int | None = None):
     w.writerow([f"Parameters:TimeZone={TZ_OFFSET}"])
     w.writerow(["Google Click ID", "Conversion Name", "Conversion Time",
                 "Conversion Value", "Conversion Currency"])
-    for gclid, name, ctime, amount, cur in rows:
-        w.writerow([gclid, name or CONVERSION_NAME, ctime,
+    for gclid, _name, ctime, amount, cur in rows:
+        # sempre o nome ATUAL da env (nao o gravado): se a acao for renomeada no Google
+        # Ads, as conversoes antigas continuam casando sem precisar mexer no banco
+        w.writerow([gclid, CONVERSION_NAME, ctime,
                     f"{(amount or 0):.2f}", cur or CURRENCY])
 
     STATS["csv_served"] += 1
