@@ -112,10 +112,14 @@ CREATE TABLE IF NOT EXISTS conversions (
   utm_content  TEXT,
   utm_source   TEXT,
   status       TEXT,
+  paid         INTEGER DEFAULT 0,
   created_at   TEXT
 );
 CREATE INDEX IF NOT EXISTS ix_conv_time ON conversions(conv_time);
 """
+
+# migracao: bancos criados antes da coluna 'paid'
+MIGRATIONS = ["ALTER TABLE conversions ADD COLUMN paid INTEGER DEFAULT 0"]
 
 
 def _db() -> sqlite3.Connection | None:
@@ -127,6 +131,11 @@ def _db() -> sqlite3.Connection | None:
                 os.makedirs(d, exist_ok=True)
             con = sqlite3.connect(path, timeout=10)
             con.executescript(DDL)
+            for sql in MIGRATIONS:
+                try:
+                    con.execute(sql)
+                except sqlite3.OperationalError:
+                    pass          # coluna ja existe
             con.commit()
             if path != DB_PATH:
                 log.warning("DB_PATH %s indisponivel — usando %s (NAO persiste em recreate)",
@@ -136,6 +145,23 @@ def _db() -> sqlite3.Connection | None:
         except Exception as e:  # noqa: BLE001
             log.error("sqlite %s: %s", path, e)
     return None
+
+
+def _lookup_gclid(payment_id: str) -> str | None:
+    """Click id já gravado pra esse pedido (ex.: veio no 'PIX gerado' e o evento de
+    aprovação chegou sem tracking)."""
+    with DB_LOCK:
+        con = _db()
+        if con is None:
+            return None
+        try:
+            r = con.execute("SELECT gclid FROM conversions WHERE payment_id = ?",
+                            (payment_id,)).fetchone()
+            return r[0] if r and r[0] else None
+        except Exception:  # noqa: BLE001
+            return None
+        finally:
+            con.close()
 
 
 def _persist(row: dict) -> None:
@@ -148,12 +174,21 @@ def _persist(row: dict) -> None:
             con.execute(
                 """INSERT INTO conversions
                    (payment_id, gclid, amount, currency, conv_name, conv_time, offer_id,
-                    offer_title, utm_content, utm_source, status, created_at)
+                    offer_title, utm_content, utm_source, status, paid, created_at)
                    VALUES (:payment_id, :gclid, :amount, :currency, :conv_name, :conv_time,
-                           :offer_id, :offer_title, :utm_content, :utm_source, :status, :created_at)
+                           :offer_id, :offer_title, :utm_content, :utm_source, :status,
+                           :paid, :created_at)
                    ON CONFLICT(payment_id) DO UPDATE SET
+                     -- o PIX gerado ja traz os utm_*; se o evento de aprovacao vier sem
+                     -- tracking, o click id do pendente salva a atribuicao
                      gclid=COALESCE(excluded.gclid, conversions.gclid),
-                     amount=excluded.amount, status=excluded.status""",
+                     utm_content=COALESCE(excluded.utm_content, conversions.utm_content),
+                     amount=excluded.amount,
+                     status=excluded.status,
+                     paid=MAX(excluded.paid, conversions.paid),
+                     -- a hora da conversao e a da APROVACAO, nao a do PIX gerado
+                     conv_time=CASE WHEN excluded.paid=1 THEN excluded.conv_time
+                                    ELSE conversions.conv_time END""",
                 row,
             )
             con.commit()
@@ -321,20 +356,16 @@ async def webhook(request: Request):
     except Exception:  # noqa: BLE001
         payload = {"_raw": (await request.body()).decode("utf-8", "ignore")[:2000]}
 
-    if not _is_paid(payload):
-        STATS["ignored"] += 1
-        _record("ignored", event=_walk_find(payload, "event") or _walk_find(payload, "status"))
-        return {"ok": True, "handled": "ignored (nao e compra aprovada)"}
-
-    STATS["paid"] += 1
+    paid = _is_paid(payload)
     gclid, found_in = _extract_gclid(payload)
     amount = _extract_amount(payload)
     order = _extract_order(payload)
     conv_time = _conv_time()
 
-    _record("paid", gclid=(gclid[:14] + "…") if gclid else None, gclid_field=found_in,
-            amount=amount, order=order, keys=list(payload.keys())[:15], raw=payload)
-
+    # ⚠️ evento nao-pago (PIX gerado / abandono) NAO vira conversao, mas e guardado:
+    #    (a) e o jeito de testar o webhook sem pagar nada;
+    #    (b) o PIX gerado ja carrega os utm_* — se o evento de aprovacao vier sem
+    #        tracking, o click id do pendente salva a atribuicao.
     _persist({
         "payment_id": order or f"noid-{_now()}",
         "gclid": gclid,
@@ -347,8 +378,31 @@ async def webhook(request: Request):
         "utm_content": _walk_find(payload, "utm_content"),
         "utm_source": _walk_find(payload, "utm_source"),
         "status": _walk_find(payload, "status"),
+        "paid": 1 if paid else 0,
         "created_at": _now(),
     })
+
+    if not paid:
+        STATS["ignored"] += 1
+        _record("pending", event=_walk_find(payload, "event"),
+                status=_walk_find(payload, "status"),
+                gclid=(gclid[:14] + "…") if gclid else None, gclid_field=found_in,
+                amount=amount, order=order, keys=list(payload.keys())[:15], raw=payload)
+        return {"ok": True, "handled": "nao-pago (guardado, nao vai pro CSV)",
+                "status": _walk_find(payload, "status"), "gclid_field": found_in,
+                "gclid_tail": gclid[-6:] if gclid else None}
+
+    STATS["paid"] += 1
+
+    # o evento de aprovacao pode vir sem tracking — nesse caso vale o click id que o
+    # 'PIX gerado' do MESMO pedido ja gravou (o _persist acima fez o COALESCE)
+    if not gclid and order:
+        herdado = _lookup_gclid(order)
+        if herdado:
+            gclid, found_in = herdado, "herdado do evento anterior (PIX gerado)"
+
+    _record("paid", gclid=(gclid[:14] + "…") if gclid else None, gclid_field=found_in,
+            amount=amount, order=order, keys=list(payload.keys())[:15], raw=payload)
 
     if not gclid:
         STATS["no_gclid"] += 1
@@ -383,7 +437,8 @@ def conversions_csv(request: Request, days: int | None = None):
                 rows = con.execute(
                     """SELECT gclid, conv_name, conv_time, amount, currency
                        FROM conversions
-                       WHERE gclid IS NOT NULL AND gclid <> '' AND conv_time >= ?
+                       WHERE paid = 1 AND gclid IS NOT NULL AND gclid <> ''
+                             AND conv_time >= ?
                        ORDER BY conv_time""",
                     (since,),
                 ).fetchall()
@@ -410,15 +465,17 @@ def healthz():
 
 @app.get("/info")
 def info():
-    n = na = 0
+    n = na = np_ = 0
     with DB_LOCK:
         con = _db()
         if con is not None:
             try:
                 n = con.execute("SELECT COUNT(*) FROM conversions").fetchone()[0]
                 na = con.execute(
-                    "SELECT COUNT(*) FROM conversions WHERE gclid IS NOT NULL AND gclid <> ''"
+                    """SELECT COUNT(*) FROM conversions
+                       WHERE paid = 1 AND gclid IS NOT NULL AND gclid <> ''"""
                 ).fetchone()[0]
+                np_ = con.execute("SELECT COUNT(*) FROM conversions WHERE paid = 0").fetchone()[0]
             finally:
                 con.close()
     return {
@@ -434,7 +491,8 @@ def info():
         "csv_window_days": CSV_WINDOW_DAYS,
         "db_path": DB_PATH,
         "sales_stored": n,
-        "sales_with_gclid": na,
+        "paid_with_gclid": na,            # exatamente o que o CSV entrega ao Google
+        "pending_stored": np_,            # PIX gerado/abandono — nao vai pro CSV
         "token_required": bool(TOKEN),
     }
 
@@ -482,7 +540,7 @@ def debug_sales(request: Request, limit: int = 50):
             try:
                 con.row_factory = sqlite3.Row
                 for r in con.execute(
-                    """SELECT payment_id, gclid, amount, conv_time, offer_title,
+                    """SELECT payment_id, paid, gclid, amount, conv_time, offer_title,
                               utm_content, utm_source, status
                        FROM conversions ORDER BY conv_time DESC LIMIT ?""", (limit,)
                 ):
