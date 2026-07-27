@@ -69,6 +69,8 @@ SHEET_SECRET = os.environ.get("GADS_SHEET_SECRET", "").strip() or None
 CONVERSION_NAME = os.environ.get("GADS_CONVERSION_NAME", "Compra").strip()
 CURRENCY = os.environ.get("GADS_CURRENCY", "BRL").strip()
 TZ_OFFSET = os.environ.get("TZ_OFFSET", "-03:00").strip()
+# nome do fuso pro cabecalho Parameters:TimeZone (formato que o Google documenta)
+TZ_NAME = os.environ.get("TZ_NAME", "America/Sao_Paulo").strip()
 CSV_WINDOW_DAYS = int(os.environ.get("CSV_WINDOW_DAYS", "30"))
 
 # eventos que contam como venda (o TopperPay manda status APPROVED / "Compra aprovada")
@@ -457,7 +459,11 @@ def conversions_csv(request: Request, days: int | None = None, hours: int | None
 
     buf = io.StringIO()
     w = csv.writer(buf, lineterminator="\n")
-    w.writerow([f"Parameters:TimeZone={TZ_OFFSET}"])
+    # ⚠️ o Google aceita nome de fuso ("America/Sao_Paulo") ou offset SEM dois-pontos
+    # ("-0300"). "-03:00" (com dois-pontos) nao e formato documentado — com ele o upload
+    # deu "Sem alterações" na conta do Bombilio (27/07). O Conversion Time continua
+    # levando o offset explicito, que e aceito no formato yyyy-MM-dd HH:mm:ss+|-HH:mm.
+    w.writerow([f"Parameters:TimeZone={TZ_NAME}"])
     w.writerow(["Google Click ID", "Conversion Name", "Conversion Time",
                 "Conversion Value", "Conversion Currency"])
     for gclid, _name, ctime, amount, cur in rows:
