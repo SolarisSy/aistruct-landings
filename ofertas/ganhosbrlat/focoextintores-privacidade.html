@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Política de Privacidade · Foco Extintores Ltda · Goiânia–GO</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Exo+2:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#080808;--dark:#0e0e0e;--plate:#161616;--red:#d42020;--red-hot:#ff2b2b;--orange:#e8600a;--yellow:#f0c000;--steel:#c8d4e0;--ink:#f0f0f0;--muted:rgba(240,240,240,.32);--border:rgba(212,32,32,.14);--card:rgba(212,32,32,.05)}
+html{scroll-behavior:smooth}
+body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+.haz{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.018;background-image:repeating-linear-gradient(-45deg,var(--red) 0,var(--red) 1px,transparent 0,transparent 50%);background-size:20px 20px}
+.noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+.emergency{position:fixed;top:0;left:0;right:0;height:4px;z-index:9999;background:repeating-linear-gradient(90deg,var(--red) 0,var(--red) 14px,var(--yellow) 14px,var(--yellow) 28px)}
+
+nav{position:fixed;top:4px;width:100%;z-index:999;background:rgba(8,8,8,.97);backdrop-filter:blur(40px);border-bottom:1px solid var(--border)}
+.ni{max-width:1380px;margin:0 auto;padding:1.3rem 3.5rem;display:flex;justify-content:space-between;align-items:center}
+.logo{text-decoration:none;display:flex;align-items:center;gap:1rem}
+.logo-ico{width:40px;height:40px;background:var(--red);clip-path:polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.logo-txt .logo-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;color:var(--ink);display:block}
+.logo-txt .logo-sub{font-family:'Share Tech Mono',monospace;font-size:.36rem;color:var(--muted);letter-spacing:3.5px;text-transform:uppercase}
+.back-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.48rem 1.3rem;border:1px solid var(--border);color:var(--muted);font-family:'Share Tech Mono',monospace;font-size:.54rem;text-decoration:none;transition:all .3s;letter-spacing:2px;text-transform:uppercase}
+.back-btn:hover{border-color:rgba(212,32,32,.3);color:var(--red);background:var(--card)}
+
+.ph{padding:9rem 3.5rem 5rem;position:relative;z-index:2}
+.ph::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:repeating-linear-gradient(90deg,var(--red) 0,var(--red) 12px,transparent 12px,transparent 24px)}
+.pi{max-width:860px;margin:0 auto}
+.ph-pre{font-family:'Share Tech Mono',monospace;font-size:.46rem;letter-spacing:6px;text-transform:uppercase;color:var(--red);margin-bottom:1rem;display:block;opacity:.7}
+.ph h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,7rem);letter-spacing:3px;text-transform:uppercase;color:var(--ink);line-height:.95;margin-bottom:1.2rem}
+.ph h1 em{font-family:'Exo 2',sans-serif;font-style:italic;font-weight:300;color:var(--red);font-size:.6em;letter-spacing:0;text-transform:none}
+.ph-sub{font-size:.88rem;color:var(--muted);max-width:520px;line-height:1.9;font-weight:300;margin-bottom:2rem}
+.ph-tags{display:flex;gap:.6rem;flex-wrap:wrap}
+.ph-tag{padding:.25rem .85rem;border:1px solid var(--border);font-family:'Share Tech Mono',monospace;font-size:.42rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+
+.content{position:relative;z-index:2;padding:5rem 3.5rem 8rem}
+.ci{max-width:860px;margin:0 auto}
+
+.toc{background:var(--dark);border:1px solid var(--border);border-left:4px solid var(--red);padding:2rem 2.5rem;margin-bottom:4rem}
+.toc h3{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;color:var(--red);margin-bottom:1.2rem}
+.toc ol{padding-left:1.2rem;columns:2;column-gap:2rem}
+.toc li{margin-bottom:.5rem}
+.toc a{color:var(--muted);font-size:.8rem;text-decoration:none;transition:.3s;font-weight:300}
+.toc a:hover{color:var(--ink)}
+
+.sec{margin-bottom:3.5rem;scroll-margin-top:100px}
+.sec-hd{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.sec-badge{background:var(--red);padding:.18rem .55rem;font-family:'Bebas Neue',sans-serif;font-size:.65rem;letter-spacing:2px;color:#fff;flex-shrink:0;clip-path:polygon(5% 0%,95% 0%,100% 50%,95% 100%,5% 100%,0% 50%)}
+.sec h2{font-family:'Exo 2',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.5px}
+.sec p{color:var(--muted);font-size:.88rem;line-height:1.95;margin-bottom:.9rem;font-weight:300}
+.sec strong{color:rgba(240,240,240,.75);font-weight:600}
+.sec ul{padding-left:1.2rem;margin-bottom:.9rem}
+.sec ul li{color:var(--muted);font-size:.85rem;line-height:1.9;margin-bottom:.35rem;font-weight:300}
+.sec ul li::marker{color:var(--red)}
+.sec a{color:var(--yellow);text-decoration:none;transition:.3s}
+.sec a:hover{color:var(--ink)}
+
+.highlight{background:rgba(212,32,32,.07);border-left:3px solid var(--red);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight p{margin:0;color:rgba(240,240,240,.65);font-size:.86rem;line-height:1.9;font-weight:300}
+.div-line{height:1px;background:var(--border);margin:2.5rem 0}
+
+.cta-box{background:var(--dark);border:1px solid var(--border);border-top:3px solid var(--red);padding:3rem;text-align:center;margin-top:3rem;position:relative;overflow:hidden}
+.cta-box::before{content:'🧯';position:absolute;top:-30px;right:10px;font-size:10rem;opacity:.04}
+.cta-box h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;color:var(--ink);margin-bottom:.6rem}
+.cta-box p{font-size:.86rem;color:var(--muted);margin-bottom:1.5rem;font-weight:300}
+.cta-box a{display:inline-flex;align-items:center;gap:.6rem;padding:.75rem 2.2rem;background:var(--red);color:#fff;font-family:'Exo 2',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .35s;clip-path:polygon(3% 0%,97% 0%,100% 50%,97% 100%,3% 100%,0% 50%)}
+.cta-box a:hover{background:var(--red-hot);transform:translateY(-2px)}
+
+footer{background:var(--dark);padding:2.5rem 3.5rem;border-top:1px solid var(--border);text-align:center}
+.fbot p{font-family:'Share Tech Mono',monospace;font-size:.42rem;color:var(--muted);opacity:.2;margin-bottom:.4rem;letter-spacing:.5px}
+.fbot a{font-family:'Share Tech Mono',monospace;font-size:.42rem;color:var(--red);text-decoration:none;opacity:.4}
+.fbot a:hover{opacity:1}
+@media(max-width:768px){.ni{padding:1.2rem 1.5rem}.ph{padding:7rem 1.5rem 4rem}.content{padding:3rem 1.5rem 6rem}.toc{padding:1.5rem}.toc ol{columns:1}footer{padding:2rem 1.5rem}}
+</style>
+</head>
+<body>
+<div class="haz"></div>
+<div class="noise"></div>
+<div class="emergency"></div>
+
+<nav>
+  <div class="ni">
+    <a class="logo" href="index.html">
+      <div class="logo-ico">🧯</div>
+      <div class="logo-txt">
+        <span class="logo-name">Foco Extintores Ltda</span>
+        <span class="logo-sub">Goiânia · Goiás · Brasil</span>
+      </div>
+    </a>
+    <a class="back-btn" href="index.html">← Voltar ao Site</a>
+  </div>
+</nav>
+
+<div class="ph">
+  <div class="pi">
+    <span class="ph-pre">🧯 Transparência · LGPD · Conformidade Legal</span>
+    <h1>Política de <em>Privacidade</em></h1>
+    <p class="ph-sub">Nosso compromisso com a proteção dos dados pessoais conforme a Lei Geral de Proteção de Dados — Lei nº 13.709/2018.</p>
+    <div class="ph-tags">
+      <div class="ph-tag">📅 Versão 2026</div>
+      <div class="ph-tag">🔒 LGPD Conforme</div>
+      <div class="ph-tag">▌ CNPJ 65.662.179/0001-98</div>
+      <div class="ph-tag">📍 Goiânia–GO</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="ci">
+    <div class="toc">
+      <h3>▌ Sumário</h3>
+      <ol>
+        <li><a href="#s1">Identificação do Responsável</a></li>
+        <li><a href="#s2">Dados Coletados</a></li>
+        <li><a href="#s3">Finalidade do Tratamento</a></li>
+        <li><a href="#s4">Base Legal (LGPD)</a></li>
+        <li><a href="#s5">Compartilhamento de Dados</a></li>
+        <li><a href="#s6">Armazenamento e Segurança</a></li>
+        <li><a href="#s7">Direitos dos Titulares</a></li>
+        <li><a href="#s8">Dados de Serviços Técnicos</a></li>
+        <li><a href="#s9">Cookies</a></li>
+        <li><a href="#s10">Links Externos</a></li>
+        <li><a href="#s11">Alterações</a></li>
+        <li><a href="#s12">Contato (DPO)</a></li>
+      </ol>
+    </div>
+
+    <div class="sec" id="s1"><div class="sec-hd"><div class="sec-badge">I</div><h2>Identificação do Responsável</h2></div>
+      <p>Esta Política de Privacidade é aplicada pela empresa <strong>Foco Extintores Ltda</strong>, responsável pelo tratamento dos dados pessoais coletados no contexto de suas atividades de manutenção, instalação e comercialização de equipamentos.</p>
+      <div class="highlight"><p>
+        <strong>Razão Social:</strong> Foco Extintores Ltda<br>
+        <strong>CNPJ:</strong> 65.662.179/0001-98 · Situação: <strong>ATIVA ✓</strong><br>
+        <strong>Endereço:</strong> Av. Firenze, 355 — Quadra 09 Lote 42 · Jd. Abaporu · Goiânia–GO · CEP 74.786-003<br>
+        <strong>E-mail:</strong> comercialfocoextintores@gmail.com · <strong>Telefone:</strong> (62) 9398-1105<br>
+        <strong>Atividade Principal:</strong> Manutenção e reparação de máquinas e equipamentos (CNAE 33.14-7-10)<br>
+        <strong>Abertura:</strong> 13/03/2026 · <strong>Porte:</strong> ME — Microempresa
+      </p></div>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s2"><div class="sec-hd"><div class="sec-badge">II</div><h2>Dados Coletados</h2></div>
+      <ul>
+        <li><strong>Identificação:</strong> nome completo, CPF ou CNPJ do cliente</li>
+        <li><strong>Contato:</strong> e-mail, telefone/WhatsApp, endereço de atendimento</li>
+        <li><strong>Serviços:</strong> descrição do equipamento, tipo de serviço, localização de instalação</li>
+        <li><strong>Ordens de serviço:</strong> histórico de manutenções, diagnósticos e intervenções técnicas</li>
+        <li><strong>Transações:</strong> pedidos, notas fiscais e histórico de compras</li>
+        <li><strong>Pagamento:</strong> dados processados por plataformas certificadas PCI-DSS</li>
+        <li><strong>Navegação:</strong> cookies e dados de acesso ao site</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s3"><div class="sec-hd"><div class="sec-badge">III</div><h2>Finalidade do Tratamento</h2></div>
+      <ul>
+        <li>Prestação de serviços de manutenção, reparação e instalação de equipamentos</li>
+        <li>Elaboração e gestão de ordens de serviço técnico</li>
+        <li>Comercialização de equipamentos elétricos, extintores e materiais de segurança</li>
+        <li>Emissão de notas fiscais e documentos comerciais</li>
+        <li>Comunicação sobre serviços, orçamentos e suporte técnico</li>
+        <li>Cumprimento de obrigações legais — Receita Federal, SEFAZ-GO, CBMGO</li>
+        <li>Melhoria contínua dos serviços prestados</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s4"><div class="sec-hd"><div class="sec-badge">IV</div><h2>Base Legal — LGPD</h2></div>
+      <ul>
+        <li><strong>Execução de contrato (Art. 7º, V):</strong> ordens de serviço e prestação de serviços técnicos</li>
+        <li><strong>Obrigação legal (Art. 7º, II):</strong> emissão de notas fiscais, ART técnicas e obrigações tributárias</li>
+        <li><strong>Consentimento (Art. 7º, I):</strong> cadastro e comunicações de marketing</li>
+        <li><strong>Legítimo interesse (Art. 7º, IX):</strong> segurança operacional e gestão dos serviços</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s5"><div class="sec-hd"><div class="sec-badge">V</div><h2>Compartilhamento de Dados</h2></div>
+      <p>Dados <strong>nunca são vendidos</strong>. Compartilhamentos ocorrem somente:</p>
+      <ul>
+        <li><strong>Obrigação legal:</strong> Receita Federal, SEFAZ-GO, CBMGO (Corpo de Bombeiros) e demais autoridades competentes</li>
+        <li><strong>Fornecedores:</strong> dados mínimos para pedidos de peças e rastreamento</li>
+        <li><strong>Pagamentos:</strong> plataformas certificadas para processamento seguro</li>
+        <li><strong>Garantia técnica:</strong> quando necessário para acionamento de garantias de equipamentos</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s6"><div class="sec-hd"><div class="sec-badge">VI</div><h2>Armazenamento e Segurança</h2></div>
+      <ul>
+        <li>Comunicações via site protegidas por criptografia HTTPS/SSL</li>
+        <li>Ordens de serviço e registros fiscais mantidos pelo prazo legal mínimo de 5 anos</li>
+        <li>Acesso a dados restrito a colaboradores autorizados</li>
+        <li>Dados de pagamento nunca armazenados — plataformas certificadas</li>
+        <li>Registros técnicos e ART mantidos conforme exigências do CBMGO e normas ABNT</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s7"><div class="sec-hd"><div class="sec-badge">VII</div><h2>Direitos dos Titulares</h2></div>
+      <p>Conforme a LGPD, você tem direito a:</p>
+      <ul>
+        <li>Acesso e cópia dos seus dados pessoais tratados por nós</li>
+        <li>Correção de dados incompletos, inexatos ou desatualizados</li>
+        <li>Eliminação de dados tratados por consentimento (exceto obrigações legais)</li>
+        <li>Revogação do consentimento para comunicações de marketing</li>
+        <li>Portabilidade e informação sobre compartilhamentos realizados</li>
+      </ul>
+      <p>Para exercer seus direitos: <strong>comercialfocoextintores@gmail.com</strong> · <strong>(62) 9398-1105</strong></p>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s8"><div class="sec-hd"><div class="sec-badge">VIII</div><h2>Dados de Serviços Técnicos</h2></div>
+      <p>No contexto de manutenção e instalação de sistemas de prevenção contra incêndio, coletamos dados técnicos dos equipamentos e instalações conforme exigido pelas normas ABNT NBR e pelo Corpo de Bombeiros de Goiás (CBMGO). Esses dados são:</p>
+      <ul>
+        <li>Registrados nas ordens de serviço e laudos técnicos obrigatórios</li>
+        <li>Compartilhados com órgãos reguladores quando exigido por lei (CBMGO, INMETRO)</li>
+        <li>Mantidos pelo prazo determinado pela legislação de segurança contra incêndio</li>
+        <li>Tratados com segurança e confidencialidade conforme boas práticas técnicas</li>
+      </ul>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s9"><div class="sec-hd"><div class="sec-badge">IX</div><h2>Cookies</h2></div>
+      <p>Utilizamos apenas cookies técnicos essenciais para o funcionamento do site. Nenhum rastreamento invasivo sem consentimento prévio.</p>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s10"><div class="sec-hd"><div class="sec-badge">X</div><h2>Links Externos</h2></div>
+      <p>Esta política aplica-se exclusivamente ao site da Foco Extintores Ltda. Links externos possuem políticas próprias pelas quais não nos responsabilizamos.</p>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s11"><div class="sec-hd"><div class="sec-badge">XI</div><h2>Alterações</h2></div>
+      <div class="highlight"><p><strong>Vigência:</strong> 13 de março de 2026 &nbsp;·&nbsp; <strong>Última atualização:</strong> Julho de 2026 &nbsp;·&nbsp; <strong>Versão:</strong> 1.0</p></div>
+    </div><div class="div-line"></div>
+
+    <div class="sec" id="s12"><div class="sec-hd"><div class="sec-badge">XII</div><h2>Contato do Encarregado (DPO)</h2></div>
+      <div class="highlight"><p>
+        <strong>Empresa:</strong> Foco Extintores Ltda<br>
+        <strong>E-mail:</strong> comercialfocoextintores@gmail.com<br>
+        <strong>Telefone:</strong> (62) 9398-1105<br>
+        <strong>Endereço:</strong> Av. Firenze, 355 — Quadra 09 Lote 42 · Jd. Abaporu · Goiânia–GO · CEP 74.786-003
+      </p></div>
+      <p>Autoridade Nacional de Proteção de Dados (ANPD): <a href="https://www.gov.br/anpd" target="_blank">www.gov.br/anpd</a></p>
+    </div>
+
+    <div class="cta-box">
+      <h3>🧯 Dúvidas sobre Privacidade?</h3>
+      <p>Respondemos em até 15 dias úteis conforme a LGPD.</p>
+      <a href="mailto:comercialfocoextintores@gmail.com">▌ ENTRAR EM CONTATO</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fbot">
+    <p>© 2026 Foco Extintores Ltda — CNPJ: 65.662.179/0001-98 · Goiânia–GO</p>
+    <a href="index.html">← Voltar ao Site Principal</a>
+  </div>
+</footer>
+</body>
+</html>
