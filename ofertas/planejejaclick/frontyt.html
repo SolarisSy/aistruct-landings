@@ -11,24 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-  <!-- Utmify Pixel Google -->
-  <script>
-    window.googlePixelId = "6a5c2403330a95e4d9ed8ca6";
-    var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
-    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
-    document.head.appendChild(a);
-  </script>
-
-  <!-- Utmify UTM capture (CLAUDE.md: obrigatório no frontyt) -->
-  <script
-    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-    data-utmify-prevent-xcod-sck
-    data-utmify-prevent-subids
-    async
-    defer
-  ></script>
+  <!-- Migração RedTrack (28/07): UTMify REMOVIDA do frontyt.
+       O utms/latest.js carimbava utm_term= VAZIO no link do checkout e o glue
+       (if !has) não sobrescrevia → rtkcid nunca chegava. A marcação agora é 100%
+       RedTrack: glue mapeia rtkcid->utm_term; conversão via paggins-redtrack-bridge. -->
 
   <!-- Vturb SmartPlayer v4 -->
   <script src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" id="vturb-smartplayer-js" fetchpriority="high"></script>
@@ -196,6 +182,9 @@
       try {
         var p = new URLSearchParams(location.search);
         KEYS.forEach(function(k){ var v=p.get(k); if(v) out[k]=v; });
+        // RedTrack: o clickid chega na landing como rtkcid; o checkout Paggins
+        // espera ele em utm_term (padrão validado). Mapeia rtkcid -> utm_term.
+        var rtk = p.get('rtkcid'); if(rtk) out['utm_term'] = rtk;
         if(!out.src){ var s = p.get('src')||p.get('gclid')||p.get('utm_source'); if(s) out.src=s; }
       } catch(e){}
       return out;
