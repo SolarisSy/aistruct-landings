@@ -8,24 +8,10 @@
 
   <!-- Fonte usada no header -->
 
-  <!-- Utmify Pixel Google -->
-  <script>
-    window.googlePixelId = "6a5c2403330a95e4d9ed8ca6";
-    var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
-    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
-    document.head.appendChild(a);
-  </script>
-
-  <!-- Utmify UTM capture (CLAUDE.md: obrigatório no frontyt) -->
-  <script
-    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-    data-utmify-prevent-xcod-sck
-    data-utmify-prevent-subids
-    async
-    defer
-  ></script>
+  <!-- Migração RedTrack (27/07): UTMify REMOVIDA do frontyt.
+       O utms/latest.js carimbava utm_term= VAZIO no link do checkout e o glue
+       (if !has) não sobrescrevia → rtkcid nunca chegava. A marcação agora é 100%
+       RedTrack: glue mapeia rtkcid->utm_term; conversão via paggins-redtrack-bridge. -->
 
   <!-- Vturb SmartPlayer v4 -->
   <script src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" id="vturb-smartplayer-js" fetchpriority="high"></script>
