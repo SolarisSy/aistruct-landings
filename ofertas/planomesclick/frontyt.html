@@ -179,9 +179,16 @@
       try {
         var p = new URLSearchParams(location.search);
         KEYS.forEach(function(k){ var v=p.get(k); if(v) out[k]=v; });
-        // RedTrack: o clickid chega na landing como rtkcid; o checkout Paggins
-        // espera ele em utm_term (padrão validado). Mapeia rtkcid -> utm_term.
-        var rtk = p.get('rtkcid'); if(rtk) out['utm_term'] = rtk;
+        // RedTrack no-redirect: o clickid vem do unilpclick.js (sessionStorage/cookie);
+        // no modo redirect antigo vinha como ?rtkcid= na URL. Le os TRES, nessa ordem
+        // (receita validada em premiabr.cfd). Checkout Paggins espera em utm_term.
+        var rtk = (function(){
+          try { var s = sessionStorage.getItem('rtkclickid'); if (s) return s; } catch(e){}
+          var m = document.cookie.match(/(?:^|;\s*)rtkclickid-store=([^;]+)/);
+          if (m && m[1] && m[1] !== 'undefined') return decodeURIComponent(m[1]);
+          try { return p.get('rtkcid') || p.get('clickid') || null; } catch(e){ return null; }
+        })();
+        if(rtk) out['utm_term'] = rtk;
         if(!out.src){ var s = p.get('src')||p.get('gclid')||p.get('utm_source'); if(s) out.src=s; }
       } catch(e){}
       return out;
@@ -230,5 +237,10 @@
   </script>
   
 
+
+  <!-- RedTrack Universal script /click (no-redirect). FIM do <body>.
+       Registra o clique (lê cmpid+gclid da URL) e guarda o clickid em
+       sessionStorage.rtkclickid + cookie rtkclickid-store (domain .planomes.click). -->
+  <script src="https://trk.planomes.click/unilpclick.js?attribution=lastpaid&cookiedomain=planomes.click&cookieduration=30&defaultcampaignid=6a68e99ca80a33abd222956c&regviewonce=false"></script>
 </body>
 </html>
