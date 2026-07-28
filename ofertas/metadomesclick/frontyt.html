@@ -193,6 +193,9 @@
       try {
         var p = new URLSearchParams(location.search);
         KEYS.forEach(function(k){ var v=p.get(k); if(v) out[k]=v; });
+        // RedTrack: o clickid chega na landing como rtkcid; o checkout Paggins
+        // espera ele em utm_term (padrão validado). Mapeia rtkcid -> utm_term.
+        var rtk = p.get('rtkcid'); if(rtk) out['utm_term'] = rtk;
         if(!out.src){ var s = p.get('src')||p.get('gclid')||p.get('utm_source'); if(s) out.src=s; }
       } catch(e){}
       return out;
