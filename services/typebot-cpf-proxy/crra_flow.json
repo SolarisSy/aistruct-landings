@@ -584,13 +584,6 @@
                 "children": [
                   {
                     "bold": true,
-                    "text": "Sexo:"
-                  },
-                  {
-                    "text": " {{sexo}}\n"
-                  },
-                  {
-                    "bold": true,
                     "text": "Caso estiver correto, clique no botão abaixo para confirmar."
                   }
                 ]
@@ -1954,13 +1947,6 @@
               {
                 "type": "p",
                 "children": [
-                  {
-                    "bold": true,
-                    "text": "Sexo:"
-                  },
-                  {
-                    "text": " {{sexo}}\n"
-                  },
                   {
                     "bold": true,
                     "text": "Caso estiver correto, clique no botão abaixo para confirmar."
