@@ -572,18 +572,6 @@
                 "children": [
                   {
                     "bold": true,
-                    "text": "Nome da Mãe: "
-                  },
-                  {
-                    "text": "{{nomeMae}}"
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "bold": true,
                     "text": "Caso estiver correto, clique no botão abaixo para confirmar."
                   }
                 ]
