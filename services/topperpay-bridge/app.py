@@ -61,6 +61,13 @@ logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
 log = logging.getLogger("topperpay-bridge")
 
 TOKEN = os.environ.get("TOPPERPAY_TOKEN", "").strip() or None
+# ⚠️ 29/07/2026: o checkout do TopperPay SERIALIZA a config do webhook no HTML PUBLICO
+# ("callbackUrl":".../webhook?token=<TOKEN>","token":"<TOKEN>"). Ou seja: o TOPPERPAY_TOKEN
+# e publico por construcao e rotacionar nao adianta — o token novo vaza igual no proximo
+# carregamento do checkout. Por isso os /debug/* (que expoem PII do comprador) passam a
+# exigir um segredo SEPARADO, que nunca sai daqui.
+# Sem ADMIN_TOKEN setado, os /debug/* ficam FECHADOS (fail-closed) em vez de cair no token publico.
+ADMIN_TOKEN = os.environ.get("TOPPERPAY_ADMIN_TOKEN", "").strip() or None
 GCLID_FIELDS = [f.strip() for f in os.environ.get(
     "GCLID_FIELDS",
     "src,gclid,utm_content,utm_term,utm_src,utm.src,tracking").split(",") if f.strip()]
@@ -287,16 +294,50 @@ def _parse_brl(s: Any) -> float | None:
         return None
 
 
+# campos que o TopperPay SEMPRE manda em centavos — converter pelo NOME do campo,
+# nunca por heuristica de grandeza (ver bug abaixo).
+CAMPOS_EM_CENTAVOS = {"totalValue", "price", "net_amount"}
+
+
 def _extract_amount(payload: dict) -> float | None:
+    """⚠️ BUG CORRIGIDO 29/07/2026: a regra antiga era `if a >= 1000: a/100`, o que
+    inflava 100x toda venda abaixo de R$ 10,00 — um order bump de R$ 9,90 chega como
+    990 (centavos), nao passava do limiar, e ia pro CSV como 'Conversion Value = 990.00'.
+    O Google entao aprende que aquele clique valeu R$ 990 e o lance sobe em cima de
+    receita inexistente. Agora a conversao e pelo NOME do campo, que e deterministico.
+    """
     for k in ("totalValue", "total_price", "amount", "value", "total", "valor", "price", "net_amount"):
         v = _walk_find(payload, k)
         a = _parse_brl(v)
-        if a is not None:
-            # TopperPay manda CENTAVOS em totalValue (6790 = R$ 67,90)
-            if a >= 1000 and float(a).is_integer():
-                a = a / 100.0
-            return a
+        if a is None:
+            continue
+        if k in CAMPOS_EM_CENTAVOS and float(a).is_integer():
+            a = a / 100.0
+        return a
     return None
+
+
+def _conv_time_do_payload(payload: dict) -> str:
+    """Hora da conversao vinda do PAYLOAD, nao do recebimento.
+
+    ⚠️ BUG CORRIGIDO 29/07/2026: usar `datetime.now()` tornava o valor NAO-IDEMPOTENTE.
+    O Google deduplica offline conversion por (gclid + nome da acao + HORA). Um retry do
+    gateway, ou um "reenviar webhook" no painel, gerava uma linha com hora NOVA -> chave de
+    dedup diferente -> a MESMA venda contava duas vezes. Derivando do payload, reentregar
+    o mesmo evento produz exatamente a mesma linha.
+    """
+    for k in ("updatedAt", "createdAt", "paidAt", "approvedAt"):
+        v = _walk_find(payload, k)
+        if not v:
+            continue
+        try:
+            dt = datetime.fromisoformat(str(v).replace("Z", "+00:00"))
+        except (ValueError, TypeError):
+            continue
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return _conv_time(dt)
+    return _conv_time()          # fallback: agora (payload sem data)
 
 
 def _extract_order(payload: dict) -> str | None:
@@ -342,6 +383,18 @@ def _send_to_sheet(gclid: str, amount: float | None, order: str | None, conv_tim
         _record("sheet_error", err=str(e)[:120])
 
 
+def _admin(request: Request) -> bool:
+    """Segredo SEPARADO pros /debug/* — o TOPPERPAY_TOKEN e publico (vaza no checkout).
+
+    Fail-closed: sem TOPPERPAY_ADMIN_TOKEN configurado, ninguem entra.
+    """
+    if not ADMIN_TOKEN:
+        return False
+    got = (request.query_params.get("admin")
+           or request.headers.get("x-admin-token"))
+    return got == ADMIN_TOKEN
+
+
 def _authorized(request: Request) -> bool:
     if not TOKEN:
         return True
@@ -377,7 +430,7 @@ async def webhook(request: Request):
     gclid, found_in = _extract_gclid(payload)
     amount = _extract_amount(payload)
     order = _extract_order(payload)
-    conv_time = _conv_time()
+    conv_time = _conv_time_do_payload(payload)   # idempotente: retry nao vira 2a conversao
 
     # ⚠️ evento nao-pago (PIX gerado / abandono) NAO vira conversao, mas e guardado:
     #    (a) e o jeito de testar o webhook sem pagar nada;
@@ -537,8 +590,8 @@ def debug_stats():
 
 @app.get("/debug/recent")
 def debug_recent(request: Request):
-    """Payload cru (contem PII do comprador) — exige token."""
-    if not _authorized(request):
+    """Payload cru (contem PII do comprador) — exige o segredo ADMIN, nao o token publico."""
+    if not _admin(request):
         return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
     return list(RECENT)
 
@@ -546,7 +599,7 @@ def debug_recent(request: Request):
 @app.post("/debug/forget")
 def debug_forget(request: Request, payment_id: str):
     """Apaga uma venda do banco — usado pra tirar sonda de QA antes do import."""
-    if not _authorized(request):
+    if not _admin(request):
         return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
     n = 0
     with DB_LOCK:
@@ -564,7 +617,7 @@ def debug_forget(request: Request, payment_id: str):
 @app.get("/debug/sales")
 def debug_sales(request: Request, limit: int = 50):
     """Vendas persistidas SEM PII — auditoria da marcacao."""
-    if not _authorized(request):
+    if not _admin(request):
         return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
     out = []
     with DB_LOCK:
