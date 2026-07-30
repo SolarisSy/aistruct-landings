@@ -26,8 +26,15 @@
   function getUtmParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const keys = ['utm_source', 'utm_campaign', 'utm_medium', 'utm_content', 'utm_term'];
+    const clickKeys = ['gclid', 'src', 'gbraid', 'wbraid'];
     const out = {};
     keys.forEach(k => { out[k] = urlParams.get(k) || 'direct'; });
+    clickKeys.forEach(k => { const v = urlParams.get(k); if (v) out[k] = v; });
+    const click = out.gclid || out.src || '';
+    if (click && (!out.utm_content || out.utm_content === 'direct')) {
+      out.utm_content = click;
+      out.src = click;
+    }
     return out;
   }
 

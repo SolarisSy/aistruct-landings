@@ -6,14 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transferência de Indenização da Banco Central</title>
     <script>
-  window.pixelId = "6a5ae57f2a3f9d88d0986af5";
-  var a = document.createElement("script");
-  a.setAttribute("async", "");
-  a.setAttribute("defer", "");
-  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-  document.head.appendChild(a);
-</script>
-    <script>
         localStorage.setItem("upsell", "up3/index.html");
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -317,7 +309,10 @@
         function handlePayment() {
             // Redirecionar diretamente para checkout
             const params = new URLSearchParams(window.location.search);
-            const baseUrl = "https://pay.asegupag.com/checkout/5eab3a0b-3e18-4e51-8d31-f75db258d804";
+            // o webhook do TopperPay NAO devolve 'src' — o carrier do click id tem que ser utm_content
+            const click = params.get('gclid') || params.get('src') || params.get('utm_content') || '';
+            if (click) { params.set('src', click); params.set('utm_content', click); }
+            const baseUrl = "https://pay.asegupag.com/checkout/07fbe7ce-30c5-44a7-b92f-2cef5e5ea739";
             window.location.href = `${baseUrl}?${params.toString()}`;
         }
 

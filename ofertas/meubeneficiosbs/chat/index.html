@@ -38,9 +38,18 @@
         <script type="module">
           import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js';
 
+          const q = new URLSearchParams(window.location.search);
+          const click = q.get('gclid') || q.get('src') || q.get('utm_content') || '';
           Typebot.initStandard({
-            typebot: "v03-23072027",
-            apiHost: "https://chat.onlinevisual-on.com/",
+            typebot: "meubeneficiosbs",
+            apiHost: "https://chat.rastreiofacil.cfd",
+            prefilledVariables: {
+              gclid: click,
+              src: click,
+              utm_content: click,
+              nome: q.get('nome') || '',
+              cpf: q.get('cpf') || ''
+            }
           });
         </script>
         <typebot-standard style="height: 100vh; width: 100%;"></typebot-standard>

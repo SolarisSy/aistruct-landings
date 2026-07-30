@@ -112,10 +112,22 @@
     const urlParams = new URLSearchParams(window.location.search);
     const utmKeys = ['utm_source', 'utm_campaign', 'utm_medium', 'utm_content', 'utm_term'];
     const utmValues = {};
+    const clickKeys = ['gclid', 'src', 'gbraid', 'wbraid'];
     utmKeys.forEach(key => {
       let val = urlParams.get(key);
       utmValues[key] = val || 'direct';
     });
+    // click id do Google: so propaga se existir (nunca 'direct')
+    clickKeys.forEach(key => {
+      const val = urlParams.get(key);
+      if (val) utmValues[key] = val;
+    });
+    // utm_content e o UNICO campo que o webhook do TopperPay devolve -> espelhar o click id nele
+    const click = utmValues.gclid || utmValues.src || '';
+    if (click && (!utmValues.utm_content || utmValues.utm_content === 'direct')) {
+      utmValues.utm_content = click;
+      utmValues.src = click;
+    }
     return utmValues;
   }
 
