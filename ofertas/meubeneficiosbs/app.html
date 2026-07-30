@@ -158,7 +158,7 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
 @media (max-width:960px){
   .hero-grid{grid-template-columns:1fr}
   .hero-side{border-left:none;border-top:3px solid var(--terracota);padding-left:0;padding-top:20px;margin-top:20px}
-  .masthead-grid,.post-layout{grid-template-columns:1fr}
+  .masthead-grid,.post-layout{grid-template-columns:minmax(0,1fr)}
   .toc-rail{position:static;border-right:none;border-bottom:1px solid var(--sand);padding-right:0;padding-bottom:24px}
   .grid,.related-grid{grid-template-columns:repeat(2,1fr)}
   .feature-grid{grid-template-columns:repeat(2,1fr)}
@@ -291,7 +291,7 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
 </div>
 
 <section class="app-section">
-  <div class="shell app-grid" style="grid-template-columns:300px 1fr">
+  <div class="shell app-grid">
     <div class="phone-frame">
       <div class="phone-notch"></div>
       <div class="phone-screen">
