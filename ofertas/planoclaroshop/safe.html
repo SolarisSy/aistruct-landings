@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plano Claro — caderno de rotina e planejamento de casa</title>
+<meta name="description" content="Caderno independente sobre organizacao domestica: listas que aguentam a semana, rodizio de faxina, cozinha em lote, papelada e vencimentos.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://planoclaro.shop/safe.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f6f4ee'/%3E%3Crect x='4' y='6' width='24' height='2' fill='%232f5d50'/%3E%3Crect x='4' y='14' width='24' height='2' fill='%231f1d19'/%3E%3Crect x='4' y='22' width='16' height='2' fill='%231f1d19'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Plano Claro — caderno de rotina e planejamento de casa">
+<meta property="og:description" content="Caderno independente sobre organizacao domestica: listas que aguentam a semana, rodizio de faxina, cozinha em lote, papelada e vencimentos.">
+<meta property="og:url" content="https://planoclaro.shop/safe.html">
+<meta property="og:image" content="https://planoclaro.shop/img/_hero.jpg">
+<style>
+:root{
+  --papel:#f6f4ee; --tinta:#1f1d19; --tinta-fraca:#5c574d; --verde:#2f5d50;
+  --pauta:#ddd8c9; --margem-nota:150px; --coluna:780px; --canto:2px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);
+  font:16px/1.72 Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif}
+.folha{max-width:calc(var(--coluna) + var(--margem-nota));margin:0 auto;padding:0 22px}
+.cabecalho{border-bottom:2px solid var(--tinta);padding:26px 0 12px}
+.marca{font:700 25px/1 Verdana,Geneva,sans-serif;letter-spacing:-.5px;color:var(--tinta);
+  text-decoration:none;display:inline-block}
+.marca em{font-style:normal;color:var(--verde)}
+.subtitulo{font:11px/1.4 Verdana,Geneva,sans-serif;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--tinta-fraca);margin-top:7px}
+.menu{padding:9px 0 0;font:13px/2.1 Verdana,Geneva,sans-serif}
+.menu a{color:var(--tinta);text-decoration:none;margin-right:19px;border-bottom:1px solid transparent}
+.menu a:hover{border-bottom-color:var(--verde)}
+.bloco{display:grid;grid-template-columns:var(--margem-nota) 1fr;gap:26px;
+  padding:30px 0;border-bottom:1px solid var(--pauta)}
+.nota{font:11px/1.7 Verdana,Geneva,sans-serif;color:var(--tinta-fraca);text-transform:uppercase;
+  letter-spacing:.11em}
+.nota b{display:block;font-size:19px;letter-spacing:normal;color:var(--verde);text-transform:none}
+.corpo>*:first-child{margin-top:0}
+h1{font:700 34px/1.24 Charter,Georgia,serif;margin:0 0 14px}
+h2{font:700 23px/1.32 Charter,Georgia,serif;margin:30px 0 10px}
+h3{font:700 15px/1.4 Verdana,Geneva,sans-serif;margin:22px 0 6px;letter-spacing:-.2px}
+p{margin:0 0 15px}
+a{color:var(--verde)}
+ul,ol{margin:0 0 16px;padding-left:20px}
+li{margin-bottom:7px}
+img{max-width:100%;height:auto;border-radius:var(--canto);display:block}
+figure{margin:0 0 20px}
+figcaption{font:11px/1.6 Verdana,Geneva,sans-serif;color:var(--tinta-fraca);padding-top:6px}
+.resumo{border-left:3px solid var(--verde);padding:3px 0 3px 15px;margin:0 0 24px;
+  font-size:15px;color:var(--tinta-fraca)}
+.tabela{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:14px}
+.tabela th,.tabela td{text-align:left;padding:8px 10px 8px 0;border-bottom:1px solid var(--pauta);
+  vertical-align:top}
+.tabela th{font:700 11px/1.5 Verdana,Geneva,sans-serif;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--tinta-fraca)}
+.indice{list-style:none;padding:0;margin:0}
+.indice li{border-bottom:1px solid var(--pauta);padding:15px 0;margin:0}
+.indice li:last-child{border-bottom:0}
+.indice a{font:700 19px/1.35 Charter,Georgia,serif;color:var(--tinta);text-decoration:none;
+  display:block;margin-bottom:5px}
+.indice a:hover{color:var(--verde)}
+.indice p{font-size:14px;color:var(--tinta-fraca);margin:0}
+.data{font:11px/1.6 Verdana,Geneva,sans-serif;color:var(--tinta-fraca);letter-spacing:.09em;
+  text-transform:uppercase}
+.assinatura{font:12px/1.7 Verdana,Geneva,sans-serif;color:var(--tinta-fraca);
+  border-top:1px solid var(--pauta);padding-top:12px;margin-top:26px}
+.recado{border:1px solid var(--pauta);padding:16px 18px;margin:26px 0;background:#fffdf7}
+.recado label{display:block;font:11px/1.6 Verdana,Geneva,sans-serif;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--tinta-fraca);margin-bottom:7px}
+.recado input{border:0;border-bottom:1px solid var(--tinta);background:transparent;
+  padding:6px 2px;font:15px Charter,Georgia,serif;width:min(300px,100%)}
+.recado button{border:1px solid var(--verde);background:var(--verde);color:#f6f4ee;
+  padding:8px 17px;font:12px Verdana,Geneva,sans-serif;letter-spacing:.06em;cursor:pointer;
+  border-radius:var(--canto);margin-left:8px}
+.rodape{border-top:2px solid var(--tinta);margin-top:34px;padding:20px 0 44px;
+  font:12px/1.9 Verdana,Geneva,sans-serif;color:var(--tinta-fraca)}
+.rodape a{color:var(--tinta-fraca);margin-right:14px}
+.rodape .aviso{margin-top:12px;font-size:11px;line-height:1.7}
+.trilha{font:11px/1.6 Verdana,Geneva,sans-serif;color:var(--tinta-fraca);padding:16px 0 0;
+  letter-spacing:.06em}
+.trilha a{color:var(--tinta-fraca)}
+@media (max-width:720px){
+  .bloco{grid-template-columns:1fr;gap:8px;padding:22px 0}
+  .nota b{display:inline;font-size:15px}
+  h1{font-size:27px}
+  h2{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="folha">
+<header class="cabecalho">
+  <a class="marca" href="safe.html">Plano<em>Claro</em></a>
+  <div class="subtitulo">Caderno de rotina e planejamento de casa</div>
+  <nav class="menu"><a href="safe.html">Caderno</a><a href="app.html">Semana Curta</a><a href="glossario.html">Vocabulario</a><a href="faq.html">Duvidas</a><a href="sobre.html">Quem faz</a></nav>
+</header>
+<section class="bloco">
+<aside class="nota">Edicao de<b>maio</b></aside>
+<div class="corpo">
+<h1>Um caderno sobre fazer a casa caber na semana</h1>
+<p class="resumo">Escrevemos sobre planejamento domestico do jeito que ele acontece de verdade:
+com imprevisto, com cansaco de quinta-feira e com listas que precisam caber num cartao.</p>
+<figure><img src="img/_hero.jpg" alt="Caderno de planejamento semanal aberto ao lado de uma xicara"
+loading="lazy" width="900" height="560"><figcaption>O caderno da semana, antes da segunda-feira
+comecar.</figcaption></figure>
+<p>O Plano Claro nasceu de uma constatacao chata: quase todo metodo de organizacao domestica e
+escrito para uma casa que nao existe, com tempo de sobra e ninguem doente. Aqui a premissa e
+outra. Comecamos pelo tempo que realmente sobra e desenhamos a rotina para caber nele.</p>
+<p>Os textos sao curtos, testados em casa e revisados quando a pratica desmente a teoria. Nao
+vendemos produto, nao ha curso, e a ferramenta que mantemos
+(<a href="app.html">Semana Curta</a>) e um quadro simples de tarefas por bloco de tempo.</p>
+</div>
+</section>
+<section class="bloco">
+<aside class="nota">Indice<b>6 textos</b></aside>
+<div class="corpo">
+<h2>Textos do caderno</h2>
+<ul class="indice"><li><a href="lista-de-segunda-falha-na-quinta.html">Por que a lista de segunda-feira falha na quinta</a><p>Quem escreve a lista e a versao descansada de voce, no domingo. Quem executa e a versao cansada de quinta-feira. As duas raramente combinam.</p></li><li><a href="faxina-por-rodizio.html">Faxina por rodizio em vez de mutirao de sabado</a><p>O mutirao concentra quatro horas num dia so. O rodizio espalha as mesmas quatro horas em seis dias e sobrevive melhor a imprevisto.</p></li><li><a href="cozinhar-uma-vez-comer-tres-dias.html">Cozinhar uma vez e comer tres dias sem enjoar da comida</a><p>Congelar tres marmitas iguais e a receita do enjoo na terceira. Preparar base, proteina e um molho separados resolve o mesmo tempo com tres refeicoes diferentes.</p></li><li><a href="gaveta-de-papeis-e-vencimentos.html">A gaveta de papeis e o calendario de vencimentos</a><p>A gaveta de papeis nao precisa ser bonita, precisa ter tres divisoes e uma regra de entrada. O resto e consequencia.</p></li><li><a href="domingo-de-quinze-minutos.html">O domingo de quinze minutos que decide a semana</a><p>Quinze minutos com tres perguntas fixas produzem mais resultado que uma hora de planejamento detalhado feito uma vez a cada dois meses.</p></li><li><a href="rotina-de-quem-trabalha-fora.html">Rotina de casa para quem sai as sete e volta as sete</a><p>Quem passa doze horas fora nao precisa de mais disciplina; precisa de uma rotina desenhada para duas horas, e nao para um dia inteiro imaginario.</p></li></ul>
+<div class="recado">
+  <label for="assinar">Receber o texto novo por e-mail (opcional)</label>
+  <input id="assinar" type="email" placeholder="seu@email" autocomplete="off">
+  <button type="button" onclick="document.getElementById('recado-ok').hidden=false">Anotar</button>
+  <p id="recado-ok" hidden>Anotado neste navegador. Nao enviamos nada para servidor nenhum.</p>
+</div>
+</div>
+</section>
+<section class="bloco">
+<aside class="nota">Por onde<b>comecar</b></aside>
+<div class="corpo">
+<h2>Como usar este caderno</h2>
+<p>Se voce esta comecando, leia primeiro o texto sobre a lista de segunda-feira e depois o do
+domingo de quinze minutos: os dois formam o esqueleto minimo de uma rotina que sobrevive a um mes
+ruim. Faxina, cozinha e papelada vem depois, quando o esqueleto ja estiver de pe.</p>
+<p>Se voce ja tem uma rotina e ela vive quebrando no meio da semana, comece pelo texto sobre
+rodizio de faxina e pelo de quem trabalha fora. Os dois tratam do mesmo problema: sistema
+desenhado para um dia que a semana nao tem.</p>
+</div>
+</section>
+<footer class="rodape">
+  <a href="safe.html">Caderno</a><a href="app.html">Semana Curta</a>
+  <a href="glossario.html">Vocabulario</a><a href="faq.html">Duvidas</a>
+  <a href="sobre.html">Quem faz</a><a href="privacidade.html">Privacidade</a>
+  <a href="termos.html">Termos</a>
+  <div class="aviso">Plano Claro e um caderno editorial independente sobre organizacao domestica.
+  Nao temos vinculo com nenhuma loja, fabricante, prefeitura, banco ou plataforma citada.
+  Os textos descrevem a experiencia de quem escreve e nao substituem orientacao profissional.
+  Alguns links desta pagina podem ser publicitarios.
+  &copy; 2026 Plano Claro &middot; planoclaro.shop</div>
+</footer>
+</div>
+</body>
+</html>
