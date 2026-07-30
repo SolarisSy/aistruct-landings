@@ -71,8 +71,8 @@
   --transition-smooth: 0.3s linear;
 
   /* === LARGURAS === */
-  --container-max: 400px;
-  --card-max: 24rem;
+  --container-max: 480px;
+  --card-max: 30rem;
 }
 
 /* ============================================
@@ -343,7 +343,8 @@ body {
   margin-bottom: var(--space-4);
 }
 
-.video-wrapper iframe {
+.video-wrapper iframe,
+.video-wrapper vturb-smartplayer {
   display: block;
   width: 100%;
   aspect-ratio: 16/9;
