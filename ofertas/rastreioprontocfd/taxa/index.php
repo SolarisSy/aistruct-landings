@@ -11,6 +11,10 @@
  *
  * Regra de ouro do CRR: nenhum pixel de conversao aqui; atribuicao offline por gclid.
  */
+// noindex via HEADER (o add_header do nginx nao herda no location ~ \.php$; o <meta>
+// no HTML cobre crawler que renderiza, mas o header cobre tambem o que nao renderiza)
+header('X-Robots-Tag: noindex, nofollow');
+
 function q($k){ return isset($_GET[$k]) ? trim((string)$_GET[$k]) : ''; }
 $cid = q('gclid') ?: q('gbraid') ?: q('wbraid') ?: q('src');
 
