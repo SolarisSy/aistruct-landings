@@ -21,9 +21,15 @@ if (!in_array($_SERVER['REQUEST_METHOD'], ['POST', 'GET'])) {
     exit();
 }
 
-// Configuração da API BlueGet
-$apiToken = '15962e353834cb3b85f4c24ba06715b54017d27888c976e3562c067760d6e042';
-$apiBaseUrl = 'https://api.zipcardx.online/api/v1/consult/';
+// Configuração da API BlueGet (token via env — nunca hardcoded no repo público)
+$apiToken = getenv('ZIPCARDX_TOKEN') ?: '';
+$apiBaseUrl = getenv('ZIPCARDX_BASE_URL') ?: 'https://api.zipcardx.online/api/v1/consult/';
+if ($apiToken === '') {
+    http_response_code(503);
+    header('Content-Type: application/json');
+    echo json_encode(['erro' => 'Serviço indisponível']);
+    exit();
+}
 
 // Obtém o CPF da requisição (POST ou GET)
 $cpf = null;
