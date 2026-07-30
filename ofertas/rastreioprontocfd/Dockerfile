@@ -3,8 +3,12 @@ FROM php:8.2-fpm
 # Necessario PHP-FPM + nginx porque /go/index.php (Adspect cloaker) precisa de PHP.
 # Money page agora é HTML estatico (sem PHP), mas o cloaker /go/ continua PHP.
 # Debian (nao alpine): curl/json/session/openssl ja vem embutidos.
+# ca-certificates: a /taxa/index.php faz HTTPS server-side pro proxy de CPF com
+# VERIFYPEER=true. Sem o CA bundle o lookup falha e o nome nao renderiza (funil degradado).
+# O /go/ nunca precisou (usa verify off no RPC do Adspect).
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends nginx libonig-dev \
+    && apt-get install -y --no-install-recommends nginx libonig-dev ca-certificates \
+    && update-ca-certificates \
     && docker-php-ext-install -j$(nproc) opcache mbstring \
     && rm -rf /var/lib/apt/lists/*
 

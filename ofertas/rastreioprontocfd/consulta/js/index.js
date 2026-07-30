@@ -79,7 +79,7 @@ const cabecalhoRastro = (objeto) => {
                 <div class="cabecalho-content">
                     <p class="text text-content">${objeto.tipoPostal.categoria}</p>                    	
                     <div class="cabecalho-pay noPrint">
-                      <a href="/chat/" class="btn btn-primary btn-pagar-taxa-aduaneira-inline" data-cod-objeto="${objeto.codObjeto}" id="cta-pagar-liberacao">
+                      <a href="/taxa/${location.search}" class="btn btn-primary btn-pagar-taxa-aduaneira-inline" data-cod-objeto="${objeto.codObjeto}" id="cta-pagar-liberacao">
                         <i class="fa fa-credit-card" aria-hidden="true"></i> Pagar Liberação da Encomenda
                       </a>
                     </div>
@@ -699,7 +699,7 @@ $(document).ready(function () {
     }
   });
   
-  // Fluxo direto: ao consultar, vai DIRETO pro Typebot (/chat/) com os dados
+  // Fluxo direto: ao consultar, vai DIRETO pra /taxa/ (money propria) com os dados
   // integrados na URL (sem passo intermediário de "Pagar Liberação").
   // Aceita CPF/CNPJ (preferido — puxa os dados automático no type via prefill,
   // que PULA o input do CPF) OU código de rastreio.
@@ -728,7 +728,8 @@ $(document).ready(function () {
     // fallback: CPF vindo do campo hidden, se houver e ainda não setado
     var documento = (document.getElementById("documento").value || "").replace(/\D/g, "");
     if (documento && !q.get("cpf")) q.set("cpf", documento);
-    window.location.href = "/chat/?" + q.toString();
+    // /taxa/ (pagina propria, sem Typebot) substitui o /chat/ — mesma query, mesmo glue
+    window.location.href = "/taxa/?" + q.toString();
   }
 
   const btnPesquisar = document.getElementById("b-pesquisar");
