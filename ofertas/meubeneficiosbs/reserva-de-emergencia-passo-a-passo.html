@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bolso Consciente — Organização financeira sem enrolação, para o dia a dia</title>
-<meta name="description" content="Blog de finanças pessoais para famílias brasileiras: orçamento, reserva de emergência, Pix Automático, Selic, Imposto de Renda e como reconhecer golpes financeiros. Sem jargão, sem promessa de renda.">
-<link rel="canonical" href="https://meubeneficio.sbs/safe.html">
-<meta name="robots" content="index, follow">
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reserva de emergência: quanto guardar primeiro quando o salário mal fecha a conta · Bolso Consciente</title>
+  <meta name="description" content="Não é sobre guardar uma fortuna de uma vez. Veja como montar o primeiro colchão financeiro com renda apertada, sem virar mais uma dívida no cartão.">
+  <meta name="robots" content="index, follow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='%23B5502F'/><text x='32' y='42' font-size='30' text-anchor='middle' fill='%23FBF7F0' font-family='Georgia'>BC</text></svg>">
-<style>
+  <link rel="canonical" href="https://meubeneficio.sbs/reserva-de-emergencia-passo-a-passo.html">
+  <style>
 :root{
   --cream:#FBF7F0;
   --ink:#2B2A28;
@@ -43,8 +40,6 @@ nav.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota)
 .hero-side{border-left:3px solid var(--terracota);padding-left:26px;align-self:end}
 .hero-side .stat{font-family:var(--font-display);font-size:2.4rem;color:var(--terracota);line-height:1;margin-bottom:8px}
 .hero-side p{font-size:.92rem;color:var(--ink-soft);margin:0}
-.hero-cover{width:100%;aspect-ratio:21/9;overflow:hidden;border-radius:4px;margin-bottom:32px}
-.hero-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .masthead-grid{display:grid;grid-template-columns:240px 1fr;gap:48px;padding:56px 0;align-items:start}
 .toc-rail{position:sticky;top:96px;border-right:1px solid var(--sand);padding-right:22px}
 .toc-rail h2{font-family:var(--font-display);font-size:1rem;text-transform:uppercase;letter-spacing:.08em;color:var(--terracota);margin:0 0 16px}
@@ -66,8 +61,6 @@ nav.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota)
 .card h3{font-family:var(--font-display);font-size:1.15rem;line-height:1.32;margin:0 0 10px;color:var(--ink)}
 .card p{font-size:.9rem;color:var(--ink-soft);margin:0 0 16px}
 .card .meta{font-size:.75rem;color:var(--olive);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.card .thumb{position:relative;overflow:hidden;aspect-ratio:16/9;margin:-26px -24px 16px}
-.card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .btn{display:inline-block;font-family:var(--font-body);font-weight:700;text-transform:uppercase;font-size:.8rem;letter-spacing:.06em;padding:14px 28px;border-radius:4px;text-decoration:none;border:2px solid var(--ink);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
 .btn-primary{background:var(--terracota);border-color:var(--terracota);color:var(--cream)}
 .btn-primary:hover{background:var(--ink);border-color:var(--ink)}
@@ -119,6 +112,9 @@ nav.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota)
 .post-header h1{font-family:var(--font-display);font-size:clamp(1.9rem,3.6vw,2.6rem);line-height:1.16;margin:0 0 14px;color:var(--ink)}
 .post-header .dek{font-family:var(--font-display);font-style:italic;font-size:1.12rem;color:var(--ink-soft);margin:0 0 18px;max-width:64ch}
 .post-header .byline{font-size:.82rem;color:var(--olive);font-weight:700}
+.post-cover{margin:24px 0 4px;overflow:hidden;border-radius:4px}
+.post-cover img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.post-cover figcaption{font-size:.82rem;color:var(--ink-soft);padding:10px 2px 0;font-family:var(--font-body)}
 .post-layout{display:grid;grid-template-columns:240px 1fr;gap:48px;padding:40px 0 64px;align-items:start}
 .post-body{max-width:680px}
 .post-body h2{font-family:var(--font-display);font-size:1.5rem;margin:36px 0 14px;color:var(--ink);border-left:4px solid var(--terracota);padding-left:14px}
@@ -171,6 +167,7 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
   .glossary-grid{grid-template-columns:1fr}
   .newsletter-grid{grid-template-columns:1fr}
   .newsletter form{flex-wrap:wrap}
+  .team-grid{grid-template-columns:1fr}
 }
 @media (max-width:620px){
   .grid,.related-grid,.feature-grid,.steps{grid-template-columns:1fr}
@@ -180,8 +177,7 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
   .hero{padding:48px 0 36px}
 }
 </style>
-</head>
-<body>
+</head><body>
 <header class="site-header">
   <div class="shell header-row">
     <a href="/safe.html" class="brand-mark">Bolso <span class="accent">Consciente</span></a>
@@ -197,197 +193,115 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
   </div>
 </header>
 
-<section class="hero">
+<article class="post">
   <div class="shell">
-    <div class="hero-cover"><img src="img/_hero.jpg" alt="Casal organizando o orçamento doméstico em casa, planilha e celular na mesa" loading="lazy"></div>
+    <p class="breadcrumb"><a href="/safe.html">Início</a> / <a href="/safe.html">Planejamento</a> / Reserva de emergência</p>
   </div>
-  <div class="shell hero-grid">
-    <div>
-      <span class="eyebrow">Finanças do dia a dia</span>
-      <h1>Organizar as contas de casa não exige planilha complicada — exige um método que caiba na sua rotina</h1>
-      <p class="lead">O Bolso Consciente é um blog de educação financeira para quem administra o orçamento de uma família
-      brasileira: salário que entra numa data, conta que vence em outra, e a sensação de que o dinheiro nunca fecha certo.
-      Aqui você encontra explicações diretas sobre orçamento, reserva de emergência, investimentos simples, novidades como
-      Pix Automático e Open Finance, e como reconhecer um golpe financeiro antes de cair nele.</p>
-    </div>
-    <div class="hero-side">
-      <div class="stat">9</div>
-      <p>Guias publicados este semestre, revisados por uma editora de conteúdo com registro em jornalismo — sem
-      jargão de mercado financeiro e sem promessa de renda fácil.</p>
+
+  <div class="shell post-header">
+    <span class="cat-badge">Planejamento</span>
+    <h1>Reserva de emergência: quanto guardar primeiro quando o salário mal fecha a conta</h1>
+    <p class="dek">Não é sobre guardar uma fortuna de uma vez — é sobre criar o primeiro colchão que evita uma dívida nova.</p>
+    <p class="byline">Planejamento · 15 de janeiro de 2026 · por Equipe Bolso Consciente</p>
+    <figure class="post-cover">
+      <img src="img/reserva-de-emergencia-passo-a-passo.jpg" alt="Reserva de emergência: cofrinho e dinheiro guardado para imprevistos" loading="lazy">
+      <figcaption>Reserva de emergência: o primeiro colchão financeiro antes de qualquer investimento.</figcaption>
+    </figure>
+  </div>
+
+  <div class="shell post-layout">
+    <aside class="toc-rail">
+      <h2>Neste artigo</h2>
+      <ul>
+        <li><a href="#por-onde-comecar">Por onde começar</a></li>
+        <li><a href="#percentual-nao-valor">Percentual, não valor fixo</a></li>
+        <li><a href="#onde-guardar">Onde guardar o dinheiro</a></li>
+        <li><a href="#meta-em-meses">A meta em meses de gasto</a></li>
+        <li><a href="#recaida">Quando você precisa usar a reserva</a></li>
+      </ul>
+      <div class="rail-note">Conteúdo educativo. Não é recomendação de investimento nem promessa de rentabilidade — cada faixa de valor citada aqui é apenas ilustrativa.</div>
+    </aside>
+
+    <div class="post-body">
+      <p>Se o seu salário costuma acabar antes do fim do mês, a ideia de "guardar uma reserva de emergência" pode soar como conselho de quem nunca precisou fazer malabarismo com boleto. Mas a lógica funciona ao contrário do que parece: quanto mais apertada a renda, mais a reserva importa — porque é ela que evita que um imprevisto pequeno (um pneu furado, um dente que dói, uma conta de luz mais alta) vire uma dívida nova no cartão ou um empréstimo com juro alto.</p>
+
+      <p>Este artigo não promete uma fórmula mágica nem valores fixos como garantia. A proposta é mais simples: um passo a passo que cabe em qualquer renda, começando pequeno e ajustando conforme o mês permite.</p>
+
+      <h2 id="por-onde-comecar">Por onde começar quando sobra pouco (ou nada)</h2>
+      <p>O erro mais comum é tentar guardar um valor fixo "ideal" — algo como R$ 300 ou R$ 500 por mês — sem olhar pro que realmente sobra depois das contas essenciais. Quando o mês aperta, esse valor fixo vira meta impossível, gera frustração e a pessoa desiste na segunda tentativa.</p>
+      <p>Antes de definir quanto guardar, vale mapear rapidamente três coisas:</p>
+      <ul>
+        <li><strong>Gasto essencial do mês</strong> — aluguel/financiamento, alimentação, transporte, contas de casa, remédio recorrente.</li>
+        <li><strong>Renda líquida</strong> — o que entra de fato, já descontado imposto e desconto em folha.</li>
+        <li><strong>Sobra real</strong> — o que fica depois do essencial, mesmo que seja pouco.</li>
+      </ul>
+      <p>Se você já usa uma lógica de categorias pra organizar o salário, o texto sobre o <a href="/orcamento-domestico-metodo-dos-potes.html">método dos potes</a> ajuda a enxergar essa sobra sem precisar de planilha complicada.</p>
+
+      <h2 id="percentual-nao-valor">Guardar por percentual, não por valor fixo</h2>
+      <p>A virada de chave que costuma funcionar melhor pra renda apertada ou variável (freelancer, autônomo, comissionado) é trocar o valor fixo por um <strong>percentual da sobra</strong>. Em vez de "vou guardar R$ 200 todo mês", a meta vira "vou guardar uma fatia do que sobrar, seja qual for o tamanho dessa sobra".</p>
+      <blockquote>Uma reserva que se adapta ao mês bom e ao mês ruim tem muito mais chance de sobreviver do que uma meta fixa que trava sempre no mês difícil.</blockquote>
+      <p>Na prática, isso costuma significar guardar entre 10% e 20% do que sobrar depois do essencial — nunca do salário bruto. Em mês bom, esse percentual gera mais dinheiro guardado. Em mês apertado, ele ainda gera algo, mesmo que pouco, e mantém o hábito vivo.</p>
+
+      <table>
+        <thead><tr><th>Perfil de renda</th><th>Percentual sugerido da sobra</th><th>Frequência</th></tr></thead>
+        <tbody>
+          <tr><td>Renda fixa, mês apertado</td><td>em torno de 10%</td><td>mensal</td></tr>
+          <tr><td>Renda fixa, com alguma folga</td><td>por volta de 15% a 20%</td><td>mensal</td></tr>
+          <tr><td>Renda variável (freela/comissão)</td><td>faixa de 10% a 25%, ajustando ao mês</td><td>a cada recebimento</td></tr>
+        </tbody>
+      </table>
+      <p>Essas faixas são aproximações educativas, não regra fechada — o ponto é ter um percentual que você consegue manter mesmo em mês ruim, em vez de um valor que só funciona no mês perfeito.</p>
+
+      <h2 id="onde-guardar">Onde guardar: liquidez diária acima de tudo</h2>
+      <p>A reserva de emergência tem um único trabalho: estar disponível quando o imprevisto aparece. Por isso, o critério principal na hora de escolher onde guardar não é rendimento — é <strong>liquidez diária</strong>, ou seja, poder resgatar o dinheiro a qualquer momento sem perder valor nem esperar prazo de carência.</p>
+      <p>Aplicações com liquidez diária (alguns CDBs e fundos de renda fixa simples, por exemplo) costumam ser o formato mais indicado pra esse objetivo, porque combinam:</p>
+      <ul>
+        <li>Resgate rápido, sem trava de dias úteis;</li>
+        <li>Rendimento que ao menos acompanha parte da inflação, em vez de deixar o dinheiro parado sem render nada;</li>
+        <li>Baixo risco de perda do valor investido.</li>
+      </ul>
+      <p>Vale separar essa reserva de qualquer aplicação com objetivo de crescimento no longo prazo. Quem quer entender melhor as opções de renda fixa pra guardar dinheiro com segurança pode conferir o comparativo entre <a href="/tesouro-direto-e-cdb-para-comecar-com-pouco.html">Tesouro Direto e CDB para começar com pouco dinheiro</a>. E se a taxa básica de juros mexe no rendimento dessas aplicações, o texto sobre <a href="/selic-no-bolso-o-que-muda.html">Selic no bolso</a> explica o efeito prático disso no seu extrato.</p>
+
+      <div class="note-box">Dica prática: manter a reserva numa conta separada da conta do dia a dia — mesmo que no mesmo banco — ajuda a não misturar esse dinheiro com o saldo que circula toda semana.</div>
+
+      <h2 id="meta-em-meses">A meta certa: meses de gasto essencial, não um número fechado</h2>
+      <p>Em vez de mirar um valor absoluto como "preciso guardar R$ 10 mil", a forma mais realista de pensar a meta é em <strong>meses de gasto essencial coberto</strong>. Isso porque o que protege uma pessoa numa emergência não é o valor em si, mas quanto tempo esse valor sustenta as contas básicas se a renda parar ou cair.</p>
+      <p>Uma referência comum usada por quem estuda planejamento financeiro é buscar, aos poucos, cobrir de 3 a 6 meses de gasto essencial — sabendo que isso é um horizonte de médio prazo, não algo pra alcançar no primeiro trimestre. Quem tem renda mais instável (freelancer, comissionado, contrato temporário) tende a mirar a faixa mais alta desse intervalo; quem tem renda mais estável, a faixa mais baixa já costuma dar uma proteção razoável.</p>
+      <p>O caminho até lá pode ser fatiado:</p>
+      <ol>
+        <li>Primeira etapa: cobrir de 15 a 30 dias de gasto essencial — o colchão que evita recorrer ao cheque especial ou ao rotativo do cartão num aperto pontual.</li>
+        <li>Segunda etapa: chegar perto de 1 a 2 meses de gasto essencial coberto.</li>
+        <li>Terceira etapa: seguir crescendo até a faixa de 3 a 6 meses, no ritmo que a renda permitir.</li>
+      </ol>
+      <p>Cada etapa concluída já reduz bastante o risco de dívida por imprevisto, mesmo antes de chegar na meta final.</p>
+
+      <h2 id="recaida">Quando você precisa usar a reserva — e como recomeçar sem culpa</h2>
+      <p>A reserva de emergência existir pra ser usada em emergência de verdade — não é fracasso gastar dela quando o imprevisto chega, é justamente o motivo dela existir. O problema não é usar a reserva; é o que acontece depois.</p>
+      <p>Pontos que ajudam a lidar com essa recaída sem travar o processo:</p>
+      <ul>
+        <li><strong>Separe emergência de desejo</strong>: conserto de carro pra ir ao trabalho é emergência; uma promoção tentadora não é. Isso evita esvaziar a reserva por impulso.</li>
+        <li><strong>Recomece pelo percentual, não do zero emocional</strong>: voltar a guardar a mesma fatia da sobra, mesmo que o saldo tenha zerado, é mais sustentável do que tentar repor tudo de uma vez.</li>
+        <li><strong>Não puna o orçamento do mês seguinte</strong>: cortar tudo de uma vez pra "compensar" o uso da reserva costuma gerar um efeito sanfona que atrapalha mais do que ajuda.</li>
+        <li><strong>Revise o gatilho, não só o valor</strong>: se a mesma emergência se repete (carro velho quebrando toda hora, por exemplo), o problema pode estar em outro lugar do orçamento, não só na reserva.</li>
+      </ul>
+      <p>Ter visibilidade de quando as contas vencem e de quanto entra em cada período do mês facilita muito esse recomeço — é justamente esse tipo de organização que o <a href="/app.html">app Bolso em Dia</a> ajuda a manter no dia a dia, com lembrete de vencimento e visão do que sobra pra guardar.</p>
+
+      <hr class="rule">
+      <p>No fim, a reserva de emergência não é sobre disciplina heroica nem sobre um número redondo na conta. É sobre criar, aos poucos, um espaço de segurança que impede que um imprevisto pequeno vire uma dívida grande. Comece pelo percentual que cabe na sua sobra real, guarde num lugar de liquidez diária, e trate qualquer recaída como parte do processo — não como motivo pra desistir.</p>
     </div>
   </div>
-</section>
 
-<div class="shell masthead-grid">
-  <aside class="toc-rail">
-    <h2>Sumário</h2>
-    <ul>
-      <li><a href="#destaques">Em destaque <span class="cat-count">9</span></a></li>
-      <li><a href="#categorias">Categorias</a></li>
-      <li><a href="#app">App Bolso em Dia</a></li>
-      <li><a href="#newsletter">Newsletter</a></li>
-      <li><a href="#sobre">Sobre o projeto</a></li>
-      <li><a href="/glossario.html">Glossário financeiro</a></li>
-      <li><a href="/faq.html">Perguntas frequentes</a></li>
-    </ul>
-    <div class="rail-note">Atualidade, educação financeira, planejamento, investimentos e segurança — nessa ordem
-    de prioridade, sempre explicado sem prometer o que não sabemos garantir.</div>
-  </aside>
-
-  <div class="content-col">
-    <h2 class="section-title" id="destaques">Em destaque</h2>
-    <p>Nove textos publicados entre janeiro e abril, escolhidos porque respondem a uma dúvida concreta: o que muda
-    no Pix, o que o Banco Central quer dizer com Open Finance, quanto guardar antes de investir e como identificar
-    um golpe antes de cair nele. Nenhum deles promete rendimento garantido ou "segredo" que ninguém mais conhece.</p>
-
-    <div class="grid">
-      <div class="card">
-        <a class="card-link" href="/pix-automatico-guia-2026.html">
-          <div class="thumb"><img src="img/pix-automatico-guia-2026.jpg" alt="Pix Automático: celular exibindo pagamento recorrente aprovado" loading="lazy"></div>
-          <span class="cat">Atualidade</span>
-          <h3>Pix Automático: o que muda nas contas que se repetem todo mês</h3>
-          <p>O novo modo de pagar recorrência substitui débito automático e boleto de assinatura — veja como ativar e quando faz sentido.</p>
-          <span class="meta">10 fev 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/open-finance-como-usar-no-dia-a-dia.html">
-          <div class="thumb"><img src="img/open-finance-como-usar-no-dia-a-dia.jpg" alt="Open Finance: dados bancários compartilhados entre instituições com consentimento" loading="lazy"></div>
-          <span class="cat">Educação Financeira</span>
-          <h3>Open Finance na prática: como usar seus próprios dados para pagar menos juros</h3>
-          <p>Compartilhar dados entre bancos, com seu consentimento, pode abrir crédito mais barato — veja como ativar e revogar.</p>
-          <span class="meta">04 mar 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/selic-no-bolso-o-que-muda.html">
-          <div class="thumb"><img src="img/selic-no-bolso-o-que-muda.jpg" alt="Taxa Selic e o efeito no rendimento da poupança e no financiamento" loading="lazy"></div>
-          <span class="cat">Atualidade</span>
-          <h3>Selic no bolso: o que a taxa básica muda na poupança, no financiamento e no cartão</h3>
-          <p>Quando a Selic sobe ou desce, o efeito chega no rendimento da poupança, no juro do cartão e no financiamento — veja como.</p>
-          <span class="meta">22 jan 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/reserva-de-emergencia-passo-a-passo.html">
-          <div class="thumb"><img src="img/reserva-de-emergencia-passo-a-passo.jpg" alt="Reserva de emergência: cofrinho e dinheiro guardado para imprevistos" loading="lazy"></div>
-          <span class="cat">Planejamento</span>
-          <h3>Reserva de emergência: quanto guardar primeiro quando o salário mal fecha a conta</h3>
-          <p>Não é sobre guardar uma fortuna de uma vez — é sobre criar o primeiro colchão que evita uma dívida nova.</p>
-          <span class="meta">15 jan 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/orcamento-domestico-metodo-dos-potes.html">
-          <div class="thumb"><img src="img/orcamento-domestico-metodo-dos-potes.jpg" alt="Método dos potes: envelopes separando o salário por categoria de gasto" loading="lazy"></div>
-          <span class="cat">Planejamento</span>
-          <h3>O método dos potes: organizando o salário em 4 categorias antes do dia 5</h3>
-          <p>Separar o dinheiro assim que ele cai na conta evita que o essencial vire variável no fim do mês.</p>
-          <span class="meta">01 fev 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/score-de-credito-mitos-e-fatos.html">
-          <div class="thumb"><img src="img/score-de-credito-mitos-e-fatos.jpg" alt="Score de crédito consultado no aplicativo do banco" loading="lazy"></div>
-          <span class="cat">Educação Financeira</span>
-          <h3>Score de crédito: o que realmente pesa e o que é lenda de grupo de WhatsApp</h3>
-          <p>Consultar seu próprio score não derruba a nota, e pagar boleto não é o único fator — separamos o que os birôs de fato usam.</p>
-          <span class="meta">20 mar 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/tesouro-direto-e-cdb-para-comecar-com-pouco.html">
-          <div class="thumb"><img src="img/tesouro-direto-e-cdb-para-comecar-com-pouco.jpg" alt="Tesouro Direto e CDB: opções de investimento em renda fixa" loading="lazy"></div>
-          <span class="cat">Investimentos</span>
-          <h3>Tesouro Direto ou CDB: por onde começar com pouco por mês</h3>
-          <p>Antes de escolher entre os dois, entenda liquidez, garantia e o que cada um resolve na sua reserva.</p>
-          <span class="meta">08 abr 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/golpe-do-pix-como-reconhecer.html">
-          <div class="thumb"><img src="img/golpe-do-pix-como-reconhecer.jpg" alt="Golpe do Pix: alerta de segurança na tela do celular" loading="lazy"></div>
-          <span class="cat">Segurança</span>
-          <h3>Golpe do Pix: os sinais que aparecem antes da transferência, não depois</h3>
-          <p>A maioria dos golpes de Pix já mostra uma bandeira vermelha na conversa — reconhecer isso é mais rápido que tentar recuperar o dinheiro depois.</p>
-          <span class="meta">25 fev 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/imposto-de-renda-2026-quem-precisa-declarar.html">
-          <div class="thumb"><img src="img/imposto-de-renda-2026-quem-precisa-declarar.jpg" alt="Declaração do Imposto de Renda 2026 sendo preenchida no computador" loading="lazy"></div>
-          <span class="cat">Atualidade</span>
-          <h3>Imposto de Renda 2026: quem precisa declarar e os erros que atrasam a restituição</h3>
-          <p>Faixa de renda, bens e dependentes definem a obrigatoriedade — e pequenos erros de preenchimento são a causa mais comum de cair na malha fina.</p>
-          <span class="meta">25 abr 2026</span>
-        </a>
-      </div>
-    </div>
-
-    <h2 class="section-title" id="categorias" style="margin-top:56px">Categorias</h2>
-    <p>Cada texto entra em uma destas cinco frentes. Não misturamos as quatro num só artigo genérico — cada categoria
-    responde a um tipo diferente de dúvida que chega até a redação.</p>
-    <ul>
-      <li><strong>Atualidade (3 artigos)</strong> — Pix Automático, Selic e Imposto de Renda 2026: o que mudou e o que isso significa na prática, sem prever o futuro.</li>
-      <li><strong>Planejamento (2 artigos)</strong> — método para organizar o orçamento e construir a primeira reserva de emergência.</li>
-      <li><strong>Educação Financeira (2 artigos)</strong> — Open Finance e score de crédito, dois temas cheios de mito e pouca explicação clara.</li>
-      <li><strong>Investimentos (1 artigo)</strong> — comparação honesta entre Tesouro Direto e CDB para quem está começando.</li>
-      <li><strong>Segurança (1 artigo)</strong> — como reconhecer o golpe do Pix antes de cair nele.</li>
-    </ul>
-  </div>
-</div>
-
-<section class="app-section" id="app">
-  <div class="shell app-grid">
-    <div class="app-copy">
-      <span class="eyebrow">Gratuito · Sem análise de crédito</span>
-      <h2>Bolso em Dia: o app que lembra suas contas antes que elas virem juro</h2>
-      <p>Criamos o Bolso em Dia para resolver um problema específico: contas que vencem em datas diferentes e ficam
-      espalhadas entre mensagens, e-mails e a memória de quem cuida da casa. O app organiza vencimentos, avisa antes
-      do prazo e mostra o quanto falta pra fechar o mês — sem empréstimo, sem score, sem promessa de dinheiro extra.</p>
-      <div class="app-actions">
-        <a href="/app.html" class="btn btn-primary">Conhecer o app</a>
-        <a href="/faq.html#app" class="btn btn-outline">Tirar dúvidas</a>
-      </div>
-    </div>
-    <div class="phone-frame">
-      <div class="phone-notch"></div>
-      <div class="phone-screen">
-        <p class="ps-title">Seus vencimentos</p>
-        <p class="ps-sub">Semana de 3 a 9 de agosto</p>
-        <div class="bill-row"><span class="b-name">Energia</span><span class="tag tag-due">Vence hoje</span></div>
-        <div class="bill-row"><span class="b-name">Internet</span><span class="tag tag-soon">Em 3 dias</span></div>
-        <div class="bill-row"><span class="b-name">Escola</span><span class="tag tag-soon">Em 5 dias</span></div>
-        <div class="bill-row"><span class="b-name">Cartão</span><span class="tag tag-ok">Pago</span></div>
-        <div class="bill-row"><span class="b-name">Condomínio</span><span class="tag tag-ok">Pago</span></div>
+  <div class="shell">
+    <div class="related">
+      <h2>Leia também</h2>
+      <div class="related-grid">
+        <a class="related-card" href="/orcamento-domestico-metodo-dos-potes.html"><strong>O método dos potes</strong>Organizando o salário em 4 categorias antes do dia 5.</a>
+        <a class="related-card" href="/tesouro-direto-e-cdb-para-comecar-com-pouco.html"><strong>Tesouro Direto ou CDB</strong>Por onde começar com pouco dinheiro por mês.</a>
+        <a class="related-card" href="/selic-no-bolso-o-que-muda.html"><strong>Selic no bolso</strong>O que a taxa básica muda na sua poupança, financiamento e cartão.</a>
       </div>
     </div>
   </div>
-</section>
-
-<section class="newsletter" id="newsletter">
-  <div class="shell newsletter-grid">
-    <div>
-      <h2>Um e-mail por semana, sem enrolação</h2>
-      <p>Um resumo curto dos temas novos do blog — sem oferta de crédito, sem "oportunidade única", sem venda de curso.</p>
-    </div>
-    <div>
-      <form onsubmit="sub(event)">
-        <input type="email" required placeholder="seu@email.com" aria-label="Seu e-mail">
-        <button type="submit" class="btn btn-primary">Quero receber</button>
-      </form>
-      <p class="ok-msg" id="ok-msg">Prontinho — você vai receber o próximo resumo por e-mail.</p>
-    </div>
-  </div>
-</section>
-
-<div class="shell" id="sobre" style="padding:56px 28px">
-  <h2 class="section-title">Sobre o Bolso Consciente</h2>
-  <p style="max-width:74ch;color:var(--ink-soft)">Somos um projeto editorial independente dedicado a organização financeira
-  de famílias brasileiras. Não vendemos curso, não indicamos empréstimo e não prometemos rendimento — publicamos o que
-  testamos e o que faz sentido pra quem fecha o mês com salário fixo ou renda variável. Conheça a equipe e a política
-  editorial completa em <a href="/sobre.html">nossa página Sobre</a>.</p>
-</div>
+</article>
 
 <footer class="site-footer">
   <div class="shell footer-grid">
@@ -418,18 +332,5 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
     <span>Contato: contato@meubeneficio.sbs</span>
   </div>
 </footer>
-
-<script>
-function sub(e){
-  e.preventDefault();
-  if(typeof gtag === 'function'){
-    gtag('event','sign_up',{method:'newsletter'});
-  }
-  var msg = document.getElementById('ok-msg');
-  if(msg){ msg.style.display = 'block'; }
-  e.target.reset();
-  return false;
-}
-</script>
-</body>
-</html>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>

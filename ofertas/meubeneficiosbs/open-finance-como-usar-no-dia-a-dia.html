@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bolso Consciente — Organização financeira sem enrolação, para o dia a dia</title>
-<meta name="description" content="Blog de finanças pessoais para famílias brasileiras: orçamento, reserva de emergência, Pix Automático, Selic, Imposto de Renda e como reconhecer golpes financeiros. Sem jargão, sem promessa de renda.">
-<link rel="canonical" href="https://meubeneficio.sbs/safe.html">
-<meta name="robots" content="index, follow">
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Finance na prática: como usar seus próprios dados para pagar menos juros · Bolso Consciente</title>
+  <meta name="description" content="Entenda o Open Finance regulado pelo Banco Central: como funciona o consentimento, para que serve na prática e como ativar ou revogar no app do banco.">
+  <meta name="robots" content="index, follow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='%23B5502F'/><text x='32' y='42' font-size='30' text-anchor='middle' fill='%23FBF7F0' font-family='Georgia'>BC</text></svg>">
-<style>
+  <link rel="canonical" href="https://meubeneficio.sbs/open-finance-como-usar-no-dia-a-dia.html">
+  <style>
 :root{
   --cream:#FBF7F0;
   --ink:#2B2A28;
@@ -43,8 +40,6 @@ nav.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota)
 .hero-side{border-left:3px solid var(--terracota);padding-left:26px;align-self:end}
 .hero-side .stat{font-family:var(--font-display);font-size:2.4rem;color:var(--terracota);line-height:1;margin-bottom:8px}
 .hero-side p{font-size:.92rem;color:var(--ink-soft);margin:0}
-.hero-cover{width:100%;aspect-ratio:21/9;overflow:hidden;border-radius:4px;margin-bottom:32px}
-.hero-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .masthead-grid{display:grid;grid-template-columns:240px 1fr;gap:48px;padding:56px 0;align-items:start}
 .toc-rail{position:sticky;top:96px;border-right:1px solid var(--sand);padding-right:22px}
 .toc-rail h2{font-family:var(--font-display);font-size:1rem;text-transform:uppercase;letter-spacing:.08em;color:var(--terracota);margin:0 0 16px}
@@ -66,8 +61,6 @@ nav.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota)
 .card h3{font-family:var(--font-display);font-size:1.15rem;line-height:1.32;margin:0 0 10px;color:var(--ink)}
 .card p{font-size:.9rem;color:var(--ink-soft);margin:0 0 16px}
 .card .meta{font-size:.75rem;color:var(--olive);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.card .thumb{position:relative;overflow:hidden;aspect-ratio:16/9;margin:-26px -24px 16px}
-.card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .btn{display:inline-block;font-family:var(--font-body);font-weight:700;text-transform:uppercase;font-size:.8rem;letter-spacing:.06em;padding:14px 28px;border-radius:4px;text-decoration:none;border:2px solid var(--ink);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
 .btn-primary{background:var(--terracota);border-color:var(--terracota);color:var(--cream)}
 .btn-primary:hover{background:var(--ink);border-color:var(--ink)}
@@ -119,6 +112,9 @@ nav.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota)
 .post-header h1{font-family:var(--font-display);font-size:clamp(1.9rem,3.6vw,2.6rem);line-height:1.16;margin:0 0 14px;color:var(--ink)}
 .post-header .dek{font-family:var(--font-display);font-style:italic;font-size:1.12rem;color:var(--ink-soft);margin:0 0 18px;max-width:64ch}
 .post-header .byline{font-size:.82rem;color:var(--olive);font-weight:700}
+.post-cover{margin:24px 0 4px;overflow:hidden;border-radius:4px}
+.post-cover img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.post-cover figcaption{font-size:.82rem;color:var(--ink-soft);padding:10px 2px 0;font-family:var(--font-body)}
 .post-layout{display:grid;grid-template-columns:240px 1fr;gap:48px;padding:40px 0 64px;align-items:start}
 .post-body{max-width:680px}
 .post-body h2{font-family:var(--font-display);font-size:1.5rem;margin:36px 0 14px;color:var(--ink);border-left:4px solid var(--terracota);padding-left:14px}
@@ -171,6 +167,7 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
   .glossary-grid{grid-template-columns:1fr}
   .newsletter-grid{grid-template-columns:1fr}
   .newsletter form{flex-wrap:wrap}
+  .team-grid{grid-template-columns:1fr}
 }
 @media (max-width:620px){
   .grid,.related-grid,.feature-grid,.steps{grid-template-columns:1fr}
@@ -179,9 +176,8 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
   .footer-grid{grid-template-columns:1fr}
   .hero{padding:48px 0 36px}
 }
-</style>
-</head>
-<body>
+  </style>
+</head><body>
 <header class="site-header">
   <div class="shell header-row">
     <a href="/safe.html" class="brand-mark">Bolso <span class="accent">Consciente</span></a>
@@ -197,197 +193,125 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
   </div>
 </header>
 
-<section class="hero">
+<article class="post">
   <div class="shell">
-    <div class="hero-cover"><img src="img/_hero.jpg" alt="Casal organizando o orçamento doméstico em casa, planilha e celular na mesa" loading="lazy"></div>
+    <p class="breadcrumb"><a href="/safe.html">Início</a> / <a href="/safe.html#educacao-financeira">Educação Financeira</a> / Open Finance na prática</p>
   </div>
-  <div class="shell hero-grid">
-    <div>
-      <span class="eyebrow">Finanças do dia a dia</span>
-      <h1>Organizar as contas de casa não exige planilha complicada — exige um método que caiba na sua rotina</h1>
-      <p class="lead">O Bolso Consciente é um blog de educação financeira para quem administra o orçamento de uma família
-      brasileira: salário que entra numa data, conta que vence em outra, e a sensação de que o dinheiro nunca fecha certo.
-      Aqui você encontra explicações diretas sobre orçamento, reserva de emergência, investimentos simples, novidades como
-      Pix Automático e Open Finance, e como reconhecer um golpe financeiro antes de cair nele.</p>
-    </div>
-    <div class="hero-side">
-      <div class="stat">9</div>
-      <p>Guias publicados este semestre, revisados por uma editora de conteúdo com registro em jornalismo — sem
-      jargão de mercado financeiro e sem promessa de renda fácil.</p>
+
+  <div class="post-header">
+    <div class="shell">
+      <span class="cat-badge">Educação Financeira</span>
+      <h1>Open Finance na prática: como usar seus próprios dados para pagar menos juros</h1>
+      <p class="dek">Compartilhar dados entre bancos, com seu consentimento, pode abrir crédito mais barato — veja como ativar e revogar.</p>
+      <p class="byline">04/03/2026 · por Equipe Bolso Consciente</p>
+      <figure class="post-cover">
+        <img src="img/open-finance-como-usar-no-dia-a-dia.jpg" alt="Open Finance: dados bancários compartilhados entre instituições com consentimento" loading="lazy">
+        <figcaption>Open Finance: compartilhamento de dados bancários com consentimento do cliente.</figcaption>
+      </figure>
     </div>
   </div>
-</section>
 
-<div class="shell masthead-grid">
-  <aside class="toc-rail">
-    <h2>Sumário</h2>
-    <ul>
-      <li><a href="#destaques">Em destaque <span class="cat-count">9</span></a></li>
-      <li><a href="#categorias">Categorias</a></li>
-      <li><a href="#app">App Bolso em Dia</a></li>
-      <li><a href="#newsletter">Newsletter</a></li>
-      <li><a href="#sobre">Sobre o projeto</a></li>
-      <li><a href="/glossario.html">Glossário financeiro</a></li>
-      <li><a href="/faq.html">Perguntas frequentes</a></li>
-    </ul>
-    <div class="rail-note">Atualidade, educação financeira, planejamento, investimentos e segurança — nessa ordem
-    de prioridade, sempre explicado sem prometer o que não sabemos garantir.</div>
-  </aside>
+  <div class="shell post-layout">
+    <aside class="toc-rail">
+      <h2>Neste artigo</h2>
+      <ul>
+        <li><a href="#o-que-e">O que é Open Finance</a></li>
+        <li><a href="#consentimento">Como funciona o consentimento</a></li>
+        <li><a href="#uso-pratico">Uso prático no dia a dia</a></li>
+        <li><a href="#ativar">Passo a passo para ativar</a></li>
+        <li><a href="#revogar">Como revogar</a></li>
+        <li><a href="#cuidados">Cuidados essenciais</a></li>
+      </ul>
+      <div class="rail-note">O <a href="/app.html">app Bolso em Dia</a> te avisa quando um consentimento de Open Finance está perto de vencer, pra você decidir se renova ou deixa expirar.</div>
+    </aside>
 
-  <div class="content-col">
-    <h2 class="section-title" id="destaques">Em destaque</h2>
-    <p>Nove textos publicados entre janeiro e abril, escolhidos porque respondem a uma dúvida concreta: o que muda
-    no Pix, o que o Banco Central quer dizer com Open Finance, quanto guardar antes de investir e como identificar
-    um golpe antes de cair nele. Nenhum deles promete rendimento garantido ou "segredo" que ninguém mais conhece.</p>
+    <div class="post-body">
+      <p>Durante anos, cada banco guardou o histórico financeiro do cliente só para si. Extrato, limite de cartão, histórico de pagamento — tudo trancado dentro da instituição onde a conta foi aberta. Isso mudava pouco a vida de quem já tinha bom relacionamento com o banco, mas prejudicava justamente quem mais precisava de uma segunda chance: o cliente com conta em um banco só, sem histórico visível em lugar nenhum, cotando crédito do zero toda vez que tentava trocar de instituição.</p>
 
-    <div class="grid">
-      <div class="card">
-        <a class="card-link" href="/pix-automatico-guia-2026.html">
-          <div class="thumb"><img src="img/pix-automatico-guia-2026.jpg" alt="Pix Automático: celular exibindo pagamento recorrente aprovado" loading="lazy"></div>
-          <span class="cat">Atualidade</span>
-          <h3>Pix Automático: o que muda nas contas que se repetem todo mês</h3>
-          <p>O novo modo de pagar recorrência substitui débito automático e boleto de assinatura — veja como ativar e quando faz sentido.</p>
-          <span class="meta">10 fev 2026</span>
-        </a>
+      <p>O Open Finance, regulamentado pelo Banco Central, existe para resolver esse problema. Na prática, ele permite que você — e só você, com autorização explícita — leve seus próprios dados financeiros de um banco para outro, para que a instituição concorrente enxergue seu histórico completo antes de fazer uma proposta.</p>
+
+      <h2 id="o-que-e">O que é Open Finance, sem jargão</h2>
+      <p>Pense assim: hoje, se você tem conta há cinco anos no Banco A e quer um empréstimo mais barato no Banco B, o Banco B só sabe o que você contar ou o que aparece no seu CPF. Ele não vê seu comportamento de pagamento, seu limite usado, seu histórico de atraso ou de pontualidade no Banco A.</p>
+      <p>Com o Open Finance ativo, você pode autorizar o Banco B a consultar esses dados diretamente com o Banco A, de forma segura e regulada. O Banco B passa a enxergar um retrato mais completo da sua vida financeira — e, com isso, consegue calcular um risco mais preciso, o que costuma resultar em taxas de juros mais competitivas para quem tem bom histórico.</p>
+      <p>É importante entender que isso é uma <strong>via de mão dupla e opcional</strong>: nada é compartilhado automaticamente. O sistema só funciona porque existe um mecanismo de consentimento — e é sobre ele que vale a pena entender bem antes de usar.</p>
+
+      <h2 id="consentimento">Como funciona o consentimento de compartilhamento</h2>
+      <p>O consentimento é a autorização que você dá, dentro do aplicativo do banco, para que dados específicos sejam compartilhados com outra instituição, por um período determinado. Alguns pontos que costumam gerar dúvida:</p>
+      <ul>
+        <li><strong>Você escolhe o que compartilhar.</strong> É possível autorizar só dados cadastrais, só histórico de transações, ou um conjunto mais completo — a escolha aparece na tela antes de confirmar.</li>
+        <li><strong>Você escolhe por quanto tempo.</strong> O consentimento tem prazo de validade definido no momento da autorização, geralmente entre alguns meses e um ano.</li>
+        <li><strong>Você pode revogar a qualquer momento.</strong> Não é preciso esperar o prazo acabar; a revogação é imediata assim que solicitada.</li>
+        <li><strong>Só instituições autorizadas pelo Banco Central participam.</strong> O sistema roda dentro de um ambiente regulado — não é a mesma coisa que preencher um formulário e enviar prints de extrato para terceiros.</li>
+      </ul>
+      <blockquote>Consentimento não é "aceitar termos de uso" genérico: é uma autorização específica, com prazo, escopo e destino visíveis antes de você confirmar.</blockquote>
+
+      <h2 id="uso-pratico">Uso prático: comparar crédito e portar a conta salário</h2>
+      <p>Na teoria isso é bonito, mas onde entra no seu bolso? Dois usos costumam trazer resultado direto:</p>
+      <h3>Comparar ofertas de crédito com histórico visível</h3>
+      <p>Ao pedir um empréstimo pessoal, um financiamento ou uma renegociação de dívida em uma instituição diferente da sua atual, autorizar o compartilhamento de dados via Open Finance permite que essa instituição avalie seu risco com mais informação — e, em geral, quanto mais completo o histórico positivo, maior a chance de uma taxa melhor do que a oferecida a um cliente "desconhecido".</p>
+      <h3>Portabilidade de conta salário e de crédito</h3>
+      <p>Se você recebe salário em um banco mas prefere concentrar sua vida financeira em outro (por conta de tarifas, app melhor ou taxas de cartão), o Open Finance facilita o processo de portabilidade: os dados que comprovam seu vínculo e movimentação podem ser levados de forma automatizada, reduzindo idas e vindas de documento.</p>
+
+      <table>
+        <thead><tr><th>Situação</th><th>Sem Open Finance</th><th>Com Open Finance</th></tr></thead>
+        <tbody>
+          <tr><td>Pedir crédito em banco novo</td><td>Análise só com dados públicos e score</td><td>Análise considera histórico real de pagamento</td></tr>
+          <tr><td>Trocar de banco principal</td><td>Reunir extratos e comprovantes manualmente</td><td>Compartilhamento autorizado, mais ágil</td></tr>
+          <tr><td>Renegociar dívida</td><td>Instituição enxerga só a própria carteira</td><td>Visão mais completa pode favorecer condição</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.82rem;color:var(--ink-soft)">Tabela ilustrativa e educativa; condições variam por instituição, perfil e política de crédito de cada banco.</p>
+
+      <p>Vale reforçar: nenhum desses usos garante automaticamente juro menor. O que o Open Finance oferece é <em>mais informação disponível para a instituição avaliar</em> — quem se organiza e mantém bom histórico tende a se beneficiar mais. Um bom ponto de partida antes de qualquer negociação de crédito é entender como o <a href="/score-de-credito-mitos-e-fatos.html">score de crédito</a> é formado, já que os dois sistemas conversam na hora da análise de risco.</p>
+
+      <h2 id="ativar">Passo a passo para ativar o consentimento no app do banco</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>Localize a opção</h3>
+          <p>No app do banco, procure por "Open Finance" ou "Compartilhamento de dados", geralmente dentro do menu de configurações ou segurança.</p>
+        </div>
+        <div class="step">
+          <h3>Escolha o destino</h3>
+          <p>Selecione para qual instituição autorizada os dados serão enviados — normalmente o banco que está solicitando a análise.</p>
+        </div>
+        <div class="step">
+          <h3>Defina escopo e prazo</h3>
+          <p>Confira exatamente quais dados serão compartilhados e por quanto tempo o consentimento ficará valendo antes de confirmar.</p>
+        </div>
+        <div class="step">
+          <h3>Confirme com autenticação</h3>
+          <p>A autorização final costuma exigir senha, biometria ou token — igual a uma transação sensível.</p>
+        </div>
       </div>
-      <div class="card">
-        <a class="card-link" href="/open-finance-como-usar-no-dia-a-dia.html">
-          <div class="thumb"><img src="img/open-finance-como-usar-no-dia-a-dia.jpg" alt="Open Finance: dados bancários compartilhados entre instituições com consentimento" loading="lazy"></div>
-          <span class="cat">Educação Financeira</span>
-          <h3>Open Finance na prática: como usar seus próprios dados para pagar menos juros</h3>
-          <p>Compartilhar dados entre bancos, com seu consentimento, pode abrir crédito mais barato — veja como ativar e revogar.</p>
-          <span class="meta">04 mar 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/selic-no-bolso-o-que-muda.html">
-          <div class="thumb"><img src="img/selic-no-bolso-o-que-muda.jpg" alt="Taxa Selic e o efeito no rendimento da poupança e no financiamento" loading="lazy"></div>
-          <span class="cat">Atualidade</span>
-          <h3>Selic no bolso: o que a taxa básica muda na poupança, no financiamento e no cartão</h3>
-          <p>Quando a Selic sobe ou desce, o efeito chega no rendimento da poupança, no juro do cartão e no financiamento — veja como.</p>
-          <span class="meta">22 jan 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/reserva-de-emergencia-passo-a-passo.html">
-          <div class="thumb"><img src="img/reserva-de-emergencia-passo-a-passo.jpg" alt="Reserva de emergência: cofrinho e dinheiro guardado para imprevistos" loading="lazy"></div>
-          <span class="cat">Planejamento</span>
-          <h3>Reserva de emergência: quanto guardar primeiro quando o salário mal fecha a conta</h3>
-          <p>Não é sobre guardar uma fortuna de uma vez — é sobre criar o primeiro colchão que evita uma dívida nova.</p>
-          <span class="meta">15 jan 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/orcamento-domestico-metodo-dos-potes.html">
-          <div class="thumb"><img src="img/orcamento-domestico-metodo-dos-potes.jpg" alt="Método dos potes: envelopes separando o salário por categoria de gasto" loading="lazy"></div>
-          <span class="cat">Planejamento</span>
-          <h3>O método dos potes: organizando o salário em 4 categorias antes do dia 5</h3>
-          <p>Separar o dinheiro assim que ele cai na conta evita que o essencial vire variável no fim do mês.</p>
-          <span class="meta">01 fev 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/score-de-credito-mitos-e-fatos.html">
-          <div class="thumb"><img src="img/score-de-credito-mitos-e-fatos.jpg" alt="Score de crédito consultado no aplicativo do banco" loading="lazy"></div>
-          <span class="cat">Educação Financeira</span>
-          <h3>Score de crédito: o que realmente pesa e o que é lenda de grupo de WhatsApp</h3>
-          <p>Consultar seu próprio score não derruba a nota, e pagar boleto não é o único fator — separamos o que os birôs de fato usam.</p>
-          <span class="meta">20 mar 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/tesouro-direto-e-cdb-para-comecar-com-pouco.html">
-          <div class="thumb"><img src="img/tesouro-direto-e-cdb-para-comecar-com-pouco.jpg" alt="Tesouro Direto e CDB: opções de investimento em renda fixa" loading="lazy"></div>
-          <span class="cat">Investimentos</span>
-          <h3>Tesouro Direto ou CDB: por onde começar com pouco por mês</h3>
-          <p>Antes de escolher entre os dois, entenda liquidez, garantia e o que cada um resolve na sua reserva.</p>
-          <span class="meta">08 abr 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/golpe-do-pix-como-reconhecer.html">
-          <div class="thumb"><img src="img/golpe-do-pix-como-reconhecer.jpg" alt="Golpe do Pix: alerta de segurança na tela do celular" loading="lazy"></div>
-          <span class="cat">Segurança</span>
-          <h3>Golpe do Pix: os sinais que aparecem antes da transferência, não depois</h3>
-          <p>A maioria dos golpes de Pix já mostra uma bandeira vermelha na conversa — reconhecer isso é mais rápido que tentar recuperar o dinheiro depois.</p>
-          <span class="meta">25 fev 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/imposto-de-renda-2026-quem-precisa-declarar.html">
-          <div class="thumb"><img src="img/imposto-de-renda-2026-quem-precisa-declarar.jpg" alt="Declaração do Imposto de Renda 2026 sendo preenchida no computador" loading="lazy"></div>
-          <span class="cat">Atualidade</span>
-          <h3>Imposto de Renda 2026: quem precisa declarar e os erros que atrasam a restituição</h3>
-          <p>Faixa de renda, bens e dependentes definem a obrigatoriedade — e pequenos erros de preenchimento são a causa mais comum de cair na malha fina.</p>
-          <span class="meta">25 abr 2026</span>
-        </a>
-      </div>
+
+      <h2 id="revogar">Como revogar um consentimento</h2>
+      <p>Revogar é tão simples quanto ativar, e pode ser feito a qualquer momento, sem justificativa. No mesmo menu de "Open Finance" ou "Compartilhamento de dados" do app, normalmente existe uma lista dos consentimentos ativos, com a instituição, o escopo e a data de expiração. Basta localizar o consentimento desejado e escolher a opção de cancelar ou revogar — o efeito costuma ser imediato.</p>
+      <p>Uma boa prática é revisar essa lista periodicamente, sobretudo depois de finalizar uma negociação de crédito ou uma portabilidade: se o consentimento já cumpriu sua função, não há motivo para deixá-lo ativo até o vencimento.</p>
+
+      <h2 id="cuidados">Cuidados essenciais antes de compartilhar seus dados</h2>
+      <ul>
+        <li><strong>Compartilhe só com instituições autorizadas.</strong> O fluxo de consentimento do Open Finance só existe dentro do aplicativo oficial do seu banco — desconfie de qualquer link externo, mensagem ou "consultor" pedindo para você autorizar compartilhamento fora do app.</li>
+        <li><strong>Leia o escopo antes de confirmar.</strong> Não autorize automaticamente sem ver o que está marcado para compartilhar.</li>
+        <li><strong>Desconfie de pressa.</strong> Golpes recentes têm usado a familiaridade do termo "Open Finance" para induzir a vítima a autorizar acessos indevidos por telefone ou WhatsApp — o processo real só acontece dentro do app do banco, nunca por link externo ou ligação. Vale revisitar os sinais descritos em <a href="/golpe-do-pix-como-reconhecer.html">golpe do Pix: os sinais que aparecem antes da transferência</a>, porque a engenharia social é parecida.</li>
+        <li><strong>Revise consentimentos ativos com frequência.</strong> Assim como você audita assinaturas recorrentes no orçamento, vale auditar quem tem acesso aos seus dados financeiros.</li>
+      </ul>
+      <div class="note-box">Se você recebeu uma mensagem fora do app do banco pedindo para "autorizar o Open Finance" com urgência, desconfie: esse é um convite ao app oficial, nunca uma cobrança por terceiros.</div>
+
+      <p>O Open Finance é uma ferramenta a favor de quem organiza a própria vida financeira — não um compartilhamento automático nem uma obrigação. Usado com atenção ao escopo e ao prazo, ele pode facilitar desde a comparação de uma taxa de empréstimo até a portabilidade da conta salário. Para quem já usa o <a href="/orcamento-domestico-metodo-dos-potes.html">método dos potes</a> ou está organizando a <a href="/reserva-de-emergencia-passo-a-passo.html">reserva de emergência</a>, entender esse mecanismo é mais uma peça do mesmo objetivo: pagar menos juros e ter mais controle sobre o próprio dinheiro. O <a href="/app.html">app Bolso em Dia</a> ajuda a acompanhar prazos de consentimento e vencimentos de contas no mesmo lugar.</p>
     </div>
-
-    <h2 class="section-title" id="categorias" style="margin-top:56px">Categorias</h2>
-    <p>Cada texto entra em uma destas cinco frentes. Não misturamos as quatro num só artigo genérico — cada categoria
-    responde a um tipo diferente de dúvida que chega até a redação.</p>
-    <ul>
-      <li><strong>Atualidade (3 artigos)</strong> — Pix Automático, Selic e Imposto de Renda 2026: o que mudou e o que isso significa na prática, sem prever o futuro.</li>
-      <li><strong>Planejamento (2 artigos)</strong> — método para organizar o orçamento e construir a primeira reserva de emergência.</li>
-      <li><strong>Educação Financeira (2 artigos)</strong> — Open Finance e score de crédito, dois temas cheios de mito e pouca explicação clara.</li>
-      <li><strong>Investimentos (1 artigo)</strong> — comparação honesta entre Tesouro Direto e CDB para quem está começando.</li>
-      <li><strong>Segurança (1 artigo)</strong> — como reconhecer o golpe do Pix antes de cair nele.</li>
-    </ul>
   </div>
-</div>
 
-<section class="app-section" id="app">
-  <div class="shell app-grid">
-    <div class="app-copy">
-      <span class="eyebrow">Gratuito · Sem análise de crédito</span>
-      <h2>Bolso em Dia: o app que lembra suas contas antes que elas virem juro</h2>
-      <p>Criamos o Bolso em Dia para resolver um problema específico: contas que vencem em datas diferentes e ficam
-      espalhadas entre mensagens, e-mails e a memória de quem cuida da casa. O app organiza vencimentos, avisa antes
-      do prazo e mostra o quanto falta pra fechar o mês — sem empréstimo, sem score, sem promessa de dinheiro extra.</p>
-      <div class="app-actions">
-        <a href="/app.html" class="btn btn-primary">Conhecer o app</a>
-        <a href="/faq.html#app" class="btn btn-outline">Tirar dúvidas</a>
-      </div>
-    </div>
-    <div class="phone-frame">
-      <div class="phone-notch"></div>
-      <div class="phone-screen">
-        <p class="ps-title">Seus vencimentos</p>
-        <p class="ps-sub">Semana de 3 a 9 de agosto</p>
-        <div class="bill-row"><span class="b-name">Energia</span><span class="tag tag-due">Vence hoje</span></div>
-        <div class="bill-row"><span class="b-name">Internet</span><span class="tag tag-soon">Em 3 dias</span></div>
-        <div class="bill-row"><span class="b-name">Escola</span><span class="tag tag-soon">Em 5 dias</span></div>
-        <div class="bill-row"><span class="b-name">Cartão</span><span class="tag tag-ok">Pago</span></div>
-        <div class="bill-row"><span class="b-name">Condomínio</span><span class="tag tag-ok">Pago</span></div>
+  <div class="shell">
+    <div class="related">
+      <h2>Leia também</h2>
+      <div class="related-grid">
+        <a class="related-card" href="/score-de-credito-mitos-e-fatos.html"><strong>Score de crédito: mitos e fatos</strong>O que realmente pesa e o que é lenda de grupo de WhatsApp.</a>
+        <a class="related-card" href="/golpe-do-pix-como-reconhecer.html"><strong>Golpe do Pix: como reconhecer</strong>Os sinais que aparecem antes da transferência, não depois.</a>
+        <a class="related-card" href="/pix-automatico-guia-2026.html"><strong>Pix Automático: guia 2026</strong>O que muda nas contas que se repetem todo mês.</a>
       </div>
     </div>
   </div>
-</section>
-
-<section class="newsletter" id="newsletter">
-  <div class="shell newsletter-grid">
-    <div>
-      <h2>Um e-mail por semana, sem enrolação</h2>
-      <p>Um resumo curto dos temas novos do blog — sem oferta de crédito, sem "oportunidade única", sem venda de curso.</p>
-    </div>
-    <div>
-      <form onsubmit="sub(event)">
-        <input type="email" required placeholder="seu@email.com" aria-label="Seu e-mail">
-        <button type="submit" class="btn btn-primary">Quero receber</button>
-      </form>
-      <p class="ok-msg" id="ok-msg">Prontinho — você vai receber o próximo resumo por e-mail.</p>
-    </div>
-  </div>
-</section>
-
-<div class="shell" id="sobre" style="padding:56px 28px">
-  <h2 class="section-title">Sobre o Bolso Consciente</h2>
-  <p style="max-width:74ch;color:var(--ink-soft)">Somos um projeto editorial independente dedicado a organização financeira
-  de famílias brasileiras. Não vendemos curso, não indicamos empréstimo e não prometemos rendimento — publicamos o que
-  testamos e o que faz sentido pra quem fecha o mês com salário fixo ou renda variável. Conheça a equipe e a política
-  editorial completa em <a href="/sobre.html">nossa página Sobre</a>.</p>
-</div>
+</article>
 
 <footer class="site-footer">
   <div class="shell footer-grid">
@@ -418,18 +342,5 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
     <span>Contato: contato@meubeneficio.sbs</span>
   </div>
 </footer>
-
-<script>
-function sub(e){
-  e.preventDefault();
-  if(typeof gtag === 'function'){
-    gtag('event','sign_up',{method:'newsletter'});
-  }
-  var msg = document.getElementById('ok-msg');
-  if(msg){ msg.style.display = 'block'; }
-  e.target.reset();
-  return false;
-}
-</script>
-</body>
-</html>
+<script>function sub(e){e.preventDefault();var o=document.getElementById('ok');if(o)o.style.display='block';try{if(window.gtag)gtag('event','sign_up',{method:'newsletter'});}catch(_){ } try{localStorage.setItem('nl','1');}catch(_){ } e.target.reset();return false;}</script>
+</body></html>

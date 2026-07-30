@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bolso Consciente — Organização financeira sem enrolação, para o dia a dia</title>
-<meta name="description" content="Blog de finanças pessoais para famílias brasileiras: orçamento, reserva de emergência, Pix Automático, Selic, Imposto de Renda e como reconhecer golpes financeiros. Sem jargão, sem promessa de renda.">
-<link rel="canonical" href="https://meubeneficio.sbs/safe.html">
+<title>Bolso em Dia — app gratuito de organização de contas e lembretes de vencimento</title>
+<meta name="description" content="Bolso em Dia é o app gratuito do Bolso Consciente para organizar contas, receber lembretes de vencimento e enxergar o mês inteiro num só lugar. Sem empréstimo, sem análise de crédito.">
+<link rel="canonical" href="https://meubeneficio.sbs/app.html">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='%23B5502F'/><text x='32' y='42' font-size='30' text-anchor='middle' fill='%23FBF7F0' font-family='Georgia'>BC</text></svg>">
 <style>
@@ -43,8 +43,6 @@ nav.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota)
 .hero-side{border-left:3px solid var(--terracota);padding-left:26px;align-self:end}
 .hero-side .stat{font-family:var(--font-display);font-size:2.4rem;color:var(--terracota);line-height:1;margin-bottom:8px}
 .hero-side p{font-size:.92rem;color:var(--ink-soft);margin:0}
-.hero-cover{width:100%;aspect-ratio:21/9;overflow:hidden;border-radius:4px;margin-bottom:32px}
-.hero-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .masthead-grid{display:grid;grid-template-columns:240px 1fr;gap:48px;padding:56px 0;align-items:start}
 .toc-rail{position:sticky;top:96px;border-right:1px solid var(--sand);padding-right:22px}
 .toc-rail h2{font-family:var(--font-display);font-size:1rem;text-transform:uppercase;letter-spacing:.08em;color:var(--terracota);margin:0 0 16px}
@@ -66,8 +64,6 @@ nav.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota)
 .card h3{font-family:var(--font-display);font-size:1.15rem;line-height:1.32;margin:0 0 10px;color:var(--ink)}
 .card p{font-size:.9rem;color:var(--ink-soft);margin:0 0 16px}
 .card .meta{font-size:.75rem;color:var(--olive);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.card .thumb{position:relative;overflow:hidden;aspect-ratio:16/9;margin:-26px -24px 16px}
-.card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .btn{display:inline-block;font-family:var(--font-body);font-weight:700;text-transform:uppercase;font-size:.8rem;letter-spacing:.06em;padding:14px 28px;border-radius:4px;text-decoration:none;border:2px solid var(--ink);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
 .btn-primary{background:var(--terracota);border-color:var(--terracota);color:var(--cream)}
 .btn-primary:hover{background:var(--ink);border-color:var(--ink)}
@@ -81,6 +77,8 @@ nav.site-nav a:hover{color:var(--terracota);border-bottom-color:var(--terracota)
 .app-copy h2{font-family:var(--font-display);font-size:2rem;margin:0 0 16px;color:var(--ink)}
 .app-copy p{color:var(--ink-soft);max-width:56ch}
 .app-copy .app-actions{margin-top:24px;display:flex;gap:14px;flex-wrap:wrap}
+.media-photo{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:6px;margin:20px 0 4px}
+.media-photo img{width:100%;height:100%;object-fit:cover;display:block}
 .phone-frame{width:260px;margin:0 auto;background:var(--ink);border-radius:0;padding:14px 10px;border:2px solid var(--ink)}
 .phone-notch{width:70px;height:16px;background:var(--cream);margin:0 auto 10px;border-radius:0 0 8px 8px}
 .phone-screen{background:var(--cream);padding:16px 14px;min-height:340px}
@@ -198,196 +196,169 @@ footer.site-footer a:hover{color:#fff;text-decoration:underline}
 </header>
 
 <section class="hero">
-  <div class="shell">
-    <div class="hero-cover"><img src="img/_hero.jpg" alt="Casal organizando o orçamento doméstico em casa, planilha e celular na mesa" loading="lazy"></div>
-  </div>
   <div class="shell hero-grid">
     <div>
-      <span class="eyebrow">Finanças do dia a dia</span>
-      <h1>Organizar as contas de casa não exige planilha complicada — exige um método que caiba na sua rotina</h1>
-      <p class="lead">O Bolso Consciente é um blog de educação financeira para quem administra o orçamento de uma família
-      brasileira: salário que entra numa data, conta que vence em outra, e a sensação de que o dinheiro nunca fecha certo.
-      Aqui você encontra explicações diretas sobre orçamento, reserva de emergência, investimentos simples, novidades como
-      Pix Automático e Open Finance, e como reconhecer um golpe financeiro antes de cair nele.</p>
+      <span class="eyebrow">App gratuito · Bolso Consciente</span>
+      <h1>Bolso em Dia: um lugar só para lembrar o que vence, não para pedir dinheiro emprestado</h1>
+      <p class="lead">O Bolso em Dia é o aplicativo gratuito que criamos para resolver um problema chato e específico:
+      contas de datas diferentes espalhadas entre WhatsApp, e-mail e memória. Ele organiza vencimentos, avisa antes do
+      prazo e mostra o total do mês num só lugar. Não analisa seu score, não oferece crédito e não promete renda —
+      é uma agenda de contas, feita para reduzir multa e juro por atraso.</p>
     </div>
     <div class="hero-side">
-      <div class="stat">9</div>
-      <p>Guias publicados este semestre, revisados por uma editora de conteúdo com registro em jornalismo — sem
-      jargão de mercado financeiro e sem promessa de renda fácil.</p>
+      <div class="stat">R$ 0</div>
+      <p>Custo de uso do app. Sem plano pago, sem taxa de adesão e sem venda de dados a terceiros — o modelo é
+      manter o leitor no blog e, no futuro, oferecer uma versão com mais integrações bancárias via Open Finance.</p>
     </div>
   </div>
 </section>
 
 <div class="shell masthead-grid">
   <aside class="toc-rail">
-    <h2>Sumário</h2>
+    <h2>Nesta página</h2>
     <ul>
-      <li><a href="#destaques">Em destaque <span class="cat-count">9</span></a></li>
-      <li><a href="#categorias">Categorias</a></li>
-      <li><a href="#app">App Bolso em Dia</a></li>
-      <li><a href="#newsletter">Newsletter</a></li>
-      <li><a href="#sobre">Sobre o projeto</a></li>
-      <li><a href="/glossario.html">Glossário financeiro</a></li>
-      <li><a href="/faq.html">Perguntas frequentes</a></li>
+      <li><a href="#recursos">O que o app faz</a></li>
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#mockup">Tela do app</a></li>
+      <li><a href="#faq-app">Perguntas rápidas</a></li>
     </ul>
-    <div class="rail-note">Atualidade, educação financeira, planejamento, investimentos e segurança — nessa ordem
-    de prioridade, sempre explicado sem prometer o que não sabemos garantir.</div>
+    <div class="rail-note">O Bolso em Dia é mantido pela mesma redação do blog. Reporte um problema pelo
+    e-mail contato@meubeneficio.sbs.</div>
   </aside>
 
   <div class="content-col">
-    <h2 class="section-title" id="destaques">Em destaque</h2>
-    <p>Nove textos publicados entre janeiro e abril, escolhidos porque respondem a uma dúvida concreta: o que muda
-    no Pix, o que o Banco Central quer dizer com Open Finance, quanto guardar antes de investir e como identificar
-    um golpe antes de cair nele. Nenhum deles promete rendimento garantido ou "segredo" que ninguém mais conhece.</p>
+    <h2 class="section-title" id="recursos">O que o Bolso em Dia faz</h2>
+    <p>Seis recursos pensados para o problema mais comum: lembrar de pagar, sem depender de memória ou de um
+    caderno perdido na gaveta.</p>
 
-    <div class="grid">
-      <div class="card">
-        <a class="card-link" href="/pix-automatico-guia-2026.html">
-          <div class="thumb"><img src="img/pix-automatico-guia-2026.jpg" alt="Pix Automático: celular exibindo pagamento recorrente aprovado" loading="lazy"></div>
-          <span class="cat">Atualidade</span>
-          <h3>Pix Automático: o que muda nas contas que se repetem todo mês</h3>
-          <p>O novo modo de pagar recorrência substitui débito automático e boleto de assinatura — veja como ativar e quando faz sentido.</p>
-          <span class="meta">10 fev 2026</span>
-        </a>
+    <div class="feature-grid">
+      <div class="feature">
+        <span class="ico">🔔</span>
+        <h3>Lembrete de vencimento</h3>
+        <p>Aviso configurável — 5, 3 ou 1 dia antes — para cada conta cadastrada, direto na tela do celular.</p>
       </div>
-      <div class="card">
-        <a class="card-link" href="/open-finance-como-usar-no-dia-a-dia.html">
-          <div class="thumb"><img src="img/open-finance-como-usar-no-dia-a-dia.jpg" alt="Open Finance: dados bancários compartilhados entre instituições com consentimento" loading="lazy"></div>
-          <span class="cat">Educação Financeira</span>
-          <h3>Open Finance na prática: como usar seus próprios dados para pagar menos juros</h3>
-          <p>Compartilhar dados entre bancos, com seu consentimento, pode abrir crédito mais barato — veja como ativar e revogar.</p>
-          <span class="meta">04 mar 2026</span>
-        </a>
+      <div class="feature">
+        <span class="ico">📋</span>
+        <h3>Lista única do mês</h3>
+        <p>Todas as contas fixas e variáveis num só painel, organizadas por data em vez de espalhadas em apps diferentes.</p>
       </div>
-      <div class="card">
-        <a class="card-link" href="/selic-no-bolso-o-que-muda.html">
-          <div class="thumb"><img src="img/selic-no-bolso-o-que-muda.jpg" alt="Taxa Selic e o efeito no rendimento da poupança e no financiamento" loading="lazy"></div>
-          <span class="cat">Atualidade</span>
-          <h3>Selic no bolso: o que a taxa básica muda na poupança, no financiamento e no cartão</h3>
-          <p>Quando a Selic sobe ou desce, o efeito chega no rendimento da poupança, no juro do cartão e no financiamento — veja como.</p>
-          <span class="meta">22 jan 2026</span>
-        </a>
+      <div class="feature">
+        <span class="ico">📊</span>
+        <h3>Total já pago x. a pagar</h3>
+        <p>Um resumo simples do que já saiu da conta e do que ainda falta pagar antes do fim do mês.</p>
       </div>
-      <div class="card">
-        <a class="card-link" href="/reserva-de-emergencia-passo-a-passo.html">
-          <div class="thumb"><img src="img/reserva-de-emergencia-passo-a-passo.jpg" alt="Reserva de emergência: cofrinho e dinheiro guardado para imprevistos" loading="lazy"></div>
-          <span class="cat">Planejamento</span>
-          <h3>Reserva de emergência: quanto guardar primeiro quando o salário mal fecha a conta</h3>
-          <p>Não é sobre guardar uma fortuna de uma vez — é sobre criar o primeiro colchão que evita uma dívida nova.</p>
-          <span class="meta">15 jan 2026</span>
-        </a>
+      <div class="feature">
+        <span class="ico">🔁</span>
+        <h3>Contas recorrentes</h3>
+        <p>Cadastre uma vez uma conta que se repete (aluguel, escola, assinatura) e ela reaparece automaticamente todo mês.</p>
       </div>
-      <div class="card">
-        <a class="card-link" href="/orcamento-domestico-metodo-dos-potes.html">
-          <div class="thumb"><img src="img/orcamento-domestico-metodo-dos-potes.jpg" alt="Método dos potes: envelopes separando o salário por categoria de gasto" loading="lazy"></div>
-          <span class="cat">Planejamento</span>
-          <h3>O método dos potes: organizando o salário em 4 categorias antes do dia 5</h3>
-          <p>Separar o dinheiro assim que ele cai na conta evita que o essencial vire variável no fim do mês.</p>
-          <span class="meta">01 fev 2026</span>
-        </a>
+      <div class="feature">
+        <span class="ico">👪</span>
+        <h3>Uso compartilhado</h3>
+        <p>Duas pessoas da mesma casa podem ver a mesma lista, útil quando o casal divide as contas fixas.</p>
       </div>
-      <div class="card">
-        <a class="card-link" href="/score-de-credito-mitos-e-fatos.html">
-          <div class="thumb"><img src="img/score-de-credito-mitos-e-fatos.jpg" alt="Score de crédito consultado no aplicativo do banco" loading="lazy"></div>
-          <span class="cat">Educação Financeira</span>
-          <h3>Score de crédito: o que realmente pesa e o que é lenda de grupo de WhatsApp</h3>
-          <p>Consultar seu próprio score não derruba a nota, e pagar boleto não é o único fator — separamos o que os birôs de fato usam.</p>
-          <span class="meta">20 mar 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/tesouro-direto-e-cdb-para-comecar-com-pouco.html">
-          <div class="thumb"><img src="img/tesouro-direto-e-cdb-para-comecar-com-pouco.jpg" alt="Tesouro Direto e CDB: opções de investimento em renda fixa" loading="lazy"></div>
-          <span class="cat">Investimentos</span>
-          <h3>Tesouro Direto ou CDB: por onde começar com pouco por mês</h3>
-          <p>Antes de escolher entre os dois, entenda liquidez, garantia e o que cada um resolve na sua reserva.</p>
-          <span class="meta">08 abr 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/golpe-do-pix-como-reconhecer.html">
-          <div class="thumb"><img src="img/golpe-do-pix-como-reconhecer.jpg" alt="Golpe do Pix: alerta de segurança na tela do celular" loading="lazy"></div>
-          <span class="cat">Segurança</span>
-          <h3>Golpe do Pix: os sinais que aparecem antes da transferência, não depois</h3>
-          <p>A maioria dos golpes de Pix já mostra uma bandeira vermelha na conversa — reconhecer isso é mais rápido que tentar recuperar o dinheiro depois.</p>
-          <span class="meta">25 fev 2026</span>
-        </a>
-      </div>
-      <div class="card">
-        <a class="card-link" href="/imposto-de-renda-2026-quem-precisa-declarar.html">
-          <div class="thumb"><img src="img/imposto-de-renda-2026-quem-precisa-declarar.jpg" alt="Declaração do Imposto de Renda 2026 sendo preenchida no computador" loading="lazy"></div>
-          <span class="cat">Atualidade</span>
-          <h3>Imposto de Renda 2026: quem precisa declarar e os erros que atrasam a restituição</h3>
-          <p>Faixa de renda, bens e dependentes definem a obrigatoriedade — e pequenos erros de preenchimento são a causa mais comum de cair na malha fina.</p>
-          <span class="meta">25 abr 2026</span>
-        </a>
+      <div class="feature">
+        <span class="ico">🔒</span>
+        <h3>Sem dado bancário</h3>
+        <p>Você digita valor e data manualmente — o app não pede senha de banco nem acessa saldo de conta corrente.</p>
       </div>
     </div>
 
-    <h2 class="section-title" id="categorias" style="margin-top:56px">Categorias</h2>
-    <p>Cada texto entra em uma destas cinco frentes. Não misturamos as quatro num só artigo genérico — cada categoria
-    responde a um tipo diferente de dúvida que chega até a redação.</p>
-    <ul>
-      <li><strong>Atualidade (3 artigos)</strong> — Pix Automático, Selic e Imposto de Renda 2026: o que mudou e o que isso significa na prática, sem prever o futuro.</li>
-      <li><strong>Planejamento (2 artigos)</strong> — método para organizar o orçamento e construir a primeira reserva de emergência.</li>
-      <li><strong>Educação Financeira (2 artigos)</strong> — Open Finance e score de crédito, dois temas cheios de mito e pouca explicação clara.</li>
-      <li><strong>Investimentos (1 artigo)</strong> — comparação honesta entre Tesouro Direto e CDB para quem está começando.</li>
-      <li><strong>Segurança (1 artigo)</strong> — como reconhecer o golpe do Pix antes de cair nele.</li>
-    </ul>
+    <h2 class="section-title" id="como-funciona" style="margin-top:48px">Como funciona</h2>
+    <p>Quatro passos, do cadastro ao primeiro lembrete.</p>
+    <div class="steps">
+      <div class="step">
+        <h3>Cadastre a conta</h3>
+        <p>Nome, valor aproximado e data de vencimento. Leva menos de um minuto por conta.</p>
+      </div>
+      <div class="step">
+        <h3>Marque se é fixa</h3>
+        <p>Contas que se repetem todo mês (aluguel, internet, escola) viram recorrentes com um toque.</p>
+      </div>
+      <div class="step">
+        <h3>Escolha o aviso</h3>
+        <p>Defina quantos dias antes do vencimento você quer ser lembrado — o padrão é três dias.</p>
+      </div>
+      <div class="step">
+        <h3>Marque como pago</h3>
+        <p>Ao pagar, marque a conta como quitada e ela some da lista de pendências da semana.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title" id="mockup" style="margin-top:48px">A tela que você vai usar todo dia</h2>
+    <p>Um painel de semana, não de mês inteiro — porque é na semana que a decisão de pagar ou adiar acontece.</p>
   </div>
 </div>
 
-<section class="app-section" id="app">
-  <div class="shell app-grid">
-    <div class="app-copy">
-      <span class="eyebrow">Gratuito · Sem análise de crédito</span>
-      <h2>Bolso em Dia: o app que lembra suas contas antes que elas virem juro</h2>
-      <p>Criamos o Bolso em Dia para resolver um problema específico: contas que vencem em datas diferentes e ficam
-      espalhadas entre mensagens, e-mails e a memória de quem cuida da casa. O app organiza vencimentos, avisa antes
-      do prazo e mostra o quanto falta pra fechar o mês — sem empréstimo, sem score, sem promessa de dinheiro extra.</p>
-      <div class="app-actions">
-        <a href="/app.html" class="btn btn-primary">Conhecer o app</a>
-        <a href="/faq.html#app" class="btn btn-outline">Tirar dúvidas</a>
-      </div>
-    </div>
+<section class="app-section">
+  <div class="shell app-grid" style="grid-template-columns:300px 1fr">
     <div class="phone-frame">
       <div class="phone-notch"></div>
       <div class="phone-screen">
-        <p class="ps-title">Seus vencimentos</p>
+        <p class="ps-title">Bolso em Dia</p>
         <p class="ps-sub">Semana de 3 a 9 de agosto</p>
-        <div class="bill-row"><span class="b-name">Energia</span><span class="tag tag-due">Vence hoje</span></div>
-        <div class="bill-row"><span class="b-name">Internet</span><span class="tag tag-soon">Em 3 dias</span></div>
-        <div class="bill-row"><span class="b-name">Escola</span><span class="tag tag-soon">Em 5 dias</span></div>
-        <div class="bill-row"><span class="b-name">Cartão</span><span class="tag tag-ok">Pago</span></div>
-        <div class="bill-row"><span class="b-name">Condomínio</span><span class="tag tag-ok">Pago</span></div>
+        <div class="bill-row"><span class="b-name">Aluguel</span><span class="tag tag-due">Vence hoje</span></div>
+        <div class="bill-row"><span class="b-name">Água</span><span class="tag tag-soon">Em 2 dias</span></div>
+        <div class="bill-row"><span class="b-name">Plano de saúde</span><span class="tag tag-soon">Em 4 dias</span></div>
+        <div class="bill-row"><span class="b-name">Streaming</span><span class="tag tag-ok">Pago</span></div>
+        <div class="bill-row"><span class="b-name">Financiamento</span><span class="tag tag-ok">Pago</span></div>
+        <div class="bill-row"><span class="b-name" style="color:var(--olive)">Total pendente</span><span style="font-weight:700;font-size:.8rem">R$ 640</span></div>
+      </div>
+    </div>
+    <div class="app-copy">
+      <span class="eyebrow">Sem instalar nada complicado</span>
+      <h2>Uma tela, sem menu escondido</h2>
+      <p>A proposta do Bolso em Dia é caber na correria: abrir o app, ver o que vence essa semana, marcar o que já
+      foi pago e fechar. Sem gráfico difícil de ler, sem oferta de cartão de crédito na tela inicial e sem
+      notificação empurrando produto financeiro.</p>
+      <div class="media-photo"><img src="img/_app.jpg" alt="Pessoa conferindo o app Bolso em Dia no celular para acompanhar os vencimentos da semana" loading="lazy"></div>
+      <div class="app-actions">
+        <a href="/faq.html#app" class="btn btn-primary">Ver perguntas sobre o app</a>
+        <a href="/safe.html" class="btn btn-outline">Voltar ao blog</a>
       </div>
     </div>
   </div>
 </section>
+
+<div class="shell" id="faq-app" style="padding:56px 28px">
+  <h2 class="section-title">Perguntas rápidas sobre o app</h2>
+  <div class="faq-item">
+    <h3>O Bolso em Dia empresta dinheiro ou oferece crédito?</h3>
+    <p>Não. O app só organiza datas e valores que você mesmo cadastra. Não há análise de crédito, não há oferta de
+    empréstimo e não há integração com nenhum produto de crédito dentro do app.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Preciso conectar minha conta bancária?</h3>
+    <p>Não é obrigatório. Você pode cadastrar cada conta manualmente. A leitura automática via Open Finance é um
+    recurso opcional em teste, sempre com consentimento explícito e revogável a qualquer momento.</p>
+  </div>
+  <div class="faq-item">
+    <h3>O app cobra alguma taxa?</h3>
+    <p>Não. O uso é gratuito. Se um dia existir um plano pago com recursos extras, ele será opcional e claramente
+    identificado — nunca cobrado sem aviso.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Meus dados ficam seguros?</h3>
+    <p>Tratamos apenas os dados que você cadastra (nome da conta, valor, data). Não pedimos senha de banco, número
+    de cartão nem código de verificação. Detalhes completos na <a href="/privacidade.html">Política de Privacidade</a>.</p>
+  </div>
+</div>
 
 <section class="newsletter" id="newsletter">
   <div class="shell newsletter-grid">
     <div>
-      <h2>Um e-mail por semana, sem enrolação</h2>
-      <p>Um resumo curto dos temas novos do blog — sem oferta de crédito, sem "oportunidade única", sem venda de curso.</p>
+      <h2>Quer saber quando o app ganhar novidade?</h2>
+      <p>Avisamos por e-mail quando lançarmos recursos novos no Bolso em Dia — sem spam, sem venda de lista.</p>
     </div>
     <div>
       <form onsubmit="sub(event)">
         <input type="email" required placeholder="seu@email.com" aria-label="Seu e-mail">
-        <button type="submit" class="btn btn-primary">Quero receber</button>
+        <button type="submit" class="btn btn-primary">Quero saber</button>
       </form>
-      <p class="ok-msg" id="ok-msg">Prontinho — você vai receber o próximo resumo por e-mail.</p>
+      <p class="ok-msg" id="ok-msg">Prontinho — você será avisado por e-mail.</p>
     </div>
   </div>
 </section>
-
-<div class="shell" id="sobre" style="padding:56px 28px">
-  <h2 class="section-title">Sobre o Bolso Consciente</h2>
-  <p style="max-width:74ch;color:var(--ink-soft)">Somos um projeto editorial independente dedicado a organização financeira
-  de famílias brasileiras. Não vendemos curso, não indicamos empréstimo e não prometemos rendimento — publicamos o que
-  testamos e o que faz sentido pra quem fecha o mês com salário fixo ou renda variável. Conheça a equipe e a política
-  editorial completa em <a href="/sobre.html">nossa página Sobre</a>.</p>
-</div>
 
 <footer class="site-footer">
   <div class="shell footer-grid">
