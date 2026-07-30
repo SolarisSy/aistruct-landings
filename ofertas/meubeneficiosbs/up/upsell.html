@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #047094;
+            margin: 0;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner"></div>
+    <script>
+        function getQueryParams() {
+            return window.location.search;
+        }
+
+        const upsell = localStorage.getItem("upsell");
+        let redirectUrl = "up1/index.html";
+        
+        if (upsell === "up2/index.html") redirectUrl = "up2/index.html";
+        else if (upsell === "up3/index.html") redirectUrl = "up3/index.html";
+        else if (upsell === "up4/index.html") redirectUrl = "up4/index.html";
+        else if (upsell === "up5/index.html") redirectUrl = "up5/index.html";
+        else if (upsell === "up6/index.html") redirectUrl = "up6/index.html";
+        else if (upsell === "up7/index.html") redirectUrl = "up7/index.html";
+        else if (upsell === "up8/index.html") redirectUrl = "up8/index.html";
+        else if (upsell === "up9/index.html") redirectUrl = "up9/index.html";
+        else if (upsell === "up11/index.html") redirectUrl = "up11/index.html";
+        // else if (upsell === "obg") redirectUrl = "/obg";
+        
+        window.location.href = redirectUrl + getQueryParams();
+    </script>
+</body>
+</html>

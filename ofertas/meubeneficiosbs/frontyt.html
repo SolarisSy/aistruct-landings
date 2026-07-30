@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valores a Receber</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-container">
+    <div class="card">
+      <div class="logo-wrapper">
+        <img src="assets/img/logo.svg" alt="Banco Central do Brasil" class="logo">
+      </div>   
+      <p class="subtitle">
+        Informe seu CPF e clique em "Consultar" para<br>
+        verificar seu valor disponível
+      </p>
+      <form id="consultaForm" class="consulta-form">
+        <div class="input-group">
+        <label for="cpfInput" class="cpf-label">CPF</label>
+         <input type="text" id="cpfInput" placeholder="000.000.000-00" maxlength="14" class="cpf-input" >
+        </div>
+        <button type="submit" id="consultarBtn" class="consultar-btn" disabled>
+        <i class="fa-solid fa-magnifying-glass"></i> CONSULTAR VALORES
+        </button>
+      </form>
+     <div class="footer-info">
+        <div class="footer-top">
+            <span class="secure"><i class="fas fa-lock"></i> Conexão Segura</span>
+            <span class="bc-footer"><i class="fa-regular fa-circle-check"></i> Banco Central do Brasil</span>
+        </div>
+        <span class="rights">Sistema de Valores a Receber - Todos os direitos reservados</span>
+        </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

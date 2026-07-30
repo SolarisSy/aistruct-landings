@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valores a Receber - Chat</title>
+  <link rel="stylesheet" href="chat-style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="header-inner">
+      <div class="logo-wrapper">
+        <img src="../assets/img/logo.svg" alt="Banco Central do Brasil" class="logo">
+      </div>
+    </div>
+    <div class="header-chevron"></div>
+  </header>
+
+  <div class="page-container">
+    <div class="card">
+
+      <!-- HEADER DO CHAT DENTRO DO CARD -->
+      <div class="chat-header">
+        <div class="chat-avatar">
+          <img src="../assets/img/avatar.svg" alt="Atendente" class="avatar-img">
+        </div>
+        <div class="chat-info">
+          <span class="chat-name">Amanda Santiago</span>
+          <span class="chat-subtitle">Atendimento do Banco Central</span>
+        </div>
+      </div>
+
+      <!-- CORPO DO CARD COM TYPBOT -->
+      <div class="chat-body">
+        <script type="module">
+          import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js';
+
+          Typebot.initStandard({
+            typebot: "v03-23072027",
+            apiHost: "https://chat.onlinevisual-on.com/",
+          });
+        </script>
+        <typebot-standard style="height: 100vh; width: 100%;"></typebot-standard>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
