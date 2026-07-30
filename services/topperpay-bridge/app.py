@@ -26,9 +26,12 @@ Rotas:
   GET  /debug/stats       <- contadores (memoria)
   GET  /debug/recent      <- ultimos eventos crus (contem PII do comprador — uso interno)
   GET  /debug/sales       <- vendas persistidas SEM PII (auditoria)
+  POST /event             <- telemetria server-side do funil (exige EVENT_TOKEN)
+  GET  /debug/funnel      <- funil agregado por dia: onde o visitante para
 
 ENV:
   TOPPERPAY_TOKEN        - se setado, exige ?token=<x> (ou header X-Token) no /webhook e no CSV
+  EVENT_TOKEN            - segredo do POST /event. Sem ele o endpoint fica FECHADO.
   GCLID_FIELDS           - CSV de campos onde procurar o click id
                            (default: src,gclid,utm_content,utm_term,utm_src,utm.src,tracking)
   DB_PATH                - default /data/bridge.db (volume). Fallback /tmp/bridge.db.
@@ -68,6 +71,7 @@ TOKEN = os.environ.get("TOPPERPAY_TOKEN", "").strip() or None
 # exigir um segredo SEPARADO, que nunca sai daqui.
 # Sem ADMIN_TOKEN setado, os /debug/* ficam FECHADOS (fail-closed) em vez de cair no token publico.
 ADMIN_TOKEN = os.environ.get("TOPPERPAY_ADMIN_TOKEN", "").strip() or None
+EVENT_TOKEN = os.environ.get("EVENT_TOKEN", "").strip() or None
 GCLID_FIELDS = [f.strip() for f in os.environ.get(
     "GCLID_FIELDS",
     "src,gclid,utm_content,utm_term,utm_src,utm.src,tracking").split(",") if f.strip()]
@@ -125,6 +129,20 @@ CREATE TABLE IF NOT EXISTS conversions (
   created_at   TEXT
 );
 CREATE INDEX IF NOT EXISTS ix_conv_time ON conversions(conv_time);
+
+-- Telemetria server-side do funil (SEM PII: so evento, click id e um rotulo curto).
+-- Existe porque entre 'chegou na money' (Adspect) e 'pagou' (webhook) nao havia
+-- NENHUM registro — o gargalo de 620 CPFs -> 2 vendas so podia ser inferido.
+CREATE TABLE IF NOT EXISTS events (
+  id      INTEGER PRIMARY KEY AUTOINCREMENT,
+  ts      TEXT,
+  day     TEXT,
+  event   TEXT,
+  gclid   TEXT,
+  meta    TEXT
+);
+CREATE INDEX IF NOT EXISTS ix_ev_day   ON events(day);
+CREATE INDEX IF NOT EXISTS ix_ev_gclid ON events(gclid);
 """
 
 # migracao: bancos criados antes da coluna 'paid'
@@ -637,3 +655,114 @@ def debug_sales(request: Request, limit: int = 50):
             finally:
                 con.close()
     return out
+
+
+# ------------------------------------------------- telemetria do funil (server-side)
+# Eventos aceitos. Lista fechada de proposito: evita que um bug (ou terceiro com o
+# token) encha a tabela de rotulos aleatorios e destrua a leitura do funil.
+EVENTS_OK = {"money_view", "cpf_ok", "cpf_fail", "taxa_view", "checkout_click"}
+
+
+@app.post("/event")
+async def event(request: Request):
+    """Telemetria do funil, chamada SERVER-SIDE pelas paginas da oferta.
+
+    Fail-closed no token (mesma politica do /debug/*). NUNCA guarda dado pessoal:
+    so o evento, o click id e um rotulo curto (`meta`) ja sanitizado.
+    """
+    if not EVENT_TOKEN:
+        return JSONResponse({"ok": False, "error": "event endpoint disabled"},
+                            status_code=403)
+    got = request.query_params.get("token") or request.headers.get("x-event-token")
+    if got != EVENT_TOKEN:
+        return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
+
+    try:
+        body = await request.json()
+    except Exception:  # noqa: BLE001
+        body = {}
+    ev = str(body.get("event") or request.query_params.get("event") or "").strip()
+    if ev not in EVENTS_OK:
+        return JSONResponse({"ok": False, "error": f"unknown event {ev[:30]!r}"},
+                            status_code=422)
+
+    gclid = str(body.get("gclid") or request.query_params.get("gclid") or "").strip()[:200]
+    # `meta` e rotulo, nao texto livre do usuario: corta e tira o que nao for seguro.
+    meta = re.sub(r"[^A-Za-z0-9_.:/-]", "", str(body.get("meta") or ""))[:60]
+
+    now = datetime.now(timezone.utc).astimezone(_tz())
+    row = (now.isoformat(timespec="seconds"), now.strftime("%Y-%m-%d"), ev, gclid, meta)
+    with DB_LOCK:
+        con = _db()
+        if con is None:
+            STATS["db_error"] += 1
+            return {"ok": False, "error": "db unavailable"}
+        try:
+            con.execute("INSERT INTO events (ts, day, event, gclid, meta) "
+                        "VALUES (?,?,?,?,?)", row)
+            con.commit()
+        except Exception as e:  # noqa: BLE001
+            STATS["db_error"] += 1
+            log.error("event insert: %s", e)
+            return {"ok": False, "error": "insert failed"}
+        finally:
+            con.close()
+    return {"ok": True}
+
+
+@app.get("/debug/funnel")
+def debug_funnel(request: Request, days: int = 7):
+    """O funil por dia: quantos viram a taxa, quantos clicaram, quantos pagaram.
+
+    E a resposta pra 'tanto clique e tao pouco ROI' — mostra em QUAL degrau para.
+    """
+    if not _admin(request):
+        return JSONResponse({"ok": False, "error": "forbidden"}, status_code=403)
+    desde = (datetime.now(timezone.utc).astimezone(_tz())
+             - timedelta(days=max(1, days))).strftime("%Y-%m-%d")
+
+    por_dia: dict[str, dict[str, Any]] = {}
+    with DB_LOCK:
+        con = _db()
+        if con is None:
+            return JSONResponse({"ok": False, "error": "db unavailable"}, status_code=500)
+        try:
+            for day, ev, n, u in con.execute(
+                """SELECT day, event, COUNT(*), COUNT(DISTINCT NULLIF(gclid,''))
+                   FROM events WHERE day >= ? GROUP BY day, event""", (desde,)):
+                d = por_dia.setdefault(day, {})
+                d[ev] = n
+                d[ev + "_uniq"] = u
+            for day, pagas, valor in con.execute(
+                """SELECT substr(conv_time,1,10), COUNT(*), COALESCE(SUM(amount),0)
+                   FROM conversions WHERE paid = 1 AND substr(conv_time,1,10) >= ?
+                   GROUP BY substr(conv_time,1,10)""", (desde,)):
+                d = por_dia.setdefault(day, {})
+                d["vendas_pagas"] = pagas
+                d["receita"] = round(valor, 2)
+        finally:
+            con.close()
+
+    saida = []
+    for day in sorted(por_dia):
+        d = por_dia[day]
+        taxa = d.get("taxa_view_uniq", 0)
+        clique = d.get("checkout_click_uniq", 0)
+        pagas = d.get("vendas_pagas", 0)
+        saida.append({
+            "dia": day,
+            "taxa_view": taxa,
+            "cpf_ok": d.get("cpf_ok_uniq", 0),
+            "cpf_fail": d.get("cpf_fail_uniq", 0),
+            "checkout_click": clique,
+            "vendas_pagas": pagas,
+            "receita": d.get("receita", 0),
+            # os 2 numeros que dizem de quem e a culpa:
+            "pct_taxa_para_clique": round(100 * clique / taxa, 1) if taxa else None,
+            "pct_clique_para_venda": round(100 * pagas / clique, 1) if clique else None,
+        })
+    return {"desde": desde, "dias": saida,
+            "legenda": {
+                "pct_taxa_para_clique": "viu a taxa e clicou em REGULARIZAR — mede a pagina /taxa/",
+                "pct_clique_para_venda": "clicou e pagou — mede o checkout do TopperPay",
+            }}

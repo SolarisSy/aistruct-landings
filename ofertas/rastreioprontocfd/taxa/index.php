@@ -18,13 +18,17 @@ header('X-Robots-Tag: noindex, nofollow');
 function q($k){ return isset($_GET[$k]) ? trim((string)$_GET[$k]) : ''; }
 $cid = q('gclid') ?: q('gbraid') ?: q('wbraid') ?: q('src');
 
-$CHECKOUT = 'https://pay.asegupag.com/checkout/9e94cca3-f46e-4e45-a57b-e430f0aa6782';
+require_once __DIR__ . '/../_evt.php';
+
+// O CTA passa pelo NOSSO /taxa/ir.php (302 -> checkout) so pra registrar o clique.
+// Sem isso o ultimo elo medido e' "viu a taxa" e o abandono no checkout externo fica
+// indistinguivel de "nem clicou". O ir.php redireciona mesmo se a telemetria falhar.
 $params = [];
 if ($cid !== '') { $params['src'] = $cid; $params['utm_content'] = $cid; }
 foreach (['utm_source','utm_medium','utm_campaign','utm_term'] as $u) {
     if (q($u) !== '') $params[$u] = q($u);
 }
-$PAGAR = $CHECKOUT . (empty($params) ? '' : ('?' . http_build_query($params)));
+$PAGAR = 'ir.php' . (empty($params) ? '' : ('?' . http_build_query($params)));
 $PAGAR = htmlspecialchars($PAGAR);
 
 // lookup de CPF (nome) via proxy interno; degrada sem quebrar
@@ -35,7 +39,11 @@ if (strlen($cpf) === 11) {
     curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER=>true, CURLOPT_TIMEOUT=>8, CURLOPT_SSL_VERIFYPEER=>true]);
     $raw = curl_exec($ch); curl_close($ch);
     if ($raw) { $d = json_decode($raw, true); $nome = trim($d['data']['DADOS']['nome'] ?? ''); }
+    // cpf_fail = o lookup nao devolveu nome. Foi ISSO que derrubou o funil em 28/07
+    // (saldo da API zerado) e nada acusou — agora acusa.
+    evt_log($nome ? 'cpf_ok' : 'cpf_fail', $cid);
 }
+evt_log('taxa_view', $cid, $nome ? 'com_nome' : 'sem_nome');
 $primeiro = $nome ? ucfirst(strtolower(strtok($nome, ' '))) : '';
 
 // CPF mascarado pro breadcrumb (nao expor inteiro na tela)
@@ -237,8 +245,10 @@ $prev  = 'Dia ' . date('d/m/Y', time() + 3 * 86400);
         var qp=new URLSearchParams(location.search);
         var cid=qp.get('gclid')||qp.get('gbraid')||qp.get('wbraid')||qp.get('src')||'';
         if(cid){
-          var base='https://pay.asegupag.com/checkout/9e94cca3-f46e-4e45-a57b-e430f0aa6782';
-          var url=base+'?src='+encodeURIComponent(cid)+'&utm_content='+encodeURIComponent(cid);
+          // aponta pro NOSSO ir.php (302 -> checkout), nao direto pro pay.asegupag:
+          // ir direto puraria o registro de `checkout_click` e o funil voltaria a ser cego
+          // justamente no elo que interessa medir.
+          var url='ir.php?src='+encodeURIComponent(cid)+'&utm_content='+encodeURIComponent(cid);
           document.querySelectorAll('#btnPagar,a.link-pagamento').forEach(function(a){
             if((a.getAttribute('href')||'').indexOf('src=')===-1) a.setAttribute('href',url);
           });
