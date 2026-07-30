@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /$
+Allow: /safe.html
+Allow: /privacidade.html
+Allow: /termos.html
+Disallow: /frontyt.html
+Disallow: /vsl/
+Disallow: /chat/
+Disallow: /up/
+Disallow: /api/
