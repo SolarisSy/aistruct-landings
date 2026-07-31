@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bluetooth: o que muda com o codec e o que é atraso — Onda Sonora</title>
+<meta name="description" content="Codec afecta qualidade e sincronismo. Para música quase não se nota; para vídeo e jogos, nota-se muito.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://ondasonora.sbs/bluetooth-codec-e-atraso.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314161a'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23e0a13c'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%234f9fd4' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%234f9fd4' stroke-width='1' opacity='.5'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#14161a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bluetooth: o que muda com o codec e o que é atraso — Onda Sonora">
+<meta property="og:description" content="Codec afecta qualidade e sincronismo. Para música quase não se nota; para vídeo e jogos, nota-se muito.">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:url" content="https://ondasonora.sbs/bluetooth-codec-e-atraso.html">
+<meta property="og:image" content="https://ondasonora.sbs/img/bluetooth-codec-e-atraso.jpg">
+<style>
+:root{
+  --noite:#14161a; --noite-alta:#1c2026; --texto:#e6e8ec; --texto-fraco:#9aa2ad;
+  --ambar:#e0a13c; --medidor:#4f9fd4; --risco:#2a2f38; --arredondado:10px; --coluna:1040px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--noite);color:var(--texto);
+  font:17px/1.72 Georgia,"Times New Roman",serif}
+.banda{max-width:var(--coluna);margin:0 auto;padding:0 22px}
+.cartaz{padding:28px 0 14px;border-bottom:1px solid var(--risco)}
+.cartaz .nome{font:700 28px/1 "Trebuchet MS",Tahoma,sans-serif;letter-spacing:-.6px;
+  text-transform:uppercase;color:var(--texto);text-decoration:none;display:inline-block}
+.cartaz .nome b{color:var(--ambar);font-weight:700}
+.cartaz .chamada{font:12px/1.6 "Trebuchet MS",sans-serif;color:var(--texto-fraco);
+  letter-spacing:.18em;text-transform:uppercase;margin-top:8px}
+.canal{margin-top:12px;font:13px/2 "Trebuchet MS",Tahoma,sans-serif}
+.canal a{color:var(--texto);text-decoration:none;margin-right:22px;padding-bottom:3px;
+  border-bottom:2px solid transparent}
+.canal a:hover{border-bottom-color:var(--ambar);color:var(--ambar)}
+.faixa{padding:30px 0;border-bottom:1px solid var(--risco)}
+.faixa:last-of-type{border-bottom:0}
+.faixa-rotulo{font:11px/1.6 "Trebuchet MS",sans-serif;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ambar);margin:0 0 14px}
+h1{font:700 36px/1.18 "Trebuchet MS",Tahoma,sans-serif;letter-spacing:-.8px;margin:0 0 14px}
+h2{font:700 21px/1.3 "Trebuchet MS",Tahoma,sans-serif;letter-spacing:-.2px;margin:28px 0 10px;
+  color:var(--texto)}
+h3{font:700 12px/1.5 "Trebuchet MS",sans-serif;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--medidor);margin:22px 0 6px}
+p{margin:0 0 15px;color:var(--texto)}
+a{color:var(--ambar)}
+.lead{font-size:19px;line-height:1.6;color:var(--texto-fraco);border-left:3px solid var(--ambar);
+  padding-left:18px;margin:0 0 26px}
+.ficha{width:100%;border-collapse:collapse;margin:0 0 24px;
+  font:14px/1.6 "Trebuchet MS",Tahoma,sans-serif;background:var(--noite-alta);
+  border-radius:var(--arredondado);overflow:hidden}
+.ficha caption{caption-side:top;text-align:left;font:11px/1.6 "Trebuchet MS",sans-serif;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--texto-fraco);padding:0 0 8px}
+.ficha th,.ficha td{padding:10px 14px;border-bottom:1px solid var(--risco)}
+.ficha th{text-align:left;color:var(--medidor);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase}
+.ficha td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--ambar)}
+figure{margin:0 0 22px}
+img{max-width:100%;height:auto;display:block;border-radius:var(--arredondado)}
+figcaption{font:12px/1.6 "Trebuchet MS",sans-serif;color:var(--texto-fraco);padding-top:8px}
+.alinhamento{list-style:none;padding:0;margin:0}
+.alinhamento li{padding:18px 0;border-bottom:1px solid var(--risco);display:flex;
+  flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.alinhamento li:last-child{border-bottom:0}
+.alinhamento .faixa-num{font:11px/1.6 "Trebuchet MS",sans-serif;color:var(--medidor);
+  letter-spacing:.18em;min-width:44px}
+.alinhamento a{font:700 21px/1.3 "Trebuchet MS",Tahoma,sans-serif;color:var(--texto);
+  text-decoration:none;letter-spacing:-.3px;flex:1 1 100%}
+.alinhamento a:hover{color:var(--ambar)}
+.alinhamento p{font:15px/1.6 Georgia,serif;color:var(--texto-fraco);margin:0;flex:1 1 100%}
+.data-faixa{font:11px/1.6 "Trebuchet MS",sans-serif;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--texto-fraco);margin:0 0 12px}
+.consola{border:1px solid var(--risco);background:var(--noite-alta);padding:20px;
+  border-radius:var(--arredondado);margin:26px 0}
+.consola label{display:block;font:11px/1.5 "Trebuchet MS",sans-serif;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--texto-fraco);margin-bottom:9px}
+.consola input{background:var(--noite);border:1px solid var(--risco);color:var(--texto);
+  padding:9px 12px;border-radius:var(--arredondado);font:15px "Trebuchet MS",sans-serif;
+  width:min(300px,100%)}
+.consola button{background:var(--ambar);border:0;color:var(--noite);font:700 12px
+  "Trebuchet MS",sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;
+  border-radius:var(--arredondado);cursor:pointer;margin-left:8px}
+.creditos{border-top:1px solid var(--risco);margin-top:30px;padding:22px 0 46px;
+  font:13px/1.9 "Trebuchet MS",Tahoma,sans-serif;color:var(--texto-fraco)}
+.creditos a{color:var(--texto-fraco);margin-right:18px}
+.creditos .isencao{margin-top:14px;font-size:12px;line-height:1.8;max-width:74ch}
+.percurso{font:11px/1.6 "Trebuchet MS",sans-serif;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--texto-fraco);padding:16px 0 0}
+.percurso a{color:var(--texto-fraco)}
+@media (max-width:760px){
+  h1{font-size:27px}
+  .faixa{padding:22px 0}
+  .lead{font-size:17px}
+}
+</style>
+</head>
+<body>
+<div class="banda">
+<header class="cartaz">
+  <a class="nome" href="safe.html">Onda <b>Sonora</b></a>
+  <div class="chamada">Caderno de escuta — som em casa, sem conversa de catálogo</div>
+  <nav class="canal"><a href="safe.html">Edição</a><a href="app.html">Ficha de escuta</a><a href="glossario.html">Termos</a><a href="faq.html">Perguntas</a><a href="sobre.html">Redacção</a></nav>
+</header>
+<div class="percurso"><a href="safe.html">Edição</a> / Bluetooth: o que muda com o codec e o que é atraso</div>
+<section class="faixa">
+<p class="faixa-rotulo">Ligação · folha 04</p>
+<p class="data-faixa">Registo de 15 de Abril · leitura de 5 minutos</p>
+<h1>Bluetooth: o que muda com o codec e o que é atraso</h1>
+<p class="lead">A queixa de imagem dessincronizada raramente é do ecrã: é o atraso do Bluetooth, e depende do codec que os dois lados negociaram.</p>
+<figure><img src="img/bluetooth-codec-e-atraso.jpg" alt="Telemóvel a ligar por Bluetooth a uma coluna sem fios" loading="lazy" width="900" height="560"><figcaption>Telemóvel a ligar por Bluetooth a uma coluna sem fios.</figcaption></figure>
+<table class="ficha"><caption>Resumo de medidas citadas</caption><tr><th>Parâmetro</th><th>Valor</th><th>Nota</th></tr><tr><th>Atraso típico</th><td class="num">150 – 300 ms</td><td>áudio por rádio</td></tr><tr><th>Perceptível em</th><td class="num">vídeo e jogos</td><td>não em música</td></tr><tr><th>Alcance nominal</th><td class="num">≈10 m</td><td>com linha de vista</td></tr><tr><th>Solução de atraso</th><td class="num">cabo auxiliar</td><td>quando existe</td></tr></table>
+<p>Ao ligar, telemóvel e coluna negoceiam um codec comum. O básico está em todos os aparelhos e é suficiente para música de fundo. Codecs mais recentes transportam mais informação ou reduzem o atraso, mas só funcionam se ambos os lados os suportarem.</p>
+<h2>Atraso, na prática</h2>
+<p>Para música, um atraso de duas ou três décimas de segundo é irrelevante — ninguém repara. Para ver vídeo, é exactamente o que faz a boca andar à frente da voz. Muitas aplicações de vídeo compensam automaticamente; jogos, quase nunca.</p>
+<p>Se o vídeo dessincroniza sempre, a via por cabo resolve na hora, quando existe entrada auxiliar. Não é elegante, mas é o único caminho garantido para atraso praticamente nulo.</p>
+<h2>Alcance e o que o corta</h2>
+<p>Os dez metros anunciados assumem linha de vista. Uma parede de betão, um corpo humano ou um micro-ondas em funcionamento reduzem o alcance de forma perceptível, porque partilham a mesma banda de rádio.</p>
+<p>Falhas curtas e repetidas costumam ser interferência, não avaria. Mudar o telemóvel de bolso ou afastar do router já muda o comportamento — e é o primeiro teste a fazer antes de culpar o aparelho.</p>
+<h2>Multiponto e emparelhamento</h2>
+<p>Multiponto permite ficar ligado a dois aparelhos ao mesmo tempo, por exemplo computador e telemóvel. É prático e às vezes traz confusão: o áudio salta para o aparelho que fizer som primeiro.</p>
+<p>Quando a ligação fica instável sem razão, apagar o emparelhamento dos dois lados e refazer resolve a maioria dos casos. A lista de emparelhamentos antiga é uma fonte de problemas subestimada.</p>
+<p>Os valores acima são medições nossas em sala doméstica e servem de ordem de grandeza. Revemos a folha sempre que uma medição repetida contraria o texto.</p>
+</section>
+<footer class="creditos">
+  <a href="safe.html">Edição</a><a href="app.html">Ficha de escuta</a>
+  <a href="glossario.html">Termos</a><a href="faq.html">Perguntas</a>
+  <a href="sobre.html">Redacção</a><a href="privacidade.html">Privacidade</a>
+  <a href="termos.html">Termos de utilização</a>
+  <div class="isencao">Onda Sonora é um caderno editorial independente sobre reprodução de som em
+  casa. Não representamos nem somos patrocinados por fabricantes, distribuidores ou lojas, e não
+  avaliamos modelos específicos: escrevemos sobre medidas, categorias e método de escuta. Os
+  valores indicados são medições nossas e variam com a sala e com o equipamento.
+  &copy; 2026 Onda Sonora &middot; ondasonora.sbs</div>
+</footer>
+</div>
+</body>
+</html>
