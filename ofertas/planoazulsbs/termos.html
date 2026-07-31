@@ -5,94 +5,136 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Termos de Uso — Plano Azul</title>
 <meta name="description" content="Condições de uso do conteúdo publicado neste site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--pa-tinta:#16202b;--pa-fundo:#f7f9fb;--pa-papel:#ffffff;--pa-linha:#dde5ec;
-  --pa-azul:#1f4e79;--pa-suave:#5b6b7a}
-*{box-sizing:border-box}
-body{margin:0;background:var(--pa-fundo);color:var(--pa-tinta);
-  font-family:Georgia,"Times New Roman",serif;font-size:17px;line-height:1.7}
-.pa-topo{background:var(--pa-papel);border-bottom:1px solid var(--pa-linha)}
-.pa-caixa{max-width:880px;margin:0 auto;padding:0 20px}
-.pa-marca{display:flex;align-items:baseline;gap:12px;padding:22px 0 6px}
-.pa-marca b{font-size:23px;letter-spacing:-.01em}
-.pa-marca span{font-family:Verdana,Geneva,sans-serif;font-size:11px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--pa-suave)}
-.pa-menu{display:flex;flex-wrap:wrap;gap:18px;padding-bottom:16px;
-  font-family:Verdana,Geneva,sans-serif;font-size:13px}
-.pa-menu a{color:var(--pa-azul);text-decoration:none}
-.pa-menu a:hover{text-decoration:underline}
-.pa-corpo{padding:34px 0 10px}
-h1{font-size:29px;line-height:1.25;margin:0 0 14px}
-h2{font-size:21px;margin:32px 0 10px}
-h3{font-size:18px;margin:24px 0 8px}
-p{margin:0 0 16px}
-.pa-linha-fina{height:1px;background:var(--pa-linha);margin:28px 0}
-.pa-lista{display:grid;gap:18px}
-.pa-item{background:var(--pa-papel);border:1px solid var(--pa-linha);border-radius:3px;padding:20px}
-.pa-item h3{margin-top:0}
-.pa-item a{color:var(--pa-azul)}
-.pa-data{font-family:Verdana,Geneva,sans-serif;font-size:12px;color:var(--pa-suave);
-  text-transform:uppercase;letter-spacing:.08em}
-.pa-nota{background:var(--pa-papel);border-left:3px solid var(--pa-azul);padding:14px 18px;
-  font-size:16px;color:var(--pa-suave)}
-.pa-rodape{margin-top:44px;border-top:1px solid var(--pa-linha);background:var(--pa-papel);
-  font-family:Verdana,Geneva,sans-serif;font-size:12.5px;color:var(--pa-suave);line-height:1.8}
-.pa-rodape .pa-caixa{padding-top:22px;padding-bottom:30px}
-.pa-rodape a{color:var(--pa-azul)}
-@media(max-width:600px){body{font-size:16px}h1{font-size:24px}.pa-caixa{padding:0 16px}}
+:root{
+  --gap-xs:4px; --gap-sm:8px; --gap-md:14px; --gap-lg:20px;
+  --gap-xl:28px; --gap-2xl:40px; --gap-3xl:56px;
+  --verde:#1F4D3D; --verde-esc:#173B2F; --verde-fun:#102A21;
+  --sol:#F4C95D; --sol-esc:#D9AE46; --sol-txt:#3A2C06;
+  --preto:#171C1A; --cinza:#525C58; --linha:#E1E7E4; --branco:#FFF;
+  --fundo:#F6F8F7; --claro:#EDF3F0;
+  --texto-max:35em; --curva:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--fundo);color:var(--preto);
+  font-family:'Source Sans 3',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:17px;line-height:1.65}
+.faixa{max-width:700px;margin:0 auto;padding:0 var(--gap-lg)}
+.limite{max-width:var(--texto-max);margin-left:auto;margin-right:auto}
+.topo{background:linear-gradient(165deg,#26594A 0%,var(--verde-esc) 58%,var(--verde-fun) 100%);
+  color:#EAF2EE;padding:var(--gap-xl) 0 var(--gap-2xl)}
+.marca{display:flex;align-items:baseline;gap:var(--gap-md);margin-bottom:var(--gap-lg)}
+.marca b{font-family:'Source Serif 4',Georgia,serif;font-size:22px;color:#FFF}
+.marca span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#A9C6B9}
+.navegacao{display:flex;flex-wrap:wrap;gap:var(--gap-md) var(--gap-lg);font-size:14.5px}
+.navegacao a{color:#CFE3D9;text-decoration:none;border-bottom:1px solid transparent;
+  padding-bottom:2px}
+.navegacao a:hover{border-bottom-color:var(--sol);color:#FFF}
+.titulo{font-family:'Source Serif 4',Georgia,serif;font-size:27px;line-height:1.28;
+  font-weight:700;color:#FFF;margin:var(--gap-xl) 0 var(--gap-md)}
+.abre{color:#D3E4DC;font-size:16.5px}
+main{padding:var(--gap-2xl) 0 var(--gap-xl)}
+h2{font-family:'Source Serif 4',Georgia,serif;font-size:21px;line-height:1.3;
+  margin:var(--gap-2xl) 0 var(--gap-md);color:var(--preto)}
+h3{font-family:'Source Serif 4',Georgia,serif;font-size:18px;margin:var(--gap-xl) 0 var(--gap-sm)}
+p{margin-bottom:var(--gap-md)}
+.cartoes{display:grid;gap:var(--gap-lg);margin-top:var(--gap-lg)}
+.cartao{background:var(--branco);border:1px solid var(--linha);border-radius:var(--curva);
+  padding:var(--gap-lg)}
+.cartao h3{margin-top:0}
+.cartao a{color:var(--verde);font-weight:600}
+.etiqueta{display:inline-block;background:var(--claro);color:var(--verde);
+  border-radius:999px;padding:3px 12px;font-size:12px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--gap-sm)}
+.destaque{background:var(--claro);border-left:3px solid var(--sol);border-radius:6px;
+  padding:var(--gap-md) var(--gap-lg);margin:var(--gap-lg) 0;color:var(--verde-esc)}
+.rodape{background:var(--branco);border-top:1px solid var(--linha);
+  padding:var(--gap-xl) 0 var(--gap-3xl);font-size:14px;line-height:1.6;color:var(--cinza)}
+.atalhos{display:flex;flex-wrap:wrap;gap:var(--gap-md) var(--gap-lg);
+  justify-content:center;margin-bottom:var(--gap-lg)}
+.atalhos a{color:var(--cinza);text-decoration:underline;text-underline-offset:3px}
+.atalhos a:hover{color:var(--verde)}
+.rodape strong{color:var(--preto)}
+.empresa{text-align:center;margin-top:var(--gap-lg);padding-top:var(--gap-lg);
+  border-top:1px solid var(--linha);font-size:13.5px;line-height:1.75;color:var(--preto)}
+.nota-rodape{max-width:var(--texto-max);margin:var(--gap-lg) auto 0;text-align:left}
+@media(max-width:700px){body{font-size:16px}.titulo{font-size:23px}h2{font-size:19px}}
 </style>
 </head>
 <body>
-<header class="pa-topo">
-  <div class="pa-caixa">
-    <div class="pa-marca"><b>Plano Azul</b><span>Organização financeira da casa</span></div>
-    <nav class="pa-menu">
-      <a href="safe.html">Início</a>
-      <a href="orcamento-domestico.html">Orçamento doméstico</a>
-      <a href="aluguel-ou-financiamento.html">Aluguel ou financiamento</a>
-      <a href="reserva-de-emergencia.html">Reserva de emergência</a>
-      <a href="privacidade.html">Privacidade</a>
-      <a href="termos.html">Termos</a>
-    </nav>
+
+<header class="topo">
+  <div class="faixa">
+    <div class="marca"><b>Plano Azul</b><span>Dinheiro combinado em grupo</span></div>
+    <nav class="navegacao">
+        <a href="safe.html">Início</a>
+        <a href="vaquinha-sem-confusao.html">Vaquinha sem confusão</a>
+        <a href="rateio-de-despesas.html">Rateio de despesas</a>
+        <a href="caixinha-do-grupo.html">Caixinha do grupo</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="termos.html">Termos</a>
+      </nav>
+    <h1 class="titulo limite">Termos de Uso</h1>
+    <div class="abre limite"><p>Última atualização: 31 de julho de 2026.</p></div>
   </div>
 </header>
 
-<main class="pa-caixa pa-corpo">
-<h1>Termos de Uso</h1>
-<h2>Objeto</h2>
-<p>Este site publica textos informativos sobre organização de orçamento familiar, moradia e
-reserva financeira. O acesso é livre e não exige cadastro.</p>
+<main>
+  <div class="faixa limite">
+    <h2>Objeto</h2>
+<p>Este site publica textos informativos sobre organização de dinheiro combinado entre
+pessoas. O acesso é livre e não exige cadastro.</p>
+
 <h2>Natureza do conteúdo</h2>
-<p>O conteúdo é de caráter educativo e geral. Não constitui consultoria financeira,
-contábil, jurídica ou recomendação de investimento, e não considera a situação particular de
-nenhum leitor. Decisões tomadas a partir da leitura são de responsabilidade de quem as toma.</p>
+<p>O conteúdo é educativo e geral. Não constitui consultoria financeira, contábil ou
+jurídica, não considera a situação particular de nenhum leitor e não configura recomendação
+de produto. Decisões tomadas a partir da leitura são de responsabilidade de quem as toma.</p>
+
 <h2>O que não fazemos</h2>
-<p>Não oferecemos crédito, empréstimo, intermediação de pagamento, investimento, seguro nem
-qualquer produto financeiro. Não solicitamos depósito, transferência ou dados bancários em
-nenhuma circunstância. Comunicações que se apresentem como sendo deste site pedindo pagamento
-devem ser desconsideradas e podem ser reportadas para contato@planoazul.sbs.</p>
+<p>Não oferecemos crédito, empréstimo, intermediação de pagamento, investimento nem seguro.
+Não solicitamos depósito, transferência ou dados bancários em nenhuma circunstância.
+Comunicações que se apresentem como sendo deste site pedindo pagamento devem ser
+desconsideradas e podem ser reportadas para contato@planoazul.sbs.</p>
+
 <h2>Propriedade intelectual</h2>
 <p>Os textos são de autoria própria. É permitida a citação com indicação da fonte e link para
 a página original; é vedada a reprodução integral sem autorização.</p>
+
 <h2>Alterações</h2>
 <p>O conteúdo pode ser corrigido ou atualizado a qualquer momento. Alterações destes termos
-passam a valer a partir da publicação nesta página.</p>
+valem a partir da publicação nesta página.</p>
+
 <h2>Responsável</h2>
-<p>Fraga Assessoria e Imobiliaria LTDA — CNPJ 30.682.647/0001-01 — Rua Afonso Braz, 89 — Santa Clara · Vitória — ES · CEP 29018-645 — contato@planoazul.sbs — (27) 33980-9876.</p>
+<p>Fraga Assessoria e Imobiliaria LTDA — CNPJ 30.682.647/0001-01 — Rua Afonso Braz, 89 — Santa Clara, Vitória — ES · CEP 29018-645 — contato@planoazul.sbs — (27) 33980-9876.</p>
+  </div>
 </main>
 
-<footer class="pa-rodape">
-  <div class="pa-caixa">
-    <strong>Fraga Assessoria e Imobiliaria LTDA</strong><br>
-    CNPJ 30.682.647/0001-01<br>
-    Rua Afonso Braz, 89 — Santa Clara · Vitória — ES · CEP 29018-645<br>
-    contato@planoazul.sbs · (27) 33980-9876
-    <div class="pa-linha-fina"></div>
-    Conteúdo informativo sobre organização de orçamento familiar. Não somos instituição
-    financeira, não oferecemos crédito, investimento ou intermediação de pagamento, e
-    nada aqui constitui recomendação personalizada. Decisões financeiras dependem da
-    situação de cada família — na dúvida, procure um profissional habilitado.
+<footer class="rodape">
+  <div class="faixa">
+    <div class="atalhos">
+      <a href="safe.html">Início</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+      <a href="termos.html">Termos de Uso</a>
+    </div>
+    <div class="nota-rodape">
+      <p><strong>Conteúdo informativo.</strong> Os textos tratam de organização de dinheiro
+      combinado entre pessoas — vaquinha, rateio de despesa e caixinha de grupo. Não somos
+      instituição financeira, não oferecemos crédito, investimento ou intermediação de
+      pagamento, e nada aqui constitui recomendação personalizada.</p>
+    </div>
+    <p class="empresa">
+      <strong>Fraga Assessoria e Imobiliaria LTDA</strong><br>
+      CNPJ 30.682.647/0001-01<br>
+      Rua Afonso Braz, 89 — Santa Clara<br>
+      Vitória — ES · CEP 29018-645<br>
+      contato@planoazul.sbs · (27) 33980-9876
+    </p>
   </div>
 </footer>
+
 </body>
 </html>
