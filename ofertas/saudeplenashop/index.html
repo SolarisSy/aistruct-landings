@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Saúde Plena — vídeo explicativo</title>
+<meta name="description" content="A receita matinal simples que tem despertado interesse entre homens acima dos 50 que querem cuidar da saúde da próstata.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SISTEMA
+   Escala de espaco  : 4 8 12 16 24 32 48
+   Alinhamento       : centro = ate 3 linhas · esquerda = acima disso
+   Cor de acao       : ambar, sempre. verde = superficie.
+   ============================================================ */
+:root{
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px;
+
+  --green:#0E5C55;
+  --green-dk:#0B4740;
+  --green-dp:#08332E;
+  --amber:#F2C879;
+  --amber-dk:#D9AC57;
+  --amber-ink:#3A2A08;
+
+  --ink:#16262A;
+  --ink-2:#4A5A61;          /* ~7:1 sobre branco */
+  --rule:#E2E8E7;
+  --card:#FFFFFF;
+  --bg:#F4F7F6;
+  --tint:#EDF4F2;
+
+  --measure:36em;
+  --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(0,0,0,.06);
+  hyphens:none;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:4px}
+
+.wrap{max-width:680px;margin:0 auto;padding:0 var(--s5)}
+/* medida propria do texto, independente do container */
+.measure{max-width:var(--measure);margin-left:auto;margin-right:auto}
+
+/* ---------- tipografia ---------- */
+h1{
+  font-family:'Bitter',Georgia,serif;
+  font-size:26px;line-height:1.3;font-weight:700;
+  letter-spacing:-.017em;text-wrap:balance;
+}
+h1 span{color:var(--amber)}
+.eyebrow{
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--green);text-align:center;
+  line-height:1.5;margin-bottom:var(--s5);
+}
+/* respiro extra antes de cada titulo de secao que nao seja o primeiro */
+.eyebrow + .panel{margin-top:0}
+main.wrap > .eyebrow ~ .eyebrow{margin-top:var(--s2)}
+.lead{font-size:17px;line-height:1.6}
+.small{font-size:15px;line-height:1.55}
+
+/* ============================================================
+   PRIMEIRA DOBRA
+   ============================================================ */
+.hero{
+  background:linear-gradient(170deg,#12655D 0%,var(--green-dk) 62%,var(--green-dp) 100%);
+  color:#fff;text-align:center;
+  padding:var(--s6) 0 var(--s7);
+}
+.hero h1{margin-bottom:var(--s5)}
+.hero .lead{color:rgba(255,255,255,.88)}
+.hero .lead p + p{margin-top:var(--s4)}
+
+/* thumb */
+.thumb{
+  display:block;position:relative;width:100%;max-width:560px;
+  aspect-ratio:16/9;margin:var(--s6) auto var(--s3);
+  border-radius:var(--radius);overflow:hidden;
+  background:linear-gradient(140deg,#E9E2D6,#C6BCA8);
+  box-shadow:0 12px 30px rgba(0,0,0,.26);
+}
+.thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.thumb::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,transparent 56%,rgba(0,0,0,.5) 100%);
+}
+.thumb::after{
+  content:"";position:absolute;inset:0;z-index:3;border-radius:var(--radius);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);
+}
+.thumb-cap{
+  position:absolute;left:0;right:0;bottom:var(--s3);z-index:2;
+  font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.65);
+}
+
+/* cue: uma so, acima do botao */
+.cue{
+  font-size:15px;line-height:1.5;color:rgba(255,255,255,.78);
+  margin-bottom:var(--s4);
+}
+.reinforce{
+  font-size:14px;line-height:1.5;color:rgba(255,255,255,.66);
+  margin-top:var(--s3);
+}
+
+/* ---------- botao unico ---------- */
+.btn{
+  display:block;width:100%;max-width:560px;margin:0 auto;
+  background:var(--amber);color:var(--amber-ink);
+  font-size:18px;font-weight:700;line-height:1.35;
+  padding:var(--s4) var(--s5);border-radius:var(--radius);
+  border:0;cursor:pointer;text-align:center;
+  box-shadow:0 3px 0 var(--amber-dk);
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 0 var(--amber-dk)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--amber-dk)}
+
+/* ============================================================
+   CONTEUDO
+   ============================================================ */
+/* main tambem carrega .wrap (0,1,0), entao precisa de 0,1,1 para vencer */
+main.wrap{padding-top:var(--s7);padding-bottom:var(--s5)}
+
+/* painel de bullets — o bloco de maior peso da pagina */
+.panel{
+  background:var(--card);border-radius:var(--radius);
+  border:1px solid var(--rule);border-top:3px solid var(--amber);
+  padding:var(--s5) var(--s5) var(--s4);
+  margin-bottom:var(--s6);
+  box-shadow:0 2px 14px rgba(16,60,55,.06);
+}
+.panel ul{list-style:none}
+.panel li{
+  position:relative;text-align:left;
+  padding:0 0 var(--s5) var(--s5);
+  font-size:16.5px;line-height:1.58;
+}
+.panel li:last-child{padding-bottom:var(--s2)}
+.panel li::before{
+  content:"";position:absolute;left:0;top:9px;
+  width:8px;height:8px;border-radius:50%;background:var(--amber);
+}
+.panel li b{font-weight:700;color:var(--ink)}
+
+.btn-wrap{margin-bottom:var(--s7)}
+
+/* FAQ — neutro de proposito */
+.faq{margin-bottom:var(--s6)}
+details{
+  background:var(--card);border:1px solid var(--rule);
+  border-radius:var(--radius);margin-bottom:var(--s2);
+}
+details[open]{border-color:#CFDCD9}
+summary{
+  cursor:pointer;list-style:none;
+  padding:var(--s4);text-align:left;
+  font-size:16.5px;font-weight:600;line-height:1.45;
+  display:flex;justify-content:space-between;gap:var(--s3);align-items:flex-start;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"+";color:var(--green);font-size:22px;line-height:1;
+  font-weight:400;flex-shrink:0;
+}
+details[open] summary::after{content:"–"}
+details .ans{
+  padding:0 var(--s4) var(--s4);text-align:left;
+  font-size:16px;line-height:1.62;color:var(--ink-2);
+}
+details .ans p + p{margin-top:var(--s3)}
+details .ans ul{margin:var(--s3) 0 0 var(--s5)}
+details .ans li{margin-bottom:var(--s1)}
+details .ans strong{color:var(--ink)}
+
+/* compromisso — faixa, nao card */
+.commit{
+  text-align:center;color:var(--green);
+  padding:var(--s5) 0;margin-bottom:var(--s5);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  font-size:15px;line-height:1.55;
+}
+.commit b{
+  display:block;font-size:12.5px;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:var(--s1);
+}
+
+/* ============================================================
+   RODAPE
+   ============================================================ */
+footer{
+  background:var(--card);border-top:1px solid var(--rule);
+  padding:var(--s6) 0 var(--s7);
+  font-size:14px;line-height:1.6;color:var(--ink-2);
+}
+.flinks{
+  display:flex;flex-wrap:wrap;gap:var(--s3) var(--s4);
+  justify-content:center;margin-bottom:var(--s5);
+}
+.flinks button{
+  background:none;border:0;padding:var(--s1) 0;cursor:pointer;
+  color:var(--ink-2);text-decoration:underline;
+  text-underline-offset:3px;font-size:14px;
+}
+.flinks button:hover{color:var(--green)}
+footer .disc{text-align:left;max-width:var(--measure);margin:0 auto}
+footer .disc p + p{margin-top:var(--s3)}
+footer strong{color:var(--ink)}
+.entity{
+  text-align:center;margin-top:var(--s5);padding-top:var(--s5);
+  border-top:1px solid var(--rule);
+  font-size:13.5px;line-height:1.75;color:var(--ink);
+}
+.copy{text-align:center;margin-top:var(--s4);font-size:13.5px}
+.linkish{
+  background:none;border:0;padding:0;cursor:pointer;
+  color:var(--ink-2);text-decoration:underline;
+  text-underline-offset:3px;font-size:inherit;
+}
+.linkish:hover{color:var(--green)}
+
+/* ============================================================
+   MODAIS
+   ============================================================ */
+.modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:var(--s5)}
+.modal.open{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(8,30,27,.66)}
+.modal-box{
+  position:relative;z-index:1;background:#fff;border-radius:14px;
+  width:100%;max-width:660px;max-height:86vh;
+  display:flex;flex-direction:column;
+  box-shadow:0 24px 64px rgba(0,0,0,.36);
+}
+.modal-head{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+  padding:var(--s5);border-bottom:1px solid var(--rule);flex-shrink:0;
+}
+.modal-head h2{font-family:'Bitter',Georgia,serif;font-size:20px;font-weight:700;line-height:1.3}
+.modal-x{background:none;border:0;cursor:pointer;font-size:28px;line-height:1;color:var(--ink-2);padding:0 var(--s1);flex-shrink:0}
+.modal-x:hover{color:var(--ink)}
+.modal-body{
+  overflow-y:auto;padding:var(--s5);text-align:left;
+  font-size:15.5px;line-height:1.66;color:var(--ink-2);
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+}
+.modal-body .upd{font-style:italic;margin-bottom:var(--s5)}
+.modal-body h3{font-size:16px;font-weight:700;color:var(--ink);margin:var(--s5) 0 var(--s2)}
+.modal-body h3:first-of-type{margin-top:0}
+.modal-body p + p{margin-top:var(--s3)}
+.modal-body ul{margin:var(--s3) 0 0 var(--s5)}
+.modal-body li{margin-bottom:var(--s1)}
+.modal-body strong{color:var(--ink)}
+.entity-box{
+  background:var(--tint);border-radius:8px;
+  padding:var(--s4);margin-top:var(--s3);
+  color:var(--ink);line-height:1.7;
+}
+.modal-foot{padding:var(--s4) var(--s5);border-top:1px solid var(--rule);flex-shrink:0}
+.modal-close{
+  background:var(--green);color:#fff;border:0;border-radius:8px;
+  font-weight:600;font-size:16px;padding:var(--s3) var(--s6);
+  cursor:pointer;display:block;margin-left:auto;
+}
+.modal-close:hover{background:var(--green-dk)}
+body.locked{overflow:hidden}
+
+/* ============================================================
+   DESKTOP
+   ============================================================ */
+@media(min-width:701px){
+  body{font-size:18px}
+  h1{font-size:38px;line-height:1.24}
+  .hero{padding:var(--s7) 0 64px}
+  main.wrap{padding-top:72px}
+  .eyebrow{font-size:13px;margin-bottom:var(--s5)}
+  .lead{font-size:18.5px}
+  .cue{font-size:16px}
+  .reinforce{font-size:15px}
+  .btn{font-size:19px;padding:19px var(--s5)}
+  .panel{padding:var(--s6) var(--s6) var(--s5)}
+  .panel li{font-size:17.5px}
+  summary{font-size:17.5px;padding:var(--s4) var(--s5)}
+  details .ans{padding:0 var(--s5) var(--s5);font-size:17px}
+  .modal-head h2{font-size:22px}
+  .modal-body{font-size:16px}
+}
+
+/* ============================================================
+   TELAS ESTREITAS
+   ============================================================ */
+@media(max-width:400px){
+  .wrap{padding:0 var(--s4)}
+  h1{font-size:24px}
+  body{font-size:16.5px}
+  .lead{font-size:16.5px}
+  .panel{padding:var(--s5) var(--s4) var(--s3)}
+  .panel li{font-size:16px}
+  summary{font-size:16px;padding:var(--s3) var(--s4)}
+  .btn{font-size:17px}
+}
+
+/* modais viram folha inferior no mobile */
+@media(max-width:700px){
+  .modal{padding:0;align-items:flex-end}
+  .modal-box{max-width:none;max-height:92vh;border-radius:16px 16px 0 0}
+  .modal-head,.modal-body{padding:var(--s4)}
+  .modal-foot{padding:var(--s3) var(--s4) calc(var(--s3) + env(safe-area-inset-bottom))}
+  .modal-close{width:100%;padding:var(--s4)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+  .thumb video{display:none}
+  .thumb{background:#D8CEBD url("loop-receita-poster.jpg") center/cover no-repeat}
+}
+</style>
+
+<script>
+  window.googlePixelId = "6a6d11f23138309931f5d812";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+  document.head.appendChild(a);
+</script>
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+</head>
+<body>
+
+<!-- ==================== PRIMEIRA DOBRA ==================== -->
+<header class="hero">
+  <div class="wrap">
+
+    <h1 class="measure">Conheça a <span>Receita Matinal Simples</span> que Tem Despertado Interesse Entre Homens Acima dos 50 que Querem Cuidar da Saúde da Próstata</h1>
+
+    <div class="lead measure">
+      <p>Feita com três ingredientes comuns de cozinha, essa preparação tem circulado entre homens que procuram hábitos práticos para a rotina da manhã.</p>
+      <p>Muitos têm comentado como ela pode ajudar a apoiar uma rotina equilibrada, junto de boa alimentação, hidratação e acompanhamento médico.</p>
+      <p>Ganhou atenção por usar ingredientes que a maioria já tem em casa e levar poucos minutos para preparar.</p>
+    </div>
+
+    <!-- LOOP: subir loop-receita.webm · loop-receita.mp4 · loop-receita-poster.jpg
+         na mesma pasta do index. O play ja vem gravado dentro do loop. -->
+    <a class="thumb" href="conteudo.html" aria-label="Assistir ao vídeo explicativo gratuito">
+      <video autoplay muted loop playsinline preload="metadata" poster="loop-receita-poster.jpg">
+        <source src="loop-receita.webm" type="video/webm">
+        <source src="loop-receita.mp4" type="video/mp4">
+      </video>
+      <span class="thumb-cap">Assistir agora — é gratuito</span>
+    </a>
+
+    <p class="cue measure">Clique no botão abaixo para ver o guia completo de preparo.</p>
+
+    <a class="btn" href="conteudo.html">Assistir ao vídeo gratuito agora</a>
+
+    <p class="reinforce measure">Acesso livre, sem cadastro.</p>
+
+  </div>
+</header>
+
+<!-- ==================== CONTEUDO ==================== -->
+<main class="wrap">
+
+  <p class="eyebrow">O que você vai ver no vídeo gratuito</p>
+
+  <div class="panel">
+    <ul>
+      <li><b>Quais são os três ingredientes</b> — e por que a proporção entre eles não é a mesma para todo mundo, mudando conforme a idade e o peso de cada homem.</li>
+      <li><b>O detalhe do horário</b> que separa os homens que percebem alguma diferença na rotina dos que não percebem — e ele não tem nada a ver com os ingredientes em si.</li>
+      <li><b>O que rotinas matinais tradicionais</b> já vinham fazendo há gerações, e o que os homens têm reproduzido disso hoje em dia dentro de casa.</li>
+      <li><b>Como isso se encaixa</b> em uma rotina de menos de um minuto, antes do primeiro café da manhã, sem mudar o resto do seu dia.</li>
+    </ul>
+  </div>
+
+  <div class="btn-wrap">
+    <a class="btn" href="conteudo.html">Assistir ao vídeo gratuito agora</a>
+  </div>
+
+  <p class="eyebrow">Perguntas frequentes</p>
+
+  <div class="faq">
+    <details>
+      <summary>Assistir ao vídeo tem algum custo?</summary>
+      <div class="ans">
+        <p>Não. O vídeo é gratuito e não exige cadastro, e-mail ou cartão de crédito para ser assistido.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Serve para qualquer idade? Preciso falar com meu médico?</summary>
+      <div class="ans">
+        <p>O conteúdo é educativo e destinado a adultos. Como em qualquer mudança de rotina, recomendamos conversar com seu médico antes — principalmente se você tem alguma condição de saúde ou toma medicamento contínuo.</p>
+        <p><strong>Sintoma urinário em homem acima dos 50 deve ser avaliado por um urologista</strong>, porque condições diferentes produzem queixas parecidas. Este conteúdo não diagnostica, não trata e não substitui essa avaliação.</p>
+        <p><strong>Procure atendimento sem esperar</strong> se houver:</p>
+        <ul>
+          <li>sangue na urina;</li>
+          <li>dor, ardência ou febre;</li>
+          <li>impossibilidade de urinar, mesmo com vontade;</li>
+          <li>piora rápida em poucos dias.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Por que a receita não está escrita aqui nesta página?</summary>
+      <div class="ans">
+        <p>Porque a lista de ingredientes, sozinha, não é a parte que importa — eles são comuns e baratos.</p>
+        <p>O que muda de um homem para outro é a proporção e o horário, que dependem de idade, peso e rotina. Fora desse contexto, a receita solta não serviria para muita coisa, e é justamente o contexto que o vídeo explica.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Preciso assistir ao vídeo inteiro?</summary>
+      <div class="ans">
+        <p>Recomendamos que sim. O detalhe do preparo e a explicação do horário aparecem por volta do meio do vídeo, e a primeira parte é o que faz a segunda fazer sentido.</p>
+        <p>A apresentação completa tem cerca de <strong>5 minutos</strong>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Quem está por trás deste conteúdo?</summary>
+      <div class="ans">
+        <p>Esta página é publicada por <strong>Razão social (a preencher)</strong>, com dados completos no rodapé. É uma página de divulgação: apresentamos conteúdo educativo e encaminhamos para um vídeo no qual um produto pago é oferecido.</p>
+        <p>podemos receber comissão sobre as vendas geradas a partir deste site, sem custo adicional para você.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="commit">
+    <b>Nosso compromisso</b>
+    Conteúdo educativo, apresentado sem promessas de resultado e com respeito ao seu tempo.
+  </div>
+
+</main>
+
+<!-- ==================== RODAPE ==================== -->
+<footer>
+  <div class="wrap">
+
+    <div class="flinks">
+      <button type="button" data-modal="m-priv">Política de Privacidade</button>
+      <button type="button" data-modal="m-terms">Termos de Uso</button>
+      <button type="button" data-modal="m-legal">Aviso Legal</button>
+      <button type="button" data-modal="m-refund">Política de Reembolso</button>
+      <button type="button" data-modal="m-contact">Contato</button>
+    </div>
+
+    <div class="disc">
+      <p><strong>Divulgação publicitária.</strong> Esta página contém conteúdo patrocinado e links de afiliado. O responsável pela publicação pode receber remuneração quando um visitante clica em um link e realiza uma compra, sem custo adicional para o visitante. Isso não altera as informações apresentadas.</p>
+
+      <p><strong>Aviso de conteúdo.</strong> As informações desta página têm finalidade exclusivamente educativa e informativa e não constituem aconselhamento médico, diagnóstico ou tratamento. Estas afirmações não foram avaliadas pela Agência Nacional de Vigilância Sanitária (ANVISA). Nenhum produto ou conteúdo mencionado se destina a diagnosticar, tratar, curar ou prevenir qualquer doença. Consulte sempre um profissional de saúde habilitado antes de iniciar qualquer nova rotina, suplementação ou alteração de hábitos.</p>
+
+      <p><strong>Aviso sobre resultados.</strong> Experiências individuais variam. Depoimentos e exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa obterá resultados iguais ou semelhantes. Nenhum resultado é prometido ou garantido.</p>
+    </div>
+
+    <!-- IDENTIFICACAO — Faixa 3 item 16 / Regra 17.
+         Mesmos dados do WHOIS, do pagamento e da verificacao de anunciante. -->
+    <p class="entity">
+      <strong>Razão social (a preencher)</strong><br>
+      CNPJ CNPJ (a preencher)<br>
+      Endereço (a preencher)<br>
+      Cidade/UF (a preencher) · CEP CEP (a preencher)<br>
+      contato@saudeplena.shop · Telefone (a preencher)
+    </p>
+
+    <p class="copy">© 2026 · Todos os direitos reservados · <button type="button" class="linkish" data-modal="m-contact">Fale conosco</button></p>
+
+  </div>
+</footer>
+
+<!-- ==================== MODAIS ==================== -->
+
+<div class="modal" id="m-priv" role="dialog" aria-modal="true" aria-labelledby="m-priv-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-priv-t">Política de Privacidade</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Levamos a sua privacidade a sério. Esta Política de Privacidade explica como coletamos, utilizamos e protegemos as suas informações quando você visita este site, em conformidade com a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais — LGPD).</p>
+
+      <h3>Controlador dos dados</h3>
+      <p class="entity-box">
+        <strong>Razão social (a preencher)</strong><br>
+        CNPJ CNPJ (a preencher)<br>
+        Endereço (a preencher)<br>
+        Cidade/UF (a preencher) · CEP CEP (a preencher)<br>
+        Encarregado: privacidade@saudeplena.shop
+      </p>
+
+      <h3>1. Informações que coletamos</h3>
+      <p>Podemos coletar informações que você fornece diretamente, como nome, endereço de e-mail e dados necessários ao atendimento de solicitações. Dados de pagamento, quando aplicável, são processados por plataformas terceirizadas em ambiente seguro — não armazenamos números completos de cartão.</p>
+      <p>Coletamos também dados técnicos de forma automática, como endereço IP, tipo de navegador, dispositivo, páginas visitadas e origem do acesso.</p>
+
+      <h3>2. Como utilizamos as informações</h3>
+      <ul>
+        <li>Responder a solicitações e prestar atendimento;</li>
+        <li>Processar e acompanhar pedidos, quando houver;</li>
+        <li>Enviar comunicações informativas ou promocionais, com cancelamento a qualquer momento;</li>
+        <li>Medir o desempenho do site e melhorar a navegação;</li>
+        <li>Cumprir obrigações legais e regulatórias.</li>
+      </ul>
+
+      <h3>3. Base legal do tratamento</h3>
+      <p>O tratamento ocorre com fundamento no consentimento do titular, na execução de contrato, no cumprimento de obrigação legal ou no legítimo interesse, conforme o caso, nos termos dos artigos 7º e 10 da LGPD.</p>
+
+      <h3>4. Compartilhamento</h3>
+      <p>Não vendemos informações pessoais. Podemos compartilhá-las com prestadores de serviço necessários à operação (hospedagem, processamento de pagamento, análise e envio de e-mail) e com autoridades competentes quando exigido por lei.</p>
+
+      <h3>5. Cookies</h3>
+      <p>Utilizamos cookies para viabilizar funcionalidades do site, medir audiência e avaliar o desempenho de campanhas publicitárias. Você pode bloquear ou excluir cookies nas configurações do navegador, ciente de que algumas funções podem deixar de operar corretamente.</p>
+
+      <h3>6. Direitos do titular</h3>
+      <p>Nos termos do artigo 18 da LGPD, você pode solicitar a qualquer momento: confirmação da existência de tratamento; acesso aos dados; correção de dados incompletos ou desatualizados; anonimização, bloqueio ou eliminação de dados desnecessários; portabilidade; informação sobre compartilhamento; e revogação do consentimento.</p>
+      <p>Para exercer esses direitos, escreva para o endereço indicado acima.</p>
+
+      <h3>7. Retenção e segurança</h3>
+      <p>Mantemos os dados pelo tempo necessário às finalidades descritas ou ao cumprimento de obrigações legais. Adotamos medidas técnicas e administrativas razoáveis para proteger as informações contra acesso não autorizado, perda ou alteração.</p>
+
+      <h3>8. Privacidade de menores</h3>
+      <p>Este site não se destina a menores de 18 anos e não coletamos intencionalmente dados de crianças e adolescentes.</p>
+
+      <h3>9. Alterações</h3>
+      <p>Esta política pode ser atualizada periodicamente. As alterações serão publicadas nesta mesma página, com a data revisada.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-terms" role="dialog" aria-modal="true" aria-labelledby="m-terms-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-terms-t">Termos de Uso</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Ao acessar ou utilizar este site, você concorda com estes Termos de Uso. Caso não concorde, pedimos que não utilize o site.</p>
+
+      <h3>1. Uso do site</h3>
+      <p>Você se compromete a utilizar este site apenas para finalidades lícitas e em conformidade com a legislação brasileira aplicável, incluindo o Marco Civil da Internet (Lei nº 12.965/2014) e o Código de Defesa do Consumidor (Lei nº 8.078/1990).</p>
+
+      <h3>2. Propriedade intelectual</h3>
+      <p>Todo o conteúdo deste site — textos, imagens, vídeos, marcas e elementos visuais — é protegido pela legislação de propriedade intelectual. A reprodução, distribuição ou modificação sem autorização prévia por escrito é proibida.</p>
+
+      <h3>3. Ausência de aconselhamento profissional</h3>
+      <p>O conteúdo é disponibilizado apenas para fins informativos e educativos de caráter geral. Ele não constitui aconselhamento médico, nutricional, jurídico, financeiro ou qualquer outra orientação profissional.</p>
+      <p>Estas afirmações não foram avaliadas pela Agência Nacional de Vigilância Sanitária (ANVISA). Nenhum conteúdo ou produto mencionado se destina a diagnosticar, tratar, curar ou prevenir qualquer doença. Consulte sempre um profissional de saúde habilitado antes de agir com base em informações encontradas aqui, especialmente se você possui condição de saúde preexistente ou faz uso de medicamento contínuo.</p>
+
+      <h3>4. Divulgação de afiliados</h3>
+      <p>Este site contém conteúdo patrocinado e links de afiliado. Podemos receber remuneração caso você clique em um link e realize uma compra, sem qualquer custo adicional para você. Isso não influencia as informações apresentadas.</p>
+
+      <h3>5. Resultados individuais</h3>
+      <p>Experiências individuais variam. Depoimentos e exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa obterá resultados iguais ou semelhantes.</p>
+
+      <h3>6. Isenção de garantias</h3>
+      <p>Este site é fornecido "no estado em que se encontra", sem garantias de qualquer natureza. Não garantimos operação ininterrupta, ausência de erros ou disponibilidade contínua.</p>
+
+      <h3>7. Limitação de responsabilidade</h3>
+      <p>Na máxima extensão permitida pela legislação aplicável, não nos responsabilizamos por danos indiretos, incidentais ou consequenciais decorrentes do uso deste site ou de informações nele contidas.</p>
+
+      <h3>8. Links para terceiros</h3>
+      <p>Este site pode conter links para páginas de terceiros. Não controlamos e não respondemos pelo conteúdo, pelas políticas de privacidade ou pelas práticas desses sites.</p>
+
+      <h3>9. Alterações</h3>
+      <p>Reservamo-nos o direito de atualizar estes Termos a qualquer momento. O uso continuado do site após a publicação das alterações constitui aceitação.</p>
+
+      <h3>10. Legislação aplicável</h3>
+      <p>Estes Termos são regidos pelas leis da República Federativa do Brasil.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-legal" role="dialog" aria-modal="true" aria-labelledby="m-legal-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-legal-t">Aviso Legal</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Este site é operado por:</p>
+      <p class="entity-box">
+        <strong>Razão social (a preencher)</strong><br>
+        CNPJ CNPJ (a preencher)<br>
+        Endereço (a preencher)<br>
+        Cidade/UF (a preencher) · CEP CEP (a preencher)
+      </p>
+
+      <h3>1. Finalidade do conteúdo</h3>
+      <p>Todo o material publicado neste site tem finalidade exclusivamente informativa e educativa, de caráter geral. Ele não constitui consulta, diagnóstico, prescrição, tratamento ou qualquer forma de aconselhamento médico individualizado, e não estabelece relação médico-paciente.</p>
+
+      <h3>2. Aviso sanitário</h3>
+      <p>As afirmações contidas neste site <strong>não foram avaliadas pela Agência Nacional de Vigilância Sanitária (ANVISA)</strong>. Nenhum conteúdo, alimento, hábito ou produto mencionado se destina a diagnosticar, tratar, curar ou prevenir qualquer doença.</p>
+
+      <h3>3. Procure um profissional de saúde</h3>
+      <p>Consulte sempre um médico antes de iniciar qualquer nova rotina, alteração alimentar ou suplementação — especialmente se você possui condição de saúde preexistente, faz uso de medicamento contínuo ou está sob acompanhamento.</p>
+      <p><strong>Sintomas urinários em homens acima dos 50 anos devem ser avaliados por um urologista</strong>, porque condições distintas podem produzir queixas semelhantes. Não interrompa nem altere medicamento prescrito por conta própria.</p>
+      <p>Procure atendimento médico sem demora diante de sangue na urina, dor ou ardência ao urinar, febre, impossibilidade de urinar ou piora rápida dos sintomas.</p>
+
+      <h3>4. Ausência de garantia de resultados</h3>
+      <p>Experiências individuais variam conforme idade, condição de saúde, rotina e outros fatores. Depoimentos e exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa obterá resultados iguais ou semelhantes.</p>
+
+      <h3>5. Divulgação publicitária e de afiliados</h3>
+      <p>Esta página contém conteúdo patrocinado e links de afiliado. Podemos receber remuneração quando um visitante clica em um link e realiza uma compra, sem custo adicional para o visitante. Essa relação comercial não influencia as informações apresentadas.</p>
+
+      <h3>6. Conteúdo de terceiros</h3>
+      <p>Este site pode direcionar a páginas, vídeos e ofertas operados por terceiros. Não controlamos e não respondemos pelo conteúdo, pelas práticas comerciais ou pelas políticas desses terceiros. A contratação de qualquer produto ocorre diretamente com o respectivo fornecedor.</p>
+
+      <h3>7. Limitação de responsabilidade</h3>
+      <p>Na máxima extensão permitida pela legislação brasileira, não nos responsabilizamos por danos decorrentes do uso ou da impossibilidade de uso das informações aqui disponibilizadas. A decisão de aplicar qualquer orientação é de responsabilidade exclusiva do leitor.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-refund" role="dialog" aria-modal="true" aria-labelledby="m-refund-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-refund-t">Política de Reembolso</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Esta página é de caráter informativo e não realiza vendas. A compra de qualquer produto ocorre em ambiente próprio do fornecedor, e é a política dele que rege a transação. As condições abaixo descrevem o padrão aplicável.</p>
+
+      <h3>1. Direito de arrependimento — 7 dias</h3>
+      <p>Nos termos do <strong>artigo 49 do Código de Defesa do Consumidor</strong>, em compras realizadas fora do estabelecimento comercial — incluindo internet — o consumidor pode desistir da contratação <strong>em até 7 (sete) dias corridos</strong> contados do recebimento do produto ou da assinatura do contrato, sem necessidade de justificativa.</p>
+      <p>Exercido esse direito, os valores pagos são devolvidos integralmente e de imediato, monetariamente atualizados.</p>
+
+      <h3>2. Garantia estendida do fornecedor</h3>
+      <p>O fornecedor pode oferecer prazo superior ao mínimo legal. Quando houver, o prazo e as condições são informados na página de checkout e no e-mail de confirmação da compra, e prevalecem por serem mais favoráveis ao consumidor.</p>
+
+      <h3>3. Como solicitar</h3>
+      <ul>
+        <li>Envie a solicitação ao canal de atendimento informado no e-mail de confirmação da compra;</li>
+        <li>Informe o e-mail utilizado na compra e a data da transação;</li>
+        <li>Não é necessário justificar o pedido dentro do prazo legal de 7 dias.</li>
+      </ul>
+      <p>Caso não localize o contato do fornecedor, fale conosco pelos dados abaixo e indicaremos o caminho correto.</p>
+
+      <h3>4. Prazo de processamento</h3>
+      <p>Após a confirmação, o estorno é processado pela plataforma de pagamento. O prazo de crédito varia conforme o meio utilizado: em cartão de crédito, costuma aparecer em até duas faturas subsequentes, conforme regra da operadora; em PIX ou boleto, a devolução ocorre por transferência, mediante confirmação dos dados bancários.</p>
+
+      <h3>5. Produtos digitais</h3>
+      <p>O direito de arrependimento previsto no artigo 49 do CDC aplica-se igualmente a produtos digitais, ainda que o conteúdo já tenha sido acessado dentro do prazo de 7 dias.</p>
+
+      <h3>6. Atendimento</h3>
+      <p class="entity-box">
+        <strong>Razão social (a preencher)</strong><br>
+        CNPJ CNPJ (a preencher)<br>
+        contato@saudeplena.shop<br>
+        Telefone (a preencher)
+      </p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-contact" role="dialog" aria-modal="true" aria-labelledby="m-contact-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-contact-t">Contato</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Fale com a nossa equipe. Respondemos todas as mensagens recebidas.</p>
+
+      <h3>Dados da empresa</h3>
+      <p class="entity-box">
+        <strong>Razão social (a preencher)</strong><br>
+        CNPJ CNPJ (a preencher)<br>
+        Endereço (a preencher)<br>
+        Cidade/UF (a preencher) · CEP CEP (a preencher)<br>
+        Brasil
+      </p>
+
+      <h3>Canais de atendimento</h3>
+      <ul>
+        <li><strong>E-mail geral:</strong> contato@saudeplena.shop</li>
+        <li><strong>Telefone / WhatsApp:</strong> Telefone (a preencher)</li>
+        <li><strong>Privacidade e dados (LGPD):</strong> privacidade@saudeplena.shop</li>
+      </ul>
+
+      <h3>Horário</h3>
+      <p>Segunda a sexta-feira, das 09h às 18h (horário de Brasília), exceto feriados nacionais.</p>
+      <p>Prazo médio de resposta: <strong>até 1 dia útil</strong>.</p>
+
+      <h3>Pedidos e reembolsos</h3>
+      <p>Compras realizadas são processadas pelo fornecedor do produto. Para dúvidas sobre acesso, cobrança ou reembolso, utilize o canal informado no e-mail de confirmação da compra. Se não localizar essa informação, escreva para nós e indicaremos o caminho correto.</p>
+
+      <h3>Natureza deste site</h3>
+      <p>Este é um site de conteúdo informativo com divulgação publicitária. Não comercializamos produtos diretamente por esta página e não temos acesso a dados de pedidos realizados em plataformas de terceiros.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var open = null, lastFocus = null;
+
+  function show(id){
+    var m = document.getElementById(id);
+    if(!m) return;
+    lastFocus = document.activeElement;
+    m.classList.add('open');
+    document.body.classList.add('locked');
+    open = m;
+    var x = m.querySelector('.modal-x');
+    if(x) x.focus();
+  }
+
+  function hide(){
+    if(!open) return;
+    open.classList.remove('open');
+    open.querySelector('.modal-body').scrollTop = 0;
+    document.body.classList.remove('locked');
+    open = null;
+    if(lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll('[data-modal]').forEach(function(b){
+    b.addEventListener('click', function(){ show(b.getAttribute('data-modal')); });
+  });
+  document.querySelectorAll('[data-close]').forEach(function(b){
+    b.addEventListener('click', hide);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') hide();
+  });
+})();
+</script>
+
+
+<script>
+(function () {
+  var q = location.search;
+  if (!q || q.length < 2) return;
+  var links = document.querySelectorAll('a[href^="conteudo.html"]');
+  for (var i = 0; i < links.length; i++) {
+    var h = links[i].getAttribute("href");
+    links[i].setAttribute("href", h + (h.indexOf("?") > -1 ? "&" : "?") + q.slice(1));
+  }
+})();
+</script>
+</body>
+</html>
