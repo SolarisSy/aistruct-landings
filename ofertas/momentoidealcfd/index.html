@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<!-- Presell LOTOAPP · entregar junto de loop.mp4, loop.webm e loop-poster.jpg -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Momento Ideal — video explicativo gratuito</title>
+<meta name="description" content="R$ 474,7 milhões em prêmios de loteria ficaram sem dono em 2025. O prazo de resgate é de 90 dias. Entenda o que acontece com esse dinheiro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px;
+  --brand:#25314F; --brand-dk:#1C2540; --brand-dp:#141B2F;
+  --accent:#F2B84B; --accent-dk:#D89F35; --accent-ink:#3B2A05;
+  --ink:#1A1F2B; --ink-2:#4E5765; --rule:#E4E6EC; --card:#FFF;
+  --bg:#F5F6F9; --tint:#EEF1F7;
+  --measure:36em; --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(0,0,0,.06);hyphens:none}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:680px;margin:0 auto;padding:0 var(--s5)}
+.measure{max-width:var(--measure);margin-left:auto;margin-right:auto}
+
+h1{font-family:'Bitter',Georgia,serif;font-size:26px;line-height:1.3;
+   font-weight:700;letter-spacing:-.017em;text-wrap:balance}
+h1 span{color:var(--accent)}
+.eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+   font-weight:700;color:var(--brand);text-align:center;line-height:1.5;margin-bottom:var(--s5)}
+.lead{font-size:17px;line-height:1.6}
+
+.hero{background:linear-gradient(170deg,#2A3860 0%,var(--brand-dk) 62%,var(--brand-dp) 100%);
+   color:#fff;text-align:center;padding:var(--s6) 0 var(--s7)}
+.hero h1{margin-bottom:var(--s5)}
+.hero .lead{color:rgba(255,255,255,.88)}
+.hero .lead p + p{margin-top:var(--s4)}
+.src{display:block;font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.55);margin-top:var(--s3)}
+
+.thumb{display:block;position:relative;width:100%;max-width:560px;
+   aspect-ratio:16/9;margin:var(--s6) auto var(--s3);
+   border-radius:var(--radius);overflow:hidden;
+   background:linear-gradient(140deg,#DFE3EC,#BCC3D4);
+   box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.thumb::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+   background:linear-gradient(180deg,transparent 56%,rgba(0,0,0,.5) 100%)}
+.thumb::after{content:"";position:absolute;inset:0;z-index:3;border-radius:var(--radius);
+   box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.thumb-cap{position:absolute;left:0;right:0;bottom:var(--s3);z-index:2;
+   font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;
+   color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.65)}
+
+.cue{font-size:15px;line-height:1.5;color:rgba(255,255,255,.78);margin-bottom:var(--s4)}
+.reinforce{font-size:14px;line-height:1.5;color:rgba(255,255,255,.66);margin-top:var(--s3)}
+
+.btn{display:block;width:100%;max-width:560px;margin:0 auto;
+   background:var(--accent);color:var(--accent-ink);
+   font-size:18px;font-weight:700;line-height:1.35;
+   padding:var(--s4) var(--s5);border-radius:var(--radius);border:0;cursor:pointer;
+   text-align:center;box-shadow:0 3px 0 var(--accent-dk);
+   transition:transform .12s ease,box-shadow .12s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 0 var(--accent-dk)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--accent-dk)}
+
+main.wrap{padding-top:var(--s7);padding-bottom:var(--s5)}
+
+.panel{background:var(--card);border-radius:var(--radius);
+   border:1px solid var(--rule);border-top:3px solid var(--accent);
+   padding:var(--s5) var(--s5) var(--s4);margin-bottom:var(--s6);
+   box-shadow:0 2px 14px rgba(30,40,70,.06)}
+.panel ul{list-style:none}
+.panel li{position:relative;text-align:left;padding:0 0 var(--s5) var(--s5);
+   font-size:16.5px;line-height:1.58}
+.panel li:last-child{padding-bottom:var(--s2)}
+.panel li::before{content:"";position:absolute;left:0;top:9px;
+   width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.panel li b{font-weight:700;color:var(--ink)}
+.btn-wrap{margin-bottom:var(--s7)}
+
+.faq{margin-bottom:var(--s6)}
+details{background:var(--card);border:1px solid var(--rule);
+   border-radius:var(--radius);margin-bottom:var(--s2)}
+summary{cursor:pointer;list-style:none;padding:var(--s4);text-align:left;
+   font-size:16.5px;font-weight:600;line-height:1.45;
+   display:flex;justify-content:space-between;gap:var(--s3);align-items:flex-start}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--brand);font-size:22px;line-height:1;font-weight:400;flex-shrink:0}
+details[open] summary::after{content:"–"}
+details .ans{padding:0 var(--s4) var(--s4);text-align:left;
+   font-size:16px;line-height:1.62;color:var(--ink-2)}
+details .ans p + p{margin-top:var(--s3)}
+details .ans strong{color:var(--ink)}
+
+.commit{text-align:center;color:var(--brand);padding:var(--s5) 0;margin-bottom:var(--s5);
+   border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+   font-size:15px;line-height:1.55}
+.commit b{display:block;font-size:12.5px;letter-spacing:.14em;
+   text-transform:uppercase;margin-bottom:var(--s1)}
+
+footer{background:var(--card);border-top:1px solid var(--rule);
+   padding:var(--s6) 0 var(--s7);font-size:14px;line-height:1.6;color:var(--ink-2)}
+.flinks{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s4);
+   justify-content:center;margin-bottom:var(--s5)}
+.flinks button{background:none;border:0;padding:var(--s1) 0;cursor:pointer;
+   color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;font-size:14px}
+.flinks button:hover{color:var(--brand)}
+footer .disc{text-align:left;max-width:var(--measure);margin:0 auto}
+footer .disc p + p{margin-top:var(--s3)}
+footer strong{color:var(--ink)}
+.entity{text-align:center;margin-top:var(--s5);padding-top:var(--s5);
+   border-top:1px solid var(--rule);font-size:13.5px;line-height:1.75;color:var(--ink)}
+.copy{text-align:center;margin-top:var(--s4);font-size:13.5px}
+.linkish{background:none;border:0;padding:0;cursor:pointer;color:var(--ink-2);
+   text-decoration:underline;text-underline-offset:3px;font-size:inherit}
+
+.modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;
+   justify-content:center;padding:var(--s5)}
+.modal.open{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(12,18,32,.68)}
+.modal-box{position:relative;z-index:1;background:#fff;border-radius:14px;
+   width:100%;max-width:660px;max-height:86vh;display:flex;flex-direction:column;
+   box-shadow:0 24px 64px rgba(0,0,0,.36)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+   padding:var(--s5);border-bottom:1px solid var(--rule);flex-shrink:0}
+.modal-head h2{font-family:'Bitter',Georgia,serif;font-size:20px;font-weight:700;line-height:1.3}
+.modal-x{background:none;border:0;cursor:pointer;font-size:28px;line-height:1;
+   color:var(--ink-2);padding:0 var(--s1);flex-shrink:0}
+.modal-body{overflow-y:auto;padding:var(--s5);text-align:left;
+   font-size:15.5px;line-height:1.66;color:var(--ink-2);
+   -webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.modal-body .upd{font-style:italic;margin-bottom:var(--s5)}
+.modal-body h3{font-size:16px;font-weight:700;color:var(--ink);margin:var(--s5) 0 var(--s2)}
+.modal-body h3:first-of-type{margin-top:0}
+.modal-body p + p{margin-top:var(--s3)}
+.modal-body ul{margin:var(--s3) 0 0 var(--s5)}
+.modal-body strong{color:var(--ink)}
+.entity-box{background:var(--tint);border-radius:8px;padding:var(--s4);
+   margin-top:var(--s3);color:var(--ink);line-height:1.7}
+.modal-foot{padding:var(--s4) var(--s5);border-top:1px solid var(--rule);flex-shrink:0}
+.modal-close{background:var(--brand);color:#fff;border:0;border-radius:8px;
+   font-weight:600;font-size:16px;padding:var(--s3) var(--s6);cursor:pointer;
+   display:block;margin-left:auto}
+body.locked{overflow:hidden}
+
+@media(min-width:701px){
+  body{font-size:18px}
+  h1{font-size:38px;line-height:1.24}
+  .hero{padding:var(--s7) 0 64px}
+  main.wrap{padding-top:72px}
+  .lead{font-size:18.5px}
+  .cue{font-size:16px}
+  .btn{font-size:19px;padding:19px var(--s5)}
+  .panel{padding:var(--s6) var(--s6) var(--s5)}
+  .panel li{font-size:17.5px}
+  summary{font-size:17.5px;padding:var(--s4) var(--s5)}
+  details .ans{padding:0 var(--s5) var(--s5);font-size:17px}
+}
+@media(max-width:400px){
+  .wrap{padding:0 var(--s4)}
+  h1{font-size:24px}
+  body,.lead{font-size:16.5px}
+  .panel{padding:var(--s5) var(--s4) var(--s3)}
+  .panel li,summary{font-size:16px}
+  .btn{font-size:17px}
+}
+@media(max-width:700px){
+  .modal{padding:0;align-items:flex-end}
+  .modal-box{max-width:none;max-height:92vh;border-radius:16px 16px 0 0}
+  .modal-head,.modal-body{padding:var(--s4)}
+  .modal-foot{padding:var(--s3) var(--s4) calc(var(--s3) + env(safe-area-inset-bottom))}
+  .modal-close{width:100%;padding:var(--s4)}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+  .thumb video{display:none}
+  .thumb{background:#BCC3D4 url("loop-poster.jpg") center/cover no-repeat}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== PRIMEIRA DOBRA ==================== -->
+<header class="hero">
+  <div class="wrap">
+
+    <h1 class="measure">Quase Meio Bilhão em Prêmios de Loteria Ficou Sem Dono em 2025 — e o Motivo <span>Não Foi Falta de Sorte</span></h1>
+
+    <div class="lead measure">
+      <p>Foram <strong>R$ 474,7 milhões</strong> com ganhador definido. O dinheiro existia. A pessoa certa acertou. E o prazo passou.</p>
+      <p>Depois de 90 dias corridos, o valor deixa de ser do apostador e vai para o Tesouro Nacional.</p>
+      <p>A pergunta incômoda é simples: <strong>quantos dos seus bilhetes você realmente conferiu?</strong></p>
+      <span class="src">Fonte: dados da Caixa Econômica Federal sobre prêmios prescritos, conforme a Lei nº 13.756/2018.</span>
+    </div>
+
+    <!-- O play ja vem gravado no loop. Nao adicionar <span class="play">.
+         Nunca trocar por asset com logo de loteria real, estetica de transmissao
+         oficial, rosto, dinheiro ou comemoracao de ganhador. -->
+    <a class="thumb" href="frontyt.html" aria-label="Assistir ao vídeo explicativo gratuito">
+      <video autoplay muted loop playsinline preload="metadata" poster="loop-poster.jpg">
+        <source src="loop.webm" type="video/webm">
+        <source src="loop.mp4" type="video/mp4">
+      </video>
+      <span class="thumb-cap">Assistir agora — é gratuito</span>
+    </a>
+
+    <p class="cue measure">Clique no botão abaixo para ver a explicação completa.</p>
+
+    <a class="btn" href="frontyt.html">Assistir ao vídeo gratuito agora</a>
+
+    <p class="reinforce measure">Acesso livre, sem cadastro.</p>
+
+  </div>
+</header>
+
+<!-- ==================== CONTEUDO ==================== -->
+<main class="wrap">
+
+  <p class="eyebrow">O que você vai ver no vídeo gratuito</p>
+
+  <div class="panel">
+    <ul>
+      <li><b>Por que quase ninguém descobre a tempo</b> — e não tem nada a ver com desatenção. Existe um motivo estrutural que a maior parte dos apostadores desconhece.</li>
+      <li><b>Qual faixa de prêmio some mais</b> — não é a que você está imaginando, e é justamente por isso que passa batido.</li>
+      <li><b>O que dá para fazer</b> com os bilhetes que estão parados na gaveta ou na carteira — e como descobrir, em segundos, quais ainda estão no prazo.</li>
+      <li><b>A ferramenta que algumas pessoas passaram a usar</b> para não depender de lembrar — mostrada funcionando na tela, do início ao fim.</li>
+    </ul>
+  </div>
+
+  <div class="btn-wrap">
+    <a class="btn" href="frontyt.html">Assistir ao vídeo gratuito agora</a>
+  </div>
+
+  <p class="eyebrow">Perguntas frequentes</p>
+
+  <div class="faq">
+    <details>
+      <summary>Assistir ao vídeo tem algum custo?</summary>
+      <div class="ans">
+        <p>Não. O vídeo é gratuito e não exige cadastro, e-mail ou cartão de crédito para ser assistido.</p>
+      </div>
+    </details>
+
+    <!-- Esta pergunta e o escudo principal da pagina contra Misrepresentation.
+         Nao remover, nao suavizar a resposta. -->
+    <details>
+      <summary>Este aplicativo aumenta minhas chances de ganhar?</summary>
+      <div class="ans">
+        <p><strong>Não.</strong> E é importante ser direto: nenhum aplicativo, sistema ou método aumenta a chance de acertar na loteria.</p>
+        <p>Cada sorteio é um evento independente. Todas as combinações têm exatamente a mesma probabilidade, em todo concurso, sempre. Números "atrasados" ou "quentes" não existem — sorteios não têm memória.</p>
+        <p>O assunto do vídeo é outro: <strong>não perder o que já é seu.</strong> É conveniência, não vantagem.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Faz tempo que joguei. Ainda vale ver?</summary>
+      <div class="ans">
+        <p>Depende de quanto tempo. O prazo é de 90 dias corridos a partir de cada sorteio, e ele corre por bilhete, não por pessoa.</p>
+        <p>É exatamente essa conta que o vídeo mostra como fazer.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Por que isso não está tudo explicado aqui na página?</summary>
+      <div class="ans">
+        <p>Porque a parte que importa é visual e leva alguns minutos para fazer sentido. Resumir em texto entregaria a conclusão sem o contexto que a torna útil.</p>
+        <p>O vídeo tem cerca de <strong>4 minutos</strong> e é gratuito.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Quem está por trás deste conteúdo?</summary>
+      <div class="ans">
+        <p>Esta página é publicada por <strong>Onmed Hospitalar LTDA</strong>, com dados completos no rodapé. É uma página de divulgação: apresentamos conteúdo informativo e encaminhamos para um vídeo no qual um produto pago é oferecido.</p>
+        <p><strong>Não temos qualquer vínculo com a Caixa Econômica Federal</strong> nem com as Loterias CAIXA. O aplicativo não vende jogos, não registra apostas e não intermedeia pagamento de prêmios.</p>
+        <p>podemos receber comissão sobre as vendas geradas a partir deste site, sem custo adicional para você.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="commit">
+    <b>Nosso compromisso</b>
+    Conteúdo informativo, sem promessa de ganho e com respeito ao seu tempo.
+  </div>
+
+</main>
+
+<!-- ==================== RODAPE ==================== -->
+<footer>
+  <div class="wrap">
+
+    <div class="flinks">
+      <button type="button" data-modal="m-priv">Política de Privacidade</button>
+      <button type="button" data-modal="m-terms">Termos de Uso</button>
+      <button type="button" data-modal="m-legal">Aviso Legal</button>
+      <button type="button" data-modal="m-refund">Política de Reembolso</button>
+      <button type="button" data-modal="m-contact">Contato</button>
+    </div>
+
+    <div class="disc">
+      <p><strong>Divulgação publicitária.</strong> Esta página contém conteúdo patrocinado e links de afiliado. O responsável pela publicação pode receber remuneração quando um visitante clica em um link e realiza uma compra, sem custo adicional para o visitante. Isso não altera as informações apresentadas.</p>
+
+      <p><strong>Aviso sobre chances.</strong> Nenhum aplicativo, sistema, método ou análise aumenta a probabilidade de acerto em loterias. Cada sorteio é um evento independente e todas as combinações possuem a mesma probabilidade em todos os concursos. O aplicativo apresentado tem finalidade de organização, registro e conferência de jogos já realizados pelo usuário.</p>
+
+      <p><strong>Jogo responsável.</strong> Loterias são uma forma de entretenimento e não constituem investimento nem fonte de renda. Jogue apenas com valores que você pode perder sem comprometer despesas essenciais. Proibido para menores de 18 anos. Se o jogo estiver afetando sua vida financeira, familiar ou emocional, procure ajuda — o CVV atende gratuitamente pelo telefone 188, 24 horas por dia.</p>
+
+      <p><strong>Ausência de vínculo.</strong> Este site não possui qualquer relação, vínculo, parceria ou autorização da Caixa Econômica Federal, das Loterias CAIXA ou de qualquer órgão público. Não comercializamos apostas nem intermediamos pagamento de prêmios. Todas as marcas citadas pertencem aos seus respectivos titulares.</p>
+
+      <p><strong>Aviso sobre resultados.</strong> Experiências individuais variam. Depoimentos e exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa obterá resultados iguais ou semelhantes. Nenhum resultado é prometido ou garantido.</p>
+    </div>
+
+    <p class="entity">
+      <strong>Onmed Hospitalar LTDA</strong><br>
+      CNPJ 47.314.068/0001-09<br>
+      Rua das Cravinas, 186 — Quadra 13, Lote 17, Sala 106<br>
+        Barroco (Itaipuaçu)<br>
+      Maricá — RJ · CEP 24936-110<br>
+      contato@momentoideal.cfd · (21) 99273-5033
+    </p>
+
+    <p class="copy">© 2026 · Todos os direitos reservados · <button type="button" class="linkish" data-modal="m-contact">Fale conosco</button></p>
+
+  </div>
+</footer>
+
+<!-- ==================== MODAIS ==================== -->
+
+<div class="modal" id="m-priv" role="dialog" aria-modal="true" aria-labelledby="m-priv-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-priv-t">Política de Privacidade</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Esta Política de Privacidade explica como coletamos, utilizamos e protegemos as suas informações quando você visita este site, em conformidade com a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais — LGPD).</p>
+
+      <h3>Controlador dos dados</h3>
+      <p class="entity-box">
+        <strong>Onmed Hospitalar LTDA</strong><br>
+        CNPJ 47.314.068/0001-09<br>
+        Rua das Cravinas, 186 — Quadra 13, Lote 17, Sala 106<br>
+        Barroco (Itaipuaçu)<br>
+        Maricá — RJ · CEP 24936-110<br>
+        Encarregado: contato@momentoideal.cfd
+      </p>
+
+      <h3>1. Informações que coletamos</h3>
+      <p>Podemos coletar informações que você fornece diretamente, como nome, endereço de e-mail e dados necessários ao atendimento de solicitações. Dados de pagamento, quando aplicável, são processados por plataformas terceirizadas em ambiente seguro — não armazenamos números completos de cartão.</p>
+      <p>Coletamos também dados técnicos de forma automática, como endereço IP, tipo de navegador, dispositivo, páginas visitadas e origem do acesso.</p>
+
+      <h3>2. Como utilizamos as informações</h3>
+      <ul>
+        <li>Responder a solicitações e prestar atendimento;</li>
+        <li>Processar e acompanhar pedidos, quando houver;</li>
+        <li>Enviar comunicações informativas ou promocionais, com cancelamento a qualquer momento;</li>
+        <li>Medir o desempenho do site e melhorar a navegação;</li>
+        <li>Cumprir obrigações legais e regulatórias.</li>
+      </ul>
+
+      <h3>3. Base legal do tratamento</h3>
+      <p>O tratamento ocorre com fundamento no consentimento do titular, na execução de contrato, no cumprimento de obrigação legal ou no legítimo interesse, conforme o caso, nos termos dos artigos 7º e 10 da LGPD.</p>
+
+      <h3>4. Compartilhamento</h3>
+      <p>Não vendemos informações pessoais. Podemos compartilhá-las com prestadores de serviço necessários à operação (hospedagem, processamento de pagamento, análise e envio de e-mail) e com autoridades competentes quando exigido por lei.</p>
+
+      <h3>5. Cookies</h3>
+      <p>Utilizamos cookies para viabilizar funcionalidades do site, medir audiência e avaliar o desempenho de campanhas publicitárias. Você pode bloquear ou excluir cookies nas configurações do navegador, ciente de que algumas funções podem deixar de operar corretamente.</p>
+
+      <h3>6. Direitos do titular</h3>
+      <p>Nos termos do artigo 18 da LGPD, você pode solicitar a qualquer momento: confirmação da existência de tratamento; acesso aos dados; correção de dados incompletos ou desatualizados; anonimização, bloqueio ou eliminação de dados desnecessários; portabilidade; informação sobre compartilhamento; e revogação do consentimento.</p>
+      <p>Para exercer esses direitos, escreva para o endereço indicado acima.</p>
+
+      <h3>7. Retenção e segurança</h3>
+      <p>Mantemos os dados pelo tempo necessário às finalidades descritas ou ao cumprimento de obrigações legais. Adotamos medidas técnicas e administrativas razoáveis para proteger as informações contra acesso não autorizado, perda ou alteração.</p>
+
+      <h3>8. Privacidade de menores</h3>
+      <p>Este site não se destina a menores de 18 anos e não coletamos intencionalmente dados de crianças e adolescentes.</p>
+
+      <h3>9. Alterações</h3>
+      <p>Esta política pode ser atualizada periodicamente. As alterações serão publicadas nesta mesma página, com a data revisada.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-terms" role="dialog" aria-modal="true" aria-labelledby="m-terms-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-terms-t">Termos de Uso</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Ao acessar ou utilizar este site, você concorda com estes Termos de Uso. Caso não concorde, pedimos que não utilize o site.</p>
+
+      <h3>1. Uso do site</h3>
+      <p>Você se compromete a utilizar este site apenas para finalidades lícitas e em conformidade com a legislação brasileira aplicável, incluindo o Marco Civil da Internet (Lei nº 12.965/2014) e o Código de Defesa do Consumidor (Lei nº 8.078/1990).</p>
+
+      <h3>2. Idade mínima</h3>
+      <p>O conteúdo é destinado exclusivamente a maiores de 18 anos.</p>
+
+      <h3>3. Propriedade intelectual</h3>
+      <p>Todo o conteúdo deste site — textos, imagens, vídeos, marcas e elementos visuais — é protegido pela legislação de propriedade intelectual. A reprodução, distribuição ou modificação sem autorização prévia por escrito é proibida.</p>
+
+      <h3>4. Natureza do conteúdo e ausência de garantia de ganho</h3>
+      <p>O conteúdo é disponibilizado apenas para fins informativos de caráter geral. <strong>Nenhum aplicativo, sistema, método ou análise aumenta a probabilidade de acerto em loterias.</strong> Cada sorteio é um evento independente e todas as combinações possuem a mesma probabilidade.</p>
+      <p>Loterias são entretenimento e não constituem investimento, aplicação financeira ou fonte de renda.</p>
+
+      <h3>5. Ausência de vínculo institucional</h3>
+      <p>Este site não possui relação, vínculo, parceria ou autorização da Caixa Econômica Federal, das Loterias CAIXA ou de qualquer órgão público. Não comercializamos apostas nem intermediamos pagamento de prêmios.</p>
+
+      <h3>6. Divulgação de afiliados</h3>
+      <p>Este site contém conteúdo patrocinado e links de afiliado. Podemos receber remuneração caso você clique em um link e realize uma compra, sem qualquer custo adicional para você. Isso não influencia as informações apresentadas.</p>
+
+      <h3>7. Isenção de garantias</h3>
+      <p>Este site é fornecido "no estado em que se encontra", sem garantias de qualquer natureza. Não garantimos operação ininterrupta, ausência de erros ou disponibilidade contínua.</p>
+
+      <h3>8. Limitação de responsabilidade</h3>
+      <p>Na máxima extensão permitida pela legislação aplicável, não nos responsabilizamos por danos indiretos, incidentais ou consequenciais decorrentes do uso deste site ou de informações nele contidas, nem por valores gastos em apostas.</p>
+
+      <h3>9. Links para terceiros</h3>
+      <p>Este site pode conter links para páginas de terceiros. Não controlamos e não respondemos pelo conteúdo, pelas políticas de privacidade ou pelas práticas desses sites.</p>
+
+      <h3>10. Alterações</h3>
+      <p>Reservamo-nos o direito de atualizar estes Termos a qualquer momento. O uso continuado do site após a publicação das alterações constitui aceitação.</p>
+
+      <h3>11. Legislação aplicável</h3>
+      <p>Estes Termos são regidos pelas leis da República Federativa do Brasil.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-legal" role="dialog" aria-modal="true" aria-labelledby="m-legal-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-legal-t">Aviso Legal</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Este site é operado por:</p>
+      <p class="entity-box">
+        <strong>Onmed Hospitalar LTDA</strong><br>
+        CNPJ 47.314.068/0001-09<br>
+        Rua das Cravinas, 186 — Quadra 13, Lote 17, Sala 106<br>
+        Barroco (Itaipuaçu)<br>
+        Maricá — RJ · CEP 24936-110
+      </p>
+
+      <h3>1. Finalidade do conteúdo</h3>
+      <p>Todo o material publicado neste site tem finalidade exclusivamente informativa, de caráter geral. Ele não constitui aconselhamento financeiro, jurídico ou de investimento.</p>
+
+      <h3>2. Nenhum sistema aumenta chances</h3>
+      <p><strong>Nenhum aplicativo, algoritmo, estatística, análise de frequência ou método aumenta a probabilidade de acerto em loterias.</strong> Cada concurso é um evento independente dos anteriores. Todas as combinações possíveis têm exatamente a mesma probabilidade de serem sorteadas, em todos os concursos.</p>
+      <p>Conceitos como números "atrasados", "quentes" ou "frios" não possuem validade estatística: sorteios não guardam memória dos resultados anteriores.</p>
+      <p>O aplicativo apresentado tem finalidade de <strong>registro, organização e conferência</strong> de jogos já realizados pelo usuário.</p>
+
+      <h3>3. Loteria é entretenimento</h3>
+      <p>Loterias não constituem investimento, aplicação financeira, fonte de renda nem estratégia de recuperação financeira. A expectativa matemática de retorno é negativa.</p>
+      <p>Jogue apenas com valores que você pode perder sem comprometer despesas essenciais. Proibido para menores de 18 anos.</p>
+
+      <h3>4. Jogo responsável</h3>
+      <p>Se o jogo estiver afetando sua vida financeira, familiar, profissional ou emocional, procure apoio. O <strong>CVV — Centro de Valorização da Vida</strong> atende gratuitamente pelo telefone <strong>188</strong>, 24 horas por dia, e também por chat no site cvv.org.br. Existem ainda grupos de apoio a jogadores compulsivos em diversas cidades do país.</p>
+
+      <h3>5. Ausência de vínculo institucional</h3>
+      <p>Este site não possui qualquer relação, vínculo, parceria, patrocínio ou autorização da Caixa Econômica Federal, das Loterias CAIXA, do Ministério da Fazenda ou de qualquer órgão público. Não comercializamos apostas, não registramos jogos e não intermediamos pagamento de prêmios. Todas as marcas citadas pertencem aos seus respectivos titulares.</p>
+
+      <h3>6. Prazos e regras oficiais</h3>
+      <p>Prazos de resgate, regras de premiação e condições de pagamento são definidos pela Caixa Econômica Federal e pela legislação aplicável, e podem ser alterados. Consulte sempre os canais oficiais.</p>
+
+      <h3>7. Divulgação publicitária e de afiliados</h3>
+      <p>Esta página contém conteúdo patrocinado e links de afiliado. Podemos receber remuneração quando um visitante clica em um link e realiza uma compra, sem custo adicional para o visitante. Essa relação comercial não influencia as informações apresentadas.</p>
+
+      <h3>8. Limitação de responsabilidade</h3>
+      <p>Na máxima extensão permitida pela legislação brasileira, não nos responsabilizamos por danos decorrentes do uso ou da impossibilidade de uso das informações aqui disponibilizadas, nem por valores gastos em apostas.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-refund" role="dialog" aria-modal="true" aria-labelledby="m-refund-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-refund-t">Política de Reembolso</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Esta página é de caráter informativo e não realiza vendas. A compra ocorre em ambiente próprio do fornecedor, e é a política dele que rege a transação. As condições abaixo descrevem o padrão aplicável.</p>
+
+      <h3>1. Direito de arrependimento — 7 dias</h3>
+      <p>Nos termos do <strong>artigo 49 do Código de Defesa do Consumidor</strong>, em compras realizadas fora do estabelecimento comercial — incluindo internet — o consumidor pode desistir da contratação <strong>em até 7 (sete) dias corridos</strong> contados do recebimento do produto ou da assinatura do contrato, sem necessidade de justificativa.</p>
+      <p>Exercido esse direito, os valores pagos são devolvidos integralmente e de imediato, monetariamente atualizados.</p>
+
+      <h3>2. Garantia estendida do fornecedor</h3>
+      <p>O fornecedor pode oferecer prazo superior ao mínimo legal. Quando houver, o prazo e as condições são informados na página de checkout e no e-mail de confirmação da compra, e prevalecem por serem mais favoráveis ao consumidor.</p>
+
+      <h3>3. Como solicitar</h3>
+      <ul>
+        <li>Envie a solicitação ao canal de atendimento informado no e-mail de confirmação da compra;</li>
+        <li>Informe o e-mail utilizado na compra e a data da transação;</li>
+        <li>Não é necessário justificar o pedido dentro do prazo legal de 7 dias.</li>
+      </ul>
+
+      <h3>4. Prazo de processamento</h3>
+      <p>Após a confirmação, o estorno é processado pela plataforma de pagamento. Em cartão de crédito, costuma aparecer em até duas faturas subsequentes, conforme regra da operadora; em PIX ou boleto, a devolução ocorre por transferência, mediante confirmação dos dados bancários.</p>
+
+      <h3>5. Produtos digitais</h3>
+      <p>O direito de arrependimento previsto no artigo 49 do CDC aplica-se igualmente a produtos digitais, ainda que o conteúdo já tenha sido acessado dentro do prazo de 7 dias.</p>
+
+      <h3>6. Assinaturas</h3>
+      <p>Havendo cobrança recorrente, o cancelamento pode ser solicitado a qualquer momento pelo mesmo canal de atendimento, com efeito a partir do ciclo seguinte.</p>
+
+      <h3>7. Atendimento</h3>
+      <p class="entity-box">
+        <strong>Onmed Hospitalar LTDA</strong><br>
+        CNPJ 47.314.068/0001-09<br>
+        contato@momentoideal.cfd<br>
+        (21) 99273-5033
+      </p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-contact" role="dialog" aria-modal="true" aria-labelledby="m-contact-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-contact-t">Contato</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Fale com a nossa equipe. Respondemos todas as mensagens recebidas.</p>
+
+      <h3>Dados da empresa</h3>
+      <p class="entity-box">
+        <strong>Onmed Hospitalar LTDA</strong><br>
+        CNPJ 47.314.068/0001-09<br>
+        Rua das Cravinas, 186 — Quadra 13, Lote 17, Sala 106<br>
+        Barroco (Itaipuaçu)<br>
+        Maricá — RJ · CEP 24936-110<br>
+        Brasil
+      </p>
+
+      <h3>Canais de atendimento</h3>
+      <ul>
+        <li><strong>E-mail geral:</strong> contato@momentoideal.cfd</li>
+        <li><strong>Telefone / WhatsApp:</strong> (21) 99273-5033</li>
+        <li><strong>Privacidade e dados (LGPD):</strong> contato@momentoideal.cfd</li>
+      </ul>
+
+      <h3>Horário</h3>
+      <p>Segunda a sexta-feira, das 09h às 18h (horário de Brasília), exceto feriados nacionais.</p>
+      <p>Prazo médio de resposta: <strong>até 1 dia útil</strong>.</p>
+
+      <h3>Pedidos e reembolsos</h3>
+      <p>Compras realizadas são processadas pelo fornecedor do produto. Para dúvidas sobre acesso, cobrança ou reembolso, utilize o canal informado no e-mail de confirmação da compra. Se não localizar essa informação, escreva para nós e indicaremos o caminho correto.</p>
+
+      <h3>Assuntos que não tratamos</h3>
+      <p>Não somos a Caixa Econômica Federal e não temos vínculo com ela. Dúvidas sobre resgate de prêmios, prazos oficiais, regras de sorteio ou problemas com bilhetes devem ser tratadas diretamente nos canais oficiais das Loterias CAIXA.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var open = null, lastFocus = null;
+  function show(id){
+    var m = document.getElementById(id); if(!m) return;
+    lastFocus = document.activeElement;
+    m.classList.add('open'); document.body.classList.add('locked'); open = m;
+    var x = m.querySelector('.modal-x'); if(x) x.focus();
+  }
+  function hide(){
+    if(!open) return;
+    open.classList.remove('open');
+    open.querySelector('.modal-body').scrollTop = 0;
+    document.body.classList.remove('locked'); open = null;
+    if(lastFocus) lastFocus.focus();
+  }
+  document.querySelectorAll('[data-modal]').forEach(function(b){
+    b.addEventListener('click', function(){ show(b.getAttribute('data-modal')); });
+  });
+  document.querySelectorAll('[data-close]').forEach(function(b){
+    b.addEventListener('click', hide);
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') hide(); });
+})();
+</script>
+
+</body>
+</html>
