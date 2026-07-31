@@ -604,5 +604,20 @@ body.locked{overflow:hidden}
 })();
 </script>
 
+
+<!-- Repassa os parametros do anuncio (gclid, cmpid, subs ValueTrack) da URL de entrada
+     para o link da VSL. Sem isso o unilpclick.js do frontyt.html nao recebe o cmpid e o
+     clique e atribuido a campanha default, sem gclid. -->
+<script>
+(function () {
+  var q = location.search;
+  if (!q || q.length < 2) return;
+  var links = document.querySelectorAll('a[href^="frontyt.html"]');
+  for (var i = 0; i < links.length; i++) {
+    var h = links[i].getAttribute("href");
+    links[i].setAttribute("href", h + (h.indexOf("?") > -1 ? "&" : "?") + q.slice(1));
+  }
+})();
+</script>
 </body>
 </html>
