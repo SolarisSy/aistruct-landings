@@ -185,6 +185,19 @@ body.locked{overflow:hidden}
   .thumb{background:#BCC3D4 url("loop-poster.jpg") center/cover no-repeat}
 }
 </style>
+
+<!-- UTMify: pixel de conversao (Google) -->
+<script>
+  window.googlePixelId = "6a6cc73f0359bc21f178db72";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+  document.head.appendChild(a);
+</script>
+<!-- UTMify: captura de UTM/clique (precisa rodar NA propria pagina) -->
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
 </head>
 <body>
 
@@ -606,8 +619,8 @@ body.locked{overflow:hidden}
 
 
 <!-- Repassa os parametros do anuncio (gclid, cmpid, subs ValueTrack) da URL de entrada
-     para o link da VSL. Sem isso o unilpclick.js do frontyt.html nao recebe o cmpid e o
-     clique e atribuido a campanha default, sem gclid. -->
+     para o link da VSL. Sem isso o utms/latest.js do frontyt.html nao recebe o gclid: a UTMify perde
+     a amarracao do clique e o filtro do player (chave de URL) barra o visitante. -->
 <script>
 (function () {
   var q = location.search;
