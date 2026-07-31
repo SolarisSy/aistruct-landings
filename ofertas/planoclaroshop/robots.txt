@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://planoclaro.shop/sitemap.xml
