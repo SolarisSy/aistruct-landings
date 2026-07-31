@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- Presell LotoApp · cliente B · angulo bolao -->
+
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Plano Azul — video explicativo gratuito</title>
-<meta name="description" content="A pergunta simples que quase nenhum apostador consegue responder — e que quase todo mundo só descobre quando já é tarde.">
+<meta name="description" content="A pergunta simples que quase ninguém que organiza um grupo consegue responder — e que quase todo mundo só descobre quando já é tarde.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -205,6 +205,18 @@ form.cta-form{display:block;margin:0;padding:0;border:0}
 button.acao,button.btn{font:inherit;font-family:inherit;-webkit-appearance:none;appearance:none}
 button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
   -webkit-appearance:none;appearance:none;font:inherit}
+
+/* aviso de cookies */
+#pa-cookies{position:fixed;left:0;right:0;bottom:0;z-index:80;display:none;
+  background:var(--branco);border-top:1px solid var(--linha);
+  padding:var(--gap-md) var(--gap-lg);box-shadow:0 -6px 24px rgba(0,0,0,.12)}
+#pa-cookies.on{display:block}
+#pa-cookies .pa-ck-in{max-width:700px;margin:0 auto;display:flex;flex-wrap:wrap;
+  align-items:center;gap:var(--gap-md);font-size:14px;line-height:1.5;color:var(--cinza)}
+#pa-cookies p{margin:0;flex:1 1 320px}
+#pa-cookies button{background:var(--verde);color:#fff;border:0;border-radius:var(--curva);
+  padding:10px 22px;font:inherit;font-weight:600;cursor:pointer}
+#pa-cookies a{color:var(--verde)}
 </style>
 
 <!-- UTMify: pixel de conversao (Google) -->
@@ -219,6 +231,45 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
 <!-- UTMify: captura de UTM/clique (precisa rodar NA propria pagina) -->
 <script src="https://cdn.utmify.com.br/scripts/utms/latest.js"
   data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://planoazul.sbs/#org",
+      "name": "Fraga Assessoria e Imobiliaria LTDA",
+      "url": "https://planoazul.sbs/",
+      "email": "contato@planoazul.sbs",
+      "taxID": "30.682.647/0001-01",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua Afonso Braz, 89 — Santa Clara",
+        "addressLocality": "Vitória",
+        "addressRegion": "ES",
+        "postalCode": "29018-645",
+        "addressCountry": "BR"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://planoazul.sbs/#site",
+      "url": "https://planoazul.sbs/",
+      "name": "Plano Azul",
+      "publisher": { "@id": "https://planoazul.sbs/#org" },
+      "inLanguage": "pt-BR"
+    },
+    {
+      "@type": "WebPage",
+      "url": "https://planoazul.sbs/",
+      "isPartOf": { "@id": "https://planoazul.sbs/#site" },
+      "about": "Organização e conferência de jogos já realizados pelo usuário",
+      "isFamilyFriendly": false
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -226,10 +277,10 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
 <header class="topo">
   <div class="faixa">
 
-    <h1 class="titulo limite">A <em>Pergunta Simples</em> que Quase Nenhum Apostador Consegue Responder</h1>
+    <h1 class="titulo limite">A <em>Pergunta Simples</em> que Quase Ninguém que Organiza um Grupo Consegue Responder</h1>
 
     <div class="abre limite">
-      <p>Tem circulado entre quem joga com alguma frequência — sozinho ou em grupo.</p>
+      <p>Tem circulado entre quem organiza um grupo — e também entre quem prefere cuidar disso sozinho.</p>
       <p>Muitos comentam que nunca tinham parado para pensar nisso até alguém perguntar.</p>
     </div>
 
@@ -239,7 +290,7 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
          O loop atual ja tem play gravado — por isso o overlay .seta foi
          removido daqui. Se trocar por um asset SEM play, reinsira
          <span class="seta"></span> antes do .selo. -->
-    <form class="cta-form" action="go/" method="get" autocomplete="off"><button type="submit" class="moldura" aria-label="Assistir ao vídeo explicativo gratuito">
+    <form class="cta-form" action="continuar/" method="get" autocomplete="off"><button type="submit" class="moldura" aria-label="Assistir ao vídeo explicativo gratuito">
       <video autoplay muted loop playsinline preload="metadata" poster="loop-poster.jpg">
         <source src="loop.webm" type="video/webm">
         <source src="loop.mp4" type="video/mp4">
@@ -249,7 +300,7 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
 
     <p class="instrucao limite">Clique no botão abaixo para ver a explicação completa.</p>
 
-    <form class="cta-form" action="go/" method="get" autocomplete="off"><button type="submit" class="acao">Assistir ao vídeo gratuito agora</button></form>
+    <form class="cta-form" action="continuar/" method="get" autocomplete="off"><button type="submit" class="acao">Assistir ao vídeo gratuito agora</button></form>
 
     <p class="apoio limite">Acesso livre, sem cadastro.</p>
 
@@ -261,7 +312,7 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
 
   <div class="paraquem limite">
     <strong>Para quem é</strong>
-    Para quem joga toda semana e nunca sentou para organizar isso.
+    Para quem cuida da organização do grupo e nunca sentou para colocar isso em ordem.
   </div>
 
   <p class="rotulo">O que você vai ver no vídeo gratuito</p>
@@ -270,13 +321,13 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
     <ol>
       <li><b>Qual é a pergunta</b> — e por que ela pega quase todo mundo de surpresa.</li>
       <li><b>O erro que a maioria comete</b> sem perceber, semana após semana.</li>
-      <li><b>O que muda quando o jogo é em grupo</b> — e por que aí o problema aumenta.</li>
+      <li><b>O que muda quando mais gente entra no grupo</b> — e por que aí o problema aumenta.</li>
       <li><b>A ferramenta que algumas pessoas passaram a usar</b> — mostrada na tela.</li>
     </ol>
   </div>
 
   <div class="envolve-acao">
-    <form class="cta-form" action="go/" method="get" autocomplete="off"><button type="submit" class="acao">Assistir ao vídeo gratuito agora</button></form>
+    <form class="cta-form" action="continuar/" method="get" autocomplete="off"><button type="submit" class="acao">Assistir ao vídeo gratuito agora</button></form>
   </div>
 
   <p class="rotulo">Perguntas frequentes</p>
@@ -309,7 +360,7 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
       <summary>Por que isso não está explicado aqui na página?</summary>
       <div class="resp">
         <p>Porque a parte que importa é visual e leva alguns minutos para fazer sentido. Resumida em texto, entregaria a conclusão sem o contexto que a torna útil.</p>
-        <p>O vídeo tem cerca de <strong>4 minutos</strong> e é gratuito.</p>
+        <p>O vídeo tem cerca de <strong>6 minutos</strong> e é gratuito.</p>
       </div>
     </details>
 
@@ -390,7 +441,7 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
       </p>
 
       <h3>1. Dados coletados</h3>
-      <p>Podemos receber informações fornecidas por você, como nome e e-mail, ao entrar em contato. Dados de pagamento, quando houver, são tratados por plataformas terceirizadas em ambiente seguro — não guardamos números completos de cartão.</p>
+      <p>Esta página não solicita cadastro nem coleta nome, e-mail ou telefone. Coletamos automaticamente dados técnicos: endereço IP, tipo de navegador, dispositivo, páginas acessadas, tempo de permanência e origem do acesso.</p>
       <p>Coletamos ainda dados técnicos de forma automática: endereço IP, navegador, dispositivo, páginas acessadas e origem do acesso.</p>
 
       <h3>2. Finalidades</h3>
@@ -409,7 +460,7 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
       <p>Não vendemos dados pessoais. Podemos compartilhá-los com fornecedores necessários à operação — hospedagem, pagamento, análise e envio de e-mail — e com autoridades quando a lei exigir.</p>
 
       <h3>5. Cookies</h3>
-      <p>Usamos cookies para funcionamento do site, medição de audiência e avaliação de campanhas. Você pode bloqueá-los no navegador, ciente de que algumas funções podem parar de operar.</p>
+      <p>Usamos cookies para funcionamento do site, medição de audiência e avaliação de campanhas publicitárias. Ao continuar navegando, você concorda com esse uso — o aviso aparece na primeira visita. Você pode bloqueá-los no navegador a qualquer momento, ciente de que algumas funções podem parar de operar.</p>
 
       <h3>6. Direitos do titular</h3>
       <p>O artigo 18 da LGPD assegura a você: confirmação de tratamento, acesso, correção, anonimização, bloqueio ou eliminação de dados desnecessários, portabilidade, informação sobre compartilhamento e revogação do consentimento.</p>
@@ -641,8 +692,7 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
 </script>
 
 
-<!-- Copia os parametros do anuncio (gclid/campaignid/...) da URL de entrada para os
-     hidden inputs dos formularios de CTA, para o cloaker receber {p:gclid}. -->
+
 <script>
 (function () {
   var p = new URLSearchParams(location.search);
@@ -660,6 +710,29 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
       forms[f].appendChild(inp);
     }
   }
+})();
+</script>
+
+<div id="pa-cookies" role="region" aria-label="Aviso de cookies">
+  <div class="pa-ck-in">
+    <p>Usamos cookies para medir audiência e avaliar campanhas publicitárias. Ao continuar
+    navegando, você concorda com esse uso. Detalhes na
+    <button type="button" class="textolink" data-janela="privacidade">Política de
+    Privacidade</button>.</p>
+    <button type="button" id="pa-ck-ok">Entendi</button>
+  </div>
+</div>
+<script>
+(function () {
+  var CHAVE = "pa_ck";
+  var el = document.getElementById("pa-cookies");
+  var visto = null;
+  try { visto = localStorage.getItem(CHAVE); } catch (e) {}
+  if (!visto) { el.classList.add("on"); }
+  document.getElementById("pa-ck-ok").addEventListener("click", function () {
+    el.classList.remove("on");
+    try { localStorage.setItem(CHAVE, "1"); } catch (e) {}
+  });
 })();
 </script>
 </body>
