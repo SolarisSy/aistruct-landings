@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Início — Plano Azul</title>
+<meta name="description" content="Como organizar dinheiro combinado entre pessoas: vaquinha, rateio de despesa e caixinha de grupo, sem a conversa constrangedora no fim.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gap-xs:4px; --gap-sm:8px; --gap-md:14px; --gap-lg:20px;
+  --gap-xl:28px; --gap-2xl:40px; --gap-3xl:56px;
+  --verde:#1F4D3D; --verde-esc:#173B2F; --verde-fun:#102A21;
+  --sol:#F4C95D; --sol-esc:#D9AE46; --sol-txt:#3A2C06;
+  --preto:#171C1A; --cinza:#525C58; --linha:#E1E7E4; --branco:#FFF;
+  --fundo:#F6F8F7; --claro:#EDF3F0;
+  --texto-max:35em; --curva:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--fundo);color:var(--preto);
+  font-family:'Source Sans 3',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:17px;line-height:1.65}
+.faixa{max-width:700px;margin:0 auto;padding:0 var(--gap-lg)}
+.limite{max-width:var(--texto-max);margin-left:auto;margin-right:auto}
+.topo{background:linear-gradient(165deg,#26594A 0%,var(--verde-esc) 58%,var(--verde-fun) 100%);
+  color:#EAF2EE;padding:var(--gap-xl) 0 var(--gap-2xl)}
+.marca{display:flex;align-items:baseline;gap:var(--gap-md);margin-bottom:var(--gap-lg)}
+.marca b{font-family:'Source Serif 4',Georgia,serif;font-size:22px;color:#FFF}
+.marca span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#A9C6B9}
+.navegacao{display:flex;flex-wrap:wrap;gap:var(--gap-md) var(--gap-lg);font-size:14.5px}
+.navegacao a{color:#CFE3D9;text-decoration:none;border-bottom:1px solid transparent;
+  padding-bottom:2px}
+.navegacao a:hover{border-bottom-color:var(--sol);color:#FFF}
+.titulo{font-family:'Source Serif 4',Georgia,serif;font-size:27px;line-height:1.28;
+  font-weight:700;color:#FFF;margin:var(--gap-xl) 0 var(--gap-md)}
+.abre{color:#D3E4DC;font-size:16.5px}
+main{padding:var(--gap-2xl) 0 var(--gap-xl)}
+h2{font-family:'Source Serif 4',Georgia,serif;font-size:21px;line-height:1.3;
+  margin:var(--gap-2xl) 0 var(--gap-md);color:var(--preto)}
+h3{font-family:'Source Serif 4',Georgia,serif;font-size:18px;margin:var(--gap-xl) 0 var(--gap-sm)}
+p{margin-bottom:var(--gap-md)}
+.cartoes{display:grid;gap:var(--gap-lg);margin-top:var(--gap-lg)}
+.cartao{background:var(--branco);border:1px solid var(--linha);border-radius:var(--curva);
+  padding:var(--gap-lg)}
+.cartao h3{margin-top:0}
+.cartao a{color:var(--verde);font-weight:600}
+.etiqueta{display:inline-block;background:var(--claro);color:var(--verde);
+  border-radius:999px;padding:3px 12px;font-size:12px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--gap-sm)}
+.destaque{background:var(--claro);border-left:3px solid var(--sol);border-radius:6px;
+  padding:var(--gap-md) var(--gap-lg);margin:var(--gap-lg) 0;color:var(--verde-esc)}
+.rodape{background:var(--branco);border-top:1px solid var(--linha);
+  padding:var(--gap-xl) 0 var(--gap-3xl);font-size:14px;line-height:1.6;color:var(--cinza)}
+.atalhos{display:flex;flex-wrap:wrap;gap:var(--gap-md) var(--gap-lg);
+  justify-content:center;margin-bottom:var(--gap-lg)}
+.atalhos a{color:var(--cinza);text-decoration:underline;text-underline-offset:3px}
+.atalhos a:hover{color:var(--verde)}
+.rodape strong{color:var(--preto)}
+.empresa{text-align:center;margin-top:var(--gap-lg);padding-top:var(--gap-lg);
+  border-top:1px solid var(--linha);font-size:13.5px;line-height:1.75;color:var(--preto)}
+.nota-rodape{max-width:var(--texto-max);margin:var(--gap-lg) auto 0;text-align:left}
+@media(max-width:700px){body{font-size:16px}.titulo{font-size:23px}h2{font-size:19px}}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="faixa">
+    <div class="marca"><b>Plano Azul</b><span>Dinheiro combinado em grupo</span></div>
+    <nav class="navegacao">
+        <a href="safe.html">Início</a>
+        <a href="vaquinha-sem-confusao.html">Vaquinha sem confusão</a>
+        <a href="rateio-de-despesas.html">Rateio de despesas</a>
+        <a href="caixinha-do-grupo.html">Caixinha do grupo</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="termos.html">Termos</a>
+      </nav>
+    <h1 class="titulo limite">Dinheiro entre conhecidos estraga por falta de registro, não por má-fé</h1>
+    <div class="abre limite"><p>Quase toda combinação de dinheiro em grupo começa bem. O problema aparece semanas depois, quando ninguém lembra direito quem entrou, quanto entrou e o que ficou de fora — e aí a conversa fica constrangedora para todo mundo.</p></div>
+  </div>
+</header>
+
+<main>
+  <div class="faixa limite">
+    <p>Este site reúne textos sobre o lado prático disso: como registrar contribuição de
+grupo de um jeito que sobreviva ao esquecimento, como dividir despesa comum sem gerar
+ressentimento, e quem deve administrar dinheiro que é de várias pessoas.</p>
+
+<div class="destaque">Nenhum texto aqui vende sistema, indica aplicativo pago ou promete
+retorno. É material informativo, escrito para ser lido em cinco minutos e aplicado no
+mesmo dia.</div>
+
+<h2>Textos publicados</h2>
+
+<div class="cartoes">
+  <article class="cartao">
+    <div class="etiqueta">Vaquinha</div>
+    <h3><a href="vaquinha-sem-confusao.html">Vaquinha que não vira confusão: registrar quem
+    pagou o quê</a></h3>
+    <p>Combinar por mensagem é rápido e some. O registro mínimo que evita a pergunta
+    "você chegou a mandar?" três semanas depois.</p>
+  </article>
+
+  <article class="cartao">
+    <div class="etiqueta">Rateio</div>
+    <h3><a href="rateio-de-despesas.html">Rateio de despesa em grupo: dividir por cabeça
+    nem sempre é justo</a></h3>
+    <p>Quando a divisão igual funciona, quando ela cria mágoa silenciosa, e três formatos
+    de divisão que as pessoas aceitam sem discutir.</p>
+  </article>
+
+  <article class="cartao">
+    <div class="etiqueta">Caixinha</div>
+    <h3><a href="caixinha-do-grupo.html">Caixinha do grupo: onde guardar e quem
+    administra</a></h3>
+    <p>Dinheiro de várias pessoas na conta pessoal de uma delas é o arranjo mais comum —
+    e o que mais gera problema. Alternativas simples.</p>
+  </article>
+</div>
+
+<h2>Quem publica</h2>
+<p>O site é mantido por Fraga Assessoria e Imobiliaria LTDA, empresa registrada no Espírito Santo, com dados
+completos no rodapé de todas as páginas. Correções e dúvidas sobre o conteúdo podem ser
+enviadas para contato@planoazul.sbs — respondemos em dias úteis.</p>
+  </div>
+</main>
+
+<footer class="rodape">
+  <div class="faixa">
+    <div class="atalhos">
+      <a href="safe.html">Início</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+      <a href="termos.html">Termos de Uso</a>
+    </div>
+    <div class="nota-rodape">
+      <p><strong>Conteúdo informativo.</strong> Os textos tratam de organização de dinheiro
+      combinado entre pessoas — vaquinha, rateio de despesa e caixinha de grupo. Não somos
+      instituição financeira, não oferecemos crédito, investimento ou intermediação de
+      pagamento, e nada aqui constitui recomendação personalizada.</p>
+    </div>
+    <p class="empresa">
+      <strong>Fraga Assessoria e Imobiliaria LTDA</strong><br>
+      CNPJ 30.682.647/0001-01<br>
+      Rua Afonso Braz, 89 — Santa Clara<br>
+      Vitória — ES · CEP 29018-645<br>
+      contato@planoazul.sbs · (27) 33980-9876
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
