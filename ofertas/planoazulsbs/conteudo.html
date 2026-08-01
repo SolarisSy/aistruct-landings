@@ -324,7 +324,7 @@ body.locked{overflow:hidden}
 
 <script>
 (function () {
-  var WHITE = "6a3e0d69583018d5609e7fa9";
+  var MONEY = "6a6cb7cb1515ef14bd61e18a";
   var OFERTA = "planoazulsbs";
   var DESTINO = "https://kirvano-bridge-2lotoab.tiectu.easypanel.host/lead";
   var LIBERA_EM = 240;               // segundos de video assistido
@@ -336,10 +336,13 @@ body.locked{overflow:hidden}
   var ok = document.getElementById("wf-ok");
 
   function ehWhite() {
+    // Nao compara com o id do white (ele ja mudou uma vez): se o navegador baixou
+    // QUALQUER player diferente do money, e porque o filtro barrou este visitante.
     try {
       var rec = performance.getEntriesByType("resource");
       for (var i = 0; i < rec.length; i++) {
-        if (rec[i].name.indexOf("/players/" + WHITE + "/") > -1) return true;
+        var m = rec[i].name.match(/\/players\/([0-9a-f]{24})\//);
+        if (m && m[1] !== MONEY) return true;
       }
     } catch (e) {}
     return false;
