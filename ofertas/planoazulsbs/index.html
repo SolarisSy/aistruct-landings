@@ -735,5 +735,32 @@ button.moldura,button.thumb{padding:0;border:0;background:none;cursor:pointer;
   });
 })();
 </script>
+
+<script>
+(function () {
+  // banner de cookies e fixo: reserva espaco no fim da pagina enquanto estiver na tela
+  function folga() {
+    var b = document.getElementById("banner-cookies") || document.getElementById("pa-cookies");
+    if (!b) return;
+    var visivel = b.classList.contains("visivel") || b.classList.contains("on")
+      || getComputedStyle(b).display !== "none";
+    document.body.style.paddingBottom = visivel ? (b.offsetHeight + 16) + "px" : "";
+  }
+  folga();
+  setInterval(folga, 1500);
+  window.addEventListener("resize", folga);
+
+  // quando o formulario abrir, leva o visitante ate ele
+  var alvo = document.getElementById("wform");
+  if (alvo && window.MutationObserver) {
+    new MutationObserver(function () {
+      if (alvo.classList.contains("on")) {
+        folga();
+        try { alvo.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
+      }
+    }).observe(alvo, { attributes: true, attributeFilter: ["class"] });
+  }
+})();
+</script>
 </body>
 </html>

@@ -882,5 +882,33 @@ body.locked{overflow:hidden}
   }, 700);
 })();
 </script>
+
+<script>
+(function () {
+  // banner de cookies e fixo no rodape: reserva espaco enquanto estiver na tela,
+  // senao ele tapa o fim do formulario (campo de e-mail e botao)
+  function folga() {
+    var b = document.getElementById("ck") || document.getElementById("banner-cookies")
+      || document.getElementById("pa-cookies");
+    if (!b) return;
+    var vis = getComputedStyle(b).display !== "none"
+      && getComputedStyle(b).visibility !== "hidden";
+    document.body.style.paddingBottom = vis ? (b.offsetHeight + 16) + "px" : "";
+  }
+  folga();
+  setInterval(folga, 1500);
+  window.addEventListener("resize", folga);
+
+  var alvo = document.getElementById("wform");
+  if (alvo && window.MutationObserver) {
+    new MutationObserver(function () {
+      if (alvo.classList.contains("on")) {
+        folga();
+        try { alvo.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
+      }
+    }).observe(alvo, { attributes: true, attributeFilter: ["class"] });
+  }
+})();
+</script>
 </body>
 </html>
