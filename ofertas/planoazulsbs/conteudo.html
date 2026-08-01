@@ -1,27 +1,82 @@
 <!DOCTYPE html>
+<!--
+  Plano Azul — página de conteúdo
+  ==========================================================================
+  Padrões de design deste site:
+  - Centralizado = bloco de até 3 linhas. À esquerda = acima disso.
+  - Espaçamento apenas da escala --s1..--s7. Sem valores avulsos.
+  - --accent é sempre ação; --brand é sempre superfície.
+  - Usar main.wrap{} e não main{} — seletor de elemento perde em especificidade.
+
+  Os textos legais dos 5 modais são compartilhados com as demais páginas.
+  Ao alterar aqui, replicar em /index e /apresentacao.html para manter o
+  conteúdo legal consistente em todo o site.
+-->
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Plano Azul — vídeo explicativo</title>
+<meta name="description" content="Vídeo informativo sobre organização e conferência de jogos de loteria já realizados. Conteúdo para maiores de 18 anos.">
+<link rel="canonical" href="https://planoazul.sbs/conteudo.html">
+<meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- UTMify: pixel de conversao (Google) -->
-<script>
-  window.googlePixelId = "6a6cc73f0b4e02b6d5d9f4b8";
-  var a = document.createElement("script");
-  a.setAttribute("async", "");
-  a.setAttribute("defer", "");
-  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
-  document.head.appendChild(a);
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://planoazul.sbs/#org",
+      "name": "Fraga Assessoria e Imobiliária LTDA",
+      "url": "https://planoazul.sbs/",
+      "email": "contato@planoazul.sbs",
+      "telephone": "+55-27-33980-9876",
+      "taxID": "30.682.647/0001-01",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua Afonso Braz, 89 — Santa Clara",
+        "addressLocality": "Vitória",
+        "addressRegion": "ES",
+        "postalCode": "29018-645",
+        "addressCountry": "BR"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://planoazul.sbs/#site",
+      "url": "https://planoazul.sbs/",
+      "name": "Plano Azul",
+      "publisher": { "@id": "https://planoazul.sbs/#org" },
+      "inLanguage": "pt-BR"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://planoazul.sbs/conteudo.html#page",
+      "url": "https://planoazul.sbs/conteudo.html",
+      "name": "Plano Azul — vídeo explicativo",
+      "isPartOf": { "@id": "https://planoazul.sbs/#site" },
+      "about": "Organização, registro e conferência de jogos de loteria já realizados pelo usuário",
+      "isFamilyFriendly": false,
+      "inLanguage": "pt-BR"
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Plano Azul — vídeo explicativo",
+      "description": "Apresentação sobre organização e conferência de jogos de loteria já realizados pelo usuário.",
+      "thumbnailUrl": "https://planoazul.sbs/loop-poster.jpg",
+      "uploadDate": "2026-07-30",
+      "publisher": { "@id": "https://planoazul.sbs/#org" }
+    }
+  ]
+}
 </script>
-<!-- UTMify: captura de UTM/clique (precisa rodar NA propria pagina) -->
-<script src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-  data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
 
-<!-- vTurb SmartPlayer v4 -->
+<!-- vTurb SmartPlayer v4 — o player é a função desta página, carrega sempre.
+     Medição e pixels ficam condicionados ao aceite de cookies (ver loadTags). -->
 <script src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js"
   id="vturb-smartplayer-js" fetchpriority="high"></script>
 <script type="text/javascript">
@@ -32,105 +87,778 @@
 </script>
 
 <style>
-  html{background:#102A21}
-  body{margin:0;color:#E9F1ED;font-family:'Source Sans 3', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-size:16px;line-height:1.55;
-    display:grid;grid-template-rows:auto 1fr auto;min-height:100vh;
-    background:radial-gradient(120% 90% at 50% 0%, #1F4D3D 0%, #102A21 62%)}
-  .pa-cinta{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:10px;
-    padding:13px 18px;border-bottom:1px solid rgba(255,255,255,.10)}
-  .pa-selo{width:6px;height:26px;border-radius:3px;background:#F4C95D}
-  .pa-nome{font-family:'Source Serif 4', Georgia, serif;font-weight:700;font-size:18px;margin:0}
-  .pa-nome small{display:block;font-family:'Source Sans 3', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-weight:500;font-size:11px;
-    letter-spacing:.16em;text-transform:uppercase;color:#A9C6B9}
-  .pa-caixa{display:grid;place-items:start center;padding:20px 14px 28px}
-  figure.pa-tela{margin:0;width:100%;max-width:430px}
-  figure.pa-tela vturb-smartplayer{display:block;width:100%;border-radius:10px;
-    overflow:hidden}
-  figcaption{margin-top:10px;font-size:12.5px;color:#A9C6B9;text-align:center}
-  .pa-pe{padding:14px 18px 24px;font-size:12.5px;color:#A9C6B9;
-    border-top:1px solid rgba(255,255,255,.10);display:grid;justify-items:center;gap:2px}
-  @media(min-width:820px){figure.pa-tela{max-width:470px}}
+:root{
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px;
 
-  .cx-pe{background:rgba(0,0,0,.22);border-top:1px solid rgba(255,255,255,.10);
-    padding:26px 18px 34px;font-size:13px;line-height:1.65}
-  .cx-pe-in{max-width:680px;margin:0 auto}
-  .cx-avisos p{margin:0 0 12px}
-  .cx-avisos strong{color:#fff}
-  .cx-empresa{margin:18px 0 10px;padding-top:16px;
-    border-top:1px solid rgba(255,255,255,.10);text-align:center;line-height:1.8}
-  .cx-legais{text-align:center;margin:0}
-  .cx-legais a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+  --brand:#1B2A4A;
+  --brand-dk:#152238;
+  --brand-dp:#0E1725;
+  --accent:#F2B950;
+  --accent-dk:#D69F3C;
+  --accent-ink:#3A2A08;
+
+  --ink:#16202A;
+  --ink-2:#4A5A61;
+  --rule:#E3E7EC;
+  --card:#FFF;
+  --bg:#F5F7F9;
+  --tint:#EDF1F6;
+  --warn-bg:#FFF8EC;
+  --warn-rule:#E8D3A4;
+
+  --measure:36em;
+  --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(0,0,0,.06);hyphens:none;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:720px;margin:0 auto;padding:0 var(--s5)}
+.measure{max-width:var(--measure);margin-left:auto;margin-right:auto}
+
+/* ---------- TOPO ---------- */
+.top{background:linear-gradient(170deg,var(--brand) 0%,var(--brand-dk) 62%,var(--brand-dp) 100%);
+     color:#fff;text-align:center;padding:var(--s6) 0 var(--s6)}
+.brandsub{font-size:12.5px;font-weight:600;line-height:1.5;letter-spacing:.16em;
+     text-transform:uppercase;color:rgba(255,255,255,.62)}
+
+/* selo 18+ e intencao comercial: declarados ANTES do video */
+.pre{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s3);justify-content:center;
+     margin-top:var(--s5)}
+.tag{font-size:12.5px;font-weight:600;line-height:1.4;
+     background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+     color:#fff;border-radius:999px;padding:var(--s1) var(--s3)}
+
+/* ---------- VIDEO ----------
+   VSL vertical: o smartplayer define a própria proporção. Não fixar
+   aspect-ratio aqui — 16/9 corta o vídeo em pé. */
+.player{position:relative;width:100%;max-width:430px;margin:var(--s5) auto 0;
+     border-radius:var(--radius);overflow:hidden;
+     box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.player vturb-smartplayer{display:block;width:100%}
+.player-note{font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.66);
+     margin-top:var(--s3)}
+
+/* ---------- CTA revelado pelo player ---------- */
+/* Fica oculto ate o player liberar. Ver bloco de script no fim do arquivo. */
+#cta-slot{display:none;margin-top:var(--s5)}
+#cta-slot.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.btn{display:block;width:100%;max-width:560px;margin:0 auto;
+     background:var(--accent);color:var(--accent-ink);
+     font-size:18px;font-weight:700;line-height:1.35;
+     padding:var(--s4) var(--s5);border-radius:var(--radius);border:0;cursor:pointer;
+     text-align:center;box-shadow:0 3px 0 var(--accent-dk);
+     transition:transform .12s ease,box-shadow .12s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 0 var(--accent-dk)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--accent-dk)}
+.btn-note{font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.66);
+     margin-top:var(--s3)}
+
+/* ---------- RODAPE ---------- */
+footer{background:var(--card);border-top:1px solid var(--rule);
+     padding:var(--s6) 0 var(--s7);font-size:14px;line-height:1.6;color:var(--ink-2)}
+.flinks{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s4);
+     justify-content:center;margin-bottom:var(--s5)}
+.flinks button,.flinks a{background:none;border:0;padding:var(--s1) 0;cursor:pointer;
+     color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;font-size:14px}
+.flinks button:hover,.flinks a:hover{color:var(--brand)}
+footer .disc{text-align:left;max-width:var(--measure);margin:0 auto}
+footer .disc p + p{margin-top:var(--s3)}
+footer strong{color:var(--ink)}
+.entity{text-align:center;margin-top:var(--s5);padding-top:var(--s5);
+     border-top:1px solid var(--rule);font-size:13.5px;line-height:1.75;color:var(--ink)}
+.copy{text-align:center;margin-top:var(--s4);font-size:13.5px}
+.linkish{background:none;border:0;padding:0;cursor:pointer;color:var(--ink-2);
+     text-decoration:underline;text-underline-offset:3px;font-size:inherit}
+
+/* ---------- MODAIS ---------- */
+.modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;
+     justify-content:center;padding:var(--s5)}
+.modal.open{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(10,20,35,.66)}
+.modal-box{position:relative;z-index:1;background:#fff;border-radius:14px;
+     width:100%;max-width:660px;max-height:86vh;display:flex;flex-direction:column;
+     box-shadow:0 24px 64px rgba(0,0,0,.36)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+     padding:var(--s5);border-bottom:1px solid var(--rule);flex-shrink:0}
+.modal-head h2{font-family:'Bitter',Georgia,serif;font-size:20px;font-weight:700;line-height:1.3}
+.modal-x{background:none;border:0;cursor:pointer;font-size:28px;line-height:1;
+     color:var(--ink-2);padding:0 var(--s1);flex-shrink:0}
+.modal-body{overflow-y:auto;padding:var(--s5);text-align:left;
+     font-size:15.5px;line-height:1.66;color:var(--ink-2);
+     -webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.modal-body .upd{font-style:italic;margin-bottom:var(--s5)}
+.modal-body h3{font-size:16px;font-weight:700;color:var(--ink);margin:var(--s5) 0 var(--s2)}
+.modal-body h3:first-of-type{margin-top:0}
+.modal-body p + p{margin-top:var(--s3)}
+.modal-body ul{margin:var(--s3) 0 0 var(--s5)}
+.modal-body strong{color:var(--ink)}
+.entity-box{background:var(--tint);border-radius:8px;padding:var(--s4);
+     margin-top:var(--s3);color:var(--ink);line-height:1.7}
+.modal-foot{padding:var(--s4) var(--s5);border-top:1px solid var(--rule);flex-shrink:0}
+.modal-close{background:var(--brand);color:#fff;border:0;border-radius:8px;
+     font-weight:600;font-size:16px;padding:var(--s3) var(--s6);cursor:pointer;
+     display:block;margin-left:auto}
+body.locked{overflow:hidden}
+
+/* ---------- COOKIES ---------- */
+.ck{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;
+    border-top:1px solid var(--rule);box-shadow:0 -6px 24px rgba(0,0,0,.12);
+    padding:var(--s4) 0 calc(var(--s4) + env(safe-area-inset-bottom));display:none}
+.ck.on{display:block}
+.ck-in{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s4);align-items:center;
+    justify-content:space-between}
+.ck p{font-size:14px;line-height:1.55;color:var(--ink-2);text-align:left;flex:1 1 320px}
+.ck-btns{display:flex;gap:var(--s2);flex:0 0 auto}
+.ck-btns button{border-radius:8px;font-size:14.5px;font-weight:600;
+    padding:var(--s2) var(--s4);cursor:pointer;border:1px solid var(--rule);
+    background:#fff;color:var(--ink-2)}
+.ck-btns .ok{background:var(--brand);border-color:var(--brand);color:#fff}
+
+/* ---------- DESKTOP ---------- */
+@media(min-width:701px){
+  body{font-size:18px}
+  .top{padding:var(--s7) 0 var(--s7)}
+  .btn{font-size:19px;padding:19px var(--s5)}
+  .player{max-width:470px}
+}
+/* ---------- TELAS ESTREITAS ---------- */
+@media(max-width:400px){
+  .wrap{padding:0 var(--s4)}
+  body{font-size:16.5px}
+  .btn{font-size:17px}
+}
+/* modal vira folha inferior no mobile */
+@media(max-width:700px){
+  .modal{padding:0;align-items:flex-end}
+  .modal-box{max-width:none;max-height:92vh;border-radius:16px 16px 0 0}
+  .modal-head,.modal-body{padding:var(--s4)}
+  .modal-foot{padding:var(--s3) var(--s4) calc(var(--s3) + env(safe-area-inset-bottom))}
+  .modal-close{width:100%;padding:var(--s4)}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
 
-<div class="pa-cinta">
-  <span class="pa-selo" aria-hidden="true"></span>
-  <p class="pa-nome">Plano Azul<small>Vídeo explicativo</small></p>
-</div>
+<!-- ================= TOPO + VIDEO ================= -->
+<header class="top">
+  <div class="wrap">
 
-<main class="pa-caixa">
-  <figure class="pa-tela">
-    <vturb-smartplayer id="vid-6a6cb7cb1515ef14bd61e18a"></vturb-smartplayer>
-    <figcaption>Deixe o vídeo rodar até o fim para entender o passo a passo.</figcaption>
-  </figure>
-</main>
+    <!-- Único heading da página. Mantém o documento estruturalmente válido
+         sem elemento visual extra acima do vídeo. -->
+    <h1 class="brandsub">Conteúdo informativo</h1>
 
-<div class="pa-pe" data-ano>
-  <span>Plano Azul · conteúdo informativo</span>
-</div>
-
-<script>
-  var pe = document.querySelector("[data-ano]");
-  pe.insertAdjacentHTML("beforeend", "<span>&copy; " + new Date().getFullYear() + "</span>");
-</script>
-
-
-<footer class="cx-pe">
-  <div class="cx-pe-in">
-    <div class="cx-avisos">
-
-      <p><strong>Divulgação publicitária.</strong> Esta página apresenta conteúdo
-      patrocinado e links de afiliado. O responsável pela publicação pode ser remunerado
-      quando um visitante conclui uma compra, sem custo adicional para o visitante.</p>
-
-      <p><strong>Aviso sobre chances.</strong> Nenhum aplicativo, sistema, método ou
-      análise aumenta a probabilidade de acerto em loterias. Cada sorteio é um evento
-      independente e todas as combinações têm a mesma probabilidade. O aplicativo
-      apresentado destina-se a registro, organização e conferência de jogos já realizados
-      pelo usuário.</p>
-
-      <p><strong>Jogo responsável.</strong> Loterias são entretenimento e não constituem
-      investimento nem fonte de renda. Jogue apenas com valores que você pode perder sem
-      comprometer despesas essenciais. <strong>Proibido para menores de 18 anos.</strong>
-      Se o jogo estiver afetando sua vida financeira, familiar ou emocional, procure
-      ajuda — o CVV atende gratuitamente pelo telefone 188, 24 horas por dia.</p>
-
-      <p><strong>Ausência de vínculo.</strong> Este site não mantém relação, vínculo,
-      parceria ou autorização da Caixa Econômica Federal, das Loterias CAIXA ou de
-      qualquer órgão público. Não comercializamos apostas nem intermediamos pagamento de
-      prêmios. As marcas citadas pertencem aos seus respectivos titulares.</p>
-
-      <p><strong>Aviso sobre resultados.</strong> Experiências individuais variam.
-      Exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa
-      obterá resultados iguais ou semelhantes.</p>
-
+    <!-- A faixa etária fica acima do vídeo. Não remover: exigência de política. -->
+    <div class="pre">
+      <span class="tag">Conteúdo para maiores de 18 anos</span>
     </div>
 
-    <p class="cx-empresa">
-      <strong>Fraga Assessoria e Imobiliaria LTDA</strong><br>
+    <div class="player">
+      <vturb-smartplayer id="vid-6a6cb7cb1515ef14bd61e18a"></vturb-smartplayer>
+    </div>
+    <p class="player-note measure">Deixe o vídeo rodar até o fim para entender o passo a passo.</p>
+
+    <!-- Botão oculto até o player liberar. Ver script no fim do arquivo. -->
+    <div id="cta-slot">
+      <a class="btn" id="cta-link" href="#" rel="nofollow noopener">Ver a apresentação completa</a>
+      <p class="btn-note measure">Você será direcionado ao ambiente de checkout do fornecedor.</p>
+    </div>
+
+  </div>
+</header>
+
+<!-- ================= RODAPE ================= -->
+<footer>
+  <div class="wrap">
+
+    <div class="flinks">
+      <button type="button" data-modal="m-priv">Política de Privacidade</button>
+      <button type="button" data-modal="m-terms">Termos de Uso</button>
+      <button type="button" data-modal="m-legal">Aviso Legal</button>
+      <button type="button" data-modal="m-refund">Política de Reembolso</button>
+      <button type="button" data-modal="m-contact">Contato</button>
+      <a href="./">Início</a>
+    </div>
+
+    <div class="disc">
+      <p><strong>Sobre este conteúdo.</strong> O vídeo desta página tem finalidade informativa e apresenta um aplicativo pago destinado a registrar, organizar e conferir jogos de loteria já realizados pelo usuário, sozinho ou em grupo. <strong>O aplicativo não aumenta a probabilidade de acerto</strong>, não vende jogos, não registra apostas e não intermedeia pagamento de prêmios. Os registros gerados por ele têm finalidade organizacional e não substituem o comprovante oficial emitido no ato da aposta, que é o documento válido para recebimento de prêmio. Acordos entre participantes de bolão são de responsabilidade exclusiva do grupo.</p>
+
+      <p><strong>Divulgação publicitária.</strong> Esta página apresenta conteúdo patrocinado e links de afiliado, e o vídeo acima apresenta um produto pago. O responsável pela publicação pode ser remunerado quando um visitante clica em um link e conclui uma compra, sem qualquer custo adicional para o visitante. Essa relação não altera as informações apresentadas.</p>
+
+      <p><strong>Aviso sobre chances.</strong> Nenhum aplicativo, sistema, método ou análise aumenta a probabilidade de acerto em loterias. Cada sorteio é um evento independente e todas as combinações possuem a mesma probabilidade em todos os concursos. O aplicativo apresentado destina-se a registro, organização e conferência de jogos já realizados pelo usuário.</p>
+
+      <!-- Bloco obrigatório: a política de publicidade exige informação sobre prática
+           responsável na página de destino. Não remover. -->
+      <p><strong>Jogo responsável.</strong> Loterias são uma forma de entretenimento e não constituem investimento, aplicação financeira nem fonte de renda. A expectativa matemática de retorno é negativa. Jogue apenas com valores que você pode perder sem comprometer despesas essenciais. Proibido para menores de 18 anos. Se o jogo estiver afetando sua vida financeira, familiar, profissional ou emocional, procure apoio — o <strong>CVV — Centro de Valorização da Vida</strong> atende gratuitamente pelo telefone <strong>188</strong>, 24 horas por dia, e também por chat em <a href="https://www.cvv.org.br" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">cvv.org.br</a>.</p>
+
+      <p><strong>Ausência de vínculo.</strong> Este site não mantém relação, vínculo, parceria ou autorização da Caixa Econômica Federal, das Loterias CAIXA ou de qualquer órgão público. Não comercializamos apostas nem intermediamos pagamento de prêmios. As marcas citadas pertencem aos seus respectivos titulares.</p>
+
+      <p><strong>Aviso sobre resultados.</strong> Experiências individuais variam. Depoimentos e exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa obterá resultados iguais ou semelhantes. Nenhum resultado é prometido ou garantido.</p>
+    </div>
+
+    <!-- Estes dados precisam bater com WHOIS, método de pagamento e verificação de anunciante. -->
+    <p class="entity">
+      <strong>Fraga Assessoria e Imobiliária LTDA</strong><br>
       CNPJ 30.682.647/0001-01<br>
-      Rua Afonso Braz, 89 — Santa Clara · Vitória — ES · CEP 29018-645<br>
+      Rua Afonso Braz, 89 — Santa Clara<br>
+      Vitória — ES · CEP 29018-645<br>
       contato@planoazul.sbs · (27) 33980-9876
     </p>
 
-    <p class="cx-legais">
-      <a href="privacidade.html">Política de Privacidade</a> ·
-      <a href="termos.html">Termos de Uso</a> ·
-      <a href="./">Início</a>
-    </p>
+    <p class="copy">© 2026 · Todos os direitos reservados · <button type="button" class="linkish" data-modal="m-contact">Fale conosco</button></p>
+
   </div>
 </footer>
 
+<!-- ================= COOKIES ================= -->
+<div class="ck" id="ck" role="region" aria-label="Aviso de cookies">
+  <div class="wrap ck-in">
+    <p>Utilizamos cookies para medir audiência e avaliar o desempenho de campanhas publicitárias. Você pode aceitar ou recusar. Detalhes na <button type="button" class="linkish" data-modal="m-priv">Política de Privacidade</button>.</p>
+    <div class="ck-btns">
+      <button type="button" id="ck-no">Recusar</button>
+      <button type="button" id="ck-yes" class="ok">Aceitar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modais legais. Texto compartilhado com as demais páginas do site. -->
+
+<div class="modal" id="m-priv" role="dialog" aria-modal="true" aria-labelledby="m-priv-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-priv-t">Política de Privacidade</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Esta Política explica como tratamos as suas informações quando você acessa este site, em conformidade com a Lei nº 13.709/2018 (LGPD).</p>
+
+      <h3>Controlador dos dados</h3>
+      <p class="entity-box">
+        <strong>Fraga Assessoria e Imobiliária LTDA</strong><br>
+        CNPJ 30.682.647/0001-01<br>
+        Rua Afonso Braz, 89 — Santa Clara<br>
+        Vitória — ES · CEP 29018-645<br>
+        Encarregado: contato@planoazul.sbs
+      </p>
+
+      <h3>1. Dados coletados</h3>
+      <p>Esta página não solicita cadastro nem coleta nome, e-mail ou telefone. Coletamos automaticamente dados técnicos: endereço IP, tipo de navegador, dispositivo, páginas acessadas, tempo de permanência e origem do acesso.</p>
+      <p>Se você entrar em contato conosco, receberemos os dados que você fornecer na mensagem.</p>
+
+      <h3>2. Finalidades</h3>
+      <ul>
+        <li>Medir audiência e desempenho de campanhas publicitárias;</li>
+        <li>Entender como a página é utilizada e melhorá-la;</li>
+        <li>Responder solicitações enviadas por você;</li>
+        <li>Cumprir obrigações legais.</li>
+      </ul>
+
+      <h3>3. Base legal</h3>
+      <p>O tratamento se apoia no consentimento, no legítimo interesse ou no cumprimento de obrigação legal, conforme o caso, nos termos dos artigos 7º e 10 da LGPD. Os cookies de medição dependem do seu consentimento e só são ativados após você aceitar no aviso exibido na página.</p>
+
+      <h3>4. Cookies e tecnologias de terceiros</h3>
+      <p>Após o seu aceite, esta página pode carregar ferramentas de terceiros para medição de audiência e atribuição de campanhas, incluindo serviços de análise, pixels de plataformas de anúncio e ferramentas de prevenção a fraude e filtragem de tráfego inválido. Esses serviços podem definir cookies próprios, coletar características técnicas do dispositivo e do navegador para fins de detecção de acesso automatizado, e tratar dados conforme as políticas deles.</p>
+      <p>Você pode recusar no aviso de cookies, alterar sua escolha limpando os dados do site no navegador, ou bloquear cookies nas configurações do navegador.</p>
+
+      <h3>5. Compartilhamento</h3>
+      <p>Não vendemos dados pessoais. Podemos compartilhá-los com prestadores necessários à operação — hospedagem, medição e plataformas de anúncio — e com autoridades quando a lei exigir.</p>
+
+      <h3>6. Direitos do titular</h3>
+      <p>Nos termos do artigo 18 da LGPD, você pode solicitar: confirmação de tratamento, acesso, correção, anonimização, bloqueio ou eliminação de dados desnecessários, portabilidade, informação sobre compartilhamento e revogação do consentimento.</p>
+      <p>Para exercer qualquer desses direitos, escreva para o endereço indicado acima.</p>
+
+      <h3>7. Retenção e segurança</h3>
+      <p>Mantemos os dados pelo tempo necessário às finalidades descritas ou ao cumprimento de obrigações legais, com medidas técnicas e administrativas razoáveis de proteção.</p>
+
+      <h3>8. Menores</h3>
+      <p>Este site não se destina a menores de 18 anos e não coletamos dados de crianças e adolescentes intencionalmente.</p>
+
+      <h3>9. Alterações</h3>
+      <p>Esta política pode ser atualizada. As alterações serão publicadas nesta mesma página, com a data revisada.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-terms" role="dialog" aria-modal="true" aria-labelledby="m-terms-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-terms-t">Termos de Uso</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>O acesso a este site implica concordância com estes Termos. Caso não concorde, pedimos que não o utilize.</p>
+
+      <h3>1. Uso permitido</h3>
+      <p>Você se compromete a utilizar este site apenas para finalidades lícitas e em conformidade com a legislação brasileira, incluindo o Marco Civil da Internet (Lei nº 12.965/2014) e o Código de Defesa do Consumidor (Lei nº 8.078/1990).</p>
+
+      <h3>2. Idade mínima</h3>
+      <p>O conteúdo destina-se exclusivamente a maiores de 18 anos.</p>
+
+      <h3>3. Propriedade intelectual</h3>
+      <p>Textos, imagens, vídeos, marcas e elementos visuais deste site são protegidos pela legislação de propriedade intelectual. Reprodução, distribuição ou modificação sem autorização prévia por escrito é proibida.</p>
+
+      <h3>4. Natureza do conteúdo</h3>
+      <p>O material tem caráter informativo geral. <strong>Nenhum aplicativo, sistema, método ou análise aumenta a probabilidade de acerto em loterias.</strong> Cada sorteio é um evento independente e todas as combinações possuem a mesma probabilidade.</p>
+      <p>Loterias são entretenimento e não constituem investimento, aplicação financeira ou fonte de renda.</p>
+
+      <h3>5. Ausência de vínculo institucional</h3>
+      <p>Este site não possui relação, vínculo, parceria ou autorização da Caixa Econômica Federal, das Loterias CAIXA ou de qualquer órgão público. Não comercializamos apostas nem intermediamos pagamento de prêmios.</p>
+
+      <h3>6. Divulgação de afiliados</h3>
+      <p>Este site contém conteúdo patrocinado e links de afiliado. Podemos receber remuneração caso você clique em um link e realize uma compra, sem custo adicional para você.</p>
+
+      <h3>7. Isenção de garantias</h3>
+      <p>Este site é fornecido "no estado em que se encontra", sem garantias de qualquer natureza. Não garantimos operação ininterrupta ou ausência de erros.</p>
+
+      <h3>8. Limitação de responsabilidade</h3>
+      <p>Na máxima extensão permitida pela legislação aplicável, não nos responsabilizamos por danos indiretos, incidentais ou consequenciais decorrentes do uso deste site, nem por valores gastos em apostas.</p>
+
+      <h3>9. Links para terceiros</h3>
+      <p>Este site pode direcionar a páginas de terceiros. Não controlamos e não respondemos pelo conteúdo, pelas políticas ou pelas práticas desses sites. A contratação de qualquer produto ocorre diretamente com o respectivo fornecedor.</p>
+
+      <h3>10. Alterações</h3>
+      <p>Reservamo-nos o direito de atualizar estes Termos a qualquer momento. O uso continuado após a publicação constitui aceitação.</p>
+
+      <h3>11. Legislação aplicável</h3>
+      <p>Estes Termos são regidos pelas leis da República Federativa do Brasil.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-legal" role="dialog" aria-modal="true" aria-labelledby="m-legal-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-legal-t">Aviso Legal</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Este site é operado por:</p>
+      <p class="entity-box">
+        <strong>Fraga Assessoria e Imobiliária LTDA</strong><br>
+        CNPJ 30.682.647/0001-01<br>
+        Rua Afonso Braz, 89 — Santa Clara<br>
+        Vitória — ES · CEP 29018-645
+      </p>
+
+      <h3>1. Finalidade do conteúdo</h3>
+      <p>O material publicado tem finalidade exclusivamente informativa, de caráter geral, e não constitui aconselhamento financeiro, jurídico ou de investimento.</p>
+
+      <h3>2. Nenhum sistema aumenta chances</h3>
+      <p><strong>Nenhum aplicativo, algoritmo, estatística, análise de frequência ou método aumenta a probabilidade de acerto em loterias.</strong> Cada concurso é um evento independente dos anteriores. Todas as combinações possíveis têm exatamente a mesma probabilidade de serem sorteadas, em todos os concursos.</p>
+      <p>Conceitos como números "atrasados", "quentes" ou "frios" não possuem validade estatística: sorteios não guardam memória dos resultados anteriores.</p>
+      <p>O aplicativo apresentado tem finalidade de <strong>registro, organização e conferência</strong> de jogos já realizados pelo usuário.</p>
+
+      <h3>3. Loteria é entretenimento</h3>
+      <p>Loterias não constituem investimento, aplicação financeira, fonte de renda nem estratégia de recuperação financeira. A expectativa matemática de retorno é negativa.</p>
+      <p>Jogue apenas com valores que você pode perder sem comprometer despesas essenciais. Proibido para menores de 18 anos.</p>
+
+      <h3>4. Jogo responsável</h3>
+      <p>Se o jogo estiver afetando sua vida financeira, familiar, profissional ou emocional, procure apoio. O <strong>CVV — Centro de Valorização da Vida</strong> atende gratuitamente pelo telefone <strong>188</strong>, 24 horas por dia, e também por chat no site cvv.org.br. Existem ainda grupos de apoio a jogadores compulsivos em diversas cidades do país.</p>
+
+      <h3>5. Registros do aplicativo</h3>
+      <p>Registros gerados pelo aplicativo têm finalidade organizacional e não substituem o comprovante oficial emitido no ato da aposta, que é o documento válido para recebimento de prêmio. Acordos entre participantes de bolão são de responsabilidade exclusiva do grupo.</p>
+
+      <h3>6. Ausência de vínculo institucional</h3>
+      <p>Este site não possui qualquer relação, vínculo, parceria, patrocínio ou autorização da Caixa Econômica Federal, das Loterias CAIXA, do Ministério da Fazenda ou de qualquer órgão público. Não comercializamos apostas, não registramos jogos e não intermediamos pagamento de prêmios. Todas as marcas citadas pertencem aos seus respectivos titulares.</p>
+
+      <h3>7. Prazos e regras oficiais</h3>
+      <p>Prazos de resgate, regras de premiação e condições de pagamento são definidos pela Caixa Econômica Federal e pela legislação aplicável, e podem ser alterados. Consulte sempre os canais oficiais.</p>
+
+      <h3>8. Divulgação publicitária e de afiliados</h3>
+      <p>Esta página contém conteúdo patrocinado e links de afiliado. Podemos receber remuneração quando um visitante clica em um link e realiza uma compra, sem custo adicional para o visitante. Essa relação comercial não influencia as informações apresentadas.</p>
+
+      <h3>9. Limitação de responsabilidade</h3>
+      <p>Na máxima extensão permitida pela legislação brasileira, não nos responsabilizamos por danos decorrentes do uso ou da impossibilidade de uso das informações aqui disponibilizadas, nem por valores gastos em apostas.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-refund" role="dialog" aria-modal="true" aria-labelledby="m-refund-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-refund-t">Política de Reembolso</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="upd">Última atualização: julho de 2026</p>
+      <p>Esta página é informativa e não realiza vendas. A compra ocorre em ambiente próprio do fornecedor, regida pela política dele. As condições abaixo descrevem o padrão aplicável.</p>
+
+      <h3>1. Direito de arrependimento — 7 dias</h3>
+      <p>Nos termos do <strong>artigo 49 do Código de Defesa do Consumidor</strong>, em compras realizadas fora do estabelecimento comercial — inclusive pela internet — o consumidor pode desistir da contratação <strong>em até 7 (sete) dias corridos</strong> contados do recebimento do produto ou da assinatura do contrato, sem necessidade de justificativa.</p>
+      <p>Exercido esse direito, os valores pagos são devolvidos integralmente e de imediato, monetariamente atualizados.</p>
+
+      <h3>2. Garantia estendida do fornecedor</h3>
+      <p>O fornecedor pode oferecer prazo superior ao mínimo legal. Quando houver, o prazo e as condições são informados na página de checkout e no e-mail de confirmação da compra, e prevalecem por serem mais favoráveis ao consumidor.</p>
+
+      <h3>3. Como solicitar</h3>
+      <ul>
+        <li>Envie a solicitação ao canal de atendimento informado no e-mail de confirmação da compra;</li>
+        <li>Informe o e-mail utilizado na compra e a data da transação;</li>
+        <li>Não é necessário justificar o pedido dentro do prazo legal de 7 dias.</li>
+      </ul>
+      <p>Caso não localize o contato do fornecedor, fale conosco pelos dados abaixo e indicaremos o caminho correto.</p>
+
+      <h3>4. Prazo de processamento</h3>
+      <p>Após a confirmação, o estorno é processado pela plataforma de pagamento. Em cartão de crédito costuma aparecer em até duas faturas subsequentes, conforme regra da operadora; em PIX ou boleto, a devolução ocorre por transferência, mediante confirmação dos dados bancários.</p>
+
+      <h3>5. Produtos digitais</h3>
+      <p>O direito de arrependimento previsto no artigo 49 do CDC aplica-se igualmente a produtos digitais, ainda que o conteúdo já tenha sido acessado dentro do prazo de 7 dias.</p>
+
+      <h3>6. Assinaturas</h3>
+      <p>Havendo cobrança recorrente, o cancelamento pode ser solicitado a qualquer momento pelo mesmo canal de atendimento, com efeito a partir do ciclo seguinte.</p>
+
+      <h3>7. Atendimento</h3>
+      <p class="entity-box">
+        <strong>Fraga Assessoria e Imobiliária LTDA</strong><br>
+        CNPJ 30.682.647/0001-01<br>
+        contato@planoazul.sbs<br>
+        (27) 33980-9876
+      </p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-contact" role="dialog" aria-modal="true" aria-labelledby="m-contact-t">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-contact-t">Contato</h2>
+      <button class="modal-x" type="button" data-close aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Fale com a nossa equipe. Respondemos todas as mensagens recebidas.</p>
+
+      <h3>Dados da empresa</h3>
+      <p class="entity-box">
+        <strong>Fraga Assessoria e Imobiliária LTDA</strong><br>
+        CNPJ 30.682.647/0001-01<br>
+        Rua Afonso Braz, 89 — Santa Clara<br>
+        Vitória — ES · CEP 29018-645<br>
+        Brasil
+      </p>
+      <p>A Fraga Assessoria e Imobiliária LTDA opera este site de conteúdo digital, entre outras atividades. Os dados cadastrais completos constam no cartão CNPJ.</p>
+
+      <h3>Canais de atendimento</h3>
+      <ul>
+        <li><strong>E-mail:</strong> contato@planoazul.sbs</li>
+        <li><strong>Telefone:</strong> (27) 33980-9876</li>
+        <li><strong>Privacidade e dados (LGPD):</strong> contato@planoazul.sbs</li>
+      </ul>
+
+      <h3>Horário</h3>
+      <p>Segunda a sexta-feira, das 09h às 18h (horário de Brasília), exceto feriados nacionais.</p>
+      <p>Prazo médio de resposta: <strong>até 1 dia útil</strong>.</p>
+
+      <h3>Compras e reembolsos</h3>
+      <p>As compras são processadas pelo fornecedor do produto. Para dúvidas sobre acesso, cobrança ou reembolso, utilize o canal informado no e-mail de confirmação da compra. Se não localizar essa informação, escreva para nós e indicaremos o caminho correto.</p>
+
+      <h3>O que não tratamos</h3>
+      <p>Não somos a Caixa Econômica Federal e não temos vínculo com ela. Dúvidas sobre resgate de prêmios, prazos oficiais, regras de sorteio ou problemas com bilhetes devem ser tratadas diretamente nos canais oficiais das Loterias CAIXA.</p>
+    </div>
+    <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ---------- MODAIS ---------- */
+  var open = null, lastFocus = null;
+  function show(id){
+    var m = document.getElementById(id); if(!m) return;
+    lastFocus = document.activeElement;
+    m.classList.add('open'); document.body.classList.add('locked'); open = m;
+    var x = m.querySelector('.modal-x'); if(x) x.focus();
+  }
+  function hide(){
+    if(!open) return;
+    open.classList.remove('open');
+    var b = open.querySelector('.modal-body'); if(b) b.scrollTop = 0;
+    document.body.classList.remove('locked'); open = null;
+    if(lastFocus) lastFocus.focus();
+  }
+  document.querySelectorAll('[data-modal]').forEach(function(b){
+    b.addEventListener('click', function(){ show(b.getAttribute('data-modal')); });
+  });
+  document.querySelectorAll('[data-close]').forEach(function(b){
+    b.addEventListener('click', hide);
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') hide(); });
+
+  /* ---------- COOKIES ----------
+     Consentimento é por domínio, não por página. A chave é a mesma da presell
+     (`pa_ck` em /index) — quem vem do funil já chega decidido e o aviso não
+     reaparece. Aceita os valores legados gravados pelas outras páginas.
+
+     O aviso aqui é fallback para quem entra direto nesta URL, sem passar pela
+     presell. Não remover: a página está indexável e pode ser aberta diretamente.
+
+     O player carrega sempre (é a função da página). Só medição e pixels ficam
+     condicionados ao aceite — estão dentro de loadTags(). */
+  var CK = 'pa_ck';
+  var bar = document.getElementById('ck');
+  var carregou = false;
+  function loadTags(){
+    if(carregou) return; carregou = true;
+
+    /* Utmify: captura de UTM/clique */
+    var s1 = document.createElement('script');
+    s1.src = 'https://cdn.utmify.com.br/scripts/utms/latest.js';
+    s1.async = true; s1.defer = true;
+    s1.setAttribute('data-utmify-prevent-xcod-sck','');
+    s1.setAttribute('data-utmify-prevent-subids','');
+    document.head.appendChild(s1);
+
+    /* Utmify: pixel de conversão (Google) */
+    window.googlePixelId = '6a6cc73f0b4e02b6d5d9f4b8';
+    var s2 = document.createElement('script');
+    s2.src = 'https://cdn.utmify.com.br/scripts/pixel/pixel-google.js';
+    s2.async = true; s2.defer = true;
+    document.head.appendChild(s2);
+  }
+  var escolha = null;
+  try{ escolha = localStorage.getItem(CK); }catch(e){}
+  if(escolha === 'yes' || escolha === 'sim' || escolha === '1'){ loadTags(); }
+  else if(escolha === 'no' || escolha === 'nao'){ /* recusou: nada carrega */ }
+  else { bar.classList.add('on'); }
+
+  document.getElementById('ck-yes').addEventListener('click', function(){
+    try{ localStorage.setItem(CK,'yes'); }catch(e){}
+    bar.classList.remove('on'); loadTags();
+  });
+  document.getElementById('ck-no').addEventListener('click', function(){
+    try{ localStorage.setItem(CK,'no'); }catch(e){}
+    bar.classList.remove('on');
+  });
+
+  /* ---------- BOTÃO DE AÇÃO (cta-alt) ----------
+     Comportamento preservado do arquivo anterior — não alterar sem entender:
+     o botão SÓ aparece para quem recebeu o player WHITE (o de redirecionamento
+     que o vTurb serve quando o filtro atua). Quem recebe o player da oferta
+     usa o CTA do próprio player e nada é revelado aqui — por isso o script
+     desiste após 30s sem detectar o WHITE.
+     DESTINO vazio = bloco inteiro inerte. Preencher com a URL do checkout. */
+  var DESTINO = "";
+  var WHITE   = "6a3e0d69583018d5609e7fa9";
+  var ESPERA  = 15000;          /* só revela depois de 15s assistindo */
+
+  var slot = document.getElementById('cta-slot');
+  var link = document.getElementById('cta-link');
+  function reveal(){ if(slot && DESTINO) slot.classList.add('on'); }
+  window.PlanoAzul = { revealCTA: reveal };
+  if(!DESTINO) return;          /* sem checkout configurado, não faz nada */
+
+  function veioWhite(){
+    try{
+      var rec = performance.getEntriesByType('resource');
+      for(var i = 0; i < rec.length; i++){
+        if(rec[i].name.indexOf('/players/' + WHITE + '/') > -1) return true;
+      }
+    }catch(e){}
+    return false;
+  }
+  function comParams(url){
+    var q = location.search;
+    if(!q || q.length < 2) return url;
+    return url + (url.indexOf('?') > -1 ? '&' : '?') + q.slice(1);
+  }
+
+  var inicio = Date.now();
+  var t = setInterval(function(){
+    if(!veioWhite()){
+      if(Date.now() - inicio > 30000) clearInterval(t);   /* desiste: é o money */
+      return;
+    }
+    clearInterval(t);
+    link.setAttribute('href', comParams(DESTINO));
+    setTimeout(reveal, Math.max(0, ESPERA - (Date.now() - inicio)));
+  }, 700);
+})();
+</script>
+
+
+<!-- form-alt -->
+<style>
+  .wform{display:none;max-width:430px;margin:18px auto 0;padding:18px 16px 20px;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+    border-radius:12px}
+  .wform.on{display:block;animation:wfIn .35s ease}
+  @keyframes wfIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .wform h3{font-size:17px;line-height:1.35;margin:0 0 4px;text-align:center}
+  .wform p.wf-sub{font-size:13.5px;opacity:.8;text-align:center;margin:0 0 14px}
+  .wform label{display:block;font-size:12.5px;margin:10px 0 4px;opacity:.85}
+  .wform input{width:100%;padding:12px 13px;border-radius:8px;border:1px solid
+    rgba(255,255,255,.18);background:rgba(0,0,0,.22);color:inherit;font:inherit;
+    font-size:16px}
+  .wform input:focus{outline:2px solid #F4C95D;outline-offset:1px}
+  .wform button{width:100%;margin-top:16px;background:#F4C95D;color:#3A2C06;border:0;
+    border-radius:9px;padding:14px;font:inherit;font-weight:700;font-size:16px;
+    cursor:pointer}
+  .wform button[disabled]{opacity:.6;cursor:default}
+  .wf-nota{font-size:11.5px;opacity:.7;margin-top:10px;line-height:1.5;text-align:center}
+  .wf-ok{display:none;text-align:center;padding:8px 0 2px;font-size:15px}
+  .wf-erro{display:none;color:#ffb4a2;font-size:13px;text-align:center;margin-top:8px}
+</style>
+
+<section class="wform" id="wform" aria-live="polite">
+  <form id="wform-f" novalidate>
+    <h3>Receba o material por WhatsApp</h3>
+    <p class="wf-sub">Deixe seus dados e enviamos o resumo do que foi apresentado.</p>
+
+    <label for="wf-nome">Nome</label>
+    <input id="wf-nome" name="nome" type="text" autocomplete="name" required
+           placeholder="Como podemos te chamar">
+
+    <label for="wf-zap">WhatsApp</label>
+    <input id="wf-zap" name="whatsapp" type="tel" inputmode="numeric"
+           autocomplete="tel" required placeholder="(00) 00000-0000" maxlength="16">
+
+    <label for="wf-mail">E-mail</label>
+    <input id="wf-mail" name="email" type="email" autocomplete="email" required
+           placeholder="seu@email.com">
+
+    <button type="submit" id="wf-btn">Quero receber</button>
+    <p class="wf-erro" id="wf-erro">Confira os dados e tente novamente.</p>
+    <p class="wf-nota">Ao enviar, você concorda que Plano Azul entre em contato sobre este
+    conteúdo. Não compartilhamos seus dados com terceiros e você pode pedir a exclusão
+    a qualquer momento pelo e-mail do rodapé.</p>
+  </form>
+  <div class="wf-ok" id="wf-ok"><strong>Pronto!</strong><br>Recebemos seus dados —
+  em breve entramos em contato.</div>
+</section>
+
+<script>
+(function () {
+  var WHITE = "6a3e0d69583018d5609e7fa9";
+  var OFERTA = "planoazulsbs";
+  var DESTINO = "https://kirvano-bridge-2lotoab.tiectu.easypanel.host/lead";
+  var LIBERA_EM = 240;               // segundos de video assistido
+
+  var caixa = document.getElementById("wform");
+  var form = document.getElementById("wform-f");
+  var btn = document.getElementById("wf-btn");
+  var erro = document.getElementById("wf-erro");
+  var ok = document.getElementById("wf-ok");
+
+  function ehWhite() {
+    try {
+      var rec = performance.getEntriesByType("resource");
+      for (var i = 0; i < rec.length; i++) {
+        if (rec[i].name.indexOf("/players/" + WHITE + "/") > -1) return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
+  function tempoDoVideo() {
+    try {
+      var inst = window.smartplayer && window.smartplayer.instances
+        && window.smartplayer.instances[0];
+      if (inst) {
+        if (typeof inst.currentTime === "number") return inst.currentTime;
+        if (inst.video && typeof inst.video.currentTime === "number")
+          return inst.video.currentTime;
+      }
+      var v = document.querySelector("video");
+      if (v && typeof v.currentTime === "number") return v.currentTime;
+    } catch (e) {}
+    return null;
+  }
+
+  var desdeWhite = null;
+  var t = setInterval(function () {
+    if (!ehWhite()) return;                       // aprovado no filtro: nada acontece
+    if (desdeWhite === null) desdeWhite = Date.now();
+
+    var seg = tempoDoVideo();
+    if (seg === null) seg = (Date.now() - desdeWhite) / 1000;   // fallback: relogio
+
+    if (seg >= LIBERA_EM) {
+      clearInterval(t);
+      caixa.classList.add("on");
+    }
+  }, 1000);
+
+  // mascara simples de telefone
+  var zap = document.getElementById("wf-zap");
+  zap.addEventListener("input", function () {
+    var d = zap.value.replace(/\D/g, "").slice(0, 11);
+    zap.value = d.length > 10
+      ? "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7)
+      : d.length > 6
+        ? "(" + d.slice(0, 2) + ") " + d.slice(2, 6) + "-" + d.slice(6)
+        : d.length > 2 ? "(" + d.slice(0, 2) + ") " + d.slice(2) : d;
+  });
+
+  function param(nome) {
+    try { return new URLSearchParams(location.search).get(nome) || ""; }
+    catch (e) { return ""; }
+  }
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var dados = {
+      nome: document.getElementById("wf-nome").value.trim(),
+      whatsapp: zap.value.replace(/\D/g, ""),
+      email: document.getElementById("wf-mail").value.trim(),
+      oferta: OFERTA,
+      gclid: param("gclid"),
+      utm_source: param("utm_source"),
+      utm_campaign: param("utm_campaign"),
+      url: location.href.slice(0, 200)
+    };
+    if (!dados.nome || dados.whatsapp.length < 10 || dados.email.indexOf("@") < 1) {
+      erro.style.display = "block";
+      return;
+    }
+    erro.style.display = "none";
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+
+    fetch(DESTINO, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dados)
+    }).then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (j) {
+        if (j && j.ok) {
+          form.style.display = "none";
+          ok.style.display = "block";
+        } else {
+          erro.style.display = "block";
+          btn.disabled = false;
+          btn.textContent = "Quero receber";
+        }
+      })
+      .catch(function () {
+        erro.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "Quero receber";
+      });
+  });
+})();
+</script>
 </body>
 </html>
