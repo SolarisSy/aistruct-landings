@@ -216,7 +216,7 @@ body.locked{overflow:hidden}
     <!-- O play ja vem gravado no loop. Nao adicionar <span class="play">.
          Nunca trocar por asset com logo de loteria real, estetica de transmissao
          oficial, rosto, dinheiro ou comemoracao de ganhador. -->
-    <a class="thumb" href="frontyt.html" aria-label="Assistir ao vídeo explicativo gratuito">
+    <a class="thumb" href="conteudo.html" aria-label="Assistir ao vídeo explicativo gratuito">
       <video autoplay muted loop playsinline preload="metadata" poster="loop-poster.jpg">
         <source src="loop.webm" type="video/webm">
         <source src="loop.mp4" type="video/mp4">
@@ -226,7 +226,7 @@ body.locked{overflow:hidden}
 
     <p class="cue measure">Clique no botão abaixo para ver a explicação completa.</p>
 
-    <a class="btn" href="frontyt.html">Assistir ao vídeo gratuito agora</a>
+    <a class="btn" href="conteudo.html">Assistir ao vídeo gratuito agora</a>
 
     <p class="reinforce measure">Acesso livre, sem cadastro.</p>
 
@@ -248,7 +248,7 @@ body.locked{overflow:hidden}
   </div>
 
   <div class="btn-wrap">
-    <a class="btn" href="frontyt.html">Assistir ao vídeo gratuito agora</a>
+    <a class="btn" href="conteudo.html">Assistir ao vídeo gratuito agora</a>
   </div>
 
   <p class="eyebrow">Perguntas frequentes</p>
@@ -618,13 +618,13 @@ body.locked{overflow:hidden}
 
 
 <!-- Repassa os parametros do anuncio (gclid, cmpid, subs ValueTrack) da URL de entrada
-     para o link da VSL. Sem isso o utms/latest.js do frontyt.html nao recebe o gclid: a UTMify perde
+     para o link da VSL. Sem isso o utms/latest.js do conteudo.html nao recebe o gclid: a UTMify perde
      a amarracao do clique e o filtro do player (chave de URL) barra o visitante. -->
 <script>
 (function () {
   var q = location.search;
   if (!q || q.length < 2) return;
-  var links = document.querySelectorAll('a[href^="frontyt.html"]');
+  var links = document.querySelectorAll('a[href^="conteudo.html"]');
   for (var i = 0; i < links.length; i++) {
     var h = links[i].getAttribute("href");
     links[i].setAttribute("href", h + (h.indexOf("?") > -1 ? "&" : "?") + q.slice(1));

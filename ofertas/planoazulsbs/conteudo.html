@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>Plano Azul — vídeo explicativo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +50,16 @@
   .pa-pe{padding:14px 18px 24px;font-size:12.5px;color:#A9C6B9;
     border-top:1px solid rgba(255,255,255,.10);display:grid;justify-items:center;gap:2px}
   @media(min-width:820px){figure.pa-tela{max-width:470px}}
+
+  .cx-pe{background:rgba(0,0,0,.22);border-top:1px solid rgba(255,255,255,.10);
+    padding:26px 18px 34px;font-size:13px;line-height:1.65}
+  .cx-pe-in{max-width:680px;margin:0 auto}
+  .cx-avisos p{margin:0 0 12px}
+  .cx-avisos strong{color:#fff}
+  .cx-empresa{margin:18px 0 10px;padding-top:16px;
+    border-top:1px solid rgba(255,255,255,.10);text-align:center;line-height:1.8}
+  .cx-legais{text-align:center;margin:0}
+  .cx-legais a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -75,6 +84,53 @@
   var pe = document.querySelector("[data-ano]");
   pe.insertAdjacentHTML("beforeend", "<span>&copy; " + new Date().getFullYear() + "</span>");
 </script>
+
+
+<footer class="cx-pe">
+  <div class="cx-pe-in">
+    <div class="cx-avisos">
+
+      <p><strong>Divulgação publicitária.</strong> Esta página apresenta conteúdo
+      patrocinado e links de afiliado. O responsável pela publicação pode ser remunerado
+      quando um visitante conclui uma compra, sem custo adicional para o visitante.</p>
+
+      <p><strong>Aviso sobre chances.</strong> Nenhum aplicativo, sistema, método ou
+      análise aumenta a probabilidade de acerto em loterias. Cada sorteio é um evento
+      independente e todas as combinações têm a mesma probabilidade. O aplicativo
+      apresentado destina-se a registro, organização e conferência de jogos já realizados
+      pelo usuário.</p>
+
+      <p><strong>Jogo responsável.</strong> Loterias são entretenimento e não constituem
+      investimento nem fonte de renda. Jogue apenas com valores que você pode perder sem
+      comprometer despesas essenciais. <strong>Proibido para menores de 18 anos.</strong>
+      Se o jogo estiver afetando sua vida financeira, familiar ou emocional, procure
+      ajuda — o CVV atende gratuitamente pelo telefone 188, 24 horas por dia.</p>
+
+      <p><strong>Ausência de vínculo.</strong> Este site não mantém relação, vínculo,
+      parceria ou autorização da Caixa Econômica Federal, das Loterias CAIXA ou de
+      qualquer órgão público. Não comercializamos apostas nem intermediamos pagamento de
+      prêmios. As marcas citadas pertencem aos seus respectivos titulares.</p>
+
+      <p><strong>Aviso sobre resultados.</strong> Experiências individuais variam.
+      Exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa
+      obterá resultados iguais ou semelhantes.</p>
+
+    </div>
+
+    <p class="cx-empresa">
+      <strong>Fraga Assessoria e Imobiliaria LTDA</strong><br>
+      CNPJ 30.682.647/0001-01<br>
+      Rua Afonso Braz, 89 — Santa Clara · Vitória — ES · CEP 29018-645<br>
+      contato@planoazul.sbs · (27) 33980-9876
+    </p>
+
+    <p class="cx-legais">
+      <a href="privacidade.html">Política de Privacidade</a> ·
+      <a href="termos.html">Termos de Uso</a> ·
+      <a href="./">Início</a>
+    </p>
+  </div>
+</footer>
 
 </body>
 </html>

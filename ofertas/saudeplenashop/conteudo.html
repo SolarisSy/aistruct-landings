@@ -35,6 +35,16 @@
   .sp-quadro vturb-smartplayer{display:block;width:100%}
   .sp-rodape{padding:16px 20px 26px;text-align:center;font-size:12.5px;
     color:var(--sp-apoio);border-top:1px solid rgba(255,255,255,.08)}
+
+  .cx-pe{background:rgba(0,0,0,.22);border-top:1px solid rgba(255,255,255,.10);
+    padding:26px 18px 34px;font-size:13px;line-height:1.65}
+  .cx-pe-in{max-width:680px;margin:0 auto}
+  .cx-avisos p{margin:0 0 12px}
+  .cx-avisos strong{color:#fff}
+  .cx-empresa{margin:18px 0 10px;padding-top:16px;
+    border-top:1px solid rgba(255,255,255,.10);text-align:center;line-height:1.8}
+  .cx-legais{text-align:center;margin:0}
+  .cx-legais a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 </style>
 
 <script>
@@ -61,11 +71,44 @@
   </div>
 </main>
 
-<footer class="sp-rodape">
-  Saúde Plena &copy; <span id="sp-ano"></span>
-</footer>
-
 <script>document.getElementById("sp-ano").textContent = new Date().getFullYear();</script>
+
+
+<footer class="cx-pe">
+  <div class="cx-pe-in">
+    <div class="cx-avisos">
+
+      <p><strong>Divulgação publicitária.</strong> Esta página apresenta conteúdo
+      patrocinado e links de afiliado. O responsável pela publicação pode ser remunerado
+      quando um visitante conclui uma compra, sem custo adicional para o visitante.</p>
+
+      <p><strong>Conteúdo informativo, não é orientação médica.</strong> As informações
+      aqui apresentadas têm caráter educativo e não substituem consulta, diagnóstico ou
+      tratamento por profissional de saúde habilitado. Sintomas urinários em homens acima
+      dos 50 anos devem ser avaliados por um urologista.</p>
+
+      <p><strong>Aviso sobre resultados.</strong> Experiências individuais variam. Nenhum
+      resultado é prometido ou garantido, e nada aqui deve ser interpretado como promessa
+      de cura, prevenção ou tratamento de qualquer condição.</p>
+
+      <p><strong>Público.</strong> Conteúdo destinado a maiores de 18 anos.</p>
+
+    </div>
+
+    <p class="cx-empresa">
+      <strong>Razão social (a preencher)</strong><br>
+      CNPJ (a preencher)<br>
+      Endereço (a preencher)<br>
+      contato@saudeplena.shop · Telefone (a preencher)
+    </p>
+
+    <p class="cx-legais">
+      <a href="privacidade.html">Política de Privacidade</a> ·
+      <a href="termos.html">Termos de Uso</a> ·
+      <a href="./">Início</a>
+    </p>
+  </div>
+</footer>
 
 </body>
 </html>
