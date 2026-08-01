@@ -268,6 +268,168 @@ body.locked{overflow:hidden}
     <div class="player">
       <vturb-smartplayer id="vid-6a6cb7cb1515ef14bd61e18a"></vturb-smartplayer>
     </div>
+<!-- form-alt -->
+<style>
+  .wform{display:none;max-width:430px;margin:18px auto 0;padding:18px 16px 20px;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+    border-radius:12px}
+  .wform.on{display:block;animation:wfIn .35s ease}
+  @keyframes wfIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .wform h3{font-size:17px;line-height:1.35;margin:0 0 4px;text-align:center}
+  .wform p.wf-sub{font-size:13.5px;opacity:.8;text-align:center;margin:0 0 14px}
+  .wform label{display:block;font-size:12.5px;margin:10px 0 4px;opacity:.85}
+  .wform input{width:100%;padding:12px 13px;border-radius:8px;border:1px solid
+    rgba(255,255,255,.18);background:rgba(0,0,0,.22);color:inherit;font:inherit;
+    font-size:16px}
+  .wform input:focus{outline:2px solid #F4C95D;outline-offset:1px}
+  .wform button{width:100%;margin-top:16px;background:#F4C95D;color:#3A2C06;border:0;
+    border-radius:9px;padding:14px;font:inherit;font-weight:700;font-size:16px;
+    cursor:pointer}
+  .wform button[disabled]{opacity:.6;cursor:default}
+  .wf-nota{font-size:11.5px;opacity:.7;margin-top:10px;line-height:1.5;text-align:center}
+  .wf-ok{display:none;text-align:center;padding:8px 0 2px;font-size:15px}
+  .wf-erro{display:none;color:#ffb4a2;font-size:13px;text-align:center;margin-top:8px}
+</style>
+
+<section class="wform" id="wform" aria-live="polite">
+  <form id="wform-f" novalidate>
+    <h3>Receba o material por WhatsApp</h3>
+    <p class="wf-sub">Deixe seus dados e enviamos o resumo do que foi apresentado.</p>
+
+    <label for="wf-nome">Nome</label>
+    <input id="wf-nome" name="nome" type="text" autocomplete="name" required
+           placeholder="Como podemos te chamar">
+
+    <label for="wf-zap">WhatsApp</label>
+    <input id="wf-zap" name="whatsapp" type="tel" inputmode="numeric"
+           autocomplete="tel" required placeholder="(00) 00000-0000" maxlength="16">
+
+    <label for="wf-mail">E-mail</label>
+    <input id="wf-mail" name="email" type="email" autocomplete="email" required
+           placeholder="seu@email.com">
+
+    <button type="submit" id="wf-btn">Quero receber</button>
+    <p class="wf-erro" id="wf-erro">Confira os dados e tente novamente.</p>
+    <p class="wf-nota">Ao enviar, você concorda que Plano Azul entre em contato sobre este
+    conteúdo. Não compartilhamos seus dados com terceiros e você pode pedir a exclusão
+    a qualquer momento pelo e-mail do rodapé.</p>
+  </form>
+  <div class="wf-ok" id="wf-ok"><strong>Pronto!</strong><br>Recebemos seus dados —
+  em breve entramos em contato.</div>
+</section>
+
+<script>
+(function () {
+  var WHITE = "6a3e0d69583018d5609e7fa9";
+  var OFERTA = "planoazulsbs";
+  var DESTINO = "https://kirvano-bridge-2lotoab.tiectu.easypanel.host/lead";
+  var LIBERA_EM = 240;               // segundos de video assistido
+
+  var caixa = document.getElementById("wform");
+  var form = document.getElementById("wform-f");
+  var btn = document.getElementById("wf-btn");
+  var erro = document.getElementById("wf-erro");
+  var ok = document.getElementById("wf-ok");
+
+  function ehWhite() {
+    try {
+      var rec = performance.getEntriesByType("resource");
+      for (var i = 0; i < rec.length; i++) {
+        if (rec[i].name.indexOf("/players/" + WHITE + "/") > -1) return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
+  function tempoDoVideo() {
+    try {
+      var inst = window.smartplayer && window.smartplayer.instances
+        && window.smartplayer.instances[0];
+      if (inst) {
+        if (typeof inst.currentTime === "number") return inst.currentTime;
+        if (inst.video && typeof inst.video.currentTime === "number")
+          return inst.video.currentTime;
+      }
+      var v = document.querySelector("video");
+      if (v && typeof v.currentTime === "number") return v.currentTime;
+    } catch (e) {}
+    return null;
+  }
+
+  var desdeWhite = null;
+  var t = setInterval(function () {
+    if (!ehWhite()) return;                       // aprovado no filtro: nada acontece
+    if (desdeWhite === null) desdeWhite = Date.now();
+
+    var seg = tempoDoVideo();
+    if (seg === null) seg = (Date.now() - desdeWhite) / 1000;   // fallback: relogio
+
+    if (seg >= LIBERA_EM) {
+      clearInterval(t);
+      caixa.classList.add("on");
+    }
+  }, 1000);
+
+  // mascara simples de telefone
+  var zap = document.getElementById("wf-zap");
+  zap.addEventListener("input", function () {
+    var d = zap.value.replace(/\D/g, "").slice(0, 11);
+    zap.value = d.length > 10
+      ? "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7)
+      : d.length > 6
+        ? "(" + d.slice(0, 2) + ") " + d.slice(2, 6) + "-" + d.slice(6)
+        : d.length > 2 ? "(" + d.slice(0, 2) + ") " + d.slice(2) : d;
+  });
+
+  function param(nome) {
+    try { return new URLSearchParams(location.search).get(nome) || ""; }
+    catch (e) { return ""; }
+  }
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var dados = {
+      nome: document.getElementById("wf-nome").value.trim(),
+      whatsapp: zap.value.replace(/\D/g, ""),
+      email: document.getElementById("wf-mail").value.trim(),
+      oferta: OFERTA,
+      gclid: param("gclid"),
+      utm_source: param("utm_source"),
+      utm_campaign: param("utm_campaign"),
+      url: location.href.slice(0, 200)
+    };
+    if (!dados.nome || dados.whatsapp.length < 10 || dados.email.indexOf("@") < 1) {
+      erro.style.display = "block";
+      return;
+    }
+    erro.style.display = "none";
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+
+    fetch(DESTINO, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dados)
+    }).then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (j) {
+        if (j && j.ok) {
+          form.style.display = "none";
+          ok.style.display = "block";
+        } else {
+          erro.style.display = "block";
+          btn.disabled = false;
+          btn.textContent = "Quero receber";
+        }
+      })
+      .catch(function () {
+        erro.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "Quero receber";
+      });
+  });
+})();
+</script>
+
     <p class="player-note measure">Deixe o vídeo rodar até o fim para entender o passo a passo.</p>
 
     <!-- Botão oculto até o player liberar. Ver script no fim do arquivo. -->
@@ -695,169 +857,6 @@ body.locked{overflow:hidden}
     link.setAttribute('href', comParams(DESTINO));
     setTimeout(reveal, Math.max(0, ESPERA - (Date.now() - inicio)));
   }, 700);
-})();
-</script>
-
-
-<!-- form-alt -->
-<style>
-  .wform{display:none;max-width:430px;margin:18px auto 0;padding:18px 16px 20px;
-    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
-    border-radius:12px}
-  .wform.on{display:block;animation:wfIn .35s ease}
-  @keyframes wfIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-  .wform h3{font-size:17px;line-height:1.35;margin:0 0 4px;text-align:center}
-  .wform p.wf-sub{font-size:13.5px;opacity:.8;text-align:center;margin:0 0 14px}
-  .wform label{display:block;font-size:12.5px;margin:10px 0 4px;opacity:.85}
-  .wform input{width:100%;padding:12px 13px;border-radius:8px;border:1px solid
-    rgba(255,255,255,.18);background:rgba(0,0,0,.22);color:inherit;font:inherit;
-    font-size:16px}
-  .wform input:focus{outline:2px solid #F4C95D;outline-offset:1px}
-  .wform button{width:100%;margin-top:16px;background:#F4C95D;color:#3A2C06;border:0;
-    border-radius:9px;padding:14px;font:inherit;font-weight:700;font-size:16px;
-    cursor:pointer}
-  .wform button[disabled]{opacity:.6;cursor:default}
-  .wf-nota{font-size:11.5px;opacity:.7;margin-top:10px;line-height:1.5;text-align:center}
-  .wf-ok{display:none;text-align:center;padding:8px 0 2px;font-size:15px}
-  .wf-erro{display:none;color:#ffb4a2;font-size:13px;text-align:center;margin-top:8px}
-</style>
-
-<section class="wform" id="wform" aria-live="polite">
-  <form id="wform-f" novalidate>
-    <h3>Receba o material por WhatsApp</h3>
-    <p class="wf-sub">Deixe seus dados e enviamos o resumo do que foi apresentado.</p>
-
-    <label for="wf-nome">Nome</label>
-    <input id="wf-nome" name="nome" type="text" autocomplete="name" required
-           placeholder="Como podemos te chamar">
-
-    <label for="wf-zap">WhatsApp</label>
-    <input id="wf-zap" name="whatsapp" type="tel" inputmode="numeric"
-           autocomplete="tel" required placeholder="(00) 00000-0000" maxlength="16">
-
-    <label for="wf-mail">E-mail</label>
-    <input id="wf-mail" name="email" type="email" autocomplete="email" required
-           placeholder="seu@email.com">
-
-    <button type="submit" id="wf-btn">Quero receber</button>
-    <p class="wf-erro" id="wf-erro">Confira os dados e tente novamente.</p>
-    <p class="wf-nota">Ao enviar, você concorda que Plano Azul entre em contato sobre este
-    conteúdo. Não compartilhamos seus dados com terceiros e você pode pedir a exclusão
-    a qualquer momento pelo e-mail do rodapé.</p>
-  </form>
-  <div class="wf-ok" id="wf-ok"><strong>Pronto!</strong><br>Recebemos seus dados —
-  em breve entramos em contato.</div>
-</section>
-
-<script>
-(function () {
-  var WHITE = "6a3e0d69583018d5609e7fa9";
-  var OFERTA = "planoazulsbs";
-  var DESTINO = "https://kirvano-bridge-2lotoab.tiectu.easypanel.host/lead";
-  var LIBERA_EM = 240;               // segundos de video assistido
-
-  var caixa = document.getElementById("wform");
-  var form = document.getElementById("wform-f");
-  var btn = document.getElementById("wf-btn");
-  var erro = document.getElementById("wf-erro");
-  var ok = document.getElementById("wf-ok");
-
-  function ehWhite() {
-    try {
-      var rec = performance.getEntriesByType("resource");
-      for (var i = 0; i < rec.length; i++) {
-        if (rec[i].name.indexOf("/players/" + WHITE + "/") > -1) return true;
-      }
-    } catch (e) {}
-    return false;
-  }
-
-  function tempoDoVideo() {
-    try {
-      var inst = window.smartplayer && window.smartplayer.instances
-        && window.smartplayer.instances[0];
-      if (inst) {
-        if (typeof inst.currentTime === "number") return inst.currentTime;
-        if (inst.video && typeof inst.video.currentTime === "number")
-          return inst.video.currentTime;
-      }
-      var v = document.querySelector("video");
-      if (v && typeof v.currentTime === "number") return v.currentTime;
-    } catch (e) {}
-    return null;
-  }
-
-  var desdeWhite = null;
-  var t = setInterval(function () {
-    if (!ehWhite()) return;                       // aprovado no filtro: nada acontece
-    if (desdeWhite === null) desdeWhite = Date.now();
-
-    var seg = tempoDoVideo();
-    if (seg === null) seg = (Date.now() - desdeWhite) / 1000;   // fallback: relogio
-
-    if (seg >= LIBERA_EM) {
-      clearInterval(t);
-      caixa.classList.add("on");
-    }
-  }, 1000);
-
-  // mascara simples de telefone
-  var zap = document.getElementById("wf-zap");
-  zap.addEventListener("input", function () {
-    var d = zap.value.replace(/\D/g, "").slice(0, 11);
-    zap.value = d.length > 10
-      ? "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7)
-      : d.length > 6
-        ? "(" + d.slice(0, 2) + ") " + d.slice(2, 6) + "-" + d.slice(6)
-        : d.length > 2 ? "(" + d.slice(0, 2) + ") " + d.slice(2) : d;
-  });
-
-  function param(nome) {
-    try { return new URLSearchParams(location.search).get(nome) || ""; }
-    catch (e) { return ""; }
-  }
-
-  form.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    var dados = {
-      nome: document.getElementById("wf-nome").value.trim(),
-      whatsapp: zap.value.replace(/\D/g, ""),
-      email: document.getElementById("wf-mail").value.trim(),
-      oferta: OFERTA,
-      gclid: param("gclid"),
-      utm_source: param("utm_source"),
-      utm_campaign: param("utm_campaign"),
-      url: location.href.slice(0, 200)
-    };
-    if (!dados.nome || dados.whatsapp.length < 10 || dados.email.indexOf("@") < 1) {
-      erro.style.display = "block";
-      return;
-    }
-    erro.style.display = "none";
-    btn.disabled = true;
-    btn.textContent = "Enviando...";
-
-    fetch(DESTINO, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dados)
-    }).then(function (r) { return r.json().catch(function () { return {}; }); })
-      .then(function (j) {
-        if (j && j.ok) {
-          form.style.display = "none";
-          ok.style.display = "block";
-        } else {
-          erro.style.display = "block";
-          btn.disabled = false;
-          btn.textContent = "Quero receber";
-        }
-      })
-      .catch(function () {
-        erro.style.display = "block";
-        btn.disabled = false;
-        btn.textContent = "Quero receber";
-      });
-  });
 })();
 </script>
 </body>
