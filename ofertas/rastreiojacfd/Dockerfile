@@ -1,8 +1,9 @@
 FROM php:8.2-fpm
 
 # PHP-FPM + nginx porque /go/index.php (cloaker Adspect) precisa de PHP.
-# A money e' EXTERNA e reusada (rastreiopronto.cfd/consulta/) — aqui NAO ha
-# /consulta, /taxa, /chat locais: o /go/ so faz 302 pra money com arg_passthru.
+# A money e' EXTERNA e configurada no painel do Adspect — esta arvore NAO tem
+# /consulta, /taxa, /chat nem qualquer path money-adjacent (Regra de Ouro do
+# SETUP_CRR): tudo que responde 200 aqui e' conteudo editorial ou o gate /go/.
 # ca-certificates: o RPC do Adspect usa verify off, mas manter o bundle e' barato.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends nginx ca-certificates \
