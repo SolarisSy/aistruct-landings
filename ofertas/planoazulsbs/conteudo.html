@@ -159,6 +159,10 @@ button{font:inherit}
      transition:transform .12s ease,box-shadow .12s ease}
 .btn:hover{transform:translateY(-1px);box-shadow:0 4px 0 var(--accent-dk)}
 .btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--accent-dk)}
+/* CTA como <button> dentro de <form> (prerender/preload nao submete formulario) */
+form.cta-form{display:block;margin:0;padding:0;border:0}
+button.btn{font:inherit;font-family:inherit;font-weight:700;
+     -webkit-appearance:none;appearance:none}
 .btn-note{font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.66);
      margin-top:var(--s3)}
 
@@ -432,9 +436,12 @@ body.locked{overflow:hidden}
 
     <p class="player-note measure">Deixe o vídeo rodar até o fim para entender o passo a passo.</p>
 
-    <!-- Botão oculto até o player liberar. Ver script no fim do arquivo. -->
+    <!-- Botão oculto até o player liberar. Ver script no fim do arquivo.
+         CTA é <button> dentro de <form> — mesmo padrão da presell: prerender,
+         prefetch e scanner seguem <a href>, mas NÃO submetem formulário.
+         action e os hidden inputs são preenchidos pelo script. -->
     <div id="cta-slot">
-      <a class="btn" id="cta-link" href="#" rel="nofollow noopener">Ver a apresentação completa</a>
+      <form class="cta-form" id="cta-form" action="#" method="get" autocomplete="off"><button type="submit" class="btn">Ver a apresentação completa</button></form>
       <p class="btn-note measure">Você será direcionado ao ambiente de checkout do fornecedor.</p>
     </div>
 
@@ -827,7 +834,7 @@ body.locked{overflow:hidden}
   var ESPERA  = 15000;          /* só revela depois de 15s assistindo */
 
   var slot = document.getElementById('cta-slot');
-  var link = document.getElementById('cta-link');
+  var form = document.getElementById('cta-form');
   function reveal(){ if(slot && DESTINO) slot.classList.add('on'); }
   window.PlanoAzul = { revealCTA: reveal };
   if(!DESTINO) return;          /* sem checkout configurado, não faz nada */
@@ -841,10 +848,23 @@ body.locked{overflow:hidden}
     }catch(e){}
     return false;
   }
-  function comParams(url){
-    var q = location.search;
-    if(!q || q.length < 2) return url;
-    return url + (url.indexOf('?') > -1 ? '&' : '?') + q.slice(1);
+  /* Form GET descarta query string colada na action: cada parâmetro do
+     DESTINO e da URL atual (gclid, campaignid, src, …) vira hidden input. */
+  function montarForm(destino){
+    var partes = destino.split('?');
+    form.setAttribute('action', partes[0]);
+    var q = (partes[1] ? partes[1] + '&' : '') + location.search.slice(1);
+    q.split('&').forEach(function(par){
+      if(!par) return;
+      var i = par.indexOf('=');
+      var k = i > -1 ? par.slice(0, i) : par;
+      var v = i > -1 ? par.slice(i + 1) : '';
+      try{ k = decodeURIComponent(k); v = decodeURIComponent(v); }catch(e){}
+      if(!k || form.querySelector('input[name="' + k + '"]')) return;
+      var inp = document.createElement('input');
+      inp.type = 'hidden'; inp.name = k; inp.value = v;
+      form.appendChild(inp);
+    });
   }
 
   var inicio = Date.now();
@@ -854,7 +874,7 @@ body.locked{overflow:hidden}
       return;
     }
     clearInterval(t);
-    link.setAttribute('href', comParams(DESTINO));
+    montarForm(DESTINO);
     setTimeout(reveal, Math.max(0, ESPERA - (Date.now() - inicio)));
   }, 700);
 })();
