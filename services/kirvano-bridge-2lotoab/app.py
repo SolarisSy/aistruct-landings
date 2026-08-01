@@ -332,6 +332,53 @@ def debug_recent(n: int = 30):
     return {"stats": STATS, "recent": list(RECENT)[: max(1, min(n, 80))]}
 
 
+LEADS: deque = deque(maxlen=500)
+
+
+@app.post("/lead")
+async def lead(request: Request):
+    """Recebe o formulario que aparece na pagina de redirecionamento (video white).
+
+    Nao ha banco de proposito: os leads ficam no ring buffer em memoria e no log do
+    container (ambos legiveis no Easypanel). Some no restart — se precisar reter, o
+    proximo passo e mandar pra planilha/CRM, nao guardar aqui.
+    """
+    try:
+        d = await request.json()
+    except Exception:
+        d = dict(await request.form())
+
+    nome = (d.get("nome") or "").strip()[:120]
+    zap = re.sub(r"\D", "", (d.get("whatsapp") or ""))[:13]
+    email = (d.get("email") or "").strip()[:160]
+
+    if not nome or len(zap) < 10 or "@" not in email:
+        return JSONResponse({"ok": False, "erro": "dados incompletos"}, status_code=200)
+
+    registro = {
+        "ts": _now(),
+        "nome": nome,
+        "whatsapp": zap,
+        "email": email,
+        "oferta": (d.get("oferta") or "").strip()[:40],
+        "gclid": (d.get("gclid") or "").strip()[:120],
+        "utm_source": (d.get("utm_source") or "").strip()[:60],
+        "utm_campaign": (d.get("utm_campaign") or "").strip()[:80],
+        "url": (d.get("url") or "").strip()[:200],
+    }
+    LEADS.appendleft(registro)
+    STATS["leads"] = STATS.get("leads", 0) + 1
+    log.info("lead: oferta=%s nome=%s zap=%s email=%s gclid=%s",
+             registro["oferta"], nome, zap, email, registro["gclid"][:12])
+    return {"ok": True}
+
+
+@app.get("/debug/leads")
+def debug_leads(n: int = 50):
+    """Leads recebidos desde o ultimo restart (mais novo primeiro)."""
+    return {"total": STATS.get("leads", 0), "leads": list(LEADS)[: max(1, min(n, 500))]}
+
+
 @app.post("/postback")
 async def postback(request: Request,
                    x_kirvano_token: str | None = Header(default=None)):

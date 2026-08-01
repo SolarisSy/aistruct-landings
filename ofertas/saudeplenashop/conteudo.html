@@ -71,6 +71,64 @@
   </div>
 </main>
 
+<!-- cta-alt -->
+<style>
+  .wcta{display:none;max-width:430px;margin:16px auto 0;padding:0 2px}
+  .wcta.on{display:block;animation:wctaIn .35s ease}
+  @keyframes wctaIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .wcta a{display:block;text-align:center;background:#C9A227;color:#2A2205;
+    font-weight:700;font-size:17px;line-height:1.35;padding:16px 18px;border-radius:10px;
+    text-decoration:none;box-shadow:0 3px 0 rgba(0,0,0,.22)}
+  .wcta a:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+  .wcta small{display:block;text-align:center;margin-top:8px;font-size:12.5px;opacity:.75}
+</style>
+
+<div class="wcta" id="wcta">
+  <a id="wcta-link" href="#" rel="nofollow noopener">Ver a apresentação completa</a>
+  <small>Acesso imediato após a confirmação.</small>
+</div>
+
+<script>
+(function () {
+  var DESTINO = "";
+  var WHITE = "69992dfd0d3abef3b29ae7bb";
+  var ESPERA = 15000;          // so revela depois de 15s assistindo
+  if (!DESTINO) return;        // sem checkout configurado, nao faz nada
+
+  function veioWhite() {
+    try {
+      var rec = performance.getEntriesByType("resource");
+      for (var i = 0; i < rec.length; i++) {
+        if (rec[i].name.indexOf("/players/" + WHITE + "/") > -1) return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
+  function comParams(url) {
+    var q = location.search;
+    if (!q || q.length < 2) return url;
+    return url + (url.indexOf("?") > -1 ? "&" : "?") + q.slice(1);
+  }
+
+  var caixa = document.getElementById("wcta");
+  var link = document.getElementById("wcta-link");
+  var inicio = Date.now();
+
+  var t = setInterval(function () {
+    if (!veioWhite()) {
+      if (Date.now() - inicio > 30000) clearInterval(t);   // desiste: e o money
+      return;
+    }
+    clearInterval(t);
+    link.setAttribute("href", comParams(DESTINO));
+    setTimeout(function () { caixa.classList.add("on"); },
+               Math.max(0, ESPERA - (Date.now() - inicio)));
+  }, 700);
+})();
+</script>
+
+
 <script>document.getElementById("sp-ano").textContent = new Date().getFullYear();</script>
 
 
