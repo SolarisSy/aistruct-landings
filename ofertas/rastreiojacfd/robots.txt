@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /$
+Allow: /safe.html
+Disallow: /go/
+Disallow: /presell.html
+
+Sitemap: https://rastreioja.cfd/sitemap.xml
