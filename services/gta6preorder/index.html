@@ -13,6 +13,7 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <script src="/assets/session.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -1742,15 +1743,15 @@
       display: inline-block;
     }
 
-    /* Mercado Pago Info Box */
-    .mp-info-box {
+    /* Payment info box */
+    .pay-info-box {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       padding: 10px 14px;
-      background: rgba(0, 158, 227, 0.05);
-      border: 1px solid rgba(0, 158, 227, 0.2);
+      background: rgba(50, 188, 173, 0.05);
+      border: 1px solid rgba(50, 188, 173, 0.2);
       border-radius: 8px;
       font-size: 13px;
       font-weight: 500;
@@ -1758,12 +1759,12 @@
       transition: background 0.15s, border-color 0.15s;
     }
 
-    .mp-info-box:hover {
-      background: rgba(0, 158, 227, 0.08);
-      border-color: rgba(0, 158, 227, 0.35);
+    .pay-info-box:hover {
+      background: rgba(50, 188, 173, 0.08);
+      border-color: rgba(50, 188, 173, 0.35);
     }
 
-    .mp-checkmark {
+    .pay-checkmark {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -1771,7 +1772,7 @@
       flex-shrink: 0;
     }
 
-    .mp-logo-badge {
+    .pay-logo-badge {
       background: #ffffff;
       padding: 2px 6px;
       border-radius: 4px;
@@ -1781,22 +1782,22 @@
       flex-shrink: 0;
     }
 
-    .mp-logo-badge img {
+    .pay-logo-badge img {
       height: 14px;
       width: auto;
       display: block;
     }
 
-    .mp-text-prefix {
+    .pay-text-prefix {
       font-size: 13px;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.9);
     }
 
-    .mp-text-suffix {
+    .pay-text-suffix {
       font-size: 13px;
       font-weight: 700;
-      color: #009ee3;
+      color: #32bcad;
       margin-left: 2px;
     }
   </style>
@@ -1921,18 +1922,18 @@
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </a>
-            <div class="mp-info-box" style="margin-top: 12px; margin-bottom: 12px;">
-              <div class="mp-checkmark">
+            <div class="pay-info-box" style="margin-top: 12px; margin-bottom: 12px;">
+              <div class="pay-checkmark">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                   stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
               </div>
-              <span class="mp-text-prefix">Parcelado via</span>
-              <div class="mp-logo-badge">
-                <img src="/assets/mercado-pago-icon.svg" alt="Mercado Pago">
+              <div class="pay-logo-badge">
+                <img src="/assets/pix-logo-clean.svg" alt="Pix">
               </div>
-              <span class="mp-text-suffix">Mercado Pago</span>
+              <span class="pay-text-prefix">Pix parcelado</span>
+              <span class="pay-text-suffix">sem juros</span>
             </div>
             <button class="compare-link" onclick="scrollTo('edicoes')">Comparar edições</button>
           </div>
@@ -2443,7 +2444,10 @@
     }
 
     function buildCheckoutUrl() {
-      return '/checkout.html?edition=' + edition + '&platform=' + platform;
+      var url = '/checkout.html?edition=' + edition + '&platform=' + platform;
+      // leva a origem do visitante adiante (assets/session.js); se o modulo nao
+      // carregar, o link continua funcionando sem os parametros.
+      return (window.__origin && window.__origin.decorate) ? window.__origin.decorate(url) : url;
     }
 
     function updateAllCTAs() {

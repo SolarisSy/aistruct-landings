@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <title>Checkout — GTA VI Pre-Order Store</title>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <script src="/assets/session.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
@@ -457,39 +458,39 @@
     }
     .global-error.visible { display: block; }
 
-    /* Mercado Pago Info Box */
-    .mp-info-box {
+    /* Payment info box */
+    .pay-info-box {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       padding: 10px 14px;
-      background: rgba(0, 158, 227, 0.05);
-      border: 1px solid rgba(0, 158, 227, 0.2);
+      background: rgba(50, 188, 173, 0.05);
+      border: 1px solid rgba(50, 188, 173, 0.2);
       border-radius: 8px;
       font-size: 13px;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.9);
       transition: background 0.15s, border-color 0.15s;
     }
-    .mp-info-box:hover {
-      background: rgba(0, 158, 227, 0.08);
-      border-color: rgba(0, 158, 227, 0.35);
+    .pay-info-box:hover {
+      background: rgba(50, 188, 173, 0.08);
+      border-color: rgba(50, 188, 173, 0.35);
     }
-    .mp-info-box.summary-version {
+    .pay-info-box.summary-version {
       justify-content: flex-start;
       margin-top: 8px;
       font-size: 12.5px;
       padding: 8px 12px;
     }
-    .mp-checkmark {
+    .pay-checkmark {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       color: var(--green);
       flex-shrink: 0;
     }
-    .mp-logo-badge {
+    .pay-logo-badge {
       background: #ffffff;
       padding: 2px 6px;
       border-radius: 4px;
@@ -498,25 +499,25 @@
       height: 20px;
       flex-shrink: 0;
     }
-    .mp-logo-badge img {
+    .pay-logo-badge img {
       height: 14px;
       width: auto;
       display: block;
     }
-    .mp-text-prefix {
+    .pay-text-prefix {
       font-size: 13px;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.9);
     }
-    .mp-text-suffix {
+    .pay-text-suffix {
       font-size: 13px;
       font-weight: 700;
-      color: #009ee3;
+      color: #32bcad;
       margin-left: 2px;
     }
     .important-info-box {
       background: rgba(11, 59, 140, 0.22);
-      border: 1px solid rgba(0, 158, 227, 0.25);
+      border: 1px solid rgba(50, 188, 173, 0.25);
       border-radius: 12px;
       padding: 20px;
       margin-top: 16px;
@@ -535,7 +536,7 @@
     .important-info-box .info-icon {
       width: 18px;
       height: 18px;
-      color: #009ee3;
+      color: #32bcad;
       flex-shrink: 0;
     }
     .important-info-box .info-list {
@@ -551,7 +552,7 @@
       color: rgba(255, 255, 255, 0.85);
     }
     .important-info-box .info-list li a {
-      color: #009ee3;
+      color: #32bcad;
       text-decoration: underline;
       font-weight: 600;
     }
@@ -604,16 +605,11 @@
             <div class="field-error">Celular obrigatório</div>
           </div>
         </div>
-        <div class="field" id="field-birthdate">
-          <label>Data de nascimento *</label>
-          <input type="text" name="birthdate" id="birthdate-input" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric" autocomplete="bday" required>
-          <div class="field-error">Data inválida</div>
-        </div>
         <div class="field" id="field-payment-method">
           <label>Opção de pagamento</label>
           <select id="payment-method-select" name="payment_method">
-            <option value="installments" selected>Parcelado no Pix (via Mercado Pago)</option>
-            <option value="single">À vista no Pix</option>
+            <option value="installments" selected>Pix parcelado (paga a 1ª parcela agora)</option>
+            <option value="single">Pix à vista</option>
           </select>
         </div>
         <div class="field" id="field-installments">
@@ -630,19 +626,19 @@
           </span>
         </button>
         <p class="form-note" style="font-weight:700;color:#FF1564;margin-bottom:12px;">
-          1ª parcela no PIX · até 9x sem juros via Mercado Pago
+          1ª parcela no Pix · até 9x sem juros
         </p>
-        <div class="mp-info-box" style="margin-bottom:12px;">
-          <div class="mp-checkmark">
+        <div class="pay-info-box" style="margin-bottom:12px;">
+          <div class="pay-checkmark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
           </div>
-          <span class="mp-text-prefix">Parcelado via</span>
-          <div class="mp-logo-badge">
-            <img src="/assets/mercado-pago-icon.svg" alt="Mercado Pago">
+          <div class="pay-logo-badge">
+            <img src="/assets/pix-logo-clean.svg" alt="Pix">
           </div>
-          <span class="mp-text-suffix">Mercado Pago</span>
+          <span class="pay-text-prefix">Pix parcelado</span>
+          <span class="pay-text-suffix">sem juros</span>
         </div>
         <p class="form-note">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -734,17 +730,17 @@
         </div>
         <span>Pix - confirmação instantânea</span>
       </div>
-      <div class="mp-info-box summary-version">
-        <div class="mp-checkmark">
+      <div class="pay-info-box summary-version">
+        <div class="pay-checkmark">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
-        <span class="mp-text-prefix">Parcelado via</span>
-        <div class="mp-logo-badge">
-          <img src="/assets/mercado-pago-icon.svg" alt="Mercado Pago">
+        <div class="pay-logo-badge">
+          <img src="/assets/pix-logo-clean.svg" alt="Pix">
         </div>
-        <span class="mp-text-suffix">Mercado Pago</span>
+        <span class="pay-text-prefix">Pix parcelado</span>
+        <span class="pay-text-suffix">sem juros</span>
       </div>
       <div class="security-list">
         <div class="security-item">
@@ -781,6 +777,27 @@
   const params = new URLSearchParams(location.search);
   const edition = params.get('edition') || 'standard';
   const platform = params.get('platform') || 'ps5';
+
+  // ── Origem do visitante ────────────────────────────────────────────────────
+  // Prioridade: o que veio na URL desta pagina; se a URL vier limpa (o visitante
+  // pode ter chegado por outro caminho), o que assets/session.js guardou na
+  // primeira visita. Sem isso o pedido nasce orfao e a venda nao volta ao clique.
+  const ORIGIN_KEYS = ['gclid','gbraid','wbraid','src','clickid','cid',
+                       'utm_source','utm_medium','utm_campaign','utm_term','utm_content','utm_id'];
+  function originParams() {
+    const guardado = (window.__origin && window.__origin.params) ? window.__origin.params() : {};
+    const out = {};
+    ORIGIN_KEYS.forEach(k => {
+      const daUrl = (params.get(k) || '').trim();
+      const v = daUrl || guardado[k] || '';
+      if (v) out[k] = v;
+    });
+    return out;
+  }
+  function originClickId(q) {
+    for (const k of ['gclid','gbraid','wbraid','src','clickid','cid']) if (q[k]) return { id: q[k], type: k };
+    return { id: '', type: '' };
+  }
 
   const TOTAL_PRICES    = { standard: 449.90, ultimate: 549.90 };
   const DISCOUNT_RATE   = 0.06; // cupom GTA6 — 6%
@@ -850,10 +867,10 @@
     document.getElementById('summary-discount').textContent = '-R$ ' + fmt(discountAmt);
     document.getElementById('summary-total').textContent = 'R$ ' + fmt(discountedNow);
 
-    const badgesText = isSingle ? 'Processado via' : 'Parcelado via';
-    document.querySelectorAll('.mp-text-prefix').forEach(el => {
-      el.textContent = badgesText;
-    });
+    const prefixText = isSingle ? 'Pix à vista' : 'Pix parcelado';
+    const suffixText = isSingle ? 'confirmação imediata' : 'sem juros';
+    document.querySelectorAll('.pay-text-prefix').forEach(el => { el.textContent = prefixText; });
+    document.querySelectorAll('.pay-text-suffix').forEach(el => { el.textContent = suffixText; });
   }
 
   // Inicializa
@@ -885,66 +902,6 @@
     this.value = v;
   });
 
-  // ── Birthdate mask + validation (DD/MM/AAAA) ──
-  const birthdateInput = document.getElementById('birthdate-input');
-  birthdateInput.addEventListener('input', function(e) {
-    // Guarda a posição do cursor antes de qualquer modificação
-    const raw = this.value.replace(/\D/g, '').slice(0, 8);
-    let d = raw;
-
-    // ── Dia (dígitos 0-1) ──
-    if (d.length >= 1) {
-      // Primeiro dígito do dia: só pode ser 0, 1, 2 ou 3
-      let d0 = parseInt(d[0]);
-      if (d0 > 3) d = '3' + d.slice(1);
-    }
-    if (d.length >= 2) {
-      // Segundo dígito do dia: limita conforme o primeiro
-      let d0 = parseInt(d[0]);
-      let d1 = parseInt(d[1]);
-      const maxD1 = d0 === 3 ? 1 : 9; // 31 é o máximo; se d0=0 só aceita 01-09
-      if (d0 === 0 && d1 === 0) d = d[0] + '1' + d.slice(2); // 00 não existe
-      if (d1 > maxD1) d = d[0] + String(maxD1) + d.slice(2);
-    }
-
-    // ── Mês (dígitos 2-3) ──
-    if (d.length >= 3) {
-      // Primeiro dígito do mês: só pode ser 0 ou 1
-      let m0 = parseInt(d[2]);
-      if (m0 > 1) d = d.slice(0, 2) + '1' + d.slice(3);
-    }
-    if (d.length >= 4) {
-      let m0 = parseInt(d[2]);
-      let m1 = parseInt(d[3]);
-      const maxM1 = m0 === 1 ? 2 : 9; // mês máx 12; se m0=0 aceita 01-09
-      if (m0 === 0 && m1 === 0) d = d.slice(0, 3) + '1' + d.slice(4); // 00 não existe
-      if (m1 > maxM1) d = d.slice(0, 3) + String(maxM1) + d.slice(4);
-    }
-
-    // ── Ano (dígitos 4-7) ──
-    if (d.length >= 5) {
-      // Primeiro dígito do ano: só pode ser 1 ou 2
-      let y0 = parseInt(d[4]);
-      if (y0 < 1) d = d.slice(0, 4) + '1' + d.slice(5);
-      if (y0 > 2) d = d.slice(0, 4) + '2' + d.slice(5);
-    }
-    if (d.length === 8) {
-      // Ano completo: limita entre 1900 e ano atual
-      const currentYear = new Date().getFullYear();
-      let year = parseInt(d.slice(4, 8));
-      if (year < 1900) year = 1900;
-      if (year > currentYear) year = currentYear;
-      d = d.slice(0, 4) + String(year);
-    }
-
-    // ── Aplica máscara DD/MM/AAAA ──
-    let formatted = d;
-    if (d.length > 4) formatted = d.slice(0, 2) + '/' + d.slice(2, 4) + '/' + d.slice(4);
-    else if (d.length > 2) formatted = d.slice(0, 2) + '/' + d.slice(2);
-
-    this.value = formatted;
-  });
-
   // ── Validation ──
   function validateCPF(s) {
     const d = s.replace(/\D/g, '');
@@ -973,8 +930,7 @@
     err = setError('field-cpf', !validateCPF(fd.cpf)) || err;
     const phoneDigits = (fd.phone || '').replace(/\D/g, '');
     err = setError('field-phone', phoneDigits.length < 10) || err;
-    const bdate = (fd.birthdate || '').replace(/\D/g, '');
-    err = setError('field-birthdate', bdate.length !== 8) || err;
+    // Campos exigidos aqui = exatamente os que o backend/PSP consome (name, email, cpf, phone).
     return !err;
   }
 
@@ -1064,12 +1020,17 @@
     btn.classList.add('loading');
 
     try {
+      const attr = originParams();
+      const click = originClickId(attr);
       const body = {
         customer: fd,
         edition: edition,
         platform: platform,
         price: selectedPriceNow,
         externalRef: 'gta6-' + Date.now(),
+        attr: attr,                 // gclid/gbraid/wbraid + utm_* da origem
+        clickId: click.id,          // identificador do clique (vazio = visita direta)
+        clickType: click.type,      // qual dos campos acima carregou o identificador
       };
       const r = await fetch('/api/pagamento/pix', {
         method: 'POST',
