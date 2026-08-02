@@ -186,11 +186,22 @@
       gap: 8px;
     }
 
-    .logo-wrap img {
+    .logo-mark {
       width: 32px;
       height: 32px;
       border-radius: 6px;
-      object-fit: cover;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--white);
+    }
+
+    .logo-mark svg {
+      width: 18px;
+      height: 18px;
+      display: block;
     }
 
     .logo-text {
@@ -1816,7 +1827,13 @@
   <header>
     <div class="header-inner">
       <div class="logo-wrap">
-        <img src="/assets/rockstar-logo.jpg" alt="Rockstar Games">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+            <line x1="7" y1="7" x2="7.01" y2="7"></line>
+          </svg>
+        </span>
         <span class="logo-text">GTA VI <span>PRÉ-VENDA</span></span>
       </div>
       <nav class="nav-desktop">
