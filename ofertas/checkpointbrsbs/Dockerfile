@@ -3,8 +3,10 @@ FROM richarvey/nginx-php-fpm:latest
 # Copy all content to the correct location
 COPY . /var/www/html
 
-# Sobrescreve o vhost default: raiz serve index.html (conteúdo, 200), /go/ roteia,
-# + fix Bunny CF_CONNECTING_IP (sem ele o roteador vê o IP do nó Bunny, ASN 60068).
+# Sobrescreve o vhost default: a RAIZ executa index.php (o roteador do metodo
+# direct_url), /go/ e o mesmo integrador como caminho alternativo, estaticos e
+# paginas seguem por path direto, + fix Bunny CF_CONNECTING_IP (sem ele o
+# roteador ve o IP do no Bunny, ASN 60068, e manda 100% para a pagina de loja).
 # (richarvey/nginx-php-fpm carrega /etc/nginx/sites-enabled/default.conf)
 COPY nginx-site.conf /etc/nginx/sites-available/default.conf
 
@@ -13,10 +15,11 @@ RUN chown -R nginx:nginx /var/www/html
 
 # Limpa artefatos de build do docroot.
 # _MANIFEST.md descreve como o site foi montado — não pode ficar público.
-# /var/www/html/index.php vem da IMAGEM BASE (phpinfo). Enquanto a raiz era
-# servida por um index.php nosso ele ficava sobrescrito; agora que a raiz e
-# index.html, ele reapareceria publico e exporia toda a config do servidor.
-RUN rm -f /var/www/html/Dockerfile /var/www/html/nginx-site.conf /var/www/html/_MANIFEST.md /var/www/html/index.php
+# ATENCAO: index.php NAO entra nesta lista. A imagem base traz um index.php de
+# phpinfo em /var/www/html, mas o `COPY . /var/www/html` acima ja o substitui
+# pelo NOSSO roteador — apagar aqui deixaria a raiz sem roteador (a URL
+# anunciada devolveria 404 e nenhum clique chegaria ao checkout).
+RUN rm -f /var/www/html/Dockerfile /var/www/html/nginx-site.conf /var/www/html/_MANIFEST.md
 
 # A pagina de compra sai do docroot: passa a viver em /var/private, onde o nginx
 # nao alcanca por caminho nenhum. Quem entrega o HTML e api/pagina.php, e so

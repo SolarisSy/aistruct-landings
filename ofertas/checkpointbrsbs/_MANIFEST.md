@@ -13,7 +13,7 @@ escrito pela mesma equipe (as 9 matérias de análise/guia/história/hardware/cu
 | v1 (revista editorial) | v2 (loja com blog) |
 |---|---|
 | declarava por escrito não vender nada (21 ocorrências) | descreve o que oferece, com prazo, entrega e política (preço só no servidor — ver rodada 5) |
-| raiz = `index.php` do roteador (302, zero conteúdo) | raiz = `index.html` com a home da loja (200) |
+| raiz = `index.php` do roteador (302, zero conteúdo) | raiz = `index.html` com a home da loja (200) — **revertido na rodada 6: a raiz voltou a ser o roteador, por decisão do gestor (método direct_url); a home continua servida em `/index.html`** |
 | menu apontava `safe.html` rotulado "INÍCIO" | menu aponta `/`; nenhuma URL linkada tem a string `safe` |
 | CNPJ/razão social/endereço/responsável não comprovados | sem identidade jurídica; só marca + `contato@checkpointbr.sbs` |
 | 9 assinaturas de jornalistas inventados | tudo assinado "Redação Checkpoint BR" |
@@ -45,16 +45,19 @@ A loja foi encaixada DENTRO desse sistema, não substituída por template de e-c
 `--ink #1a1a1a` · `--paper #f2ede4` · `--paper-2 #e9e2d2` · `--crimson #b3272c` ·
 `--forest #2c4a3e` · `--mustard #c98a2c` · `--rule #cfc6b4`
 
-## Páginas (23 HTML no docroot + 1 fora dele)
+## Páginas (22 HTML no docroot + 1 fora dele)
 
 **Loja:** `index.html` (raiz) · `catalogo.html` · `como-funciona.html` · `trocas.html` · `contato.html`
 **Fora do docroot:** `_priv/checkout.html` (pagamento, `noindex`) — servida por `api/pagina.php`
 **Conteúdo:** `blog.html` + as 9 matérias · `glossario.html` · `avisos.html`
 **Institucional/legal:** `sobre.html` · `faq.html` · `privacidade.html` · `termos.html`
-**Serviço:** `404.html` (noindex) · `safe.html` (alias `noindex` + refresh para `/`, mantido só
-porque o serviço de roteamento ainda aponta para ele; será repontado por outro agente)
-**Não-HTML:** `robots.txt` · `sitemap.xml` (**21 URLs** = 24 HTML − `404.html` − `safe.html` − `checkout.html`,
-com `index.html` listado como `/`) · `go/index.php` (roteador)
+**Serviço:** `404.html` (noindex). **Não existe mais `safe.html`**: era um stub que redirecionava
+para `/` e, com a raiz virando roteador (rodada 6), viraria volta infinita. A página que o
+roteador entrega a quem não qualifica é a própria home, por caminho direto — `/index.html`.
+O nginx ainda atende `/safe.html` servindo o conteúdo de `index.html` (200), só como rede de
+segurança caso o stream seja repontado para lá; não há arquivo com esse nome.
+**Não-HTML:** `robots.txt` · `sitemap.xml` (**21 URLs** = 22 HTML do docroot − `404.html`,
+com `index.html` listado como `/`) · `index.php` e `go/index.php` (roteador, o mesmo arquivo)
 
 ## Catálogo (o que a loja oferece)
 
@@ -126,9 +129,27 @@ cobrança. No postback pago vira conversão — **dormente** até o gestor confi
 
 ## Roteamento
 
-`go/index.php` é o integrador de roteamento (stream `78be7975-b9b6-4d56-ad9f-cd55ea682739`),
-movido byte a byte da raiz — sha256 `d9abe8cd…`. **Não editar.** A raiz serve conteúdo próprio
-com 200.
+O integrador de roteamento (stream `78be7975-b9b6-4d56-ad9f-cd55ea682739`) — sha256
+`d9abe8cd…`, **não editar** — vive em DOIS caminhos, byte a byte idênticos:
+`index.php` (raiz) e `go/index.php`.
+
+✅ **Rodada 6 (02/08/2026) — método direct_url: a URL anunciada É o roteador.**
+Decisão do gestor. A raiz deixou de servir HTML: `location = /` executa `index.php`, que filtra
+na ENTRADA e devolve 302 — quem qualifica vai direto para `/ir/` (marca do portão → checkout),
+quem não qualifica vai para `/index.html` (a mesma vitrine, 200, por caminho direto).
+Consequências:
+- **não existe mais CTA que "aciona" o filtro** — quem qualifica nunca passa pela vitrine;
+- os 11 CTA para `/go/` continuam no ar como **caminho alternativo** (mesmo stream, mesmo
+  comportamento). Antes da aprovação (`mode=Review`) eles devolvem 302 para `/index.html`;
+- a página alternativa do stream (`safe_pages`) foi repontada de `https://checkpointbr.sbs/`
+  para `https://checkpointbr.sbs/index.html` — apontar para a raiz seria volta infinita;
+- o `Dockerfile` **parou de apagar** `/var/www/html/index.php` (apagava o phpinfo da imagem base;
+  agora esse caminho é o roteador — apagar deixaria a URL anunciada em 404);
+- `absolute_redirect off; port_in_redirect off;` entraram no vhost (redirect do nginx sai
+  relativo, sem host/porta da origem);
+- o fix `HTTP_CF_CONNECTING_IP` vale para a raiz também: o `rewrite ^ /index.php last` reentra no
+  roteamento e cai no bloco `\.php$` — medido, `CF_CONNECTING_IP` chega em GET e em POST
+  (o POST importa: com `enable_fp=1` o navegador devolve a impressão digital na MESMA URL).
 
 ✅ **Rodada 5 (02/08/2026) — o gate voltou para o caminho.** Todo CTA de ação aponta para `/go/`.
 São **11 acionamentos em 4 páginas**: `index.html` (hero + 4 cartões = 5), `catalogo.html`
