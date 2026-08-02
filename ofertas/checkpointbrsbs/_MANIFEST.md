@@ -240,3 +240,74 @@ oferta inteira de cara — e o `/go/` ficou órfão (0 de 24 páginas o acionava
 - QA estrutural: **0 FAIL / 0 warn**
 - `go/index.php` intacto — sha256 `d9abe8cdb3551b48…`; `nginx-site.conf`, `Dockerfile`, `api/`,
   `assets/`, `img/` e `checkout.html` **não modificados** (confirmado por `git status`)
+
+## Rodada 7 (02/08) — loja de PRODUTO FÍSICO, aberta na vitrine
+
+O pedido do gestor era um caixa **visível**: catálogo com preço, botão de compra e PIX de verdade
+para **qualquer** visitante. As rodadas 5 e 6 tinham tirado todo valor e todo botão de compra da
+vitrine — o que resolvia a reprovação, mas deixou o site sem loja aparente.
+
+Esta rodada **acrescenta** uma segunda linha de venda, aberta, sem tocar na primeira.
+
+### O que é a linha nova
+
+| Produto | Preço | Opção | Frete | Prazo |
+|---|---|---|---|---|
+| Camiseta Save Point | R$ 89,90 | Tamanho P/M/G/GG | R$ 19,90 | até 20 dias úteis |
+| Caneca Continue? | R$ 59,90 | — | R$ 19,90 | até 20 dias úteis |
+| Pôster A3 Fase 01 | R$ 49,90 | — | R$ 19,90 | até 20 dias úteis |
+
+Arte **100% da própria loja** (monograma CB + tipografia do site, tema genérico). Nenhuma marca,
+personagem ou arte de terceiro — em produto físico isso seria falsificação, a falta mais grave
+possível. A estampa aparece hoje como composição em CSS (`.pf-arte`); a arte final substitui esse
+bloco sem mexer em mais nada.
+
+### Onde mora
+
+- **Vitrine:** seção "Loja Checkpoint" em `index.html` (3 cartões com preço e botão) + link no
+  rodapé de **todas** as 24 páginas.
+- **Páginas:** `loja/index.html` (catálogo + ficha de cada peça) e `loja/pedido.html` (resumo do
+  item + endereço + PIX). `pedido.html` é `noindex`; `/loja/` entra no sitemap.
+- **Servidor:** `api/_loja.php` (preço, validação de entrega, registro mascarado, teto por origem),
+  `api/_loja_tabela.php` (**gerado**), `api/loja_catalogo.php`, `api/loja_pix.php`,
+  `api/loja_status.php`. Reusam `api/_cfg.php` (ambiente, máscara, mapa de origem, contadores) e o
+  mesmo `api/webhook.php` — a venda vira conversão pelo mesmo caminho de sempre.
+- **Vhost:** um bloco novo, `location /loja/`, no formato já usado nas outras pastas servidas
+  desta operação (não depende do módulo de índice). Nenhuma regra antiga foi alterada.
+
+### O que NÃO foi tocado
+
+`index.php` e `go/index.php` (sha256 `d9abe8cd…`), `ir/index.php`, `_priv/checkout.html`,
+`api/_gate.php`, `api/pix.php`, `api/status.php`, `api/catalogo.php`, `api/webhook.php` e o
+`Dockerfile` — todos conferidos por sha256 antes e depois. A linha de venda com marca continua
+exatamente como estava: `/checkout.html` sem marca → 302, `/api/catalogo.php` sem marca → 404.
+
+### Regras que valem para a linha nova
+
+- **Preço decidido no servidor, por SKU.** A tabela do gerador escreve, ao mesmo tempo, o HTML da
+  vitrine e `api/_loja_tabela.php`. Preço enviado pelo cliente é ignorado (provado: cliente mandou
+  1 centavo, servidor cobrou R$ 109,80).
+- **Total = produto + frete**, os dois como linhas separadas na cobrança.
+- **Dado do comprador:** o endereço completo vai no corpo da cobrança (é de lá que sai o despacho).
+  O que fica gravado aqui é resumo **mascarado na escrita** — nome e rua viram iniciais, e-mail,
+  CPF, telefone e CEP passam pela mesma máscara do webhook. Nenhuma rota devolve dado de comprador.
+- **`/api/loja_status.php` só responde sobre cobrança desta linha** (id de fora → 404), para não
+  virar consulta de status de qualquer cobrança da conta.
+- **Teto de 20 pedidos por origem/hora** — a rota é aberta na internet.
+
+### Pendente (não inventado)
+
+O parceiro de produção/envio (impressão sob demanda) **ainda não tem credencial provisionada** e o
+código de cada peça no catálogo dele não existe. Por isso `cp_loja_producao()` está **dormente**,
+sem chamar endereço nenhum e sem `sku_id` inventado. Enquanto isso o despacho sai do painel do
+processador de pagamento, que recebe o endereço completo. Quando a credencial existir, será preciso
+decidir de onde essa função lê o endereço — o registro local é mascarado de propósito.
+
+**Validação da rodada** (`scripts/_checkpoint_loja_fisica_qa.py`, `scripts/_checkpoint_overflow_qa.py`):
+
+- **62/62 checks**, jornada em browser real com gateway FALSO — nenhum POST ao processador de verdade
+- payload interceptado: `amount=10980` = tela; endereço completo; `gclid` em `externalRef` e em
+  `metadata`; item da camiseta `tangible: true`; frete como linha própria
+- registro em disco varrido: **0** ocorrência de nome, e-mail, CPF, telefone, CEP ou rua
+- gerador rodado **2×** → sha256 idêntico nos 6 arquivos gerados
+- **0 overflow** em 24 páginas × 360/412 px

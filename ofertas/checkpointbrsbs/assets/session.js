@@ -122,10 +122,10 @@
     } catch (e) { return url; }
   }
 
-  // Quais links carregam a origem adiante: os passos internos que levam ao
-  // pedido. Os dois precisam entrar — se um ficar de fora, a informacao se
-  // perde no meio do caminho e o pedido chega sem referencia nenhuma.
-  var ALVO_RE = /(^|\/)go\/|checkout/i;
+  // Quais links carregam a origem adiante: os passos internos que levam a um
+  // pedido. Todos precisam entrar — se um ficar de fora, a informacao se perde
+  // no meio do caminho e o pedido chega sem referencia nenhuma.
+  var ALVO_RE = /(^|\/)go\/|checkout|(^|\/)loja\//i;
 
   function alvo(a) {
     if (!a || !a.getAttribute) return false;

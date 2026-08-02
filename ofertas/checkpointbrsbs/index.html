@@ -118,6 +118,25 @@ footer p{color:#c9c4b4;font-size:.85rem}
 }
 @media (max-width:560px){.lead-card h1{font-size:1.95rem}.grid-dense{grid-template-columns:1fr;grid-template-areas:"a" "b" "c" "d"}}
 
+.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:26px}
+.pf-card{border:1px solid var(--ink);background:var(--paper-2);display:flex;flex-direction:column}
+.pf-arte{aspect-ratio:4/3;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-bottom:1px solid var(--ink);padding:14px;text-align:center}
+.pf-arte .pf-mono{font-family:var(--font-display);font-size:2.9rem;font-weight:700;line-height:1;letter-spacing:.04em}
+.pf-arte .pf-tag{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;border-top:1px solid #55524a;padding-top:8px;max-width:100%;overflow-wrap:anywhere}
+.pf-arte-a .pf-mono{color:var(--crimson)}
+.pf-arte-b .pf-mono{color:var(--mustard)}
+.pf-arte-c .pf-mono{color:#7fae95}
+.pf-corpo{padding:22px 24px;display:flex;flex-direction:column;flex:1}
+.pf-corpo h3{font-family:var(--font-display);font-size:1.25rem;margin:0 0 8px;line-height:1.15}
+.pf-corpo p{margin:0 0 14px;color:#3a372c;font-size:.97rem}
+.pf-preco{font-family:var(--font-display);font-size:1.9rem;line-height:1;margin:auto 0 4px}
+.pf-frete{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;color:#54503f;margin:0 0 16px;line-height:1.7}
+.pf-frete span{display:block}
+.pf-card .btn{align-self:flex-start}
+.pf-nota{font-family:var(--font-mono);font-size:.74rem;color:#6b6752;margin-top:22px;line-height:1.8}
+@media (max-width:880px){.pf-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pf-grid{grid-template-columns:1fr}.pf-arte .pf-mono{font-size:2.4rem}}
+
 /* --- chrome v2 (loja) --- */
 a.logo{display:inline-block;color:var(--ink);border-bottom:none}
 a.logo:hover span{color:var(--forest)}
@@ -243,6 +262,79 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     </article>
   </section>
 
+  <div class="section-head" id="produtos">
+    <h2>Loja Checkpoint</h2>
+    <div class="rule"></div>
+    <span class="count">03 produtos &middot; envio para todo o Brasil</span>
+  </div>
+
+  <p class="lead-dek">Camiseta, caneca e pôster com arte da nossa própria linha, impressos sob
+  demanda. Preço à vista em PIX, frete único de <span data-frete>R$ 19,90</span> e entrega
+  em até 20 dias úteis. É só escolher o produto e fechar o pedido aqui mesmo.</p>
+
+  <section class="pf-grid">
+    <article class="pf-card">
+      <div class="pf-arte pf-arte-a" role="img" aria-label="Prévia da estampa: monograma CB acima da palavra Save Point, em fundo escuro">
+        <span class="pf-mono">CB</span>
+        <span class="pf-tag">SAVE POINT</span>
+      </div>
+      <div class="pf-corpo">
+        <h3>Camiseta Save Point</h3>
+        <p>Camiseta de algodão com a estampa Save Point, desenhada pela equipe da loja.</p>
+        <p class="pf-preco" data-preco="camiseta-save-point">R$ 89,90</p>
+        <p class="pf-frete"><span>+ R$ 19,90 de frete para todo o Brasil</span><span>Entrega em até 20 dias úteis</span></p>
+        <a class="btn" href="/loja/pedido.html?sku=camiseta-save-point">Comprar</a>
+      </div>
+    </article>
+    <article class="pf-card">
+      <div class="pf-arte pf-arte-b" role="img" aria-label="Prévia da arte: monograma CB acima da palavra Continue com ponto de interrogação">
+        <span class="pf-mono">CB</span>
+        <span class="pf-tag">CONTINUE?</span>
+      </div>
+      <div class="pf-corpo">
+        <h3>Caneca Continue?</h3>
+        <p>Caneca de cerâmica de 325 ml com a arte Continue?, da linha própria da loja.</p>
+        <p class="pf-preco" data-preco="caneca-continue">R$ 59,90</p>
+        <p class="pf-frete"><span>+ R$ 19,90 de frete para todo o Brasil</span><span>Entrega em até 20 dias úteis</span></p>
+        <a class="btn" href="/loja/pedido.html?sku=caneca-continue">Comprar</a>
+      </div>
+    </article>
+    <article class="pf-card">
+      <div class="pf-arte pf-arte-c" role="img" aria-label="Prévia da arte: monograma CB acima da inscrição Fase 01">
+        <span class="pf-mono">CB</span>
+        <span class="pf-tag">FASE 01</span>
+      </div>
+      <div class="pf-corpo">
+        <h3>Pôster A3 Fase 01</h3>
+        <p>Pôster A3 em papel fosco de 250 g com a arte Fase 01, composta pela loja.</p>
+        <p class="pf-preco" data-preco="poster-fase-01">R$ 49,90</p>
+        <p class="pf-frete"><span>+ R$ 19,90 de frete para todo o Brasil</span><span>Entrega em até 20 dias úteis</span></p>
+        <a class="btn" href="/loja/pedido.html?sku=poster-fase-01">Comprar</a>
+      </div>
+    </article>
+  </section>
+
+  <p class="pf-nota">Compra direta: escolha, preencha o endereço e pague em PIX &mdash; sem
+  cadastro e sem etapa intermediária. <a href="/loja/">Ver a loja completa</a> &middot;
+  <a href="/trocas.html">Trocas, prazo e arrependimento em 7 dias</a></p>
+<script>
+(function(){
+  'use strict';
+  fetch('/api/loja_catalogo.php',{headers:{Accept:'application/json'}})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(d){
+      if(!d||!d.ok||!d.itens){return;}
+      for(var i=0;i<d.itens.length;i++){
+        var el=document.querySelector('[data-preco="'+d.itens[i].sku+'"]');
+        if(el){el.textContent=d.itens[i].preco_br;}
+      }
+      var f=document.querySelectorAll('[data-frete]');
+      for(var j=0;j<f.length;j++){f[j].textContent=d.frete_br;}
+    })
+    .catch(function(){});
+})();
+</script>
+
   <blockquote class="pull-quote">
     <p>"Reserva cancelada até 72 horas antes da liberação é desfeita sem custo, e a regra é a mesma para as quatro modalidades. Escrevemos isso antes de abrir a primeira reserva, e está na página de trocas — não no rodapé em letra miúda."</p>
     <cite>&mdash; <a href="trocas.html">Política de trocas e reembolso</a></cite>
@@ -296,6 +388,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <div>
       <h4>Loja</h4>
       <ul>
+        <li><a href="/loja/">Camiseta, caneca e pôster</a></li>
         <li><a href="catalogo.html">Catálogo</a></li>
         <li><a href="como-funciona.html">Como funciona a reserva</a></li>
         <li><a href="trocas.html">Trocas e reembolso</a></li>

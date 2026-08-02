@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Fechar pedido — Loja Checkpoint</title>
+<meta name="description" content="Pagamento em PIX à vista do produto escolhido na Loja Checkpoint, com o total e o frete conferidos antes de gerar o código.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://checkpointbr.sbs/loja/pedido.html">
+<meta property="og:title" content="Fechar pedido — Loja Checkpoint">
+<meta property="og:description" content="Pagamento em PIX à vista do produto escolhido na Loja Checkpoint, com o total e o frete conferidos antes de gerar o código.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/_hero.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f2ede4; --paper-2:#e9e2d2;
+  --crimson:#b3272c; --forest:#2c4a3e; --mustard:#c98a2c; --rule:#cfc6b4;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:'Trebuchet MS','Lucida Grande',sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--forest);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.masthead{padding:22px 0 0}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:14px;gap:20px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
+.logo span{color:var(--crimson)}
+.masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
+nav.primary{display:flex;gap:22px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary a{color:var(--ink)}
+nav.primary a:hover{color:var(--crimson)}
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px;color:var(--crimson)}
+.k-analises{color:var(--crimson)}
+.k-guias{color:var(--forest)}
+.k-hardware{color:var(--mustard)}
+.k-historia,.k-cultura{color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:2px}
+.section-head{display:flex;align-items:baseline;gap:16px;margin:56px 0 26px}
+.section-head h2{font-family:var(--font-display);font-size:1.5rem;white-space:nowrap;margin:0}
+.section-head .rule{flex:1;border-top:1px solid var(--ink)}
+.section-head .count{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;white-space:nowrap}
+.article-page{padding:44px 0 70px}
+.article-page h1{font-family:var(--font-display);font-size:2.7rem;line-height:1.05;margin:0 0 18px;max-width:22ch}
+.article-page .lead-dek{font-size:1.15rem;margin-bottom:30px;max-width:62ch;color:#3a372c}
+.legal-content{max-width:70ch}
+.legal-content h2{font-family:var(--font-display);font-size:1.35rem;margin:38px 0 12px;border-top:1px solid var(--rule);padding-top:24px}
+.legal-content h2:first-of-type{border-top:none;padding-top:0;margin-top:0}
+.legal-content p{margin:0 0 16px;color:#3a372c}
+.legal-content ul{margin:0 0 16px;padding-left:22px;color:#3a372c}
+.legal-content li{margin-bottom:8px}
+.updated{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;text-transform:uppercase;letter-spacing:.04em;margin-bottom:30px}
+footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+footer a{color:var(--paper);opacity:.85}
+footer a:hover{opacity:1;border-bottom-color:currentColor}
+footer p{color:#c9c4b4;font-size:.85rem}
+.foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
+.legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media (max-width:560px){.logo{font-size:1.9rem}.article-page h1{font-size:1.95rem}}
+
+.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:26px}
+.pf-card{border:1px solid var(--ink);background:var(--paper-2);display:flex;flex-direction:column}
+.pf-arte{aspect-ratio:4/3;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-bottom:1px solid var(--ink);padding:14px;text-align:center}
+.pf-arte .pf-mono{font-family:var(--font-display);font-size:2.9rem;font-weight:700;line-height:1;letter-spacing:.04em}
+.pf-arte .pf-tag{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;border-top:1px solid #55524a;padding-top:8px;max-width:100%;overflow-wrap:anywhere}
+.pf-arte-a .pf-mono{color:var(--crimson)}
+.pf-arte-b .pf-mono{color:var(--mustard)}
+.pf-arte-c .pf-mono{color:#7fae95}
+.pf-corpo{padding:22px 24px;display:flex;flex-direction:column;flex:1}
+.pf-corpo h3{font-family:var(--font-display);font-size:1.25rem;margin:0 0 8px;line-height:1.15}
+.pf-corpo p{margin:0 0 14px;color:#3a372c;font-size:.97rem}
+.pf-preco{font-family:var(--font-display);font-size:1.9rem;line-height:1;margin:auto 0 4px}
+.pf-frete{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;color:#54503f;margin:0 0 16px;line-height:1.7}
+.pf-frete span{display:block}
+.pf-card .btn{align-self:flex-start}
+.pf-nota{font-family:var(--font-mono);font-size:.74rem;color:#6b6752;margin-top:22px;line-height:1.8}
+@media (max-width:880px){.pf-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pf-grid{grid-template-columns:1fr}.pf-arte .pf-mono{font-size:2.4rem}}
+
+.pd-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:30px;align-items:start;margin-top:8px}
+.pd-box{border:1px solid var(--ink);background:var(--paper-2);padding:26px 28px}
+.pd-box h2{font-family:var(--font-display);font-size:1.3rem;margin:0 0 10px}
+.pd-box p{color:#3a372c;margin:0 0 12px}
+.pd-load{font-family:var(--font-mono);font-size:.8rem;color:#6b6752}
+.pd-linha{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--rule);padding:10px 0;font-size:.97rem;color:#3a372c}
+.pd-total{border-top:2px solid var(--ink);margin-top:6px;padding-top:14px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.pd-total span{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#54503f}
+.pd-total strong{font-family:var(--font-display);font-size:2rem;line-height:1}
+.pd-nota{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;color:#6b6752;line-height:1.7}
+.pd-campo{display:block;margin:0 0 15px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#54503f}
+.pd-campo input,.pd-campo select{display:block;width:100%;margin-top:7px;padding:13px 12px;border:1px solid var(--ink);background:var(--paper);font-family:var(--font-body);font-size:1rem;color:var(--ink)}
+.pd-campo input:focus,.pd-campo select:focus{outline:2px solid var(--forest);outline-offset:1px}
+.pd-campo.erro input,.pd-campo.erro select{border-color:var(--crimson);border-width:2px}
+.pd-campo em{display:block;font-style:normal;text-transform:none;letter-spacing:0;font-family:var(--font-body);font-size:.85rem;color:var(--crimson);margin-top:6px}
+.pd-dupla{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.pd-tripla{display:grid;grid-template-columns:1.4fr 1fr;gap:0 14px}
+.pd-sub{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);margin:26px 0 12px;border-top:1px solid var(--rule);padding-top:18px}
+.pd-erro{border-left:4px solid var(--crimson);padding:12px 16px;background:#f7e9e6;color:#3a372c;margin:0 0 16px}
+#pd-btn{width:100%;text-align:center;margin-top:6px}
+#pd-btn[disabled]{opacity:.55;cursor:progress}
+.pd-pix{margin-top:30px;border-width:2px}
+.pd-codigo{width:100%;font-family:var(--font-mono);font-size:.82rem;padding:14px;border:1px solid var(--ink);background:var(--paper);word-break:break-all;min-height:96px;color:var(--ink)}
+.pd-pago{border-left:6px solid var(--forest);padding:16px 20px;background:#e6efe9;margin-top:18px}
+.pd-passos{padding-left:20px;color:#3a372c}
+.pd-passos li{margin-bottom:7px}
+@media (max-width:880px){.pd-grid{grid-template-columns:1fr}}
+@media (max-width:560px){.pd-dupla,.pd-tripla{grid-template-columns:1fr}}
+
+/* --- chrome v2 (loja) --- */
+a.logo{display:inline-block;color:var(--ink);border-bottom:none}
+a.logo:hover span{color:var(--forest)}
+nav.primary{padding:2px 28px 6px;gap:24px}
+nav.primary a{display:inline-block;padding:17px 0;line-height:1.15}
+nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--crimson)}
+.btn{display:inline-block;font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;padding:16px 28px;background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+.btn:hover{background:var(--crimson);border-color:var(--crimson);border-bottom-color:var(--crimson)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.legal-bar a{color:#b9b4a2}
+/* .wrap da a margem lateral (padding:0 28px); .article-page vinha depois com a
+   MESMA especificidade e o shorthand `padding:44px 0 70px` zerava essa margem.
+   Como o markup e <main class="wrap article-page">, o texto encostava na borda
+   da tela no celular. Especificidade 0,0,2,0 devolve os 28px sem mexer no
+   espaco vertical. */
+.wrap.article-page{padding:44px 28px 70px}
+@media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+/* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
+@media (max-width:560px){.section-head{flex-wrap:wrap;gap:4px 14px}.section-head h2{white-space:normal}.section-head .rule{min-width:24px}.section-head .count{white-space:normal;flex:1 0 100%;order:3}}
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a href="/" class="logo">Check<span>point</span> BR</a>
+    <p class="masthead-meta">Loja de jogos digitais &mdash; reserva e pr&eacute;-venda<br>Chave enviada por e-mail &middot; atendimento de segunda a sexta</p>
+  </div>
+  <nav class="wrap primary">
+    <a href="/">Início</a>
+    <a href="/catalogo.html">Catálogo</a>
+    <a href="/como-funciona.html">Como funciona</a>
+    <a href="/blog.html">Blog</a>
+    <a href="/glossario.html">Glossário</a>
+    <a href="/contato.html">Atendimento</a>
+  </nav>
+</header>
+
+<main class="wrap article-page">
+  <span class="kicker">Pedido</span>
+  <h1>Fechar pedido</h1>
+  <p class="lead-dek">Pagamento em PIX à vista. O total com frete aparece abaixo antes de você
+  gerar o código &mdash; é exatamente ele que o aplicativo do banco vai cobrar, sem nenhuma taxa
+  acrescentada depois.</p>
+
+  <div class="pd-grid">
+    <section class="pd-box" id="pd-item" aria-live="polite">
+      <p class="pd-load">Carregando o produto escolhido&hellip;</p>
+    </section>
+
+    <form class="pd-box" id="pd-form" novalidate>
+      <h2>Entrega</h2>
+      <p class="pd-nota">Precisamos destes dados para emitir a cobrança e despachar o pacote</p>
+      <p class="pd-erro" id="pd-erro" hidden></p>
+
+      <label class="pd-campo" id="c-nome">Nome completo
+        <input type="text" name="nome" autocomplete="name" required maxlength="120">
+      </label>
+      <label class="pd-campo" id="c-email">E-mail
+        <input type="email" name="email" autocomplete="email" required maxlength="160"
+               inputmode="email">
+      </label>
+      <div class="pd-dupla">
+        <label class="pd-campo" id="c-cpf">CPF
+          <input type="text" name="cpf" autocomplete="off" required maxlength="14"
+                 inputmode="numeric">
+        </label>
+        <label class="pd-campo" id="c-telefone">Telefone com DDD
+          <input type="text" name="telefone" autocomplete="tel" required maxlength="16"
+                 inputmode="tel">
+        </label>
+      </div>
+
+      <p class="pd-sub">Endereço de entrega</p>
+      <div class="pd-dupla">
+        <label class="pd-campo" id="c-cep">CEP
+          <input type="text" name="cep" autocomplete="postal-code" required maxlength="9"
+                 inputmode="numeric">
+        </label>
+        <label class="pd-campo" id="c-numero">Número
+          <input type="text" name="numero" autocomplete="address-line2" required maxlength="12">
+        </label>
+      </div>
+      <label class="pd-campo" id="c-rua">Rua ou avenida
+        <input type="text" name="rua" autocomplete="address-line1" required maxlength="120">
+      </label>
+      <label class="pd-campo" id="c-complemento">Complemento (opcional)
+        <input type="text" name="complemento" autocomplete="address-line3" maxlength="60">
+      </label>
+      <label class="pd-campo" id="c-bairro">Bairro
+        <input type="text" name="bairro" required maxlength="80">
+      </label>
+      <div class="pd-tripla">
+        <label class="pd-campo" id="c-cidade">Cidade
+          <input type="text" name="cidade" autocomplete="address-level2" required maxlength="80">
+        </label>
+        <label class="pd-campo" id="c-uf">UF
+          <input type="text" name="uf" autocomplete="address-level1" required maxlength="2">
+        </label>
+      </div>
+
+      <button class="btn" type="submit" id="pd-btn">Gerar código PIX</button>
+      <p class="pd-nota" style="margin-top:14px">Nada é cobrado até você pagar no app do banco.
+      Dúvida antes de fechar? <a href="/contato.html">fale com a gente</a>.</p>
+    </form>
+  </div>
+
+  <section class="pd-box pd-pix" id="pd-pix" hidden aria-live="polite">
+    <h2>Pague com PIX</h2>
+    <div class="pd-total"><span>Valor da cobrança</span><strong id="pd-pix-valor">&mdash;</strong></div>
+    <p id="pd-pix-item" style="margin-top:14px"></p>
+    <ol class="pd-passos">
+      <li>Abra o aplicativo do seu banco e escolha <strong>PIX &rsaquo; Copia e Cola</strong>.</li>
+      <li>Cole o código abaixo e confira se o valor bate com o desta página.</li>
+      <li>Confirme. Esta página avisa sozinha assim que o pagamento cair.</li>
+    </ol>
+    <textarea class="pd-codigo" id="pd-codigo" readonly rows="4"></textarea>
+    <p style="margin-top:12px">
+      <button class="btn btn-ghost" type="button" id="pd-copiar">Copiar código</button>
+    </p>
+    <p class="pd-nota" id="pd-espera">Aguardando a confirmação do banco&hellip;</p>
+    <div class="pd-pago" id="pd-pago" hidden>
+      <p><strong>Pagamento confirmado.</strong> O acompanhamento do envio vai para o e-mail
+      informado. Guarde o número do pedido: <span id="pd-pedido" class="pd-nota"></span></p>
+    </div>
+  </section>
+</main>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s) { return document.querySelector(s); };
+  var item = null, opcao = '', poll = null;
+
+  function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : t; return d.innerHTML; }
+
+  var sku = (new URLSearchParams(location.search).get('sku') || '').replace(/[^a-z0-9\-]/g, '');
+
+  function falhaCatalogo() {
+    $('#pd-item').innerHTML = '<h2>Produto não encontrado</h2>' +
+      '<p>Este endereço não corresponde a nenhum produto do catálogo. ' +
+      'Escolha o que você quer na <a href="/loja/">página da loja</a>.</p>';
+    $('#pd-btn').disabled = true;
+  }
+
+  fetch('/api/loja_catalogo.php?sku=' + encodeURIComponent(sku), { headers: { Accept: 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.ok || !d.itens || !d.itens.length) { return falhaCatalogo(); }
+      item = d.itens[0];
+      opcao = (item.opcoes && item.opcoes.length) ? item.opcoes[0] : '';
+      pintar();
+    })
+    .catch(falhaCatalogo);
+
+  function pintar() {
+    var p = item, h = '';
+    h += '<h2>' + esc(p.nome) + '</h2>';
+    h += '<p>' + esc(p.resumo) + '</p>';
+    if (p.opcoes && p.opcoes.length) {
+      h += '<label class="pd-campo" id="c-opcao">' + esc(p.opcao_label);
+      h += '<select name="opcao" id="pd-opcao">';
+      for (var i = 0; i < p.opcoes.length; i++) {
+        h += '<option value="' + esc(p.opcoes[i]) + '"' +
+             (p.opcoes[i] === opcao ? ' selected' : '') + '>' + esc(p.opcoes[i]) + '</option>';
+      }
+      h += '</select></label>';
+    }
+    h += '<div class="pd-linha"><span>Produto</span><span>' + esc(p.preco_br) + '</span></div>';
+    h += '<div class="pd-linha"><span>Frete para todo o Brasil</span><span>' + esc(p.frete_br) + '</span></div>';
+    h += '<div class="pd-linha"><span>Forma de pagamento</span><span>PIX à vista</span></div>';
+    h += '<div class="pd-total"><span>Você paga</span><strong>' + esc(p.total_br) + '</strong></div>';
+    h += '<p class="pd-nota" style="margin-top:12px">Entrega em ' + esc(p.prazo) +
+         ', contados da confirmação do pagamento. Este é o valor que vai no código PIX.</p>';
+    $('#pd-item').innerHTML = h;
+
+    var sel = $('#pd-opcao');
+    if (sel) { sel.addEventListener('change', function (ev) { opcao = ev.target.value; }); }
+  }
+
+  // ── envio do pedido ────────────────────────────────────────────────────────
+  function marcarErro(id, msg) {
+    var el = $(id); if (!el) { return; }
+    el.classList.add('erro');
+    var em = el.querySelector('em');
+    if (!em) { em = document.createElement('em'); el.appendChild(em); }
+    em.textContent = msg;
+  }
+  function limparErros() {
+    var ls = document.querySelectorAll('.pd-campo');
+    for (var i = 0; i < ls.length; i++) {
+      ls[i].classList.remove('erro');
+      var em = ls[i].querySelector('em'); if (em) { em.remove(); }
+    }
+    $('#pd-erro').hidden = true;
+  }
+  function falhar(msg) {
+    var e = $('#pd-erro'); e.textContent = msg; e.hidden = false;
+    try { e.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) {}
+    $('#pd-btn').disabled = false;
+    $('#pd-btn').textContent = 'Gerar código PIX';
+  }
+
+  var OBRIGATORIOS = [
+    ['nome', '#c-nome', 'Escreva seu nome completo.'],
+    ['email', '#c-email', 'Escreva um e-mail válido.'],
+    ['cpf', '#c-cpf', 'O CPF precisa ter 11 dígitos.'],
+    ['telefone', '#c-telefone', 'Informe DDD e número.'],
+    ['cep', '#c-cep', 'O CEP precisa ter 8 dígitos.'],
+    ['rua', '#c-rua', 'Escreva o nome da rua ou avenida.'],
+    ['numero', '#c-numero', 'Informe o número (ou escreva S/N).'],
+    ['bairro', '#c-bairro', 'Informe o bairro.'],
+    ['cidade', '#c-cidade', 'Informe a cidade.'],
+    ['uf', '#c-uf', 'Informe a UF com duas letras.']
+  ];
+
+  $('#pd-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    limparErros();
+    if (!item) { return falhar('Escolha um produto do catálogo antes de continuar.'); }
+
+    var f = ev.target, v = {}, i;
+    for (i = 0; i < OBRIGATORIOS.length; i++) {
+      v[OBRIGATORIOS[i][0]] = (f[OBRIGATORIOS[i][0]].value || '').trim();
+    }
+    v.complemento = (f.complemento.value || '').trim();
+
+    var ruim = false;
+    for (i = 0; i < OBRIGATORIOS.length; i++) {
+      if (!v[OBRIGATORIOS[i][0]]) { marcarErro(OBRIGATORIOS[i][1], OBRIGATORIOS[i][2]); ruim = true; }
+    }
+    if (v.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)) {
+      marcarErro('#c-email', 'Escreva um e-mail válido.'); ruim = true;
+    }
+    if (v.cpf && v.cpf.replace(/\D/g, '').length !== 11) {
+      marcarErro('#c-cpf', 'O CPF precisa ter 11 dígitos.'); ruim = true;
+    }
+    if (v.cep && v.cep.replace(/\D/g, '').length !== 8) {
+      marcarErro('#c-cep', 'O CEP precisa ter 8 dígitos.'); ruim = true;
+    }
+    if (ruim) { return; }
+
+    var o = window.__origin;
+    var corpo = {
+      sku: item.sku,
+      opcao: opcao,
+      cliente: { nome: v.nome, email: v.email, cpf: v.cpf, telefone: v.telefone },
+      entrega: {
+        cep: v.cep, rua: v.rua, numero: v.numero, complemento: v.complemento,
+        bairro: v.bairro, cidade: v.cidade, uf: v.uf
+      },
+      attr: o ? o.params() : {},
+      clickId: o ? o.id() : '',
+      clickType: o ? o.tipo() : ''
+    };
+
+    $('#pd-btn').disabled = true;
+    $('#pd-btn').textContent = 'Gerando…';
+
+    fetch('/api/loja_pix.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(corpo)
+    }).then(function (r) {
+      return r.json().catch(function () { return null; }).then(function (d) { return { r: r, d: d }; });
+    }).then(function (x) {
+      var d = x.d;
+      if (!x.r.ok || !d || !d.ok) {
+        if (d && d.campos) {
+          for (var k in d.campos) {
+            if (Object.prototype.hasOwnProperty.call(d.campos, k)) { marcarErro('#c-' + k, d.campos[k]); }
+          }
+        }
+        return falhar((d && d.erro) || 'Não foi possível gerar o PIX agora e nada foi cobrado. '
+          + 'Tente de novo em alguns instantes ou escreva para contato@checkpointbr.sbs.');
+      }
+      mostrarPix(d);
+    }).catch(function () {
+      falhar('Não conseguimos falar com o servidor e nada foi cobrado. '
+        + 'Confira a conexão e toque de novo em “Gerar código PIX”.');
+    });
+  });
+
+  // ── tela do PIX ────────────────────────────────────────────────────────────
+  function mostrarPix(d) {
+    $('#pd-form').hidden = true;
+    $('#pd-item').hidden = true;
+    var s = $('#pd-pix');
+    s.hidden = false;
+    $('#pd-pix-valor').textContent = d.total_br;
+    $('#pd-pix-item').textContent = d.item + ' — produto ' + d.preco_br + ' + frete ' +
+      d.frete_br + ' — entrega em ' + d.prazo;
+    $('#pd-codigo').value = d.qrcode;
+    $('#pd-pedido').textContent = d.pedido;
+    try { s.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) {}
+    if (d.id) { acompanhar(d.id); }
+  }
+
+  $('#pd-copiar').addEventListener('click', function () {
+    var c = $('#pd-codigo');
+    c.focus(); c.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (_) {}
+    if (!ok && navigator.clipboard) {
+      navigator.clipboard.writeText(c.value).then(function () {
+        $('#pd-copiar').textContent = 'Código copiado';
+      });
+      return;
+    }
+    $('#pd-copiar').textContent = ok ? 'Código copiado' : 'Selecione e copie o código acima';
+  });
+
+  function acompanhar(id) {
+    var fim = Date.now() + 30 * 60 * 1000;
+    poll = setInterval(function () {
+      if (Date.now() > fim) { clearInterval(poll); $('#pd-espera').textContent =
+        'Se você já pagou, a confirmação chega por e-mail assim que o banco liberar.'; return; }
+      fetch('/api/loja_status.php?id=' + encodeURIComponent(id), { headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (d && d.pago) {
+            clearInterval(poll);
+            $('#pd-espera').hidden = true;
+            $('#pd-pago').hidden = false;
+          }
+        }).catch(function () {});
+    }, 6000);
+  }
+})();
+</script>
+
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="foot-logo">Checkpoint BR</p>
+      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente, com código de resgate entregue por e-mail. O blog é escrito pela nossa própria equipe.</p>
+    </div>
+    <div>
+      <h4>Loja</h4>
+      <ul>
+        <li><a href="/loja/">Camiseta, caneca e pôster</a></li>
+        <li><a href="/catalogo.html">Catálogo</a></li>
+        <li><a href="/como-funciona.html">Como funciona a reserva</a></li>
+        <li><a href="/trocas.html">Trocas e reembolso</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/glossario.html">Glossário</a></li>
+        <li><a href="/avisos.html">Aviso por e-mail</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Ajuda e legal</h4>
+      <ul>
+        <li><a href="/contato.html">Falar com a gente</a></li>
+        <li><a href="/faq.html">Perguntas frequentes</a></li>
+        <li><a href="/sobre.html">Sobre a loja</a></li>
+        <li><a href="/privacidade.html">Privacidade</a></li>
+        <li><a href="/termos.html">Termos e condições de venda</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal-bar">
+    <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
+    <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
+  </div>
+  <script src="/assets/session.js"></script>
+</footer>
+</body>
+</html>
