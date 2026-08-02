@@ -72,20 +72,35 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 @media (max-width:880px){ footer .wrap{grid-template-columns:1fr 1fr} }
 @media (max-width:560px){ .logo{font-size:1.9rem} .article-page h1{font-size:1.9rem} nav.primary{flex-wrap:wrap;gap:14px} .related-list{flex-direction:column} .spec-table{font-size:.8rem} }
+
+/* --- chrome v2 (loja) --- */
+a.logo{display:inline-block;color:var(--ink);border-bottom:none}
+a.logo:hover span{color:var(--forest)}
+nav.primary{padding:2px 28px 6px;gap:24px}
+nav.primary a{display:inline-block;padding:17px 0;line-height:1.15}
+nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--crimson)}
+.btn{display:inline-block;font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;padding:16px 28px;background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+.btn:hover{background:var(--crimson);border-color:var(--crimson);border-bottom-color:var(--crimson)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.legal-bar a{color:#b9b4a2}
+@media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
 </style>
 </head>
 <body>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <p class="logo">Check<span>point</span> BR</p>
-    <p class="masthead-meta">Edição de 16 de julho de 2026<br>Jornalismo de games — redação independente</p>
+    <a href="/" class="logo">Check<span>point</span> BR</a>
+    <p class="masthead-meta">Loja de jogos digitais &mdash; reserva e pr&eacute;-venda<br>Chave enviada por e-mail &middot; atendimento de segunda a sexta</p>
   </div>
   <nav class="wrap primary">
-    <a href="safe.html">Início</a>
+    <a href="/">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="como-funciona.html">Como funciona</a>
+    <a href="blog.html" class="is-active">Blog</a>
     <a href="glossario.html">Glossário</a>
-    <a href="app.html">App</a>
-    <a href="sobre.html">Sobre</a>
-    <a href="faq.html">FAQ</a>
+    <a href="contato.html">Atendimento</a>
   </nav>
 </header>
 
@@ -93,7 +108,7 @@ footer p{color:#c9c4b4;font-size:.85rem}
   <span class="kicker">Hardware</span>
   <h1>Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder</h1>
   <p class="lead-dek">Comparamos autonomia de bateria, ruído da ventoinha e desempenho em oito jogos nos três aparelhos que dividiram o primeiro semestre de 2026. Nenhum dos três vence em todas as categorias — e a resposta da Nintendo joga em outro tabuleiro.</p>
-  <span class="byline">Por Larissa Nogueira — 29 de junho de 2026 — 10 min de leitura</span>
+  <span class="byline">Redação Checkpoint BR — 29 de junho de 2026 — leitura de 10 minutos</span>
 
   <img class="cover-img" src="img/hardware-portateis-2026-steam-deck.jpg" alt="Três consoles portáteis de jogos lado a lado sobre mesa de madeira para comparação" loading="lazy" width="900" height="500">
 
@@ -157,34 +172,38 @@ footer p{color:#c9c4b4;font-size:.85rem}
   <div class="wrap">
     <div>
       <p class="foot-logo">Checkpoint BR</p>
-      <p>Redação independente de jornalismo de games, fundada em 2024. Cobrimos análises, história de franquias, hardware e cultura gamer com apuração própria.</p>
+      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente com código entregue por e-mail, pagos no PIX à vista ou parcelado. O blog é escrito pela nossa própria equipe.</p>
     </div>
     <div>
-      <h4>Seções</h4>
+      <h4>Loja</h4>
       <ul>
-        <li><a href="safe.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo e preços</a></li>
+        <li><a href="como-funciona.html">Como funciona a reserva</a></li>
+        <li><a href="trocas.html">Trocas e reembolso</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
         <li><a href="app.html">App Checkpoint</a></li>
       </ul>
     </div>
     <div>
-      <h4>Redação</h4>
+      <h4>Ajuda e legal</h4>
       <ul>
-        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="contato.html">Falar com a gente</a></li>
         <li><a href="faq.html">Perguntas frequentes</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Legal</h4>
-      <ul>
+        <li><a href="sobre.html">Sobre a loja</a></li>
         <li><a href="privacidade.html">Privacidade</a></li>
-        <li><a href="termos.html">Termos de uso</a></li>
+        <li><a href="termos.html">Termos e condições de venda</a></li>
       </ul>
     </div>
   </div>
   <div class="legal-bar">
-    <span>© 2026 Checkpoint BR — LEVEL UP MEDIA LTDA · CNPJ 68.180.122/0001-40</span>
-    <span>Uberlândia/MG · Publicação de conteúdo, sem comércio eletrônico.</span>
+    <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
+    <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
   </div>
 </footer>
 </body>

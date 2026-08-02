@@ -2,14 +2,14 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Política de privacidade — Checkpoint BR</title>
-<meta name="description" content="Que dado a loja recebe para entregar um pedido digital, por quanto tempo guarda, com quem compartilha e como exercer os direitos previstos na LGPD.">
+<title>Trocas, cancelamento e reembolso — Checkpoint BR</title>
+<meta name="description" content="Direito de arrependimento em 7 dias, cancelamento de reserva com devolução integral, troca de código que não resgata e prazo de estorno no PIX.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://checkpointbr.sbs/privacidade.html">
-<meta property="og:title" content="Política de privacidade — Checkpoint BR">
-<meta property="og:description" content="Como tratamos dado de acesso e de e-mail de aviso, em conformidade com a LGPD.">
-<meta property="og:image" content="https://checkpointbr.sbs/img/_hero.jpg">
+<link rel="canonical" href="https://checkpointbr.sbs/trocas.html">
+<meta property="og:title" content="Trocas, cancelamento e reembolso — Checkpoint BR">
+<meta property="og:description" content="Direito de arrependimento em 7 dias, cancelamento de reserva com devolução integral, troca de código que não resgata e prazo de estorno no PIX.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/_entrega.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
 <style>
@@ -31,13 +31,21 @@ a:hover{border-bottom-color:currentColor}
 .logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
 .logo span{color:var(--crimson)}
 .masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
-nav.primary{display:flex;gap:22px;padding:10px 0 16px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary{display:flex;gap:22px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
 nav.primary a{color:var(--ink)}
 nav.primary a:hover{color:var(--crimson)}
 .kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px;color:var(--crimson)}
+.k-analises{color:var(--crimson)}
+.k-guias{color:var(--forest)}
+.k-hardware{color:var(--mustard)}
+.k-historia,.k-cultura{color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:2px}
+.section-head{display:flex;align-items:baseline;gap:16px;margin:56px 0 26px}
+.section-head h2{font-family:var(--font-display);font-size:1.5rem;white-space:nowrap;margin:0}
+.section-head .rule{flex:1;border-top:1px solid var(--ink)}
+.section-head .count{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;white-space:nowrap}
 .article-page{padding:44px 0 70px}
-.article-page h1{font-family:var(--font-display);font-size:2.6rem;line-height:1.05;margin:0 0 12px;max-width:22ch}
-.article-page .lead-dek{font-size:1.05rem;margin-bottom:34px;max-width:64ch;color:#3a372c}
+.article-page h1{font-family:var(--font-display);font-size:2.7rem;line-height:1.05;margin:0 0 18px;max-width:22ch}
+.article-page .lead-dek{font-size:1.15rem;margin-bottom:30px;max-width:62ch;color:#3a372c}
 .legal-content{max-width:70ch}
 .legal-content h2{font-family:var(--font-display);font-size:1.35rem;margin:38px 0 12px;border-top:1px solid var(--rule);padding-top:24px}
 .legal-content h2:first-of-type{border-top:none;padding-top:0;margin-top:0}
@@ -55,8 +63,7 @@ footer a:hover{opacity:1;border-bottom-color:currentColor}
 footer p{color:#c9c4b4;font-size:.85rem}
 .foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
 .legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-@media (max-width:880px){ footer .wrap{grid-template-columns:1fr 1fr} }
-@media (max-width:560px){ .logo{font-size:1.9rem} .article-page h1{font-size:1.9rem} nav.primary{flex-wrap:wrap;gap:14px} }
+@media (max-width:560px){.logo{font-size:1.9rem}.article-page h1{font-size:1.95rem}}
 
 /* --- chrome v2 (loja) --- */
 a.logo{display:inline-block;color:var(--ink);border-bottom:none}
@@ -90,41 +97,31 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 </header>
 
 <main class="wrap article-page">
-  <span class="kicker">Legal</span>
-  <h1>Política de privacidade</h1>
+  <span class="kicker">Loja</span>
+  <h1>Trocas, cancelamento e reembolso</h1>
   <p class="updated">Em vigor desde 2 de agosto de 2026</p>
 
   <div class="legal-content">
-    <h2>1. Que dado a loja recebe</h2>
-    <p>Para vender um item digital precisamos de pouca coisa, e é exatamente isso que pedimos: o <strong>e-mail</strong> (para onde vai a chave, o comprovante e o aviso de envio), o <strong>nome</strong> que assina o pedido e a <strong>plataforma escolhida</strong>. Quando a compra é parcelada, o banco emissor do PIX nos devolve apenas a confirmação do pagamento e um identificador da transação — dado de cartão não passa por aqui e não é armazenado em momento algum.</p>
-    <p>Mensagem enviada pela página de <a href="contato.html">atendimento</a> carrega o que você escrever nela; usamos só para responder e para localizar o pedido citado.</p>
-    <p>Além disso, o servidor registra dado técnico de acesso (endereço IP, navegador, página visitada e horário) para segurança e diagnóstico, guardado pelo prazo mínimo necessário e sem uso para perfilamento publicitário.</p>
+    <h2>1. Arrependimento em 7 dias</h2>
+    <p>Quem compra pela internet pode desistir em até sete dias corridos, contados do pagamento ou do recebimento do código &mdash; o que vier depois. É o direito de arrependimento do art. 49 do CDC, e aqui ele vale sem pergunta e sem taxa: pedimos apenas o número do pedido. O valor volta integral, incluindo parcela já debitada.</p>
 
-    <h2>2. Para que usamos</h2>
-    <p>Processar e entregar o pedido, avisar sobre data de liberação e mudança de prazo, atender pedido de troca ou cancelamento, e cumprir obrigação fiscal. O e-mail do aviso semanal de matérias, quando o cliente pede, serve só para isso e tem cancelamento em um clique. A lista de endereços fica exclusivamente conosco, e a única saída dela é a mensagem que a própria loja envia.</p>
+    <h2>2. Cancelar uma reserva</h2>
+    <p>Enquanto a chave não sai, a reserva pode ser cancelada a qualquer momento até 72 horas antes da data prevista de liberação, com devolução de 100% do valor pago. Depois desse limite a chave já entrou na fila de emissão: nesse intervalo a devolução vira crédito na loja, com validade de doze meses e sem redução de valor.</p>
 
-    <h2>3. Base legal</h2>
-    <p>Dado de pedido é tratado para execução do contrato de compra e venda (art. 7º, V, da Lei nº 13.709/2018 — LGPD) e para cumprimento de obrigação legal (art. 7º, II). O aviso semanal opcional depende de consentimento (art. 7º, I). O registro técnico de acesso se apoia no legítimo interesse de manter o site seguro e no ar (art. 7º, IX).</p>
+    <h2>3. Chave que não resgata</h2>
+    <p>Se o código chegar e a plataforma recusar o resgate, mande uma captura da mensagem de erro. Trocamos por outro código em até 24 horas úteis, sem custo. Não pedimos que você resolva com a plataforma — o problema é nosso.</p>
 
-    <h2>4. Por quanto tempo guardamos</h2>
-    <p>Dado de pedido fica retido enquanto durar a garantia e o prazo fiscal aplicável à venda. Mensagem de atendimento é descartada doze meses depois do encerramento do caso. Consentimento de aviso semanal vale até a pessoa cancelar.</p>
+    <h2>4. Vale-presente</h2>
+    <p>Vale-presente não resgatado pode ser devolvido dentro dos sete dias do item 1. Depois de resgatado, o crédito segue na conta e pode ser usado em qualquer item do catálogo, mas não vira dinheiro de volta.</p>
 
-    <h2>5. Com quem compartilhamos</h2>
-    <p>Só com quem é indispensável para a compra existir: o provedor de pagamento que confirma o PIX e o serviço de e-mail que entrega a chave. Nenhum deles recebe mais dado do que precisa para essa função, e nenhum usa a informação para publicidade própria.</p>
+    <h2>5. Prazo do estorno</h2>
+    <p>Pagamento no PIX à vista volta para a mesma chave em até cinco dias úteis. Compra parcelada é estornada no mesmo canal, e a baixa das parcelas seguintes depende do calendário do banco emissor — costuma aparecer na fatura seguinte à do estorno.</p>
 
-    <h2>6. Direitos de quem comprou</h2>
-    <ul>
-      <li>Confirmar se existe tratamento de dado pessoal referente a si e pedir acesso;</li>
-      <li>Corrigir dado incompleto ou desatualizado, inclusive o e-mail de entrega;</li>
-      <li>Pedir a exclusão do que não é obrigatório manter por lei;</li>
-      <li>Revogar o consentimento do aviso semanal a qualquer momento, sem afetar o pedido.</li>
-    </ul>
+    <h2>6. Como pedir</h2>
+    <p>Escreva para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a> com o número do pedido e o motivo em uma linha. Respondemos em até um dia útil e confirmamos por e-mail o que foi feito, com a data. Não exigimos ligação, formulário longo nem justificativa detalhada.</p>
 
-    <h2>7. Cookies</h2>
-    <p>Não usamos cookie de rastreamento publicitário nem pixel de terceiro. O que existe é cookie técnico da própria loja, para lembrar preferência de exibição e manter o item selecionado durante a compra — nenhum deles identifica o visitante fora do site.</p>
-
-    <h2>8. Encarregado e contato</h2>
-    <p>Pedido de acesso, correção, exclusão ou revogação de consentimento deve ser enviado para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a>, com o assunto "LGPD". A mesma caixa recebe dúvida sobre este documento. O prazo de resposta é de até quinze dias corridos, conforme o art. 19 da LGPD.</p>
+    <h2>7. Quando não conseguimos atender</h2>
+    <p>Fora dos casos acima, a devolução depende da regra da distribuidora do título — por exemplo, conteúdo já consumido dentro do jogo. Nessa situação dizemos isso na resposta, com o motivo, em vez de deixar o pedido sem retorno.</p>
   </div>
 </main>
 

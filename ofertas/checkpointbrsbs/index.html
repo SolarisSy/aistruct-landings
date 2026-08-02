@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Checkpoint BR — reserva e pré-venda de jogos digitais</title>
+<meta name="description" content="Loja brasileira de jogos digitais: reserve o lançamento, pague no PIX à vista ou em até 12 vezes e receba a chave por e-mail no dia da liberação.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://checkpointbr.sbs/">
+<meta property="og:title" content="Checkpoint BR — reserva e pré-venda de jogos digitais">
+<meta property="og:description" content="Loja brasileira de jogos digitais: reserve o lançamento, pague no PIX à vista ou em até 12 vezes e receba a chave por e-mail no dia da liberação.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/_hero.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f2ede4; --paper-2:#e9e2d2;
+  --crimson:#b3272c; --forest:#2c4a3e; --mustard:#c98a2c; --rule:#cfc6b4;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:'Trebuchet MS','Lucida Grande',sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--forest);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.masthead{padding:22px 0 0}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:14px;gap:20px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
+.logo span{color:var(--crimson)}
+.masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
+nav.primary{display:flex;gap:22px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary a{color:var(--ink)}
+nav.primary a:hover{color:var(--crimson)}
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px;color:var(--crimson)}
+.k-analises{color:var(--crimson)}
+.k-guias{color:var(--forest)}
+.k-hardware{color:var(--mustard)}
+.k-historia,.k-cultura{color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:2px}
+.section-head{display:flex;align-items:baseline;gap:16px;margin:56px 0 26px}
+.section-head h2{font-family:var(--font-display);font-size:1.5rem;white-space:nowrap;margin:0}
+.section-head .rule{flex:1;border-top:1px solid var(--ink)}
+.section-head .count{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;white-space:nowrap}
+.article-page{padding:44px 0 70px}
+.article-page h1{font-family:var(--font-display);font-size:2.7rem;line-height:1.05;margin:0 0 18px;max-width:22ch}
+.article-page .lead-dek{font-size:1.15rem;margin-bottom:30px;max-width:62ch;color:#3a372c}
+.legal-content{max-width:70ch}
+.legal-content h2{font-family:var(--font-display);font-size:1.35rem;margin:38px 0 12px;border-top:1px solid var(--rule);padding-top:24px}
+.legal-content h2:first-of-type{border-top:none;padding-top:0;margin-top:0}
+.legal-content p{margin:0 0 16px;color:#3a372c}
+.legal-content ul{margin:0 0 16px;padding-left:22px;color:#3a372c}
+.legal-content li{margin-bottom:8px}
+.updated{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;text-transform:uppercase;letter-spacing:.04em;margin-bottom:30px}
+footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+footer a{color:var(--paper);opacity:.85}
+footer a:hover{opacity:1;border-bottom-color:currentColor}
+footer p{color:#c9c4b4;font-size:.85rem}
+.foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
+.legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media (max-width:560px){.logo{font-size:1.9rem}.article-page h1{font-size:1.95rem}}
+
+.lede{padding:34px 0 10px}
+.lede-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:40px;align-items:start}
+.lead-card img{border:1px solid var(--ink);margin-bottom:18px}
+.lead-card h1{font-family:var(--font-display);font-size:2.6rem;line-height:1.05;margin:0 0 14px;max-width:18ch}
+.lead-dek{font-size:1.15rem;color:#3a372c;margin:0 0 20px;max-width:56ch}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.toc{border-left:1px solid var(--rule);padding-left:32px}
+.toc-title{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--crimson);margin:0 0 18px}
+.toc-item{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--rule)}
+.toc-item:first-of-type{border-top:none}
+.toc-num{font-family:var(--font-mono);font-size:1.6rem;font-weight:700;color:var(--rule);min-width:2ch}
+.toc-item h3{font-family:var(--font-display);font-size:1.05rem;margin:0 0 4px;line-height:1.2}
+.toc-item p{margin:0;font-size:.93rem;color:#3a372c}
+.grid-dense{display:grid;grid-template-columns:repeat(4,1fr);grid-template-areas:"a a b c" "a a d d";gap:30px 28px}
+.grid-dense .sku:nth-of-type(1){grid-area:a}
+.grid-dense .sku:nth-of-type(2){grid-area:b}
+.grid-dense .sku:nth-of-type(3){grid-area:c}
+.grid-dense .sku:nth-of-type(4){grid-area:d}
+.sku{border:1px solid var(--ink);background:var(--paper-2);padding:24px 26px;display:flex;flex-direction:column}
+.sku h3{font-family:var(--font-display);font-size:1.25rem;margin:0 0 10px;line-height:1.15}
+.grid-dense .sku:nth-of-type(1) h3{font-size:1.9rem}
+.sku p{margin:0 0 6px;color:#3a372c;font-size:.98rem}
+.sku-inc{margin:14px 0 0;padding-left:0;list-style:none;border-top:1px solid var(--rule)}
+.sku-inc li{border-bottom:1px solid var(--rule);padding:11px 0 11px 22px;position:relative;color:#3a372c;font-size:.95rem}
+.sku-inc li::before{content:"\2014";position:absolute;left:0;color:var(--crimson)}
+.price{font-family:var(--font-display);font-size:1.9rem;line-height:1;margin:14px 0 0}
+.price small{display:block;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:#6b6752;margin-top:8px;line-height:1.5}
+.sku .btn{align-self:flex-start;margin-top:18px}
+.pull-quote{margin:60px 0;padding:30px 0 30px 34px;border-left:6px solid var(--mustard)}
+.pull-quote p{font-family:var(--font-display);font-style:italic;font-size:1.5rem;line-height:1.3;margin:0 0 10px;max-width:64ch}
+.pull-quote cite{font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;font-style:normal}
+.cat-bar{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin:44px 0 0}
+.cat-bar a{flex:1;padding:14px 18px;border-left:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;min-width:120px;color:var(--ink)}
+.cat-bar a:first-child{border-left:none}
+.cat-bar a:hover{background:var(--paper-2)}
+.cat-bar strong{display:block;font-family:var(--font-display);font-size:1.7rem;text-transform:none;letter-spacing:0;margin-top:4px}
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px 28px;margin-top:28px}
+.card img{border:1px solid var(--ink);margin-bottom:12px}
+.card h3{font-family:var(--font-display);font-size:1.2rem;margin:0 0 8px;line-height:1.2}
+.card p.dek{margin:0 0 10px;color:#3a372c;font-size:.97rem}
+.byline{font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;display:block}
+@media (max-width:880px){
+  .lede-grid{grid-template-columns:1fr}
+  .toc{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:20px}
+  .grid-dense{grid-template-columns:1fr 1fr;grid-template-areas:"a a" "b c" "d d"}
+  .grid-dense .sku:nth-of-type(1) h3{font-size:1.5rem}
+  .cards-3{grid-template-columns:1fr}
+  .cat-bar{flex-direction:column}
+  .cat-bar a{border-left:none;border-top:1px solid var(--rule)}
+  .cat-bar a:first-child{border-top:none}
+}
+@media (max-width:560px){.lead-card h1{font-size:1.95rem}.grid-dense{grid-template-columns:1fr;grid-template-areas:"a" "b" "c" "d"}}
+
+/* --- chrome v2 (loja) --- */
+a.logo{display:inline-block;color:var(--ink);border-bottom:none}
+a.logo:hover span{color:var(--forest)}
+nav.primary{padding:2px 28px 6px;gap:24px}
+nav.primary a{display:inline-block;padding:17px 0;line-height:1.15}
+nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--crimson)}
+.btn{display:inline-block;font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;padding:16px 28px;background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+.btn:hover{background:var(--crimson);border-color:var(--crimson);border-bottom-color:var(--crimson)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.legal-bar a{color:#b9b4a2}
+@media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a href="/" class="logo">Check<span>point</span> BR</a>
+    <p class="masthead-meta">Loja de jogos digitais &mdash; reserva e pr&eacute;-venda<br>Chave enviada por e-mail &middot; atendimento de segunda a sexta</p>
+  </div>
+  <nav class="wrap primary">
+    <a href="/" class="is-active">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="como-funciona.html">Como funciona</a>
+    <a href="blog.html">Blog</a>
+    <a href="glossario.html">Glossário</a>
+    <a href="contato.html">Atendimento</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="lede">
+    <div class="lede-grid">
+      <article class="lead-card">
+        <img src="img/_hero.jpg" alt="Controle de videogame branco sobre mesa escura ao lado de teclado" loading="lazy" width="840" height="560">
+        <span class="kicker">Reserva de lançamento</span>
+        <h1>Trave hoje o preço do jogo que ainda vai sair</h1>
+        <p class="lead-dek">Você paga a reserva agora, no PIX à vista ou em até doze vezes, e recebe a chave digital por e-mail no dia em que o título libera a pré-carga. Se o preço subir na estreia, o seu já está pago.</p>
+        <div class="cta-row">
+          <a class="btn" href="catalogo.html">Ver catálogo e preços</a>
+          <a class="btn btn-ghost" href="como-funciona.html">Entender a reserva</a>
+        </div>
+      </article>
+      <aside class="toc">
+        <p class="toc-title">Da reserva ao download</p>
+        <div class="toc-item">
+          <span class="toc-num">01</span>
+          <div>
+            <h3>Escolha a reserva</h3>
+            <p>Padrão, Ampliada ou Coleção. O valor da reserva é o preço final do jogo — nada é cobrado depois.</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <span class="toc-num">02</span>
+          <div>
+            <h3>Diga o título e a plataforma</h3>
+            <p>Logo após a compra a gente responde por e-mail para confirmar qual lançamento e qual plataforma (PC, PlayStation ou Xbox).</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <span class="toc-num">03</span>
+          <div>
+            <h3>Pague no PIX</h3>
+            <p>À vista com desconto de 5% ou parcelado em até 12 vezes no PIX parcelado. A reserva só entra na fila com o pagamento confirmado.</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <span class="toc-num">04</span>
+          <div>
+            <h3>Receba a chave</h3>
+            <p>No dia em que o título libera a pré-carga, a chave de resgate chega no seu e-mail — antes disso, avisamos com 48 horas de antecedência.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2>No catálogo</h2>
+    <div class="rule"></div>
+    <span class="count">04 itens &middot; entrega digital</span>
+  </div>
+
+  <section class="grid-dense">
+    <article class="sku">
+      <h3>Reserva de Lançamento &mdash; Padrão</h3>
+      <p>A edição comum do título que você escolher: chave digital de resgate, sem item extra. É a reserva mais pedida da loja.</p>
+      <ul class="sku-inc">
+        <li>Chave para PC, PlayStation 5 ou Xbox Series, região Brasil</li>
+        <li>Enviada no dia em que a pré-carga abre, com aviso 48 horas antes</li>
+        <li>Preço travado: reajuste até a estreia não é repassado</li>
+        <li>Cancelamento com devolução integral até 72 horas antes do envio</li>
+      </ul>
+      <p class="price">R$ 249,90<small>ou 12x de R$ 20,83 no PIX parcelado<br>5% de desconto no PIX à vista</small></p>
+      <a class="btn" href="/go/">Reservar a Padrão</a>
+    </article>
+    <article class="sku">
+      <h3>Reserva de Lançamento &mdash; Ampliada</h3>
+      <p>Inclui o pacote de conteúdo adicional que a distribuidora anexa à edição intermediária, quando existe, e acesso ao período de teste antecipado.</p>
+      <p class="price">R$ 349,90<small>ou 12x de R$ 29,16 no PIX parcelado<br>5% de desconto no PIX à vista</small></p>
+      <a class="btn" href="/go/">Reservar a Ampliada</a>
+    </article>
+    <article class="sku">
+      <h3>Reserva de Lançamento &mdash; Coleção</h3>
+      <p>A edição mais completa disponível para o título reservado, com todo o conteúdo digital de lançamento reunido numa chave só.</p>
+      <p class="price">R$ 449,90<small>ou 12x de R$ 37,49 no PIX parcelado<br>5% de desconto no PIX à vista</small></p>
+      <a class="btn" href="/go/">Reservar a Coleção</a>
+    </article>
+    <article class="sku">
+      <h3>Vale-presente Checkpoint</h3>
+      <p>Código de crédito para usar em qualquer item da loja, nos valores de R$ 50, R$ 100 e R$ 200. Chega por e-mail em até quinze minutos.</p>
+      <p class="price">R$ 50 &middot; 100 &middot; 200<small>PIX à vista &middot; código por e-mail em até 15 min</small></p>
+      <a class="btn" href="/go/">Comprar vale-presente</a>
+    </article>
+  </section>
+
+  <blockquote class="pull-quote">
+    <p>"Reserva cancelada até 72 horas antes da liberação devolve o valor inteiro, inclusive as parcelas já pagas. Escrevemos essa regra antes de vender a primeira chave e ela está na página de trocas, não no rodapé em letra miúda."</p>
+    <cite>&mdash; <a href="trocas.html">Política de trocas e reembolso</a></cite>
+  </blockquote>
+
+  <div class="section-head">
+    <h2>Do blog</h2>
+    <div class="rule"></div>
+    <span class="count"><a href="blog.html">as 09 matérias</a></span>
+  </div>
+
+  <section class="cards-3">
+    <article class="card">
+      <img src="img/elden-ring-nightreign-analise.jpg" alt="Personagem em armadura escura diante de uma criatura colossal ao entardecer" loading="lazy" width="380" height="250">
+      <span class="kicker k-analises">Análises</span>
+      <h3><a href="elden-ring-nightreign-analise.html">Elden Ring Nightreign: quando o roguelike engole a alma de FromSoftware</a></h3>
+      <p class="dek">Trinta expedições depois, a conclusão é dividida: rodadas de quarenta minutos aposentam o ritmo contemplativo da série, e nem todo mundo aceita a troca.</p>
+      <span class="byline">Redação Checkpoint BR &mdash; 15 de julho de 2026</span>
+    </article>
+    <article class="card">
+      <img src="img/guia-emuladores-legais-2026.jpg" alt="Console retro ligado a uma televisão de tubo em sala de estar" loading="lazy" width="380" height="250">
+      <span class="kicker k-guias">Guias</span>
+      <h3><a href="guia-emuladores-legais-2026.html">O que é (e o que não é) legal emular no Brasil em 2026</a></h3>
+      <p class="dek">A Lei 9.610 não cita emulação, mas define cópia de obra protegida. Separamos o que a jurisprudência pacificou do que ainda depende de interpretação.</p>
+      <span class="byline">Redação Checkpoint BR &mdash; 8 de julho de 2026</span>
+    </article>
+    <article class="card">
+      <img src="img/hardware-portateis-2026-steam-deck.jpg" alt="Três consoles portáteis lado a lado sobre mesa de madeira" loading="lazy" width="380" height="250">
+      <span class="kicker k-hardware">Hardware</span>
+      <h3><a href="hardware-portateis-2026-steam-deck.html">Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder</a></h3>
+      <p class="dek">Autonomia de bateria, ruído de ventoinha e desempenho em oito jogos nos três aparelhos mais vendidos do semestre. Nenhum vence em tudo.</p>
+      <span class="byline">Redação Checkpoint BR &mdash; 29 de junho de 2026</span>
+    </article>
+  </section>
+
+  <div class="cat-bar">
+    <a href="blog.html#analises">Análises<strong>02</strong></a>
+    <a href="blog.html#guias">Guias<strong>02</strong></a>
+    <a href="blog.html#historia">História<strong>02</strong></a>
+    <a href="blog.html#hardware">Hardware<strong>02</strong></a>
+    <a href="blog.html#cultura">Cultura<strong>01</strong></a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="foot-logo">Checkpoint BR</p>
+      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente com código entregue por e-mail, pagos no PIX à vista ou parcelado. O blog é escrito pela nossa própria equipe.</p>
+    </div>
+    <div>
+      <h4>Loja</h4>
+      <ul>
+        <li><a href="catalogo.html">Catálogo e preços</a></li>
+        <li><a href="como-funciona.html">Como funciona a reserva</a></li>
+        <li><a href="trocas.html">Trocas e reembolso</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="app.html">App Checkpoint</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Ajuda e legal</h4>
+      <ul>
+        <li><a href="contato.html">Falar com a gente</a></li>
+        <li><a href="faq.html">Perguntas frequentes</a></li>
+        <li><a href="sobre.html">Sobre a loja</a></li>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos e condições de venda</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal-bar">
+    <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
+    <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
+  </div>
+</footer>
+</body>
+</html>

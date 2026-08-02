@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Sobre a redação — Checkpoint BR</title>
-<meta name="description" content="Quem escreve o Checkpoint BR: a redação, os critérios editoriais e como decidimos o que vira matéria.">
+<title>Sobre a loja — Checkpoint BR</title>
+<meta name="description" content="Quem é a Checkpoint BR: uma loja de jogos digitais com reserva de lançamento, entrega por e-mail e um blog escrito pela mesma equipe que separa os pedidos.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://checkpointbr.sbs/sobre.html">
-<meta property="og:title" content="Sobre a redação — Checkpoint BR">
-<meta property="og:description" content="Quem escreve o Checkpoint BR e como decidimos o que vira matéria.">
+<meta property="og:title" content="Sobre a loja — Checkpoint BR">
+<meta property="og:description" content="Loja de jogos digitais com reserva de lançamento, preço fechado e blog escrito pela própria equipe.">
 <meta property="og:image" content="https://checkpointbr.sbs/img/_sobre.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
@@ -67,54 +67,69 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .masthead-box h2{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;color:#54503f}
 .masthead-box p{margin:0 0 12px;font-size:.92rem;color:#3a372c}
 .masthead-box p:last-child{margin-bottom:0}
+
+/* --- chrome v2 (loja) --- */
+a.logo{display:inline-block;color:var(--ink);border-bottom:none}
+a.logo:hover span{color:var(--forest)}
+nav.primary{padding:2px 28px 6px;gap:24px}
+nav.primary a{display:inline-block;padding:17px 0;line-height:1.15}
+nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--crimson)}
+.btn{display:inline-block;font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;padding:16px 28px;background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+.btn:hover{background:var(--crimson);border-color:var(--crimson);border-bottom-color:var(--crimson)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.legal-bar a{color:#b9b4a2}
+@media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
 </style>
 </head>
 <body>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <p class="logo">Check<span>point</span> BR</p>
-    <p class="masthead-meta">Edição de 16 de julho de 2026<br>Jornalismo de games — redação independente</p>
+    <a href="/" class="logo">Check<span>point</span> BR</a>
+    <p class="masthead-meta">Loja de jogos digitais &mdash; reserva e pr&eacute;-venda<br>Chave enviada por e-mail &middot; atendimento de segunda a sexta</p>
   </div>
   <nav class="wrap primary">
-    <a href="safe.html">Início</a>
+    <a href="/">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="como-funciona.html">Como funciona</a>
+    <a href="blog.html">Blog</a>
     <a href="glossario.html">Glossário</a>
-    <a href="app.html">App</a>
-    <a href="sobre.html">Sobre</a>
-    <a href="faq.html">FAQ</a>
+    <a href="contato.html">Atendimento</a>
   </nav>
 </header>
 
 <main class="wrap article-page">
-  <span class="kicker">A redação</span>
-  <h1>Quem escreve o Checkpoint BR</h1>
-  <p class="lead-dek">Somos oito repórteres espalhados entre São Paulo, Curitiba e Recife, com uma regra simples: toda matéria leva nome de quem escreveu e data de publicação, e correção de erro vem com nota no rodapé, não silenciosa.</p>
+  <span class="kicker">A loja</span>
+  <h1>Quem é a Checkpoint BR</h1>
+  <p class="lead-dek">Uma loja pequena de jogos digitais tocada por gente que joga: vendemos reserva de lançamento e vale-presente, entregamos a chave por e-mail e escrevemos, no mesmo site, o que achamos dos jogos que passam pela nossa mão.</p>
 
   <figure class="masthead-photo">
-    <img src="img/_sobre.jpg" alt="Mesa de redação com monitores, controles de videogame e anotações de pauta espalhadas, ambiente de trabalho de jornalismo especializado" loading="lazy" width="900" height="560">
-    <figcaption>A redação do Checkpoint BR, mesa de pauta — foto interna</figcaption>
+    <img src="img/_sobre.jpg" alt="Mesa de trabalho com monitores, controles de videogame e anotações espalhadas" loading="lazy" width="900" height="560">
+    <figcaption>Mesa de trabalho de quem separa pedido e escreve o blog</figcaption>
   </figure>
 
   <div class="content drop-cap">
-    <p>O Checkpoint BR nasceu em 2024 de uma frustração comum entre quem cobre games no Brasil: a maioria dos textos disponíveis em português é tradução automática de release em inglês, sem checagem e sem contexto local. Decidimos fazer diferente — apurar direto com estúdios, comparar versão brasileira com a original quando existe corte de conteúdo, e testar hardware por conta própria antes de recomendar qualquer coisa.</p>
-    <p>Não recebemos unidade de teste de fabricante para resenha garantida. Quando um review de hardware sai, o equipamento foi comprado pela redação ou emprestado por um leitor, e isso está declarado no rodapé da matéria. Isso significa menos velocidade de publicação — às vezes publicamos um review de placa de vídeo duas semanas depois da concorrência — mas também significa que o número que aparece no gráfico é o número que rodou na nossa bancada.</p>
-    <h2>Como decidimos o que vira pauta</h2>
-    <p>Cobrimos lançamento grande, mas não é só isso. Metade do que publicamos é história de franquia (o "porquê" por trás de um jogo que já saiu há dez, vinte anos), guia técnico que resolve um problema específico, e cultura — cena competitiva, comunidade de mod, arquivamento de jogos que saíram de catálogo. Pauta que existe só para gerar clique em data de lançamento de outra empresa, a gente evita.</p>
-    <p>Toda matéria de análise (review) é assinada por quem jogou até o fim, ou até o ponto que a matéria deixa claro. Toda matéria de guia é testada passo a passo antes de publicar. Toda matéria de história cita fonte primária — entrevista, documento, making-of — e não repete boato de fórum como fato.</p>
+    <p>A Checkpoint BR começou em 2024 como blog, por uma irritação comum a quem acompanha games no Brasil: quase todo texto em português é tradução automática de release em inglês, sem checagem e sem contexto local. A loja veio depois, por outra irritação — a de reservar um lançamento e descobrir, semanas antes da estreia, que o preço tinha mudado ou que a chave viria de uma região que não resgata em conta brasileira.</p>
+    <p>Hoje as duas coisas dividem o mesmo endereço, e a ordem importa: primeiro o texto, depois o item no catálogo. Nenhuma matéria é escrita para empurrar reserva, e nenhum item entra no catálogo porque rendeu uma matéria boa. Quando um jogo que a gente vende sai mal na análise, a análise fica no ar do mesmo jeito.</p>
+    <h2>Como a loja trabalha</h2>
+    <p>Vendemos só o que conseguimos entregar: reserva de lançamento em três edições e vale-presente de crédito. Tudo digital, com preço fechado na página de <a href="catalogo.html">catálogo</a>, prazo escrito e regra de cancelamento publicada em <a href="trocas.html">trocas e reembolso</a>. Não trabalhamos com sorteio, promoção relâmpago nem contagem regressiva na tela — se o preço mudar, ele muda na tabela, e quem já reservou paga o valor de antes.</p>
+    <p>Do lado do conteúdo, análise é assinada por quem terminou o jogo (ou até onde o texto deixa claro), guia é testado passo a passo antes de publicar, e matéria de história cita fonte primária em vez de repetir boato de fórum. Teste de hardware roda em equipamento comprado pela loja ou emprestado por um cliente, e isso aparece no rodapé da matéria.</p>
   </div>
 
   <ul class="principles">
     <ol>
-      <li><span class="pnum">01</span><div><h3>Autoria visível</h3><p>Toda matéria tem nome de repórter, data e tempo de leitura. Sem "redação" genérica assinando texto que devia ter dono.</p></div></li>
-      <li><span class="pnum">02</span><div><h3>Sem unidade de cortesia sem aviso</h3><p>Quando testamos hardware cedido por fabricante, isso aparece no rodapé da matéria. Sem exceção.</p></div></li>
-      <li><span class="pnum">03</span><div><h3>Correção com nota</h3><p>Erro de fato corrigido gera uma linha visível na matéria com data da correção — não uma edição silenciosa.</p></div></li>
-      <li><span class="pnum">04</span><div><h3>Sem paywall, sem venda</h3><p>Publicamos conteúdo aberto. Não vendemos assinatura, produto ou acesso antecipado — o site vive de apuração, não de transação.</p></div></li>
+      <li><span class="pnum">01</span><div><h3>Preço que não muda depois</h3><p>O valor pago na reserva é o valor final do jogo. Reajuste entre a compra e a estreia é problema nosso, não do cliente.</p></div></li>
+      <li><span class="pnum">02</span><div><h3>Prazo com aviso antes</h3><p>A chave sai no dia da liberação e o aviso vai por e-mail 48 horas antes. Adiamento da distribuidora é comunicado na mesma semana.</p></div></li>
+      <li><span class="pnum">03</span><div><h3>Cancelamento sem discussão</h3><p>Sete dias de arrependimento pelo artigo 49 do CDC, e reserva cancelável com devolução integral até 72 horas antes do envio.</p></div></li>
+      <li><span class="pnum">04</span><div><h3>Conteúdo separado da venda</h3><p>O blog não recebe pauta paga e não muda a nota de uma análise porque o item está no catálogo. Errou, corrige com nota e data.</p></div></li>
     </ol>
   </ul>
 
   <section class="masthead-box">
-    <h2>Expediente</h2>
-    <p>O Checkpoint BR é publicado por <strong>LEVEL UP MEDIA LTDA</strong> (nome fantasia Level Up Media), inscrita no CNPJ sob o nº <strong>68.180.122/0001-40</strong>, com sede na Rua Jamil Tannus, nº 672, Bairro Lídice, Uberlândia/MG, CEP 38400-134. Responsável legal: Laura Lelis Morais Castro (sócio-administrador). Contato da redação: <a href="mailto:levelupmediaempresa@gmail.com">levelupmediaempresa@gmail.com</a> — (34) 99736-5888.</p>
-    <p>Atividade registrada: portais, provedores de conteúdo e outros serviços de informação na internet (CNAE 63.19-4-00). Documentos legais: <a href="privacidade.html">política de privacidade</a> e <a href="termos.html">termos de uso</a>.</p>
+    <h2>Como falar com a gente</h2>
+    <p>Pedido, cancelamento, dúvida antes de comprar e correção de matéria vão para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a>, com resposta em até um dia útil, de segunda a sexta. Quem já comprou tem prioridade na fila; basta pôr o número do pedido no assunto.</p>
+    <p>Detalhes de horário e do que informar em cada caso estão na página de <a href="contato.html">atendimento</a>. As regras da venda ficam em <a href="termos.html">termos e condições</a>, e o tratamento de dado, na <a href="privacidade.html">política de privacidade</a>.</p>
   </section>
 </main>
 
@@ -122,34 +137,38 @@ footer p{color:#c9c4b4;font-size:.85rem}
   <div class="wrap">
     <div>
       <p class="foot-logo">Checkpoint BR</p>
-      <p>Redação independente de jornalismo de games, fundada em 2024. Cobrimos análises, história de franquias, hardware e cultura gamer com apuração própria.</p>
+      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente com código entregue por e-mail, pagos no PIX à vista ou parcelado. O blog é escrito pela nossa própria equipe.</p>
     </div>
     <div>
-      <h4>Seções</h4>
+      <h4>Loja</h4>
       <ul>
-        <li><a href="safe.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo e preços</a></li>
+        <li><a href="como-funciona.html">Como funciona a reserva</a></li>
+        <li><a href="trocas.html">Trocas e reembolso</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
         <li><a href="app.html">App Checkpoint</a></li>
       </ul>
     </div>
     <div>
-      <h4>Redação</h4>
+      <h4>Ajuda e legal</h4>
       <ul>
-        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="contato.html">Falar com a gente</a></li>
         <li><a href="faq.html">Perguntas frequentes</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Legal</h4>
-      <ul>
+        <li><a href="sobre.html">Sobre a loja</a></li>
         <li><a href="privacidade.html">Privacidade</a></li>
-        <li><a href="termos.html">Termos de uso</a></li>
+        <li><a href="termos.html">Termos e condições de venda</a></li>
       </ul>
     </div>
   </div>
   <div class="legal-bar">
-    <span>© 2026 Checkpoint BR — LEVEL UP MEDIA LTDA · CNPJ 68.180.122/0001-40</span>
-    <span>Uberlândia/MG · Publicação de conteúdo, sem comércio eletrônico.</span>
+    <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
+    <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
   </div>
 </footer>
 </body>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Blog — todas as matérias do Checkpoint BR</title>
+<meta name="description" content="Índice completo do blog da loja: análises, guias, história de franquias, hardware e cultura gamer, com data e tempo de leitura de cada matéria.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://checkpointbr.sbs/blog.html">
+<meta property="og:title" content="Blog — todas as matérias do Checkpoint BR">
+<meta property="og:description" content="Índice completo do blog da loja: análises, guias, história de franquias, hardware e cultura gamer, com data e tempo de leitura de cada matéria.">
+<meta property="og:image" content="https://checkpointbr.sbs/img/_hero.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f2ede4; --paper-2:#e9e2d2;
+  --crimson:#b3272c; --forest:#2c4a3e; --mustard:#c98a2c; --rule:#cfc6b4;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:'Trebuchet MS','Lucida Grande',sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--forest);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.masthead{padding:22px 0 0}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:14px;gap:20px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:0}
+.logo span{color:var(--crimson)}
+.masthead-meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:#54503f}
+nav.primary{display:flex;gap:22px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+nav.primary a{color:var(--ink)}
+nav.primary a:hover{color:var(--crimson)}
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:8px;color:var(--crimson)}
+.k-analises{color:var(--crimson)}
+.k-guias{color:var(--forest)}
+.k-hardware{color:var(--mustard)}
+.k-historia,.k-cultura{color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:2px}
+.section-head{display:flex;align-items:baseline;gap:16px;margin:56px 0 26px}
+.section-head h2{font-family:var(--font-display);font-size:1.5rem;white-space:nowrap;margin:0}
+.section-head .rule{flex:1;border-top:1px solid var(--ink)}
+.section-head .count{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;white-space:nowrap}
+.article-page{padding:44px 0 70px}
+.article-page h1{font-family:var(--font-display);font-size:2.7rem;line-height:1.05;margin:0 0 18px;max-width:22ch}
+.article-page .lead-dek{font-size:1.15rem;margin-bottom:30px;max-width:62ch;color:#3a372c}
+.legal-content{max-width:70ch}
+.legal-content h2{font-family:var(--font-display);font-size:1.35rem;margin:38px 0 12px;border-top:1px solid var(--rule);padding-top:24px}
+.legal-content h2:first-of-type{border-top:none;padding-top:0;margin-top:0}
+.legal-content p{margin:0 0 16px;color:#3a372c}
+.legal-content ul{margin:0 0 16px;padding-left:22px;color:#3a372c}
+.legal-content li{margin-bottom:8px}
+.updated{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;text-transform:uppercase;letter-spacing:.04em;margin-bottom:30px}
+footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+footer a{color:var(--paper);opacity:.85}
+footer a:hover{opacity:1;border-bottom-color:currentColor}
+footer p{color:#c9c4b4;font-size:.85rem}
+.foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
+.legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media (max-width:560px){.logo{font-size:1.9rem}.article-page h1{font-size:1.95rem}}
+
+.cat-section{margin-top:52px}
+.cat-head{display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+.cat-head h2{font-family:var(--font-display);font-size:1.6rem;margin:0}
+.cat-head .count{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;margin-left:auto}
+.post{display:grid;grid-template-columns:260px 1fr;gap:26px;padding:26px 0;border-bottom:1px solid var(--rule);align-items:start}
+.post img{border:1px solid var(--ink)}
+.post h3{font-family:var(--font-display);font-size:1.35rem;margin:6px 0 8px;line-height:1.15}
+.post p{margin:0 0 10px;color:#3a372c}
+.byline{font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6752;display:block}
+@media (max-width:880px){.post{grid-template-columns:1fr}}
+
+/* --- chrome v2 (loja) --- */
+a.logo{display:inline-block;color:var(--ink);border-bottom:none}
+a.logo:hover span{color:var(--forest)}
+nav.primary{padding:2px 28px 6px;gap:24px}
+nav.primary a{display:inline-block;padding:17px 0;line-height:1.15}
+nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--crimson)}
+.btn{display:inline-block;font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;padding:16px 28px;background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+.btn:hover{background:var(--crimson);border-color:var(--crimson);border-bottom-color:var(--crimson)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.legal-bar a{color:#b9b4a2}
+@media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a href="/" class="logo">Check<span>point</span> BR</a>
+    <p class="masthead-meta">Loja de jogos digitais &mdash; reserva e pr&eacute;-venda<br>Chave enviada por e-mail &middot; atendimento de segunda a sexta</p>
+  </div>
+  <nav class="wrap primary">
+    <a href="/">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="como-funciona.html">Como funciona</a>
+    <a href="blog.html" class="is-active">Blog</a>
+    <a href="glossario.html">Glossário</a>
+    <a href="contato.html">Atendimento</a>
+  </nav>
+</header>
+
+<main class="wrap article-page">
+  <span class="kicker">Blog</span>
+  <h1>Tudo o que a equipe já publicou</h1>
+  <p class="lead-dek">Nove matérias escritas por quem trabalha na loja: análise de quem terminou o jogo, guia testado passo a passo, história de franquia com fonte primária e teste de hardware feito na nossa bancada.</p>
+
+  <section class="cat-section" id="analises">
+    <div class="cat-head"><h2>Análises</h2><span class="count">02 matérias</span></div>
+    <article class="post">
+      <img src="img/elden-ring-nightreign-analise.jpg" alt="Personagem em armadura escura diante de uma criatura colossal ao entardecer" loading="lazy" width="260" height="170">
+      <div>
+        <span class="kicker k-analises">Análises</span>
+        <h3><a href="elden-ring-nightreign-analise.html">Elden Ring Nightreign: quando o roguelike engole a alma de FromSoftware</a></h3>
+        <p>Trinta expedições depois, a conclusão é dividida: rodadas de quarenta minutos aposentam o ritmo contemplativo da série, e nem todo mundo aceita a troca.</p>
+        <span class="byline">Redação Checkpoint BR &mdash; 15 de julho de 2026 &mdash; leitura de 9 minutos</span>
+      </div>
+    </article>
+    <article class="post">
+      <img src="img/analise-hollow-knight-silksong.jpg" alt="Personagem inseto com espada em caverna bioluminescente" loading="lazy" width="260" height="170">
+      <div>
+        <span class="kicker k-analises">Análises</span>
+        <h3><a href="analise-hollow-knight-silksong.html">Silksong não perdoa: por que a sequência é mais cruel que o original</a></h3>
+        <p>A curva gentil do primeiro jogo deu lugar a combos de três golpes que punem hesitação. Onde o desafio funciona e onde ele atropela o próprio ritmo.</p>
+        <span class="byline">Redação Checkpoint BR &mdash; 12 de julho de 2026 &mdash; leitura de 11 minutos</span>
+      </div>
+    </article>
+  </section>
+  <section class="cat-section" id="guias">
+    <div class="cat-head"><h2>Guias</h2><span class="count">02 matérias</span></div>
+    <article class="post">
+      <img src="img/guia-builds-baldurs-gate-3-2026.jpg" alt="Mesa de RPG com dados poliédricos e miniaturas iluminadas por vela" loading="lazy" width="260" height="170">
+      <div>
+        <span class="kicker k-guias">Guias</span>
+        <h3><a href="guia-builds-baldurs-gate-3-2026.html">Sete builds de Baldur's Gate 3 que ainda quebram o jogo em 2026</a></h3>
+        <p>Combinações de classe e multiclasse que sobreviveram aos patches de balanceamento, com a ordem de nível em que cada peça entra.</p>
+        <span class="byline">Redação Checkpoint BR &mdash; 6 de julho de 2026 &mdash; leitura de 12 minutos</span>
+      </div>
+    </article>
+    <article class="post">
+      <img src="img/guia-emuladores-legais-2026.jpg" alt="Console retro ligado a uma televisão de tubo em sala de estar" loading="lazy" width="260" height="170">
+      <div>
+        <span class="kicker k-guias">Guias</span>
+        <h3><a href="guia-emuladores-legais-2026.html">O que é (e o que não é) legal emular no Brasil em 2026</a></h3>
+        <p>A Lei 9.610 não cita emulação, mas define cópia de obra protegida. Separamos o que a jurisprudência pacificou do que ainda depende de interpretação.</p>
+        <span class="byline">Redação Checkpoint BR &mdash; 8 de julho de 2026 &mdash; leitura de 7 minutos</span>
+      </div>
+    </article>
+  </section>
+  <section class="cat-section" id="historia">
+    <div class="cat-head"><h2>História</h2><span class="count">02 matérias</span></div>
+    <article class="post">
+      <img src="img/historia-secreta-chrono-trigger.jpg" alt="Cartucho de Super Nintendo sobre mesa de madeira com luz lateral" loading="lazy" width="260" height="170">
+      <div>
+        <span class="kicker k-historia">História</span>
+        <h3><a href="historia-secreta-chrono-trigger.html">A sala dos fundos da Square: como quatro gênios criaram Chrono Trigger em 14 meses</a></h3>
+        <p>O cronograma apertado, as brigas de escopo e as decisões de produção que transformaram um projeto paralelo num clássico do Super Nintendo.</p>
+        <span class="byline">Redação Checkpoint BR &mdash; 2 de julho de 2026 &mdash; leitura de 10 minutos</span>
+      </div>
+    </article>
+    <article class="post">
+      <img src="img/franquia-resident-evil-25-anos.jpg" alt="Corredor escuro de mansão iluminado por lanterna" loading="lazy" width="260" height="170">
+      <div>
+        <span class="kicker k-historia">História</span>
+        <h3><a href="franquia-resident-evil-25-anos.html">25 anos de Resident Evil: como a série morreu duas vezes e ressuscitou três</a></h3>
+        <p>Do tropeço comercial de 2005 ao relançamento que redefiniu o gênero em 2017, reconstruímos a linha do tempo com números de venda por era.</p>
+        <span class="byline">Redação Checkpoint BR &mdash; 3 de julho de 2026 &mdash; leitura de 13 minutos</span>
+      </div>
+    </article>
+  </section>
+  <section class="cat-section" id="hardware">
+    <div class="cat-head"><h2>Hardware</h2><span class="count">02 matérias</span></div>
+    <article class="post">
+      <img src="img/hardware-rtx-5070-custo-beneficio.jpg" alt="Placa de vídeo iluminada em bancada escura, close nos coolers" loading="lazy" width="260" height="170">
+      <div>
+        <span class="kicker k-hardware">Hardware</span>
+        <h3><a href="hardware-rtx-5070-custo-beneficio.html">RTX 5070 um ano depois: o preço caiu, a fila de espera não</a></h3>
+        <p>Um ano de mercado, benchmark refeito na bancada e a comparação de disponibilidade no varejo brasileiro que muda a recomendação.</p>
+        <span class="byline">Redação Checkpoint BR &mdash; 14 de julho de 2026 &mdash; leitura de 9 minutos</span>
+      </div>
+    </article>
+    <article class="post">
+      <img src="img/hardware-portateis-2026-steam-deck.jpg" alt="Três consoles portáteis lado a lado sobre mesa de madeira" loading="lazy" width="260" height="170">
+      <div>
+        <span class="kicker k-hardware">Hardware</span>
+        <h3><a href="hardware-portateis-2026-steam-deck.html">Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder</a></h3>
+        <p>Autonomia de bateria, ruído de ventoinha e desempenho em oito jogos nos três aparelhos mais vendidos do semestre. Nenhum vence em tudo.</p>
+        <span class="byline">Redação Checkpoint BR &mdash; 29 de junho de 2026 &mdash; leitura de 10 minutos</span>
+      </div>
+    </article>
+  </section>
+  <section class="cat-section" id="cultura">
+    <div class="cat-head"><h2>Cultura</h2><span class="count">01 matéria</span></div>
+    <article class="post">
+      <img src="img/cultura-esports-cs2-brasil.jpg" alt="Arena de esports lotada com telão exibindo o placar da partida" loading="lazy" width="260" height="170">
+      <div>
+        <span class="kicker k-cultura">Cultura</span>
+        <h3><a href="cultura-esports-cs2-brasil.html">Do fliperama ao Major: a geração que profissionalizou o CS no Brasil</a></h3>
+        <p>Da lan house paga por hora às arenas com patrocínio de banco: como a cena competitiva brasileira montou uma carreira onde antes havia hobby.</p>
+        <span class="byline">Redação Checkpoint BR &mdash; 10 de julho de 2026 &mdash; leitura de 12 minutos</span>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="foot-logo">Checkpoint BR</p>
+      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente com código entregue por e-mail, pagos no PIX à vista ou parcelado. O blog é escrito pela nossa própria equipe.</p>
+    </div>
+    <div>
+      <h4>Loja</h4>
+      <ul>
+        <li><a href="catalogo.html">Catálogo e preços</a></li>
+        <li><a href="como-funciona.html">Como funciona a reserva</a></li>
+        <li><a href="trocas.html">Trocas e reembolso</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="glossario.html">Glossário</a></li>
+        <li><a href="app.html">App Checkpoint</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Ajuda e legal</h4>
+      <ul>
+        <li><a href="contato.html">Falar com a gente</a></li>
+        <li><a href="faq.html">Perguntas frequentes</a></li>
+        <li><a href="sobre.html">Sobre a loja</a></li>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos e condições de venda</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal-bar">
+    <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
+    <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
+  </div>
+</footer>
+</body>
+</html>

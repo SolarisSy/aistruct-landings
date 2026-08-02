@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>App Checkpoint — leitura offline e alerta de matéria nova</title>
-<meta name="description" content="Conheça o app Checkpoint: organização por categoria, leitura offline e aviso de matéria nova, sem custo e sem coleta de dado além do e-mail de aviso.">
+<title>App Checkpoint — acompanhar a reserva e ler offline</title>
+<meta name="description" content="O app da loja mostra o status da reserva, a data prevista de liberação e a chave quando é emitida, e guarda as últimas matérias do blog para ler sem internet.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://checkpointbr.sbs/app.html">
-<meta property="og:title" content="App Checkpoint — leitura offline e alerta de matéria nova">
-<meta property="og:description" content="Organização por categoria, leitura offline e aviso de matéria nova.">
+<meta property="og:title" content="App Checkpoint — acompanhar a reserva e ler offline">
+<meta property="og:description" content="Status do pedido, aviso de liberação da chave e leitura offline do blog da loja.">
 <meta property="og:image" content="https://checkpointbr.sbs/img/_app.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
@@ -72,56 +72,71 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
 .legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 @media (max-width:880px){ footer .wrap{grid-template-columns:1fr 1fr} }
+
+/* --- chrome v2 (loja) --- */
+a.logo{display:inline-block;color:var(--ink);border-bottom:none}
+a.logo:hover span{color:var(--forest)}
+nav.primary{padding:2px 28px 6px;gap:24px}
+nav.primary a{display:inline-block;padding:17px 0;line-height:1.15}
+nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--crimson)}
+.btn{display:inline-block;font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;padding:16px 28px;background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+.btn:hover{background:var(--crimson);border-color:var(--crimson);border-bottom-color:var(--crimson)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.legal-bar a{color:#b9b4a2}
+@media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
 </style>
 </head>
 <body>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <p class="logo">Check<span>point</span> BR</p>
-    <p class="masthead-meta">Edição de 16 de julho de 2026<br>Jornalismo de games — redação independente</p>
+    <a href="/" class="logo">Check<span>point</span> BR</a>
+    <p class="masthead-meta">Loja de jogos digitais &mdash; reserva e pr&eacute;-venda<br>Chave enviada por e-mail &middot; atendimento de segunda a sexta</p>
   </div>
   <nav class="wrap primary">
-    <a href="safe.html">Início</a>
+    <a href="/">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="como-funciona.html">Como funciona</a>
+    <a href="blog.html">Blog</a>
     <a href="glossario.html">Glossário</a>
-    <a href="app.html">App</a>
-    <a href="sobre.html">Sobre</a>
-    <a href="faq.html">FAQ</a>
+    <a href="contato.html">Atendimento</a>
   </nav>
 </header>
 
 <main class="wrap article-page">
-  <span class="kicker">Produto da redação</span>
+  <span class="kicker">Pedidos no celular</span>
   <h1>App Checkpoint</h1>
-  <p class="lead-dek">A mesma redação, organizada por categoria, com leitura offline e aviso quando sai matéria nova — sem anúncio dentro do texto e sem coleta de dado que a gente não precisa.</p>
+  <p class="lead-dek">Acompanhar a reserva, guardar a chave e ler o blog offline no mesmo lugar — sem propaganda no meio do texto e sem pedir dado que a loja não usa.</p>
 
   <div class="app-hero">
     <figure>
-      <img src="img/_app.jpg" alt="Tela do aplicativo Checkpoint mostrando lista de matérias organizadas por categoria em smartphone" loading="lazy" width="640" height="420">
-      <figcaption>Tela inicial do app, versão de julho de 2026</figcaption>
+      <img src="img/_app.jpg" alt="Pessoa sentada a uma mesa consultando o celular com uma das mãos" loading="lazy" width="840" height="560">
+      <figcaption>Consulta de pedido e leitura offline no celular</figcaption>
     </figure>
     <div>
-      <p>O app nasceu de um pedido recorrente de leitor: acompanhar a redação sem depender de feed de rede social, que corta alcance e mistura pauta de games com o resto do algoritmo. A versão atual guarda as últimas cinquenta matérias para leitura sem conexão e separa o conteúdo por Análises, Guias, História e Hardware — o mesmo recorte que usamos no site.</p>
-      <p>Não existe notificação por engajamento nem gamificação de leitura. O único aviso configurável é "matéria nova publicada", e pode ser desligado a qualquer momento nas preferências.</p>
+      <p>O app saiu de um pedido que chegava toda semana no atendimento: ver em que pé está a reserva sem precisar procurar o e-mail de confirmação. Ele lista os pedidos com status, data prevista de liberação e a chave já resgatável, e guarda as últimas cinquenta matérias do blog para ler sem conexão.</p>
+      <p>Não há notificação por engajamento nem contagem regressiva na tela inicial. Os dois avisos que existem — "reserva liberada" e "matéria nova" — podem ser desligados separadamente nas preferências, e desligar não afeta o e-mail do pedido.</p>
     </div>
   </div>
 
   <div class="section-head"><h2>O que o app faz</h2><div class="rule"></div></div>
   <div class="feature-list">
-    <div><span class="fnum">01</span><h3>Leitura offline</h3><p>As últimas cinquenta matérias ficam salvas no aparelho, incluindo imagem, para consulta sem internet.</p></div>
-    <div><span class="fnum">02</span><h3>Organização por categoria</h3><p>Análises, Guias, História e Hardware em abas separadas, com filtro por data de publicação.</p></div>
-    <div><span class="fnum">03</span><h3>Aviso de matéria nova</h3><p>Notificação única por publicação, sem repetição e sem promoção cruzada de outros produtos.</p></div>
-    <div><span class="fnum">04</span><h3>Modo leitura noturna</h3><p>Paleta de contraste reduzido para leitura em ambiente escuro, mantendo a tipografia do site.</p></div>
+    <div><span class="fnum">01</span><h3>Seus pedidos</h3><p>Status da reserva, data prevista de liberação, plataforma escolhida e a chave quando ela é emitida.</p></div>
+    <div><span class="fnum">02</span><h3>Aviso de liberação</h3><p>Notificação no dia em que a pré-carga abre, junto com o e-mail — para não depender de uma coisa só.</p></div>
+    <div><span class="fnum">03</span><h3>Blog offline</h3><p>As últimas cinquenta matérias ficam salvas no aparelho, com imagem, para ler sem internet.</p></div>
+    <div><span class="fnum">04</span><h3>Modo leitura noturna</h3><p>Contraste reduzido para ler no escuro, mantendo a mesma tipografia do site.</p></div>
   </div>
 
   <div class="newsletter-box">
     <h2>Aviso por e-mail (opcional)</h2>
-    <p>Quem prefere não instalar o app pode receber um resumo semanal das matérias publicadas. É um envio por semana, sem outro uso do endereço além desse aviso — sem cadastro, sem senha, cancelamento em um clique.</p>
-    <form id="app-newsletter-form" onsubmit="event.preventDefault(); document.getElementById('nl-status').style.display='block'; this.reset();">
-      <input type="email" placeholder="seu-email@exemplo.com" aria-label="E-mail para aviso semanal">
+    <p>Quem prefere não instalar nada pode receber um resumo semanal: o que entrou no catálogo e o que saiu no blog. É um envio por semana, sem outro uso do endereço, e o cancelamento é um clique no rodapé da própria mensagem.</p>
+    <form id="app-newsletter-form" onsubmit="event.preventDefault();try{localStorage.setItem('cb_aviso',Date.now())}catch(e){};document.getElementById('nl-status').style.display='block';this.reset();">
+      <input type="email" placeholder="seu-email@exemplo.com" aria-label="E-mail para o resumo semanal">
       <button type="submit">Quero receber</button>
     </form>
-    <p class="newsletter-status" id="nl-status">Recebido. (Demonstração — nenhum dado foi enviado ou armazenado.)</p>
-    <p class="newsletter-note">Este formulário é apenas ilustrativo nesta página e não coleta nem transmite nenhum dado real.</p>
+    <p class="newsletter-status" id="nl-status">Pronto. O próximo resumo sai na sexta-feira para o endereço informado.</p>
+    <p class="newsletter-note">Endereço usado só para esse resumo. As regras completas estão na <a href="privacidade.html">política de privacidade</a>.</p>
   </div>
 </main>
 
@@ -129,34 +144,38 @@ footer p{color:#c9c4b4;font-size:.85rem}
   <div class="wrap">
     <div>
       <p class="foot-logo">Checkpoint BR</p>
-      <p>Redação independente de jornalismo de games, fundada em 2024. Cobrimos análises, história de franquias, hardware e cultura gamer com apuração própria.</p>
+      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente com código entregue por e-mail, pagos no PIX à vista ou parcelado. O blog é escrito pela nossa própria equipe.</p>
     </div>
     <div>
-      <h4>Seções</h4>
+      <h4>Loja</h4>
       <ul>
-        <li><a href="safe.html">Início</a></li>
+        <li><a href="catalogo.html">Catálogo e preços</a></li>
+        <li><a href="como-funciona.html">Como funciona a reserva</a></li>
+        <li><a href="trocas.html">Trocas e reembolso</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Conteúdo</h4>
+      <ul>
+        <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
         <li><a href="app.html">App Checkpoint</a></li>
       </ul>
     </div>
     <div>
-      <h4>Redação</h4>
+      <h4>Ajuda e legal</h4>
       <ul>
-        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="contato.html">Falar com a gente</a></li>
         <li><a href="faq.html">Perguntas frequentes</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Legal</h4>
-      <ul>
+        <li><a href="sobre.html">Sobre a loja</a></li>
         <li><a href="privacidade.html">Privacidade</a></li>
-        <li><a href="termos.html">Termos de uso</a></li>
+        <li><a href="termos.html">Termos e condições de venda</a></li>
       </ul>
     </div>
   </div>
   <div class="legal-bar">
-    <span>© 2026 Checkpoint BR — LEVEL UP MEDIA LTDA · CNPJ 68.180.122/0001-40</span>
-    <span>Uberlândia/MG · Publicação de conteúdo, sem comércio eletrônico.</span>
+    <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
+    <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
   </div>
 </footer>
 </body>
