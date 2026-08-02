@@ -308,14 +308,14 @@ function rj_responde(int $status, array $dados): void
         . 'viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'10\' fill=\'%232f4f3e\'/%3E'
         . '%3Cpath d=\'M12 22l20-9 20 9-20 9z\' fill=\'%23f0ece1\'/%3E%3Cpath d=\'M12 22v20l20 9V31z\' '
         . 'fill=\'%23c8d2c6\'/%3E%3Cpath d=\'M52 22v20l-20 9V31z\' fill=\'%239c4a2f\'/%3E%3C/svg%3E">'
-        . '<link rel="stylesheet" href="/ativos/base.css"></head><body>'
+        . '</head><body style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Arial,sans-serif;max-width:640px;margin:0 auto;padding:32px 20px;line-height:1.7;color:#1A1F2B;background:#F5F6F9">'
         . '<div class="rule"><span></span></div>'
         . '<div class="wrap lay"><div class="col" style="padding:38px 0 60px">'
         . '<h1>' . htmlspecialchars($titulo, ENT_QUOTES) . '</h1>'
         . '<p class="lead">' . htmlspecialchars($texto, ENT_QUOTES) . '</p>'
-        . '<p><a class="btn" href="/central-de-ajuda/">Voltar ao início</a></p>'
+        . '<p><a class="btn" href="/">Voltar ao início</a></p>'
         . '<p class="up"><a href="/contato/">Escrever outra mensagem</a> · '
-        . '<a href="/perguntas-frequentes/">Perguntas frequentes</a></p>'
+        . '<a href="/contato/">Atendimento</a></p>'
         . '</div></div></body></html>';
     exit;
 }
