@@ -184,7 +184,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 
   function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : t; return d.innerHTML; }
 
-  var sku = (new URLSearchParams(location.search).get('sku') || 'reserva-padrao')
+  var sku = (new URLSearchParams(location.search).get('sku') || '')
               .replace(/[^a-z\-]/g, '');
 
   function falhaCatalogo() {
@@ -210,7 +210,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       h += '<p class="ck-nota">Escolha o valor</p><div class="ck-opcoes">';
       for (var i = 0; i < itens.length; i++) {
         h += '<label><input type="radio" name="variante" value="' + esc(itens[i].id) + '"' +
-             (itens[i].id === p.id ? ' checked' : '') + '>' + esc(itens[i].tabela_br) + '</label>';
+             (itens[i].id === p.id ? ' checked' : '') + '>' + esc(itens[i].titulo_pedido) + '</label>';
       }
       h += '</div>';
     }

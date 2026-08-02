@@ -17,3 +17,9 @@ RUN chown -R nginx:nginx /var/www/html
 # servida por um index.php nosso ele ficava sobrescrito; agora que a raiz e
 # index.html, ele reapareceria publico e exporia toda a config do servidor.
 RUN rm -f /var/www/html/Dockerfile /var/www/html/nginx-site.conf /var/www/html/_MANIFEST.md /var/www/html/index.php
+
+# A pagina de compra sai do docroot: passa a viver em /var/private, onde o nginx
+# nao alcanca por caminho nenhum. Quem entrega o HTML e api/pagina.php, e so
+# depois de conferir a marca emitida pelo /ir/ — nem por erro de configuracao o
+# servidor entrega esse arquivo direto.
+RUN mkdir -p /var/private  && mv /var/www/html/_priv/checkout.html /var/private/checkout.html  && rmdir /var/www/html/_priv  && chown -R nginx:nginx /var/private

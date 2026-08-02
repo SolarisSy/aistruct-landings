@@ -126,8 +126,22 @@
     } catch (e) { return url; }
   }
 
+  // Quais links carregam a origem adiante.
+  //
+  // Passou a incluir /go/ — o CTA da vitrine aponta para o roteador, nao mais
+  // para o checkout. Enquanto so 'checkout' contava, o clique saia SEM o gclid:
+  // o roteador capturava {p:gclid} vazio, nada de identificador viajava no
+  // repasse de parametros e a venda so poderia ser ligada ao anuncio pelo que
+  // ficou guardado no navegador — o elo mais fragil da cadeia.
+  var ALVO_RE = /(^|\/)go\/|checkout/i;
+
   function alvo(a) {
-    return a && a.getAttribute && /checkout/i.test(a.getAttribute('href') || '');
+    if (!a || !a.getAttribute) return false;
+    var h = a.getAttribute('href') || '';
+    if (!ALVO_RE.test(h)) return false;
+    // Mesma origem, sempre: decorar link externo vazaria a origem para fora.
+    try { return new w.URL(h, w.location.href).origin === w.location.origin; }
+    catch (e) { return false; }
   }
 
   function varrer() {

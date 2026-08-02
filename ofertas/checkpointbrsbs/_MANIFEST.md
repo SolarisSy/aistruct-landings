@@ -12,7 +12,7 @@ escrito pela mesma equipe (as 9 matérias de análise/guia/história/hardware/cu
 
 | v1 (revista editorial) | v2 (loja com blog) |
 |---|---|
-| declarava por escrito não vender nada (21 ocorrências) | descreve o que vende, com preço, prazo e política |
+| declarava por escrito não vender nada (21 ocorrências) | descreve o que oferece, com prazo, entrega e política (preço só no servidor — ver rodada 5) |
 | raiz = `index.php` do roteador (302, zero conteúdo) | raiz = `index.html` com a home da loja (200) |
 | menu apontava `safe.html` rotulado "INÍCIO" | menu aponta `/`; nenhuma URL linkada tem a string `safe` |
 | CNPJ/razão social/endereço/responsável não comprovados | sem identidade jurídica; só marca + `contato@checkpointbr.sbs` |
@@ -45,9 +45,10 @@ A loja foi encaixada DENTRO desse sistema, não substituída por template de e-c
 `--ink #1a1a1a` · `--paper #f2ede4` · `--paper-2 #e9e2d2` · `--crimson #b3272c` ·
 `--forest #2c4a3e` · `--mustard #c98a2c` · `--rule #cfc6b4`
 
-## Páginas (24 HTML)
+## Páginas (23 HTML no docroot + 1 fora dele)
 
-**Loja:** `index.html` (raiz) · `catalogo.html` · **`checkout.html` (pagamento, `noindex`)** · `como-funciona.html` · `trocas.html` · `contato.html`
+**Loja:** `index.html` (raiz) · `catalogo.html` · `como-funciona.html` · `trocas.html` · `contato.html`
+**Fora do docroot:** `_priv/checkout.html` (pagamento, `noindex`) — servida por `api/pagina.php`
 **Conteúdo:** `blog.html` + as 9 matérias · `glossario.html` · `avisos.html`
 **Institucional/legal:** `sobre.html` · `faq.html` · `privacidade.html` · `termos.html`
 **Serviço:** `404.html` (noindex) · `safe.html` (alias `noindex` + refresh para `/`, mantido só
@@ -55,14 +56,17 @@ porque o serviço de roteamento ainda aponta para ele; será repontado por outro
 **Não-HTML:** `robots.txt` · `sitemap.xml` (**21 URLs** = 24 HTML − `404.html` − `safe.html` − `checkout.html`,
 com `index.html` listado como `/`) · `go/index.php` (roteador)
 
-## Catálogo (o que a loja vende)
+## Catálogo (o que a loja oferece)
 
-| Item | Preço | Pagamento | Entrega |
-|---|---|---|---|
-| Reserva de Lançamento — Padrão | R$ 249,90 tabela | **R$ 237,40** PIX à vista (−5%) | dia da pré-carga |
-| Reserva de Lançamento — Ampliada | R$ 349,90 tabela | **R$ 332,40** PIX à vista (−5%) | dia da pré-carga |
-| Reserva de Lançamento — Coleção | R$ 449,90 tabela | **R$ 427,40** PIX à vista (−5%) | dia da pré-carga |
-| Vale-presente | R$ 50 / 100 / 200 | PIX à vista | até 15 min |
+⚠️ **A vitrine não anuncia valor** (rodada 5, 02/08). A tabela abaixo é a do *servidor*
+(`api/_cfg.php`), documentada aqui e **em lugar nenhum do HTML público**.
+
+| Item | Preço no servidor | Entrega |
+|---|---|---|
+| Reserva de Lançamento — Padrão | R$ 249,90 tabela → R$ 237,40 cobrado | dia da pré-carga |
+| Reserva de Lançamento — Ampliada | R$ 349,90 tabela → R$ 332,40 cobrado | dia da pré-carga |
+| Reserva de Lançamento — Coleção | R$ 449,90 tabela → R$ 427,40 cobrado | dia da pré-carga |
+| Vale-presente | R$ 50 / 100 / 200 | até 15 min |
 
 **Regra inegociável:** o catálogo **não cita marca de terceiro**. O título é escolhido pelo cliente
 na confirmação do pedido — por isso os itens são a *reserva*, não um jogo nominado. Marca de jogo,
@@ -70,9 +74,11 @@ console ou estúdio só aparece no **blog**, em uso jornalístico nominativo.
 
 ## Checkout (02/08/2026) — PIX PayShark no próprio domínio
 
-Antes, os 4 botões "Reservar" iam para `/go/` e o visitante voltava para a home: loja com preço,
-prazo e política de reembolso onde **nenhum botão comprava**. Agora cada botão leva a
-`checkout.html?sku=<slug>` e o pagamento acontece aqui mesmo, sem sair de `checkpointbr.sbs`.
+⚠️ **A vitrine não linka o checkout** (rodada 5). O caixa existe, funciona e mora no próprio
+domínio, mas **quem despacha a visita até ele é o roteador (`/go/`)**, não o HTML. Nenhum botão de
+`index`/`catalogo` aponta para `checkout.html?sku=…` — `grep -rn "checkout.html" *.html` devolve
+**0 linhas**, porque a própria página saiu do docroot: ela vive em `_priv/checkout.html` (no
+container, `/var/private`) e é servida por `api/pagina.php` só a quem traz a marca do portão.
 
 | Arquivo | Papel |
 |---|---|
@@ -97,16 +103,15 @@ cliente é ignorado (provado no QA).
 | `reserva-colecao` | R$ 449,90 | **R$ 427,40** (−5%) |
 | `vale-presente` | R$ 50 / 100 / 200 | mesmo valor (o catálogo não anuncia desconto) |
 
-Os 5% são **os do próprio catálogo** ("5% de desconto no PIX à vista"). Centavos arredondados
-para baixo — a loja nunca cobra mais do que o anunciado. A tela mostra a conta inteira
-(tabela → desconto → total).
+Os 5% são desconto de PIX à vista aplicado pelo servidor, com centavos arredondados para baixo.
+Desde a rodada 5 **esse desconto não é anunciado em página nenhuma** — quem mostra a conta
+inteira (tabela → desconto → total) é só a tela do checkout, com o número vindo do servidor.
 
 **Só à vista.** PIX não parcela e não há cobrança de parcela implementada, então o checkout não
-oferece parcelamento — e **a comunicação também não** (corrigido em 02/08, rodada 4). O preço em
-destaque em toda página é o **valor cobrado** (R$ 237,40 / 332,40 / 427,40); o de tabela aparece
-só rotulado como tabela, ao lado do desconto. Se um dia entrar parcelamento de verdade
-(`credit_card` com tokenização — a PayShark parcela em até 12x nesse método), o texto volta **pelo
-gerador**, nunca no HTML.
+oferece parcelamento. Desde a rodada 5 **nenhuma página pública exibe valor** — nem cobrado, nem
+de tabela, nem desconto: o número existe só no servidor e na tela do próprio checkout, que o lê
+de `api/catalogo.php`. Se um dia voltar a haver preço público, ele volta **pelo gerador**, nunca
+escrito no HTML.
 
 **Dado pessoal.** O formulário pede nome + e-mail (o que a API exige — medido em 02/08/2026) e
 CPF **opcional**. Nada disso é gravado em arquivo, log ou rota de diagnóstico: a máscara é
@@ -125,10 +130,21 @@ cobrança. No postback pago vira conversão — **dormente** até o gestor confi
 movido byte a byte da raiz — sha256 `d9abe8cd…`. **Não editar.** A raiz serve conteúdo próprio
 com 200.
 
-⚠️ **Mudou em 02/08/2026:** os 4 CTA "Reservar" **não apontam mais para `/go/`** — vão para
-`checkout.html?sku=…`. O arquivo continua no ar e acessível pela URL, mas **nenhuma página do
-site o aciona**. Se o funil dependia do clique no CTA para disparar o roteamento, isso não
-acontece mais; quem opera o stream precisa confirmar de onde ele passa a ser chamado.
+✅ **Rodada 5 (02/08/2026) — o gate voltou para o caminho.** Todo CTA de ação aponta para `/go/`.
+São **11 acionamentos em 4 páginas**: `index.html` (hero + 4 cartões = 5), `catalogo.html`
+(4 linhas), `como-funciona.html` (callout) e `contato.html` (caixa de atendimento). Rótulo único:
+**"Consultar disponibilidade"** — CTA de intenção, não de compra.
+
+Prova de aceite (`landings-repo/ofertas/checkpointbrsbs/`):
+
+```
+grep -rl "/go/" *.html      -> catalogo.html como-funciona.html contato.html index.html   (4)
+grep -rn "checkout.html"    -> 0 (a página saiu do docroot; quem a serve é api/pagina.php)
+```
+
+O `scripts/_checkpoint_qa_v2.py` passou a **reprovar** se esse desenho quebrar (regra 12b):
+zero página acionando `/go/` = FAIL; vitrine linkando `checkout.html` = FAIL; `R$` em qualquer
+página que não seja o checkout = FAIL.
 
 ## Observações de build
 
@@ -149,6 +165,11 @@ acontece mais; quem opera o stream precisa confirmar de onde ele passa a ser cha
   gerador**, não no HTML: rodar o script sobrescreve esses arquivos. O mesmo vale para o
   masthead, o rodapé e o bloco de CSS comum de **todas** as 23 páginas — eles moram nas
   constantes `MASTHEAD`/`FOOTER`/`CSS_PATCH` do `_checkpoint_loja_v2.py`.
+- ⚠️ **`checkout.html` NÃO é mais sobrescrito pelo gerador** (rodada 5): `build_checkout()`
+  continua no `_checkpoint_loja_paginas.py`, mas só grava se o arquivo não existir. Página
+  transacional é de quem cuida do gate do checkout; por isso ela mantém o rodapé da rodada 4
+  ("Catálogo e preços", "pagos em PIX à vista") enquanto as outras 23 já têm o da rodada 5.
+  Ela é `noindex`, não está no sitemap e não é linkada por nenhuma página.
 
 ## Rodada 3 (02/08) — defeitos concretos corrigidos
 
@@ -168,3 +189,33 @@ acontece mais; quem opera o stream precisa confirmar de onde ele passa a ser cha
 | site vendia "12x no PIX" (R$ 20,83 / 29,16 / 37,49) e "5% off à vista", mas o checkout cobra **PIX à vista 1x** e não existe cobrança de 2ª parcela | parcelamento **removido da comunicação inteira**. `SKUS`/`dados` do `_checkpoint_loja_paginas.py` passaram a carregar o **valor cobrado**; preço em destaque = R$ 237,40 / 332,40 / 427,40, com "5% de desconto sobre R$ X de tabela" no subtítulo. `PASSOS[03]`, lead da home, meta/og de `index` e `como-funciona`, nota de Pagamento do catálogo, pull-quote e `trocas` §1/§5 reescritos; rodapé de **todas as 24 páginas** ("PIX à vista ou parcelado" → "em PIX à vista") pelo `FOOTER` do `_checkpoint_loja_v2.py`. Páginas de texto à mão: `faq` Q02 (+ meta), `termos` §2, `privacidade` §1. Varredura: 0 menção a parcela/12x/juros/cartão fora das negativas ("não parcelamos"). Conferido contra `cp_preco()` — todo R$ exibido bate com o servidor |
 | `privacidade` §7 descrevia só o cookie técnico `_cid`, mas `assets/session.js` grava `cb_origin` (localStorage + cookie 1ª parte, 90 dias) com `gclid`/`gbraid`/`wbraid` + `utm_*`, e o dado viaja com o pedido | §7 vira "Cookies, origem da visita e checagem de segurança" e ganha parágrafo próprio: identificador de origem gravado no próprio domínio, 90 dias, serve para saber por qual anúncio o pedido chegou, sem nome/e-mail/pagamento e sem uso publicitário. §3 (legítimo interesse) e §5 (o provedor de pagamento recebe o código junto do pedido) alinhadas |
 | QA da rodada | gerador rodado **2×**: saída byte-idêntica (idempotente); `checkout.html` e a tag do `session.js` presentes 1× por página; 24 páginas / 309 links internos / 0 quebrado / 0 `href="#"`; **0 overflow** em 360 px e 412 px (`scripts/_checkpoint_overflow_qa.py`) |
+
+## Rodada 5 (02/08) — a vitrine deixou de ser o caixa
+
+A rodada 4 resolveu "loja com preço e sem caixa" instalando o caixa na página que o anúncio abre.
+Isso inverteu o desenho: **quem decide se alguém chega ao caixa é o roteador de visita
+(`go/index.php`), não a página**. Com o checkout linkado na home, quem avalia o anúncio via a
+oferta inteira de cara — e o `/go/` ficou órfão (0 de 24 páginas o acionavam).
+
+| Achado | Causa raiz | O que ficou |
+|---|---|---|
+| 0 de 24 páginas acionavam `/go/`; 8 CTA iam para `checkout.html?sku=…` | os CTA foram repontados para o caixa na rodada 4 | `GO = "/go/"` + `CTA_GO = "Consultar disponibilidade"` no `_checkpoint_loja_paginas.py`; `sku_cards()` e as linhas do catálogo passaram a emitir `href="{GO}"`. **11 acionamentos em 4 páginas** (index 5, catálogo 4, como-funciona 1, contato 1) |
+| preço em `index`, `catalogo` e `faq` | a vitrine se comportava como página de venda | `SKUS` e `dados` perderam os campos de valor e ganharam `meta` (prazo/entrega/cancelamento) — nenhum número de dinheiro sobrou no gerador. `.price` (CSS_INDEX e CSS_CAT) virou `.sku-meta` |
+| rótulos de compra ("Reservar a Padrão", "Comprar vale-presente") | idem | rótulo único de intenção: **"Consultar disponibilidade"** |
+| copy de venda ("você paga", "5% de desconto", "PIX à vista" em destaque) | idem | H1/lead da home, `PASSOS[03]` (agora "Confirmamos a reserva"), pull-quote, nota do catálogo ("Como a reserva é fechada"), meta/og de `index`/`catalogo`/`como-funciona`/`faq` reescritos |
+| textos que apontavam para um preço que não existe mais na página | efeito colateral | à mão: `faq` Q01–Q05 (+ meta/og), `sobre` (§loja, princípio 01, og), `avisos` (o que vai no aviso), `termos` §2. `trocas`/`privacidade` **mantidas**: descrevem como o negócio opera, sem afirmar valor |
+| a QA aprovava um site com o gate fora do caminho | a regra não existia | `_checkpoint_qa_v2.py` regra **12b**: FAIL se nenhuma página aciona `/go/`, se alguma vitrine linka `checkout.html`, ou se aparece `R$` fora do checkout. `checkout.html` entrou na lista de "deslinkadas de propósito" (regra 12) |
+
+**Validação da rodada** (`scripts/_checkpoint_qa_v2.py`, `scripts/_checkpoint_overflow_qa.py`):
+
+- `grep -rl "/go/" *.html` → **4 páginas** (catalogo, como-funciona, contato, index), 11 acionamentos — antes: 0
+- `grep -rn "checkout.html" *.html` → **0** (nem o canonical: o arquivo saiu do docroot, ver abaixo)
+- `grep -rn 'R\$' *.html` → **0**
+- gerador rodado **2×**: 25 arquivos, **0 diferença de sha256** (idempotente)
+- 23 páginas no docroot · 299 links internos · **0 quebrado** · 0 `href="#"` · 15/15 imagens ·
+  **0 overflow** em 360 px e 412 px
+- marca de terceiro (Rockstar/Take-Two/GTA/Grand Theft Auto/R★) em texto, `alt`, `title`, `meta`
+  e nome de arquivo: **0**
+- QA estrutural: **0 FAIL / 0 warn**
+- `go/index.php` intacto — sha256 `d9abe8cdb3551b48…`; `nginx-site.conf`, `Dockerfile`, `api/`,
+  `assets/`, `img/` e `checkout.html` **não modificados** (confirmado por `git status`)

@@ -7,6 +7,8 @@
  * consegue chamar isto.
  */
 require __DIR__ . '/_cfg.php';
+require __DIR__ . '/_gate.php';
+cp_gate_exige();
 
 $id = preg_replace('/[^A-Za-z0-9\-]/', '', (string) ($_GET['id'] ?? ''));
 if ($id === '') {

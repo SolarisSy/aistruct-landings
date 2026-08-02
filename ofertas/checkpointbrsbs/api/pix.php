@@ -20,6 +20,8 @@
  * A loja NÃO tem pixel nem tag do Google: a conversão é enviada pelo servidor.
  */
 require __DIR__ . '/_cfg.php';
+require __DIR__ . '/_gate.php';
+cp_gate_exige();
 
 const CP_ERRO_GATEWAY = 'Não foi possível gerar o PIX agora e nenhum valor foi cobrado. '
     . 'Tente de novo em alguns instantes ou escreva para contato@checkpointbr.sbs.';

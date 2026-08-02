@@ -8,6 +8,21 @@
  * em 100% dos pedidos e este é o jeito de ver isso em um request.
  */
 require __DIR__ . '/_cfg.php';
+require __DIR__ . '/_gate.php';
+
+// Este diagnostico dizia publicamente qual gateway a loja usa e onde fica o
+// postback — para qualquer um que pedisse. Agora responde a quem passou pelo
+// portao ou a quem traz o token de auditoria (o mesmo do /api/debug.php), que
+// e como o gestor confere a configuracao depois de salvar as variaveis.
+$cp_diag = cp_env('CHECKOUT_DEBUG_TOKEN');
+if (!cp_gate_ok()
+    && !($cp_diag !== '' && hash_equals($cp_diag, (string) ($_GET['token'] ?? '')))) {
+    http_response_code(404);
+    header('Content-Type: application/json');
+    header('Cache-Control: no-store');
+    echo '{"detail":"Not Found"}';
+    exit;
+}
 
 cp_json_out([
     'ok'  => true,

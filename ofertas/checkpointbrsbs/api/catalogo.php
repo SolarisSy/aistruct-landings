@@ -8,6 +8,8 @@
  * Não recebe nem devolve nada do comprador.
  */
 require __DIR__ . '/_cfg.php';
+require __DIR__ . '/_gate.php';
+cp_gate_exige();
 
 header('Cache-Control: no-store');
 
