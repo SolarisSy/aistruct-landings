@@ -48,4 +48,8 @@ RUN rm -f /var/www/html/Dockerfile /var/www/html/nginx-php.conf /var/www/html/.d
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php-fpm -D && nginx"]
+# O chown roda no START, nao so' no build: quando o painel monta o volume em
+# /var/www/dados, o ponto de montagem vem do dono do daemon (root) e sobrepoe o
+# dono definido acima — o php-fpm (www-data) perderia a escrita e toda mensagem
+# do atendimento falharia em silencio.
+CMD ["sh", "-c", "mkdir -p /var/www/dados && chown www-data:www-data /var/www/dados && chmod 700 /var/www/dados && php-fpm -D && nginx"]
