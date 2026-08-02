@@ -78,6 +78,15 @@ CONVERSION_NAME = os.environ.get("GADS_CONVERSION_NAME", "Compra").strip()
 CURRENCY = os.environ.get("GADS_CURRENCY", "BRL").strip()
 TZ_OFFSET = os.environ.get("TZ_OFFSET", "-03:00").strip()
 
+# Mensagens que CHEGAM AO COMPRADOR (viram o `detail` do erro HTTP e podem ser
+# exibidas na tela). Nada de texto de runtime nem de retorno cru do gateway aqui:
+# o detalhe tecnico vai para o log, o cliente le uma frase em pt-BR com o que fazer.
+ERRO_PAGAMENTO = ("Não foi possível gerar o PIX agora e nenhum valor foi cobrado. "
+                  "Tente novamente em alguns instantes ou escreva para "
+                  "suporte@gta6preorder.shop.")
+ERRO_CONSULTA = ("Não foi possível consultar o pagamento agora. Se você já pagou, "
+                 "a confirmação chega por e-mail assim que o banco liberar.")
+
 PRICES = {
     "standard": 4499,   # R$44,99 — 1ª parcela
     "ultimate": 5499,   # R$54,99 — 1ª parcela
@@ -511,14 +520,17 @@ async def create_pix(body: PixRequest):
     except Exception as e:
         STATS["pix_error"] += 1
         _record("pix_exception", {"externalRef": external_ref}, error=str(e)[:200])
-        raise HTTPException(502, f"gateway exception: {e!s}")
+        log.error("gateway exception: %s", _mask_texto(str(e))[:300])
+        # O detalhe tecnico fica no log. O que volta para o browser e texto de
+        # cliente: o checkout exibe esta frase, e ela precisa dizer o que fazer.
+        raise HTTPException(502, ERRO_PAGAMENTO)
 
     if r.status_code >= 400:
         STATS["pix_error"] += 1
         _record("pix_create_error", {"externalRef": external_ref},
                 status=r.status_code, body=_mask_texto(r.text[:400]))
         log.error("streetpays %s: %s", r.status_code, _mask_texto(r.text[:300]))
-        raise HTTPException(502, f"gateway error: {r.status_code}")
+        raise HTTPException(502, ERRO_PAGAMENTO)
 
     tx = r.json()
     STATS["pix_created"] += 1
@@ -553,10 +565,12 @@ async def payment_status(tx_id: str):
         async with httpx.AsyncClient(timeout=20) as c:
             r = await c.get(f"{GATEWAY_API}/v1/payment/{tx_id}", headers=_PAY_HEADERS)
     except Exception as e:
-        raise HTTPException(502, f"gateway status exception: {e!s}")
+        log.warning("status exception tx=%s: %s", tx_id, _mask_texto(str(e))[:200])
+        raise HTTPException(502, ERRO_CONSULTA)
 
     if r.status_code >= 400:
-        raise HTTPException(502, f"gateway status failed: {r.status_code}")
+        log.warning("status %s tx=%s", r.status_code, tx_id)
+        raise HTTPException(502, ERRO_CONSULTA)
 
     tx = r.json()
     st = str(tx.get("status", "")).upper()

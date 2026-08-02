@@ -27,10 +27,15 @@ COPY obrigado.html .
 COPY blog.html .
 
 # ── Docroot publico: SO o que precisa ser lido por HTTP ──────────────
-# index.html (pagina comercial, servida em / e /ofertas) + assets estaticos.
+# index.html (pagina comercial, servida em / e /ofertas), as paginas legais
+# (estaticas, sem nada do app) + assets estaticos.
 # Nada de fonte, config, dependencia ou metadado entra aqui.
 RUN install -d /var/www/html
 COPY index.html /var/www/html/index.html
+COPY termos-de-uso.html /var/www/html/termos-de-uso.html
+COPY politica-de-privacidade.html /var/www/html/politica-de-privacidade.html
+COPY politica-de-reembolso.html /var/www/html/politica-de-reembolso.html
+COPY politica-de-entrega.html /var/www/html/politica-de-entrega.html
 COPY assets/ /var/www/html/assets/
 
 EXPOSE 8000

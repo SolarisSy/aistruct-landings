@@ -691,10 +691,11 @@
         <span>Informações importantes:</span>
       </div>
       <ul class="info-list">
-        <li>Todos os itens são entregues apenas de forma digital por download ou créditos direto na conta e estão sujeitos à política de reembolso.</li>
-        <li>Verifique os requisitos de sistema na página de cada jogo e os <a href="#" target="_blank">Termos de Uso</a> antes de realizar a compra.</li>
-        <li>Alguns itens possuem limite temporário de compra e podem levar em torno de 2 dias para poder fazer uma nova compra do mesmo item.</li>
-        <li>Inserir produtos ou cupons no carrinho não garante a reserva das promoções ativas.</li>
+        <li>Todos os itens são entregues apenas de forma digital, por código de resgate enviado ao e-mail do pedido, conforme a <a href="/politica-de-entrega.html" target="_blank">Política de entrega</a>.</li>
+        <li>Você pode desistir da compra em até 7 dias e cancelar a qualquer momento antes do envio do código — veja a <a href="/politica-de-reembolso.html" target="_blank">Política de reembolso</a>.</li>
+        <li>Confira os <a href="/termos-de-uso.html" target="_blank">Termos de uso</a> e a <a href="/politica-de-privacidade.html" target="_blank">Política de privacidade</a> antes de finalizar a compra.</li>
+        <li>O código PIX gerado nesta página expira em 30 minutos. Se expirar antes do pagamento, basta refazer o pedido.</li>
+        <li>Pague com uma conta PIX no seu próprio nome: o CPF do pagamento precisa ser o mesmo do pedido, porque é por ele que um eventual reembolso é devolvido.</li>
       </ul>
     </div>
   </div>
@@ -942,7 +943,9 @@
     const url = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(text)}&size=${size}x${size}&margin=2&color=000000&bgcolor=ffffff`;
     qrImg.src = url;
     qrImg.onload = () => { qrPlaceholder.style.display = 'none'; qrImg.style.display = 'block'; };
-    qrImg.onerror = () => { qrPlaceholder.textContent = 'Copie o código abaixo'; };
+    qrImg.onerror = () => {
+      qrPlaceholder.textContent = 'Não foi possível carregar a imagem do QR Code. Use o código abaixo para pagar no app do seu banco.';
+    };
   }
 
   // ── Countdown ──
@@ -986,9 +989,18 @@
 
   // ── Copy PIX ──
   function copyPix() {
-    const code = document.getElementById('pix-code-input').value;
+    const input = document.getElementById('pix-code-input');
+    const code = input.value;
     if (!code) return;
-    navigator.clipboard.writeText(code).then(() => {
+    // Sem clipboard (navegador antigo/permissão negada) o botão não pode ficar mudo:
+    // seleciona o código e diz o que fazer, em vez de falhar em silêncio.
+    function semClipboard() {
+      const btn = document.getElementById('copy-btn');
+      try { input.focus(); input.setSelectionRange(0, code.length); } catch (_) {}
+      btn.textContent = 'Copie o código selecionado';
+      setTimeout(() => { btn.textContent = 'Copiar'; }, 4000);
+    }
+    function copiado() {
       const btn = document.getElementById('copy-btn');
       btn.classList.add('copied');
       btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Copiado!';
@@ -996,7 +1008,9 @@
         btn.classList.remove('copied');
         btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copiar';
       }, 2500);
-    });
+    }
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return semClipboard();
+    navigator.clipboard.writeText(code).then(copiado, semClipboard);
   }
 
   // ── Form submit ──
@@ -1019,6 +1033,17 @@
     btn.disabled = true;
     btn.classList.add('loading');
 
+    // O comprador nunca vê texto de runtime nem mensagem do gateway: cada falha
+    // do fluxo vira uma frase em pt-BR que diz o que houve e o que fazer agora.
+    function falhar(msg) {
+      globalErr.textContent = msg;
+      globalErr.classList.add('visible');
+      try { globalErr.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) {}
+      btn.disabled = false;
+      btn.classList.remove('loading');
+    }
+
+    let r;
     try {
       const attr = originParams();
       const click = originClickId(attr);
@@ -1032,31 +1057,50 @@
         clickId: click.id,          // identificador do clique (vazio = visita direta)
         clickType: click.type,      // qual dos campos acima carregou o identificador
       };
-      const r = await fetch('/api/pagamento/pix', {
+      r = await fetch('/api/pagamento/pix', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      const d = await r.json();
-      if (!r.ok || !d.success) throw new Error(d.detail || 'Erro ao gerar PIX');
+    } catch (_) {
+      // fetch só rejeita quando o pedido nem chegou ao servidor (rede/offline).
+      return falhar('Não conseguimos falar com o servidor — pode ser a sua conexão. '
+        + 'Nenhuma cobrança foi feita. Confira a internet e toque em "Gerar PIX" de novo. '
+        + 'Se continuar assim, escreva para suporte@gta6preorder.shop.');
+    }
 
-      const pixCode = (d.data.pix || {}).qrcode || '';
-      const txId    = d.data.id || '';
+    let d = null;
+    try { d = await r.json(); } catch (_) { d = null; }
+
+    if (!r.ok || !d || !d.success) {
+      if (r.status === 422 || r.status === 400) {
+        return falhar('Não conseguimos gerar o PIX com esses dados. Confira nome, e-mail, CPF e '
+          + 'celular e tente novamente. Se estiver tudo certo, escreva para suporte@gta6preorder.shop '
+          + 'que a gente gera a cobrança para você.');
+      }
+      return falhar('O sistema de pagamento não respondeu agora e o PIX não foi gerado. '
+        + 'Nenhum valor foi cobrado. Aguarde alguns segundos e tente de novo — se continuar, '
+        + 'escreva para suporte@gta6preorder.shop informando o horário da tentativa.');
+    }
+
+    try {
+      const pixCode = ((d.data || {}).pix || {}).qrcode || '';
+      const txId    = (d.data || {}).id || '';
+      if (!pixCode) throw new Error('sem codigo');
 
       // Show PIX panel
       document.getElementById('form-section').style.display = 'none';
       document.getElementById('pix-section').classList.add('visible');
 
       document.getElementById('pix-code-input').value = pixCode;
-      if (pixCode) dataToQR(pixCode);
+      dataToQR(pixCode);
 
       startCountdown(30 * 60);
       if (txId) startPolling(txId);
-    } catch(err) {
-      globalErr.textContent = err.message || 'Erro ao processar pagamento. Tente novamente.';
-      globalErr.classList.add('visible');
-      btn.disabled = false;
-      btn.classList.remove('loading');
+    } catch (_) {
+      return falhar('O pedido foi criado, mas o código PIX não veio completo. '
+        + 'Recarregue a página e tente de novo, ou escreva para suporte@gta6preorder.shop — '
+        + 'nós reenviamos a cobrança por e-mail.');
     }
   });
 </script>
