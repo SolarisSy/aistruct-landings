@@ -87,6 +87,12 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 .btn-ghost{background:transparent;color:var(--ink)}
 .btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .legal-bar a{color:#b9b4a2}
+/* .wrap da a margem lateral (padding:0 28px); .article-page vinha depois com a
+   MESMA especificidade e o shorthand `padding:44px 0 70px` zerava essa margem.
+   Como o markup e <main class="wrap article-page">, o texto encostava na borda
+   da tela no celular. Especificidade 0,0,2,0 devolve os 28px sem mexer no
+   espaco vertical. */
+.wrap.article-page{padding:44px 28px 70px}
 @media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
 /* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
@@ -249,9 +255,6 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
     <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
   </div>
-  <!-- Guarda de onde o visitante veio (1a parte, mesmo dominio) e leva isso ate
-       o checkout, para a venda poder ser ligada ao clique. Nao carrega nada de
-       terceiro e nao envia nada para fora: so le a query string e grava aqui. -->
   <script src="/assets/session.js"></script>
 </footer>
 </body>

@@ -69,6 +69,12 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 .btn-ghost{background:transparent;color:var(--ink)}
 .btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .legal-bar a{color:#b9b4a2}
+/* .wrap da a margem lateral (padding:0 28px); .article-page vinha depois com a
+   MESMA especificidade e o shorthand `padding:44px 0 70px` zerava essa margem.
+   Como o markup e <main class="wrap article-page">, o texto encostava na borda
+   da tela no celular. Especificidade 0,0,2,0 devolve os 28px sem mexer no
+   espaco vertical. */
+.wrap.article-page{padding:44px 28px 70px}
 @media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
 /* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
@@ -100,19 +106,19 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <h2>1. Que dado a loja recebe</h2>
     <p>Para vender um item digital precisamos de pouca coisa, e é exatamente isso que pedimos: o <strong>e-mail</strong> (para onde vai a chave, o comprovante e o aviso de envio), o <strong>nome</strong> que assina o pedido e a <strong>plataforma escolhida</strong>. O pagamento é sempre PIX à vista: o provedor que emite a cobrança nos devolve apenas a confirmação e um identificador da transação — não recebemos nem armazenamos dado de cartão em momento algum.</p>
     <p>O <a href="contato.html">atendimento</a> é por e-mail: a mensagem que você escreve chega com o endereço remetente e o que você contar nela, e usamos isso só para responder e para localizar o pedido citado.</p>
-    <p>Além disso, o servidor registra dado técnico de acesso (endereço IP, navegador, página visitada e horário) para segurança e diagnóstico, guardado pelo prazo mínimo necessário. Quando você clica para reservar um item, esse mesmo tipo de dado técnico passa por uma checagem de segurança antes de o pedido seguir — o que é lido nessa etapa está descrito na seção 7.</p>
+    <p>Além disso, o servidor registra dado técnico de acesso (endereço IP, navegador, página visitada e horário) para segurança e diagnóstico, guardado pelo prazo mínimo necessário. Quando você aciona um botão de ação da loja — o de consultar disponibilidade, por exemplo —, esse mesmo tipo de dado técnico passa por uma verificação de segurança antes de o atendimento seguir, descrita na seção 7.</p>
 
     <h2>2. Para que usamos</h2>
     <p>Processar e entregar o pedido, avisar sobre data de liberação e mudança de prazo, atender pedido de troca ou cancelamento, e cumprir obrigação fiscal. O e-mail do aviso semanal de matérias, quando o cliente pede, serve só para isso e tem cancelamento em um clique. A lista de endereços fica exclusivamente conosco, e a única saída dela é a mensagem que a própria loja envia.</p>
 
     <h2>3. Base legal</h2>
-    <p>Dado de pedido é tratado para execução do contrato de compra e venda (art. 7º, V, da Lei nº 13.709/2018 — LGPD) e para cumprimento de obrigação legal (art. 7º, II). O aviso semanal opcional depende de consentimento (art. 7º, I). O registro técnico de acesso, o registro de origem da visita e a checagem de segurança da seção 7 se apoiam no legítimo interesse de manter o site seguro, no ar e livre de fraude de pagamento, e de saber de onde vêm os pedidos (art. 7º, IX).</p>
+    <p>Dado de pedido é tratado para execução do contrato de compra e venda (art. 7º, V, da Lei nº 13.709/2018 — LGPD) e para cumprimento de obrigação legal (art. 7º, II). O aviso semanal opcional depende de consentimento (art. 7º, I). O registro técnico de acesso, o registro de origem da visita e a verificação de segurança da seção 7 se apoiam no legítimo interesse de manter o site seguro, no ar e livre de fraude de pagamento, e de saber de onde vêm os pedidos (art. 7º, IX).</p>
 
     <h2>4. Por quanto tempo guardamos</h2>
     <p>Dado de pedido fica retido enquanto durar a garantia e o prazo fiscal aplicável à venda. Mensagem de atendimento é descartada doze meses depois do encerramento do caso. Consentimento de aviso semanal vale até a pessoa cancelar.</p>
 
     <h2>5. Com quem compartilhamos</h2>
-    <p>Só com quem é indispensável para a compra existir: o provedor de pagamento que confirma o PIX, o serviço de e-mail que entrega a chave e o parceiro que executa a checagem de segurança descrita na seção 7. Junto do pedido, o provedor de pagamento recebe também o código de origem descrito na seção 7. Nenhum deles recebe mais dado do que precisa para a própria função, e nenhum recebe o conteúdo do pedido para outra finalidade.</p>
+    <p>Só com quem é indispensável para a compra existir: o provedor de pagamento que confirma o PIX, o serviço de e-mail que entrega a chave e o fornecedor que apoia a verificação de segurança descrita na seção 7. Junto do pedido, o provedor de pagamento recebe também o código de origem descrito na seção 7. Nenhum deles recebe mais dado do que precisa para a própria função, e nenhum recebe o conteúdo do pedido para outra finalidade.</p>
 
     <h2>6. Direitos de quem comprou</h2>
     <ul>
@@ -122,11 +128,11 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <li>Revogar o consentimento do aviso semanal a qualquer momento, sem afetar o pedido.</li>
     </ul>
 
-    <h2>7. Cookies, origem da visita e checagem de segurança</h2>
-    <p>A loja usa cookie técnico próprio para lembrar preferência de exibição e manter o item selecionado durante a compra.</p>
+    <h2>7. Cookies, origem da visita e verificação de segurança</h2>
+    <p>A loja não usa cookie de publicidade nem ferramenta de medição de audiência de terceiros. O que fica gravado no seu navegador é só o que está descrito nesta seção: o registro de origem da visita e o registro temporário da verificação de segurança.</p>
     <p>Quando a visita chega por um anúncio, o endereço traz um código que identifica aquele anúncio. Guardamos esse código no seu navegador, em cookie e armazenamento deste mesmo domínio (<code>cb_origin</code>), por <strong>90 dias</strong>, e ele segue junto quando você fecha um pedido. Serve para uma coisa só: saber por qual anúncio a compra chegou. Não guarda nome, e-mail, dado de pagamento nem o que você navegou no site, é escrito e lido apenas por este domínio, e não é usado para montar perfil seu nem para exibir anúncio depois. Limpar os dados do site no navegador apaga esse registro.</p>
-    <p>Ao clicar em um botão de reserva ou de compra, o navegador passa por uma <strong>checagem de segurança e antifraude</strong> antes de o pedido seguir. Nessa etapa é gravado um <strong>identificador técnico temporário</strong> (o cookie <code>_cid</code>, que expira sozinho pouco depois da checagem) e são lidas características técnicas do acesso — navegador, sistema, resolução de tela, fuso horário e recursos gráficos suportados pelo aparelho. Essas informações são processadas por um <strong>parceiro especializado em antifraude</strong>, contratado para essa única finalidade: distinguir acesso legítimo de acesso automatizado ou de tentativa de fraude no pagamento.</p>
-    <p>Esse identificador não carrega nome, e-mail nem dado de pagamento, e não é usado por nós para publicidade. Quem preferir não passar por essa etapa pode tratar o pedido inteiro pelo <a href="contato.html">e-mail de atendimento</a>.</p>
+    <p>Ao acionar um botão de ação da loja, como o de consultar disponibilidade, o acesso passa por uma <strong>verificação de segurança</strong> antes de o atendimento seguir. Essa verificação utiliza dados técnicos do dispositivo e da conexão, além de um registro técnico temporário no navegador, que expira sozinho pouco depois. Ela é operada com o apoio de um <strong>fornecedor especializado em prevenção a fraude</strong>, contratado exclusivamente para essa finalidade: distinguir um acesso legítimo de um acesso automatizado ou de uma tentativa de fraude no pagamento. A base legal é o legítimo interesse em manter o site seguro e a venda livre de fraude (art. 7º, IX, da LGPD — seção 3).</p>
+    <p>Nada do que é usado nessa etapa identifica você por nome, e-mail ou dado de pagamento, e nada disso é usado por nós para publicidade ou para montar perfil de consumo. Quem preferir não passar por essa etapa pode tratar o pedido inteiro pelo <a href="contato.html">e-mail de atendimento</a>.</p>
 
     <h2>8. Encarregado e contato</h2>
     <p>Pedido de acesso, correção, exclusão ou revogação de consentimento deve ser enviado para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a>, com o assunto "LGPD". A mesma caixa recebe dúvida sobre este documento. O prazo de resposta é de até quinze dias corridos, conforme o art. 19 da LGPD.</p>
@@ -170,9 +176,6 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
     <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
   </div>
-  <!-- Guarda de onde o visitante veio (1a parte, mesmo dominio) e leva isso ate
-       o checkout, para a venda poder ser ligada ao clique. Nao carrega nada de
-       terceiro e nao envia nada para fora: so le a query string e grava aqui. -->
   <script src="/assets/session.js"></script>
 </footer>
 </body>

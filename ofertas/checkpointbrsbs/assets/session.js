@@ -1,18 +1,14 @@
-/* Sessao de origem (1a parte) — Checkpoint BR.
+/* Origem da visita (1a parte) — Checkpoint BR.
  *
- * Copia do padrao ja provado em landings-repo/services/gta6preorder/assets/session.js.
- * Mantido igual de proposito: e o mesmo arquivo que ja leva o identificador do clique
- * ate o checkout em producao. O unico ponto de contato com esta loja e alvo(), que
- * decora os links cujo href contem "checkout" — aqui, checkout.html?sku=...
- *
- * Guarda de onde o visitante veio na PRIMEIRA visita e leva isso adiante ate o
- * checkout, para que o pedido possa ser ligado ao clique que o gerou.
+ * Guarda de onde o visitante veio na PRIMEIRA visita e mantem essa informacao
+ * durante a navegacao interna, ate a pagina de pedido, para que um pedido possa
+ * ser ligado a visita que o originou.
  *
  * - Nao carrega nada de terceiro, nao envia nada para lugar nenhum.
  * - So le a query string da propria pagina e escreve em localStorage + cookie
  *   de 1a parte deste dominio.
- * - Janela de 90 dias: e o teto da janela de conversao pos-clique aceita para
- *   importacao offline; guardar por mais tempo nao serve para nada.
+ * - Janela de 90 dias: passado esse prazo a informacao nao tem mais utilidade,
+ *   entao nao ha motivo para guardar por mais tempo.
  * - PRIMEIRA GRAVACAO VENCE: navegacao interna (que costuma vir sem parametro)
  *   nao apaga a origem real. So preenche o que ainda esta vazio.
  */
@@ -21,8 +17,8 @@
 
   var KEY      = 'cb_origin';
   var MAX_AGE  = 90 * 24 * 60 * 60;              // 90 dias, em segundos
-  var CLICK    = ['gclid', 'gbraid', 'wbraid'];   // gbraid/wbraid substituem o gclid no iOS
-  var ALT      = ['src', 'clickid', 'cid'];       // apelidos que o roteador pode entregar
+  var CLICK    = ['gclid', 'gbraid', 'wbraid'];   // formatos do identificador de origem
+  var ALT      = ['src', 'clickid', 'cid'];       // apelidos equivalentes do mesmo campo
   var UTM      = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id'];
   var ALL      = CLICK.concat(ALT, UTM);
   var TOKEN_RE = /^[A-Za-z0-9_\-.]{6,400}$/;
@@ -126,13 +122,9 @@
     } catch (e) { return url; }
   }
 
-  // Quais links carregam a origem adiante.
-  //
-  // Passou a incluir /go/ — o CTA da vitrine aponta para o roteador, nao mais
-  // para o checkout. Enquanto so 'checkout' contava, o clique saia SEM o gclid:
-  // o roteador capturava {p:gclid} vazio, nada de identificador viajava no
-  // repasse de parametros e a venda so poderia ser ligada ao anuncio pelo que
-  // ficou guardado no navegador — o elo mais fragil da cadeia.
+  // Quais links carregam a origem adiante: os passos internos que levam ao
+  // pedido. Os dois precisam entrar — se um ficar de fora, a informacao se
+  // perde no meio do caminho e o pedido chega sem referencia nenhuma.
   var ALVO_RE = /(^|\/)go\/|checkout/i;
 
   function alvo(a) {
