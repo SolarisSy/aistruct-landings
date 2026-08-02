@@ -13,4 +13,7 @@ RUN chown -R nginx:nginx /var/www/html
 
 # Limpa artefatos de build do docroot.
 # _MANIFEST.md descreve como o site foi montado — não pode ficar público.
-RUN rm -f /var/www/html/Dockerfile /var/www/html/nginx-site.conf /var/www/html/_MANIFEST.md
+# /var/www/html/index.php vem da IMAGEM BASE (phpinfo). Enquanto a raiz era
+# servida por um index.php nosso ele ficava sobrescrito; agora que a raiz e
+# index.html, ele reapareceria publico e exporia toda a config do servidor.
+RUN rm -f /var/www/html/Dockerfile /var/www/html/nginx-site.conf /var/www/html/_MANIFEST.md /var/www/html/index.php
