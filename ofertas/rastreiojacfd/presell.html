@@ -3,89 +3,143 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Central de Acompanhamento &mdash; RastreioJá</title>
-<meta name="description" content="Área de acompanhamento de encomendas do RastreioJá.">
+<title>Acompanhar uma entrega &mdash; RastreioJá</title>
+<meta name="description" content="O que cada status do rastreio significa, por que o histórico fica dias sem atualizar e o que verificar quando o prazo passa. Guias do RastreioJá.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1f2933">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Central de Acompanhamento — RastreioJá">
+<meta property="og:title" content="Acompanhar uma entrega — RastreioJá">
+<meta property="og:description" content="O que cada status do rastreio significa e o que verificar quando o prazo passa.">
 <meta property="og:url" content="https://rastreioja.cfd/">
 <meta property="og:site_name" content="RastreioJá">
+<meta property="og:image" content="https://rastreioja.cfd/img/_hero.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231f2933'/%3E%3Ccircle cx='32' cy='27' r='11' fill='none' stroke='%23c2410c' stroke-width='4'/%3E%3Cline x1='40' y1='35' x2='48' y2='43' stroke='%23c2410c' stroke-width='4' stroke-linecap='round'/%3E%3Cline x1='32' y1='45' x2='32' y2='54' stroke='%23f4a259' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
-<style>
-:root{
-  --slate-900:#141b22;--slate:#1f2933;--slate-600:#3b4a57;
-  --burnt:#c2410c;--burnt-soft:#f4a259;--amber:#e08a1e;
-  --panel:#ffffff;--bg:#eef1f3;--ink:#1c2530;--ink-soft:#4b5866;--ink-mute:#8593a1;--edge:#d5dce2;
-  --f-head:"Trebuchet MS","Segoe UI",Tahoma,"DejaVu Sans",sans-serif;
-  --f-text:Georgia,"Times New Roman","Nimbus Roman",serif;
-  --f-tag:"Consolas","Courier New",monospace;
-}
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;min-height:100dvh;background:var(--bg);color:var(--ink);font-family:var(--f-text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
-svg{display:block;max-width:100%}
-.wrap{width:100%;max-width:620px;margin:0 auto;padding:0 20px}
-.bar{height:4px;background:linear-gradient(90deg,var(--burnt),var(--amber))}
-.masthead{background:var(--slate);color:#fff}
-.masthead .wrap{display:flex;align-items:center;gap:11px;padding:14px 20px}
-.logo{width:30px;height:30px;flex:0 0 auto}
-.wordmark{font-family:var(--f-head);font-size:1.2rem;font-weight:700;letter-spacing:.01em}
-.wordmark em{font-style:normal;color:var(--burnt-soft)}
-.hero{flex:1;display:flex;align-items:center;padding:34px 0}
-.card{background:var(--panel);border:1px solid var(--edge);border-radius:14px;box-shadow:0 18px 40px -26px rgba(20,27,34,.55);padding:30px 26px;width:100%;text-align:center}
-.eyebrow{font-family:var(--f-tag);font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;color:var(--burnt);margin:0 0 12px}
-.card h1{font-family:var(--f-head);font-size:clamp(1.4rem,4.6vw,1.95rem);line-height:1.28;color:var(--slate-900);margin:0 0 .5em;font-weight:700}
-.card p.sub{color:var(--ink-soft);font-size:1rem;margin:0 auto 26px;max-width:40ch}
-.act{display:block;margin:0}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:380px;font-family:var(--f-head);font-weight:700;font-size:1.06rem;padding:17px 28px;border:none;border-radius:10px;cursor:pointer;color:#fff;background:var(--burnt);box-shadow:0 14px 28px -14px rgba(194,65,12,.9);transition:transform .09s,filter .15s}
-.btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
-.btn svg{width:18px;height:18px}
-.hint{margin:14px 0 0;font-family:var(--f-tag);font-size:.74rem;color:var(--ink-mute);letter-spacing:.02em}
-.foot{background:var(--slate-900);color:#aeb9c4;padding:18px 0;font-size:.76rem;text-align:center}
-.foot nav{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;margin-bottom:8px}
-.foot a{color:#cdd6de;text-decoration:none}
-.foot a:hover{color:#fff;text-decoration:underline}
-.foot p{margin:0;color:#7f8b96}
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <div class="bar"></div>
 <header class="masthead">
-  <div class="wrap">
-    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#1f2933"/><circle cx="32" cy="27" r="11" fill="none" stroke="#c2410c" stroke-width="4"/><line x1="40" y1="35" x2="48" y2="43" stroke="#c2410c" stroke-width="4" stroke-linecap="round"/><line x1="32" y1="45" x2="32" y2="54" stroke="#f4a259" stroke-width="3" stroke-linecap="round"/></svg>
-    <span class="wordmark">Rastreio<em>Já</em></span>
+  <div class="wrap row">
+    <a class="brand" href="safe.html">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#1f2933"/><circle cx="32" cy="27" r="11" fill="none" stroke="#c2410c" stroke-width="4"/><line x1="40" y1="35" x2="48" y2="43" stroke="#c2410c" stroke-width="4" stroke-linecap="round"/><line x1="32" y1="45" x2="32" y2="54" stroke="#f4a259" stroke-width="3" stroke-linecap="round"/></svg>
+      <span class="wordmark">Rastreio<em>Já</em></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="safe.html">Início</a>
+      <a href="prazos-de-entrega-como-sao-calculados.html">Prazos</a>
+      <a href="o-que-e-codigo-de-rastreamento.html">Rastreamento</a>
+      <a href="etapas-de-uma-encomenda.html">Etapas</a>
+      <a href="faq.html">Dúvidas</a>
+      <a href="sobre.html">Sobre</a>
+    </nav>
   </div>
 </header>
 
 <section class="hero">
-  <div class="wrap">
-    <div class="card">
-      <p class="eyebrow">Central de acompanhamento</p>
-      <h1>Está esperando a entrega de uma compra online?</h1>
-      <p class="sub">Abra a área de acompanhamento e veja em que etapa o seu pedido está.</p>
-      <form class="act" action="go/" method="get">
-        <button type="submit" class="btn">
-          Sim, quero acompanhar
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <p class="hint">Serviço independente &middot; não temos vínculo com transportadoras</p>
-      </form>
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Guia de acompanhamento</p>
+      <h1>Esperando uma compra online chegar?</h1>
+      <p>Entenda o que cada status significa, por que o histórico passa dias sem mexer e o que fazer quando o prazo estourou.</p>
+    </div>
+    <div class="shot">
+      <img src="img/_hero.jpg" alt="Encomendas de papelão deixadas na porta de uma casa" width="900" height="506">
     </div>
   </div>
 </section>
 
+<main>
+  <section class="section">
+    <div class="wrap narrow prose">
+
+      <h2>Por que o rastreio às vezes parece parado</h2>
+      <p>Entre a confirmação do pedido e a batida na sua porta existe um percurso com mais paradas do que a maioria das pessoas imagina: separação no estoque da loja, coleta, triagem num centro de distribuição, transferência entre unidades e, só no fim, a saída para entrega. Cada uma dessas paradas pode gerar &mdash; ou não &mdash; um registro no histórico.</p>
+      <p>É por isso que o rastreio costuma ficar dois ou três dias mudo e depois receber várias atualizações de uma vez. Um volume que atravessa dois estados de carreta passa horas sem produzir evento nenhum, simplesmente porque não há leitura de etiqueta no meio da estrada. Silêncio raramente quer dizer pacote perdido; quase sempre quer dizer pacote em trânsito entre duas unidades.</p>
+
+      <div class="ctabox">
+        <p><strong>Prefere seguir um roteiro?</strong> Reunimos o passo a passo de acompanhamento: o que observar em cada etapa e em que ponto vale procurar a loja.</p>
+        <form class="act" action="go/" method="get">
+          <button type="submit" class="btn">
+            Ver o passo a passo
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <p class="hint">Conteúdo informativo &middot; serviço independente, sem vínculo com transportadoras</p>
+        </form>
+      </div>
+
+      <h2>O que verificar antes de se preocupar</h2>
+      <p>Três informações resolvem boa parte das dúvidas. A primeira é o prazo que a loja prometeu na compra: ele costuma ser contado em dias úteis a partir do despacho, e não da data do pedido &mdash; o que já explica alguns dias de diferença entre o que você calculou e o que o sistema mostra.</p>
+      <p>A segunda é o endereço cadastrado. Número trocado, complemento ausente ou CEP desatualizado respondem por uma fatia grande das devoluções, e o histórico raramente diz isso com todas as letras. A terceira é o próprio código de rastreamento: ele só passa a responder depois que a transportadora registra a entrada do volume na rede, o que pode levar de um a três dias após o envio. Código que "não existe" na consulta, dentro desse intervalo, normalmente ainda não foi lido &mdash; não é sinal de problema.</p>
+
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--soft);border-top:1px solid var(--edge);border-bottom:1px solid var(--edge)">
+    <div class="wrap">
+      <p class="kicker">Guias do RastreioJá</p>
+      <h2>Comece por estes três</h2>
+      <p class="lead">São os assuntos que mais geram dúvida em quem está no meio de uma espera. Leitura curta, sem jargão de logística.</p>
+      <div class="grid">
+
+        <article class="tile">
+          <a href="prazos-de-entrega-como-sao-calculados.html"><img class="thumb" src="img/prazos-de-entrega-como-sao-calculados.jpg" alt="Mulher marcando uma data em um calendário de mesa" loading="lazy" width="900" height="600"></a>
+          <div class="body">
+            <p class="tag">Prazos</p>
+            <h3>Como os prazos de entrega são calculados</h3>
+            <p>Dias úteis, data de despacho e distância: de onde sai a estimativa que aparece no pedido e por que ela muda.</p>
+            <a class="more" href="prazos-de-entrega-como-sao-calculados.html">Ler o guia →</a>
+          </div>
+        </article>
+
+        <article class="tile">
+          <a href="o-que-e-codigo-de-rastreamento.html"><img class="thumb" src="img/o-que-e-codigo-de-rastreamento.jpg" alt="Operador lendo a etiqueta de um volume com leitor de código de barras" loading="lazy" width="900" height="600"></a>
+          <div class="body">
+            <p class="tag">Rastreamento</p>
+            <h3>O que é o código de rastreamento</h3>
+            <p>Como ler o código, por que ele demora a responder e o que fazer quando a consulta não devolve nada.</p>
+            <a class="more" href="o-que-e-codigo-de-rastreamento.html">Ler o guia →</a>
+          </div>
+        </article>
+
+        <article class="tile">
+          <a href="etapas-de-uma-encomenda.html"><img class="thumb" src="img/etapas-de-uma-encomenda.jpg" alt="Funcionária conferindo caixas em uma unidade de triagem" loading="lazy" width="900" height="600"></a>
+          <div class="body">
+            <p class="tag">Logística</p>
+            <h3>As etapas por que passa uma encomenda</h3>
+            <p>Do pedido confirmado à saída para entrega: o caminho completo e o que cada status quer dizer na prática.</p>
+            <a class="more" href="etapas-de-uma-encomenda.html">Ler o guia →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</main>
+
 <footer class="foot">
   <div class="wrap">
-    <nav aria-label="Institucional">
-      <a href="safe.html">Início</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="privacidade.html">Privacidade</a>
-      <a href="termos.html">Termos</a>
-      <a href="mailto:contato@rastreioja.cfd">Contato</a>
-    </nav>
-    <p>&copy; 2026 RastreioJá &middot; portal editorial independente</p>
+    <div class="cols">
+      <div>
+        <h4>RastreioJá</h4>
+        <p class="disc">Portal editorial independente sobre logística de entregas e direitos do consumidor no comércio eletrônico. Conteúdo informativo, sem vínculo com transportadoras.</p>
+      </div>
+      <div>
+        <h4>Guias</h4>
+        <a href="prazos-de-entrega-como-sao-calculados.html">Prazos de entrega</a>
+        <a href="o-que-e-codigo-de-rastreamento.html">Código de rastreamento</a>
+        <a href="etapas-de-uma-encomenda.html">Etapas de uma encomenda</a>
+        <a href="encomenda-atrasada-o-que-verificar.html">Encomenda atrasada</a>
+      </div>
+      <div>
+        <h4>Institucional</h4>
+        <a href="sobre.html">Sobre nós</a>
+        <a href="faq.html">Perguntas frequentes</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="mailto:contato@rastreioja.cfd">contato@rastreioja.cfd</a>
+      </div>
+    </div>
+    <div class="base">&copy; 2026 RastreioJá — portal editorial independente. Não somos os Correios nem qualquer transportadora.</div>
   </div>
 </footer>
 

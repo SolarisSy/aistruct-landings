@@ -87,3 +87,20 @@ main{display:block}
 .foot .disc{color:#7f8b96;font-size:.8rem;line-height:1.6}
 .foot .base{border-top:1px solid #2a3641;margin-top:24px;padding-top:16px;color:#7f8b96;font-size:.78rem}
 @media(max-width:680px){.foot .cols{grid-template-columns:1fr;gap:20px}.nav{font-size:.86rem;gap:4px 14px}}
+
+/* texto corrido fora do <article> (usado na raiz) */
+.prose h2{font-family:var(--f-head);font-weight:700;font-size:1.32rem;line-height:1.3;color:var(--slate-900);margin:1.7em 0 .55em}
+.prose h2:first-child{margin-top:0}
+.prose p{margin:0 0 1.05em;color:var(--ink-soft)}
+.prose strong{color:var(--ink)}
+
+/* bloco de chamada com formulário */
+.ctabox{background:var(--panel);border:1px solid var(--edge);border-left:3px solid var(--burnt);border-radius:12px;padding:22px 24px;margin:32px 0 10px}
+.ctabox p{margin:0 0 16px;color:var(--ink-soft);max-width:56ch}
+.ctabox form{margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--f-head);font-weight:700;font-size:1.02rem;padding:15px 30px;border:none;border-radius:8px;cursor:pointer;color:#fff;background:var(--burnt);box-shadow:0 12px 26px -16px rgba(194,65,12,.9);transition:transform .09s,filter .15s}
+.btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn svg{width:18px;height:18px}
+.ctabox .hint{margin:12px 0 0;font-family:var(--f-tag);font-size:.74rem;color:var(--ink-mute)}
+@media(max-width:520px){.btn{width:100%}.ctabox{padding:18px 18px}}
