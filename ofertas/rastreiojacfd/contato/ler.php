@@ -24,10 +24,11 @@ declare(strict_types=1);
  *     aqui ja' nasce vazado.
  *  3. Env AUSENTE/vazia => 404. Nao "500", nao "token nao configurado". Um erro
  *     falante confirma que o caminho existe e vira alvo.
- *  4. Token ERRADO => o MESMO 404, byte a byte igual ao 404 do proprio nginx.
- *     401/403 responderiam a pergunta que o atacante veio fazer ("existe algo
- *     aqui?"). Para quem varre o dominio, /contato/ler.php e' indistinguivel de
- *     /contato/qualquer-coisa.
+ *  4. Token ERRADO => o MESMO 404, byte a byte igual ao que este servidor
+ *     devolve para um .php INEXISTENTE neste mesmo diretorio (o php-fpm, nao o
+ *     nginx — ver rjl_404()). 401/403 responderiam a pergunta que o atacante
+ *     veio fazer ("existe algo aqui?"). Para quem varre o dominio,
+ *     /contato/ler.php e' indistinguivel de /contato/qualquer-coisa.php.
  *  5. Comparacao com hash_equals() sobre o SHA-256 dos dois lados. hash_equals
  *     e' de tempo constante (== e strcmp saem no primeiro byte diferente e
  *     vazam o token por medicao de tempo); comparar os HASHES em vez dos valores
@@ -97,24 +98,40 @@ function rjl_env(string $chave): string
 // ---------------------------------------------------------------------- 404
 
 /**
- * Resposta identica a' que o proprio nginx devolve em qualquer caminho
- * inexistente deste site (try_files ... =404, com server_tokens off).
- * Mesmo corpo, mesmo Content-Type, sem cabecalho que denuncie PHP — por isso o
- * header_remove('X-Powered-By') e a ausencia de qualquer header extra: um
- * X-Robots-Tag num 404 seria justamente a pista de que ali mora algo.
+ * Resposta identica a' de um .php INEXISTENTE neste mesmo diretorio.
+ *
+ * O vizinho de comparacao importa. O "location ~ \.php$" desta arvore manda TODO
+ * caminho .php para o php-fpm SEM guarda de existencia — entao quem responde por
+ * /contato/qualquer-coisa.php nao e' o nginx, e' o php-fpm, com um corpo proprio.
+ * Imitar o 404 do NGINX (o corpo <html>...nginx</html>, 146 bytes) deixava este
+ * arquivo 130 bytes mais gordo que o vizinho e, justamente por isso, VISIVEL: o
+ * tamanho da resposta entregava que /contato/ler.php existe.
+ *
+ * Medido em producao (02/08/2026, na origem e pela borda, UA neutro e UA Chrome):
+ *   corpo         : "File not found.\n"        -> 16 bytes, identico nos dois UAs
+ *   Content-Type  : text/html; charset=UTF-8   (COM espaco, UTF-8 maiusculo)
+ *   X-Powered-By  : PHP/8.2.33                 -> PRESENTE
+ *   sem Content-Length (chunked), sem Cache-Control, sem X-Robots-Tag
+ *
+ * DOIS DETALHES QUE PARECEM ERRO E NAO SAO:
+ *  a) O Content-Type e' escrito na mao. Deixado a cargo do PHP, ele sairia como
+ *     "text/html;charset=UTF-8" — sem o espaco depois do ';'. Um byte de
+ *     diferenca no cabecalho e' um distintivo tao bom quanto 130 no corpo.
+ *  b) NAO existe header_remove('X-Powered-By') aqui, de proposito. Todo .php
+ *     inexistente deste site ja' devolve X-Powered-By: remove-lo SO' neste
+ *     caminho criaria a assinatura que se quer evitar. Nada e' exposto por isso:
+ *     o cabecalho ja' e' o comportamento uniforme do site. (No caminho 200, que
+ *     so' existe com token, ele continua sendo removido.)
+ *
+ * O msie_padding do nginx (que infla o 404 dele para 548 bytes sob UA de
+ * navegador) NAO se aplica: quem responde aqui e' o php-fpm, e ele nao pada —
+ * confirmado com UA de Chrome, 16 bytes nos dois casos.
  */
 function rjl_404(): void
 {
-    header_remove('X-Powered-By');
+    header('Content-Type: text/html; charset=UTF-8');
     http_response_code(404);
-    header('Content-Type: text/html');
-    echo "<html>\r\n"
-        . "<head><title>404 Not Found</title></head>\r\n"
-        . "<body>\r\n"
-        . "<center><h1>404 Not Found</h1></center>\r\n"
-        . "<hr><center>nginx</center>\r\n"
-        . "</body>\r\n"
-        . "</html>\r\n";
+    echo "File not found.\n";
     exit;
 }
 
