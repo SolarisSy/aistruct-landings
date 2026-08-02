@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Perguntas frequentes — Checkpoint BR</title>
-<meta name="description" content="O que a reserva inclui, em quantas vezes dá para parcelar no PIX, quando a chave chega, o que acontece se o lançamento adiar e como cancelar.">
+<meta name="description" content="O que a reserva inclui, como é o pagamento em PIX à vista, quando a chave chega, o que acontece se o lançamento adiar e como cancelar.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://checkpointbr.sbs/faq.html">
@@ -100,8 +100,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <p class="faq-a">Uma chave digital de resgate do título e da edição que você escolher, enviada para o seu e-mail no dia em que a plataforma libera a pré-carga. O valor pago na reserva já é o preço do jogo — não existe complemento depois. Os três níveis de edição e o que cada um inclui estão no <a href="catalogo.html">catálogo</a>.</p>
     </div>
     <div class="faq-item">
-      <p class="faq-q"><span class="qnum">02</span> Dá para parcelar? Em quantas vezes?</p>
-      <p class="faq-a">Sim, em até doze vezes pelo PIX parcelado do seu banco. À vista, também no PIX, o desconto é de 5% sobre o valor da tabela. Não emitimos boleto e não guardamos dado de cartão em nenhum momento.</p>
+      <p class="faq-q"><span class="qnum">02</span> Como funciona o pagamento?</p>
+      <p class="faq-a">Só PIX à vista, em uma cobrança única, com 5% de desconto sobre o valor da tabela — a reserva Padrão de R$ 249,90 sai por R$ 237,40, e o valor exato aparece na tela antes de você gerar o código. Não parcelamos, não emitimos boleto e não aceitamos cartão, então nenhum dado de cartão passa por aqui.</p>
     </div>
     <div class="faq-item">
       <p class="faq-q"><span class="qnum">03</span> Quando a chave chega, e como eu sei que está perto?</p>
@@ -138,7 +138,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   <div class="wrap">
     <div>
       <p class="foot-logo">Checkpoint BR</p>
-      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente com código entregue por e-mail, pagos no PIX à vista ou parcelado. O blog é escrito pela nossa própria equipe.</p>
+      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente com código entregue por e-mail, pagos em PIX à vista. O blog é escrito pela nossa própria equipe.</p>
     </div>
     <div>
       <h4>Loja</h4>
@@ -171,6 +171,10 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
     <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
   </div>
+  <!-- Guarda de onde o visitante veio (1a parte, mesmo dominio) e leva isso ate
+       o checkout, para a venda poder ser ligada ao clique. Nao carrega nada de
+       terceiro e nao envia nada para fora: so le a query string e grava aqui. -->
+  <script src="/assets/session.js"></script>
 </footer>
 </body>
 </html>

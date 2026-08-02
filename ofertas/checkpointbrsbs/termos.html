@@ -101,7 +101,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <p>A Checkpoint BR é uma loja de jogos digitais. Vendemos dois tipos de item: a reserva de lançamento, em que o comprador paga hoje o valor combinado e recebe a chave de resgate no dia em que o título libera a pré-carga, e o vale-presente, um código de crédito usável em qualquer item do catálogo. Tudo é digital e chega por e-mail — não despachamos caixa, disco nem produto físico. O mesmo domínio publica um blog escrito pela equipe da loja, e as regras da seção 5 valem para esse conteúdo.</p>
 
     <h2>2. Preço, pagamento e confirmação</h2>
-    <p>O preço de cada item aparece na página de <a href="catalogo.html">catálogo</a> e é o valor final: não cobramos taxa de serviço, frete nem diferença posterior. Aceitamos PIX à vista, com 5% de desconto, e PIX parcelado em até doze vezes pelo banco emissor do comprador. O pedido entra na fila quando o pagamento é confirmado, e a confirmação sai por e-mail com o número do pedido.</p>
+    <p>O preço de cada item aparece na página de <a href="catalogo.html">catálogo</a> e é o valor final: não cobramos taxa de serviço, frete nem diferença posterior. A única forma de pagamento é PIX à vista, em cobrança única, com 5% de desconto sobre o preço de tabela já embutido no valor exibido — não parcelamos, não emitimos boleto e não aceitamos cartão. O pedido entra na fila quando o pagamento é confirmado, e a confirmação sai por e-mail com o número do pedido.</p>
     <p>Reserva de lançamento exige uma segunda confirmação: qual título e qual plataforma. Enquanto essa resposta não chega, o pedido fica pendente e o valor pago permanece integralmente reembolsável.</p>
 
     <h2>3. Entrega</h2>
@@ -130,7 +130,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   <div class="wrap">
     <div>
       <p class="foot-logo">Checkpoint BR</p>
-      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente com código entregue por e-mail, pagos no PIX à vista ou parcelado. O blog é escrito pela nossa própria equipe.</p>
+      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente com código entregue por e-mail, pagos em PIX à vista. O blog é escrito pela nossa própria equipe.</p>
     </div>
     <div>
       <h4>Loja</h4>
@@ -163,6 +163,10 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
     <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
   </div>
+  <!-- Guarda de onde o visitante veio (1a parte, mesmo dominio) e leva isso ate
+       o checkout, para a venda poder ser ligada ao clique. Nao carrega nada de
+       terceiro e nao envia nada para fora: so le a query string e grava aqui. -->
+  <script src="/assets/session.js"></script>
 </footer>
 </body>
 </html>

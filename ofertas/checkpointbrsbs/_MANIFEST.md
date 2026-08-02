@@ -2,7 +2,7 @@
 
 Site: https://checkpointbr.sbs
 **O que é:** loja brasileira de **jogos digitais** que trabalha com **reserva/pré-venda** — chave
-de resgate entregue por e-mail, pagamento em PIX à vista ou parcelado em 12x — com um **blog**
+de resgate entregue por e-mail, pagamento em **PIX à vista** (cobrança única) — com um **blog**
 escrito pela mesma equipe (as 9 matérias de análise/guia/história/hardware/cultura).
 
 > ⚠️ Este arquivo **não vai para o docroot**: o `Dockerfile` remove `_MANIFEST.md` de
@@ -45,34 +45,90 @@ A loja foi encaixada DENTRO desse sistema, não substituída por template de e-c
 `--ink #1a1a1a` · `--paper #f2ede4` · `--paper-2 #e9e2d2` · `--crimson #b3272c` ·
 `--forest #2c4a3e` · `--mustard #c98a2c` · `--rule #cfc6b4`
 
-## Páginas (23 HTML)
+## Páginas (24 HTML)
 
-**Loja:** `index.html` (raiz) · `catalogo.html` · `como-funciona.html` · `trocas.html` · `contato.html`
+**Loja:** `index.html` (raiz) · `catalogo.html` · **`checkout.html` (pagamento, `noindex`)** · `como-funciona.html` · `trocas.html` · `contato.html`
 **Conteúdo:** `blog.html` + as 9 matérias · `glossario.html` · `avisos.html`
 **Institucional/legal:** `sobre.html` · `faq.html` · `privacidade.html` · `termos.html`
 **Serviço:** `404.html` (noindex) · `safe.html` (alias `noindex` + refresh para `/`, mantido só
 porque o serviço de roteamento ainda aponta para ele; será repontado por outro agente)
-**Não-HTML:** `robots.txt` · `sitemap.xml` (**21 URLs** = 23 HTML − `404.html` − `safe.html`,
+**Não-HTML:** `robots.txt` · `sitemap.xml` (**21 URLs** = 24 HTML − `404.html` − `safe.html` − `checkout.html`,
 com `index.html` listado como `/`) · `go/index.php` (roteador)
 
 ## Catálogo (o que a loja vende)
 
 | Item | Preço | Pagamento | Entrega |
 |---|---|---|---|
-| Reserva de Lançamento — Padrão | R$ 249,90 | 12x R$ 20,83 ou 5% off à vista | dia da pré-carga |
-| Reserva de Lançamento — Ampliada | R$ 349,90 | 12x R$ 29,16 | dia da pré-carga |
-| Reserva de Lançamento — Coleção | R$ 449,90 | 12x R$ 37,49 | dia da pré-carga |
+| Reserva de Lançamento — Padrão | R$ 249,90 tabela | **R$ 237,40** PIX à vista (−5%) | dia da pré-carga |
+| Reserva de Lançamento — Ampliada | R$ 349,90 tabela | **R$ 332,40** PIX à vista (−5%) | dia da pré-carga |
+| Reserva de Lançamento — Coleção | R$ 449,90 tabela | **R$ 427,40** PIX à vista (−5%) | dia da pré-carga |
 | Vale-presente | R$ 50 / 100 / 200 | PIX à vista | até 15 min |
 
 **Regra inegociável:** o catálogo **não cita marca de terceiro**. O título é escolhido pelo cliente
 na confirmação do pedido — por isso os itens são a *reserva*, não um jogo nominado. Marca de jogo,
 console ou estúdio só aparece no **blog**, em uso jornalístico nominativo.
 
+## Checkout (02/08/2026) — PIX PayShark no próprio domínio
+
+Antes, os 4 botões "Reservar" iam para `/go/` e o visitante voltava para a home: loja com preço,
+prazo e política de reembolso onde **nenhum botão comprava**. Agora cada botão leva a
+`checkout.html?sku=<slug>` e o pagamento acontece aqui mesmo, sem sair de `checkpointbr.sbs`.
+
+| Arquivo | Papel |
+|---|---|
+| `checkout.html` | tela do pedido (gerada por `_checkpoint_loja_paginas.py`, `noindex`) |
+| `api/_cfg.php` | **tabela de preço**, leitura de env, máscara de PII, estado em disco |
+| `api/catalogo.php` | GET — o preço que a tela EXIBE |
+| `api/pix.php` | POST — cria a cobrança (recalcula o preço pela mesma função) |
+| `api/status.php` | GET — a tela pergunta se já caiu |
+| `api/webhook.php` | POST — postback da PayShark → conversão |
+| `api/health.php` | GET — booleanos de configuração (sem segredo) |
+| `api/debug.php` | GET — auditoria, fail-closed, sem PII |
+| `assets/session.js` | guarda `gclid`/`utm_*` da 1ª visita e decora o CTA |
+
+**Preço.** Definido no servidor pelo SKU (`cp_preco`). A tela não escolhe valor: ela pede
+`api/catalogo.php` e mostra o que vier, e a cobrança usa a mesma função. Preço mandado pelo
+cliente é ignorado (provado no QA).
+
+| SKU | Tabela | Cobrado no PIX à vista |
+|---|---|---|
+| `reserva-padrao` | R$ 249,90 | **R$ 237,40** (−5%) |
+| `reserva-ampliada` | R$ 349,90 | **R$ 332,40** (−5%) |
+| `reserva-colecao` | R$ 449,90 | **R$ 427,40** (−5%) |
+| `vale-presente` | R$ 50 / 100 / 200 | mesmo valor (o catálogo não anuncia desconto) |
+
+Os 5% são **os do próprio catálogo** ("5% de desconto no PIX à vista"). Centavos arredondados
+para baixo — a loja nunca cobra mais do que o anunciado. A tela mostra a conta inteira
+(tabela → desconto → total).
+
+**Só à vista.** PIX não parcela e não há cobrança de parcela implementada, então o checkout não
+oferece parcelamento — e **a comunicação também não** (corrigido em 02/08, rodada 4). O preço em
+destaque em toda página é o **valor cobrado** (R$ 237,40 / 332,40 / 427,40); o de tabela aparece
+só rotulado como tabela, ao lado do desconto. Se um dia entrar parcelamento de verdade
+(`credit_card` com tokenização — a PayShark parcela em até 12x nesse método), o texto volta **pelo
+gerador**, nunca no HTML.
+
+**Dado pessoal.** O formulário pede nome + e-mail (o que a API exige — medido em 02/08/2026) e
+CPF **opcional**. Nada disso é gravado em arquivo, log ou rota de diagnóstico: a máscara é
+aplicada na escrita. O estado (origem do clique, conversões) fica **fora do docroot**.
+
+**Atribuição.** Sem pixel: `assets/session.js` guarda `gclid`/`gbraid`/`wbraid` + `utm_*` da
+primeira visita, decora o CTA, e o identificador viaja no `externalRef` e no `metadata` da
+cobrança. No postback pago vira conversão — **dormente** até o gestor configurar
+`GADS_SHEET_WEBHOOK_URL`.
+
+---
+
 ## Roteamento
 
 `go/index.php` é o integrador de roteamento (stream `78be7975-b9b6-4d56-ad9f-cd55ea682739`),
-movido byte a byte da raiz — sha256 `d9abe8cd…`. **Não editar.** Ele é acionado pelos CTA
-"Reservar" da home e do catálogo; a raiz serve conteúdo próprio com 200.
+movido byte a byte da raiz — sha256 `d9abe8cd…`. **Não editar.** A raiz serve conteúdo próprio
+com 200.
+
+⚠️ **Mudou em 02/08/2026:** os 4 CTA "Reservar" **não apontam mais para `/go/`** — vão para
+`checkout.html?sku=…`. O arquivo continua no ar e acessível pela URL, mas **nenhuma página do
+site o aciona**. Se o funil dependia do clique no CTA para disparar o roteamento, isso não
+acontece mais; quem opera o stream precisa confirmar de onde ele passa a ser chamado.
 
 ## Observações de build
 
@@ -81,9 +137,10 @@ movido byte a byte da raiz — sha256 `d9abe8cd…`. **Não editar.** Ele é aci
   `_atendimento.jpg`, `_reserva.jpg` (Pexels, licença de uso comercial). Nenhuma legenda afirma
   retratar pessoa, equipe, sede ou equipamento da loja — as duas fotos com gente/mesa levam
   legenda "Imagem ilustrativa".
-- **Zero formulário no site.** O único canal é o `mailto:contato@checkpointbr.sbs`, com horário de
-  atendimento ao lado. Não existe mais campo que finja enviar mensagem/cadastro (era
-  `preventDefault()` + `localStorage` em `contato.html` e no antigo `app.html`).
+- **Um único formulário no site: o do `checkout.html`**, e ele funciona de verdade (cria cobrança
+  PIX na PayShark). O atendimento continua sendo só `mailto:contato@checkpointbr.sbs` — não existe
+  campo que finja enviar mensagem/cadastro (era `preventDefault()` + `localStorage` em
+  `contato.html` e no antigo `app.html`).
 - Scripts que geram/patrulham este site: `scripts/_checkpoint_loja_v2.py` (chrome + CSS comum +
   move do roteador; o bloco `/* chrome v2 */` é **substituído**, não acumulado, a cada execução),
   `scripts/_checkpoint_loja_paginas.py` (páginas novas), `scripts/_checkpoint_qa_v2.py`
@@ -103,3 +160,11 @@ movido byte a byte da raiz — sha256 `d9abe8cd…`. **Não editar.** Ele é aci
 | `app.html` descrevia app sem link de download | virou `avisos.html` (aviso por e-mail); 23 rodapés, FAQ, como-funciona e sitemap repontados |
 | legendas/textos afirmando retratar equipe, mesa e bancada nossas | neutralizados em `contato`, `sobre`, `termos`, `blog`, `hardware-rtx-…` e `hardware-portateis-…` |
 | scroll horizontal de 32 px na home a 360 px (`span.count`) | `.section-head` quebra linha ≤560 px (CSS_PATCH); medido 0 px de overflow nas 23 páginas em 320/360/412/768 |
+
+## Rodada 4 (02/08) — comunicação alinhada ao que o checkout cobra
+
+| Achado | O que ficou |
+|---|---|
+| site vendia "12x no PIX" (R$ 20,83 / 29,16 / 37,49) e "5% off à vista", mas o checkout cobra **PIX à vista 1x** e não existe cobrança de 2ª parcela | parcelamento **removido da comunicação inteira**. `SKUS`/`dados` do `_checkpoint_loja_paginas.py` passaram a carregar o **valor cobrado**; preço em destaque = R$ 237,40 / 332,40 / 427,40, com "5% de desconto sobre R$ X de tabela" no subtítulo. `PASSOS[03]`, lead da home, meta/og de `index` e `como-funciona`, nota de Pagamento do catálogo, pull-quote e `trocas` §1/§5 reescritos; rodapé de **todas as 24 páginas** ("PIX à vista ou parcelado" → "em PIX à vista") pelo `FOOTER` do `_checkpoint_loja_v2.py`. Páginas de texto à mão: `faq` Q02 (+ meta), `termos` §2, `privacidade` §1. Varredura: 0 menção a parcela/12x/juros/cartão fora das negativas ("não parcelamos"). Conferido contra `cp_preco()` — todo R$ exibido bate com o servidor |
+| `privacidade` §7 descrevia só o cookie técnico `_cid`, mas `assets/session.js` grava `cb_origin` (localStorage + cookie 1ª parte, 90 dias) com `gclid`/`gbraid`/`wbraid` + `utm_*`, e o dado viaja com o pedido | §7 vira "Cookies, origem da visita e checagem de segurança" e ganha parágrafo próprio: identificador de origem gravado no próprio domínio, 90 dias, serve para saber por qual anúncio o pedido chegou, sem nome/e-mail/pagamento e sem uso publicitário. §3 (legítimo interesse) e §5 (o provedor de pagamento recebe o código junto do pedido) alinhadas |
+| QA da rodada | gerador rodado **2×**: saída byte-idêntica (idempotente); `checkout.html` e a tag do `session.js` presentes 1× por página; 24 páginas / 309 links internos / 0 quebrado / 0 `href="#"`; **0 overflow** em 360 px e 412 px (`scripts/_checkpoint_overflow_qa.py`) |
