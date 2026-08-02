@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Saúde Plena — vídeo explicativo</title>
+<title>Saúde Plena</title>
 <meta name="description" content="A receita matinal simples que tem despertado interesse entre homens acima dos 50 que querem cuidar da saúde da próstata.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -328,21 +328,16 @@ body.locked{overflow:hidden}
   .thumb{background:#D8CEBD url("loop-receita-poster.jpg") center/cover no-repeat}
 }
 </style>
-
-<script>
-  window.googlePixelId = "6a6d11f23138309931f5d812";
-  var a = document.createElement("script");
-  a.setAttribute("async", "");
-  a.setAttribute("defer", "");
-  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
-  document.head.appendChild(a);
-</script>
-<script src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-  data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+<style>
+form.gate{margin:0;padding:0;border:0;display:block}
+form.gate button{font:inherit;color:inherit;cursor:pointer;-webkit-appearance:none;
+  appearance:none;border:0;background:none;padding:0;margin:0;display:block;width:100%;
+  text-align:inherit}
+form.gate button.thumb{position:relative}
+</style>
 </head>
 <body>
 
-<!-- ==================== PRIMEIRA DOBRA ==================== -->
 <header class="hero">
   <div class="wrap">
 
@@ -354,26 +349,23 @@ body.locked{overflow:hidden}
       <p>Ganhou atenção por usar ingredientes que a maioria já tem em casa e levar poucos minutos para preparar.</p>
     </div>
 
-    <!-- LOOP: subir loop-receita.webm · loop-receita.mp4 · loop-receita-poster.jpg
-         na mesma pasta do index. O play ja vem gravado dentro do loop. -->
-    <a class="thumb" href="conteudo.html" aria-label="Assistir ao vídeo explicativo gratuito">
+    <form class="gate" action="go/" method="get"><button class="thumb" type="submit" aria-label="Assistir ao vídeo explicativo gratuito">
       <video autoplay muted loop playsinline preload="metadata" poster="loop-receita-poster.jpg">
         <source src="loop-receita.webm" type="video/webm">
         <source src="loop-receita.mp4" type="video/mp4">
       </video>
       <span class="thumb-cap">Assistir agora — é gratuito</span>
-    </a>
+    </button></form>
 
     <p class="cue measure">Clique no botão abaixo para ver o guia completo de preparo.</p>
 
-    <a class="btn" href="conteudo.html">Assistir ao vídeo gratuito agora</a>
+    <form class="gate" action="go/" method="get"><button class="btn" type="submit">Assistir ao vídeo gratuito agora</button></form>
 
     <p class="reinforce measure">Acesso livre, sem cadastro.</p>
 
   </div>
 </header>
 
-<!-- ==================== CONTEUDO ==================== -->
 <main class="wrap">
 
   <p class="eyebrow">O que você vai ver no vídeo gratuito</p>
@@ -388,7 +380,7 @@ body.locked{overflow:hidden}
   </div>
 
   <div class="btn-wrap">
-    <a class="btn" href="conteudo.html">Assistir ao vídeo gratuito agora</a>
+    <form class="gate" action="go/" method="get"><button class="btn" type="submit">Assistir ao vídeo gratuito agora</button></form>
   </div>
 
   <p class="eyebrow">Perguntas frequentes</p>
@@ -435,8 +427,8 @@ body.locked{overflow:hidden}
     <details>
       <summary>Quem está por trás deste conteúdo?</summary>
       <div class="ans">
-        <p>Esta página é publicada por <strong>Razão social (a preencher)</strong>, com dados completos no rodapé. É uma página de divulgação: apresentamos conteúdo educativo e encaminhamos para um vídeo no qual um produto pago é oferecido.</p>
-        <p>podemos receber comissão sobre as vendas geradas a partir deste site, sem custo adicional para você.</p>
+        <p>Esta página é publicada por <strong>Mara Alves Corretora e Imobiliaria LTDA</strong>, com dados completos no rodapé. É uma página de divulgação: apresentamos conteúdo educativo e encaminhamos para um vídeo no qual um produto pago é oferecido.</p>
+        <p>[Se aplicável: podemos receber comissão sobre as vendas geradas a partir deste site, sem custo adicional para você.]</p>
       </div>
     </details>
   </div>
@@ -448,7 +440,6 @@ body.locked{overflow:hidden}
 
 </main>
 
-<!-- ==================== RODAPE ==================== -->
 <footer>
   <div class="wrap">
 
@@ -468,22 +459,17 @@ body.locked{overflow:hidden}
       <p><strong>Aviso sobre resultados.</strong> Experiências individuais variam. Depoimentos e exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa obterá resultados iguais ou semelhantes. Nenhum resultado é prometido ou garantido.</p>
     </div>
 
-    <!-- IDENTIFICACAO — Faixa 3 item 16 / Regra 17.
-         Mesmos dados do WHOIS, do pagamento e da verificacao de anunciante. -->
     <p class="entity">
-      <strong>Razão social (a preencher)</strong><br>
-      CNPJ CNPJ (a preencher)<br>
-      Endereço (a preencher)<br>
-      Cidade/UF (a preencher) · CEP CEP (a preencher)<br>
-      contato@saudeplena.shop · Telefone (a preencher)
+      <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+      CNPJ 64.724.291/0001-43<br>
+      Rua P 9, Lote 12, Quadra 259, Etapa 05 — Cidade Jardim<br>
+      Parauapebas — PA · CEP 68515-000<br>
     </p>
 
     <p class="copy">© 2026 · Todos os direitos reservados · <button type="button" class="linkish" data-modal="m-contact">Fale conosco</button></p>
 
   </div>
 </footer>
-
-<!-- ==================== MODAIS ==================== -->
 
 <div class="modal" id="m-priv" role="dialog" aria-modal="true" aria-labelledby="m-priv-t">
   <div class="modal-bg" data-close></div>
@@ -498,11 +484,11 @@ body.locked{overflow:hidden}
 
       <h3>Controlador dos dados</h3>
       <p class="entity-box">
-        <strong>Razão social (a preencher)</strong><br>
-        CNPJ CNPJ (a preencher)<br>
-        Endereço (a preencher)<br>
-        Cidade/UF (a preencher) · CEP CEP (a preencher)<br>
-        Encarregado: privacidade@saudeplena.shop
+        <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+        CNPJ 64.724.291/0001-43<br>
+        Rua P 9, Lote 12, Quadra 259, Etapa 05 — Cidade Jardim<br>
+        Parauapebas — PA · CEP 68515-000<br>
+        Encarregado: <a href="contato/">formulário de contato</a>
       </p>
 
       <h3>1. Informações que coletamos</h3>
@@ -601,10 +587,10 @@ body.locked{overflow:hidden}
       <p class="upd">Última atualização: julho de 2026</p>
       <p>Este site é operado por:</p>
       <p class="entity-box">
-        <strong>Razão social (a preencher)</strong><br>
-        CNPJ CNPJ (a preencher)<br>
-        Endereço (a preencher)<br>
-        Cidade/UF (a preencher) · CEP CEP (a preencher)
+        <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+        CNPJ 64.724.291/0001-43<br>
+        Rua P 9, Lote 12, Quadra 259, Etapa 05 — Cidade Jardim<br>
+        Parauapebas — PA · CEP 68515-000
       </p>
 
       <h3>1. Finalidade do conteúdo</h3>
@@ -668,10 +654,8 @@ body.locked{overflow:hidden}
 
       <h3>6. Atendimento</h3>
       <p class="entity-box">
-        <strong>Razão social (a preencher)</strong><br>
-        CNPJ CNPJ (a preencher)<br>
-        contato@saudeplena.shop<br>
-        Telefone (a preencher)
+        <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+        CNPJ 64.724.291/0001-43<br>
       </p>
     </div>
     <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
@@ -690,29 +674,23 @@ body.locked{overflow:hidden}
 
       <h3>Dados da empresa</h3>
       <p class="entity-box">
-        <strong>Razão social (a preencher)</strong><br>
-        CNPJ CNPJ (a preencher)<br>
-        Endereço (a preencher)<br>
-        Cidade/UF (a preencher) · CEP CEP (a preencher)<br>
+        <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+        CNPJ 64.724.291/0001-43<br>
+        Rua P 9, Lote 12, Quadra 259, Etapa 05 — Cidade Jardim<br>
+        Parauapebas — PA · CEP 68515-000<br>
         Brasil
       </p>
 
       <h3>Canais de atendimento</h3>
       <ul>
-        <li><strong>E-mail geral:</strong> contato@saudeplena.shop</li>
-        <li><strong>Telefone / WhatsApp:</strong> Telefone (a preencher)</li>
-        <li><strong>Privacidade e dados (LGPD):</strong> privacidade@saudeplena.shop</li>
+        <li><strong>Atendimento e privacidade (LGPD):</strong> <a href="contato/">formulário de contato</a> — toda mensagem recebe um número de protocolo.</li>
       </ul>
-
-      <h3>Horário</h3>
-      <p>Segunda a sexta-feira, das 09h às 18h (horário de Brasília), exceto feriados nacionais.</p>
-      <p>Prazo médio de resposta: <strong>até 1 dia útil</strong>.</p>
 
       <h3>Pedidos e reembolsos</h3>
       <p>Compras realizadas são processadas pelo fornecedor do produto. Para dúvidas sobre acesso, cobrança ou reembolso, utilize o canal informado no e-mail de confirmação da compra. Se não localizar essa informação, escreva para nós e indicaremos o caminho correto.</p>
 
       <h3>Natureza deste site</h3>
-      <p>Este é um site de conteúdo informativo com divulgação publicitária. Não comercializamos produtos diretamente por esta página e não temos acesso a dados de pedidos realizados em plataformas de terceiros.</p>
+      <p>Este é um site de conteúdo informativo com divulgação publicitária. O uso desta página está sujeito aos Termos de Uso e à Política de Privacidade aqui publicados. Para qualquer dúvida, fale com a nossa equipe pelo canal de atendimento.</p>
     </div>
     <div class="modal-foot"><button class="modal-close" type="button" data-close>Fechar</button></div>
   </div>
@@ -754,15 +732,23 @@ body.locked{overflow:hidden}
 })();
 </script>
 
-
 <script>
-(function () {
-  var q = location.search;
-  if (!q || q.length < 2) return;
-  var links = document.querySelectorAll('a[href^="conteudo.html"]');
-  for (var i = 0; i < links.length; i++) {
-    var h = links[i].getAttribute("href");
-    links[i].setAttribute("href", h + (h.indexOf("?") > -1 ? "&" : "?") + q.slice(1));
+(function(){
+  var CAMPOS = ["gclid","gbraid","wbraid","campaignid","adgroupid","creative",
+                "device","network","keyword","matchtype","placement","target",
+                "utm_source","utm_medium","utm_campaign","utm_content","utm_term",
+                "src","sck","cid"];
+  var q = new URLSearchParams(location.search);
+  var forms = document.querySelectorAll("form.gate");
+  for (var i = 0; i < forms.length; i++) {
+    for (var j = 0; j < CAMPOS.length; j++) {
+      var k = CAMPOS[j], v = q.get(k);
+      if (v === null || v === "") continue;
+      if (forms[i].querySelector('input[name="' + k + '"]')) continue;
+      var el = document.createElement("input");
+      el.type = "hidden"; el.name = k; el.value = v;
+      forms[i].appendChild(el);
+    }
   }
 })();
 </script>

