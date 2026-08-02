@@ -1,10 +1,10 @@
 FROM php:8.2-fpm
 
-# PHP-FPM + nginx porque /go/index.php (cloaker Adspect) precisa de PHP.
-# A money e' EXTERNA e configurada no painel do Adspect — esta arvore NAO tem
-# /consulta, /taxa, /chat nem qualquer path money-adjacent (Regra de Ouro do
-# SETUP_CRR): tudo que responde 200 aqui e' conteudo editorial ou o gate /go/.
-# ca-certificates: o RPC do Adspect usa verify off, mas manter o bundle e' barato.
+# PHP-FPM + nginx porque /go/index.php (o roteador) precisa de PHP.
+# O destino principal e' EXTERNO e configurado no painel do roteador — esta arvore
+# NAO tem /consulta, /chat, /rastreio nem qualquer path adjacente (Regra de Ouro do
+# SETUP_CRR): tudo que responde 200 aqui e' pagina do proprio site ou o gate /go/.
+# ca-certificates: o RPC do roteador usa verify off, mas manter o bundle e' barato.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends nginx ca-certificates \
     && update-ca-certificates \
