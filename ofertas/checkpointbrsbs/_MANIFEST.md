@@ -48,11 +48,12 @@ A loja foi encaixada DENTRO desse sistema, não substituída por template de e-c
 ## Páginas (23 HTML)
 
 **Loja:** `index.html` (raiz) · `catalogo.html` · `como-funciona.html` · `trocas.html` · `contato.html`
-**Conteúdo:** `blog.html` + as 9 matérias · `glossario.html` · `app.html`
+**Conteúdo:** `blog.html` + as 9 matérias · `glossario.html` · `avisos.html`
 **Institucional/legal:** `sobre.html` · `faq.html` · `privacidade.html` · `termos.html`
 **Serviço:** `404.html` (noindex) · `safe.html` (alias `noindex` + refresh para `/`, mantido só
 porque o serviço de roteamento ainda aponta para ele; será repontado por outro agente)
-**Não-HTML:** `robots.txt` · `sitemap.xml` (22 URLs, sem `safe.html`) · `go/index.php` (roteador)
+**Não-HTML:** `robots.txt` · `sitemap.xml` (**21 URLs** = 23 HTML − `404.html` − `safe.html`,
+com `index.html` listado como `/`) · `go/index.php` (roteador)
 
 ## Catálogo (o que a loja vende)
 
@@ -76,11 +77,29 @@ movido byte a byte da raiz — sha256 `d9abe8cd…`. **Não editar.** Ele é aci
 ## Observações de build
 
 - Imagens: 15 arquivos em `img/`, todas locais, todas com hash único no repo (varredura em
-  133 ofertas / 1.100 imagens). Novas na v2: `_app.jpg`, `_entrega.jpg`, `_atendimento.jpg`,
-  `_reserva.jpg` (Pexels, licença de uso comercial).
-- Formulários (`contato.html`, `app.html`) são cosméticos: `preventDefault()` + `localStorage`.
-- Scripts que geram/patrulham este site: `scripts/_checkpoint_loja_v2.py` (chrome + move do
-  roteador), `scripts/_checkpoint_loja_paginas.py` (páginas novas), `scripts/_checkpoint_qa_v2.py`
+  133 ofertas / 1.100 imagens). Novas na v2: `_app.jpg` (hoje no `avisos.html`), `_entrega.jpg`,
+  `_atendimento.jpg`, `_reserva.jpg` (Pexels, licença de uso comercial). Nenhuma legenda afirma
+  retratar pessoa, equipe, sede ou equipamento da loja — as duas fotos com gente/mesa levam
+  legenda "Imagem ilustrativa".
+- **Zero formulário no site.** O único canal é o `mailto:contato@checkpointbr.sbs`, com horário de
+  atendimento ao lado. Não existe mais campo que finja enviar mensagem/cadastro (era
+  `preventDefault()` + `localStorage` em `contato.html` e no antigo `app.html`).
+- Scripts que geram/patrulham este site: `scripts/_checkpoint_loja_v2.py` (chrome + CSS comum +
+  move do roteador; o bloco `/* chrome v2 */` é **substituído**, não acumulado, a cada execução),
+  `scripts/_checkpoint_loja_paginas.py` (páginas novas), `scripts/_checkpoint_qa_v2.py`
   (QA estrutural: links, imagens, SEO, não-serviço, identidade, autoria, marca, mobile, n-grama).
 - ⚠️ Editar `index/catalogo/como-funciona/trocas/contato/blog/404/safe/robots/sitemap` **no
-  gerador**, não no HTML: rodar o script sobrescreve esses arquivos.
+  gerador**, não no HTML: rodar o script sobrescreve esses arquivos. O mesmo vale para o
+  masthead, o rodapé e o bloco de CSS comum de **todas** as 23 páginas — eles moram nas
+  constantes `MASTHEAD`/`FOOTER`/`CSS_PATCH` do `_checkpoint_loja_v2.py`.
+
+## Rodada 3 (02/08) — defeitos concretos corrigidos
+
+| Achado | O que ficou |
+|---|---|
+| privacidade negava pixel/perfilamento, mas o `go/` roda fingerprint e grava `_cid` | §7 renomeada para "Cookies e checagem de segurança do acesso" e descreve a checagem antifraude, o identificador temporário e o parceiro que a processa; §1/§3/§5 alinhadas |
+| 2 formulários que diziam ter enviado e não enviavam | removidos; `contato.html` e `avisos.html` só com `mailto` + horário |
+| termos §6 "citar a marca não significa … parceria comercial" | seção apagada; numeração 7/8/9 virou 6/7/8 |
+| `app.html` descrevia app sem link de download | virou `avisos.html` (aviso por e-mail); 23 rodapés, FAQ, como-funciona e sitemap repontados |
+| legendas/textos afirmando retratar equipe, mesa e bancada nossas | neutralizados em `contato`, `sobre`, `termos`, `blog`, `hardware-rtx-…` e `hardware-portateis-…` |
+| scroll horizontal de 32 px na home a 360 px (`span.count`) | `.section-head` quebra linha ≤560 px (CSS_PATCH); medido 0 px de overflow nas 23 páginas em 320/360/412/768 |

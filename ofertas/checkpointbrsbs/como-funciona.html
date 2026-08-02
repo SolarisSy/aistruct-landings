@@ -97,6 +97,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 .legal-bar a{color:#b9b4a2}
 @media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+/* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
+@media (max-width:560px){.section-head{flex-wrap:wrap;gap:4px 14px}.section-head h2{white-space:normal}.section-head .rule{min-width:24px}.section-head .count{white-space:normal;flex:1 0 100%;order:3}}
 </style>
 </head>
 <body>
@@ -148,7 +150,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <p>Adiamento de lançamento acontece e não é culpa de quem reservou. Quando a distribuidora anuncia data nova, mandamos e-mail na mesma semana com as duas opções: manter a reserva pelo mesmo valor até a data nova, ou cancelar e receber o dinheiro de volta pela mesma chave PIX. Não existe multa nem retenção nesse caso.</p>
 
     <h2>Onde o pedido fica registrado</h2>
-    <p>Cada compra gera um número de pedido que vai no primeiro e-mail. Guardar esse número acelera tudo depois: consulta de status, troca de plataforma antes do envio, cancelamento, segunda via da chave. O <a href="app.html">app Checkpoint</a> mostra a mesma lista de pedidos, para quem prefere acompanhar pelo celular.</p>
+    <p>Cada compra gera um número de pedido que vai no primeiro e-mail. Guardar esse número acelera tudo depois: consulta de status, troca de plataforma antes do envio, cancelamento, segunda via da chave. Quem quiser acompanhar sem procurar o e-mail antigo pode pedir o status pelo <a href="contato.html">atendimento</a>, e os <a href="avisos.html">avisos por e-mail</a> saem sozinhos a cada mudança de data.</p>
   </div>
 
   <div class="callout">
@@ -177,7 +179,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <ul>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
-        <li><a href="app.html">App Checkpoint</a></li>
+        <li><a href="avisos.html">Aviso por e-mail</a></li>
       </ul>
     </div>
     <div>

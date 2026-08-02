@@ -71,7 +71,8 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .foot-logo{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;margin:0 0 10px}
 .legal-bar{max-width:1180px;margin:26px auto 0;padding:18px 28px 22px;border-top:1px solid #3a3a33;font-family:var(--font-mono);font-size:.72rem;color:#8f8b78;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 @media (max-width:880px){ footer .wrap{grid-template-columns:1fr 1fr} }
-@media (max-width:560px){ .logo{font-size:1.9rem} .article-page h1{font-size:1.9rem} nav.primary{flex-wrap:wrap;gap:14px} .related-list{flex-direction:column} .spec-table{font-size:.8rem} }
+@media (max-width:560px){ .logo{font-size:1.9rem} .article-page h1{font-size:1.9rem} nav.primary{flex-wrap:wrap;gap:14px} .related-list{flex-direction:column} .spec-table{font-size:.8rem} .spec-table th,.spec-table td{padding:7px 6px} }
+@media (max-width:400px){ .spec-table{font-size:.72rem} .spec-table th,.spec-table td{padding:6px 4px} }
 
 /* --- chrome v2 (loja) --- */
 a.logo{display:inline-block;color:var(--ink);border-bottom:none}
@@ -86,6 +87,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 .legal-bar a{color:#b9b4a2}
 @media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+/* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
+@media (max-width:560px){.section-head{flex-wrap:wrap;gap:4px 14px}.section-head h2{white-space:normal}.section-head .rule{min-width:24px}.section-head .count{white-space:normal;flex:1 0 100%;order:3}}
 </style>
 </head>
 <body>
@@ -107,19 +110,19 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 <main class="wrap article-page">
   <span class="kicker">Hardware</span>
   <h1>Guerra dos portáteis: Steam Deck, ROG Ally e a fatia que a Nintendo não quer perder</h1>
-  <p class="lead-dek">Comparamos autonomia de bateria, ruído da ventoinha e desempenho em oito jogos nos três aparelhos que dividiram o primeiro semestre de 2026. Nenhum dos três vence em todas as categorias — e a resposta da Nintendo joga em outro tabuleiro.</p>
+  <p class="lead-dek">Autonomia de bateria, ruído da ventoinha e desempenho em oito jogos nos três aparelhos que dividiram o primeiro semestre de 2026, com os números que já saíram sobre cada um postos lado a lado. Nenhum dos três vence em todas as categorias — e a resposta da Nintendo joga em outro tabuleiro.</p>
   <span class="byline">Redação Checkpoint BR — 29 de junho de 2026 — leitura de 10 minutos</span>
 
   <img class="cover-img" src="img/hardware-portateis-2026-steam-deck.jpg" alt="Três consoles portáteis de jogos lado a lado sobre mesa de madeira para comparação" loading="lazy" width="900" height="500">
 
   <div class="content">
-    <p>Passaram-se poucos anos desde que "PC portátil de jogos" virou categoria de prateleira própria, e o segmento já tem gente demais brigando pelo mesmo espaço de mochila. Colocamos lado a lado, na mesma bancada e com os mesmos oito jogos, o Steam Deck da Valve, o ROG Ally da ASUS e — como ponto de comparação obrigatório, ainda que fora dessa categoria específica — o ecossistema portátil da Nintendo, que segue vendendo em volume que nenhum dos concorrentes de PC chega perto de alcançar. A conclusão depois de duas semanas de teste é desconfortável para quem gosta de eleger um vencedor único: cada aparelho ganha em uma frente e perde feio em outra.</p>
+    <p>Passaram-se poucos anos desde que "PC portátil de jogos" virou categoria de prateleira própria, e o segmento já tem gente demais brigando pelo mesmo espaço de mochila. Esta comparação põe lado a lado, com a mesma seleção de oito jogos como referência, o Steam Deck da Valve, o ROG Ally da ASUS e — como ponto de comparação obrigatório, ainda que fora dessa categoria específica — o ecossistema portátil da Nintendo, que segue vendendo em volume que nenhum dos concorrentes de PC chega perto de alcançar. A conclusão é desconfortável para quem gosta de eleger um vencedor único: cada aparelho ganha em uma frente e perde feio em outra.</p>
 
     <h2>Três filosofias diferentes disputando o mesmo bolso</h2>
     <p>O Steam Deck roda SteamOS, sistema baseado em Linux que depende da camada de compatibilidade Proton para rodar a maior parte da biblioteca feita originalmente para Windows — o que funciona na esmagadora maioria dos jogos testados, mas ainda tropeça em alguns títulos com anticheat mais agressivo, que simplesmente recusam rodar fora de um Windows nativo. O ROG Ally resolve esse problema pela raiz ao rodar Windows 11 de fábrica, com acesso direto a qualquer launcher de PC sem camada intermediária, ao custo de um sistema operacional que não foi desenhado pensando em tela pequena e controle físico, o que se traduz em mais telas de configuração e mais processos rodando em segundo plano do que o usuário gostaria. A Nintendo, na outra ponta, não compete pela biblioteca de PC: vende uma curadoria fechada de jogos otimizados para o próprio hardware, e é exatamente essa previsibilidade — jogo comprado na loja roda sem exceção — que sustenta um parque instalado que já passa de 150 milhões de aparelhos, segundo os próprios relatórios de resultado divulgados pela companhia.</p>
 
     <h2>Autonomia: a bateria que sobra e a que acaba no meio da sessão</h2>
-    <p>Em nosso teste com os oito jogos rodando em configuração de gráficos equivalente e mesmo brilho de tela, o Steam Deck OLED entregou a maior janela de uso longe da tomada, sustentando sessões de jogos leves por mais de sete horas e caindo para a faixa de duas horas e meia em títulos AAA mais recentes rodando a taxas de quadro mais altas. O ROG Ally, com processador mais potente e tela de resolução maior, pagou o preço em autonomia: nos mesmos jogos pesados, a bateria não passou de uma hora e quarenta minutos antes de pedir carregador, embora em modo de economia de energia, com resolução e taxa de quadros reduzidas propositalmente, a diferença para o Deck diminua bastante. A Nintendo, rodando jogos otimizados especificamente para seu próprio silício, manteve a mesma janela de autonomia de sempre — sem surpresas, porque não está competindo pelo mesmo tipo de carga gráfica.</p>
+    <p>Com os oito jogos rodando em configuração de gráficos equivalente e mesmo brilho de tela, o Steam Deck OLED entregou a maior janela de uso longe da tomada, sustentando sessões de jogos leves por mais de sete horas e caindo para a faixa de duas horas e meia em títulos AAA mais recentes rodando a taxas de quadro mais altas. O ROG Ally, com processador mais potente e tela de resolução maior, pagou o preço em autonomia: nos mesmos jogos pesados, a bateria não passou de uma hora e quarenta minutos antes de pedir carregador, embora em modo de economia de energia, com resolução e taxa de quadros reduzidas propositalmente, a diferença para o Deck diminua bastante. A Nintendo, rodando jogos otimizados especificamente para seu próprio silício, manteve a mesma janela de autonomia de sempre — sem surpresas, porque não está competindo pelo mesmo tipo de carga gráfica.</p>
 
     <table class="spec-table">
       <tr><th>Aparelho</th><th>Sistema</th><th>Autonomia em jogo leve</th><th>Autonomia em jogo pesado</th></tr>
@@ -132,7 +135,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <p>Nenhum dos dois PCs portáteis é silencioso sob carga total, mas o comportamento difere. O Steam Deck mantém a ventoinha em um ruído mais constante e mais grave, perceptível mas raramente incômodo em ambiente com som de fundo — como uma sala com TV ligada ou transporte público. O ROG Ally, buscando os quadros por segundo mais altos que sua tela de maior resolução pede, chega a um ruído mais agudo e mais variável, com picos que se sobressaem mesmo em ambiente com algum ruído ambiente, e a carcaça na altura dos dedos fica visivelmente mais quente depois de vinte minutos de jogo pesado. A Nintendo, de novo, não entra nessa disputa: o hardware é dimensionado para o próprio catálogo, então a ventoinha praticamente não precisa provar nada.</p>
 
     <h2>Desempenho real em oito jogos, sem marketing</h2>
-    <p>Rodamos a mesma bateria de oito jogos — mistura de indies leves, jogos de mundo aberto de médio porte e um punhado de lançamentos AAA recentes — nos três aparelhos, priorizando configuração jogável e estável em vez de números de pico isolados. O ROG Ally levou vantagem nos títulos mais exigentes graficamente, graças ao processador mais recente e à tela com resolução mais alta, mas essa vantagem só se sustenta com a bateria plugada na tomada ou em sessões curtas — no modo de maior desempenho, a autonomia despenca rápido o suficiente para tornar o ganho de nitidez uma troca discutível fora de casa. O Steam Deck entregou o resultado mais consistente entre "jogável" e "dura a sessão inteira", o que combina com o próprio propósito do aparelho: jogar longe da tomada, não competir em resolução com um PC de mesa.</p>
+    <p>A mesma seleção de oito jogos — mistura de indies leves, jogos de mundo aberto de médio porte e um punhado de lançamentos AAA recentes — serve de régua para os três aparelhos, com prioridade para configuração jogável e estável em vez de número de pico isolado. O ROG Ally levou vantagem nos títulos mais exigentes graficamente, graças ao processador mais recente e à tela com resolução mais alta, mas essa vantagem só se sustenta com a bateria plugada na tomada ou em sessões curtas — no modo de maior desempenho, a autonomia despenca rápido o suficiente para tornar o ganho de nitidez uma troca discutível fora de casa. O Steam Deck entregou o resultado mais consistente entre "jogável" e "dura a sessão inteira", o que combina com o próprio propósito do aparelho: jogar longe da tomada, não competir em resolução com um PC de mesa.</p>
 
     <blockquote class="pull-quote">
       <p>"O aparelho mais rápido da mesa também foi o primeiro a pedir carregador — e isso muda completamente qual dos dois vale a mala de viagem."</p>
@@ -187,7 +190,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <ul>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
-        <li><a href="app.html">App Checkpoint</a></li>
+        <li><a href="avisos.html">Aviso por e-mail</a></li>
       </ul>
     </div>
     <div>

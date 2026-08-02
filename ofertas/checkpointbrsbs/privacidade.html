@@ -71,6 +71,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 .legal-bar a{color:#b9b4a2}
 @media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+/* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
+@media (max-width:560px){.section-head{flex-wrap:wrap;gap:4px 14px}.section-head h2{white-space:normal}.section-head .rule{min-width:24px}.section-head .count{white-space:normal;flex:1 0 100%;order:3}}
 </style>
 </head>
 <body>
@@ -97,20 +99,20 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   <div class="legal-content">
     <h2>1. Que dado a loja recebe</h2>
     <p>Para vender um item digital precisamos de pouca coisa, e é exatamente isso que pedimos: o <strong>e-mail</strong> (para onde vai a chave, o comprovante e o aviso de envio), o <strong>nome</strong> que assina o pedido e a <strong>plataforma escolhida</strong>. Quando a compra é parcelada, o banco emissor do PIX nos devolve apenas a confirmação do pagamento e um identificador da transação — dado de cartão não passa por aqui e não é armazenado em momento algum.</p>
-    <p>Mensagem enviada pela página de <a href="contato.html">atendimento</a> carrega o que você escrever nela; usamos só para responder e para localizar o pedido citado.</p>
-    <p>Além disso, o servidor registra dado técnico de acesso (endereço IP, navegador, página visitada e horário) para segurança e diagnóstico, guardado pelo prazo mínimo necessário e sem uso para perfilamento publicitário.</p>
+    <p>O <a href="contato.html">atendimento</a> é por e-mail: a mensagem que você escreve chega com o endereço remetente e o que você contar nela, e usamos isso só para responder e para localizar o pedido citado.</p>
+    <p>Além disso, o servidor registra dado técnico de acesso (endereço IP, navegador, página visitada e horário) para segurança e diagnóstico, guardado pelo prazo mínimo necessário. Quando você clica para reservar um item, esse mesmo tipo de dado técnico passa por uma checagem de segurança antes de o pedido seguir — o que é lido nessa etapa está descrito na seção 7.</p>
 
     <h2>2. Para que usamos</h2>
     <p>Processar e entregar o pedido, avisar sobre data de liberação e mudança de prazo, atender pedido de troca ou cancelamento, e cumprir obrigação fiscal. O e-mail do aviso semanal de matérias, quando o cliente pede, serve só para isso e tem cancelamento em um clique. A lista de endereços fica exclusivamente conosco, e a única saída dela é a mensagem que a própria loja envia.</p>
 
     <h2>3. Base legal</h2>
-    <p>Dado de pedido é tratado para execução do contrato de compra e venda (art. 7º, V, da Lei nº 13.709/2018 — LGPD) e para cumprimento de obrigação legal (art. 7º, II). O aviso semanal opcional depende de consentimento (art. 7º, I). O registro técnico de acesso se apoia no legítimo interesse de manter o site seguro e no ar (art. 7º, IX).</p>
+    <p>Dado de pedido é tratado para execução do contrato de compra e venda (art. 7º, V, da Lei nº 13.709/2018 — LGPD) e para cumprimento de obrigação legal (art. 7º, II). O aviso semanal opcional depende de consentimento (art. 7º, I). O registro técnico de acesso e a checagem de segurança da seção 7 se apoiam no legítimo interesse de manter o site seguro, no ar e livre de fraude de pagamento (art. 7º, IX).</p>
 
     <h2>4. Por quanto tempo guardamos</h2>
     <p>Dado de pedido fica retido enquanto durar a garantia e o prazo fiscal aplicável à venda. Mensagem de atendimento é descartada doze meses depois do encerramento do caso. Consentimento de aviso semanal vale até a pessoa cancelar.</p>
 
     <h2>5. Com quem compartilhamos</h2>
-    <p>Só com quem é indispensável para a compra existir: o provedor de pagamento que confirma o PIX e o serviço de e-mail que entrega a chave. Nenhum deles recebe mais dado do que precisa para essa função, e nenhum usa a informação para publicidade própria.</p>
+    <p>Só com quem é indispensável para a compra existir: o provedor de pagamento que confirma o PIX, o serviço de e-mail que entrega a chave e o parceiro que executa a checagem de segurança descrita na seção 7. Nenhum deles recebe mais dado do que precisa para a própria função, e nenhum recebe o conteúdo do pedido para outra finalidade.</p>
 
     <h2>6. Direitos de quem comprou</h2>
     <ul>
@@ -120,8 +122,10 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <li>Revogar o consentimento do aviso semanal a qualquer momento, sem afetar o pedido.</li>
     </ul>
 
-    <h2>7. Cookies</h2>
-    <p>Não usamos cookie de rastreamento publicitário nem pixel de terceiro. O que existe é cookie técnico da própria loja, para lembrar preferência de exibição e manter o item selecionado durante a compra — nenhum deles identifica o visitante fora do site.</p>
+    <h2>7. Cookies e checagem de segurança do acesso</h2>
+    <p>A loja usa cookie técnico próprio para lembrar preferência de exibição e manter o item selecionado durante a compra.</p>
+    <p>Ao clicar em um botão de reserva ou de compra, o navegador passa por uma <strong>checagem de segurança e antifraude</strong> antes de o pedido seguir. Nessa etapa é gravado um <strong>identificador técnico temporário</strong> (o cookie <code>_cid</code>, que expira sozinho pouco depois da checagem) e são lidas características técnicas do acesso — navegador, sistema, resolução de tela, fuso horário e recursos gráficos suportados pelo aparelho. Essas informações são processadas por um <strong>parceiro especializado em antifraude</strong>, contratado para essa única finalidade: distinguir acesso legítimo de acesso automatizado ou de tentativa de fraude no pagamento.</p>
+    <p>Esse identificador não carrega nome, e-mail nem dado de pagamento, e não é usado por nós para publicidade. Quem preferir não passar por essa etapa pode tratar o pedido inteiro pelo <a href="contato.html">e-mail de atendimento</a>.</p>
 
     <h2>8. Encarregado e contato</h2>
     <p>Pedido de acesso, correção, exclusão ou revogação de consentimento deve ser enviado para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a>, com o assunto "LGPD". A mesma caixa recebe dúvida sobre este documento. O prazo de resposta é de até quinze dias corridos, conforme o art. 19 da LGPD.</p>
@@ -147,7 +151,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <ul>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
-        <li><a href="app.html">App Checkpoint</a></li>
+        <li><a href="avisos.html">Aviso por e-mail</a></li>
       </ul>
     </div>
     <div>

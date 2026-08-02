@@ -71,6 +71,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 .legal-bar a{color:#b9b4a2}
 @media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+/* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
+@media (max-width:560px){.section-head{flex-wrap:wrap;gap:4px 14px}.section-head h2{white-space:normal}.section-head .rule{min-width:24px}.section-head .count{white-space:normal;flex:1 0 100%;order:3}}
 </style>
 </head>
 <body>
@@ -111,18 +113,15 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 
     <h2>5. Uso do conteúdo publicado</h2>
     <p>O texto, a fotografia e a organização visual do blog são produzidos pela equipe da loja ou usados sob licença, e protegidos pela Lei nº 9.610/1998. É permitida a citação de trecho curto com indicação de fonte e link para a matéria original. Reprodução integral, tradução para outro idioma ou redistribuição comercial dependem de autorização escrita.</p>
-    <p>Opinião expressa em análise reflete a experiência de quem jogou, dentro dos critérios descritos na página <a href="sobre.html">Sobre</a>. Dado técnico de hardware sai de teste feito na nossa bancada; divergência pontual com outra fonte pode vir de diferença de configuração ou de amostra. Erro de fato é corrigido com nota visível na própria matéria, com data.</p>
+    <p>Opinião expressa em análise reflete a experiência de quem jogou, dentro dos critérios descritos na página <a href="sobre.html">Sobre</a>. Dado técnico de hardware vem das especificações do fabricante e de medições já publicadas sobre cada aparelho; divergência pontual com outra fonte pode vir de diferença de configuração ou de amostra. Erro de fato é corrigido com nota visível na própria matéria, com data.</p>
 
-    <h2>6. Marcas citadas no blog</h2>
-    <p>Nome de jogo, console, estúdio ou distribuidora aparece no blog apenas para identificar o assunto do texto, em uso jornalístico. Cada uma dessas marcas é de quem a registrou; citá-la não significa patrocínio, leitura prévia do texto pela empresa nem parceria comercial com a loja.</p>
-
-    <h2>7. Mudanças nestes termos</h2>
+    <h2>6. Mudanças nestes termos</h2>
     <p>Quando uma regra mudar, a versão nova entra no ar com a data de vigência trocada no alto desta página, e pedido já pago continua regido pela versão vigente no dia da compra.</p>
 
-    <h2>8. Foro</h2>
+    <h2>7. Foro</h2>
     <p>Controvérsia sobre este documento que não se resolva pelo atendimento será tratada no foro do domicílio do consumidor, como manda o Código de Defesa do Consumidor.</p>
 
-    <h2>9. Como falar com a loja</h2>
+    <h2>8. Como falar com a loja</h2>
     <p>Pedido, cancelamento, dúvida sobre estes termos e correção de matéria vão todos para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a>, com resposta em até um dia útil. Os horários e o que informar em cada caso estão na página de <a href="contato.html">atendimento</a>.</p>
   </div>
 </main>
@@ -146,7 +145,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <ul>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
-        <li><a href="app.html">App Checkpoint</a></li>
+        <li><a href="avisos.html">Aviso por e-mail</a></li>
       </ul>
     </div>
     <div>

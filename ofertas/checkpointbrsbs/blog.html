@@ -89,6 +89,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 .legal-bar a{color:#b9b4a2}
 @media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+/* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
+@media (max-width:560px){.section-head{flex-wrap:wrap;gap:4px 14px}.section-head h2{white-space:normal}.section-head .rule{min-width:24px}.section-head .count{white-space:normal;flex:1 0 100%;order:3}}
 </style>
 </head>
 <body>
@@ -110,7 +112,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 <main class="wrap article-page">
   <span class="kicker">Blog</span>
   <h1>Tudo o que a equipe já publicou</h1>
-  <p class="lead-dek">Nove matérias escritas por quem trabalha na loja: análise de quem terminou o jogo, guia testado passo a passo, história de franquia com fonte primária e teste de hardware feito na nossa bancada.</p>
+  <p class="lead-dek">Nove matérias escritas por quem trabalha na loja: análise de quem terminou o jogo, guia testado passo a passo, história de franquia com fonte primária e comparativo de hardware com a especificação e os números já publicados sobre cada aparelho.</p>
 
   <section class="cat-section" id="analises">
     <div class="cat-head"><h2>Análises</h2><span class="count">02 matérias</span></div>
@@ -182,7 +184,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <div>
         <span class="kicker k-hardware">Hardware</span>
         <h3><a href="hardware-rtx-5070-custo-beneficio.html">RTX 5070 um ano depois: o preço caiu, a fila de espera não</a></h3>
-        <p>Um ano de mercado, benchmark refeito na bancada e a comparação de disponibilidade no varejo brasileiro que muda a recomendação.</p>
+        <p>Um ano de mercado, os números de desempenho revistos e a comparação de disponibilidade no varejo brasileiro que muda a recomendação.</p>
         <span class="byline">Redação Checkpoint BR &mdash; 14 de julho de 2026 &mdash; leitura de 9 minutos</span>
       </div>
     </article>
@@ -229,7 +231,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <ul>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
-        <li><a href="app.html">App Checkpoint</a></li>
+        <li><a href="avisos.html">Aviso por e-mail</a></li>
       </ul>
     </div>
     <div>

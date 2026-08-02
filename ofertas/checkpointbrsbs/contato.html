@@ -72,15 +72,14 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .channels div{border-bottom:1px solid var(--rule);padding:20px 0}
 .channels h2{font-family:var(--font-display);font-size:1.2rem;margin:0 0 6px}
 .channels p{margin:0;color:#3a372c}
-.form-box{border:2px solid var(--ink);padding:28px 30px;margin-top:34px;max-width:70ch}
-.form-box h2{font-family:var(--font-display);font-size:1.4rem;margin:0 0 10px}
-.form-box p{margin:0 0 16px;color:#3a372c}
-.form-box label{display:block;font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:#54503f;margin:14px 0 6px}
-.form-box input,.form-box textarea{width:100%;padding:12px 14px;border:1px solid var(--ink);background:var(--paper);font-family:var(--font-body);font-size:.95rem}
-.form-box textarea{min-height:120px;resize:vertical}
-.form-box button{margin-top:18px;padding:16px 30px;background:var(--ink);color:var(--paper);border:none;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;font-size:.8rem;cursor:pointer}
-.form-box button:hover{background:var(--crimson)}
-.form-status{font-family:var(--font-mono);font-size:.8rem;color:var(--forest);margin-top:14px;display:none}
+.mail-box{border:2px solid var(--ink);padding:28px 30px;margin-top:34px;max-width:70ch}
+.mail-box h2{font-family:var(--font-display);font-size:1.4rem;margin:0 0 10px}
+.mail-box p{margin:0 0 16px;color:#3a372c}
+.mail-box .mail-addr{display:inline-block;font-family:var(--font-mono);font-size:1.05rem;word-break:break-all;padding:15px 26px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);margin:2px 0 4px}
+.mail-box .mail-addr:hover{background:var(--crimson);border-color:var(--crimson);border-bottom-color:var(--crimson)}
+.mail-box ul{margin:0 0 20px;padding-left:22px;color:#3a372c}
+.mail-box li{margin-bottom:7px}
+.mail-box .hours{font-family:var(--font-mono);font-size:.78rem;color:#6b6752;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 0}
 @media (max-width:880px){.contact-grid{grid-template-columns:1fr}}
 
 /* --- chrome v2 (loja) --- */
@@ -96,6 +95,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 .legal-bar a{color:#b9b4a2}
 @media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+/* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
+@media (max-width:560px){.section-head{flex-wrap:wrap;gap:4px 14px}.section-head h2{white-space:normal}.section-head .rule{min-width:24px}.section-head .count{white-space:normal;flex:1 0 100%;order:3}}
 </style>
 </head>
 <body>
@@ -140,23 +141,21 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     </div>
     <figure>
       <img src="img/_atendimento.jpg" alt="Fone de ouvido com microfone apoiado sobre notebook aberto em mesa de trabalho" loading="lazy" width="840" height="560">
-      <figcaption class="byline">O atendimento é feito pela mesma equipe que separa e envia as chaves</figcaption>
+      <figcaption>Imagem ilustrativa</figcaption>
     </figure>
   </div>
 
-  <div class="form-box">
-    <h2>Mandar uma mensagem</h2>
-    <p>Preencha e a gente responde no e-mail informado. Se for sobre um pedido, escreva o número na primeira linha da mensagem.</p>
-    <form id="contato-form" onsubmit="event.preventDefault();try{localStorage.setItem('cb_contato',Date.now())}catch(e){};document.getElementById('contato-status').style.display='block';this.reset();">
-      <label for="c-nome">Nome</label>
-      <input id="c-nome" type="text" autocomplete="name">
-      <label for="c-email">E-mail</label>
-      <input id="c-email" type="email" autocomplete="email">
-      <label for="c-msg">Mensagem</label>
-      <textarea id="c-msg"></textarea>
-      <button type="submit">Enviar mensagem</button>
-      <p class="form-status" id="contato-status">Mensagem registrada. A resposta sai no próximo dia útil pelo e-mail informado.</p>
-    </form>
+  <div class="mail-box">
+    <h2>Escreva para a gente</h2>
+    <p>O atendimento é por e-mail, e é o mesmo endereço para tudo: dúvida antes de comprar, pedido em andamento, cancelamento e assunto do blog.</p>
+    <p><a class="mail-addr" href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></p>
+    <p>Para a primeira resposta já resolver, escreva na mensagem:</p>
+    <ul>
+      <li>o número do pedido, quando existir (ele vai no primeiro e-mail da compra);</li>
+      <li>o e-mail usado na compra, se for diferente do que está enviando;</li>
+      <li>a plataforma escolhida, quando o assunto for troca ou envio de chave.</li>
+    </ul>
+    <p class="hours">Segunda a sexta, 9h às 18h (Brasília) &middot; resposta em até um dia útil</p>
   </div>
 </main>
 
@@ -179,7 +178,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <ul>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
-        <li><a href="app.html">App Checkpoint</a></li>
+        <li><a href="avisos.html">Aviso por e-mail</a></li>
       </ul>
     </div>
     <div>

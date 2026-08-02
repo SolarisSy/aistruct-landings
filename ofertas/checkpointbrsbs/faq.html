@@ -8,7 +8,7 @@
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://checkpointbr.sbs/faq.html">
 <meta property="og:title" content="Perguntas frequentes — Checkpoint BR">
-<meta property="og:description" content="Dúvidas comuns sobre critérios editoriais, correções e o app do Checkpoint BR.">
+<meta property="og:description" content="Dúvidas comuns sobre reserva, pagamento no PIX, prazo de entrega da chave e cancelamento na Checkpoint BR.">
 <meta property="og:image" content="https://checkpointbr.sbs/img/_hero.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1a1a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23b3272c' text-anchor='middle'%3ECB%3C/text%3E%3C/svg%3E">
@@ -69,6 +69,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 .legal-bar a{color:#b9b4a2}
 @media (max-width:880px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){nav.primary{gap:6px 18px;padding-bottom:2px}footer .wrap{grid-template-columns:1fr;gap:26px}.masthead-meta{text-align:left}}
+/* cabecalho de secao: h2 + regua + contagem nao cabem em uma linha no celular */
+@media (max-width:560px){.section-head{flex-wrap:wrap;gap:4px 14px}.section-head h2{white-space:normal}.section-head .rule{min-width:24px}.section-head .count{white-space:normal;flex:1 0 100%;order:3}}
 </style>
 </head>
 <body>
@@ -103,7 +105,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     </div>
     <div class="faq-item">
       <p class="faq-q"><span class="qnum">03</span> Quando a chave chega, e como eu sei que está perto?</p>
-      <p class="faq-a">Vale-presente sai em até quinze minutos após o pagamento confirmado. Reserva sai no dia da liberação da pré-carga, e você recebe um aviso 48 horas antes para conferir se o e-mail ainda é o mesmo. O <a href="app.html">app</a> mostra a mesma data.</p>
+      <p class="faq-a">Vale-presente sai em até quinze minutos após o pagamento confirmado. Reserva sai no dia da liberação da pré-carga, e você recebe um <a href="avisos.html">aviso por e-mail</a> 48 horas antes para conferir se o endereço ainda é o mesmo.</p>
     </div>
     <div class="faq-item">
       <p class="faq-q"><span class="qnum">04</span> E se o lançamento for adiado?</p>
@@ -151,7 +153,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <ul>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="glossario.html">Glossário</a></li>
-        <li><a href="app.html">App Checkpoint</a></li>
+        <li><a href="avisos.html">Aviso por e-mail</a></li>
       </ul>
     </div>
     <div>
