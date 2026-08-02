@@ -73,6 +73,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://rastreioja.cfd/sobre/</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://rastreioja.cfd/politica-de-privacidade/</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>yearly</changefreq>

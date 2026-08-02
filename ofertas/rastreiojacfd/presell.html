@@ -25,7 +25,7 @@
       <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="10" fill="#2f4f3e"/><path d="M12 22l20-9 20 9-20 9z" fill="#f0ece1"/><path d="M12 22v20l20 9V31z" fill="#c8d2c6"/><path d="M52 22v20l-20 9V31z" fill="#9c4a2f"/></svg>
       <span><b>Rastreio<em>Já</em></b><small>acompanhamento de encomendas</small></span>
     </a>
-    <nav class="nav" aria-label="Navegação principal"><a href="/central-de-ajuda/">Início</a><a href="/como-funciona/">Como funciona</a><a href="/o-que-esta-incluido/">O que está incluído</a><a href="/prazos-e-atendimento/">Prazos</a><a href="/materiais/">Materiais</a><a href="/contato/">Contato</a></nav>
+    <nav class="nav" aria-label="Navegação principal"><a href="/central-de-ajuda/">Início</a><a href="/como-funciona/">Como funciona</a><a href="/o-que-esta-incluido/">O que está incluído</a><a href="/prazos-e-atendimento/">Prazos</a><a href="/materiais/">Materiais</a><a href="/sobre/">Sobre</a><a href="/contato/">Contato</a></nav>
   </div>
 </header><section class="hero">
   <div class="wrap hero-in">
@@ -35,11 +35,20 @@
       <p class="lead">Boa parte das esperas que parecem problema ainda está dentro do combinado — e
       uma parte pequena precisa de ação rápida. Saber em qual das duas você está muda o que se pede,
       para quem se pede e quanto tempo a resposta demora.</p>
+      <form class="act" action="go/" method="get">
+        <button type="submit" class="btn">Ver como o acompanhamento funciona
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+      <p class="small">O que o serviço faz, o que está incluído e quanto custa — em uma página, sem
+      cadastro.</p>
     </div>
-    <div class="frame">
-      <img src="/midia/consulta-pelo-celular.jpg" width="900" height="600"
-           alt="Pessoa sentada no sofá conferindo o pedido pelo celular">
-    </div>
+    <figure class="frame">
+      <span class="frame-in"><img src="/midia/consulta-pelo-celular.jpg" width="900" height="600"
+           alt="Pessoa sentada no sofá conferindo o pedido pelo celular"></span>
+      <figcaption>Conferir o histórico é o primeiro passo; saber o que ele significa é o segundo. Imagem ilustrativa.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -47,35 +56,29 @@
 <div class="wrap lay">
   <div class="col">
 
-    <h2>Por que o histórico às vezes parece travado</h2>
-    <p>Entre a confirmação da compra e a batida na porta há um percurso com mais paradas do que a
-    maioria das pessoas imagina: separação no estoque, coleta, triagem, transferência entre unidades e,
-    só no fim, a saída para entrega. Cada parada pode gerar — ou não — um registro no histórico. Um
-    volume que atravessa dois estados de carreta passa horas sem produzir evento algum, simplesmente
-    porque não existe leitura de etiqueta no meio da estrada.</p>
-    <p>É por isso que o acompanhamento costuma ficar dois ou três dias mudo e depois receber várias
-    atualizações de uma vez. Silêncio curto quase sempre quer dizer volume em trânsito entre duas
-    unidades. O que muda o diagnóstico não é a quantidade de dias isolada, e sim <b>qual foi o último
-    evento registrado</b>: parado em transferência é uma situação; parado depois de "saiu para entrega"
-    é outra, bem mais urgente.</p>
-
-    <h2>Três coisas que vale conferir agora</h2>
-    <p><b>O prazo combinado na compra.</b> Ele costuma ser contado em dias úteis a partir do despacho,
-    não da data do pedido — o que já explica boa parte da diferença entre a conta que você fez e o que
-    o sistema mostra. Enquanto esse prazo não vence, o pedido está dentro do combinado.</p>
-    <p><b>O endereço como ficou salvo.</b> Número trocado, complemento ausente ou referência antiga
-    respondem por uma fatia grande das devoluções, e o histórico raramente diz isso com todas as
-    letras. Vale comparar caractere por caractere com o que está no pedido, não com o que você lembra
-    ter digitado.</p>
-    <p><b>A idade do código.</b> Um código de acompanhamento só passa a responder depois que a entrada
-    do volume é registrada na rede, o que leva de um a três dias após o envio. Consulta sem resultado
-    dentro desse intervalo normalmente significa etiqueta ainda não lida.</p>
+    <h2>A espera tem fases — e cada uma pede uma atitude diferente</h2>
+    <p>Quem está esperando tende a fazer tudo ao mesmo tempo: reclama, pesquisa, escreve para três
+    canais e depois não sabe qual resposta veio de onde. Funciona melhor tratar a espera como uma
+    linha do tempo, em que cada trecho tem uma única coisa a fazer — e uma coisa a não fazer ainda.</p>
+    <p><b>Primeiras 48 horas depois do envio.</b> Este é o trecho em que não há o que cobrar. O código
+    ainda pode não responder, e insistir aqui só gasta o seu fôlego e o do atendimento do vendedor.
+    O que rende: salvar em um lugar só o comprovante da compra, o número do pedido e a data prometida
+    de entrega. Esse pacote é o que vai economizar uma semana lá na frente.</p>
+    <p><b>Do terceiro ao sétimo dia.</b> Agora vale abrir o pedido e comparar o endereço que consta
+    nele com o endereço em que você realmente mora hoje, campo por campo. É a checagem mais chata e a
+    que mais devolve encomenda ao remetente. Se estiver tudo certo, anote a data de hoje: ela vira o
+    marco zero de qualquer cobrança futura.</p>
+    <p><b>Do oitavo dia em diante.</b> Aqui a conversa muda de assunto: sai o "qual a previsão" e entra
+    o pedido formal, com data, valor e descrição do produto, endereçado a quem vendeu — porque foi ele
+    quem contratou o transporte. Uma mensagem por semana, sempre no mesmo canal e sempre respondendo à
+    anterior, vale mais do que cinco mensagens em canais diferentes no mesmo dia.</p>
 
     <div class="note">
-      <p><b>Quer seguir com o roteiro completo?</b> Reunimos, em uma sequência, o que verificar em cada
-      etapa, o que pedir em cada cenário e em que momento vale acionar quem vendeu.</p>
+      <p><b>Prefere não conduzir isso sozinho?</b> Existe um serviço que assume a montagem da
+      solicitação, o envio com protocolo e o controle de prazo. A página seguinte explica o que ele
+      faz, o que está incluído, quanto custa e em quanto tempo responde.</p>
       <form class="act" action="go/" method="get">
-        <button type="submit" class="btn">Ver o roteiro de acompanhamento
+        <button type="submit" class="btn">Ver o serviço de acompanhamento
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -83,16 +86,17 @@
     </div>
 
     <h2>Quando deixa de ser espera</h2>
-    <p>O ponto de virada costuma ser objetivo: mais de dez dias corridos sem nenhum evento novo, ou um
-    registro de entrega que não corresponde ao que aconteceu na sua casa. Nesses dois cenários o pedido
-    muda de natureza — deixa de ser "qual a previsão" e passa a ser "onde o volume foi visto pela
-    última vez". Usar o vocabulário certo não é formalidade: é o que determina para qual fila interna o
-    seu caso vai.</p>
+    <p>Existe um momento em que continuar esperando deixa de ser prudência e vira perda de prazo.
+    Ele chega quando o intervalo entre dois registros do histórico passa a ser maior do que qualquer
+    intervalo anterior daquele mesmo pedido — e não quando você perde a paciência. A partir daí, o
+    texto que você escreve muda de foco: em vez de perguntar a previsão, você pede o registro do
+    último ponto em que o volume foi conferido. Não é formalidade; é o que decide se o pedido cai na
+    fila de informação ou na fila de ocorrência, que são filas diferentes com prazos diferentes.</p>
 
     <ul class="idx">
       <li>
         <a href="/materiais/quando-uma-encomenda-e-considerada-parada/"><img
-          src="/midia/entrega-em-maos.jpg" width="104" height="78" loading="lazy"
+          src="/midia/mini/entrega-em-maos.jpg" width="104" height="78" loading="lazy"
           alt="Entregador passando uma caixa às mãos de um morador"></a>
         <div><b><a href="/materiais/quando-uma-encomenda-e-considerada-parada/">Quando uma encomenda é
           considerada parada</a></b>
@@ -100,7 +104,7 @@
       </li>
       <li>
         <a href="/materiais/documentos-que-agilizam-a-solicitacao/"><img
-          src="/midia/abertura-da-encomenda.jpg" width="104" height="78" loading="lazy"
+          src="/midia/mini/abertura-da-encomenda.jpg" width="104" height="78" loading="lazy"
           alt="Pessoa abrindo uma caixa de papelão na sala"></a>
         <div><b><a href="/materiais/documentos-que-agilizam-a-solicitacao/">Os documentos que agilizam
           a solicitação</a></b>
@@ -108,7 +112,7 @@
       </li>
       <li>
         <a href="/materiais/diferenca-entre-atraso-e-extravio/"><img
-          src="/midia/espera-por-resposta.jpg" width="104" height="78" loading="lazy"
+          src="/midia/mini/espera-por-resposta.jpg" width="104" height="78" loading="lazy"
           alt="Mulher olhando o celular no quintal"></a>
         <div><b><a href="/materiais/diferenca-entre-atraso-e-extravio/">A diferença entre atraso e
           extravio</a></b>
@@ -148,6 +152,7 @@
       </div>
       <div>
         <h5>Institucional</h5>
+        <a href="/sobre/">Sobre o RastreioJá</a>
         <a href="/perguntas-frequentes/">Perguntas frequentes</a>
         <a href="/contato/">Falar com o atendimento</a>
         <a href="/politica-de-privacidade/">Política de Privacidade</a>

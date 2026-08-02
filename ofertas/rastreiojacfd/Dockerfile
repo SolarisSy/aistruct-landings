@@ -28,7 +28,13 @@ RUN printf '%s\n' \
 COPY nginx-php.conf /etc/nginx/http.d/default.conf
 COPY . /var/www/html
 
+# /var/www/dados: onde /contato/enviar.php grava as mensagens do atendimento.
+# FORA do document root (nao e' servivel por URL) e do dono do php-fpm.
+# Para sobreviver a redeploy, montar volume do painel neste caminho.
 RUN rm -f /var/www/html/Dockerfile /var/www/html/nginx-php.conf /var/www/html/.dockerignore \
+    && mkdir -p /var/www/dados \
+    && chown -R www-data:www-data /var/www/dados \
+    && chmod 700 /var/www/dados \
     && sed -i 's|;opcache.enable=1|opcache.enable=1|' /usr/local/etc/php/php.ini-production \
     && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
