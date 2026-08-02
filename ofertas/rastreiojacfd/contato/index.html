@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Falar com o atendimento — RastreioJá</title>
-<meta name="description" content="Conte o que aconteceu com o seu pedido. Primeiro retorno em até um dia útil, por escrito, com número de protocolo.">
+<meta name="description" content="Conte o que aconteceu com o seu pedido. A mensagem é registrada no atendimento com número de protocolo, e o caso entra em leitura em até um dia útil.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#2f4f3e">
 <link rel="canonical" href="https://rastreioja.cfd/contato/">
@@ -12,7 +12,7 @@
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="RastreioJá">
 <meta property="og:title" content="Falar com o atendimento — RastreioJá">
-<meta property="og:description" content="Conte o que aconteceu com o seu pedido. Primeiro retorno em até um dia útil, por escrito, com número de protocolo.">
+<meta property="og:description" content="Conte o que aconteceu com o seu pedido. A mensagem é registrada no atendimento com número de protocolo, e o caso entra em leitura em até um dia útil.">
 <meta property="og:url" content="https://rastreioja.cfd/contato/">
 <meta property="og:image" content="https://rastreioja.cfd/midia/volumes-aguardando-na-entrada.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%232f4f3e'/%3E%3Cpath d='M12 22l20-9 20 9-20 9z' fill='%23f0ece1'/%3E%3Cpath d='M12 22v20l20 9V31z' fill='%23c8d2c6'/%3E%3Cpath d='M52 22v20l-20 9V31z' fill='%239c4a2f'/%3E%3C/svg%3E">
@@ -31,20 +31,22 @@
 <div class="wrap lay">
     <div class="col">
       <h1>Falar com o atendimento</h1>
-      <p class="lead">Conte o que aconteceu com o seu pedido. O primeiro retorno sai em até um dia
-      útil e já traz o que é possível solicitar no seu caso — antes de qualquer contratação.</p>
+      <p class="lead">Conte o que aconteceu com o seu pedido. A mensagem é registrada no atendimento
+      assim que você envia, com número de protocolo gerado na hora, e o caso entra em leitura em até um
+      dia útil — antes de qualquer contratação.</p>
 
       <p>Para o primeiro contato bastam três informações: o que você comprou, quando comprou e o que já
       tentou. Se tiver o número do pedido e prints das últimas mensagens, mencione — isso encurta bem a
-      etapa de montagem. Por segurança, este formulário pede apenas nome, e-mail e a descrição do caso:
-      documento pessoal e dado de pagamento nunca são solicitados aqui.</p>
+      etapa de montagem. Por segurança, este formulário pede o mínimo: nome e a descrição do caso, com
+      e-mail opcional. Documento pessoal e dado de pagamento nunca são solicitados aqui.</p>
 
       <form class="form" id="form-atendimento" action="/contato/enviar.php" method="post">
         <label for="c-nome">Seu nome</label>
         <input id="c-nome" name="nome" type="text" autocomplete="name" required placeholder="Como prefere ser chamado">
 
-        <label for="c-email">E-mail para retorno</label>
-        <input id="c-email" name="email" type="email" autocomplete="email" required placeholder="nome@exemplo.com">
+        <label for="c-email">E-mail <span class="opt">(opcional — fica junto do registro para
+          identificar você quando voltar)</span></label>
+        <input id="c-email" name="email" type="email" autocomplete="email" placeholder="nome@exemplo.com">
 
         <label for="c-assunto">Assunto</label>
         <select id="c-assunto" name="assunto">
@@ -66,16 +68,16 @@
       </form>
 
       <h2>Como o atendimento funciona</h2>
-      <p>A mensagem enviada aqui chega ao atendimento e recebe um número de protocolo na hora. A
-      resposta vem para o e-mail que você informar, e é pelo protocolo que o caso é localizado depois —
-      sem que você precise recomeçar o relato. O atendimento acontece por escrito, em dias úteis, das
-      9h às 18h no horário de Brasília. Mensagem enviada fora desse intervalo entra na fila do próximo
-      dia útil.</p>
+      <p>A mensagem enviada aqui é gravada no registro de atendimento e recebe um número de protocolo
+      na hora, devolvido na própria tela de confirmação. Esse número identifica o seu caso: é por ele
+      que o relato, a leitura e cada etapa seguinte ficam reunidos no mesmo lugar, sem que você precise
+      recomeçar a história. O atendimento é por escrito e trabalha em dias úteis, das 9h às 18h no
+      horário de Brasília; mensagem enviada fora desse intervalo entra na fila do próximo dia útil.</p>
 
       <div class="note">
-        <p><b>Guarde o protocolo.</b> Ele aparece na confirmação do envio e vai repetido na resposta
-        por e-mail. É a forma mais rápida de retomar a conversa depois, inclusive para pedir
-        cancelamento.</p>
+        <p><b>Guarde o protocolo.</b> Ele aparece na confirmação do envio e é o que você informa ao
+        escrever de novo por aqui — inclusive para pedir a posição do caso ou o cancelamento. Com o
+        número em mãos, a conversa continua de onde parou.</p>
       </div>
 
       <p class="up">Antes de escrever, talvez a resposta já esteja nas
@@ -83,8 +85,8 @@
     </div>
     <aside class="aside">
       <h4>Abrir uma solicitação</h4>
-      <p>Conte o que aconteceu com o seu pedido. O primeiro retorno sai em até um dia útil,
-      com o resumo do que dá para solicitar no seu caso.</p>
+      <p>Conte o que aconteceu com o seu pedido. A mensagem é registrada na hora, com número de
+      protocolo, e a leitura do caso acontece em até um dia útil.</p>
       <a class="btn" href="/contato/">Falar com o atendimento</a>
     </aside>
 </div>
@@ -149,9 +151,9 @@
         if(res.j&&res.j.ok){
           mostra(res.j.mensagem,false);
           f.querySelectorAll('input,textarea,select').forEach(function(c){c.disabled=true;});
-          btn.textContent='Mensagem enviada';
+          btn.textContent='Mensagem registrada';
         }else{
-          mostra((res.j&&res.j.mensagem)||'Não foi possível enviar agora. Tente de novo em alguns minutos.',true);
+          mostra((res.j&&res.j.mensagem)||'Não foi possível registrar agora. Tente de novo em alguns minutos.',true);
           btn.disabled=false; btn.textContent=rotulo;
         }
       })

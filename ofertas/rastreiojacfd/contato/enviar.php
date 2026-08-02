@@ -4,18 +4,25 @@ declare(strict_types=1);
  * /contato/enviar.php — recebe de verdade a mensagem do formulario de atendimento.
  *
  * O formulario antigo so fazia preventDefault() e guardava um numero no localStorage:
- * dizia "mensagem registrada" sem nada sair do navegador. Este endpoint transmite,
- * em tres destinos independentes, para que o canal nao dependa de configuracao:
+ * dizia "mensagem registrada" sem nada sair do navegador. Este endpoint grava de
+ * verdade, em dois destinos que NAO dependem de configuracao nenhuma:
  *
  *   1. arquivo JSONL no servidor  (RJ_STORE_DIR, default /var/www/dados)
  *   2. log do processo (stderr)   -> aparece no log do container, sem credencial
- *   3. e-mail para a caixa do atendimento (SO se as variaveis SMTP estiverem setadas)
  *
- * Nenhum segredo mora neste arquivo: host/usuario/senha/destino vem de variavel de
- * ambiente do servico. Sem SMTP configurado o endpoint continua recebendo e
- * registrando — o que ele NUNCA faz e' dizer que enviou sem ter enviado.
+ * Um terceiro destino (aviso por e-mail) existe no codigo mas fica INERTE por
+ * padrao: so entra em acao se as variaveis SMTP estiverem setadas no servico.
+ * A operacao roda hoje sem SMTP, e esse e' o estado NORMAL — nao e' falha, nao
+ * gera log de erro, e nada no site depende dele. Para ligar o aviso depois basta
+ * setar RJ_MAIL_TO + RJ_SMTP_HOST/USER/PASS: nenhuma linha de codigo muda.
  *
- * Variaveis de ambiente reconhecidas:
+ * Por isso o texto do site fala em mensagem REGISTRADA com protocolo, e nunca em
+ * resposta enviada — o endpoint jamais afirma o que nao aconteceu.
+ *
+ * Nenhum segredo mora neste arquivo: host/usuario/senha/destino, quando existirem,
+ * vem de variavel de ambiente do servico.
+ *
+ * Variaveis de ambiente reconhecidas (todas opcionais):
  *   RJ_MAIL_TO        destino das notificacoes (ex.: caixa central de verificacoes)
  *   RJ_SMTP_HOST      ex.: smtp.gmail.com
  *   RJ_SMTP_PORT      465 (TLS implicito) ou 587 (STARTTLS). Default 465.
@@ -123,6 +130,21 @@ function rj_protocolo(): string
 
 // ------------------------------------------------------------------- e-mail
 
+/**
+ * O aviso por e-mail so existe se o servico tiver as quatro variaveis setadas.
+ * Sem elas o bloco inteiro fica dormente: e' o estado esperado da operacao, nao
+ * um erro — por isso nada e' escrito no log quando isto devolve false.
+ */
+function rj_smtp_configurado(): bool
+{
+    foreach (['RJ_SMTP_HOST', 'RJ_SMTP_USER', 'RJ_SMTP_PASS', 'RJ_MAIL_TO'] as $v) {
+        if (trim((string) getenv($v)) === '') {
+            return false;
+        }
+    }
+    return true;
+}
+
 /** Le a resposta do servidor SMTP (trata continuacao "250-"). */
 function rj_smtp_le($fp): array
 {
@@ -150,13 +172,13 @@ function rj_smtp_cmd($fp, string $cmd, array $ok): array
  */
 function rj_envia_email(string $assunto, string $corpo, string $replyTo): array
 {
+    if (!rj_smtp_configurado()) {
+        return [false, 'smtp nao configurado'];
+    }
     $host = trim((string) getenv('RJ_SMTP_HOST'));
     $user = trim((string) getenv('RJ_SMTP_USER'));
     $pass = (string) getenv('RJ_SMTP_PASS');
     $para = trim((string) getenv('RJ_MAIL_TO'));
-    if ($host === '' || $user === '' || $pass === '' || $para === '') {
-        return [false, 'smtp nao configurado'];
-    }
     $porta = (int) (getenv('RJ_SMTP_PORT') ?: 465);
     $de = trim((string) getenv('RJ_SMTP_FROM')) ?: $user;
     // TLS: 'ssl' = implicito (porta 465) · 'starttls' = negociado (587).
@@ -234,13 +256,15 @@ function rj_envia_email(string $assunto, string $corpo, string $replyTo): array
         $cab = [
             'From: RastreioJa <' . $de . '>',
             'To: <' . $para . '>',
-            'Reply-To: <' . $replyTo . '>',
             'Subject: =?UTF-8?B?' . base64_encode($assunto) . '?=',
             'Date: ' . date('r'),
             'MIME-Version: 1.0',
             'Content-Type: text/plain; charset=UTF-8',
             'Content-Transfer-Encoding: base64',
         ];
+        if ($replyTo !== '') {
+            array_splice($cab, 2, 0, ['Reply-To: <' . $replyTo . '>']);
+        }
         $msg = implode("\r\n", $cab) . "\r\n\r\n" . chunk_split(base64_encode($corpo), 76, "\r\n");
         fwrite($fp, $msg . "\r\n.\r\n");
         [$cod, $t] = rj_smtp_le($fp);
@@ -273,7 +297,7 @@ function rj_responde(int $status, array $dados): void
         exit;
     }
     $ok = (bool) ($dados['ok'] ?? false);
-    $titulo = $ok ? 'Mensagem enviada' : 'Não foi possível enviar';
+    $titulo = $ok ? 'Mensagem registrada' : 'Não foi possível registrar';
     $texto = (string) ($dados['mensagem'] ?? '');
     header('Content-Type: text/html; charset=utf-8');
     echo '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
@@ -321,8 +345,10 @@ $erros = [];
 if (rj_len($nome) < 2) {
     $erros[] = 'informe o seu nome';
 }
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $erros[] = 'informe um e-mail válido para o retorno';
+// E-mail e' opcional: fica junto do registro para identificar quem escreveu. So
+// e' recusado quando foi preenchido e esta' claramente invalido.
+if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $erros[] = 'confira o e-mail digitado (ou deixe o campo em branco)';
 }
 if (rj_len($mensagem) < 12) {
     $erros[] = 'descreva o que aconteceu em algumas linhas';
@@ -330,7 +356,7 @@ if (rj_len($mensagem) < 12) {
 if ($erros) {
     rj_responde(422, [
         'ok' => false,
-        'mensagem' => 'Faltou preencher: ' . implode('; ', $erros) . '.',
+        'mensagem' => 'Antes de enviar: ' . implode('; ', $erros) . '.',
     ]);
 }
 
@@ -375,21 +401,27 @@ error_log(sprintf(
     $protocolo,
     $assunto,
     $nome,
-    $email,
+    $email !== '' ? $email : 'sem e-mail',
     str_replace("\n", ' / ', $mensagem)
 ));
 
-// 3) e-mail para o atendimento
-$corpo = "Nova mensagem pelo formulário do site.\n\n"
-    . "Protocolo: $protocolo\n"
-    . "Recebida em: $quando\n"
-    . "Assunto: $assunto\n"
-    . "Nome: $nome\n"
-    . "E-mail para retorno: $email\n\n"
-    . "Relato:\n$mensagem\n";
-[$enviou, $detalhe] = rj_envia_email("[$protocolo] $assunto — $nome", $corpo, $email);
-if (!$enviou) {
-    error_log("[contato] $protocolo aviso por e-mail nao saiu: $detalhe");
+// 3) aviso por e-mail — DORMENTE por padrao (ver cabecalho do arquivo).
+// Sem as variaveis SMTP nada acontece aqui e nada vai para o log: e' o estado
+// normal da operacao, nao uma falha. Log de erro so quando o SMTP ESTA setado e
+// mesmo assim o envio nao completou — ai' sim ha o que investigar.
+$enviou = false;
+if (rj_smtp_configurado()) {
+    $corpo = "Nova mensagem pelo formulário do site.\n\n"
+        . "Protocolo: $protocolo\n"
+        . "Recebida em: $quando\n"
+        . "Assunto: $assunto\n"
+        . "Nome: $nome\n"
+        . 'E-mail informado: ' . ($email !== '' ? $email : 'não informado') . "\n\n"
+        . "Relato:\n$mensagem\n";
+    [$enviou, $detalhe] = rj_envia_email("[$protocolo] $assunto — $nome", $corpo, $email);
+    if (!$enviou) {
+        error_log("[contato] $protocolo aviso por e-mail nao saiu: $detalhe");
+    }
 }
 
 if (!$gravou && !$enviou) {
@@ -403,6 +435,7 @@ if (!$gravou && !$enviou) {
 rj_responde(200, [
     'ok' => true,
     'protocolo' => $protocolo,
-    'mensagem' => "Mensagem enviada ao atendimento. Protocolo $protocolo — guarde este número; "
-        . 'a resposta chega no e-mail que você informou, em até 1 dia útil.',
+    'mensagem' => "Mensagem registrada no atendimento sob o protocolo $protocolo. Guarde este "
+        . 'número: é por ele que o seu caso é localizado quando você escrever de novo pelo '
+        . 'formulário. A leitura do relato acontece em até 1 dia útil.',
 ]);
