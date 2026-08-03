@@ -1,6 +1,6 @@
 <?php
 /**
- * GET /api/loja_pedidos.php?token=… — a lista que quem despacha usa.
+ * GET /api/loja_pedidos.php — a lista que quem despacha usa.
  *
  * PARA QUE EXISTE
  * ---------------
@@ -9,13 +9,29 @@
  * voltam vazios): ele so sobrevive dentro do `metadata` do pedido. Sem esta
  * rota, despachar exigiria abrir o painel do processador e ler JSON cru a mao.
  *
- * PORTAO — FAIL-CLOSED
- * --------------------
- * Sem segredo no ambiente NINGUEM entra, nem com token vazio: a rota some (404).
- * Aceita LOJA_PEDIDOS_TOKEN (segredo proprio, se o gestor separar) e, na falta
- * dele, CHECKOUT_DEBUG_TOKEN — que ja e o segredo de operacao desta oferta e ja
- * esta no ambiente do servico. 404 e nao 403 de proposito: nao confirma para
- * quem sonda que existe algo atras.
+ * DUAS TRANCAS, EM SERIE — FAIL-CLOSED
+ * ------------------------------------
+ * 1. a MARCA de passagem que as outras rotas de dados ja exigem. Sem ela a rota
+ *    nao existe, venha qual segredo vier. Nao basta saber uma string: e preciso
+ *    ter passado pelo caminho de entrada, do mesmo aparelho e dentro da janela.
+ * 2. o segredo PROPRIO desta rota, LOJA_PEDIDOS_TOKEN, so por cabecalho.
+ *
+ * O segredo e proprio de proposito e NAO tem substituto. O segredo de
+ * diagnostico da operacao abre contadores sem dado pessoal; se ele tambem
+ * abrisse esta porta, um escopo de auditoria viraria, de graca, escopo de
+ * endereco de comprador. Sem LOJA_PEDIDOS_TOKEN no ambiente a rota nasce
+ * FECHADA — e fechada e o estado correto, nao um defeito a contornar.
+ *
+ * SO CABECALHO, NUNCA NA URL
+ * --------------------------
+ * O segredo viaja em `X-Token`. Endereco pedido entra no registro de acesso do
+ * servidor e de qualquer intermediario no caminho: segredo em query string vira
+ * segredo em log, em historico de navegador e em referenciador. Por isso o
+ * caminho por `?token=` deixou de existir — com o valor certo tambem responde
+ * 404.
+ *
+ * 404 e nao 403 nas duas trancas de proposito: nao confirma para quem sonda que
+ * existe algo atras.
  *
  * MASCARA POR PADRAO
  * ------------------
@@ -33,8 +49,18 @@
  * endereco NAO e guardado deste lado em momento nenhum: `completo=1` faz uma
  * leitura ao vivo por pedido (cp_loja_entrega_remota) e devolve sem gravar.
  * Vazamento do disco do servidor nao entrega endereco de comprador.
+ *
+ * COMO O OPERADOR ENTRA (as duas trancas nao o deixam de fora)
+ * -----------------------------------------------------------
+ * A marca de passagem e emitida pelo mesmo passo de entrada que o comprador
+ * usa, e quem tem o segredo de entrada a obtem quando quiser: pedir esse passo
+ * devolve um salto cuja URL ja traz a marca em `g=`. Copiar esse valor e
+ * chamar esta rota com ele MAIS o cabecalho `X-Token`, do MESMO aparelho
+ * (a marca e presa ao agente) e dentro da janela de validade. Vencida a
+ * janela, repetir o passo de entrada emite outra.
  */
 require __DIR__ . '/_loja.php';
+require_once __DIR__ . '/_gate.php';
 
 // Teto de leituras ao vivo por chamada: cada uma e uma ida ao processador de
 // pagamento. Quem precisar de um pedido especifico passa `id=`.
@@ -54,11 +80,20 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'GET') {
     cp_loja_ped_404();
 }
 
-$segredo = cp_env('LOJA_PEDIDOS_TOKEN');
-if ($segredo === '') {
-    $segredo = cp_env('CHECKOUT_DEBUG_TOKEN');
+// ── Tranca 1: a marca de passagem, igual as outras rotas de dados ────────────
+// Vem antes do segredo de proposito: quem chega sem marca some daqui sem que o
+// ambiente chegue a ser consultado.
+if (!cp_gate_ok()) {
+    cp_stat('loja_pedidos_recusado');
+    cp_gate_exige();   // 404 seco
 }
-$veio = (string) ($_GET['token'] ?? ($_SERVER['HTTP_X_TOKEN'] ?? ''));
+
+// ── Tranca 2: o segredo PROPRIO desta rota, so por cabecalho ─────────────────
+// Sem LOJA_PEDIDOS_TOKEN no ambiente ninguem entra — e nao ha segredo de outro
+// escopo que sirva no lugar dele. A URL nao e lida aqui: o valor certo vindo por
+// query string nao abre nada, para que segredo nenhum caia no registro de acesso.
+$segredo = cp_env('LOJA_PEDIDOS_TOKEN');
+$veio    = (string) ($_SERVER['HTTP_X_TOKEN'] ?? '');
 if ($segredo === '' || !hash_equals($segredo, $veio)) {
     cp_stat('loja_pedidos_recusado');
     cp_loja_ped_404();
@@ -121,7 +156,7 @@ foreach ($arqs as $arq) {
         }
     } elseif ($completo) {
         $linha['entrega_nota'] = 'Fora do teto de leituras ao vivo desta chamada — '
-            . 'consulte este pedido sozinho com &id=' . $tx;
+            . 'consulte este pedido sozinho com id=' . $tx;
     }
 
     $itens[] = $linha;
@@ -133,10 +168,13 @@ cp_json_out([
     'ok'       => true,
     'modo'     => $completo ? 'completo' : 'mascarado',
     'total'    => count($itens),
+    // O segredo NAO aparece em nenhum destes enderecos: ele vai no cabecalho
+    // `X-Token`, junto da marca de passagem que ja trouxe voce ate aqui (`g=`).
     'como_usar' => [
-        'mascarado' => '/api/loja_pedidos.php?token=SEGREDO',
-        'completo'  => '/api/loja_pedidos.php?token=SEGREDO&completo=1',
-        'um_pedido' => '/api/loja_pedidos.php?token=SEGREDO&completo=1&id=NUMERO_DA_COBRANCA',
+        'cabecalho' => 'X-Token: <segredo desta rota>',
+        'mascarado' => '/api/loja_pedidos.php?g=MARCA',
+        'completo'  => '/api/loja_pedidos.php?g=MARCA&completo=1',
+        'um_pedido' => '/api/loja_pedidos.php?g=MARCA&completo=1&id=NUMERO_DA_COBRANCA',
     ],
     'pedidos'  => $itens,
 ]);

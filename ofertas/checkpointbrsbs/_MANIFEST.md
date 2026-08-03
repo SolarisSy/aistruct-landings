@@ -338,17 +338,39 @@ mesma mudança, o texto em `scripts/_checkpoint_loja_fisica.py`.
 O processador de pagamento devolve `address`, `shipping` e `delivery` **vazios**: o endereço só
 sobrevive dentro do `metadata` do pedido.
 
-**Onde o operador olha:** `GET /api/loja_pedidos.php?token=<segredo>`
+**Onde o operador olha:** `GET /api/loja_pedidos.php?g=<marca>` **+ cabeçalho** `X-Token: <segredo>`
+
+Duas trancas **em série**, nesta ordem:
+
+1. **a marca de passagem** (`cp_gate_exige()`), a mesma que `catalogo.php`, `pix.php` e
+   `status.php` já exigem. Sem ela a rota não existe — venha qual segredo vier.
+2. **`LOJA_PEDIDOS_TOKEN`**, segredo **próprio**, **só por cabeçalho `X-Token`**.
 
 | chamada | devolve |
 |---|---|
-| sem token, ou token errado | **404 seco** (fail-closed; não confirma que a rota existe) |
-| `?token=<segredo>` | índice **mascarado**: número, produto, valor, cidade/UF, iniciais |
-| `?token=<segredo>&completo=1` | + endereço de entrega em claro (teto de 12 leituras) |
-| `?token=<segredo>&completo=1&id=<cobrança>` | um pedido só |
+| sem marca de passagem | **404 seco**, mesmo com `X-Token` correto |
+| com marca, sem `X-Token` / errado | **404 seco** |
+| **`?token=<segredo>` na URL** | **404 seco** — esse caminho não existe mais |
+| `?g=<marca>` + `X-Token` | índice **mascarado**: número, produto, valor, cidade/UF, iniciais |
+| `…&completo=1` | + endereço de entrega em claro (teto de 12 leituras) |
+| `…&completo=1&id=<cobrança>` | um pedido só |
 
-Segredo: `LOJA_PEDIDOS_TOKEN` se existir; senão `CHECKOUT_DEBUG_TOKEN` — que **já está no ambiente
-do serviço**, então a rota funciona sem provisionar nada.
+**O segredo não tem substituto.** `CHECKOUT_DEBUG_TOKEN` **não abre mais esta rota** (03/08/2026):
+ele foi criado para contadores de conversão **sem PII** e, como fallback, transformava um escopo de
+auditoria em escopo de endereço de comprador — e como `LOJA_PEDIDOS_TOKEN` nunca foi provisionado,
+era exatamente esse o estado em produção. Segredo de diagnóstico e segredo de PII não podem ser o
+mesmo.
+
+**O segredo nunca vai na URL.** `nginx-site.conf` tem `access_log /dev/stdout`: segredo em query
+string vira segredo no log do container, no histórico do navegador e em qualquer intermediário.
+
+⚠️ **A rota nasce FECHADA.** Enquanto `LOJA_PEDIDOS_TOKEN` não for configurado no serviço, ela
+responde 404 para todo mundo — inclusive para o operador. Ver "Env que o gestor precisa configurar".
+
+**Como o operador legítimo entra:** pedir `/ir/?k=<segredo do portão>&t=<unixtime>` devolve
+`302 → /checkout.html?g=<marca>`; copiar o `g=` e chamar esta rota com ele **mais** o cabeçalho
+`X-Token`, **do mesmo aparelho** (a marca é presa ao User-Agent) e dentro da janela de 2h. Vencida
+a janela, repetir o passo emite outra marca.
 
 **A tensão "registro nasce mascarado × operador precisa do endereço real" foi resolvida assim:** o
 endereço **nunca é guardado deste lado**. O registro local continua sendo só índice mascarado; o
@@ -399,3 +421,56 @@ ocorrências, 25 páginas** — rodapé, meta description, páginas legais e a p
 Como não há caminho de envio de e-mail nenhum, essa promessa **também não tem lastro**. Trocar isso
 é redefinir o que a linha antiga vende e como entrega: **medido e escalado, não corrigido por conta
 própria.**
+
+---
+
+## Rodada 9 (03/08) — fechar exposição de dado de comprador em `api/loja_pedidos.php`
+
+A rota criada na rodada 8 devolve **endereço de entrega em claro**. Revisão de código achou 3
+falhas na forma como ela se protegia. Só `api/loja_pedidos.php` foi tocado.
+
+| # | Falha | Correção | Linha |
+|---|---|---|---|
+| 1 | `CHECKOUT_DEBUG_TOKEN` servia de fallback — um segredo de **diagnóstico sem PII** abria endereço de comprador. E como `LOJA_PEDIDOS_TOKEN` **nunca foi provisionado**, era exatamente esse o estado em produção. | Fallback **removido**. Segredo próprio, sem substituto. Sem ele a rota fica **fechada** (404), nunca aberta por segredo de outro escopo. | 91-100 |
+| 2 | Aceitava `?token=<segredo>`, e `nginx-site.conf` tem `access_log /dev/stdout` → segredo no log do container e de qualquer intermediário. | **Só `X-Token`**. O caminho por query string deixou de existir: o valor certo na URL responde 404. | 96 |
+| 3 | Não chamava `cp_gate_exige()`, ao contrário das outras rotas de dados — alcançável de qualquer lugar, protegida só por uma string. | Marca de passagem **somada** ao segredo próprio, as duas em série, marca primeiro. | 83-89 |
+
+### ⚠️ Env que o gestor precisa configurar
+
+**A rota nasce FECHADA e continua 404 para todo mundo até isto ser feito** (inclusive para o
+operador — é o preço de tirar o fallback, e é o comportamento correto).
+
+| env | onde | para quê |
+|---|---|---|
+| **`LOJA_PEDIDOS_TOKEN`** | serviço `checkpointbrsbs` no Easypanel | **única** chave que abre a lista de pedidos com endereço de entrega. Valor novo e aleatório (ex.: `openssl rand -base64 24`), **diferente** de `CHECKOUT_DEBUG_TOKEN` — o motivo da mudança é justamente que os dois escopos não podem coincidir. |
+
+Nenhuma outra env muda. `CHECKOUT_DEBUG_TOKEN` continua com o escopo dele (`/api/debug.php`,
+`/api/health.php`) e **não** abre mais esta rota.
+
+### Validação da rodada
+
+`scripts/_checkpoint_pedidos_pii_qa.php` — **28/28**, gateway **falso** em `php -S`, dado fictício,
+nenhuma cobrança criada, nenhum acesso a site ao vivo.
+
+- **sem a env**: marca válida + token de diagnóstico válido → **404**; na URL → **404**;
+  `completo=1` → **404 sem endereço no corpo**. O mesmo token **ainda abre** `/api/debug.php` (200).
+- **com a env**: `X-Token` correto → **200 mascarado**; errado → 404; **segredo certo na query
+  string → 404**; token de diagnóstico no cabeçalho → 404.
+- **marca obrigatória**: sem marca / marca forjada / marca de **outro aparelho** → 404, mesmo com
+  `X-Token` correto. `POST` → 404.
+- **máscara por padrão**: resposta sem `completo=1` não traz rua nem CPF; `completo=1` com
+  credencial válida devolve o endereço, e **nada foi gravado em disco** (0 ocorrência).
+- **sem regressão**: vitrine aberta 200 · `loja_status.php` 200 / desconhecido 404 · linha antiga
+  `catalogo.php` 404 sem marca e 200 com · `status.php` 200 · `health.php` 200/404 · `php -l` limpo
+  em todos os `.php` da oferta.
+
+### O que NÃO foi tocado
+
+Preço, SKU, `cp_loja_item()`, `api/_gate.php` (o HMAC em si), `api/_cfg.php`, `api/_loja.php`,
+`api/pix.php`, `api/catalogo.php`, `api/status.php`, `api/webhook.php`, `api/debug.php`,
+`api/health.php`, `index.php` da raiz, `go/index.php`, `ir/index.php`, `_priv/`, `nginx-site.conf`,
+o `Dockerfile` e o stream. `git status` da rodada: **2 arquivos** — `api/loja_pedidos.php` e este
+manifesto.
+
+O gate do método `direct_url` está intacto: `index.php` na raiz + `location = / { rewrite ^
+/index.php last; }` — nenhuma linha desta rodada toca o caminho anúncio → decisão → money.

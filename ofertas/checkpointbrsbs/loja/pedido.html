@@ -114,6 +114,28 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .pd-numero{border:1px dashed var(--ink);padding:12px 16px;margin:0 0 16px;overflow-wrap:anywhere}
 .pd-numero strong{font-family:var(--font-mono);font-size:.92rem;letter-spacing:.02em}
 .pd-numero span{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;color:#6b6752;line-height:1.7}
+.pd-aberto{border:2px solid var(--mustard);background:#f6efdd;padding:16px 20px;margin:0 0 26px;color:#3a372c;max-width:78ch}
+.pd-aberto ul{list-style:none;margin:12px 0 0;padding:0}
+.pd-aberto li{border-top:1px solid var(--rule);padding:10px 0;font-size:.95rem;overflow-wrap:anywhere}
+.pd-aberto li code{font-family:var(--font-mono);font-size:.82rem}
+.pd-escolha{list-style:none;margin:6px 0 0;padding:0}
+.pd-escolha li{border-top:1px solid var(--rule);padding:14px 0;display:flex;justify-content:space-between;align-items:baseline;gap:10px 18px;flex-wrap:wrap}
+.pd-escolha strong{font-family:var(--font-display);font-size:1.08rem;line-height:1.2}
+.pd-escolha span{font-family:var(--font-mono);font-size:.78rem;color:#54503f}
+.pd-grid.pd-solo{grid-template-columns:1fr}
+.pd-qr{margin:20px 0 4px}
+.pd-qr canvas{width:100%;max-width:240px;height:auto;border:8px solid #fff;background:#fff;image-rendering:pixelated;image-rendering:crisp-edges}
+.pd-qr p{margin:8px 0 0}
+.pd-recebedor{border-left:4px solid var(--mustard);padding:10px 16px;margin:16px 0 0;color:#3a372c;font-size:.95rem}
+.pd-entrega{border:1px dashed var(--ink);padding:16px 20px;margin:20px 0 0}
+.pd-entrega h3{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);margin:0 0 10px}
+.pd-entrega address{font-style:normal;color:#3a372c;line-height:1.6;overflow-wrap:anywhere}
+.pd-entrega .btn{margin-top:14px}
+.pd-retry{margin-top:16px}
+/* .pd-nota e MAIUSCULA (mono, caixa alta): serve para etiqueta curta. Frase
+   longa que o comprador precisa LER — o que muda ao corrigir o endereco, o que
+   fica guardado no aparelho — vai nesta, em caixa normal. */
+.pd-aviso{font-family:var(--font-body);font-size:.88rem;letter-spacing:0;text-transform:none;color:#54503f;line-height:1.6;margin:10px 0 0}
 @media (max-width:880px){.pd-grid{grid-template-columns:1fr}}
 @media (max-width:560px){.pd-dupla,.pd-tripla{grid-template-columns:1fr}}
 
@@ -163,9 +185,11 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   gerar o código &mdash; é exatamente ele que o aplicativo do banco vai cobrar, sem nenhuma taxa
   acrescentada depois.</p>
 
-  <div class="pd-grid">
+  <div class="pd-aberto" id="pd-aberto" hidden></div>
+
+  <div class="pd-grid" id="pd-grid">
     <section class="pd-box" id="pd-item" aria-live="polite">
-      <p class="pd-load">Carregando o produto escolhido&hellip;</p>
+      <p class="pd-load">Carregando os produtos&hellip;</p>
     </section>
 
     <form class="pd-box" id="pd-form" novalidate>
@@ -234,17 +258,39 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <p class="pd-numero">Número do pedido: <strong id="pd-pedido">&mdash;</strong><br>
     <span>Anote antes de sair &mdash; é com ele que o atendimento encontra sua compra.</span></p>
     <ol class="pd-passos">
-      <li>Abra o aplicativo do seu banco e escolha <strong>PIX &rsaquo; Copia e Cola</strong>.</li>
-      <li>Cole o código abaixo e confira se o valor bate com o desta página.</li>
-      <li>Confirme. Esta página avisa sozinha assim que o pagamento cair.</li>
+      <li>No celular: abra o aplicativo do seu banco e escolha
+          <strong>PIX &rsaquo; Copia e Cola</strong>.</li>
+      <li>No computador: escolha <strong>PIX &rsaquo; Pagar com QR Code</strong> no aplicativo e
+          aponte a câmera do celular para o quadrado desta página.</li>
+      <li>Confira se o valor bate com o desta tela e confirme. A página avisa sozinha assim que o
+          pagamento cair.</li>
     </ol>
+    <div class="pd-qr" id="pd-qr" hidden>
+      <canvas id="pd-qr-canvas" role="img"
+              aria-label="Código QR do PIX desta cobrança"></canvas>
+      <p class="pd-aviso">Aponte a câmera do aplicativo do banco para o quadrado acima. Se preferir
+      digitar, o mesmo pagamento está no código abaixo.</p>
+    </div>
     <textarea class="pd-codigo" id="pd-codigo" readonly rows="4"></textarea>
     <p style="margin-top:12px">
       <button class="btn btn-ghost" type="button" id="pd-copiar">Copiar código</button>
     </p>
+    <p class="pd-recebedor">No aplicativo do banco o recebedor aparece como
+    <strong>BRASIL COMPRAS ONLINE LTD</strong>, e não como Checkpoint BR: essa é a empresa que processa o
+    pagamento da loja. O nome ser diferente é o esperado &mdash; confira o valor e o número do
+    pedido acima antes de confirmar.</p>
+    <div class="pd-entrega" id="pd-entrega" hidden>
+      <h3>Vai para este endereço</h3>
+      <address id="pd-entrega-txt"></address>
+      <p><button class="btn btn-ghost" type="button" id="pd-editar">Corrigir o endereço</button></p>
+      <p class="pd-aviso" id="pd-editar-nota">Corrigir o endereço gera um código PIX novo. O atual
+      continua guardado e continua valendo: pague só um dos dois e deixe o outro vencer &mdash;
+      código não pago não cobra nada.</p>
+    </div>
     <p class="pd-nota" id="pd-validade" hidden></p>
-    <p class="pd-nota" id="pd-guardado">Este código fica guardado neste aparelho: se a página
-    recarregar ou o navegador fechar, ele reaparece aqui até vencer.</p>
+    <p class="pd-aviso" id="pd-guardado">Este pedido fica guardado neste aparelho &mdash; o código,
+    o valor e o endereço de entrega, para você conferir depois. Se a página recarregar ou o
+    navegador fechar, ele reaparece aqui até vencer.</p>
     <p class="pd-nota" id="pd-espera">Aguardando a confirmação do banco&hellip;</p>
     <div class="pd-pago" id="pd-pago" hidden>
       <p><strong>Pagamento confirmado.</strong> Seu pedido entrou na fila de produção e o prazo
@@ -261,9 +307,280 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 (function () {
   'use strict';
   var $ = function (s) { return document.querySelector(s); };
-  var item = null, opcao = '', poll = null;
+  var item = null, opcao = '', poll = null, entrega = null, atual = null;
 
   function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : t; return d.innerHTML; }
+
+  // ── Codigo QR desenhado aqui mesmo ───────────────────────────────────────────
+  // O codigo de pagamento nao sai deste aparelho: o quadrado e calculado e
+  // desenhado pela propria pagina. Nao ha imagem vinda de fora, nem chamada a
+  // nenhum outro endereco — mandar o codigo de cobranca para um desenhista
+  // externo entregaria a cobranca a um terceiro.
+  // Correcao de erro nivel M, modo binario, qualquer tamanho de codigo de
+  // pagamento (o maior aceito na cobranca cabe com folga).
+  function cpQrMatriz(texto) {
+    var ECC = [0, 10, 16, 26, 18, 24, 16, 18, 22, 22, 26, 30, 22, 22, 24, 24, 28, 28, 26, 26, 26,
+               26, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28];
+    var BLK = [0, 1, 1, 1, 2, 2, 4, 4, 4, 5, 5, 5, 8, 9, 9, 10, 10, 11, 13, 14, 16,
+               17, 17, 18, 20, 21, 23, 25, 26, 28, 29, 31, 33, 35, 37, 38, 40, 43, 45, 47, 49];
+
+    function mul(x, y) {
+      var z = 0;
+      for (var i = 7; i >= 0; i--) {
+        z = ((z << 1) ^ ((z >>> 7) * 0x11D)) & 0xFF;
+        z ^= ((y >>> i) & 1) * x;
+      }
+      return z & 0xFF;
+    }
+    function brutos(v) {
+      var r = (16 * v + 128) * v + 64;
+      if (v >= 2) {
+        var n = Math.floor(v / 7) + 2;
+        r -= (25 * n - 10) * n - 55;
+        if (v >= 7) { r -= 36; }
+      }
+      return Math.floor(r / 8);
+    }
+    function capacidade(v) { return brutos(v) - ECC[v] * BLK[v]; }
+
+    function bytes(s) {
+      var out = [], i, c, c2, cp;
+      s = String(s);
+      for (i = 0; i < s.length; i++) {
+        c = s.charCodeAt(i);
+        if (c < 128) { out.push(c); }
+        else if (c < 2048) { out.push(192 | (c >> 6), 128 | (c & 63)); }
+        else if (c < 0xD800 || c >= 0xE000) { out.push(224 | (c >> 12), 128 | ((c >> 6) & 63), 128 | (c & 63)); }
+        else {
+          i++; c2 = s.charCodeAt(i);
+          cp = 0x10000 + ((c & 0x3FF) << 10) + (c2 & 0x3FF);
+          out.push(240 | (cp >> 18), 128 | ((cp >> 12) & 63), 128 | ((cp >> 6) & 63), 128 | (cp & 63));
+        }
+      }
+      return out;
+    }
+
+    var dados = bytes(texto), ver = 0, i, j, k, x, y;
+    for (i = 1; i <= 40; i++) {
+      if (capacidade(i) * 8 >= 4 + (i < 10 ? 8 : 16) + dados.length * 8) { ver = i; break; }
+    }
+    if (!ver) { return null; }
+
+    // ── fluxo de bits: modo binario + contagem + dados + enchimento ────────────
+    var bits = [];
+    function put(valor, n) { for (var b = n - 1; b >= 0; b--) { bits.push((valor >>> b) & 1); } }
+    put(4, 4);
+    put(dados.length, ver < 10 ? 8 : 16);
+    for (i = 0; i < dados.length; i++) { put(dados[i], 8); }
+    var cap = capacidade(ver) * 8;
+    for (i = 0; i < 4 && bits.length < cap; i++) { bits.push(0); }
+    while (bits.length % 8 !== 0) { bits.push(0); }
+    for (i = 0; bits.length < cap; i++) { put(i % 2 === 0 ? 0xEC : 0x11, 8); }
+
+    var palavras = [];
+    for (i = 0; i < bits.length; i += 8) {
+      var b = 0;
+      for (j = 0; j < 8; j++) { b = (b << 1) | bits[i + j]; }
+      palavras.push(b);
+    }
+
+    // ── correcao de erro (Reed-Solomon) e entrelacamento dos blocos ────────────
+    function divisor(grau) {
+      var r = [], raiz = 1;
+      for (i = 0; i < grau - 1; i++) { r.push(0); }
+      r.push(1);
+      for (i = 0; i < grau; i++) {
+        for (j = 0; j < r.length; j++) {
+          r[j] = mul(r[j], raiz);
+          if (j + 1 < r.length) { r[j] ^= r[j + 1]; }
+        }
+        raiz = mul(raiz, 2);
+      }
+      return r;
+    }
+    function resto(dado, div) {
+      var r = [], a, b2, c;
+      for (a = 0; a < div.length; a++) { r.push(0); }
+      for (a = 0; a < dado.length; a++) {
+        c = dado[a] ^ r.shift();
+        r.push(0);
+        for (b2 = 0; b2 < div.length; b2++) { r[b2] ^= mul(div[b2], c); }
+      }
+      return r;
+    }
+    var nblk = BLK[ver], ecclen = ECC[ver], total = brutos(ver);
+    var curtos = nblk - (total % nblk), tamCurto = Math.floor(total / nblk);
+    var div = divisor(ecclen), blocos = [], p = 0;
+    for (i = 0; i < nblk; i++) {
+      var dat = palavras.slice(p, p + tamCurto - ecclen + (i < curtos ? 0 : 1));
+      p += dat.length;
+      var ec = resto(dat, div);
+      if (i < curtos) { dat = dat.concat([0]); }
+      blocos.push(dat.concat(ec));
+    }
+    var fluxo = [];
+    for (i = 0; i < blocos[0].length; i++) {
+      for (j = 0; j < nblk; j++) {
+        if (i !== tamCurto - ecclen || j >= curtos) { fluxo.push(blocos[j][i]); }
+      }
+    }
+
+    // ── desenho ────────────────────────────────────────────────────────────────
+    var n = ver * 4 + 17, m = [], fixo = [];
+    for (y = 0; y < n; y++) {
+      m.push([]); fixo.push([]);
+      for (x = 0; x < n; x++) { m[y].push(false); fixo[y].push(false); }
+    }
+    function poe(x2, y2, v) {
+      if (x2 < 0 || y2 < 0 || x2 >= n || y2 >= n) { return; }
+      m[y2][x2] = v; fixo[y2][x2] = true;
+    }
+    function finder(cx, cy) {
+      for (var dy = -4; dy <= 4; dy++) {
+        for (var dx = -4; dx <= 4; dx++) {
+          var d = Math.max(Math.abs(dx), Math.abs(dy));
+          poe(cx + dx, cy + dy, d !== 2 && d !== 4);
+        }
+      }
+    }
+    function alinha(cx, cy) {
+      for (var dy = -2; dy <= 2; dy++) {
+        for (var dx = -2; dx <= 2; dx++) {
+          poe(cx + dx, cy + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1);
+        }
+      }
+    }
+    for (i = 8; i < n - 8; i++) { poe(6, i, i % 2 === 0); poe(i, 6, i % 2 === 0); }
+    finder(3, 3); finder(n - 4, 3); finder(3, n - 4);
+    var pos = [];
+    if (ver > 1) {
+      var na = Math.floor(ver / 7) + 2;
+      var passo = ver === 32 ? 26 : Math.ceil((ver * 4 + 4) / (na * 2 - 2)) * 2;
+      pos = [6];
+      for (var q = ver * 4 + 10; pos.length < na; q -= passo) { pos.splice(1, 0, q); }
+    }
+    for (i = 0; i < pos.length; i++) {
+      for (j = 0; j < pos.length; j++) {
+        if (!((i === 0 && j === 0) || (i === 0 && j === pos.length - 1) || (i === pos.length - 1 && j === 0))) {
+          alinha(pos[i], pos[j]);
+        }
+      }
+    }
+    function formato(mascara) {
+      var d = (0 << 3) | mascara, r = d;          // nivel M = 00
+      for (i = 0; i < 10; i++) { r = (r << 1) ^ ((r >>> 9) * 0x537); }
+      var b = ((d << 10) | r) ^ 0x5412;
+      for (i = 0; i <= 5; i++) { poe(8, i, ((b >>> i) & 1) !== 0); }
+      poe(8, 7, ((b >>> 6) & 1) !== 0);
+      poe(8, 8, ((b >>> 7) & 1) !== 0);
+      poe(7, 8, ((b >>> 8) & 1) !== 0);
+      for (i = 9; i < 15; i++) { poe(14 - i, 8, ((b >>> i) & 1) !== 0); }
+      for (i = 0; i < 8; i++) { poe(n - 1 - i, 8, ((b >>> i) & 1) !== 0); }
+      for (i = 8; i < 15; i++) { poe(8, n - 15 + i, ((b >>> i) & 1) !== 0); }
+      poe(8, n - 8, true);
+    }
+    formato(0);
+    if (ver >= 7) {
+      var rv = ver;
+      for (i = 0; i < 12; i++) { rv = (rv << 1) ^ ((rv >>> 11) * 0x1F25); }
+      var bv = (ver << 12) | rv;
+      for (i = 0; i < 18; i++) {
+        var bit = ((bv >>> i) & 1) !== 0, a = n - 11 + (i % 3), c2 = Math.floor(i / 3);
+        poe(a, c2, bit); poe(c2, a, bit);
+      }
+    }
+
+    var idx = 0;
+    for (var dir = n - 1; dir >= 1; dir -= 2) {
+      if (dir === 6) { dir = 5; }
+      for (var vt = 0; vt < n; vt++) {
+        for (j = 0; j < 2; j++) {
+          x = dir - j;
+          var sobe = ((dir + 1) & 2) === 0;
+          y = sobe ? n - 1 - vt : vt;
+          if (!fixo[y][x] && idx < fluxo.length * 8) {
+            m[y][x] = ((fluxo[idx >>> 3] >>> (7 - (idx & 7))) & 1) !== 0;
+            idx++;
+          }
+        }
+      }
+    }
+
+    function mascarar(k2) {
+      for (y = 0; y < n; y++) {
+        for (x = 0; x < n; x++) {
+          if (fixo[y][x]) { continue; }
+          var inv;
+          switch (k2) {
+            case 0: inv = (x + y) % 2 === 0; break;
+            case 1: inv = y % 2 === 0; break;
+            case 2: inv = x % 3 === 0; break;
+            case 3: inv = (x + y) % 3 === 0; break;
+            case 4: inv = (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0; break;
+            case 5: inv = (x * y) % 2 + (x * y) % 3 === 0; break;
+            case 6: inv = ((x * y) % 2 + (x * y) % 3) % 2 === 0; break;
+            default: inv = ((x + y) % 2 + (x * y) % 3) % 2 === 0; break;
+          }
+          if (inv) { m[y][x] = !m[y][x]; }
+        }
+      }
+    }
+    function hist(corrida, h) {
+      if (h[0] === 0) { corrida += n; }
+      h.pop(); h.unshift(corrida);
+    }
+    function conta(h) {
+      var c = h[1], nucleo = c > 0 && h[2] === c && h[3] === c * 3 && h[4] === c && h[5] === c;
+      return (nucleo && h[0] >= c * 4 && h[6] >= c ? 1 : 0) + (nucleo && h[6] >= c * 4 && h[0] >= c ? 1 : 0);
+    }
+    function fecha(cor, corrida, h) {
+      if (cor) { hist(corrida, h); corrida = 0; }
+      corrida += n; hist(corrida, h);
+      return conta(h);
+    }
+    function nota() {
+      var r = 0, a, b2, h, cor, run;
+      for (y = 0; y < n; y++) {
+        h = [0, 0, 0, 0, 0, 0, 0]; cor = false; run = 0;
+        for (x = 0; x < n; x++) {
+          if (m[y][x] === cor) { run++; if (run === 5) { r += 3; } else if (run > 5) { r++; } }
+          else { hist(run, h); if (!cor) { r += conta(h) * 40; } cor = m[y][x]; run = 1; }
+        }
+        r += fecha(cor, run, h) * 40;
+      }
+      for (x = 0; x < n; x++) {
+        h = [0, 0, 0, 0, 0, 0, 0]; cor = false; run = 0;
+        for (y = 0; y < n; y++) {
+          if (m[y][x] === cor) { run++; if (run === 5) { r += 3; } else if (run > 5) { r++; } }
+          else { hist(run, h); if (!cor) { r += conta(h) * 40; } cor = m[y][x]; run = 1; }
+        }
+        r += fecha(cor, run, h) * 40;
+      }
+      for (y = 0; y < n - 1; y++) {
+        for (x = 0; x < n - 1; x++) {
+          var c3 = m[y][x];
+          if (c3 === m[y][x + 1] && c3 === m[y + 1][x] && c3 === m[y + 1][x + 1]) { r += 3; }
+        }
+      }
+      var escuros = 0;
+      for (a = 0; a < n; a++) { for (b2 = 0; b2 < n; b2++) { if (m[a][b2]) { escuros++; } } }
+      var tot = n * n;
+      r += (Math.ceil(Math.abs(escuros * 20 - tot * 10) / tot) - 1) * 10;
+      return r;
+    }
+
+    var melhor = -1, notaMin = Infinity;
+    for (k = 0; k < 8; k++) {
+      mascarar(k); formato(k);
+      var s = nota();
+      if (s < notaMin) { notaMin = s; melhor = k; }
+      mascarar(k);
+    }
+    // segundo argumento: usado so pela conferencia, para forcar uma mascara.
+    if (arguments.length > 1 && arguments[1] !== undefined) { melhor = arguments[1]; }
+    mascarar(melhor); formato(melhor);
+    return m;
+  }
 
   var sku = (new URLSearchParams(location.search).get('sku') || '').replace(/[^a-z0-9\-]/g, '');
 
@@ -281,35 +598,112 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     return true;
   }
 
-  // ── Guardar o PIX aberto neste aparelho ────────────────────────────────────
-  // Recarregar a pagina deixava o comprador sem o codigo e sem o numero do
-  // pedido, com a cobranca ja aberta do outro lado. Fica guardado so o que a
-  // propria tela mostra (codigo, valores e numero do pedido) — nenhum dado
-  // pessoal, nenhum endereco.
-  var GUARDA = 'cpbr.pedido.pix';
-  function guardar(d) {
-    try { localStorage.setItem(GUARDA, JSON.stringify({ sku: sku, d: d, em: Date.now() })); } catch (_) {}
+  // ── Guardar os pedidos abertos neste aparelho ──────────────────────────────
+  // Antes havia UMA chave so: abrir um segundo produto sobrescrevia o primeiro e
+  // o codigo anterior sumia em definitivo, sem aviso — e nao ha e-mail que o
+  // repita. Agora cada cobranca e uma entrada propria, e a tela avisa quando ja
+  // existe outra em aberto em vez de apagar a anterior em silencio.
+  //
+  // Fica guardado o que a propria tela mostra: codigo, valores, numero do pedido
+  // e o endereco de entrega (para o comprador conferir para onde a peca vai, sem
+  // ter de gerar outra cobranca). Documento, e-mail e telefone NAO sao guardados.
+  var GUARDA = 'cpbr.pedidos.v2';
+  var GUARDA_ANTIGA = 'cpbr.pedido.pix';
+
+  function gravar(lista) {
+    try { localStorage.setItem(GUARDA, JSON.stringify(lista.slice(0, 12))); } catch (_) {}
   }
-  function esquecer() { try { localStorage.removeItem(GUARDA); } catch (_) {} }
-  function guardado() {
-    var raw = null;
-    try { raw = localStorage.getItem(GUARDA); } catch (_) { return null; }
-    if (!raw) { return null; }
-    var g = null;
-    try { g = JSON.parse(raw); } catch (_) { esquecer(); return null; }
-    if (!g || g.sku !== sku || !g.d || !g.d.qrcode) { return null; }
-    // Pedido pago continua guardado de proposito: o comprador precisa do numero
-    // do pedido depois, e nao ha e-mail que o repita para ele.
-    if (!g.d.__pago && venceu(g.d)) {
-      // Vencido enquanto a pagina estava fechada: volta ao formulario, mas
-      // dizendo por que — sumir em silencio parece que o pedido evaporou.
-      esquecer();
-      avisoVencido = true;
-      return null;
+  function lerTudo() {
+    var lista = [], raw = null, velho = null, i;
+    try { raw = localStorage.getItem(GUARDA); } catch (_) { return []; }
+    if (raw) { try { lista = JSON.parse(raw) || []; } catch (_) { lista = []; } }
+    if (!lista.length && !raw) { lista = []; }
+    // Pedido gravado pela versao anterior desta pagina: entra na lista em vez de
+    // sumir quando o formato mudou.
+    try {
+      velho = localStorage.getItem(GUARDA_ANTIGA);
+      if (velho) {
+        var v = JSON.parse(velho);
+        localStorage.removeItem(GUARDA_ANTIGA);
+        if (v && v.d && v.d.qrcode) {
+          lista.push({ sku: v.sku || '', d: v.d, entrega: null, em: v.em || Date.now() });
+          gravar(lista);
+        }
+      }
+    } catch (_) {}
+    var bons = [];
+    for (i = 0; i < lista.length; i++) {
+      if (lista[i] && lista[i].d && lista[i].d.qrcode && lista[i].d.pedido) { bons.push(lista[i]); }
     }
-    return g.d;
+    return bons;
+  }
+  // Pedido pago continua guardado de proposito: o comprador precisa do numero do
+  // pedido depois. O que sai da lista e a cobranca vencida e nao paga.
+  function aberto(e) { return e.d.__pago || !venceu(e.d); }
+  function vivos() {
+    var t = lerTudo(), out = [], i;
+    for (i = 0; i < t.length; i++) { if (aberto(t[i])) { out.push(t[i]); } }
+    return out;
+  }
+  function guardar(d, ent) {
+    var lista = lerTudo(), i;
+    for (i = 0; i < lista.length; i++) {
+      if (lista[i].d.pedido === d.pedido) { lista.splice(i, 1); break; }
+    }
+    lista.unshift({ sku: sku, d: d, entrega: ent || entrega || null, em: Date.now() });
+    gravar(lista);
+  }
+  function esquecer(pedido) {
+    var lista = lerTudo(), i;
+    for (i = 0; i < lista.length; i++) {
+      if (lista[i].d.pedido === pedido) { lista.splice(i, 1); gravar(lista); return; }
+    }
   }
   var avisoVencido = false;
+  // O que este aparelho tem para ESTE produto, e o que tem para os outros.
+  function meuAberto() {
+    var t = lerTudo(), i;
+    for (i = 0; i < t.length; i++) {
+      if (t[i].sku === sku) {
+        if (aberto(t[i])) { return t[i]; }
+        // Venceu enquanto a pagina estava fechada: some da lista, mas a tela diz
+        // por que — sumir em silencio parece que o pedido evaporou.
+        avisoVencido = true;
+        esquecer(t[i].d.pedido);
+        return null;
+      }
+    }
+    return null;
+  }
+  function outrosAbertos() {
+    var t = vivos(), out = [], i;
+    for (i = 0; i < t.length; i++) {
+      if (t[i].sku !== sku && !t[i].d.__pago) { out.push(t[i]); }
+    }
+    return out;
+  }
+  function avisarAbertos() {
+    var outros = outrosAbertos(), el = $('#pd-aberto'), i, e, h;
+    if (!outros.length) { el.hidden = true; return; }
+    h = '<strong>Você tem ' + (outros.length > 1
+      ? outros.length + ' cobranças PIX em aberto'
+      : 'uma cobrança PIX em aberto') + ' neste aparelho.</strong> ';
+    h += 'Fechar este pedido não cancela ' + (outros.length > 1 ? 'nenhuma delas' : 'a anterior')
+      + ': são cobranças separadas, e a que você não pagar vence sozinha, sem custo nenhum.';
+    h += '<ul>';
+    for (i = 0; i < outros.length; i++) {
+      e = outros[i];
+      h += '<li>' + esc(e.d.item) + ' &mdash; ' + esc(e.d.total_br)
+        + ' &mdash; pedido <code>' + esc(e.d.pedido) + '</code>';
+      if (/^[a-z0-9\-]+$/.test(e.sku || '')) {
+        h += ' &middot; <a href="/loja/pedido.html?sku=' + e.sku + '">voltar para essa cobrança</a>';
+      }
+      h += '</li>';
+    }
+    el.innerHTML = h + '</ul>';
+    el.hidden = false;
+  }
+
   function venceu(d) {
     if (!d || d.__pago) { return false; }
     var t = prazoEm(d);
@@ -321,33 +715,117 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     return isNaN(t) ? null : t;
   }
 
-  function falhaCatalogo() {
+  // ── Carregar o catalogo ────────────────────────────────────────────────────
+  // Tres desfechos DIFERENTES, e a tela precisa distingui-los. Tratar todos como
+  // "produto nao existe" (era o que acontecia) mata a venda por um tropeco de
+  // rede: o produto esta la, quem falhou foi a conexao.
+  //   1. veio o produto            -> segue o pedido
+  //   2. o servidor disse 404      -> este codigo de produto nao existe mesmo
+  //   3. rede/servidor falharam    -> tenta de novo, e oferece o botao
+  var tentativas = 0, autoRetry = null;
+
+  function semProduto() {
     $('#pd-item').innerHTML = '<h2>Produto não encontrado</h2>' +
       '<p>Este endereço não corresponde a nenhum produto do catálogo. ' +
       'Escolha o que você quer na <a href="/loja/">página da loja</a>.</p>';
+    $('#pd-item').hidden = false;
+    $('#pd-form').hidden = true;
+    $('#pd-grid').className = 'pd-grid pd-solo';
     $('#pd-btn').disabled = true;
   }
 
-  fetch('/api/loja_catalogo.php?sku=' + encodeURIComponent(sku), { headers: { Accept: 'application/json' } })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (d) {
-      if (!d || !d.ok || !d.itens || !d.itens.length) { return falhaCatalogo(); }
-      item = d.itens[0];
-      opcao = (item.opcoes && item.opcoes.length) ? item.opcoes[0] : '';
-      pintar();
-      // Cobranca ja aberta neste aparelho? Volta a tela do PIX em vez de pedir
-      // tudo de novo (e de abrir uma segunda cobranca para a mesma compra).
-      var antigo = guardado();
-      if (antigo) {
-        mostrarPix(antigo, true);
-      } else if (avisoVencido) {
-        var e = $('#pd-erro');
-        e.textContent = 'O código PIX do seu pedido anterior venceu e nada foi cobrado. '
-          + 'Preencha os dados de novo para gerar um código válido.';
-        e.hidden = false;
-      }
-    })
-    .catch(falhaCatalogo);
+  function falhaRede() {
+    tentativas++;
+    var sozinho = tentativas <= 3;
+    var h = '<h2>Não conseguimos carregar agora</h2>';
+    h += '<p>A conexão com a loja falhou ao buscar ' + (sku ? 'este produto' : 'o catálogo')
+      + '. O produto continua existindo &mdash; quem não respondeu foi o servidor, e nada foi '
+      + 'cobrado.</p>';
+    h += '<p class="pd-retry"><button class="btn" type="button" id="pd-retry">'
+      + 'Tentar de novo</button></p>';
+    if (sozinho) {
+      h += '<p class="pd-load" id="pd-retry-auto">Tentando sozinho em instantes&hellip;</p>';
+    } else {
+      h += '<p class="pd-aviso">Se continuar assim, escreva para '
+        + '<a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a> '
+        + 'com o nome do produto que você quer.</p>';
+    }
+    $('#pd-item').innerHTML = h;
+    $('#pd-item').hidden = false;
+    $('#pd-btn').disabled = true;
+    $('#pd-retry').addEventListener('click', function () {
+      if (autoRetry) { clearTimeout(autoRetry); autoRetry = null; }
+      carregar();
+    });
+    if (sozinho) {
+      autoRetry = setTimeout(function () { autoRetry = null; carregar(); }, tentativas * 2500);
+    }
+  }
+
+  function escolher(lista) {
+    // Sem codigo de produto no endereco, NINGUEM escolhe por quem comprou: a tela
+    // pede a escolha. Antes o primeiro item do catalogo vinha marcado sozinho, e
+    // quem cortasse o endereco pagava por um produto que nunca selecionou.
+    var h = '<h2>Escolha o produto</h2>'
+      + '<p>Este endereço chegou sem indicar qual peça você quer. Escolha abaixo para continuar '
+      + '&mdash; nada é cobrado antes disso.</p><ul class="pd-escolha">', i, p;
+    for (i = 0; i < lista.length; i++) {
+      p = lista[i];
+      h += '<li><strong>' + esc(p.nome) + '</strong>'
+        + '<span>' + esc(p.total_br) + ' com frete</span>'
+        + '<a class="btn" href="/loja/pedido.html?sku=' + p.sku + '">Escolher</a></li>';
+    }
+    h += '</ul><p class="pd-aviso" style="margin-top:16px">Prefere ver as fichas antes? '
+      + '<a href="/loja/">Abra a loja</a>.</p>';
+    $('#pd-item').innerHTML = h;
+    $('#pd-item').hidden = false;
+    $('#pd-form').hidden = true;
+    $('#pd-grid').className = 'pd-grid pd-solo';
+    $('#pd-btn').disabled = true;
+  }
+
+  function pronto(d) {
+    if (!sku) { return escolher(d.itens); }
+    item = d.itens[0];
+    opcao = (item.opcoes && item.opcoes.length) ? item.opcoes[0] : '';
+    $('#pd-grid').className = 'pd-grid';
+    $('#pd-form').hidden = false;
+    $('#pd-btn').disabled = false;
+    pintar();
+    // Cobranca ja aberta neste aparelho para ESTE produto? Volta a tela do PIX em
+    // vez de pedir tudo de novo (e de abrir uma segunda cobranca pela mesma peça).
+    var meu = meuAberto();
+    if (meu) {
+      mostrarPix(meu.d, true, meu.entrega);
+    } else if (avisoVencido) {
+      var e = $('#pd-erro');
+      e.textContent = 'O código PIX do seu pedido anterior venceu e nada foi cobrado. '
+        + 'Preencha os dados de novo para gerar um código válido.';
+      e.hidden = false;
+    }
+  }
+
+  function carregar() {
+    $('#pd-item').innerHTML = '<p class="pd-load">Carregando' + (sku ? ' o produto escolhido' : ' o catálogo') + '&hellip;</p>';
+    fetch('/api/loja_catalogo.php' + (sku ? '?sku=' + encodeURIComponent(sku) : ''),
+          { headers: { Accept: 'application/json' } })
+      .then(function (r) {
+        if (r.status === 404) { return { tipo: 'ausente' }; }
+        if (!r.ok) { return { tipo: 'rede' }; }
+        return r.json().then(function (d) {
+          if (!d || !d.ok || !d.itens || !d.itens.length) { return { tipo: sku ? 'ausente' : 'rede' }; }
+          return { tipo: 'ok', d: d };
+        }, function () { return { tipo: 'rede' }; });
+      }, function () { return { tipo: 'rede' }; })
+      .then(function (x) {
+        if (x.tipo === 'ok') { return pronto(x.d); }
+        if (x.tipo === 'ausente') { return semProduto(); }
+        return falhaRede();
+      });
+  }
+
+  avisarAbertos();
+  carregar();
 
   function pintar() {
     var p = item, h = '';
@@ -484,6 +962,13 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     if (ruim) { return; }
 
     var o = window.__origin;
+    // Resumo do destino, para a tela do PIX mostrar para onde a peca vai. So o
+    // endereco e o nome: documento, e-mail e telefone nao entram aqui nem sao
+    // guardados neste aparelho.
+    var destino = {
+      nome: v.nome, cep: v.cep, rua: v.rua, numero: v.numero,
+      complemento: v.complemento, bairro: v.bairro, cidade: v.cidade, uf: v.uf
+    };
     var corpo = {
       sku: item.sku,
       opcao: opcao,
@@ -517,7 +1002,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
         return falhar((d && d.erro) || 'Não foi possível gerar o PIX agora e nada foi cobrado. '
           + 'Tente de novo em alguns instantes ou escreva para contato@checkpointbr.sbs.');
       }
-      mostrarPix(d);
+      mostrarPix(d, false, destino);
     }).catch(function () {
       falhar('Não conseguimos falar com o servidor e nada foi cobrado. '
         + 'Confira a conexão e toque de novo em “Gerar código PIX”.');
@@ -532,7 +1017,49 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     } catch (_) { return ''; }
   }
 
-  function mostrarPix(d, retomado) {
+  function cepBr(c) {
+    var s = (c || '').replace(/\D/g, '');
+    return s.length === 8 ? s.slice(0, 5) + '-' + s.slice(5) : (c || '');
+  }
+
+  // Para onde a peca vai. Sem isto o comprador gerava o codigo e perdia o
+  // endereco de vista: CEP errado so se resolvia deixando a cobranca vencer.
+  function mostrarEntrega(e) {
+    var caixa = $('#pd-entrega');
+    if (!e || !e.rua) { caixa.hidden = true; return; }
+    var h = '<strong>' + esc(e.nome) + '</strong><br>';
+    h += esc(e.rua) + ', ' + esc(e.numero);
+    if (e.complemento) { h += ' &mdash; ' + esc(e.complemento); }
+    h += '<br>' + esc(e.bairro) + ' &mdash; ' + esc(e.cidade) + '/' + esc(e.uf);
+    h += '<br>CEP ' + esc(cepBr(e.cep));
+    $('#pd-entrega-txt').innerHTML = h;
+    caixa.hidden = false;
+  }
+
+  // O quadrado do PIX e desenhado por esta pagina, sem pedir imagem a ninguem:
+  // mandar o codigo de cobranca para um desenhista de fora entrega o pagamento a
+  // um terceiro. Se por qualquer motivo nao der para desenhar, o copia e cola
+  // continua na tela e a compra segue.
+  function desenharQr(codigo) {
+    var caixa = $('#pd-qr'), cv = $('#pd-qr-canvas'), m = null;
+    if (!cv || !cv.getContext) { caixa.hidden = true; return; }
+    try { m = cpQrMatriz(codigo); } catch (_) { m = null; }
+    if (!m) { caixa.hidden = true; return; }
+    var borda = 4, ponto = 6, n = m.length, lado = (n + borda * 2) * ponto, x, y;
+    cv.width = lado; cv.height = lado;
+    var g = cv.getContext('2d');
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, lado, lado);
+    g.fillStyle = '#000000';
+    for (y = 0; y < n; y++) {
+      for (x = 0; x < n; x++) {
+        if (m[y][x]) { g.fillRect((x + borda) * ponto, (y + borda) * ponto, ponto, ponto); }
+      }
+    }
+    caixa.hidden = false;
+  }
+
+  function mostrarPix(d, retomado, ent) {
+    entrega = ent || null;
     $('#pd-form').hidden = true;
     $('#pd-item').hidden = true;
     var s = $('#pd-pix');
@@ -542,6 +1069,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       d.frete_br + ' — entrega em ' + d.prazo;
     $('#pd-codigo').value = d.qrcode;
     $('#pd-pedido').textContent = d.pedido;
+    desenharQr(d.qrcode);
+    mostrarEntrega(entrega);
 
     // Validade: vem do proprio pedido, nao de um prazo escrito a mao.
     var t = prazoEm(d), val = $('#pd-validade');
@@ -558,7 +1087,9 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       $('#pd-guardado').textContent = 'Retomamos o código que você já tinha gerado neste '
         + 'aparelho — não é uma cobrança nova.';
     }
-    guardar(d);
+    atual = d;
+    guardar(d, entrega);
+    avisarAbertos();
     try { s.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) {}
 
     // Ja constava pago antes de recarregar: mostra o pedido fechado, sem
@@ -569,26 +1100,63 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 
   function marcarPago(d) {
     d.__pago = true;
-    guardar(d);
-    if (poll) { clearInterval(poll); }
+    guardar(d, entrega);
+    if (poll) { clearInterval(poll); poll = null; }
     $('#pd-espera').hidden = true;
     $('#pd-guardado').hidden = true;
     $('#pd-validade').hidden = true;
     $('#pd-vencido').hidden = true;
+    $('#pd-editar').disabled = true;
+    $('#pd-editar-nota').hidden = true;
     $('#pd-codigo').disabled = true;
     $('#pd-copiar').disabled = true;
     $('#pd-pago').hidden = false;
   }
 
   function marcarVencido() {
-    esquecer();
+    if (atual) { esquecer(atual.pedido); }
     $('#pd-espera').hidden = true;
     $('#pd-guardado').hidden = true;
     $('#pd-validade').hidden = true;
     $('#pd-vencido').hidden = false;
     $('#pd-codigo').disabled = true;
     $('#pd-copiar').disabled = true;
+    $('#pd-editar').disabled = true;
+    $('#pd-editar-nota').hidden = true;
   }
+
+  // Voltar ao formulario para arrumar o endereco. A cobranca que ja esta aberta
+  // NAO e apagada: ela continua guardada e vence sozinha se ninguem pagar.
+  $('#pd-editar').addEventListener('click', function () {
+    if (poll) { clearInterval(poll); poll = null; }
+    if (autoRetry) { clearTimeout(autoRetry); autoRetry = null; }
+    $('#pd-pix').hidden = true;
+    $('#pd-item').hidden = false;
+    $('#pd-form').hidden = false;
+    $('#pd-btn').disabled = false;
+    $('#pd-btn').textContent = 'Gerar código PIX';
+    var f = $('#pd-form'), campos = ['nome', 'cep', 'rua', 'numero', 'complemento',
+                                     'bairro', 'cidade', 'uf'], i;
+    if (entrega) {
+      for (i = 0; i < campos.length; i++) {
+        if (f[campos[i]] && !f[campos[i]].value.trim() && entrega[campos[i]]) {
+          f[campos[i]].value = entrega[campos[i]];
+        }
+      }
+    }
+    var msg = 'Corrija o endereço e gere o código de novo. O código anterior continua guardado e '
+      + 'continua valendo até vencer: pague só um dos dois e deixe o outro vencer — código não '
+      + 'pago não cobra nada.';
+    if (f.cpf && !f.cpf.value.trim()) {
+      msg += ' Confirme também o e-mail, o CPF e o telefone: eles não ficam guardados neste '
+        + 'aparelho.';
+    }
+    var e = $('#pd-erro');
+    e.textContent = msg;
+    e.hidden = false;
+    avisarAbertos();
+    try { $('#pd-form').scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) {}
+  });
 
   $('#pd-copiar').addEventListener('click', function () {
     var c = $('#pd-codigo');
@@ -633,7 +1201,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   <div class="wrap">
     <div>
       <p class="foot-logo">Checkpoint BR</p>
-      <p>Loja brasileira de jogos digitais. Vendemos reserva de lançamento e vale-presente, com código de resgate entregue por e-mail. O blog é escrito pela nossa própria equipe.</p>
+      <p>Loja brasileira de jogos. Reserva de lançamento e vale-presente são combinados pelo atendimento; camiseta, caneca e pôster da nossa linha têm compra direta e envio para todo o Brasil. O blog é escrito pela nossa própria equipe.</p>
     </div>
     <div>
       <h4>Loja</h4>
@@ -649,7 +1217,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <ul>
         <li><a href="/blog.html">Blog</a></li>
         <li><a href="/glossario.html">Glossário</a></li>
-        <li><a href="/avisos.html">Aviso por e-mail</a></li>
+        <li><a href="/avisos.html">Acompanhar o pedido</a></li>
       </ul>
     </div>
     <div>
