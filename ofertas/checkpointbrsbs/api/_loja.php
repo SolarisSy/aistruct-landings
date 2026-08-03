@@ -91,6 +91,38 @@ function cp_loja_texto($v, int $max): string
     return cp_corta(trim((string) $v), $max);
 }
 
+/**
+ * CPF: confere os DOIS digitos verificadores.
+ *
+ * Contar 11 digitos nao e validar. Documento digitado errado passa no tamanho,
+ * a cobranca nasce, e o processador de pagamento — que valida de verdade —
+ * substitui em silencio o numero pelo do cadastro que ele ja tem para aquele
+ * e-mail. Medido: a cobranca foi gravada no documento de OUTRA pessoa, e a
+ * compra seguinte com o mesmo e-mail herdou o cadastro errado. Por isso o
+ * documento tem de ser recusado AQUI, antes de qualquer chamada externa.
+ *
+ * As sequencias de digito repetido (000…, 111…, 999…) fecham a conta do
+ * verificador por coincidencia aritmetica — sao recusadas a parte.
+ */
+function cp_loja_cpf_ok(string $cpf): bool
+{
+    if (strlen($cpf) !== 11 || preg_match('/^(\d)\1{10}$/', $cpf)) {
+        return false;
+    }
+    // Primeiro verificador usa os 9 primeiros digitos (pesos 10..2); o segundo
+    // usa os 10 primeiros (pesos 11..2). Resto 10 vale 0.
+    foreach ([9, 10] as $pos) {
+        $soma = 0;
+        for ($i = 0; $i < $pos; $i++) {
+            $soma += ((int) $cpf[$i]) * (($pos + 1) - $i);
+        }
+        if (((($soma * 10) % 11) % 10) !== (int) $cpf[$pos]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 /** Devolve [dados limpos, erros por campo]. */
 function cp_loja_valida(array $cliente, array $entrega): array
 {
@@ -112,11 +144,16 @@ function cp_loja_valida(array $cliente, array $entrega): array
     if (cp_tamanho($d['nome']) < 3) {
         $e['nome'] = 'Escreva seu nome completo.';
     }
+    // O e-mail identifica o pedido no atendimento e vai junto da cobranca. NAO
+    // prometer envio por aqui: esta oferta nao tem caminho de envio de e-mail
+    // (ver o bloco "Aviso ao comprador" no fim deste arquivo).
     if (!filter_var($d['email'], FILTER_VALIDATE_EMAIL)) {
-        $e['email'] = 'Escreva um e-mail válido — é nele que o código de acompanhamento chega.';
+        $e['email'] = 'Escreva um e-mail válido — é por ele que o atendimento localiza seu pedido.';
     }
-    if (strlen($d['cpf']) !== 11) {
-        $e['cpf'] = 'O CPF precisa ter 11 dígitos.';
+    if (!cp_loja_cpf_ok($d['cpf'])) {
+        $e['cpf'] = strlen($d['cpf']) !== 11
+            ? 'O CPF precisa ter 11 dígitos.'
+            : 'Confira o CPF: esses números não formam um documento válido.';
     }
     if (strlen($d['telefone']) < 10 || strlen($d['telefone']) > 11) {
         $e['telefone'] = 'Informe DDD e número, com 10 ou 11 dígitos.';
@@ -144,12 +181,29 @@ function cp_loja_valida(array $cliente, array $entrega): array
 
 // ── Registro do pedido: mascara aplicada na ESCRITA ──────────────────────────
 // O endereco que entrega o pacote viaja no corpo enviado ao processador de
-// pagamento, que e onde o pedido e conferido e despachado. O que fica gravado
-// aqui e um resumo NAO identificavel, para auditoria: quem le este arquivo nao
-// consegue saber quem comprou nem onde mora.
+// pagamento. O que fica gravado aqui e um resumo NAO identificavel, para
+// auditoria: quem le este arquivo nao consegue saber quem comprou nem onde mora.
 //
 // A mascara e aplicada ANTES de gravar, nunca na leitura — assim nao depende de
 // quem le estar do lado certo de nenhum portao.
+//
+// TENSAO RESOLVIDA — "se o registro nasce mascarado, como despachar?"
+// ---------------------------------------------------------------------------
+// Quem despacha precisa do endereco REAL; este registro, de proposito, nunca o
+// tem. As duas exigencias so colidem se o endereco tiver de estar GUARDADO
+// deste lado — e ele nao precisa estar.
+//
+//   • este arquivo continua sendo o INDICE do pedido: numero, produto, valor,
+//     cidade/UF e iniciais. Serve para listar e conferir, nunca para
+//     identificar. Vazamento de disco continua nao entregando comprador.
+//   • o endereco completo continua vivendo no pedido registrado no processador
+//     de pagamento (campo `metadata`), de onde e LIDO NA HORA do despacho por
+//     loja_pedidos.php — rota fechada por segredo, que so devolve endereco a
+//     quem traz o segredo de operacao.
+//
+// Resultado: PII em transito para o operador autenticado, nunca PII em repouso
+// deste lado. Nenhuma linha abaixo grava endereco, nome, documento ou telefone
+// legiveis — e nenhuma deve passar a gravar.
 function cp_loja_inicial(string $t): string
 {
     $ps = preg_split('/\s+/u', trim($t), -1, PREG_SPLIT_NO_EMPTY);
@@ -221,12 +275,102 @@ function cp_loja_teto_ok(): bool
 // codigo de cada peca no catalogo do parceiro ainda nao existe — entao aqui nao
 // se inventa identificador nem se chama endereco nenhum.
 //
-// Enquanto isso o despacho e feito a partir do painel do processador de
-// pagamento, que recebe o endereco completo no corpo da cobranca. Quando a
-// credencial existir, esta funcao passa a ser chamada no evento de pagamento
-// confirmado — e sera preciso, nesse momento, decidir de onde ela le o endereco
-// (o registro local acima e mascarado de proposito).
+// Enquanto isso o despacho e MANUAL: o operador abre loja_pedidos.php com o
+// segredo de operacao, le o endereco e posta. Nada nesta funcao esta ligado.
+//
+// Quando a credencial existir, esta funcao passa a ser chamada no evento de
+// pagamento confirmado e le o endereco pela MESMA porta que o operador usa
+// (cp_loja_entrega_remota), sem precisar guardar endereco em disco.
 function cp_loja_producao(array $pedido): bool
 {
     return false;   // dormente: sem credencial, nada e enviado
+}
+
+// ── Aviso ao comprador: ponto de integracao PENDENTE ─────────────────────────
+// NAO EXISTE caminho de envio de e-mail nesta oferta. Verificado em 03/08/2026,
+// antes de escrever qualquer linha que dependesse disso:
+//
+//   • nenhum segredo de SMTP em profiles/*.env (o modelo .env.example tem os
+//     campos, nenhum perfil os preenche);
+//   • o servico de e-mail da conta de nuvem esta em modo restrito
+//     (ProductionAccessEnabled=false) e sem nenhum remetente verificado — so
+//     conseguiria escrever para endereco previamente cadastrado, nunca para o
+//     e-mail de um comprador qualquer.
+//
+// Por isso NENHUMA tela promete e-mail: a pagina do pedido manda guardar o
+// numero e falar com o atendimento, que e o que o sistema de fato faz. Prometer
+// o que nao acontece e pior que nao prometer.
+//
+// Quando existir um caminho de envio, e AQUI que ele entra — chamado a partir
+// do evento de pagamento confirmado (api/webhook.php), com o numero do pedido,
+// o que foi comprado e o prazo. Ligar isto obriga a rever, na mesma mudanca, o
+// texto da tela de pagamento confirmado em scripts/_checkpoint_loja_fisica.py.
+function cp_loja_aviso_comprador(array $pedido): bool
+{
+    return false;   // dormente: sem caminho de envio, nada e prometido nem enviado
+}
+
+// ── Endereco de entrega: lido do pedido, nunca guardado ──────────────────────
+// Le o pedido no processador de pagamento e devolve o endereco que o comprador
+// digitou (que viaja em `metadata`, porque o formato de endereco do proprio
+// gateway descarta bairro e complemento e vem vazio na consulta).
+//
+// Devolve null quando nao ha credencial, quando o pedido nao existe ou quando a
+// resposta nao traz o bloco de entrega. Nada e gravado em disco aqui.
+function cp_loja_entrega_remota(string $tx_id): ?array
+{
+    $pk = cp_env('PAYSHARK_API_PUBLIC_KEY');
+    $sk = cp_env('PAYSHARK_API_SECRET_KEY');
+    if ($pk === '' || $sk === '' || $tx_id === '') {
+        return null;
+    }
+
+    $ch = curl_init(cp_api_base() . '/v1/transactions/' . rawurlencode($tx_id));
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_TIMEOUT        => 20,
+        CURLOPT_HTTPHEADER     => [
+            'Authorization: Basic ' . base64_encode($pk . ':' . $sk),
+            'Accept: application/json',
+        ],
+    ]);
+    $resp = curl_exec($ch);
+    $http = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($resp === false || $http >= 400) {
+        return null;
+    }
+    $tx = json_decode((string) $resp, true);
+    if (!is_array($tx)) {
+        return null;
+    }
+
+    $meta = $tx['metadata'] ?? null;
+    if (!is_array($meta)) {
+        $meta = json_decode((string) $meta, true);
+    }
+    $ent = is_array($meta) ? ($meta['entrega'] ?? null) : null;
+    if (!is_array($ent)) {
+        return null;
+    }
+
+    $cli = is_array($tx['customer'] ?? null) ? $tx['customer'] : [];
+    return [
+        'status'      => strtolower((string) ($tx['status'] ?? '')),
+        'nome'        => (string) ($cli['name'] ?? ''),
+        'email'       => (string) ($cli['email'] ?? ''),
+        'telefone'    => (string) ($ent['telefone'] ?? ($cli['phone'] ?? '')),
+        'cep'         => (string) ($ent['cep'] ?? ''),
+        'rua'         => (string) ($ent['rua'] ?? ''),
+        'numero'      => (string) ($ent['numero'] ?? ''),
+        'complemento' => (string) ($ent['complemento'] ?? ''),
+        'bairro'      => (string) ($ent['bairro'] ?? ''),
+        'cidade'      => (string) ($ent['cidade'] ?? ''),
+        'uf'          => (string) ($ent['uf'] ?? ''),
+        'sku'         => (string) ($meta['sku'] ?? ''),
+        'opcao'       => (string) ($meta['opcao'] ?? ''),
+        'pedido'      => (string) ($meta['pedido'] ?? ''),
+    ];
 }

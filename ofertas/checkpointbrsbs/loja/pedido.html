@@ -108,8 +108,12 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .pd-pix{margin-top:30px;border-width:2px}
 .pd-codigo{width:100%;font-family:var(--font-mono);font-size:.82rem;padding:14px;border:1px solid var(--ink);background:var(--paper);word-break:break-all;min-height:96px;color:var(--ink)}
 .pd-pago{border-left:6px solid var(--forest);padding:16px 20px;background:#e6efe9;margin-top:18px}
+.pd-pago p:last-child{margin-bottom:0}
 .pd-passos{padding-left:20px;color:#3a372c}
 .pd-passos li{margin-bottom:7px}
+.pd-numero{border:1px dashed var(--ink);padding:12px 16px;margin:0 0 16px;overflow-wrap:anywhere}
+.pd-numero strong{font-family:var(--font-mono);font-size:.92rem;letter-spacing:.02em}
+.pd-numero span{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;color:#6b6752;line-height:1.7}
 @media (max-width:880px){.pd-grid{grid-template-columns:1fr}}
 @media (max-width:560px){.pd-dupla,.pd-tripla{grid-template-columns:1fr}}
 
@@ -140,7 +144,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 <header class="masthead">
   <div class="wrap masthead-row">
     <a href="/" class="logo">Check<span>point</span> BR</a>
-    <p class="masthead-meta">Loja de jogos digitais &mdash; reserva e pr&eacute;-venda<br>Chave enviada por e-mail &middot; atendimento de segunda a sexta</p>
+    <p class="masthead-meta">Loja de jogos digitais e da linha f&iacute;sica da casa<br>Reserva, pr&eacute;-venda, camiseta, caneca e p&ocirc;ster &middot; atendimento de segunda a sexta</p>
   </div>
   <nav class="wrap primary">
     <a href="/">Início</a>
@@ -197,6 +201,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
           <input type="text" name="numero" autocomplete="address-line2" required maxlength="12">
         </label>
       </div>
+      <p class="pd-nota" id="pd-cep-nota">Digite o CEP e o restante do endereço é preenchido
+      sozinho &mdash; confira e corrija o que precisar.</p>
       <label class="pd-campo" id="c-rua">Rua ou avenida
         <input type="text" name="rua" autocomplete="address-line1" required maxlength="120">
       </label>
@@ -225,6 +231,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <h2>Pague com PIX</h2>
     <div class="pd-total"><span>Valor da cobrança</span><strong id="pd-pix-valor">&mdash;</strong></div>
     <p id="pd-pix-item" style="margin-top:14px"></p>
+    <p class="pd-numero">Número do pedido: <strong id="pd-pedido">&mdash;</strong><br>
+    <span>Anote antes de sair &mdash; é com ele que o atendimento encontra sua compra.</span></p>
     <ol class="pd-passos">
       <li>Abra o aplicativo do seu banco e escolha <strong>PIX &rsaquo; Copia e Cola</strong>.</li>
       <li>Cole o código abaixo e confira se o valor bate com o desta página.</li>
@@ -234,11 +242,19 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <p style="margin-top:12px">
       <button class="btn btn-ghost" type="button" id="pd-copiar">Copiar código</button>
     </p>
+    <p class="pd-nota" id="pd-validade" hidden></p>
+    <p class="pd-nota" id="pd-guardado">Este código fica guardado neste aparelho: se a página
+    recarregar ou o navegador fechar, ele reaparece aqui até vencer.</p>
     <p class="pd-nota" id="pd-espera">Aguardando a confirmação do banco&hellip;</p>
     <div class="pd-pago" id="pd-pago" hidden>
-      <p><strong>Pagamento confirmado.</strong> O acompanhamento do envio vai para o e-mail
-      informado. Guarde o número do pedido: <span id="pd-pedido" class="pd-nota"></span></p>
+      <p><strong>Pagamento confirmado.</strong> Seu pedido entrou na fila de produção e o prazo
+      de entrega passa a contar de agora.</p>
+      <p>Não enviamos e-mail automático de acompanhamento. Guarde o número do pedido acima e
+      escreva para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a> quando quiser saber onde está o pacote
+      &mdash; respondemos de segunda a sexta.</p>
     </div>
+    <p class="pd-nota" id="pd-vencido" hidden>Este código PIX venceu e nada foi cobrado.
+    <a href="/loja/">Volte à loja</a> para gerar um novo pedido.</p>
   </section>
 </main>
 <script>
@@ -250,6 +266,60 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : t; return d.innerHTML; }
 
   var sku = (new URLSearchParams(location.search).get('sku') || '').replace(/[^a-z0-9\-]/g, '');
+
+  // ── CPF: os dois digitos verificadores ─────────────────────────────────────
+  // Aviso rapido para quem digitou errado. A conferencia que vale e a do
+  // servidor, refeita antes de abrir qualquer cobranca.
+  function cpfOk(v) {
+    var c = (v || '').replace(/\D/g, ''), i, pos, soma;
+    if (c.length !== 11 || /^(\d)\1{10}$/.test(c)) { return false; }
+    for (pos = 9; pos <= 10; pos++) {
+      soma = 0;
+      for (i = 0; i < pos; i++) { soma += parseInt(c.charAt(i), 10) * ((pos + 1) - i); }
+      if ((((soma * 10) % 11) % 10) !== parseInt(c.charAt(pos), 10)) { return false; }
+    }
+    return true;
+  }
+
+  // ── Guardar o PIX aberto neste aparelho ────────────────────────────────────
+  // Recarregar a pagina deixava o comprador sem o codigo e sem o numero do
+  // pedido, com a cobranca ja aberta do outro lado. Fica guardado so o que a
+  // propria tela mostra (codigo, valores e numero do pedido) — nenhum dado
+  // pessoal, nenhum endereco.
+  var GUARDA = 'cpbr.pedido.pix';
+  function guardar(d) {
+    try { localStorage.setItem(GUARDA, JSON.stringify({ sku: sku, d: d, em: Date.now() })); } catch (_) {}
+  }
+  function esquecer() { try { localStorage.removeItem(GUARDA); } catch (_) {} }
+  function guardado() {
+    var raw = null;
+    try { raw = localStorage.getItem(GUARDA); } catch (_) { return null; }
+    if (!raw) { return null; }
+    var g = null;
+    try { g = JSON.parse(raw); } catch (_) { esquecer(); return null; }
+    if (!g || g.sku !== sku || !g.d || !g.d.qrcode) { return null; }
+    // Pedido pago continua guardado de proposito: o comprador precisa do numero
+    // do pedido depois, e nao ha e-mail que o repita para ele.
+    if (!g.d.__pago && venceu(g.d)) {
+      // Vencido enquanto a pagina estava fechada: volta ao formulario, mas
+      // dizendo por que — sumir em silencio parece que o pedido evaporou.
+      esquecer();
+      avisoVencido = true;
+      return null;
+    }
+    return g.d;
+  }
+  var avisoVencido = false;
+  function venceu(d) {
+    if (!d || d.__pago) { return false; }
+    var t = prazoEm(d);
+    return t !== null && Date.now() > t;
+  }
+  function prazoEm(d) {
+    if (!d || !d.expira) { return null; }
+    var t = Date.parse(d.expira);
+    return isNaN(t) ? null : t;
+  }
 
   function falhaCatalogo() {
     $('#pd-item').innerHTML = '<h2>Produto não encontrado</h2>' +
@@ -265,6 +335,17 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       item = d.itens[0];
       opcao = (item.opcoes && item.opcoes.length) ? item.opcoes[0] : '';
       pintar();
+      // Cobranca ja aberta neste aparelho? Volta a tela do PIX em vez de pedir
+      // tudo de novo (e de abrir uma segunda cobranca para a mesma compra).
+      var antigo = guardado();
+      if (antigo) {
+        mostrarPix(antigo, true);
+      } else if (avisoVencido) {
+        var e = $('#pd-erro');
+        e.textContent = 'O código PIX do seu pedido anterior venceu e nada foi cobrado. '
+          + 'Preencha os dados de novo para gerar um código válido.';
+        e.hidden = false;
+      }
     })
     .catch(falhaCatalogo);
 
@@ -293,6 +374,50 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     if (sel) { sel.addEventListener('change', function (ev) { opcao = ev.target.value; }); }
   }
 
+  // ── CEP preenche o endereco ────────────────────────────────────────────────
+  // Comodidade pura: falha em silencio e todos os campos seguem editaveis. Nada
+  // aqui e obrigatorio para fechar o pedido — quem confere o endereco e o
+  // servidor, no envio.
+  (function () {
+    var f = $('#pd-form'), nota = $('#pd-cep-nota');
+    if (!f || !f.cep) { return; }
+    var ultimo = '', buscando = false;
+
+    function aplicar(j) {
+      if (!j || j.erro) {
+        if (nota) { nota.textContent = 'Não encontramos esse CEP — escreva o endereço à mão.'; }
+        return;
+      }
+      var mapa = { rua: j.logradouro, bairro: j.bairro, cidade: j.localidade, uf: j.uf };
+      for (var k in mapa) {
+        if (Object.prototype.hasOwnProperty.call(mapa, k) && f[k] && mapa[k]) {
+          if (!f[k].value.trim()) { f[k].value = mapa[k]; }
+        }
+      }
+      if (nota) { nota.textContent = 'Endereço preenchido pelo CEP — confira e corrija o que precisar.'; }
+      if (f.numero && !f.numero.value.trim()) { try { f.numero.focus(); } catch (_) {} }
+    }
+
+    function buscar() {
+      var c = (f.cep.value || '').replace(/\D/g, '');
+      if (c.length !== 8 || c === ultimo || buscando) { return; }
+      ultimo = c; buscando = true;
+      if (nota) { nota.textContent = 'Procurando o endereço do CEP…'; }
+      fetch('https://viacep.com.br/ws/' + c + '/json/', { headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(aplicar)
+        .catch(function () {
+          if (nota) { nota.textContent = 'Não deu para consultar o CEP agora — escreva o endereço à mão.'; }
+        })
+        .then(function () { buscando = false; });
+    }
+
+    f.cep.addEventListener('blur', buscar);
+    f.cep.addEventListener('input', function () {
+      if ((f.cep.value || '').replace(/\D/g, '').length === 8) { buscar(); }
+    });
+  })();
+
   // ── envio do pedido ────────────────────────────────────────────────────────
   function marcarErro(id, msg) {
     var el = $(id); if (!el) { return; }
@@ -319,7 +444,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   var OBRIGATORIOS = [
     ['nome', '#c-nome', 'Escreva seu nome completo.'],
     ['email', '#c-email', 'Escreva um e-mail válido.'],
-    ['cpf', '#c-cpf', 'O CPF precisa ter 11 dígitos.'],
+    ['cpf', '#c-cpf', 'Informe o CPF do comprador.'],
     ['telefone', '#c-telefone', 'Informe DDD e número.'],
     ['cep', '#c-cep', 'O CEP precisa ter 8 dígitos.'],
     ['rua', '#c-rua', 'Escreva o nome da rua ou avenida.'],
@@ -347,8 +472,11 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     if (v.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)) {
       marcarErro('#c-email', 'Escreva um e-mail válido.'); ruim = true;
     }
-    if (v.cpf && v.cpf.replace(/\D/g, '').length !== 11) {
-      marcarErro('#c-cpf', 'O CPF precisa ter 11 dígitos.'); ruim = true;
+    if (v.cpf && !cpfOk(v.cpf)) {
+      marcarErro('#c-cpf', v.cpf.replace(/\D/g, '').length !== 11
+        ? 'O CPF precisa ter 11 dígitos.'
+        : 'Confira o CPF: esses números não formam um documento válido.');
+      ruim = true;
     }
     if (v.cep && v.cep.replace(/\D/g, '').length !== 8) {
       marcarErro('#c-cep', 'O CEP precisa ter 8 dígitos.'); ruim = true;
@@ -397,7 +525,14 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   });
 
   // ── tela do PIX ────────────────────────────────────────────────────────────
-  function mostrarPix(d) {
+  function quando(t) {
+    try {
+      return new Date(t).toLocaleString('pt-BR',
+        { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    } catch (_) { return ''; }
+  }
+
+  function mostrarPix(d, retomado) {
     $('#pd-form').hidden = true;
     $('#pd-item').hidden = true;
     var s = $('#pd-pix');
@@ -407,8 +542,52 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       d.frete_br + ' — entrega em ' + d.prazo;
     $('#pd-codigo').value = d.qrcode;
     $('#pd-pedido').textContent = d.pedido;
+
+    // Validade: vem do proprio pedido, nao de um prazo escrito a mao.
+    var t = prazoEm(d), val = $('#pd-validade');
+    if (t !== null) {
+      var txt = quando(t);
+      val.textContent = txt ? 'Este código vale até ' + txt + '. Depois disso ele deixa de '
+        + 'funcionar e nada é cobrado.' : '';
+      val.hidden = !txt;
+    } else {
+      val.hidden = true;
+    }
+
+    if (retomado) {
+      $('#pd-guardado').textContent = 'Retomamos o código que você já tinha gerado neste '
+        + 'aparelho — não é uma cobrança nova.';
+    }
+    guardar(d);
     try { s.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_) {}
-    if (d.id) { acompanhar(d.id); }
+
+    // Ja constava pago antes de recarregar: mostra o pedido fechado, sem
+    // reabrir o passo a passo do pagamento nem conferir de novo.
+    if (d.__pago) { return marcarPago(d); }
+    if (d.id) { acompanhar(d.id, d); }
+  }
+
+  function marcarPago(d) {
+    d.__pago = true;
+    guardar(d);
+    if (poll) { clearInterval(poll); }
+    $('#pd-espera').hidden = true;
+    $('#pd-guardado').hidden = true;
+    $('#pd-validade').hidden = true;
+    $('#pd-vencido').hidden = true;
+    $('#pd-codigo').disabled = true;
+    $('#pd-copiar').disabled = true;
+    $('#pd-pago').hidden = false;
+  }
+
+  function marcarVencido() {
+    esquecer();
+    $('#pd-espera').hidden = true;
+    $('#pd-guardado').hidden = true;
+    $('#pd-validade').hidden = true;
+    $('#pd-vencido').hidden = false;
+    $('#pd-codigo').disabled = true;
+    $('#pd-copiar').disabled = true;
   }
 
   $('#pd-copiar').addEventListener('click', function () {
@@ -425,19 +604,24 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     $('#pd-copiar').textContent = ok ? 'Código copiado' : 'Selecione e copie o código acima';
   });
 
-  function acompanhar(id) {
+  function acompanhar(id, dados) {
+    if (venceu(dados)) { return marcarVencido(); }
     var fim = Date.now() + 30 * 60 * 1000;
+    if (poll) { clearInterval(poll); }
     poll = setInterval(function () {
-      if (Date.now() > fim) { clearInterval(poll); $('#pd-espera').textContent =
-        'Se você já pagou, a confirmação chega por e-mail assim que o banco liberar.'; return; }
+      if (venceu(dados)) { clearInterval(poll); return marcarVencido(); }
+      if (Date.now() > fim) {
+        clearInterval(poll);
+        // Nao ha aviso automatico por e-mail: o que resta e recarregar (o
+        // codigo continua guardado) ou falar com o atendimento.
+        $('#pd-espera').textContent = 'Paramos de conferir automaticamente. Se você já pagou, '
+          + 'recarregue esta página para conferir de novo — o código continua guardado neste aparelho.';
+        return;
+      }
       fetch('/api/loja_status.php?id=' + encodeURIComponent(id), { headers: { Accept: 'application/json' } })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (d) {
-          if (d && d.pago) {
-            clearInterval(poll);
-            $('#pd-espera').hidden = true;
-            $('#pd-pago').hidden = false;
-          }
+          if (d && d.pago) { clearInterval(poll); marcarPago(dados); }
         }).catch(function () {});
     }, 6000);
   }
@@ -480,7 +664,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     </div>
   </div>
   <div class="legal-bar">
-    <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais e blog</span>
+    <span>&copy; 2026 Checkpoint BR &middot; loja de jogos digitais, linha f&iacute;sica e blog</span>
     <span>Atendimento: <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a></span>
   </div>
   <script src="/assets/session.js"></script>

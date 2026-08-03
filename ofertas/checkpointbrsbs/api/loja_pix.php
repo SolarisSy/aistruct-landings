@@ -10,9 +10,10 @@
  * de dinheiro no corpo, ele e simplesmente ignorado: o valor sai de
  * cp_loja_item($sku), a MESMA funcao que alimenta a vitrine.
  *
- * O endereco completo vai no corpo enviado ao processador de pagamento — e de
- * la que sai o despacho. O que fica gravado deste lado e um resumo mascarado,
- * sem nome, sem documento e sem endereco identificavel.
+ * O endereco completo vai no corpo enviado ao processador de pagamento e e de
+ * la que quem despacha o le, na hora, por api/loja_pedidos.php. O que fica
+ * gravado deste lado e so um resumo mascarado — sem nome, sem documento e sem
+ * endereco identificavel.
  *
  * A origem da visita (identificador do clique + utm) viaja em externalRef e em
  * metadata, para que a venda volte ao anuncio que a gerou.
@@ -171,6 +172,9 @@ if ($http >= 400 || !is_array($tx)) {
 
 $tx_id  = (string) ($tx['id'] ?? '');
 $qrcode = (string) (($tx['pix'] ?? [])['qrcode'] ?? '');
+// Prazo de validade do codigo, como o proprio gateway devolve. A tela mostra
+// este valor em vez de repetir um prazo escrito a mao (que envelheceria).
+$expira = (string) (($tx['pix'] ?? [])['expirationDate'] ?? '');
 if ($tx_id === '' || $qrcode === '') {
     cp_stat('loja_erro_gateway_sem_pix');
     cp_log('cobranca 2xx sem id/qrcode: ' . substr((string) $resp, 0, 200));
@@ -219,4 +223,5 @@ cp_json_out([
     'total_br' => $item['total_br'],
     'prazo'    => CP_LOJA_PRAZO,
     'pedido'   => $pedido_ref,
+    'expira'   => $expira,
 ]);

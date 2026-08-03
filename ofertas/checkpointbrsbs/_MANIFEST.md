@@ -311,3 +311,91 @@ decidir de onde essa função lê o endereço — o registro local é mascarado 
 - registro em disco varrido: **0** ocorrência de nome, e-mail, CPF, telefone, CEP ou rua
 - gerador rodado **2×** → sha256 idêntico nos 6 arquivos gerados
 - **0 overflow** em 24 páginas × 360/412 px
+
+## Rodada 8 (03/08) — os 3 bloqueadores do QA de compra real
+
+QA com compra real (3 PIX gerados, nenhum pago) apontou três defeitos que impediam a loja física
+de operar. Corrigidos **no gerador**, não no HTML.
+
+### 1. Quem pagasse não receberia nada — promessa removida, não implementada
+
+A tela prometia acompanhamento por e-mail. **Não existe caminho de envio de e-mail nesta oferta** —
+verificado ANTES de escrever qualquer linha:
+
+- `grep -l SMTP profiles/*.env` → **vazio**. Nenhum perfil tem segredo de SMTP (`.env.example` tem
+  os campos `TYPEBOT_SMTP_*`, nenhum perfil os preenche).
+- Serviço de e-mail da conta de nuvem: **`ProductionAccessEnabled=false`** (modo restrito) e
+  **nenhum remetente verificado**, em `us-east-1` e `sa-east-1`. Só escreveria para endereço
+  previamente cadastrado — nunca para o e-mail de um comprador qualquer.
+
+**Decisão que o teste determinou:** não implementar e não pedir credencial. A tela passou a dizer o
+que o sistema faz — guardar o número do pedido e falar com o atendimento. O ponto de envio fica
+isolado e desligado em `cp_loja_aviso_comprador()` (`api/_loja.php`); ligá-lo obriga a rever, na
+mesma mudança, o texto em `scripts/_checkpoint_loja_fisica.py`.
+
+### 2. O endereço agora chega a quem despacha — sem PII em repouso
+
+O processador de pagamento devolve `address`, `shipping` e `delivery` **vazios**: o endereço só
+sobrevive dentro do `metadata` do pedido.
+
+**Onde o operador olha:** `GET /api/loja_pedidos.php?token=<segredo>`
+
+| chamada | devolve |
+|---|---|
+| sem token, ou token errado | **404 seco** (fail-closed; não confirma que a rota existe) |
+| `?token=<segredo>` | índice **mascarado**: número, produto, valor, cidade/UF, iniciais |
+| `?token=<segredo>&completo=1` | + endereço de entrega em claro (teto de 12 leituras) |
+| `?token=<segredo>&completo=1&id=<cobrança>` | um pedido só |
+
+Segredo: `LOJA_PEDIDOS_TOKEN` se existir; senão `CHECKOUT_DEBUG_TOKEN` — que **já está no ambiente
+do serviço**, então a rota funciona sem provisionar nada.
+
+**A tensão "registro nasce mascarado × operador precisa do endereço real" foi resolvida assim:** o
+endereço **nunca é guardado deste lado**. O registro local continua sendo só índice mascarado; o
+endereço é **lido ao vivo** do pedido no processador (`cp_loja_entrega_remota()`) no momento do
+despacho e devolvido sem gravar. PII em trânsito para o operador autenticado, **zero PII em
+repouso** — vazamento do disco do servidor continua não entregando comprador.
+
+### 3. CPF inválido não passa mais
+
+`api/_loja.php` validava só `strlen() !== 11`. CPF errado passava, a cobrança nascia e o
+processador **trocava o documento em silêncio** pelo do cadastro que já tinha para aquele e-mail —
+cobrança gravada no documento de outra pessoa. Agora `cp_loja_cpf_ok()` confere **os dois dígitos
+verificadores** e recusa as sequências repetidas (`000…`, `111…`), que fecham a conta por
+coincidência aritmética. Mesma verificação no browser, por comodidade; quem decide é o servidor.
+
+### Menores da mesma rodada
+
+- Cabeçalho não diz mais "chave enviada por e-mail" — passou a cobrir as duas linhas.
+- Recarregar a página do PIX **não perde mais o código**: ele fica guardado no aparelho e volta
+  (sem abrir cobrança nova). A validade agora é exibida a partir do `pix.expirationDate` que o
+  próprio processador devolve, em vez de prazo escrito à mão.
+- **Busca de CEP** preenche rua/bairro/cidade/UF. Falha em silêncio, campos seguem editáveis.
+
+### O que NÃO foi tocado
+
+`index.php`, `go/index.php`, `ir/index.php`, `_priv/checkout.html`, `api/_gate.php`, `api/_cfg.php`,
+`api/pix.php`, `api/catalogo.php`, `api/status.php`, `api/pagina.php`, `api/webhook.php`, o
+`Dockerfile`, preço, SKU e `cp_loja_item()` — todos limpos no `git status`.
+
+### Validação da rodada
+
+`scripts/_checkpoint_loja_correcoes_qa.py` (**12/12**) + `scripts/_checkpoint_loja_pix_ui_qa.py`
+(**14/14**) + `scripts/_checkpoint_overflow_qa.py` — tudo contra gateway **FALSO**, nenhuma cobrança
+real criada.
+
+- 5 CPFs inválidos (inclusive `111.111.111-11`, o do QA) → **422, e o gateway nunca foi chamado**
+  (provado pelo log do mock não registrar nada); 3 CPFs válidos → cobrança nasce.
+- endereço: sem token **404** · com token **mascarado** · `completo=1` devolve o endereço inteiro ·
+  registro em disco varrido: **0** ocorrência de rua ou CPF.
+- reload da tela do PIX mantém código e número do pedido, com **1** cobrança só.
+- gerador rodado **3×** → sha256 idêntico nos 45 arquivos.
+- **0 overflow** em 24 páginas × 360/412 px, e também com a seção do PIX **aberta**.
+
+### Escalado (fora desta correção)
+
+A linha antiga (jogos digitais) promete **"chave/código de resgate entregue por e-mail"** em **42
+ocorrências, 25 páginas** — rodapé, meta description, páginas legais e a própria página de compra.
+Como não há caminho de envio de e-mail nenhum, essa promessa **também não tem lastro**. Trocar isso
+é redefinir o que a linha antiga vende e como entrega: **medido e escalado, não corrigido por conta
+própria.**
