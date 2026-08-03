@@ -125,7 +125,7 @@ function rj_excedeu_limite(string $ip): bool
 
 function rj_protocolo(): string
 {
-    return sprintf('RJ-%s-%04d', date('Ymd'), random_int(1000, 9999));
+    return sprintf('IE-%s-%04d', date('Ymd'), random_int(1000, 9999));
 }
 
 // ------------------------------------------------------------------- e-mail
@@ -320,7 +320,7 @@ function rj_rodape(): string
   <div class="wrap">
     <div class="foot-cols">
       <div>
-        <h5>RastreioJá</h5>
+        <h5>Indoor Encomendas</h5>
         <p>Serviço independente de acompanhamento e regularização de encomendas paradas, contratado
         diretamente por quem comprou. Atendimento por escrito, com registro de cada etapa.</p>
       </div>
@@ -340,7 +340,7 @@ function rj_rodape(): string
       </div>
       <div>
         <h5>Institucional</h5>
-        <a href="/sobre/">Sobre o RastreioJá</a>
+        <a href="/sobre/">Sobre a Indoor Encomendas</a>
         <a href="/perguntas-frequentes/">Perguntas frequentes</a>
         <a href="/contato/">Falar com o atendimento</a>
         <a href="/politica-de-privacidade/">Política de Privacidade</a>
@@ -351,7 +351,7 @@ function rj_rodape(): string
     <p class="foot-legal"><b>B2 Midia Digital LTDA</b> — CNPJ 11.749.368/0001-73 · Inscrição Estadual 336.931.201.110 (SP)<br>
     Rua João Gonçalves, 484 — Centro, Guarulhos/SP, CEP 07010-010<br>
     Contato formal da empresa: <a href="mailto:atendimento@indoorencomendas.com.br">atendimento@indoorencomendas.com.br</a> · (11) 2382-9631. Caso e protocolo continuam pelo <a href="/contato/">formulário</a>, que é onde cada etapa fica registrada com data.</p>
-    © 2026 RastreioJá, marca de B2 Midia Digital LTDA (nome fantasia B2Midia Indoor Digital) · Serviço de acompanhamento contratado pelo consumidor ·
+    © 2026 Indoor Encomendas, marca de B2 Midia Digital LTDA (nome fantasia B2Midia Indoor Digital) · Serviço de acompanhamento contratado pelo consumidor ·
     Última atualização desta página: 1 de agosto de 2026</div>
   </div>
 </footer>
@@ -387,7 +387,7 @@ function rj_responde(int $status, array $dados): void
     echo '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
         . '<meta name="viewport" content="width=device-width, initial-scale=1">'
         . '<meta name="robots" content="noindex">'
-        . '<title>' . $t . ' — RastreioJá</title>'
+        . '<title>' . $t . ' — Indoor Encomendas</title>'
         . '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' '
         . 'viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'10\' fill=\'%232f4f3e\'/%3E'
         . '%3Cpath d=\'M12 22l20-9 20 9-20 9z\' fill=\'%23f0ece1\'/%3E%3Cpath d=\'M12 22v20l20 9V31z\' '
@@ -408,7 +408,7 @@ function rj_responde(int $status, array $dados): void
         . '<a href="/perguntas-frequentes/">perguntas frequentes</a>.</p>'
         . '</div><aside class="aside">'
         . '<h4>Quem recebeu a sua mensagem</h4>'
-        . '<p>B2 Midia Digital LTDA — CNPJ 11.749.368/0001-73, Guarulhos/SP. RastreioJá é a marca sob '
+        . '<p>B2 Midia Digital LTDA — CNPJ 11.749.368/0001-73, Guarulhos/SP. Indoor Encomendas é a marca sob '
         . 'a qual ela presta este serviço.</p>'
         . '<a class="btn" href="/sobre/">Sobre a empresa</a>'
         . '</aside></div></main>'
