@@ -137,6 +137,45 @@ footer p{color:#c9c4b4;font-size:.85rem}
 @media (max-width:880px){.pd-grid{grid-template-columns:1fr}}
 @media (max-width:560px){.pd-dupla,.pd-tripla{grid-template-columns:1fr}}
 
+/* ── COMPROVANTE ───────────────────────────────────────────────────────────
+   Esta loja NAO envia e-mail (ver o comentario de PD_BODY). Quem paga um PIX,
+   que nao volta, precisava ficar com alguma prova: antes so havia a instrucao
+   "guarde o numero do pedido" — fechou a aba, perdeu a unica evidencia. O bloco
+   abaixo e essa prova, na propria tela, salvavel em PDF pela impressao do
+   navegador. Ele so aparece DEPOIS que o pagamento e confirmado. */
+.pd-recibo{border:2px solid var(--ink);background:#fff;padding:26px 28px;margin-top:26px;max-width:78ch}
+.rc-topo{border-bottom:3px solid var(--ink);padding-bottom:12px;margin-bottom:18px}
+.rc-marca{font-family:var(--font-display);font-size:1.7rem;text-transform:uppercase;letter-spacing:.5px;margin:0;line-height:1}
+.rc-tit{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--crimson);margin:8px 0 0}
+.rc-site{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;color:#54503f;margin:6px 0 0}
+.rc-dl{display:grid;grid-template-columns:auto 1fr;gap:9px 20px;margin:0 0 18px}
+.rc-dl dt{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:#54503f;margin:0}
+.rc-dl dd{margin:0;color:var(--ink);overflow-wrap:anywhere}
+.rc-dl .rc-forte{font-family:var(--font-display);font-size:1.25rem;line-height:1.1}
+.rc-entrega{border-top:1px solid var(--rule);padding-top:14px;margin-bottom:16px}
+.rc-entrega h3{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);margin:0 0 8px}
+.rc-entrega address{font-style:normal;color:var(--ink);line-height:1.6;overflow-wrap:anywhere}
+.rc-nota{border-top:1px solid var(--rule);padding-top:14px;font-size:.92rem;color:#3a372c;margin:0 0 16px}
+.rc-imprimir{margin:0}
+.rc-dica{margin-top:10px}
+@media (max-width:560px){.rc-dl{grid-template-columns:1fr;gap:2px}.rc-dl dd{margin-bottom:10px}.rc-imprimir .btn{width:100%;text-align:center}}
+
+/* Impressao = "salvar em PDF" no navegador. So o comprovante vai para o papel:
+   sem menu, sem formulario, sem codigo PIX e sem o botao de imprimir. */
+@media print{
+  body{background:#fff;color:#000}
+  body>header,body>footer{display:none!important}
+  main>*{display:none!important}
+  main>.pd-recibo{display:block!important}
+  .wrap.article-page{padding:0}
+  .pd-recibo{border:1px solid #000;max-width:none;margin:0;padding:0 0 12px;page-break-inside:avoid}
+  .rc-topo{border-bottom-width:2px}
+  .pd-recibo,.rc-topo,.rc-dl,.rc-entrega,.rc-nota{padding-left:14px;padding-right:14px}
+  .rc-imprimir,.rc-dica{display:none!important}
+  .rc-dl dt,.rc-dl dd,.rc-nota,.rc-entrega address{color:#000}
+  a{color:#000;border-bottom:none}
+}
+
 /* --- chrome v2 (loja) --- */
 a.logo{display:inline-block;color:var(--ink);border-bottom:none}
 a.logo:hover span{color:var(--forest)}
@@ -274,9 +313,12 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <button class="btn btn-ghost" type="button" id="pd-copiar">Copiar código</button>
     </p>
     <p class="pd-recebedor">No aplicativo do banco o recebedor aparece como
-    <strong>BRASIL COMPRAS ONLINE LTD</strong>, e não como Checkpoint BR: essa é a empresa que processa o
-    pagamento da loja. O nome ser diferente é o esperado &mdash; confira o valor e o número do
-    pedido acima antes de confirmar.</p>
+    <strong>BRASIL COMPRAS ONLINE LTD</strong>, e não como Checkpoint BR. Isso é o esperado, e a razão é
+    simples: a loja não emite a própria cobrança &mdash; quem emite este PIX é a empresa que
+    processa os pagamentos da loja, e é o nome dela, o titular da conta que recebe, que o seu
+    banco mostra. Acontece o mesmo em qualquer loja que use um processador de pagamento, e
+    também é esse nome que vai aparecer no seu extrato. O que confirma que a cobrança é a sua
+    são o valor e o número do pedido acima &mdash; confira os dois antes de confirmar.</p>
     <div class="pd-entrega" id="pd-entrega" hidden>
       <h3>Vai para este endereço</h3>
       <address id="pd-entrega-txt"></address>
@@ -293,12 +335,53 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <div class="pd-pago" id="pd-pago" hidden>
       <p><strong>Pagamento confirmado.</strong> Seu pedido entrou na fila de produção e o prazo
       de entrega passa a contar de agora.</p>
-      <p>Não enviamos e-mail automático de acompanhamento. Guarde o número do pedido acima e
-      escreva para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a> quando quiser saber onde está o pacote
-      &mdash; respondemos de segunda a sexta.</p>
+      <p>Não enviamos e-mail automático de acompanhamento &mdash; por isso o comprovante logo
+      abaixo é a sua prova da compra. <strong>Salve ou imprima antes de fechar esta aba:</strong>
+      ele não é reenviado por e-mail nem por mensagem.</p>
     </div>
     <p class="pd-nota" id="pd-vencido" hidden>Este código PIX venceu e nada foi cobrado.
     <a href="/loja/">Volte à loja</a> para gerar um novo pedido.</p>
+  </section>
+
+  <!-- Comprovante: so aparece depois do pagamento confirmado (marcarPago).
+       E o unico documento que o comprador leva desta compra, porque a loja nao
+       envia e-mail. Todos os campos sao preenchidos pelo JS com o que o servidor
+       devolveu; nada e escrito a mao aqui. -->
+  <section class="pd-recibo" id="pd-recibo" hidden aria-label="Comprovante de compra">
+    <div class="rc-topo">
+      <p class="rc-marca">Checkpoint BR</p>
+      <p class="rc-tit">Comprovante de compra</p>
+      <p class="rc-site">checkpointbr.sbs &middot; contato@checkpointbr.sbs</p>
+    </div>
+    <dl class="rc-dl">
+      <dt>Número do pedido</dt><dd class="rc-forte" id="rc-pedido">&mdash;</dd>
+      <dt>Pagamento confirmado em</dt><dd id="rc-data">&mdash;</dd>
+      <dt>Item</dt><dd id="rc-item">&mdash;</dd>
+      <dt>Produto</dt><dd id="rc-preco">&mdash;</dd>
+      <dt>Frete</dt><dd id="rc-frete">&mdash;</dd>
+      <dt>Total pago</dt><dd class="rc-forte" id="rc-total">&mdash;</dd>
+      <dt>Forma de pagamento</dt><dd>PIX à vista, cobrança única</dd>
+      <dt>Nome no seu extrato</dt><dd>BRASIL COMPRAS ONLINE LTD &mdash; a empresa que processa o pagamento
+      da loja</dd>
+      <dt>Prazo de entrega</dt><dd id="rc-prazo">&mdash;</dd>
+      <dt>Atendimento</dt><dd><a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a> &mdash; de segunda a sexta,
+      resposta em até um dia útil</dd>
+    </dl>
+    <div class="rc-entrega" id="rc-entrega" hidden>
+      <h3>Entrega</h3>
+      <address id="rc-entrega-txt"></address>
+    </div>
+    <p class="rc-nota">Guarde este comprovante: ele é a prova da sua compra. Para saber onde
+    está o pedido, pedir troca ou cancelar, escreva para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a>
+    citando o número acima. As condições de troca, devolução e arrependimento estão em
+    <a href="/trocas.html">trocas e reembolso</a>.</p>
+    <p class="rc-imprimir">
+      <button class="btn btn-ghost" type="button" id="rc-print">Salvar ou imprimir este
+      comprovante</button>
+    </p>
+    <p class="pd-aviso rc-dica">O botão abre a janela de impressão do navegador &mdash; escolha
+    <strong>&ldquo;Salvar como PDF&rdquo;</strong> para guardar o arquivo no aparelho, ou uma
+    impressora para o papel. Vale também tirar uma captura de tela.</p>
   </section>
 </main><script>
 window.CP_FOTOS = {
@@ -1043,17 +1126,24 @@ window.CP_FOTOS = {
     return s.length === 8 ? s.slice(0, 5) + '-' + s.slice(5) : (c || '');
   }
 
-  // Para onde a peca vai. Sem isto o comprador gerava o codigo e perdia o
-  // endereco de vista: CEP errado so se resolvia deixando a cobranca vencer.
-  function mostrarEntrega(e) {
-    var caixa = $('#pd-entrega');
-    if (!e || !e.rua) { caixa.hidden = true; return; }
+  // Endereco formatado. Sai daqui para DOIS lugares — a caixa "Vai para este
+  // endereco" da tela do PIX e o comprovante — para nao existir versao do
+  // destino que so um dos dois mostra.
+  function enderecoHtml(e) {
     var h = '<strong>' + esc(e.nome) + '</strong><br>';
     h += esc(e.rua) + ', ' + esc(e.numero);
     if (e.complemento) { h += ' &mdash; ' + esc(e.complemento); }
     h += '<br>' + esc(e.bairro) + ' &mdash; ' + esc(e.cidade) + '/' + esc(e.uf);
     h += '<br>CEP ' + esc(cepBr(e.cep));
-    $('#pd-entrega-txt').innerHTML = h;
+    return h;
+  }
+
+  // Para onde a peca vai. Sem isto o comprador gerava o codigo e perdia o
+  // endereco de vista: CEP errado so se resolvia deixando a cobranca vencer.
+  function mostrarEntrega(e) {
+    var caixa = $('#pd-entrega');
+    if (!e || !e.rua) { caixa.hidden = true; return; }
+    $('#pd-entrega-txt').innerHTML = enderecoHtml(e);
     caixa.hidden = false;
   }
 
@@ -1083,6 +1173,9 @@ window.CP_FOTOS = {
     entrega = ent || null;
     $('#pd-form').hidden = true;
     $('#pd-item').hidden = true;
+    // O comprovante so volta a aparecer por marcarPago(); trocar de cobranca na
+    // mesma aba nao pode deixar na tela o comprovante da anterior.
+    $('#pd-recibo').hidden = true;
     var s = $('#pd-pix');
     s.hidden = false;
     $('#pd-pix-valor').textContent = d.total_br;
@@ -1119,8 +1212,43 @@ window.CP_FOTOS = {
     if (d.id) { acompanhar(d.id, d); }
   }
 
+  // ── comprovante ────────────────────────────────────────────────────────────
+  // A loja NAO envia e-mail (ver o comentario de PD_BODY). Antes disto, tudo o
+  // que quem pagava levava era a instrucao "guarde o numero do pedido": fechou a
+  // aba, perdeu a unica evidencia de um PIX que nao volta. Este bloco monta a
+  // compra inteira em um documento salvavel — o botao chama a impressao do
+  // navegador, e "Salvar como PDF" resolve sem depender de e-mail nenhum.
+  //
+  // Nenhum numero e calculado aqui: item, produto, frete, total e prazo sao os
+  // que o servidor devolveu na cobranca, os mesmos que a tela ja mostrou.
+  function montarRecibo(d) {
+    var s = $('#pd-recibo');
+    if (!s) { return; }
+    $('#rc-pedido').textContent = d.pedido || '—';
+    $('#rc-data').textContent = quando(d.__pago_em) || '—';
+    $('#rc-item').textContent = d.item || '—';
+    $('#rc-preco').textContent = d.preco_br || '—';
+    $('#rc-frete').textContent = d.frete_br || '—';
+    $('#rc-total').textContent = d.total_br || '—';
+    $('#rc-prazo').textContent = d.prazo
+      ? d.prazo.charAt(0).toUpperCase() + d.prazo.slice(1) +
+        ', contados da confirmação do pagamento'
+      : '—';
+    var caixa = $('#rc-entrega');
+    if (entrega && entrega.rua) {
+      $('#rc-entrega-txt').innerHTML = enderecoHtml(entrega);
+      caixa.hidden = false;
+    } else {
+      caixa.hidden = true;
+    }
+    s.hidden = false;
+  }
+
   function marcarPago(d) {
     d.__pago = true;
+    // Momento da confirmacao. Gravado UMA vez: recarregar a pagina depois nao
+    // reescreve a data do comprovante.
+    if (!d.__pago_em) { d.__pago_em = Date.now(); }
     guardar(d, entrega);
     if (poll) { clearInterval(poll); poll = null; }
     $('#pd-espera').hidden = true;
@@ -1132,6 +1260,7 @@ window.CP_FOTOS = {
     $('#pd-codigo').disabled = true;
     $('#pd-copiar').disabled = true;
     $('#pd-pago').hidden = false;
+    montarRecibo(d);
   }
 
   function marcarVencido() {
@@ -1152,6 +1281,7 @@ window.CP_FOTOS = {
     if (poll) { clearInterval(poll); poll = null; }
     if (autoRetry) { clearTimeout(autoRetry); autoRetry = null; }
     $('#pd-pix').hidden = true;
+    $('#pd-recibo').hidden = true;
     $('#pd-item').hidden = false;
     $('#pd-form').hidden = false;
     $('#pd-btn').disabled = false;
@@ -1192,6 +1322,17 @@ window.CP_FOTOS = {
     }
     $('#pd-copiar').textContent = ok ? 'Código copiado' : 'Selecione e copie o código acima';
   });
+
+  // Salvar/imprimir o comprovante. A folha de estilo de impressao deixa so o
+  // bloco do comprovante na pagina — sem menu, sem formulario e sem o codigo
+  // PIX, que ja foi pago.
+  (function () {
+    var b = $('#rc-print');
+    if (!b) { return; }
+    b.addEventListener('click', function () {
+      try { window.print(); } catch (_) {}
+    });
+  })();
 
   function acompanhar(id, dados) {
     if (venceu(dados)) { return marcarVencido(); }

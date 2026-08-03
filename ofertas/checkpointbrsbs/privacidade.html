@@ -45,6 +45,17 @@ nav.primary a:hover{color:var(--crimson)}
 .legal-content ul{margin:0 0 16px;padding-left:22px;color:#3a372c}
 .legal-content li{margin-bottom:8px}
 .updated{font-family:var(--font-mono);font-size:.75rem;color:#6b6752;text-transform:uppercase;letter-spacing:.04em;margin-bottom:30px}
+/* Bloco do controlador: quem trata o dado, com os campos de registro. Escrito por
+   scripts/_checkpoint_identidade_patch.py — enquanto o gestor nao mandar razao
+   social/CNPJ/endereco, os campos mostram o marcador visivel em vez de um numero
+   inventado. */
+.identidade-legal{border:2px solid var(--ink);background:var(--paper-2);padding:20px 24px;margin:0 0 18px}
+.identidade-legal h3{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);margin:0 0 14px}
+.identidade-legal dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0 0 14px}
+.identidade-legal dt{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:#54503f;margin:0}
+.identidade-legal dd{margin:0;color:#3a372c;overflow-wrap:anywhere}
+.identidade-legal p{margin:0;font-size:.93rem}
+@media (max-width:560px){.identidade-legal dl{grid-template-columns:1fr;gap:2px}.identidade-legal dd{margin-bottom:8px}}
 footer{background:var(--ink);color:var(--paper);margin-top:80px;padding:48px 0 0}
 footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
 footer h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mustard);margin:0 0 14px}
@@ -100,30 +111,45 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 <main class="wrap article-page">
   <span class="kicker">Legal</span>
   <h1>Política de privacidade</h1>
-  <p class="updated">Em vigor desde 2 de agosto de 2026</p>
+  <p class="updated">Em vigor desde 3 de agosto de 2026</p>
 
   <div class="legal-content">
-    <h2>1. Que dado a loja recebe</h2>
+    <h2>1. Quem é o controlador dos seus dados</h2>
+    <p>O controlador dos dados pessoais tratados neste site — quem decide o que é coletado, para quê e por quanto tempo, na definição do art. 5º, VI, da LGPD — é a <strong>Checkpoint BR</strong>, a operação que mantém a loja e o blog publicados em <strong>checkpointbr.sbs</strong>. É a mesma marca que assina o rodapé, o atendimento e a cobrança dos pedidos feitos aqui.</p>
+    <p>O canal de contato do controlador, para qualquer assunto de dado pessoal, é <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a>. Uma pessoa lê e responde — não é caixa automática.</p>
+    <!-- IDENTIDADE-JURIDICA: bloco gerado por scripts/_checkpoint_identidade.py. Preencher LA (razao social, CNPJ, endereco) e rodar scripts/_checkpoint_identidade_patch.py. NAO editar a mao aqui. -->
+    <div class="identidade-legal" id="identidade-legal">
+      <h3>Dados de registro da empresa</h3>
+      <dl>
+        <dt>Razão social</dt><dd>a preencher</dd>
+        <dt>CNPJ</dt><dd>a preencher</dd>
+        <dt>Endereço</dt><dd>a preencher</dd>
+      </dl>
+      <p><strong>Estes três campos ainda não estão publicados nesta página.</strong> Não escrevemos aqui um número que não possamos comprovar: enquanto o registro não for publicado neste mesmo bloco, quem responde por todo pedido relativo a dado pessoal — acesso, correção, exclusão ou revogação — é <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a>, com o assunto &ldquo;LGPD&rdquo;, nos prazos da seção 9.</p>
+    </div>
+    <!-- /IDENTIDADE-JURIDICA -->
+
+    <h2>2. Que dado a loja recebe</h2>
     <p>Depende da natureza do item, e em cada caso pedimos só o necessário.</p>
     <p><strong>Item digital</strong> (reserva e vale-presente), combinado pelo atendimento: o <strong>e-mail</strong> em que a conversa acontece e por onde a chave e o comprovante são entregues, o <strong>nome</strong> que assina o pedido e a <strong>plataforma escolhida</strong>.</p>
     <p><strong>Produto físico</strong> (camiseta, caneca e pôster), comprado direto na <a href="/loja/">Loja Checkpoint</a>: além de nome e e-mail, o <strong>CPF</strong> e o <strong>telefone</strong> exigidos pelo emissor da cobrança e pela nota, e o <strong>endereço completo de entrega</strong>, que sem isso a transportadora não tem para onde despachar. No item digital nada disso é pedido, porque nada é despachado.</p>
     <p>O pagamento é sempre PIX à vista: o provedor que emite a cobrança nos devolve apenas a confirmação e um identificador da transação — não recebemos nem armazenamos dado de cartão em momento algum.</p>
     <p>O <a href="contato.html">atendimento</a> é por e-mail: a mensagem que você escreve chega com o endereço remetente e o que você contar nela, e usamos isso só para responder e para localizar o pedido citado.</p>
-    <p>Além disso, o servidor registra dado técnico de acesso (endereço IP, navegador, página visitada e horário) para segurança e diagnóstico, guardado pelo prazo mínimo necessário. Quando você aciona um botão de ação da loja — o de consultar disponibilidade, por exemplo —, esse mesmo tipo de dado técnico passa por uma verificação de segurança antes de o atendimento seguir, descrita na seção 7.</p>
+    <p>Além disso, o servidor registra dado técnico de acesso (endereço IP, navegador, página visitada e horário) para segurança e diagnóstico, guardado pelo prazo mínimo necessário. Quando você aciona um botão de ação da loja — o de consultar disponibilidade, por exemplo —, esse mesmo tipo de dado técnico passa por uma verificação de segurança antes de o atendimento seguir, descrita na seção 8.</p>
 
-    <h2>2. Para que usamos</h2>
+    <h2>3. Para que usamos</h2>
     <p>Processar e entregar o pedido — no produto físico, isso inclui passar o endereço à transportadora —, responder o que você perguntar sobre data de liberação e prazo, atender pedido de troca ou cancelamento, e cumprir obrigação fiscal. A loja não mantém lista de disparo e não envia mensagem de marketing: o seu endereço só é usado dentro da conversa do seu próprio pedido.</p>
 
-    <h2>3. Base legal</h2>
-    <p>Dado de pedido é tratado para execução do contrato de compra e venda (art. 7º, V, da Lei nº 13.709/2018 — LGPD) e para cumprimento de obrigação legal (art. 7º, II). O registro técnico de acesso, o registro de origem da visita e a verificação de segurança da seção 7 se apoiam no legítimo interesse de manter o site seguro, no ar e livre de fraude de pagamento, e de saber de onde vêm os pedidos (art. 7º, IX).</p>
+    <h2>4. Base legal</h2>
+    <p>Dado de pedido é tratado para execução do contrato de compra e venda (art. 7º, V, da Lei nº 13.709/2018 — LGPD) e para cumprimento de obrigação legal (art. 7º, II). O registro técnico de acesso, o registro de origem da visita e a verificação de segurança da seção 8 se apoiam no legítimo interesse de manter o site seguro, no ar e livre de fraude de pagamento, e de saber de onde vêm os pedidos (art. 7º, IX).</p>
 
-    <h2>4. Por quanto tempo guardamos</h2>
+    <h2>5. Por quanto tempo guardamos</h2>
     <p>Dado de pedido fica retido enquanto durar a garantia e o prazo fiscal aplicável à venda. Endereço de entrega é descartado depois de encerrado o prazo de troca do produto físico. Mensagem de atendimento é descartada doze meses depois do encerramento do caso.</p>
 
-    <h2>5. Com quem compartilhamos</h2>
-    <p>Só com quem é indispensável para a compra existir: o provedor de pagamento que confirma o PIX, a gráfica que imprime a peça sob demanda e a transportadora que a entrega — as duas últimas apenas no produto físico —, e o fornecedor que apoia a verificação de segurança descrita na seção 7. Junto do pedido, o provedor de pagamento recebe também o código de origem descrito na seção 7. Nenhum deles recebe mais dado do que precisa para a própria função, e nenhum recebe o conteúdo do pedido para outra finalidade.</p>
+    <h2>6. Com quem compartilhamos</h2>
+    <p>Só com quem é indispensável para a compra existir: o provedor de pagamento que confirma o PIX, a gráfica que imprime a peça sob demanda e a transportadora que a entrega — as duas últimas apenas no produto físico —, e o fornecedor que apoia a verificação de segurança descrita na seção 8. Junto do pedido, o provedor de pagamento recebe também o código de origem descrito na seção 8. Nenhum deles recebe mais dado do que precisa para a própria função, e nenhum recebe o conteúdo do pedido para outra finalidade.</p>
 
-    <h2>6. Direitos de quem comprou</h2>
+    <h2>7. Direitos de quem comprou</h2>
     <ul>
       <li>Confirmar se existe tratamento de dado pessoal referente a si e pedir acesso;</li>
       <li>Corrigir dado incompleto ou desatualizado, inclusive o e-mail do pedido e o endereço de entrega;</li>
@@ -131,15 +157,15 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       <li>Pedir a portabilidade do dado do próprio pedido, em formato legível, sem custo.</li>
     </ul>
 
-    <h2>7. Cookies, origem da visita e verificação de segurança</h2>
+    <h2>8. Cookies, origem da visita e verificação de segurança</h2>
     <p>A loja não usa cookie de publicidade nem ferramenta de medição de audiência de terceiros. O que fica gravado no seu navegador é só o que está descrito nesta seção: o registro de origem da visita, o pedido que você deixou em aberto e o registro temporário da verificação de segurança.</p>
     <p>Quando você gera um código PIX na <a href="/loja/">Loja Checkpoint</a>, o pedido fica guardado <strong>no seu próprio aparelho</strong> — o código de pagamento, o valor, o número do pedido e o endereço de entrega que você digitou —, para que a página consiga mostrá-lo de novo se você recarregar ou fechar o navegador, e para você conferir para onde a peça vai. <strong>CPF, e-mail e telefone não são guardados aí.</strong> Isso não é enviado a lugar nenhum por estar guardado: fica só no armazenamento deste domínio, no seu navegador. Cobrança vencida e não paga sai sozinha dessa lista, e limpar os dados do site apaga tudo de uma vez. Em computador compartilhado, limpar os dados do site depois de comprar é o cuidado que evita que a próxima pessoa veja o seu endereço.</p>
     <p>O preenchimento automático do endereço a partir do CEP é feito por um <strong>serviço público de consulta de CEP</strong>, de terceiro: ao digitar os oito dígitos, só o CEP é consultado lá — nunca o seu nome, o número da casa, o documento ou o que você está comprando. Quem preferir não usar esse recurso é só escrever o endereço à mão; o pedido fecha do mesmo jeito.</p>
     <p>Quando a visita chega por um anúncio, o endereço traz um código que identifica aquele anúncio. Guardamos esse código no seu navegador, em cookie e armazenamento deste mesmo domínio (<code>cb_origin</code>), por <strong>90 dias</strong>, e ele segue junto quando você fecha um pedido. Serve para uma coisa só: saber por qual anúncio a compra chegou. Não guarda nome, e-mail, dado de pagamento nem o que você navegou no site, é escrito e lido apenas por este domínio, e não é usado para montar perfil seu nem para exibir anúncio depois. Limpar os dados do site no navegador apaga esse registro.</p>
-    <p>Ao acionar um botão de ação da loja, como o de consultar disponibilidade, o acesso passa por uma <strong>verificação de segurança</strong> antes de o atendimento seguir. Essa verificação utiliza dados técnicos do dispositivo e da conexão, além de um registro técnico temporário no navegador, que expira sozinho pouco depois. Ela é operada com o apoio de um <strong>fornecedor especializado em prevenção a fraude</strong>, contratado exclusivamente para essa finalidade: distinguir um acesso legítimo de um acesso automatizado ou de uma tentativa de fraude no pagamento. A base legal é o legítimo interesse em manter o site seguro e a venda livre de fraude (art. 7º, IX, da LGPD — seção 3).</p>
+    <p>Ao acionar um botão de ação da loja, como o de consultar disponibilidade, o acesso passa por uma <strong>verificação de segurança</strong> antes de o atendimento seguir. Essa verificação utiliza dados técnicos do dispositivo e da conexão, além de um registro técnico temporário no navegador, que expira sozinho pouco depois. Ela é operada com o apoio de um <strong>fornecedor especializado em prevenção a fraude</strong>, contratado exclusivamente para essa finalidade: distinguir um acesso legítimo de um acesso automatizado ou de uma tentativa de fraude no pagamento. A base legal é o legítimo interesse em manter o site seguro e a venda livre de fraude (art. 7º, IX, da LGPD — seção 4).</p>
     <p>Nada do que é usado nessa etapa identifica você por nome, e-mail ou dado de pagamento, e nada disso é usado por nós para publicidade ou para montar perfil de consumo. Quem preferir não passar por essa etapa pode tratar o pedido inteiro pelo <a href="contato.html">e-mail de atendimento</a>.</p>
 
-    <h2>8. Encarregado e contato</h2>
+    <h2>9. Encarregado e contato</h2>
     <p>Pedido de acesso, correção, exclusão ou revogação de consentimento deve ser enviado para <a href="mailto:contato@checkpointbr.sbs">contato@checkpointbr.sbs</a>, com o assunto "LGPD". A mesma caixa recebe dúvida sobre este documento. O prazo de resposta é de até quinze dias corridos, conforme o art. 19 da LGPD.</p>
   </div>
 </main>

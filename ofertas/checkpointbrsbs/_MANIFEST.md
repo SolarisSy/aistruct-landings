@@ -480,3 +480,74 @@ manifesto.
 
 O gate do método `direct_url` está intacto: `index.php` na raiz + `location = / { rewrite ^
 /index.php last; }` — nenhuma linha desta rodada toca o caminho anúncio → decisão → money.
+
+---
+
+## Rodada 10 (03/08) — os sinais de desconfiança da avaliação externa (nota 2/10)
+
+Uma avaliação externa comprou a jornada inteira e deu **2/10 — "não compraria"**. Os achados não
+eram de estética: eram **contradições verificáveis em um clique**. Esta rodada trata os quatro que
+dependiam só do conteúdo do site.
+
+| # | Achado da avaliação | Causa raiz | O que ficou |
+|---|---|---|---|
+| 1 | domínio criado em **16/07/2026** (RDAP), `sobre.html` dizia "começou em **2024** como blog", e 9 matérias datadas de **29/06 a 15/07** — antes do próprio site existir | a v1 herdou uma história de marca que nunca aconteceu, e as datas foram escritas antes de alguém cruzar com o WHOIS | `sobre.html`: a loja passa a se apresentar como **nova** ("no ar desde julho de 2026"), com um parágrafo dizendo o que substitui o histórico que ela não tem (tudo publicado antes da compra). As **9 datas foram deslocadas +19 dias em bloco** — ordem preservada, nenhuma anterior a **18/07/2026** |
+| 2 | a privacidade invoca a LGPD mas **não nomeia o controlador**, num site que coleta CPF, telefone e endereço | a regra 7 do QA barrava as *palavras* "CNPJ"/"razão social" para matar a identidade fabricada da v1 — e, de quebra, proibia dizer a verdade | nova **seção 1, "Quem é o controlador dos seus dados"** (as antigas 1–8 viraram 2–9, com as referências cruzadas ajustadas), nomeando a marca + `contato@checkpointbr.sbs`, mais um **slot marcado** para razão social/CNPJ/endereço |
+| 3 | quem pagava não ficava com prova nenhuma: sem e-mail, a instrução era "guarde o número do pedido" — fechou a aba, perdeu a evidência de um PIX que não volta | a rodada 8 removeu a promessa de e-mail (correto) mas não pôs nada no lugar | **comprovante na própria tela** (`#pd-recibo`), montado quando o pagamento confirma: número, data, item, produto, frete, total, forma de pagamento, nome no extrato, prazo, endereço e contato — com botão que abre a impressão do navegador ("Salvar como PDF"). Folha de estilo `@media print` deixa **só** o comprovante no papel |
+| 4 | o aviso de que o recebedor tem outro nome foi lido como **ponto a favor**, mas ainda desconfortável | o texto dizia *que* o nome é outro, não *por quê* | a frase explica o motivo: a loja não emite a própria cobrança; quem emite é o processador de pagamento, e é o nome dele — o titular da conta — que o banco e o extrato mostram. Sem nomear fornecedor |
+
+**Nada de identidade jurídica foi inventado.** Onde falta dado, o site mostra o marcador visível
+e o QA reprova — de propósito.
+
+### Arquivos
+
+**Gerador** (o HTML sai daqui): `scripts/_checkpoint_loja_paginas.py` (as 9 datas + a regra
+escrita no cabeçalho de `MATERIAS`) · `scripts/_checkpoint_loja_fisica.py` (comprovante: markup,
+CSS de tela e de impressão, `montarRecibo()`, `enderecoHtml()`, `marcarPago()`, botão de imprimir,
+texto do recebedor).
+**À mão** (o gerador só troca o rodapé destas): `sobre.html` (§história) · `privacidade.html`
+(§1 nova + renumeração + CSS do bloco) · `avisos.html` (passa a citar o comprovante) · as 9
+matérias (uma linha de byline cada).
+**Novo:** `scripts/_checkpoint_identidade.py` (dados de registro, vazios — **só o gestor
+preenche**) · `scripts/_checkpoint_identidade_patch.py` (injeta o bloco em `privacidade.html`,
+idempotente) · `scripts/_checkpoint_datas_qa.py` · `scripts/_checkpoint_confianca_qa.py` ·
+`scripts/_checkpoint_recibo_qa.py`.
+**QA corrigido:** `scripts/_checkpoint_qa_v2.py` regra 7 — passou a reprovar identidade
+**fabricada** (dados concretos da v1 + qualquer padrão de CNPJ/CEP/telefone) e identidade
+**omissa** (slot em branco), em vez de proibir as palavras.
+
+### Validação da rodada
+
+| Prova | Resultado |
+|---|---|
+| `_checkpoint_datas_qa.py` | 21 bylines · mais antiga **18/07/2026** · mais recente 03/08/2026 · **0 FAIL** (e reprova de volta se a frase de 2024 voltar — testado) |
+| `_checkpoint_confianca_qa.py` | 24 páginas · **0** CNPJ/CPF/CEP/telefone/forma jurídica publicados · controlador nomeado + slot presente · **0** link quebrado · **0** `href="#"` · **0** placeholder · **0** promessa de e-mail · **0 FAIL** |
+| `_checkpoint_recibo_qa.py` | browser real, gateway **FALSO**, 360 e 412 px: comprovante escondido antes do pagamento · 7/7 campos preenchidos · endereço, contato e a frase "prova da sua compra" presentes · reload mantém data e número · impressão leva **só** o comprovante (PDF gerado) · **0 overflow** · **0 FAIL** |
+| `_checkpoint_overflow_qa.py` | **0 overflow** em 24 páginas × 360/412 px |
+| `_checkpoint_idem_check.py` | gerador rodado 2× → **27 arquivos, 0 diferença de sha256** |
+| `_checkpoint_regen_guard.py check` | **21 arquivos protegidos, nenhum alterado**; `index.php` na raiz OK |
+| `_checkpoint_qa_v2.py` | 318 links / 0 quebrado · 18/18 imagens · 0 n-grama compartilhado com outras ofertas |
+
+### O que só o GESTOR pode fechar
+
+1. **Razão social, CNPJ e endereço** → preencher `IDENTIDADE` em
+   `scripts/_checkpoint_identidade.py` e rodar `scripts/_checkpoint_identidade_patch.py`.
+   Enquanto não vier, `privacidade.html` mostra o marcador e o QA reprova.
+2. **Nada mais desta rodada depende de terceiro.** O canal publicado existe: o MX de
+   `checkpointbr.sbs` resolve (`webhost.dynadot.com`, catch-all da Dynadot), então
+   `contato@checkpointbr.sbs` recebe de verdade.
+
+### Reprovações do `_checkpoint_qa_v2.py` que NÃO são desta rodada
+
+Continuam 5 FAIL **pré-existentes** (medidos antes de qualquer alteração, com o diretório limpo):
+a regra 12b ainda descreve o desenho da **rodada 5** — `presell_button` com CTA para `/go/` e
+vitrine sem preço. A rodada 6 mudou o método para **`direct_url`** (a raiz É o filtro) e a rodada 7
+abriu a loja física com preço na vitrine, por decisão do gestor. **A regra ficou velha, não o
+site.** Corrigi-la é decidir sobre o modelo do funil — fora da alçada de uma correção de conteúdo,
+por isso foi reportada e não alterada.
+
+### O que NÃO foi tocado
+
+`index.php` da raiz, `go/index.php`, `ir/index.php`, `_priv/`, `nginx-site.conf`, `Dockerfile`,
+todo o `api/`, `assets/session.js`, `img/`, preço, SKU e o stream — conferidos por sha256 antes e
+depois (`_checkpoint_regen_guard.py`). O gate do `direct_url` está intacto.
