@@ -123,6 +123,7 @@ p{margin:0 0 15px}
 .foot h5{font:600 13px/1 var(--f-body);letter-spacing:1.1px;text-transform:uppercase;color:#8e968a;margin:0 0 10px}
 .foot-cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
 .foot-cols p{color:#98a094;font-size:13.5px;max-width:38ch}
+.foot-legal{color:#a9b1a4;margin:0 0 10px;line-height:1.65}
 .foot-base{border-top:1px solid #333a31;margin-top:26px;padding-top:16px;color:#868e82;font-size:12.5px}
 
 @media(max-width:900px){
