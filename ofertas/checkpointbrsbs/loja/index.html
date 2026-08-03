@@ -67,12 +67,7 @@ footer p{color:#c9c4b4;font-size:.85rem}
 
 .pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:26px}
 .pf-card{border:1px solid var(--ink);background:var(--paper-2);display:flex;flex-direction:column}
-.pf-arte{aspect-ratio:4/3;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-bottom:1px solid var(--ink);padding:14px;text-align:center}
-.pf-arte .pf-mono{font-family:var(--font-display);font-size:2.9rem;font-weight:700;line-height:1;letter-spacing:.04em}
-.pf-arte .pf-tag{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;border-top:1px solid #55524a;padding-top:8px;max-width:100%;overflow-wrap:anywhere}
-.pf-arte-a .pf-mono{color:var(--crimson)}
-.pf-arte-b .pf-mono{color:var(--mustard)}
-.pf-arte-c .pf-mono{color:#7fae95}
+.pf-foto{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;background:var(--paper-2);border-bottom:1px solid var(--ink)}
 .pf-corpo{padding:22px 24px;display:flex;flex-direction:column;flex:1}
 .pf-corpo h3{font-family:var(--font-display);font-size:1.25rem;margin:0 0 8px;line-height:1.15}
 .pf-corpo p{margin:0 0 14px;color:#3a372c;font-size:.97rem}
@@ -82,7 +77,7 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .pf-card .btn{align-self:flex-start}
 .pf-nota{font-family:var(--font-mono);font-size:.74rem;color:#6b6752;margin-top:22px;line-height:1.8}
 @media (max-width:880px){.pf-grid{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.pf-grid{grid-template-columns:1fr}.pf-arte .pf-mono{font-size:2.4rem}}
+@media (max-width:560px){.pf-grid{grid-template-columns:1fr}}
 
 .pf-ficha{margin:0 0 16px;padding-left:0;list-style:none;border-top:1px solid var(--rule)}
 .pf-ficha li{border-bottom:1px solid var(--rule);padding:10px 0 10px 20px;position:relative;color:#3a372c;font-size:.93rem}
@@ -142,10 +137,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
 
   <section class="pf-grid">
     <article class="pf-card">
-      <div class="pf-arte pf-arte-a" role="img" aria-label="Prévia da estampa: monograma CB acima da palavra Save Point, em fundo escuro">
-        <span class="pf-mono">CB</span>
-        <span class="pf-tag">SAVE POINT</span>
-      </div>
+      <img class="pf-foto" src="/img/produto-camiseta-save-point.jpg" width="840" height="840"
+           loading="lazy" decoding="async" alt="Camiseta preta estendida, com a estampa Save Point em branco no peito: monograma CB dentro de um quadro, as palavras SAVE POINT e uma tarja vermelha sobre a assinatura Checkpoint BR">
       <div class="pf-corpo">
         <h3>Camiseta Save Point</h3>
         <p>Camiseta de algodão com a estampa Save Point, desenhada pela equipe da loja.</p>
@@ -155,10 +148,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       </div>
     </article>
     <article class="pf-card">
-      <div class="pf-arte pf-arte-b" role="img" aria-label="Prévia da arte: monograma CB acima da palavra Continue com ponto de interrogação">
-        <span class="pf-mono">CB</span>
-        <span class="pf-tag">CONTINUE?</span>
-      </div>
+      <img class="pf-foto" src="/img/produto-caneca-continue.jpg" width="840" height="840"
+           loading="lazy" decoding="async" alt="Caneca branca de cerâmica vista de lado, com a arte Continue? impressa em preto: monograma CB dentro de um quadro, a palavra CONTINUE? e uma tarja vermelha sobre a assinatura Checkpoint BR">
       <div class="pf-corpo">
         <h3>Caneca Continue?</h3>
         <p>Caneca de cerâmica de 325 ml com a arte Continue?, da linha própria da loja.</p>
@@ -168,10 +159,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       </div>
     </article>
     <article class="pf-card">
-      <div class="pf-arte pf-arte-c" role="img" aria-label="Prévia da arte: monograma CB acima da inscrição Fase 01">
-        <span class="pf-mono">CB</span>
-        <span class="pf-tag">FASE 01</span>
-      </div>
+      <img class="pf-foto" src="/img/produto-poster-fase-01.jpg" width="840" height="840"
+           loading="lazy" decoding="async" alt="Pôster A3 preso numa parede clara: cabeçalho Checkpoint BR, o título FASE 01 em vermelho e uma grade de quadrados pretos, mostarda e vermelho desenhada pela loja">
       <div class="pf-corpo">
         <h3>Pôster A3 Fase 01</h3>
         <p>Pôster A3 em papel fosco de 250 g com a arte Fase 01, composta pela loja.</p>

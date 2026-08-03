@@ -257,10 +257,16 @@ Esta rodada **acrescenta** uma segunda linha de venda, aberta, sem tocar na prim
 | Caneca Continue? | R$ 59,90 | — | R$ 19,90 | até 20 dias úteis |
 | Pôster A3 Fase 01 | R$ 49,90 | — | R$ 19,90 | até 20 dias úteis |
 
-Arte **100% da própria loja** (monograma CB + tipografia do site, tema genérico). Nenhuma marca,
-personagem ou arte de terceiro — em produto físico isso seria falsificação, a falta mais grave
-possível. A estampa aparece hoje como composição em CSS (`.pf-arte`); a arte final substitui esse
-bloco sem mexer em mais nada.
+Arte **100% da própria loja** (monograma CB + tipografia e paleta do site, palavras genéricas de
+videogame). Nenhuma marca, personagem ou arte de terceiro — em produto físico isso seria
+falsificação, a falta mais grave possível.
+
+**Foto de produto (03/08/2026):** cada peça tem foto de verdade em `img/produto-<sku>.jpg`
+(840×840, JPEG q82) — camiseta preta lisa, caneca branca lisa e folha em branco na parede,
+geradas na RTX local (ComfyUI + FLUX), com a arte da loja composta por cima (estampa achatada na
+camiseta, envolvida no cilindro da caneca, em perspectiva na folha). Quem regenera é
+`scripts/_cpbr_prod_arte.py`, a partir das bases em `reports/_cpbr_bases/`. O bloco `.pf-arte`
+(retângulo em CSS com o monograma) **saiu**: cartão sem foto foi lido como imagem quebrada.
 
 ### Onde mora
 

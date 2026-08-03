@@ -67,12 +67,7 @@ footer p{color:#c9c4b4;font-size:.85rem}
 
 .pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:26px}
 .pf-card{border:1px solid var(--ink);background:var(--paper-2);display:flex;flex-direction:column}
-.pf-arte{aspect-ratio:4/3;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-bottom:1px solid var(--ink);padding:14px;text-align:center}
-.pf-arte .pf-mono{font-family:var(--font-display);font-size:2.9rem;font-weight:700;line-height:1;letter-spacing:.04em}
-.pf-arte .pf-tag{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;border-top:1px solid #55524a;padding-top:8px;max-width:100%;overflow-wrap:anywhere}
-.pf-arte-a .pf-mono{color:var(--crimson)}
-.pf-arte-b .pf-mono{color:var(--mustard)}
-.pf-arte-c .pf-mono{color:#7fae95}
+.pf-foto{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;background:var(--paper-2);border-bottom:1px solid var(--ink)}
 .pf-corpo{padding:22px 24px;display:flex;flex-direction:column;flex:1}
 .pf-corpo h3{font-family:var(--font-display);font-size:1.25rem;margin:0 0 8px;line-height:1.15}
 .pf-corpo p{margin:0 0 14px;color:#3a372c;font-size:.97rem}
@@ -82,7 +77,7 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .pf-card .btn{align-self:flex-start}
 .pf-nota{font-family:var(--font-mono);font-size:.74rem;color:#6b6752;margin-top:22px;line-height:1.8}
 @media (max-width:880px){.pf-grid{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.pf-grid{grid-template-columns:1fr}.pf-arte .pf-mono{font-size:2.4rem}}
+@media (max-width:560px){.pf-grid{grid-template-columns:1fr}}
 
 .pd-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:30px;align-items:start;margin-top:8px}
 .pd-box{border:1px solid var(--ink);background:var(--paper-2);padding:26px 28px}
@@ -119,7 +114,10 @@ footer p{color:#c9c4b4;font-size:.85rem}
 .pd-aberto li{border-top:1px solid var(--rule);padding:10px 0;font-size:.95rem;overflow-wrap:anywhere}
 .pd-aberto li code{font-family:var(--font-mono);font-size:.82rem}
 .pd-escolha{list-style:none;margin:6px 0 0;padding:0}
-.pd-escolha li{border-top:1px solid var(--rule);padding:14px 0;display:flex;justify-content:space-between;align-items:baseline;gap:10px 18px;flex-wrap:wrap}
+.pd-escolha li{border-top:1px solid var(--rule);padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:10px 18px;flex-wrap:wrap}
+.pd-thumb{width:76px;height:76px;flex:0 0 auto;object-fit:cover;border:1px solid var(--rule);background:var(--paper)}
+.pd-escolha li strong{flex:1 1 40%}
+.pd-foto{display:block;width:100%;max-width:320px;height:auto;aspect-ratio:1/1;object-fit:cover;border:1px solid var(--rule);background:var(--paper);margin:0 0 20px}
 .pd-escolha strong{font-family:var(--font-display);font-size:1.08rem;line-height:1.2}
 .pd-escolha span{font-family:var(--font-mono);font-size:.78rem;color:#54503f}
 .pd-grid.pd-solo{grid-template-columns:1fr}
@@ -302,7 +300,13 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
     <p class="pd-nota" id="pd-vencido" hidden>Este código PIX venceu e nada foi cobrado.
     <a href="/loja/">Volte à loja</a> para gerar um novo pedido.</p>
   </section>
-</main>
+</main><script>
+window.CP_FOTOS = {
+  "camiseta-save-point": { src: "/img/produto-camiseta-save-point.jpg", alt: "Camiseta preta estendida, com a estampa Save Point em branco no peito: monograma CB dentro de um quadro, as palavras SAVE POINT e uma tarja vermelha sobre a assinatura Checkpoint BR" },
+  "caneca-continue": { src: "/img/produto-caneca-continue.jpg", alt: "Caneca branca de cerâmica vista de lado, com a arte Continue? impressa em preto: monograma CB dentro de um quadro, a palavra CONTINUE? e uma tarja vermelha sobre a assinatura Checkpoint BR" },
+  "poster-fase-01": { src: "/img/produto-poster-fase-01.jpg", alt: "Pôster A3 preso numa parede clara: cabeçalho Checkpoint BR, o título FASE 01 em vermelho e uma grade de quadrados pretos, mostarda e vermelho desenhada pela loja" }
+};
+</script>
 <script>
 (function () {
   'use strict';
@@ -310,6 +314,21 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   var item = null, opcao = '', poll = null, entrega = null, atual = null;
 
   function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : t; return d.innerHTML; }
+
+  // Foto da peca (window.CP_FOTOS vem do proprio HTML). Se faltar, a tela
+  // segue sem imagem em vez de mostrar um retangulo quebrado.
+  //
+  // O atributo e montado como 'src' + '=' de proposito: o gerador reescreve todo
+  // src="/ de caminho relativo para a raiz, e esse ajuste, feito em cima do texto
+  // da pagina, tambem acertaria ESTE trecho de JS — que ja monta o caminho
+  // pronto. Quebrando a sequencia, o endereco chega intacto ao browser.
+  function foto(sku, cls, lado) {
+    var f = (window.CP_FOTOS || {})[sku];
+    if (!f) { return ''; }
+    return '<img class="' + cls + '" width="' + lado + '" height="' + lado
+      + '" decoding="async" alt="' + esc(f.alt).split('"').join('&quot;') + '"'
+      + ' src' + '="' + f.src + '">';
+  }
 
   // ── Codigo QR desenhado aqui mesmo ───────────────────────────────────────────
   // O codigo de pagamento nao sai deste aparelho: o quadrado e calculado e
@@ -771,7 +790,8 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
       + '&mdash; nada é cobrado antes disso.</p><ul class="pd-escolha">', i, p;
     for (i = 0; i < lista.length; i++) {
       p = lista[i];
-      h += '<li><strong>' + esc(p.nome) + '</strong>'
+      h += '<li>' + foto(p.sku, 'pd-thumb', 152)
+        + '<strong>' + esc(p.nome) + '</strong>'
         + '<span>' + esc(p.total_br) + ' com frete</span>'
         + '<a class="btn" href="/loja/pedido.html?sku=' + p.sku + '">Escolher</a></li>';
     }
@@ -830,6 +850,7 @@ nav.primary a.is-active{color:var(--crimson);box-shadow:inset 0 -3px 0 var(--cri
   function pintar() {
     var p = item, h = '';
     h += '<h2>' + esc(p.nome) + '</h2>';
+    h += foto(p.sku, 'pd-foto', 840);
     h += '<p>' + esc(p.resumo) + '</p>';
     if (p.opcoes && p.opcoes.length) {
       h += '<label class="pd-campo" id="c-opcao">' + esc(p.opcao_label);
