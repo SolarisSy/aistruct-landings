@@ -287,6 +287,77 @@ function rj_quer_json(): bool
     return str_contains($a, 'application/json') || $x === 'fetch';
 }
 
+/**
+ * Cabecalho e rodape IDENTICOS aos das demais paginas do site.
+ *
+ * A tela de confirmacao e' o instante em que o visitante acabou de mandar o
+ * relato e recebeu o protocolo: e' onde a identidade da empresa precisa estar
+ * visivel, nao onde ela some. Antes, esta pagina saia sem cabecalho, sem menu,
+ * sem rodape e sem CNPJ — parecia outro site.
+ *
+ * Nowdoc (<<<'HTML') de proposito: nao interpola variavel, entao o markup nao
+ * corre risco de escape nem de injecao.
+ */
+function rj_cabecalho(): string
+{
+    return <<<'HTML'
+<div class="rule"><span></span></div><header class="mast">
+  <div class="wrap mast-in">
+    <a class="brand" href="/central-de-ajuda/">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="10" fill="#2f4f3e"/><path d="M12 22l20-9 20 9-20 9z" fill="#f0ece1"/><path d="M12 22v20l20 9V31z" fill="#c8d2c6"/><path d="M52 22v20l-20 9V31z" fill="#9c4a2f"/></svg>
+      <span><b>Rastreio<em>Já</em></b><small>acompanhamento de encomendas</small></span>
+    </a>
+    <nav class="nav" aria-label="Navegação principal"><a href="/central-de-ajuda/">Início</a><a href="/como-funciona/">Como funciona</a><a href="/o-que-esta-incluido/">O que está incluído</a><a href="/prazos-e-atendimento/">Prazos</a><a href="/materiais/">Materiais</a><a href="/sobre/">Sobre</a><a href="/contato/" class="on">Contato</a></nav>
+  </div>
+</header>
+HTML;
+}
+
+function rj_rodape(): string
+{
+    return <<<'HTML'
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <h5>RastreioJá</h5>
+        <p>Serviço independente de acompanhamento e regularização de encomendas paradas, contratado
+        diretamente por quem comprou. Atendimento por escrito, com registro de cada etapa.</p>
+      </div>
+      <div>
+        <h5>Serviço</h5>
+        <a href="/como-funciona/">Como funciona</a>
+        <a href="/o-que-esta-incluido/">O que está incluído</a>
+        <a href="/prazos-e-atendimento/">Prazos e atendimento</a>
+        <a href="/reembolso-e-cancelamento/">Reembolso e cancelamento</a>
+      </div>
+      <div>
+        <h5>Materiais</h5>
+        <a href="/materiais/quando-uma-encomenda-e-considerada-parada/">Encomenda parada</a>
+        <a href="/materiais/documentos-que-agilizam-a-solicitacao/">Documentos da solicitação</a>
+        <a href="/materiais/prazos-de-resposta-e-como-acompanhar/">Prazos de resposta</a>
+        <a href="/materiais/diferenca-entre-atraso-e-extravio/">Atraso e extravio</a>
+      </div>
+      <div>
+        <h5>Institucional</h5>
+        <a href="/sobre/">Sobre o RastreioJá</a>
+        <a href="/perguntas-frequentes/">Perguntas frequentes</a>
+        <a href="/contato/">Falar com o atendimento</a>
+        <a href="/politica-de-privacidade/">Política de Privacidade</a>
+        <a href="/termos-de-uso/">Termos de Uso</a>
+      </div>
+    </div>
+    <div class="foot-base">
+    <p class="foot-legal"><b>B2 Midia Digital LTDA</b> — CNPJ 11.749.368/0001-73 · Inscrição Estadual 336.931.201.110 (SP)<br>
+    Rua João Gonçalves, 484 — Centro, Guarulhos/SP, CEP 07010-010<br>
+    Contato formal da empresa: <a href="mailto:atendimento@indoorencomendas.com.br">atendimento@indoorencomendas.com.br</a> · (11) 2382-9631. Caso e protocolo continuam pelo <a href="/contato/">formulário</a>, que é onde cada etapa fica registrada com data.</p>
+    © 2026 RastreioJá, marca de B2 Midia Digital LTDA (nome fantasia B2Midia Indoor Digital) · Serviço de acompanhamento contratado pelo consumidor ·
+    Última atualização desta página: 1 de agosto de 2026</div>
+  </div>
+</footer>
+HTML;
+}
+
 function rj_responde(int $status, array $dados): void
 {
     http_response_code($status);
@@ -299,24 +370,50 @@ function rj_responde(int $status, array $dados): void
     $ok = (bool) ($dados['ok'] ?? false);
     $titulo = $ok ? 'Mensagem registrada' : 'Não foi possível registrar';
     $texto = (string) ($dados['mensagem'] ?? '');
+    $proto = (string) ($dados['protocolo'] ?? '');
+    $t = htmlspecialchars($titulo, ENT_QUOTES);
+    $m = htmlspecialchars($texto, ENT_QUOTES);
+
+    // Caixa do protocolo: so aparece quando existe protocolo de verdade.
+    $caixa = '';
+    if ($ok && $proto !== '') {
+        $caixa = '<div class="note"><p><b>Guarde este número:</b> '
+            . '<span style="font-family:var(--f-num)">' . htmlspecialchars($proto, ENT_QUOTES)
+            . '</span> — é por ele que o seu caso é localizado quando você escrever de novo pelo '
+            . 'formulário, inclusive para pedir a posição do caso ou o cancelamento.</p></div>';
+    }
+
     header('Content-Type: text/html; charset=utf-8');
     echo '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
         . '<meta name="viewport" content="width=device-width, initial-scale=1">'
         . '<meta name="robots" content="noindex">'
-        . '<title>' . htmlspecialchars($titulo, ENT_QUOTES) . ' — RastreioJá</title>'
+        . '<title>' . $t . ' — RastreioJá</title>'
         . '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' '
         . 'viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'10\' fill=\'%232f4f3e\'/%3E'
         . '%3Cpath d=\'M12 22l20-9 20 9-20 9z\' fill=\'%23f0ece1\'/%3E%3Cpath d=\'M12 22v20l20 9V31z\' '
         . 'fill=\'%23c8d2c6\'/%3E%3Cpath d=\'M52 22v20l-20 9V31z\' fill=\'%239c4a2f\'/%3E%3C/svg%3E">'
         . '<link rel="stylesheet" href="/ativos/base.css"></head><body>'
-        . '<div class="rule"><span></span></div>'
-        . '<div class="wrap lay"><div class="col" style="padding:38px 0 60px">'
-        . '<h1>' . htmlspecialchars($titulo, ENT_QUOTES) . '</h1>'
-        . '<p class="lead">' . htmlspecialchars($texto, ENT_QUOTES) . '</p>'
-        . '<p><a class="btn" href="/central-de-ajuda/">Voltar ao início</a></p>'
-        . '<p class="up"><a href="/contato/">Escrever outra mensagem</a> · '
-        . '<a href="/perguntas-frequentes/">Perguntas frequentes</a></p>'
-        . '</div></div></body></html>';
+        . rj_cabecalho()
+        . '<div class="wrap"><p class="crumb"><a href="/central-de-ajuda/">Início</a> &rsaquo; '
+        . '<a href="/contato/">Contato</a> &rsaquo; Confirmação</p></div><main>'
+        . '<div class="wrap lay"><div class="col">'
+        . '<h1>' . $t . '</h1>'
+        . '<p class="lead">' . $m . '</p>'
+        . $caixa
+        . '<p><a class="btn" href="/central-de-ajuda/">Voltar ao início</a> '
+        . '<a class="btn btn-2" href="/contato/">Escrever outra mensagem</a></p>'
+        . '<p class="up">Enquanto a leitura não sai, talvez ajude ver '
+        . '<a href="/como-funciona/">como funciona o acompanhamento</a>, '
+        . '<a href="/prazos-e-atendimento/">os prazos que assumimos</a> ou as '
+        . '<a href="/perguntas-frequentes/">perguntas frequentes</a>.</p>'
+        . '</div><aside class="aside">'
+        . '<h4>Quem recebeu a sua mensagem</h4>'
+        . '<p>B2 Midia Digital LTDA — CNPJ 11.749.368/0001-73, Guarulhos/SP. RastreioJá é a marca sob '
+        . 'a qual ela presta este serviço.</p>'
+        . '<a class="btn" href="/sobre/">Sobre a empresa</a>'
+        . '</aside></div></main>'
+        . rj_rodape()
+        . '</body></html>';
     exit;
 }
 

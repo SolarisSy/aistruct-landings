@@ -71,6 +71,9 @@ p{margin:0 0 15px}
 .band{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:40px 0}
 .act{margin:18px 0 8px}
 .act .btn{max-width:100%}
+/* CTA principal + saida institucional lado a lado, sem tocar no <form> */
+.act-2{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0 8px}
+.act-2 .act{margin:0}
 .note{border:1px solid var(--line);border-left:3px solid var(--clay);background:var(--card);padding:16px 18px;margin:22px 0}
 .note p:last-child{margin:0}
 .steps{list-style:none;counter-reset:s;margin:22px 0 0;padding:0}
@@ -124,6 +127,9 @@ p{margin:0 0 15px}
 .foot-cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
 .foot-cols p{color:#98a094;font-size:13.5px;max-width:38ch}
 .foot-legal{color:#a9b1a4;margin:0 0 10px;line-height:1.65}
+/* o seletor .foot a e' display:block (coluna de links); no bloco legal os links
+   sao correntes de texto e precisam voltar a ser inline. */
+.foot-legal a{display:inline;padding:0;color:#c9cfc6;text-decoration:underline}
 .foot-base{border-top:1px solid #333a31;margin-top:26px;padding-top:16px;color:#868e82;font-size:12.5px}
 
 @media(max-width:900px){
