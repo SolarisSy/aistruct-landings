@@ -37,7 +37,7 @@
       para quem se pede e quanto tempo a resposta demora.</p>
       <div class="act-2">
       <form class="act" action="go/" method="get">
-        <button type="submit" class="btn">Continuar com o acompanhamento
+        <button type="submit" class="btn">Consultar minha encomenda
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -81,7 +81,7 @@
       trabalhosa — montar a solicitação, enviar com protocolo e controlar o prazo — enquanto você
       toca o resto do dia. Se for o seu caso, siga daqui.</p>
       <form class="act" action="go/" method="get">
-        <button type="submit" class="btn">Seguir com o acompanhamento
+        <button type="submit" class="btn">Consultar minha encomenda
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -170,7 +170,31 @@
     Última atualização desta página: 1 de agosto de 2026</div>
   </div>
 </footer>
+<div class="cta-fix" aria-hidden="false">
+  <form class="act" action="go/" method="get">
+    <button type="submit" class="btn">Consultar minha encomenda
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </form>
+  <small>Consulta pelo navegador, sem instalar nada</small>
+</div>
 <script>
+/* Barra fixa do mobile: some no topo (nao competir com o CTA do hero) e
+   aparece assim que o visitante comeca a descer. Declarada ANTES do script de
+   propagacao para que o form dela tambem receba gclid/utm. */
+(function(){
+  var bar=document.querySelector('.cta-fix');
+  if(!bar||!window.matchMedia('(max-width:900px)').matches)return;
+  document.body.classList.add('has-cta-fix');
+  var mostra=function(){
+    var y=window.pageYOffset||document.documentElement.scrollTop||0;
+    if(y>260){bar.classList.add('on');}else{bar.classList.remove('on');}
+  };
+  window.addEventListener('scroll',mostra,{passive:true});
+  window.addEventListener('resize',mostra,{passive:true});
+  mostra();
+})();
 (function(){
   var q=new URLSearchParams(location.search);
   var forms=document.querySelectorAll('form[action="go/"]');

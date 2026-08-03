@@ -132,11 +132,32 @@ p{margin:0 0 15px}
 .foot-legal a{display:inline;padding:0;color:#c9cfc6;text-decoration:underline}
 .foot-base{border-top:1px solid #333a31;margin-top:26px;padding-top:16px;color:#868e82;font-size:12.5px}
 
+/* ---- presell: barra de acao fixa no mobile ----
+   Só existe na presell (única página com form[action="go/"]). Aparece depois
+   que o visitante rola, para não competir com o CTA do hero. O script de
+   propagação de gclid/utm pega este form junto com os outros dois, porque
+   casa o mesmo seletor form[action="go/"]. */
+.cta-fix{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;
+  background:rgba(253,252,249,.97);border-top:1px solid var(--line);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
+  box-shadow:0 -6px 18px rgba(0,0,0,.10)}
+.cta-fix.on{display:block}
+.cta-fix .act{margin:0}
+.cta-fix .btn{width:100%;padding:16px 20px;font-size:16.5px}
+.cta-fix small{display:block;text-align:center;font-size:11.5px;color:var(--muted);margin-top:7px}
+@media(min-width:901px){.cta-fix,.cta-fix.on{display:none}}
+
 @media(max-width:900px){
   .hero-in,.lay,.foot-cols{grid-template-columns:1fr;gap:28px}
   .aside{position:static}
   .facts div{grid-template-columns:1fr;gap:2px}
   .nav{gap:14px}
+  /* CTA principal ocupa a linha inteira e a saida institucional vai abaixo,
+     em vez de disputarem a mesma faixa horizontal. Area de toque >=48px. */
+  .act-2{flex-direction:column;align-items:stretch;gap:10px}
+  .act-2 .act,.act-2 .btn{width:100%}
+  .hero .btn,.note .btn{padding:16px 22px;font-size:16.5px}
+  body.has-cta-fix{padding-bottom:96px}
 }
 @media(max-width:560px){
   .idx li{grid-template-columns:76px 1fr;gap:13px}
