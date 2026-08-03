@@ -152,11 +152,20 @@ p{margin:0 0 15px}
   .aside{position:static}
   .facts div{grid-template-columns:1fr;gap:2px}
   .nav{gap:14px}
-  /* CTA principal ocupa a linha inteira e a saida institucional vai abaixo,
-     em vez de disputarem a mesma faixa horizontal. Area de toque >=48px. */
+  /* CTA principal ocupa a linha inteira. Area de toque >=48px. */
   .act-2{flex-direction:column;align-items:stretch;gap:10px}
   .act-2 .act,.act-2 .btn{width:100%}
   .hero .btn,.note .btn{padding:16px 22px;font-size:16.5px}
+  /* primeira dobra enxuta: o CTA e' o elemento de maior peso visual, entao o
+     que vem antes dele encolhe (padding, titulo, lead) em vez de empurra-lo
+     para fora da tela. */
+  .hero{padding:20px 0 4px}
+  .hero-in{gap:20px}
+  .hero h1{margin:0 0 10px}
+  .hero .lead{font-size:17px;line-height:1.5;margin:0 0 4px}
+  .hero .eyebrow{margin:0 0 7px}
+  .hero .act-2{margin:14px 0 6px}
+  .hero .small{margin:8px 0 0}
   /* a barra mede ~97px com a legenda; 112 deixa folga real acima do rodape */
   body.has-cta-fix{padding-bottom:112px}
 }
