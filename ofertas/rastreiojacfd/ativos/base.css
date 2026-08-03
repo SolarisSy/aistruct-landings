@@ -166,6 +166,23 @@ p{margin:0 0 15px}
   .hero .eyebrow{margin:0 0 7px}
   .hero .act-2{margin:14px 0 6px}
   .hero .small{margin:8px 0 0}
+
+  /* --- so' na presell (body.lp): tirar da 1a dobra tudo que disputa o CTA ---
+     A safe (16 paginas) NAO e' afetada: ela nao tem body.lp. */
+  /* o menu de 7 links ocupava 2 linhas densas logo acima do titulo e oferecia
+     7 rotas de saida antes do botao. Vira uma faixa unica, discreta, rolavel
+     na horizontal — continua navegavel (o Google exige navegacao no destino),
+     sem puxar o olho. */
+  .lp .nav{flex-wrap:nowrap;overflow-x:auto;gap:16px;padding-bottom:2px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .lp .nav::-webkit-scrollbar{display:none}
+  .lp .nav a{font-size:13px;color:var(--muted);white-space:nowrap}
+  .lp .mast-in{gap:10px}
+  /* a foto do hero vinha logo abaixo do CTA em tamanho cheio e roubava a
+     atencao seguinte; vira uma faixa baixa. */
+  .lp .hero .frame-in img{height:150px;object-fit:cover}
+  .lp .hero .frame-in{padding:0 0 8px 8px}
+  .lp .hero figcaption{font-size:11.5px;padding-top:6px}
   /* a barra mede ~97px com a legenda; 112 deixa folga real acima do rodape */
   body.has-cta-fix{padding-bottom:112px}
 }
