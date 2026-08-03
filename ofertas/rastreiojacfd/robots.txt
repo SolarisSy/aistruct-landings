@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rastreioja.cfd/sitemap.xml
+Sitemap: https://indoorencomendas.com.br/sitemap.xml
