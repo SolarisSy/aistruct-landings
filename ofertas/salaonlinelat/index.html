@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sala Online — Apresentação no ar</title>
+  <meta name="description" content="Sua apresentação está no ar. Toque no vídeo para começar agora mesmo — acesso imediato e gratuito." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#07191a" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2710%27%20fill%3D%27%2314b8a6%27/%3E%3Crect%20x%3D%2714%27%20y%3D%2720%27%20width%3D%2736%27%20height%3D%2724%27%20rx%3D%274%27%20fill%3D%27%2307191a%27/%3E%3Cpath%20d%3D%27M28%2026l11%206-11%206z%27%20fill%3D%27%2314b8a6%27/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    window.googlePixelId = "6a079de24b406979824cd6ac";
+    var a = document.createElement("script");
+    a.setAttribute("async", ""); a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07191a;
+      --bg-soft: #0d2527;
+      --fg: #eafaf8;
+      --fg-muted: #8cb8b3;
+      --accent: #14b8a6;
+      --accent-2: #0d9488;
+      --ok: #34d399;
+      --live: #f87171;
+      --line: rgba(255, 255, 255, 0.08);
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--fg);
+      line-height: 1.55;
+      background:
+        radial-gradient(80% 55% at 80% -5%, rgba(20, 184, 166, 0.15) 0%, rgba(20, 184, 166, 0) 55%),
+        radial-gradient(70% 50% at 5% 5%, rgba(13, 148, 136, 0.12) 0%, rgba(13, 148, 136, 0) 60%),
+        var(--bg);
+    }
+
+    /* ── Barra superior ─────────────────────────────── */
+    .vf-top { border-bottom: 1px solid var(--line); }
+    .vf-top-inner {
+      max-width: 840px; margin: 0 auto; padding: 13px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .vf-logo { display: inline-flex; align-items: center; gap: 9px; font-weight: 700; font-size: 15.5px; letter-spacing: -0.3px; }
+    .vf-logo-mark {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: var(--accent);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .vf-logo-mark svg { width: 14px; height: 14px; fill: var(--bg); }
+
+    /* ── Conteúdo ───────────────────────────────────── */
+    main {
+      flex: 1; width: 100%; max-width: 600px; margin: 0 auto;
+      padding: 26px 18px 24px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+
+    /* Badge estilo "AO VIVO" de TV */
+    .vf-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(248, 113, 113, 0.14); color: var(--live);
+      font-size: 11px; font-weight: 800; letter-spacing: 1.4px;
+      padding: 6px 13px; border-radius: 5px; margin-bottom: 15px;
+      border: 1px solid rgba(248, 113, 113, 0.35);
+    }
+    .vf-badge .vf-live {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--live);
+      animation: vfpulse 1.4s infinite;
+    }
+    @keyframes vfpulse {
+      0% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.7); }
+      70% { box-shadow: 0 0 0 7px rgba(248, 113, 113, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0); }
+    }
+
+    /* MESSAGE MATCH: alinhe este título com a promessa do seu anúncio/criativo */
+    h1 {
+      font-size: clamp(24px, 6vw, 32px); font-weight: 800;
+      letter-spacing: -1px; line-height: 1.18; margin-bottom: 9px;
+    }
+    h1 .hl { color: var(--accent); }
+    .vf-sub { font-size: 14px; color: var(--fg-muted); max-width: 440px; margin-bottom: 20px; }
+
+    form.vf-form { display: contents; }
+    .vf-sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    /* ── Card de vídeo com barra de progresso fake ──── */
+    .vf-card {
+      width: 100%; max-width: 540px;
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 10px 10px 12px;
+      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.45);
+    }
+
+    button.vf-thumb {
+      position: relative; display: block; width: 100%; aspect-ratio: 16 / 9;
+      border: 0; padding: 0; cursor: pointer; overflow: hidden;
+      border-radius: 10px; font-family: inherit;
+      background:
+        radial-gradient(75% 110% at 85% 10%, rgba(20, 184, 166, 0.30) 0%, rgba(20, 184, 166, 0) 55%),
+        radial-gradient(65% 100% at 10% 90%, rgba(13, 148, 136, 0.25) 0%, rgba(13, 148, 136, 0) 55%),
+        linear-gradient(155deg, #0f2f31 0%, #081819 100%);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    button.vf-thumb:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5); }
+    button.vf-thumb:focus { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    button.vf-thumb .vf-chip {
+      position: absolute; z-index: 3;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.7px;
+      padding: 4px 9px; border-radius: 5px;
+      background: rgba(4, 16, 17, 0.75); color: #fff;
+    }
+    button.vf-thumb .vf-chip.live { top: 10px; left: 10px; color: var(--live); }
+    button.vf-thumb .vf-chip.dur { top: 10px; right: 10px; font-variant-numeric: tabular-nums; }
+
+    button.vf-thumb .vf-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3;
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(20, 184, 166, 0.95);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 12px 30px rgba(20, 184, 166, 0.45);
+      transition: transform 0.18s ease;
+      animation: vfbob 2.2s ease-in-out infinite;
+    }
+    @keyframes vfbob { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.06); } }
+    button.vf-thumb:hover .vf-play { transform: translate(-50%, -50%) scale(1.1); }
+    button.vf-thumb .vf-play svg { width: 28px; height: 28px; fill: #fff; margin-left: 4px; }
+    button.vf-thumb .vf-play::before {
+      content: ""; position: absolute; inset: -8px; border-radius: 50%;
+      border: 2px solid rgba(20, 184, 166, 0.4);
+      animation: vfring 2.2s ease-out infinite;
+    }
+    @keyframes vfring { 0% { transform: scale(0.92); opacity: 0.8; } 100% { transform: scale(1.3); opacity: 0; } }
+
+    /* Barra de progresso de player (fake) embaixo do poster */
+    .vf-playerbar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 6px 2px;
+    }
+    .vf-playerbar .vf-time { font-size: 11px; font-weight: 600; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+    .vf-playerbar .vf-track {
+      flex: 1; height: 5px; border-radius: 3px;
+      background: rgba(255, 255, 255, 0.10); overflow: hidden;
+    }
+    .vf-playerbar .vf-track i {
+      display: block; height: 100%; width: 3%;
+      background: var(--accent); border-radius: 3px;
+    }
+
+    /* ── Quebras de objeção em lista vertical ───────── */
+    .vf-perks {
+      display: flex; flex-direction: column; gap: 7px;
+      margin: 16px 0 4px; width: 100%; max-width: 540px;
+    }
+    .vf-perk {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 600; color: var(--fg);
+      background: var(--bg-soft); border: 1px solid var(--line);
+      padding: 10px 14px; border-radius: 10px; text-align: left;
+    }
+    .vf-perk svg { width: 15px; height: 15px; stroke: var(--ok); flex: none; }
+
+    /* ── CTA teal com pulso ─────────────────────────── */
+    button.vf-cta-wrap { all: unset; cursor: pointer; display: block; width: 100%; max-width: 540px; margin-top: 14px; }
+    .vf-cta {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px 24px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: #02201c; font-size: 16.5px; font-weight: 800;
+      border-radius: 10px;
+      box-shadow: 0 12px 28px rgba(20, 184, 166, 0.35);
+      transition: transform 0.15s ease;
+      animation: vfctapulse 1.7s ease-in-out infinite;
+    }
+    @keyframes vfctapulse {
+      0%, 100% { box-shadow: 0 12px 28px rgba(20, 184, 166, 0.35); transform: scale(1); }
+      50% { box-shadow: 0 12px 42px rgba(20, 184, 166, 0.6); transform: scale(1.015); }
+    }
+    button.vf-cta-wrap:hover .vf-cta { transform: translateY(-2px); }
+    button.vf-cta-wrap:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 10px; }
+    .vf-cta svg { width: 17px; height: 17px; }
+    .vf-hint { margin-top: 10px; font-size: 11.5px; color: var(--fg-muted); }
+
+    /* ── Rodapé ─────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 20px 20px 28px; text-align: center;
+      font-size: 10.5px; line-height: 1.6; color: #5d7d79;
+    }
+    footer .vf-brand { font-size: 12px; color: var(--fg-muted); font-weight: 600; margin-bottom: 3px; }
+    footer .vf-links { margin: 6px 0 14px; font-size: 11.5px; }
+    footer .vf-links a { color: #5d7d79; text-decoration: none; border-bottom: 1px dotted #3f5c58; }
+    footer .vf-links .sep { margin: 0 8px; color: #314a47; }
+    footer .vf-disc { max-width: 720px; margin: 0 auto; font-size: 10px; text-align: justify; color: #506b67; }
+    footer .vf-disc p { margin-bottom: 8px; }
+    footer .vf-disc p:last-child { margin-bottom: 0; }
+    footer .vf-disc strong { color: #5d7d79; }
+    footer .vf-disc a { color: inherit; border-bottom: 1px dotted #3f5c58; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="vf-top">
+    <div class="vf-top-inner">
+      <span class="vf-logo">
+        <span class="vf-logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm6 4v6l5-3-5-3z"/></svg>
+        </span>
+        Sala Online
+      </span>
+    </div>
+  </header>
+
+  <main>
+    <span class="vf-badge"><span class="vf-live"></span> NO AR AGORA</span>
+    <h1>Sua apresentação está <span class="hl">no ar</span></h1>
+    <p class="vf-sub">Toque no vídeo ou no botão abaixo para começar agora mesmo.</p>
+
+    <form id="vf-form" class="vf-form" action="frontyt.html" method="get" autocomplete="off">
+      <input type="hidden" name="step" value="2" />
+      <input type="hidden" name="ref" value="content" />
+
+      <label for="session_id" class="vf-sr-only">Identificador de sessão</label>
+      <input type="text" id="session_id" name="session_id" class="vf-sr-only" tabindex="-1" aria-hidden="false" readonly value="" />
+
+      <label for="website" class="vf-sr-only">Não preencha este campo</label>
+      <input type="text" id="website" name="website" class="vf-sr-only" tabindex="-1" autocomplete="off" value="" />
+
+      <span class="vf-card">
+        <button type="submit" class="vf-thumb" id="cta-main" aria-label="Assistir à apresentação agora">
+          <span class="vf-chip live" aria-hidden="true">● NO AR</span>
+          <span class="vf-chip dur" aria-hidden="true">07:58</span>
+          <span class="vf-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
+        <span class="vf-playerbar" aria-hidden="true">
+          <span class="vf-time">00:00</span>
+          <span class="vf-track"><i></i></span>
+          <span class="vf-time">07:58</span>
+        </span>
+      </span>
+      <span class="vf-perks">
+        <span class="vf-perk">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Acesso imediato — sem fila e sem espera
+        </span>
+        <span class="vf-perk">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Sem cadastro — não pedimos seus dados
+        </span>
+        <span class="vf-perk">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Grátis hoje — nenhum pagamento necessário
+        </span>
+      </span>
+
+      <button type="submit" class="vf-cta-wrap" aria-label="Assistir gratuitamente">
+        <span class="vf-cta">
+          Assistir gratuitamente
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </button>
+    </form>
+    <p class="vf-hint">Abre direto no navegador do seu celular ou computador.</p>
+  </main>
+
+  <footer>
+    <div class="vf-brand">Copyright <span id="year"></span> — Sala Online &reg;</div>
+    <div>Todos os direitos reservados</div>
+    <div class="vf-links">
+      <a href="termos.html">Termos de Uso</a><span class="sep">&middot;</span><a href="privacidade.html">Privacidade</a>
+    </div>
+    <div class="vf-disc">
+      <p><strong>Aviso Legal:</strong> Este site não faz parte do site do Google&trade; nem da rede de sites como o Youtube&trade;, tampouco de qualquer empresa pertencente ao Google&trade; ou ao Youtube&trade;. Este site <strong>NÃO</strong> é endossado pelo Google&trade; ou pelo Youtube&trade; Inc. de nenhuma forma. Google&trade; é marca registrada de suas respectivas empresas.</p>
+      <p><strong>Divulgação de Marketing:</strong> Este é um site afiliado. Seu proprietário mantém relação comercial com os produtos e serviços apresentados e pode receber comissão quando o visitante realiza uma ação qualificada — o que não altera a forma como o conteúdo é exibido.</p>
+      <p><strong>Divulgação Publicitária:</strong> O conteúdo desta página tem caráter promocional e publicitário, não jornalístico ou editorial. Não garantimos resultados específicos; os resultados variam de pessoa para pessoa.</p>
+      <p><strong>Conformidade LGPD:</strong> Tratamos dados pessoais conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Saiba mais na nossa <a href="privacidade.html">Política de Privacidade</a> ou fale conosco em <a href="mailto:contato@salaonline.lat">contato@salaonline.lat</a>.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function () {
+      var form = document.getElementById('vf-form');
+      if (!form) return;
+
+      var sessionInput = document.getElementById('session_id');
+      if (sessionInput) {
+        sessionInput.value = (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
+      }
+
+      // Injeta TODOS os query params da URL (tftk, rtkcid, utm_*, gclid, fbclid...)
+      form.addEventListener('submit', function () {
+        var params = new URLSearchParams(window.location.search);
+        params.forEach(function (val, key) {
+          if (form.querySelector('input[name="' + key + '"]')) return;
+          var inp = document.createElement('input');
+          inp.type = 'hidden'; inp.name = key; inp.value = val;
+          form.appendChild(inp);
+        });
+      });
+
+      // SEM auto-redirect nesta variação: o usuário avança somente
+      // clicando no play ou no CTA.
+    })();
+  </script>
+
+</body>
+</html>

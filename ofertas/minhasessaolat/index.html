@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minha Sessão — Está tudo pronto</title>
+  <meta name="description" content="Está tudo pronto — é só dar play. Apresentação completa liberada, sem cadastro e sem pagar nada." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#1c0a14" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2718%27%20fill%3D%27%23ec4899%27/%3E%3Cpath%20d%3D%27M32%2014l4.6%209.3%2010.3%201.5-7.4%207.2%201.7%2010.2-9.2-4.8-9.2%204.8%201.7-10.2-7.4-7.2%2010.3-1.5z%27%20fill%3D%27%231c0a14%27/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    window.googlePixelId = "6a079de24b406979824cd6ac";
+    var a = document.createElement("script");
+    a.setAttribute("async", ""); a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1c0a14;
+      --bg-soft: #2a1020;
+      --fg: #fdeef5;
+      --fg-muted: #c493ac;
+      --accent: #ec4899;
+      --accent-2: #db2777;
+      --ok: #34d399;
+      --line: rgba(255, 255, 255, 0.09);
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--fg);
+      line-height: 1.55;
+      background:
+        radial-gradient(85% 55% at 50% -8%, rgba(236, 72, 153, 0.18) 0%, rgba(236, 72, 153, 0) 55%),
+        var(--bg);
+    }
+
+    /* ── Barra superior ─────────────────────────────── */
+    .vg-top { border-bottom: 1px solid var(--line); }
+    .vg-top-inner {
+      max-width: 840px; margin: 0 auto; padding: 14px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .vg-logo { display: inline-flex; align-items: center; gap: 9px; font-weight: 800; font-size: 15px; }
+    .vg-logo-mark {
+      width: 28px; height: 28px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .vg-logo-mark svg { width: 13px; height: 13px; fill: #fff; }
+
+    /* ── Conteúdo ───────────────────────────────────── */
+    main {
+      flex: 1; width: 100%; max-width: 600px; margin: 0 auto;
+      padding: 26px 18px 24px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+
+    form.vg-form { display: contents; }
+    .vg-sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    /* ── CARD ÚNICO: título + poster + CTA dentro ───── */
+    .vg-shell {
+      width: 100%; max-width: 560px;
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px 18px 18px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+
+    .vg-check {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(52, 211, 153, 0.12); color: var(--ok);
+      font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 14px;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+    .vg-check svg { width: 13px; height: 13px; stroke: var(--ok); }
+
+    /* MESSAGE MATCH: alinhe este título com a promessa do seu anúncio/criativo */
+    h1 {
+      font-size: clamp(22px, 5.5vw, 29px); font-weight: 800;
+      letter-spacing: -0.5px; line-height: 1.22; margin-bottom: 8px;
+    }
+    h1 .hl { color: var(--accent); }
+    .vg-sub { font-size: 13.5px; color: var(--fg-muted); max-width: 420px; margin-bottom: 18px; }
+
+    /* ── Poster de vídeo clicável ───────────────────── */
+    button.vg-thumb {
+      position: relative; display: block; width: 100%; aspect-ratio: 16 / 9;
+      border: 0; padding: 0; cursor: pointer; overflow: hidden;
+      border-radius: 14px; font-family: inherit;
+      background:
+        radial-gradient(75% 110% at 15% 0%, rgba(236, 72, 153, 0.30) 0%, rgba(236, 72, 153, 0) 55%),
+        radial-gradient(65% 100% at 90% 100%, rgba(219, 39, 119, 0.28) 0%, rgba(219, 39, 119, 0) 55%),
+        linear-gradient(155deg, #3a1330 0%, #1c0a16 100%);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    button.vg-thumb:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5); }
+    button.vg-thumb:focus { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    button.vg-thumb .vg-chip {
+      position: absolute; z-index: 3;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.7px;
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(24, 6, 16, 0.75); color: #fff;
+    }
+    button.vg-thumb .vg-chip.ok { top: 10px; left: 10px; color: var(--ok); }
+    button.vg-thumb .vg-chip.dur { top: 10px; right: 10px; font-variant-numeric: tabular-nums; }
+
+    button.vg-thumb .vg-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3;
+      width: 74px; height: 74px; border-radius: 24px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 14px 32px rgba(236, 72, 153, 0.5);
+      transition: transform 0.18s ease;
+      animation: vgbob 2.3s ease-in-out infinite;
+    }
+    @keyframes vgbob { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.06); } }
+    button.vg-thumb:hover .vg-play { transform: translate(-50%, -50%) scale(1.1); }
+    button.vg-thumb .vg-play svg { width: 29px; height: 29px; fill: #fff; margin-left: 4px; }
+    button.vg-thumb .vg-play::before {
+      content: ""; position: absolute; inset: -8px; border-radius: 30px;
+      border: 2px solid rgba(236, 72, 153, 0.4);
+      animation: vgring 2.3s ease-out infinite;
+    }
+    @keyframes vgring { 0% { transform: scale(0.92); opacity: 0.8; } 100% { transform: scale(1.3); opacity: 0; } }
+
+    /* ── CTA com pulso (dentro do card) ─────────────── */
+    button.vg-cta-wrap { all: unset; cursor: pointer; display: block; width: 100%; margin-top: 16px; }
+    .vg-cta {
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      width: 100%; padding: 16px 24px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: #fff; font-size: 16.5px; font-weight: 700;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(236, 72, 153, 0.35);
+      transition: transform 0.15s ease;
+      animation: vgctapulse 1.6s ease-in-out infinite;
+    }
+    @keyframes vgctapulse {
+      0%, 100% { box-shadow: 0 12px 30px rgba(236, 72, 153, 0.35); transform: scale(1); }
+      50% { box-shadow: 0 12px 44px rgba(236, 72, 153, 0.6); transform: scale(1.02); }
+    }
+    button.vg-cta-wrap:hover .vg-cta { transform: translateY(-2px); }
+    button.vg-cta-wrap:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 14px; }
+    .vg-hint { margin-top: 10px; font-size: 11.5px; color: var(--fg-muted); }
+
+    /* ── Quebras de objeção em grid de 3 colunas ────── */
+    .vg-perks {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      width: 100%; max-width: 560px; margin-top: 14px;
+    }
+    .vg-perk {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: var(--fg-muted);
+      background: var(--bg-soft); border: 1px solid var(--line);
+      padding: 12px 8px; border-radius: 12px; line-height: 1.35;
+    }
+    .vg-perk svg { width: 16px; height: 16px; stroke: var(--ok); }
+    @media (max-width: 420px) {
+      .vg-perks { grid-template-columns: 1fr; }
+      .vg-perk { flex-direction: row; justify-content: center; }
+    }
+
+    /* ── Rodapé ─────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 20px 20px 28px; text-align: center;
+      font-size: 10.5px; line-height: 1.6; color: #8a6478;
+    }
+    footer .vg-brand { font-size: 12px; color: var(--fg-muted); font-weight: 700; margin-bottom: 3px; }
+    footer .vg-links { margin: 6px 0 14px; font-size: 11.5px; }
+    footer .vg-links a { color: #8a6478; text-decoration: none; border-bottom: 1px dotted #5f4353; }
+    footer .vg-links .sep { margin: 0 8px; color: #4c3642; }
+    footer .vg-disc { max-width: 720px; margin: 0 auto; font-size: 10px; text-align: justify; color: #775668; }
+    footer .vg-disc p { margin-bottom: 8px; }
+    footer .vg-disc p:last-child { margin-bottom: 0; }
+    footer .vg-disc strong { color: #8a6478; }
+    footer .vg-disc a { color: inherit; border-bottom: 1px dotted #5f4353; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="vg-top">
+    <div class="vg-top-inner">
+      <span class="vg-logo">
+        <span class="vg-logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.9 5.9 6.6 1-4.7 4.6 1.1 6.5L12 17l-5.9 3 1.1-6.5L2.5 8.9l6.6-1z"/></svg>
+        </span>
+        Minha Sessão
+      </span>
+    </div>
+  </header>
+
+  <main>
+    <form id="vg-form" class="vg-form" action="frontyt.html" method="get" autocomplete="off">
+      <input type="hidden" name="step" value="2" />
+      <input type="hidden" name="ref" value="content" />
+
+      <label for="session_id" class="vg-sr-only">Identificador de sessão</label>
+      <input type="text" id="session_id" name="session_id" class="vg-sr-only" tabindex="-1" aria-hidden="false" readonly value="" />
+
+      <label for="website" class="vg-sr-only">Não preencha este campo</label>
+      <input type="text" id="website" name="website" class="vg-sr-only" tabindex="-1" autocomplete="off" value="" />
+      <span class="vg-shell">
+        <span class="vg-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Liberado para você
+        </span>
+        <h1>Está tudo <span class="hl">pronto</span> — é só dar play</h1>
+        <p class="vg-sub">Apresentação completa liberada. Sem cadastro e sem pagar nada.</p>
+
+        <button type="submit" class="vg-thumb" id="cta-main" aria-label="Ver a apresentação agora">
+          <span class="vg-chip ok" aria-hidden="true">● LIBERADO</span>
+          <span class="vg-chip dur" aria-hidden="true">08:45</span>
+          <span class="vg-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
+
+        <button type="submit" class="vg-cta-wrap" aria-label="Ver apresentação agora">
+          <span class="vg-cta">▶&nbsp; Ver apresentação agora</span>
+        </button>
+        <span class="vg-hint">Abre na hora, direto no seu navegador.</span>
+      </span>
+      <span class="vg-perks">
+        <span class="vg-perk">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Sem pagar nada
+        </span>
+        <span class="vg-perk">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Abre no navegador
+        </span>
+        <span class="vg-perk">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Assista agora
+        </span>
+      </span>
+    </form>
+  </main>
+
+  <footer>
+    <div class="vg-brand">Copyright <span id="year"></span> — Minha Sessão &reg;</div>
+    <div>Todos os direitos reservados</div>
+    <div class="vg-links">
+      <a href="termos.html">Termos de Uso</a><span class="sep">&middot;</span><a href="privacidade.html">Privacidade</a>
+    </div>
+    <div class="vg-disc">
+      <p><strong>Aviso Legal:</strong> Este site não faz parte do site do Google&trade; nem da rede de sites como o Youtube&trade;, tampouco de qualquer empresa pertencente ao Google&trade; ou ao Youtube&trade;. Este site <strong>NÃO</strong> é endossado pelo Google&trade; ou pelo Youtube&trade; Inc. de nenhuma forma. Google&trade; é marca registrada de suas respectivas empresas.</p>
+      <p><strong>Divulgação de Marketing:</strong> Este é um site afiliado. Seu proprietário mantém relação comercial com os produtos e serviços apresentados e pode receber comissão quando o visitante realiza uma ação qualificada — o que não altera a forma como o conteúdo é exibido.</p>
+      <p><strong>Divulgação Publicitária:</strong> O conteúdo desta página tem caráter promocional e publicitário, não jornalístico ou editorial. Não garantimos resultados específicos; os resultados variam de pessoa para pessoa.</p>
+      <p><strong>Conformidade LGPD:</strong> Tratamos dados pessoais conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Saiba mais na nossa <a href="privacidade.html">Política de Privacidade</a> ou fale conosco em <a href="mailto:contato@minhasessao.lat">contato@minhasessao.lat</a>.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function () {
+      var form = document.getElementById('vg-form');
+      if (!form) return;
+
+      var sessionInput = document.getElementById('session_id');
+      if (sessionInput) {
+        sessionInput.value = (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
+      }
+
+      // Injeta TODOS os query params da URL (tftk, rtkcid, utm_*, gclid, fbclid...)
+      form.addEventListener('submit', function () {
+        var params = new URLSearchParams(window.location.search);
+        params.forEach(function (val, key) {
+          if (form.querySelector('input[name="' + key + '"]')) return;
+          var inp = document.createElement('input');
+          inp.type = 'hidden'; inp.name = key; inp.value = val;
+          form.appendChild(inp);
+        });
+      });
+
+      // SEM auto-redirect nesta variação: o usuário avança somente
+      // clicando no play ou no CTA.
+    })();
+  </script>
+
+</body>
+</html>

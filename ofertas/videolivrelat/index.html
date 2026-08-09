@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vídeo Livre — Assista quando quiser</title>
+  <meta name="description" content="Seu vídeo já está liberado. Aperte o play e assista — sem pagamento e sem instalação." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#071511" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%2310b981%27/%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2714%27%20fill%3D%27%23071511%27/%3E%3Cpath%20d%3D%27M28%2025l11%207-11%207z%27%20fill%3D%27%2310b981%27/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    window.googlePixelId = "6a079de24b406979824cd6ac";
+    var a = document.createElement("script");
+    a.setAttribute("async", ""); a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+    document.head.appendChild(a);
+  </script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #071511;
+      --bg-soft: #0e211b;
+      --fg: #eefaF6;
+      --fg-muted: #8fb5a8;
+      --accent: #10b981;
+      --accent-2: #059669;
+      --ok: #4ade80;
+      --line: rgba(255, 255, 255, 0.08);
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--fg);
+      line-height: 1.55;
+      background:
+        radial-gradient(90% 55% at 15% -5%, rgba(16, 185, 129, 0.16) 0%, rgba(16, 185, 129, 0) 55%),
+        radial-gradient(70% 50% at 90% 10%, rgba(74, 222, 128, 0.10) 0%, rgba(74, 222, 128, 0) 60%),
+        var(--bg);
+    }
+
+    /* ── Barra superior ─────────────────────────────── */
+    .vd-top { border-bottom: 1px solid var(--line); }
+    .vd-top-inner {
+      max-width: 840px; margin: 0 auto; padding: 14px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .vd-logo { display: inline-flex; align-items: center; gap: 9px; font-weight: 800; font-size: 16px; letter-spacing: -0.2px; }
+    .vd-logo-mark {
+      width: 30px; height: 30px; border-radius: 9px;
+      background: var(--accent);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .vd-logo-mark svg { width: 15px; height: 15px; fill: var(--bg); }
+
+    /* ── Conteúdo ───────────────────────────────────── */
+    main {
+      flex: 1; width: 100%; max-width: 600px; margin: 0 auto;
+      padding: 26px 18px 24px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+
+    .vd-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(16, 185, 129, 0.14); color: var(--ok);
+      font-size: 11.5px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 8px; margin-bottom: 15px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .vd-badge .vd-live {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--ok);
+      animation: vdpulse 1.8s infinite;
+    }
+    @keyframes vdpulse {
+      0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+      70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+    }
+
+    /* MESSAGE MATCH: alinhe este título com a promessa do seu anúncio/criativo */
+    h1 {
+      font-size: clamp(24px, 6vw, 32px); font-weight: 800;
+      letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 9px;
+    }
+    h1 .hl { color: var(--accent); }
+    .vd-sub { font-size: 14px; color: var(--fg-muted); max-width: 430px; margin-bottom: 18px; }
+
+    form.vd-form { display: contents; }
+    .vd-sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    /* ── Seta ACIMA do card (diferencial desta variação) ── */
+    .vd-pointer {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      margin-bottom: 10px; color: var(--accent);
+      animation: vdbounce 1.4s ease-in-out infinite;
+    }
+    .vd-pointer span { font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; }
+    .vd-pointer svg { width: 20px; height: 20px; fill: currentColor; }
+    @keyframes vdbounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+    /* ── Card de vídeo clicável ─────────────────────── */
+    .vd-card {
+      width: 100%; max-width: 540px;
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.45);
+    }
+
+    button.vd-thumb {
+      position: relative; display: block; width: 100%; aspect-ratio: 16 / 9;
+      border: 0; padding: 0; cursor: pointer; overflow: hidden;
+      border-radius: 9px; font-family: inherit;
+      background:
+        radial-gradient(80% 110% at 20% 0%, rgba(16, 185, 129, 0.30) 0%, rgba(16, 185, 129, 0) 55%),
+        radial-gradient(70% 100% at 90% 100%, rgba(74, 222, 128, 0.20) 0%, rgba(74, 222, 128, 0) 55%),
+        linear-gradient(160deg, #0f2c22 0%, #08150f 100%);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    button.vd-thumb:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5); }
+    button.vd-thumb:focus { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    button.vd-thumb .vd-chip {
+      position: absolute; z-index: 3;
+      font-size: 10px; font-weight: 800; letter-spacing: 0.8px;
+      padding: 4px 9px; border-radius: 5px;
+      background: rgba(5, 14, 10, 0.75); color: #fff;
+    }
+    button.vd-thumb .vd-chip.free { top: 10px; left: 10px; color: var(--ok); }
+    button.vd-thumb .vd-chip.dur { bottom: 10px; right: 10px; font-variant-numeric: tabular-nums; }
+
+    button.vd-thumb .vd-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3;
+      width: 76px; height: 76px; border-radius: 50%;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.5);
+      transition: transform 0.18s ease;
+      animation: vdbob 2.4s ease-in-out infinite;
+    }
+    @keyframes vdbob { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.07); } }
+    button.vd-thumb:hover .vd-play { transform: translate(-50%, -50%) scale(1.1); }
+    button.vd-thumb .vd-play svg { width: 30px; height: 30px; fill: var(--bg); margin-left: 4px; }
+    button.vd-thumb .vd-play::before {
+      content: ""; position: absolute; inset: -8px; border-radius: 50%;
+      border: 2px solid rgba(16, 185, 129, 0.45);
+      animation: vdring 2.4s ease-out infinite;
+    }
+    @keyframes vdring { 0% { transform: scale(0.92); opacity: 0.8; } 100% { transform: scale(1.3); opacity: 0; } }
+
+    /* ── Quebras de objeção (abaixo do card) ────────── */
+    .vd-perks {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+      margin: 16px 0 4px;
+    }
+    .vd-perk {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11.5px; font-weight: 700; color: var(--fg-muted);
+      background: var(--bg-soft); border: 1px solid var(--line);
+      padding: 6px 12px; border-radius: 8px;
+    }
+    .vd-perk svg { width: 12px; height: 12px; stroke: var(--ok); flex: none; }
+
+    /* ── CTA quadrado com pulso ─────────────────────── */
+    button.vd-cta-wrap { all: unset; cursor: pointer; display: block; width: 100%; max-width: 540px; margin-top: 14px; }
+    .vd-cta {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px 24px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: #032117; font-size: 16.5px; font-weight: 800;
+      border-radius: 12px;
+      box-shadow: 0 12px 28px rgba(16, 185, 129, 0.35);
+      transition: transform 0.15s ease;
+      animation: vdctapulse 1.7s ease-in-out infinite;
+    }
+    @keyframes vdctapulse {
+      0%, 100% { box-shadow: 0 12px 28px rgba(16, 185, 129, 0.35); transform: scale(1); }
+      50% { box-shadow: 0 12px 42px rgba(16, 185, 129, 0.6); transform: scale(1.015); }
+    }
+    button.vd-cta-wrap:hover .vd-cta { transform: translateY(-2px); }
+    button.vd-cta-wrap:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 12px; }
+    .vd-cta svg { width: 17px; height: 17px; }
+    .vd-hint { margin-top: 10px; font-size: 11.5px; color: var(--fg-muted); }
+
+    /* ── Rodapé ─────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 20px 20px 28px; text-align: center;
+      font-size: 10.5px; line-height: 1.6; color: #5f7a70;
+    }
+    footer .vd-brand { font-size: 12px; color: var(--fg-muted); font-weight: 700; margin-bottom: 3px; }
+    footer .vd-links { margin: 6px 0 14px; font-size: 11.5px; }
+    footer .vd-links a { color: #5f7a70; text-decoration: none; border-bottom: 1px dotted #40564e; }
+    footer .vd-links .sep { margin: 0 8px; color: #33453e; }
+    footer .vd-disc { max-width: 720px; margin: 0 auto; font-size: 10px; text-align: justify; color: #52685f; }
+    footer .vd-disc p { margin-bottom: 8px; }
+    footer .vd-disc p:last-child { margin-bottom: 0; }
+    footer .vd-disc strong { color: #5f7a70; }
+    footer .vd-disc a { color: inherit; border-bottom: 1px dotted #40564e; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="vd-top">
+    <div class="vd-top-inner">
+      <span class="vd-logo">
+        <span class="vd-logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        </span>
+        Vídeo Livre
+      </span>
+    </div>
+  </header>
+
+  <main>
+    <span class="vd-badge"><span class="vd-live"></span> Vídeo liberado</span>
+    <h1>Seu vídeo já está <span class="hl">liberado</span> — aperte o play</h1>
+    <p class="vd-sub">A apresentação completa está disponível abaixo. Assista quando quiser.</p>
+
+    <form id="vd-form" class="vd-form" action="frontyt.html" method="get" autocomplete="off">
+      <input type="hidden" name="step" value="2" />
+      <input type="hidden" name="ref" value="content" />
+
+      <label for="session_id" class="vd-sr-only">Identificador de sessão</label>
+      <input type="text" id="session_id" name="session_id" class="vd-sr-only" tabindex="-1" aria-hidden="false" readonly value="" />
+
+      <label for="website" class="vd-sr-only">Não preencha este campo</label>
+      <input type="text" id="website" name="website" class="vd-sr-only" tabindex="-1" autocomplete="off" value="" />
+
+      <div class="vd-pointer" aria-hidden="true">
+        <span>Toque no play para iniciar</span>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-6-6h12l-6 6z"/></svg>
+      </div>
+
+      <span class="vd-card">
+        <button type="submit" class="vd-thumb" id="cta-main" aria-label="Assistir ao vídeo completo agora">
+          <span class="vd-chip free" aria-hidden="true">● GRÁTIS</span>
+          <span class="vd-chip dur" aria-hidden="true">06:47</span>
+          <span class="vd-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
+      </span>
+      <div class="vd-perks">
+        <span class="vd-perk">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Sem pagamento
+        </span>
+        <span class="vd-perk">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Sem instalação
+        </span>
+        <span class="vd-perk">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Funciona no celular
+        </span>
+      </div>
+
+      <button type="submit" class="vd-cta-wrap" aria-label="Assistir agora">
+        <span class="vd-cta">
+          Quero assistir agora
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </button>
+    </form>
+    <p class="vd-hint">Você assiste direto aqui, sem sair do navegador.</p>
+  </main>
+
+  <footer>
+    <div class="vd-brand">Copyright <span id="year"></span> — Vídeo Livre &reg;</div>
+    <div>Todos os direitos reservados</div>
+    <div class="vd-links">
+      <a href="termos.html">Termos de Uso</a><span class="sep">&middot;</span><a href="privacidade.html">Privacidade</a>
+    </div>
+    <div class="vd-disc">
+      <p><strong>Aviso Legal:</strong> Este site não faz parte do site do Google&trade; nem da rede de sites como o Youtube&trade;, tampouco de qualquer empresa pertencente ao Google&trade; ou ao Youtube&trade;. Este site <strong>NÃO</strong> é endossado pelo Google&trade; ou pelo Youtube&trade; Inc. de nenhuma forma. Google&trade; é marca registrada de suas respectivas empresas.</p>
+      <p><strong>Divulgação de Marketing:</strong> Este é um site afiliado. Seu proprietário mantém relação comercial com os produtos e serviços apresentados e pode receber comissão quando o visitante realiza uma ação qualificada — o que não altera a forma como o conteúdo é exibido.</p>
+      <p><strong>Divulgação Publicitária:</strong> O conteúdo desta página tem caráter promocional e publicitário, não jornalístico ou editorial. Não garantimos resultados específicos; os resultados variam de pessoa para pessoa.</p>
+      <p><strong>Conformidade LGPD:</strong> Tratamos dados pessoais conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Saiba mais na nossa <a href="privacidade.html">Política de Privacidade</a> ou fale conosco em <a href="mailto:contato@videolivre.lat">contato@videolivre.lat</a>.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function () {
+      var form = document.getElementById('vd-form');
+      if (!form) return;
+
+      var sessionInput = document.getElementById('session_id');
+      if (sessionInput) {
+        sessionInput.value = (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
+      }
+
+      // Injeta TODOS os query params da URL (tftk, rtkcid, utm_*, gclid, fbclid...)
+      form.addEventListener('submit', function () {
+        var params = new URLSearchParams(window.location.search);
+        params.forEach(function (val, key) {
+          if (form.querySelector('input[name="' + key + '"]')) return;
+          var inp = document.createElement('input');
+          inp.type = 'hidden'; inp.name = key; inp.value = val;
+          form.appendChild(inp);
+        });
+      });
+
+      // SEM auto-redirect nesta variação: o usuário avança somente
+      // clicando no play ou no CTA.
+    })();
+  </script>
+
+</body>
+</html>
