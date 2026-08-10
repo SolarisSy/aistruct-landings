@@ -1,4 +1,5 @@
 import { AgentChat } from '@/components/agent-chat';
+import { ProductThumb } from '@/components/thumb';
 import { KB_DEMO } from '@/lib/agent-kb';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
@@ -20,7 +21,7 @@ export default function CheckoutPage() {
 
           <div className="mt-6 rounded-[var(--radius-card)] border border-border bg-card p-5">
             <div className="flex items-center gap-4">
-              <span className="h-14 w-14 shrink-0 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-800" />
+              <ProductThumb nome={p.produto} cor="from-blue-500 to-indigo-800" size={56} />
               <div>
                 <p className="font-semibold">{p.produto}</p>
                 <p className="text-sm text-muted-foreground">{p.descricao}</p>

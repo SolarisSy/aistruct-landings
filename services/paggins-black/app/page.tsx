@@ -1,6 +1,7 @@
 import { Topbar } from '@/components/shell';
 import { Badge, Card, CardBody, CardHeader, CardTitle } from '@/components/ui';
 import { MetodoChart, SalesChart } from '@/components/sales-chart';
+import { ProductThumb } from '@/components/thumb';
 import {
   METRICAS, PEDIDOS, POR_METODO, TOP_PRODUTOS, VENDAS_POR_HORA, produtoDe,
 } from '@/lib/data';
@@ -102,7 +103,7 @@ export default function DashboardPage() {
                 const share = (t.receita / TOP_PRODUTOS[0].receita) * 100;
                 return (
                   <div key={t.prod.id} className="flex items-center gap-3.5">
-                    <span className={`h-9 w-9 shrink-0 rounded-lg bg-gradient-to-br ${t.prod.cor}`} />
+                    <ProductThumb nome={t.prod.nome} cor={t.prod.cor} tags={t.prod.tags} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline justify-between gap-4">
                         <p className="truncate text-sm font-medium">{t.prod.nome}</p>
@@ -155,7 +156,7 @@ export default function DashboardPage() {
                   key={p.id}
                   className="flex items-center gap-4 rounded-[var(--radius-field)] px-2 py-2.5 transition-colors hover:bg-elevated/50"
                 >
-                  <span className={`h-8 w-8 shrink-0 rounded-lg bg-gradient-to-br ${prod.cor}`} />
+                  <ProductThumb nome={prod.nome} cor={prod.cor} tags={prod.tags} size={32} />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium">{p.cliente}</p>
                     <p className="truncate text-xs text-muted-foreground">{prod.nome}</p>

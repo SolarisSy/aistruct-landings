@@ -1,5 +1,6 @@
 import { Topbar } from '@/components/shell';
 import { Badge, Card, CardBody, CardHeader, CardTitle, Select, Table, Td, Th } from '@/components/ui';
+import { ProductThumb } from '@/components/thumb';
 import { METRICAS, PEDIDOS, produtoDe, type PedidoStatus } from '@/lib/data';
 import { brl } from '@/lib/utils';
 import { Download, Eye, Search } from 'lucide-react';
@@ -96,7 +97,7 @@ export default function PedidosPage() {
                       </Td>
                       <Td>
                         <div className="flex items-center gap-2.5">
-                          <span className={`h-6 w-6 shrink-0 rounded bg-gradient-to-br ${prod.cor}`} />
+                          <ProductThumb nome={prod.nome} cor={prod.cor} tags={prod.tags} size={24} />
                           <span className="max-w-[190px] truncate">{prod.nome}</span>
                         </div>
                       </Td>

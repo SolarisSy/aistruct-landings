@@ -1,6 +1,7 @@
 'use client';
 
 import { Badge, Table, Td, Th } from '@/components/ui';
+import { ProductThumb } from '@/components/thumb';
 import { brl } from '@/lib/utils';
 import type { ProdutoRel } from '@/lib/data';
 import { Eye, Pencil, Search } from 'lucide-react';
@@ -49,7 +50,7 @@ export function ProdutosTable({ rows, papel }: { rows: ProdutoRel[]; papel: 'own
             <tr key={p.id} className="transition-colors hover:bg-elevated/40">
               <Td className="pl-4">
                 <div className="flex items-center gap-3">
-                  <span className={`h-9 w-9 shrink-0 rounded-lg bg-gradient-to-br ${p.cor}`} />
+                  <ProductThumb nome={p.nome} cor={p.cor} tags={p.tags} />
                   <span className="font-medium text-foreground">{p.nome}</span>
                 </div>
               </Td>

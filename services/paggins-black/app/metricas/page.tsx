@@ -2,6 +2,7 @@ import { Topbar } from '@/components/shell';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui';
 import { KpiRow } from '@/components/kpi';
 import { MetodoChart, SalesChart } from '@/components/sales-chart';
+import { ProductThumb } from '@/components/thumb';
 import { METRICAS, POR_METODO, TOP_PRODUTOS, VENDAS_POR_HORA } from '@/lib/data';
 import { brl } from '@/lib/utils';
 
@@ -30,7 +31,7 @@ export default function MetricasPage() {
                 const share = (t.receita / TOP_PRODUTOS[0].receita) * 100;
                 return (
                   <div key={t.prod.id} className="flex items-center gap-3.5">
-                    <span className={`h-8 w-8 shrink-0 rounded-lg bg-gradient-to-br ${t.prod.cor}`} />
+                    <ProductThumb nome={t.prod.nome} cor={t.prod.cor} tags={t.prod.tags} size={32} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline justify-between gap-4">
                         <p className="truncate text-sm font-medium">{t.prod.nome}</p>
