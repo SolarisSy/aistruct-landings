@@ -15,10 +15,10 @@ export default function MembrosPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-6xl px-6 py-10">
-        <div className="mb-8 flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white text-sm font-bold text-black">P</span>
-          <span className="text-lg font-bold tracking-[0.14em]">PAGGINS</span>
-          <span className="ml-2 text-sm text-muted-foreground">· Área de membros</span>
+        <div className="mb-8 flex items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/paggins-logo.png" alt="Paggins" className="h-6 w-auto" />
+          <span className="text-sm text-muted-foreground">· Área de membros</span>
         </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.4fr_1fr]">

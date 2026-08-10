@@ -10,9 +10,9 @@ export default function CheckoutPage() {
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-6 py-12 lg:grid-cols-[1.3fr_1fr]">
         {/* resumo do produto */}
         <div>
-          <div className="mb-8 flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white text-sm font-bold text-black">P</span>
-            <span className="text-lg font-bold tracking-[0.14em]">PAGGINS</span>
+          <div className="mb-8">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/paggins-logo.png" alt="Paggins" className="h-6 w-auto" />
           </div>
 
           <h1 className="text-2xl font-bold tracking-tight">Finalize sua compra</h1>

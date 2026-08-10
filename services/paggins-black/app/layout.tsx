@@ -5,6 +5,7 @@ import { Shell } from '@/components/shell';
 export const metadata: Metadata = {
   title: 'Paggins — Black',
   description: 'Versão black da dashboard Paggins',
+  icons: { icon: '/favicon.ico' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

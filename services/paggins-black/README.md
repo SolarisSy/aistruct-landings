@@ -30,15 +30,31 @@ Tipografia **Montserrat** e raios **8/12/100px** são fiéis ao original.
 O gradiente azul de fundo virou a classe `.aurora` — um halo frio quase imperceptível no topo,
 que dá profundidade sem sujar o preto.
 
-## Telas
+## Escopo (10/08/2026)
 
-| Rota | Origem no Figma |
+A **Paggins 2.0** é a **dashboard nova da Paggins 1.0 real** (`www.paggins.com`, acesso no perfil
+sip) — todas as funções do painel no tema black. Mapa do painel real capturado por
+`scripts/_paggins_absorve.py` → `reports/paggins-v1/`. Diferencial por cima: **Agentes IA**
+(inspirados no Hubla — ver `HUBLA.md`).
+
+## Telas (23 rotas — espelham o menu da Paggins 1.0)
+
+| Grupo | Rotas |
 |---|---|
-| `/` | `Dashboard Screen` (`4482:21755`) |
-| `/produtos` | `Todos os produtos` (`4482:25571`) |
-| `/produtos/novo` | `Produto fisico` passo 2/8 (`4488:17512`) |
-| `/funil` | `UpSell` (`4678:13514`) |
-| `/pedidos` | `Todos os pedidos` (`4924:16605`) — dados de exemplo |
+| Dashboard | `/` |
+| Produtos | `/produtos` (abas Meus/Co-produções/Afiliações) · `/produtos/novo` · `/produtos/order-bump` · `/funil` · `/descontos` |
+| Vendas | `/pedidos` · `/assinaturas` · `/clientes` · `/recuperacao` |
+| Agentes IA | `/agentes` · `/checkout` (agente checkout) · `/membros` (tutor) · `POST /api/agent` (motor Claude) |
+| Afiliados | `/afiliados` |
+| Financeiro | `/financeiro` · `/financeiro/extrato` · `/financeiro/saque` |
+| Relatórios | `/metricas` |
+| Extensões | `/extensoes` · `/extensoes/webhooks` · `/extensoes/api-keys` |
+| Config | `/configuracoes` |
+
+O motor dos agentes (`/api/agent`) chama a Claude API (`claude-haiku-4-5`) com base de
+conhecimento por produto (`lib/agent-kb.ts`). Precisa de `ANTHROPIC_API_KEY` no ambiente
+(local: `.env.local`; produção: env do serviço Easypanel). Sem a chave, responde em modo
+degradado sem quebrar a UI.
 
 ## QA visual
 

@@ -81,12 +81,10 @@ function Sidebar() {
 
   return (
     <aside className="fixed inset-y-0 left-0 z-30 flex w-[264px] flex-col border-r border-border bg-sidebar">
-      {/* marca */}
-      <div className="flex h-[68px] items-center gap-2.5 px-6">
-        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white">
-          <span className="text-base font-bold text-black">P</span>
-        </span>
-        <span className="text-[19px] font-bold tracking-[0.14em] text-white">PAGGINS</span>
+      {/* marca — logo oficial Paggins (branca, sobre o sidebar escuro) */}
+      <div className="flex h-[68px] items-center px-6">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/paggins-logo.png" alt="Paggins" className="h-6 w-auto" />
       </div>
 
       {/* seletor de loja */}

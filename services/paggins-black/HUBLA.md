@@ -1,3 +1,9 @@
+> ⚠️ **ESCOPO REVISADO (10/08/2026):** a Paggins 2.0 é a **dashboard NOVA da Paggins 1.0 real**
+> (não o clone do Hubla). O alvo virou espelhar TODAS as funções do painel real
+> (`www.paggins.com`, acesso sip) — mapa em `reports/paggins-v1/` via `scripts/_paggins_absorve.py`.
+> As features do Hubla (agentes IA) entraram como DIFERENCIAL por cima. Este doc segue válido para
+> a parte dos agentes; o mapa completo da 1.0 está no README e no Jira PG2.
+
 # Hubla — pesquisa consolidada (para espelhar no Paggins)
 
 > Doc de trabalho do `paggins-black`. O que absorvemos do Hubla em 10/08/2026 e como isso
