@@ -8,16 +8,56 @@ const MAX_TOKENS = 400;
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 
+/* ---- guardas do proxy (evita DoS/queima de tokens/abuso na chave do dono) ---- */
+// rate-limit simples em memória: N requisições por janela, por IP.
+const RL_MAX = 20;
+const RL_WINDOW_MS = 60_000;
+const hits = new Map<string, number[]>();
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  const arr = (hits.get(ip) ?? []).filter((t) => now - t < RL_WINDOW_MS);
+  arr.push(now);
+  hits.set(ip, arr);
+  if (hits.size > 5000) hits.clear(); // teto de memória
+  return arr.length > RL_MAX;
+}
+
+function sameOrigin(req: NextRequest): boolean {
+  const origin = req.headers.get('origin');
+  if (!origin) return true; // same-origin fetch do próprio app não manda Origin
+  const host = req.headers.get('host') ?? '';
+  try {
+    return new URL(origin).host === host;
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Motor do agente de IA (checkout / tutor). Chama a Claude Messages API.
  * Se ANTHROPIC_API_KEY não estiver setada, responde em modo degradado (sem quebrar a UI).
  */
 export async function POST(req: NextRequest) {
+  // 1) só aceita chamada da própria origem (bloqueia uso do proxy por terceiros)
+  if (!sameOrigin(req)) {
+    return NextResponse.json({ error: 'origem não permitida' }, { status: 403 });
+  }
+  // 2) rate-limit por IP
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'local';
+  if (rateLimited(ip)) {
+    return NextResponse.json({ error: 'muitas requisições, aguarde um momento' }, { status: 429 });
+  }
+
   let body: { tipo?: AgenteTipo; messages?: Msg[]; ctx?: Partial<KbContext> };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: 'json inválido' }, { status: 400 });
+  }
+  // 3) limita tamanho da conversa (anti-abuso de contexto)
+  if ((body.messages?.length ?? 0) > 20) {
+    return NextResponse.json({ error: 'conversa muito longa' }, { status: 400 });
   }
 
   const tipo: AgenteTipo = body.tipo === 'tutor' ? 'tutor' : 'checkout';
