@@ -193,3 +193,96 @@ export const POR_METODO = (['PIX', 'Cartão', 'Boleto'] as Metodo[])
     return { metodo: m, qtd: meus.length, receita: meus.reduce((s, p) => s + p.valor, 0) };
   })
   .filter((x) => x.qtd > 0);
+
+/* ==========================================================================
+   ESPELHO DO HUBLA — produtos por papel (owner/co-produção/afiliado) + assinaturas.
+   Estrutura fiel ao endpoint deles /products/offers → {owner, affiliates, partners}.
+   ========================================================================== */
+
+export type Papel = 'owner' | 'coproducao' | 'afiliado';
+
+export type ProdutoRel = Produto & {
+  papel: Papel;
+  comissao?: number;      // % (co-produção ou afiliação)
+  autor?: string;         // dono do produto quando não é seu
+};
+
+/** Meus produtos = os do catálogo. Co-produções e afiliações são de terceiros. */
+export const PRODUTOS_REL: ProdutoRel[] = [
+  ...PRODUTOS.filter((p) => p.status !== 'Rascunho').slice(0, 8).map(
+    (p): ProdutoRel => ({ ...p, papel: 'owner' })
+  ),
+  // co-produções (você tem % de produto de outro autor)
+  { id: 'c01', nome: 'Imersão Escala 7 Dígitos', cor: 'from-indigo-500 to-blue-900', tipo: 'Digital', status: 'Ativo', preco: 1997, tags: ['High ticket'], vendas: 214, conversao: 3.2, reembolso: 4.1, papel: 'coproducao', comissao: 40, autor: 'Bruno Escala' },
+  { id: 'c02', nome: 'Método VSL Milionária', cor: 'from-rose-500 to-red-900', tipo: 'Digital', status: 'Ativo', preco: 597, tags: ['Curso'], vendas: 388, conversao: 5.9, reembolso: 3.3, papel: 'coproducao', comissao: 25, autor: 'Lucas Copy' },
+  // afiliações (você vende produto de outro por comissão)
+  { id: 'a01', nome: 'Suplemento NitroMax', cor: 'from-lime-500 to-green-900', tipo: 'Físico', status: 'Ativo', preco: 289, tags: ['Nutra'], vendas: 1120, conversao: 6.4, reembolso: 5.2, papel: 'afiliado', comissao: 50, autor: 'HealthLab' },
+  { id: 'a02', nome: 'Curso Tráfego do Zero', cor: 'from-cyan-500 to-sky-900', tipo: 'Digital', status: 'Ativo', preco: 397, tags: ['Curso'], vendas: 642, conversao: 7.1, reembolso: 2.8, papel: 'afiliado', comissao: 60, autor: 'Ana Tráfego' },
+  { id: 'a03', nome: 'Ebook Renda em Dólar', cor: 'from-amber-500 to-yellow-800', tipo: 'Digital', status: 'Ativo', preco: 47, tags: ['Ebook'], vendas: 2310, conversao: 12.1, reembolso: 1.9, papel: 'afiliado', comissao: 70, autor: 'Global Digital' },
+];
+
+export const porPapel = (papel: Papel) => PRODUTOS_REL.filter((p) => p.papel === papel);
+
+/* ---------------- assinaturas ---------------- */
+export type AssinStatus = 'Ativa' | 'Cancelada' | 'Inadimplente' | 'Trial';
+
+export type Assinatura = {
+  id: string;
+  assinante: string;
+  email: string;
+  produto: string;
+  plano: 'Mensal' | 'Trimestral' | 'Anual';
+  valor: number;
+  status: AssinStatus;
+  desde: string;       // dd/mm
+  proxima: string;     // dd/mm
+};
+
+const PLANOS: Assinatura['plano'][] = ['Mensal', 'Trimestral', 'Anual'];
+const RECORRENTES = PRODUTOS.filter((p) => p.tags.includes('Recorrente') || p.tipo === 'Digital');
+
+function gerarAssinaturas(qtd: number): Assinatura[] {
+  const rnd = lcg(770099);
+  const out: Assinatura[] = [];
+  for (let i = 0; i < qtd; i++) {
+    const nome = NOMES[Math.floor(rnd() * NOMES.length)];
+    const prod = RECORRENTES[Math.floor(rnd() * RECORRENTES.length)];
+    const plano = PLANOS[Math.floor(rnd() * PLANOS.length)];
+    const r = rnd();
+    const status: AssinStatus = r < 0.74 ? 'Ativa' : r < 0.86 ? 'Cancelada' : r < 0.94 ? 'Inadimplente' : 'Trial';
+    const mult = plano === 'Anual' ? 10 : plano === 'Trimestral' ? 2.7 : 1;
+    out.push({
+      id: `#SUB-${8400 - i}`,
+      assinante: nome,
+      email: slugEmail(nome),
+      produto: prod.nome,
+      plano,
+      valor: Math.round(prod.preco * mult),
+      status,
+      desde: `${String(1 + Math.floor(rnd() * 27)).padStart(2, '0')}/0${1 + Math.floor(rnd() * 7)}`,
+      proxima: `${String(1 + Math.floor(rnd() * 27)).padStart(2, '0')}/09`,
+    });
+  }
+  return out;
+}
+
+export const ASSINATURAS = gerarAssinaturas(96);
+
+const ativas = ASSINATURAS.filter((a) => a.status === 'Ativa');
+export const ASSIN_METRICAS = {
+  ativas: ativas.length,
+  novos: Math.round(ativas.length * 0.18),
+  canceladas: ASSINATURAS.filter((a) => a.status === 'Cancelada').length,
+  inadimplentes: ASSINATURAS.filter((a) => a.status === 'Inadimplente').length,
+  mrr: ativas.filter((a) => a.plano === 'Mensal').reduce((s, a) => s + a.valor, 0)
+     + ativas.filter((a) => a.plano === 'Trimestral').reduce((s, a) => s + a.valor / 3, 0)
+     + ativas.filter((a) => a.plano === 'Anual').reduce((s, a) => s + a.valor / 12, 0),
+};
+
+/** MRR por mês (últimos 6) — para o gráfico da visão geral de assinaturas. */
+export const MRR_SERIE = (() => {
+  const base = ASSIN_METRICAS.mrr;
+  const fatores = [0.62, 0.71, 0.8, 0.88, 0.95, 1];
+  const meses = ['Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'];
+  return meses.map((m, i) => ({ h: m, v: Math.round(base * fatores[i]) }));
+})();

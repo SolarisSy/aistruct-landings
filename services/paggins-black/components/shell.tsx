@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import {
   LayoutGrid, Briefcase, ShoppingCart, Tag, Wallet, BarChart3, Grid3x3, Settings,
-  Search, ChevronDown, ChevronUp, Lightbulb,
+  Search, ChevronDown, ChevronUp, Lightbulb, RefreshCw, Sparkles,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -31,6 +31,8 @@ const NAV: Item[] = [
       { label: 'Todos os pedidos', href: '/pedidos' },
       { label: 'Reembolsos', href: '/pedidos/reembolsos' },
     ] },
+  { label: 'Agentes IA', href: '/agentes', icon: Sparkles },
+  { label: 'Assinaturas', href: '/assinaturas', icon: RefreshCw },
   { label: 'Afiliados', href: '/afiliados', icon: Tag },
   { label: 'Financeiro', href: '/financeiro', icon: Wallet, children: [] },
   { label: 'Relatórios', href: '/relatorios', icon: BarChart3, children: [] },

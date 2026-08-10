@@ -1,29 +1,32 @@
+'use client';
+
 import Link from 'next/link';
 import { Topbar } from '@/components/shell';
-import { Badge, Card, CardBody, CardHeader, CardTitle, Select, Table, Td, Th } from '@/components/ui';
-import { PRODUTOS } from '@/lib/data';
+import { Card, CardBody } from '@/components/ui';
+import { Tabs } from '@/components/tabs';
+import { ProdutosTable } from '@/components/produtos-table';
+import { porPapel } from '@/lib/data';
 import { brl } from '@/lib/utils';
-import { Eye, Pencil, Plus, Search } from 'lucide-react';
+import { Plus } from 'lucide-react';
+
+const owner = porPapel('owner');
+const copro = porPapel('coproducao');
+const afil = porPapel('afiliado');
 
 const RESUMO = [
-  { label: 'Produtos cadastrados', value: String(PRODUTOS.length) },
-  { label: 'Ativos', value: String(PRODUTOS.filter((p) => p.status === 'Ativo').length) },
+  { label: 'Meus produtos', value: String(owner.length) },
+  { label: 'Co-produções', value: String(copro.length) },
+  { label: 'Afiliações', value: String(afil.length) },
   {
-    label: 'Receita do catálogo',
-    value: brl(PRODUTOS.reduce((s, p) => s + p.preco * p.vendas, 0)),
-  },
-  {
-    label: 'Reembolso médio',
-    value: `${(
-      PRODUTOS.filter((p) => p.vendas > 0).reduce((s, p) => s + p.reembolso, 0) /
-      PRODUTOS.filter((p) => p.vendas > 0).length
-    ).toFixed(1)}%`,
+    label: 'Receita atribuída',
+    value: brl(
+      owner.reduce((s, p) => s + p.preco * p.vendas, 0) +
+        [...copro, ...afil].reduce((s, p) => s + p.preco * p.vendas * ((p.comissao ?? 0) / 100), 0)
+    ),
   },
 ];
 
 export default function ProdutosPage() {
-  const ordenados = [...PRODUTOS].sort((a, b) => b.preco * b.vendas - a.preco * a.vendas);
-
   return (
     <>
       <Topbar crumbs={['Produtos', 'Todos os produtos']} />
@@ -48,96 +51,25 @@ export default function ProdutosPage() {
         </div>
 
         <Card>
-          <CardHeader className="flex flex-wrap items-center justify-between gap-4 pb-5">
-            <CardTitle>Meus produtos</CardTitle>
-            <div className="flex items-center gap-3">
-              <Select defaultValue="todos" className="h-10 w-[140px]">
-                <option value="todos">Todos os tipos</option>
-                <option>Físico</option>
-                <option>Digital</option>
-              </Select>
-              <div className="relative w-[220px]">
-                <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  placeholder="Pesquisar produto"
-                  className="h-10 w-full rounded-[var(--radius-pill)] border border-border bg-input pl-10 pr-4 text-sm outline-none transition-colors focus:border-primary/50"
-                />
-              </div>
-            </div>
-          </CardHeader>
-
-          <CardBody className="px-2">
-            <Table>
-              <thead>
-                <tr>
-                  <Th className="pl-4">Produto</Th>
-                  <Th>Tags</Th>
-                  <Th className="text-right">Preço</Th>
-                  <Th className="text-right">Vendas</Th>
-                  <Th className="text-right">Receita</Th>
-                  <Th className="text-right">Conv.</Th>
-                  <Th className="text-right">Reemb.</Th>
-                  <Th>Status</Th>
-                  <Th>Tipo</Th>
-                  <Th className="w-20 pr-6 text-right">Ações</Th>
-                </tr>
-              </thead>
-              <tbody>
-                {ordenados.map((p) => (
-                  <tr key={p.id} className="transition-colors hover:bg-elevated/40">
-                    <Td className="pl-4">
-                      <div className="flex items-center gap-3">
-                        <span className={`h-9 w-9 shrink-0 rounded-lg bg-gradient-to-br ${p.cor}`} />
-                        <span className="font-medium text-foreground">{p.nome}</span>
-                      </div>
-                    </Td>
-                    <Td>
-                      {p.tags.length === 0 ? (
-                        <span className="text-muted-foreground">-</span>
-                      ) : (
-                        <div className="flex flex-wrap gap-1.5">
-                          {p.tags.map((t, i) => (
-                            <Badge key={i} tone={t === 'Best seller' || t === 'High ticket' ? 'primary' : 'neutral'}>
-                              {t}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
-                    </Td>
-                    <Td className="text-right text-foreground/90">{brl(p.preco)}</Td>
-                    <Td className="text-right">{p.vendas.toLocaleString('pt-BR')}</Td>
-                    <Td className="text-right font-medium text-foreground">{brl(p.preco * p.vendas)}</Td>
-                    <Td className="text-right">{p.conversao.toFixed(1)}%</Td>
-                    <Td className={`text-right ${p.reembolso >= 5 ? 'text-warning' : ''}`}>
-                      {p.reembolso.toFixed(1)}%
-                    </Td>
-                    <Td>
-                      <Badge
-                        tone={p.status === 'Ativo' ? 'success' : p.status === 'Rascunho' ? 'warning' : 'neutral'}
-                      >
-                        {p.status}
-                      </Badge>
-                    </Td>
-                    <Td>{p.tipo}</Td>
-                    <Td className="pr-6">
-                      <div className="flex items-center justify-end gap-3">
-                        <button className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Visualizar">
-                          <Eye size={17} />
-                        </button>
-                        <button className="text-primary transition-colors hover:text-primary-hover" aria-label="Editar">
-                          <Pencil size={16} />
-                        </button>
-                      </div>
-                    </Td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-
-            {/* catálogo inteiro cabe numa página — sem paginação falsa */}
-            <div className="pt-6 pb-2 pl-4 text-xs text-muted-foreground">
-              Exibindo {ordenados.length} produtos ·{' '}
-              {ordenados.reduce((s, p) => s + p.vendas, 0).toLocaleString('pt-BR')} vendas acumuladas
+          <CardBody className="px-2 pt-5">
+            <div className="px-2">
+              <Tabs
+                tabs={[
+                  { key: 'owner', label: 'Meus produtos', count: owner.length },
+                  { key: 'coproducao', label: 'Minhas co-produções', count: copro.length },
+                  { key: 'afiliado', label: 'Minhas afiliações', count: afil.length },
+                ]}
+              >
+                {(active) =>
+                  active === 'owner' ? (
+                    <ProdutosTable rows={owner} papel="owner" />
+                  ) : active === 'coproducao' ? (
+                    <ProdutosTable rows={copro} papel="coproducao" />
+                  ) : (
+                    <ProdutosTable rows={afil} papel="afiliado" />
+                  )
+                }
+              </Tabs>
             </div>
           </CardBody>
         </Card>
