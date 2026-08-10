@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   PAGGINS — TEMA BLACK
+   Derivado da paleta medida no Figma (arquivo Paggins, página "Web 2.0"):
+     original            →  black
+     #0f1535 bg          →  #000000
+     #1a1f37 card        →  #0e0e11
+     #060b26 sidebar     →  #060607
+     #a0aec0 muted       →  #8b8b96
+     #0b6eae primária    →  #1a8fd8  (elevada p/ contraste sobre preto)
+     #4fd1c5 teal        →  mantida
+     #0cc036 sucesso     →  #22c55e
+   Tipografia e raios fiéis ao original: Montserrat, radius base 8/12px.
+   ========================================================================== */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-elevated: var(--elevated);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-teal: var(--teal);
+  --color-violet: var(--violet);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-grid: var(--chart-grid);
+  --font-sans: var(--font-sans);
+  --radius-card: 12px;
+  --radius-field: 8px;
+  --radius-pill: 100px;
+}
+
+:root {
+  --background: #000000;
+  --foreground: #f5f5f7;
+  --card: #0e0e11;
+  --card-foreground: #f5f5f7;
+  --elevated: #17171c;
+  --sidebar: #060607;
+  --sidebar-active: #16161b;
+  --border: #1c1c22;
+  --border-strong: #2a2a33;
+  --input: #121216;
+  --muted: #17171c;
+  --muted-foreground: #8b8b96;
+  --primary: #1a8fd8;
+  --primary-hover: #2ba0e9;
+  --primary-foreground: #ffffff;
+  --success: #22c55e;
+  --success-bg: #0f2e1c;
+  --warning: #f5a524;
+  --danger: #ef4444;
+  --teal: #4fd1c5;
+  --violet: #a855f7;
+  --chart-1: #1a8fd8;
+  --chart-2: #4fd1c5;
+  --chart-grid: #1c1c22;
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Brilho sutil no topo do conteúdo — substitui o gradiente azul do original
+   sem trair o preto: um halo frio, quase imperceptível. */
+.aurora::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 420px;
+  pointer-events: none;
+  background:
+    radial-gradient(680px 320px at 22% -8%, rgba(26, 143, 216, 0.13), transparent 70%),
+    radial-gradient(520px 260px at 78% -14%, rgba(79, 209, 197, 0.06), transparent 70%);
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a45; }
+
+input::placeholder, textarea::placeholder { color: #5a5a66; }
