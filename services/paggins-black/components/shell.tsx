@@ -23,21 +23,43 @@ const NAV: Item[] = [
     icon: Briefcase,
     children: [
       { label: 'Todos os produtos', href: '/produtos' },
-      { label: 'Order Bump', href: '/produtos/order-bump' },
-      { label: 'Upsell / Downsell', href: '/funil' },
+      { label: 'Order Bumps', href: '/produtos/order-bump' },
+      { label: 'Funis de Venda', href: '/funil' },
+      { label: 'Descontos', href: '/descontos' },
     ],
   },
-  { label: 'Vendas', href: '/pedidos', icon: ShoppingCart, children: [
-      { label: 'Todos os pedidos', href: '/pedidos' },
-      { label: 'Reembolsos', href: '/pedidos/reembolsos' },
-    ] },
+  {
+    label: 'Vendas',
+    icon: ShoppingCart,
+    children: [
+      { label: 'Pedidos', href: '/pedidos' },
+      { label: 'Assinaturas', href: '/assinaturas' },
+      { label: 'Clientes', href: '/clientes' },
+      { label: 'Recuperação de Vendas', href: '/recuperacao' },
+    ],
+  },
   { label: 'Agentes IA', href: '/agentes', icon: Sparkles },
-  { label: 'Assinaturas', href: '/assinaturas', icon: RefreshCw },
   { label: 'Afiliados', href: '/afiliados', icon: Tag },
-  { label: 'Financeiro', href: '/financeiro', icon: Wallet, children: [] },
-  { label: 'Relatórios', href: '/relatorios', icon: BarChart3, children: [] },
-  { label: 'Extensões', href: '/extensoes', icon: Grid3x3 },
-  { label: 'Configurações', href: '/configuracoes', icon: Settings, children: [] },
+  {
+    label: 'Financeiro',
+    icon: Wallet,
+    children: [
+      { label: 'Visão Geral', href: '/financeiro' },
+      { label: 'Extrato', href: '/financeiro/extrato' },
+      { label: 'Configurações de Saque', href: '/financeiro/saque' },
+    ],
+  },
+  { label: 'Relatórios', href: '/metricas', icon: BarChart3 },
+  {
+    label: 'Extensões',
+    icon: Grid3x3,
+    children: [
+      { label: 'Apps e Integrações', href: '/extensoes' },
+      { label: 'Webhooks', href: '/extensoes/webhooks' },
+      { label: 'API Keys', href: '/extensoes/api-keys' },
+    ],
+  },
+  { label: 'Configurações', href: '/configuracoes', icon: Settings },
 ];
 
 function IconBox({ active, children }: { active?: boolean; children: React.ReactNode }) {

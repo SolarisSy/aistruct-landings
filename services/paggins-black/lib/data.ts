@@ -286,3 +286,117 @@ export const MRR_SERIE = (() => {
   const meses = ['Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'];
   return meses.map((m, i) => ({ h: m, v: Math.round(base * fatores[i]) }));
 })();
+
+/* ==========================================================================
+   PAGGINS 2.0 — dados das seções que espelham a Paggins 1.0 completa.
+   ========================================================================== */
+
+/* ---------------- Clientes ---------------- */
+export type Cliente = {
+  id: string; nome: string; email: string; telefone: string;
+  pedidos: number; gasto: number; desde: string; uf: string;
+};
+export const CLIENTES: Cliente[] = (() => {
+  const rnd = lcg(31337);
+  const seen = new Map<string, Cliente>();
+  for (const p of PEDIDOS.filter((x) => x.status === 'Aprovado')) {
+    const c = seen.get(p.email) ?? {
+      id: `CLI-${8000 + seen.size}`, nome: p.cliente, email: p.email,
+      telefone: `(${11 + Math.floor(rnd() * 88)}) 9${Math.floor(rnd() * 9000 + 1000)}-${Math.floor(rnd() * 9000 + 1000)}`,
+      pedidos: 0, gasto: 0, desde: `0${1 + Math.floor(rnd() * 7)}/2026`, uf: p.uf,
+    };
+    c.pedidos += 1; c.gasto += p.valor;
+    seen.set(p.email, c);
+  }
+  return [...seen.values()].sort((a, b) => b.gasto - a.gasto);
+})();
+
+/* ---------------- Afiliados ---------------- */
+export type Afiliado = {
+  id: string; nome: string; email: string; vendas: number;
+  comissao: number; taxa: number; status: 'Ativo' | 'Pendente';
+};
+export const AFILIADOS_LISTA: Afiliado[] = [
+  { id: 'AF1', nome: 'Kaleb Menezes', email: 'kaleb.midia@email.com', vendas: 142, comissao: 41230, taxa: 50, status: 'Ativo' },
+  { id: 'AF2', nome: 'Lucas Bang', email: 'lucasbang@email.com', vendas: 98, comissao: 28470, taxa: 45, status: 'Ativo' },
+  { id: 'AF3', nome: 'Philip Ads', email: 'philip.ads@email.com', vendas: 76, comissao: 22100, taxa: 40, status: 'Ativo' },
+  { id: 'AF4', nome: 'Traffic BR', email: 'traffic.br@email.com', vendas: 54, comissao: 15660, taxa: 50, status: 'Ativo' },
+  { id: 'AF5', nome: 'Marina Growth', email: 'marina.growth@email.com', vendas: 12, comissao: 3480, taxa: 40, status: 'Pendente' },
+];
+
+/* ---------------- Descontos (cupons) ---------------- */
+export type Cupom = {
+  codigo: string; tipo: 'Percentual' | 'Fixo'; valor: number;
+  usos: number; limite: number; status: 'Ativo' | 'Expirado';
+};
+export const CUPONS: Cupom[] = [
+  { codigo: 'BLACKFRIDAY', tipo: 'Percentual', valor: 40, usos: 312, limite: 1000, status: 'Ativo' },
+  { codigo: 'PRIMEIRA10', tipo: 'Percentual', valor: 10, usos: 1240, limite: 0, status: 'Ativo' },
+  { codigo: 'VOLTA50', tipo: 'Fixo', valor: 50, usos: 88, limite: 200, status: 'Ativo' },
+  { codigo: 'LANCAMENTO', tipo: 'Percentual', valor: 25, usos: 500, limite: 500, status: 'Expirado' },
+];
+
+/* ---------------- OrderBumps ---------------- */
+export type OrderBump = {
+  nome: string; produto: string; preco: number; conversao: number; ativo: boolean;
+};
+export const ORDERBUMPS: OrderBump[] = [
+  { nome: 'Garantia estendida', produto: 'Método Renda Extra 6.0', preco: 47, conversao: 34.2, ativo: true },
+  { nome: 'Pack de templates', produto: 'Pack 500 Criativos IA', preco: 27, conversao: 41.8, ativo: true },
+  { nome: 'Mentoria em grupo', produto: 'Curso Copy que Vende', preco: 197, conversao: 12.1, ativo: false },
+];
+
+/* ---------------- Recuperação de vendas (abandonados) ---------------- */
+export type Abandonado = {
+  id: string; cliente: string; email: string; produto: string; valor: number;
+  etapa: 'Dados' | 'Pagamento'; quando: string; recuperado: boolean;
+};
+export const ABANDONADOS: Abandonado[] = (() => {
+  const rnd = lcg(9182);
+  return Array.from({ length: 18 }, (_, i) => {
+    const nome = NOMES[Math.floor(rnd() * NOMES.length)];
+    const prod = PRODUTOS[Math.floor(rnd() * 8)];
+    return {
+      id: `AB-${400 - i}`, cliente: nome, email: slugEmail(nome), produto: prod.nome,
+      valor: prod.preco, etapa: rnd() < 0.6 ? 'Pagamento' : 'Dados' as 'Dados' | 'Pagamento',
+      quando: `${Math.floor(rnd() * 22 + 1)}h atrás`, recuperado: rnd() < 0.22,
+    };
+  });
+})();
+
+/* ---------------- Financeiro: extrato ---------------- */
+export type Movimento = {
+  data: string; descricao: string; tipo: 'Entrada' | 'Saque' | 'Taxa' | 'Reembolso'; valor: number;
+};
+export const EXTRATO: Movimento[] = [
+  { data: '10/08', descricao: 'Venda #PG-10520 · Método Renda Extra', tipo: 'Entrada', valor: 497 },
+  { data: '10/08', descricao: 'Taxa da plataforma (4,99%)', tipo: 'Taxa', valor: -24.8 },
+  { data: '09/08', descricao: 'Saque para conta ****1234', tipo: 'Saque', valor: -5000 },
+  { data: '09/08', descricao: 'Venda #PG-10480 · UltraComfort Chair', tipo: 'Entrada', valor: 1249.9 },
+  { data: '08/08', descricao: 'Reembolso #PG-10471', tipo: 'Reembolso', valor: -189 },
+  { data: '08/08', descricao: 'Venda #PG-10465 · Pack 500 Criativos', tipo: 'Entrada', valor: 147 },
+];
+
+/* ---------------- Extensões: apps / webhooks / api keys ---------------- */
+export const APPS = [
+  { nome: 'UTMify', cat: 'Rastreamento', conectado: true },
+  { nome: 'RedTrack', cat: 'Rastreamento', conectado: true },
+  { nome: 'Facebook Pixel', cat: 'Pixel', conectado: true },
+  { nome: 'Google Ads', cat: 'Pixel', conectado: false },
+  { nome: 'Active Campaign', cat: 'E-mail', conectado: false },
+  { nome: 'Mandaê', cat: 'Logística', conectado: true },
+  { nome: 'Bling', cat: 'ERP / NF-e', conectado: true },
+  { nome: 'Typebot', cat: 'Chatbot', conectado: false },
+];
+export type Webhook = { url: string; evento: string; status: 'Ativo' | 'Falhando' };
+export const WEBHOOKS: Webhook[] = [
+  { url: 'https://kirvano-bridge.tiectu.easypanel.host/postback', evento: 'Compra aprovada', status: 'Ativo' },
+  { url: 'https://hyu-cart.tiectu.easypanel.host/webhook/orders', evento: 'Pedido pago', status: 'Ativo' },
+  { url: 'https://radar.tiectu.easypanel.host/hook', evento: 'Reembolso', status: 'Falhando' },
+];
+export type ApiKey = { nome: string; prefixo: string; criada: string; ultimoUso: string };
+export const APIKEYS: ApiKey[] = [
+  { nome: 'Produção', prefixo: 'pgk_live_9f2a…', criada: '12/06/2026', ultimoUso: 'há 3 min' },
+  { nome: 'Integração Bling', prefixo: 'pgk_live_1c7d…', criada: '20/07/2026', ultimoUso: 'há 2 h' },
+  { nome: 'Sandbox', prefixo: 'pgk_test_44be…', criada: '01/08/2026', ultimoUso: 'há 5 dias' },
+];

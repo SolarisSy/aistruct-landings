@@ -20,24 +20,26 @@
 
 ## As 4 features → plano de construção no Paggins
 
-### #3 Assinaturas  (`/assinaturas`) — [tela, mais simples]
+### #3 Assinaturas  (`/assinaturas`) — ✅ FEITO
 Hubla: abas **Visão geral** (KPIs: ativas, novos assinantes, cancelados, inativados + gráfico) e
 **Assinaturas** (lista: assinante, produto, plano, status, próxima cobrança, MRR).
-→ Paggins: replicar as 2 abas com dataset de exemplo derivado. **Status: em construção.**
+→ Paggins: 2 abas, KPIs, gráfico MRR (6 meses), assinantes por plano, lista de 96 assinaturas.
 
-### #4 Produtos  (`/produtos`) — [tela, refatorar a existente]
+### #4 Produtos  (`/produtos`) — ✅ FEITO
 Hubla: 3 abas — **Meus produtos · Minhas co-produções · Minhas afiliações**. API `products/offers`
 devolve exatamente `{owner, affiliates, partners}`.
-→ Paggins: adicionar as 3 abas à tela de produtos que já existe. **Status: em construção.**
+→ Paggins: 3 abas; co-produção/afiliação mostram autor + comissão + sua receita. KPIs de catálogo.
 
-### #1 Agente IA no checkout — [motor, o pesado]
+### #1 Agente IA no checkout — [motor, o pesado] — 🟡 UI FEITA, motor pendente
 Hubla "Assistente de checkout": chat que aborda objeção e conduz o lead até fechar; mede receita
 atribuída ao agente. Modelo mental = Persona + Base de conhecimento + Gatilho (checkout aberto /
 carrinho abandonado) + Canal + Objetivo (fechar venda).
-→ Paggins: decidir motor (LLM Claude + base de conhecimento do produto + widget no checkout).
-**Status: a definir motor antes de construir.**
+→ Paggins: `/agentes` já tem a ESTRUTURA (Métricas · Meus agentes · Conversas · Personas · Bases),
+com os 3 agentes (checkout/recuperação/tutor) e métricas. **Falta o MOTOR:** LLM Claude +
+base de conhecimento do produto + widget de chat no checkout + atribuição de receita.
+**Status: decidir motor (Claude API já é padrão da casa) antes de plugar.**
 
-### #2 Agente IA na área de membros — [motor]
+### #2 Agente IA na área de membros — [motor] — 🟡 UI no card "Tutor", motor pendente
 Hubla "Tutor": assistente dentro da área do aluno, responde dúvida sobre o conteúdo.
 → mesmo motor da #1, gatilho diferente (dentro da área de membros). **Status: depende de #1.**
 
