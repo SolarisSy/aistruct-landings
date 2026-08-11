@@ -8,6 +8,7 @@ import {
   Search, ChevronDown, ChevronUp, Lightbulb, RefreshCw, Sparkles,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { StoreSwitcher } from '@/components/store-switcher';
 
 type Item = {
   label: string;
@@ -82,17 +83,13 @@ function Sidebar() {
   return (
     <aside className="fixed inset-y-0 left-0 z-30 flex w-[264px] flex-col border-r border-border bg-sidebar">
       {/* marca — logo oficial Paggins (branca, sobre o sidebar escuro) */}
-      <div className="flex h-[68px] items-center px-6">
+      <div className="flex h-[72px] items-center px-6">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/paggins-logo.png" alt="Paggins" className="h-7 w-auto object-contain" />
+        <img src="/paggins-logo.png" alt="Paggins" className="h-9 w-auto object-contain" />
       </div>
 
-      {/* seletor de loja */}
-      <button className="mx-4 flex items-center gap-2.5 rounded-[var(--radius-field)] px-2 py-2 text-sm text-foreground/90 transition-colors hover:bg-sidebar-active">
-        <span className="h-6 w-6 rounded-full bg-gradient-to-br from-primary to-teal" />
-        <span className="flex-1 text-left">Minha loja 1</span>
-        <ChevronDown size={16} className="text-muted-foreground" />
-      </button>
+      {/* seletor de loja (multi-loja) */}
+      <StoreSwitcher />
 
       {/* busca */}
       <div className="relative mx-4 mt-3">
@@ -183,14 +180,20 @@ export function Topbar({ crumbs }: { crumbs: string[] }) {
         ))}
       </div>
       <div className="flex items-center gap-4">
-        <button className="inline-flex h-10 items-center gap-2 rounded-[var(--radius-pill)] border border-border-strong px-4 text-sm text-foreground transition-colors hover:bg-elevated">
+        <Link
+          href="/reconhecimento"
+          className="inline-flex h-10 items-center gap-2 rounded-[var(--radius-pill)] border border-border-strong px-4 text-sm text-foreground transition-colors hover:bg-elevated"
+        >
           <Lightbulb size={15} className="text-muted-foreground" />
           Reconhecimento
-        </button>
+        </Link>
         <span className="h-px w-px bg-border" />
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">
+        <Link
+          href="/reconhecimento"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white transition-transform hover:scale-105"
+        >
           OP
-        </span>
+        </Link>
       </div>
     </header>
   );
