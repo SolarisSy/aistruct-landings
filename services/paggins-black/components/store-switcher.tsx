@@ -5,10 +5,16 @@ import { ChevronDown, Plus, Check } from 'lucide-react';
 import { LOJAS, type Loja } from '@/lib/lojas';
 import { cn } from '@/lib/utils';
 
-function Avatar({ loja, size = 24 }: { loja: Loja; size?: number }) {
+function Avatar({ loja, active = false, size = 26 }: { loja: Loja; active?: boolean; size?: number }) {
+  // clean/monocromático: fundo neutro, inicial clara; a loja ativa ganha um leve realce.
   return (
     <span
-      className={cn('flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br text-[11px] font-bold text-white', loja.grad)}
+      className={cn(
+        'flex shrink-0 items-center justify-center rounded-full border text-[11px] font-semibold',
+        active
+          ? 'border-border-strong bg-elevated text-foreground'
+          : 'border-border bg-muted text-muted-foreground'
+      )}
       style={{ width: size, height: size }}
     >
       {loja.inicial}
@@ -36,7 +42,7 @@ export function StoreSwitcher() {
         onClick={() => setOpen((o) => !o)}
         className="flex w-full items-center gap-2.5 rounded-[var(--radius-field)] px-2 py-2 text-sm text-foreground/90 transition-colors hover:bg-sidebar-active"
       >
-        <Avatar loja={ativa} />
+        <Avatar loja={ativa} active />
         <span className="flex-1 truncate text-left font-medium">{ativa.nome}</span>
         <ChevronDown size={16} className={cn('text-muted-foreground transition-transform', open && 'rotate-180')} />
       </button>
@@ -53,8 +59,8 @@ export function StoreSwitcher() {
                 }}
                 className="flex w-full items-center gap-2.5 rounded-[var(--radius-field)] px-2 py-2 text-sm transition-colors hover:bg-sidebar-active"
               >
-                <Avatar loja={l} />
-                <span className="flex-1 truncate text-left">{l.nome}</span>
+                <Avatar loja={l} active={l.id === ativa.id} />
+                <span className={cn('flex-1 truncate text-left', l.id === ativa.id ? 'text-foreground' : 'text-muted-foreground')}>{l.nome}</span>
                 {l.id === ativa.id && <Check size={15} className="text-primary" />}
               </button>
             ))}
