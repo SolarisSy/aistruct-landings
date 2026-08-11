@@ -22,19 +22,19 @@ RUN printf 'server {\n\
     try_files $uri =404;\n\
   }\n\
   location ~ ^/(login|logout)$ {\n\
-    proxy_pass https://hyu-cart.tiectu.easypanel.host;\n\
+    proxy_pass https://cart.hyudrinks.com;\n\
     proxy_ssl_server_name on;\n\
-    proxy_set_header Host hyu-cart.tiectu.easypanel.host;\n\
+    proxy_set_header Host cart.hyudrinks.com;\n\
   }\n\
   location ~ ^/pedidos(\\.xlsx|\\.csv|/.*)?$ {\n\
-    proxy_pass https://hyu-cart.tiectu.easypanel.host;\n\
+    proxy_pass https://cart.hyudrinks.com;\n\
     proxy_ssl_server_name on;\n\
-    proxy_set_header Host hyu-cart.tiectu.easypanel.host;\n\
+    proxy_set_header Host cart.hyudrinks.com;\n\
   }\n\
   location = /buy {\n\
-    proxy_pass https://hyu-cart.tiectu.easypanel.host;\n\
+    proxy_pass https://cart.hyudrinks.com;\n\
     proxy_ssl_server_name on;\n\
-    proxy_set_header Host hyu-cart.tiectu.easypanel.host;\n\
+    proxy_set_header Host cart.hyudrinks.com;\n\
   }\n\
   location / {\n\
     add_header Cache-Control "no-cache";\n\

@@ -39,7 +39,7 @@
   } catch (e) {}
   if (GW !== "shopify") return;
 
-  var API = "https://hyu-cart.tiectu.easypanel.host";
+  var API = "https://cart.hyudrinks.com";
   var LS_CART = "hyu-cart-v2", LS_COUPON = "hyu_coupon";
   var LS_WPP = "hyu-wpp", LS_MAIL = "hyu-mail";
   var COMBOS = { "kit-energy": 1, "kit-soda": 1, "super-kit": 1, "kit24": 1 };

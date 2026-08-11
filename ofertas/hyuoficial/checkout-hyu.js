@@ -13,7 +13,7 @@
  */
 (function () {
   "use strict";
-  var API = "https://hyu-cart.tiectu.easypanel.host";
+  var API = "https://cart.hyudrinks.com";
   var LS_CART = "hyu-cart-v2";
   var LS_FORM = "hyu-precheckout-v1";
   var COMBOS = { "kit-energy": 1, "kit-soda": 1, "super-kit": 1, "kit24": 1 };

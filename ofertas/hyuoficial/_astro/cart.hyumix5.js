@@ -65,7 +65,7 @@ const LS = "hyu-cart-v2", LS_OLD = "hyu-cart-v1";
 const TIERS_OK = ["kit6", "kit12", "kit24", "sub"];
 const MAX_QTY = 20, MAX_LINES = 10;
 const COMBO_SET = new Set(["kit-energy", "kit-soda", "super-kit", "kit24"]);
-const API = "https://hyu-cart.tiectu.easypanel.host";
+const API = "https://cart.hyudrinks.com";
 
 /* kit personalizado — manter em sincronia com o bridge (MIX_FEE_CENTS) */
 const MIX_FEE = 490;

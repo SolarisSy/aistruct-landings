@@ -28,7 +28,7 @@
   } catch (e) {}
   if (GW !== "stripe") return;
 
-  var API = "https://hyu-cart.tiectu.easypanel.host";
+  var API = "https://cart.hyudrinks.com";
   /* ONESTEP=true (atual): "Finalizar compra" vai DIRETO pro checkout nativo da
      Stripe — ela coleta endereço/telefone/CPF (custom field) e o webhook lê de
      volta pra NF-e. Frete sem CEP prévio = régua do fluxo simples (>=12 latas
