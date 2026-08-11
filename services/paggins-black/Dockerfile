@@ -27,6 +27,8 @@ RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
 # output: 'standalone' já traz o server e só as deps realmente usadas
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# ⚠️ standalone NÃO copia public/ automaticamente — sem isto a logo/favicon dão 404
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 USER nextjs
 EXPOSE 3000
