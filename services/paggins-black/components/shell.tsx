@@ -84,7 +84,7 @@ function Sidebar() {
       {/* marca — logo oficial Paggins (branca, sobre o sidebar escuro) */}
       <div className="flex h-[68px] items-center px-6">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/paggins-logo.png" alt="Paggins" className="h-6 w-auto" />
+        <img src="/paggins-logo.png" alt="Paggins" className="h-7 w-auto object-contain" />
       </div>
 
       {/* seletor de loja */}

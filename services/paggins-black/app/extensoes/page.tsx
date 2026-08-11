@@ -1,22 +1,22 @@
 import { Topbar } from '@/components/shell';
 import { Badge, Button, Card, CardBody } from '@/components/ui';
-import { APPS } from '@/lib/data';
+import { IntegrationLogo } from '@/components/integration-logo';
+import { INTEGRACOES } from '@/lib/integrations';
 
 export default function ExtensoesPage() {
+  const conectadas = INTEGRACOES.filter((a) => a.conectado).length;
   return (
     <>
       <Topbar crumbs={['Extensões', 'Apps e Integrações']} />
       <main className="px-8 pb-14">
         <p className="mb-6 text-sm text-muted-foreground">
-          Conecte a Paggins às ferramentas que você já usa. {APPS.filter((a) => a.conectado).length} de {APPS.length} conectadas.
+          Conecte a Paggins às ferramentas que você já usa. {conectadas} de {INTEGRACOES.length} conectadas.
         </p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {APPS.map((a) => (
+          {INTEGRACOES.map((a) => (
             <Card key={a.nome}>
               <CardBody className="flex items-center gap-4 pt-5">
-                <span className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-field)] bg-elevated text-sm font-bold text-primary">
-                  {a.nome.slice(0, 2).toUpperCase()}
-                </span>
+                <IntegrationLogo item={a} />
                 <div className="min-w-0 flex-1">
                   <p className="font-medium">{a.nome}</p>
                   <p className="text-xs text-muted-foreground">{a.cat}</p>
