@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<title>Segundo Ordenado — o método</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{--bg:#0c1110;--ink:#eef2ef;--muted:#a7b0aa;--faint:#79837c;--green:#18a37c;--green-d:#0f7a5f;
+        --cta:#f39a1f;--cta-d:#d97910;--line:#20302a;--card:#141e19;--card2:#1a2620;--gold:#ffcf6b;--red:#e0432f}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:0 18px}
+  .urg{background:var(--red);color:#fff;text-align:center;padding:10px;font:700 13px/1.4;letter-spacing:.01em;position:sticky;top:0;z-index:20}
+  .urg b{background:rgba(0,0,0,.22);padding:2px 8px;border-radius:5px;font-variant-numeric:tabular-nums}
+  .brand{padding:14px 0;text-align:center}
+  .logo{font:800 20px/1;color:#fff} .logo span{color:var(--cta)}
+  h1{font-size:clamp(24px,5vw,36px);line-height:1.15;text-align:center;margin:6px 0 8px;letter-spacing:-.02em;font-weight:800}
+  h1 em{color:var(--gold);font-style:normal}
+  .sub{text-align:center;color:var(--muted);font-size:16.5px;max-width:56ch;margin:0 auto 18px}
+  /* VSL embed */
+  .vslbox{width:100%;max-width:440px;margin:0 auto;aspect-ratio:9/16;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .vslbox iframe{width:100%;height:100%;border:0;display:block}
+  .under{text-align:center;color:var(--faint);font-size:13px;margin:12px 0 4px}
+  section{padding:34px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(22px,4vw,29px);letter-spacing:-.01em;margin:0 0 14px;text-align:center;font-weight:800}
+  h2 em{color:var(--gold);font-style:normal}
+  p{font-size:16.5px;color:#d9e0db;margin:0 0 16px}
+  .big{font-size:19px}
+  .agit{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:18px 0}
+  .agit .l{display:flex;gap:12px;align-items:flex-start;padding:8px 0;font-size:16px}
+  .agit .l::before{content:"✕";color:var(--red);font-weight:800;flex:0 0 auto}
+  .pull{border-left:4px solid var(--cta);background:rgba(243,154,31,.08);padding:14px 18px;border-radius:0 10px 10px 0;color:#fff;font-size:19px;font-weight:600;margin:20px 0}
+  .kit{display:grid;gap:12px}
+  .kit .row{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px}
+  .kit .n{flex:0 0 auto;width:34px;height:34px;border-radius:9px;background:rgba(24,163,124,.15);color:var(--green);display:grid;place-items:center;font-weight:800}
+  .kit .t{font-weight:700;font-size:15.5px}
+  .kit .d{color:var(--muted);font-size:13.5px;margin-top:2px}
+  .kit .val{margin-left:auto;flex:0 0 auto;color:var(--faint);font-size:13px;text-decoration:line-through}
+  .stack-tot{text-align:center;margin-top:14px;font-size:15px;color:var(--muted)}
+  .stack-tot b{color:#fff}
+  figure{margin:20px 0} figure img{width:100%;border-radius:12px;display:block;border:1px solid var(--line)}
+  figcaption{font-size:12.5px;color:var(--faint);margin-top:8px;text-align:center}
+  /* oferta */
+  .offer{background:linear-gradient(180deg,var(--card2),var(--card));border:2px solid var(--cta-d);border-radius:20px;padding:28px 22px;text-align:center;margin-top:6px;box-shadow:0 0 40px rgba(243,154,31,.1)}
+  .offer .flag{display:inline-block;background:var(--red);color:#fff;font:700 11px/1;padding:6px 12px;border-radius:20px;letter-spacing:.05em;margin-bottom:14px}
+  .offer .nm{font:800 21px/1.2;color:#fff}
+  .offer .old{color:var(--faint);text-decoration:line-through;font-size:17px;margin-top:14px}
+  .offer .price{font-size:60px;font-weight:800;color:var(--gold);line-height:1;margin:2px 0}
+  .offer .price small{font-size:24px;vertical-align:super}
+  .offer .once{color:var(--muted);font-size:13px}
+  .incl{text-align:left;max-width:430px;margin:20px auto 0;display:grid;gap:9px}
+  .incl div{font-size:14.5px;padding-left:28px;position:relative;color:#e4eae5}
+  .incl div::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:800}
+  .bump{border:1px dashed var(--cta-d);background:rgba(243,154,31,.08);border-radius:12px;padding:14px 16px;margin:18px auto 0;max-width:460px;text-align:left;display:flex;gap:12px;align-items:flex-start}
+  .bump input{margin-top:3px;width:18px;height:18px;accent-color:var(--cta)}
+  .bump .bt{font-weight:700;font-size:14.5px} .bump .bd{color:var(--muted);font-size:13px}
+  .cta{display:block;max-width:470px;margin:22px auto 8px;text-align:center;font:800 20px/1.1 system-ui;background:linear-gradient(180deg,var(--cta),var(--cta-d));color:#fff;text-decoration:none;padding:20px 22px;border-radius:14px;box-shadow:0 10px 28px rgba(243,154,31,.35);animation:beat 2.4s infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+  .cta:hover{filter:brightness(1.06)}
+  .cta small{display:block;font:500 12px/1.4 system-ui;opacity:.92;margin-top:4px}
+  .scar{text-align:center;color:var(--gold);font-size:14px;font-weight:700;margin-top:10px}
+  .guar{max-width:520px;margin:24px auto 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;gap:16px;align-items:center}
+  .guar .seal{flex:0 0 auto;width:70px;height:70px;border-radius:50%;border:2px solid var(--green);color:var(--green);display:grid;place-items:center;font:800 13px/1.1;text-align:center}
+  .guar .gt{font-weight:700;margin-bottom:4px} .guar .gd{color:var(--muted);font-size:14px}
+  .tests{display:grid;gap:14px}
+  .test{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .test .h{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+  .test .av{width:38px;height:38px;border-radius:50%;object-fit:cover}
+  .test .nm{font-weight:700;font-size:14px} .test .loc{color:var(--faint);font-size:12px}
+  .test .stars{color:var(--gold);font-size:13px;margin-left:auto} .test p{font-size:14.5px;margin:0;color:#dfe5e0}
+  details{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:4px 16px;margin-bottom:10px}
+  summary{font-weight:700;font-size:15px;padding:13px 0;cursor:pointer;list-style:none}
+  summary::-webkit-details-marker{display:none} summary::after{content:"+";float:right;color:var(--green);font-weight:800}
+  details[open] summary::after{content:"–"} details p{font-size:14.5px;color:var(--muted);padding-bottom:12px;margin:0}
+  .foot{background:#080c0a;color:#6b716c;font-size:12px;padding:26px 0;text-align:center;line-height:1.7;border-top:1px solid var(--line)}
+  .foot a{color:#9aa09b}
+</style>
+</head>
+<body>
+<div class="urg">⚠ Esta explicação sai do ar em <b id="clock">14:59</b> — depois disto a página fecha</div>
+<div class="brand"><span class="logo">Segundo<span> </span>Ordenado</span></div>
+
+<div class="wrap">
+  <h1>Chegaste a Portugal para juntar dinheiro — e estás a <em>afundar-te em contas</em></h1>
+  <p class="sub">A tua lista de contactos do WhatsApp vale mais do que o teu ordenado. Vê os próximos 90 segundos antes que feche.</p>
+  <div class="vslbox"><iframe src="vsl/index.html" allow="autoplay; fullscreen" loading="eager"></iframe></div>
+  <p class="under">🔊 Aumenta o som · funciona no telemóvel</p>
+</div>
+
+<section><div class="wrap">
+  <h2>Se isto é a tua vida, presta atenção</h2>
+  <div class="agit">
+    <div class="l">Trabalhas 6 dias por semana e ao dia 20 já não tens para mandar para casa.</div>
+    <div class="l">Partilhas casa com desconhecidos e a renda subiu outra vez este ano.</div>
+    <div class="l">Tens vergonha de dizer à família que não está a correr como contaste.</div>
+    <div class="l">Já foste abordado por 3 esquemas de “investimento” — e nenhum era a sério.</div>
+    <div class="l">A documentação está pendente e metade dos empregos formais estão fechados para ti.</div>
+  </div>
+  <p class="big">Não precisas de mais um turno. Não precisas de papéis. Precisas de <strong>ver uma coisa que já está no teu bolso</strong> — e que ninguém teve a decência de te explicar.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>O “<em>Ordenado Paralelo</em>”</h2>
+  <p class="big">Os portugueses vendem a portugueses através de loja. Tu tens algo que eles não têm: <strong>acesso directo a centenas de conterrâneos</strong> que compram, todos os meses, aquilo que tu já sabes onde encontrar.</p>
+  <p class="pull">Não crias produto. Não fazes anúncio. Não apareces. Colas um catálogo pronto, envias 4 mensagens e recebes por MB&nbsp;Way. Ponto.</p>
+  <figure>
+    <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=1100&q=70&auto=format&fit=crop" alt="Notificação de pagamento no telemóvel">
+    <figcaption>A prova não é uma promessa. É a notificação de MB&nbsp;Way a entrar.</figcaption>
+  </figure>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Recebes tudo isto <em>hoje</em></h2>
+  <div class="kit">
+    <div class="row"><span class="n">1</span><div><div class="t">Guião das 4 mensagens</div><div class="d">Abertura, oferta, objeção e fecho — copiar e colar.</div></div><span class="val">27&thinsp;€</span></div>
+    <div class="row"><span class="n">2</span><div><div class="t">Catálogo digital pronto</div><div class="d">Link partilhável, montado, marca em branco.</div></div><span class="val">37&thinsp;€</span></div>
+    <div class="row"><span class="n">3</span><div><div class="t">Lista de fornecedores PT</div><div class="d">Entregam em Lisboa, Porto, Braga e Setúbal sem stock mínimo.</div></div><span class="val">47&thinsp;€</span></div>
+    <div class="row"><span class="n">4</span><div><div class="t">Mapa das 12 comunidades</div><div class="d">Onde estão os grupos por distrito.</div></div><span class="val">19&thinsp;€</span></div>
+    <div class="row"><span class="n">5</span><div><div class="t">Painel de controlo</div><div class="d">Contactos → enviados → fechados. Sempre no controlo.</div></div><span class="val">17&thinsp;€</span></div>
+  </div>
+  <div class="stack-tot">Valor real de tudo isto: <b>147&thinsp;€</b> · o teu preço hoje, mais abaixo ↓</div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Quem já parou de afundar</h2>
+  <div class="tests">
+    <div class="test"><div class="h"><img class="av" src="https://images.unsplash.com/photo-1758273240799-6c2b0578fe2c?w=120&q=70&auto=format&fit=crop" alt=""><div><div class="nm">Marta S.</div><div class="loc">Setúbal · há 4 meses em PT</div></div><div class="stars">★★★★★</div></div><p>“Comecei pelos grupos do meu prédio. Na primeira semana fechei com três pessoas. O guião tira o medo de parecer que estou a incomodar.”</p></div>
+    <div class="test"><div class="h"><img class="av" src="https://images.unsplash.com/photo-1758876023053-3aa541a0935b?w=120&q=70&auto=format&fit=crop" alt=""><div><div class="nm">Cláudia N.</div><div class="loc">Amadora · Cabo Verde</div></div><div class="stars">★★★★★</div></div><p>“Não preciso de aparecer nem de comprar stock. Uso o intervalo do turno para responder. A notificação do MB&nbsp;Way é a melhor parte do dia.”</p></div>
+    <div class="test"><div class="h"><img class="av" src="https://images.unsplash.com/photo-1758272422081-20d29fb67365?w=120&q=70&auto=format&fit=crop" alt=""><div><div class="nm">Ricardo A.</div><div class="loc">Porto · há 1 ano em PT</div></div><div class="stars">★★★★★</div></div><p>“Já tinha caído em dois esquemas de convidar gente. Este é vender de verdade, com fornecedor de verdade. Foi o que me deu confiança.”</p></div>
+  </div>
+  <p class="under" style="margin-top:14px">Resultados individuais — dependem do esforço de cada pessoa. Não há garantia de rendimento.</p>
+</div></section>
+
+<section id="oferta"><div class="wrap">
+  <h2>O preço de <em>duas horas de turno</em> para mudar o teu mês</h2>
+  <div class="offer">
+    <span class="flag">🔥 SÓ ENQUANTO ESTA PÁGINA ESTIVER NO AR</span>
+    <div class="nm">Segundo Ordenado — Método Completo</div>
+    <div class="old">Valor real 147&thinsp;€</div>
+    <div class="price"><small>€</small>17</div>
+    <div class="once">pagamento único · acesso imediato · sem mensalidade</div>
+    <div class="incl">
+      <div>Guião das 4 mensagens (copiar e colar)</div>
+      <div>Catálogo digital pronto, marca em branco</div>
+      <div>Lista de fornecedores PT (sem stock mínimo)</div>
+      <div>Mapa das 12 comunidades por distrito</div>
+      <div>Painel de controlo de contactos</div>
+    </div>
+    <label class="bump"><input type="checkbox" checked>
+      <span><span class="bt">+ 12&thinsp;€ · Pack Fornecedores PT (recomendado)</span><br>
+      <span class="bd">Fornecedores extra já verificados, com contacto directo e catálogo pronto — poupa semanas de procura.</span></span></label>
+    <a class="cta" href="checkout.html">QUERO O MEU SEGUNDO ORDENADO →<small>MB&nbsp;Way · Multibanco · cartão · acesso imediato</small></a>
+    <div class="scar">⏳ Fecha em <span id="clock2">14:59</span> · vagas limitadas por distrito</div>
+    <div class="guar"><div class="seal">7 DIAS</div><div><div class="gt">Garantia total de 7 dias</div><div class="gd">Abre, testa, e se não for para ti pedes o reembolso — devolvemos 100%, sem perguntas.</div></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>As perguntas que te estão a travar</h2>
+  <details><summary>Preciso de experiência ou de papéis?</summary><p>Não. Foi feito para quem tem só o telemóvel e ainda está a tratar da documentação. Vendes com o que já sabes e com a comunidade que já conheces.</p></details>
+  <details><summary>Tenho de comprar stock ou investir?</summary><p>Não. Trabalhas com fornecedores que entregam sem stock mínimo. Hoje compras só o método — zero investimento, zero mensalidade obrigatória.</p></details>
+  <details><summary>Isto é aquele esquema de convidar gente?</summary><p>Não. Sem convites, sem níveis, sem indicação. É venda real de produto real, com fornecedor verificável — é por isso que funciona.</p></details>
+  <details><summary>E se eu não conseguir?</summary><p>Tens 7 dias de garantia total. Se abrires e não for para ti, devolvemos tudo. O risco é nosso, não teu.</p></details>
+  <details><summary>Quanto tempo preciso por dia?</summary><p>O suficiente para responder no intervalo do turno. Não é um segundo emprego — é usar o tempo morto que já tens.</p></details>
+</div></section>
+
+<div class="wrap" style="padding:8px 18px 44px">
+  <a class="cta" href="checkout.html">COMEÇAR AGORA POR 17&thinsp;€ →<small>Garantia de 7 dias · acesso imediato</small></a>
+  <div class="scar">Não deixes fechar. Amanhã é a mesma conta.</div>
+</div>
+
+<div class="foot"><div class="wrap">
+  Segundo Ordenado — formação em vendas e organização para novos residentes em Portugal.<br>
+  Conteúdo educativo. Resultados variam com o esforço e a execução; não há garantia de rendimento.<br>
+  Não afiliado à Meta, Google ou a qualquer sistema de pagamentos. · <a href="index.html">Voltar ao artigo</a>
+</div></div>
+
+<script>
+  // contador de urgência (demo)
+  let t=14*60+59;
+  function tick(){ t=Math.max(0,t-1); const m=String(Math.floor(t/60)).padStart(2,'0'),s=String(t%60).padStart(2,'0');
+    document.querySelectorAll('#clock,#clock2').forEach(e=>e.textContent=m+':'+s); }
+  setInterval(tick,1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<title>Finalizar compra — Segundo Ordenado</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{--bg:#eef1ee;--ink:#1a1c1a;--muted:#5c635f;--faint:#8a908b;--green:#0f7a5f;--green-d:#0b5c47;
+        --cta:#ef8c1a;--cta-d:#d97910;--line:#e2e5e1;--card:#fff;--ok:#0f7a5f}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+  .bar{background:var(--green-d);color:#fff;text-align:center;padding:9px;font:600 12px/1.4;letter-spacing:.02em}
+  .head{background:var(--card);border-bottom:1px solid var(--line);padding:14px 0}
+  .wrap{max-width:920px;margin:0 auto;padding:0 18px}
+  .logo{font:800 19px/1;color:var(--green-d)} .logo span{color:var(--cta)}
+  .secure{float:right;font:600 12px/1.4;color:var(--ok)}
+  .grid{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;padding:26px 0 50px;align-items:start}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card h2{font-size:16px;margin:0 0 4px;display:flex;align-items:center;gap:9px}
+  .card h2 .num{width:24px;height:24px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font:800 12px/1}
+  .card .hint{color:var(--faint);font-size:12.5px;margin:0 0 16px 33px}
+  label.f{display:block;font:600 12px/1.4;color:var(--muted);margin:12px 0 5px}
+  .in{width:100%;border:1px solid var(--line);border-radius:9px;padding:12px 13px;font-size:15px;background:#fbfcfb;color:var(--ink)}
+  .in:focus{outline:none;border-color:var(--green)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  /* pagamento */
+  .pay{display:grid;gap:10px;margin-top:6px}
+  .pm{border:1.5px solid var(--line);border-radius:11px;padding:14px 15px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:border-color .15s,background .15s}
+  .pm:has(input:checked){border-color:var(--green);background:#f1f7f4}
+  .pm input{width:18px;height:18px;accent-color:var(--green)}
+  .pm .nm{font-weight:700;font-size:14.5px}
+  .pm .tag{margin-left:auto;font:700 10px/1;background:rgba(15,122,95,.12);color:var(--green-d);padding:4px 8px;border-radius:5px}
+  .pm .badge{font-size:20px}
+  .payfields{display:none;margin-top:8px;padding:14px;background:#f6f8f6;border-radius:10px}
+  .payfields.on{display:block}
+  /* resumo */
+  .sum{position:sticky;top:16px}
+  .li{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+  .li .d{color:var(--muted);font-size:12px}
+  .li.bump{align-items:flex-start}
+  .li.bump input{margin-top:3px;accent-color:var(--cta)}
+  .tot{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 4px;font-weight:800}
+  .tot .v{font-size:30px;color:var(--green-d)}
+  .pay-btn{width:100%;margin-top:16px;border:none;font:800 17px/1.1;background:linear-gradient(180deg,var(--cta),var(--cta-d));color:#fff;padding:16px;border-radius:12px;cursor:pointer;box-shadow:0 6px 18px rgba(239,140,26,.32)}
+  .pay-btn:hover{filter:brightness(1.05)}
+  .trust{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px;font:600 11px/1.4;color:var(--faint)}
+  .trust span{border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+  .guar{display:flex;gap:12px;align-items:center;background:#f1f7f4;border:1px solid #cfe6dc;border-radius:11px;padding:13px 15px;margin-top:16px}
+  .guar .s{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:2px solid var(--green);color:var(--green);display:grid;place-items:center;font:800 11px/1 system-ui;text-align:center}
+  .guar .t{font-size:13px;color:var(--muted)} .guar .t b{color:var(--ink)}
+  .foot{text-align:center;color:var(--faint);font-size:11.5px;padding:0 18px 40px;line-height:1.7}
+  .foot a{color:var(--muted)}
+  .ok-modal{position:fixed;inset:0;background:rgba(10,20,15,.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:9}
+  .ok-modal.on{display:flex}
+  .ok-box{background:#fff;border-radius:16px;padding:30px;max-width:380px;text-align:center}
+  .ok-box .c{width:60px;height:60px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:30px;margin:0 auto 14px}
+</style>
+</head>
+<body>
+<div class="bar">🔒 Ambiente seguro · pagamento encriptado · acesso imediato após confirmação</div>
+<div class="head"><div class="wrap"><span class="logo">Segundo<span> </span>Ordenado</span><span class="secure">🔒 Pagamento seguro</span></div></div>
+
+<div class="wrap"><div class="grid">
+  <!-- FORM -->
+  <div>
+    <div class="card">
+      <h2><span class="num">1</span> Os teus dados</h2>
+      <p class="hint">Enviamos o acesso para o teu e-mail e WhatsApp.</p>
+      <label class="f">Nome completo</label>
+      <input class="in" placeholder="O teu nome">
+      <div class="row2">
+        <div><label class="f">E-mail</label><input class="in" placeholder="tu@email.com"></div>
+        <div><label class="f">Telemóvel (WhatsApp)</label><input class="in" placeholder="+351 ..."></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h2><span class="num">2</span> Como queres pagar</h2>
+      <p class="hint">O MB&nbsp;Way é o mais rápido — confirmas no teu telemóvel.</p>
+      <div class="pay">
+        <label class="pm"><input type="radio" name="pm" checked onclick="mostrar('mbway')"><span class="badge">📱</span><span class="nm">MB&nbsp;Way</span><span class="tag">MAIS RÁPIDO</span></label>
+        <div class="payfields on" id="f-mbway"><label class="f">Número associado ao MB&nbsp;Way</label><input class="in" placeholder="+351 9XX XXX XXX"><p class="hint" style="margin:8px 0 0 0">Vais receber um pedido no telemóvel para confirmar.</p></div>
+
+        <label class="pm"><input type="radio" name="pm" onclick="mostrar('mb')"><span class="badge">🏧</span><span class="nm">Multibanco (referência)</span></label>
+        <div class="payfields" id="f-mb"><p class="hint" style="margin:0">Geramos uma referência (Entidade · Referência · Valor) para pagares no MB ou no homebanking.</p></div>
+
+        <label class="pm"><input type="radio" name="pm" onclick="mostrar('cc')"><span class="badge">💳</span><span class="nm">Cartão de crédito/débito</span></label>
+        <div class="payfields" id="f-cc"><label class="f">Número do cartão</label><input class="in" placeholder="•••• •••• •••• ••••"><div class="row2" style="margin-top:8px"><input class="in" placeholder="MM/AA"><input class="in" placeholder="CVV"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMO -->
+  <div class="card sum">
+    <h2 style="margin-bottom:14px">O teu pedido</h2>
+    <div class="li"><div><b>Segundo Ordenado</b><div class="d">Método completo · acesso imediato</div></div><div>17,00&thinsp;€</div></div>
+    <div class="li bump"><label style="display:flex;gap:10px"><input type="checkbox" id="bump" checked onchange="calc()"><span><b>Pack Fornecedores PT</b><div class="d">Fornecedores extra verificados (recomendado)</div></span></label><div id="bval">12,00&thinsp;€</div></div>
+    <div class="tot"><span>Total</span><span class="v" id="total">29,00&thinsp;€</span></div>
+    <button class="pay-btn" onclick="pagar()">Pagar <span id="btot">29,00&thinsp;€</span> →</button>
+    <div class="trust"><span>🔒 SSL</span><span>MB&nbsp;Way</span><span>Multibanco</span><span>Visa · Mastercard</span></div>
+    <div class="guar"><div class="s">7 DIAS</div><div class="t"><b>Garantia de 7 dias.</b> Não gostaste? Devolvemos 100%, sem perguntas.</div></div>
+  </div>
+</div></div>
+
+<div class="foot">
+  Segundo Ordenado — formação em vendas e organização para novos residentes em Portugal.<br>
+  Compra 100% segura e encriptada. Conteúdo educativo; resultados variam com o esforço de cada pessoa, sem garantia de rendimento. · <a href="vsl.html">Voltar</a>
+</div>
+
+<div class="ok-modal" id="ok" onclick="this.classList.remove('on')">
+  <div class="ok-box"><div class="c">✓</div><h3 style="margin:0 0 6px">Demonstração de funil</h3><p style="color:#5c635f;font-size:14px;margin:0">Aqui o checkout confirmaria o pagamento e libertaria o acesso. Este é o funil da oferta <b>renda_extra&nbsp;#05</b> modelada pelo IntelX — nenhuma cobrança real foi feita.</p></div>
+</div>
+
+<script>
+function mostrar(id){
+  document.querySelectorAll('.payfields').forEach(f=>f.classList.remove('on'));
+  document.getElementById('f-'+id).classList.add('on');
+}
+function calc(){
+  const bump = document.getElementById('bump').checked;
+  const t = (17 + (bump?12:0));
+  const s = t.toFixed(2).replace('.',',')+' €';
+  document.getElementById('total').textContent = s;
+  document.getElementById('btot').textContent = s;
+  document.getElementById('bval').style.opacity = bump?1:.4;
+}
+function pagar(){ document.getElementById('ok').classList.add('on'); }
+calc();
+</script>
+</body>
+</html>

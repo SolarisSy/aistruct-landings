@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<title>Segundo Ordenado — a conta que ninguém te explicou</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{--bg:#faf7f2;--ink:#1b1d1b;--muted:#565c58;--faint:#8a908b;--green:#0f7a5f;--green-d:#0b5c47;
+        --cta:#ef8c1a;--cta-d:#d97910;--line:#e7e1d7;--card:#fff;--red:#c0392b}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:76px}
+  .sans{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .top{background:var(--red);color:#fff;text-align:center;padding:9px;font:700 12px/1.4 system-ui;letter-spacing:.02em}
+  .brand{background:var(--card);border-bottom:1px solid var(--line);padding:12px 0}
+  .wrap{max-width:640px;margin:0 auto;padding:0 20px}
+  .logo{font:800 18px/1 system-ui;color:var(--green-d)} .logo span{color:var(--cta)}
+  .kicker{font:700 12px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;color:var(--cta-d);margin:22px 0 8px}
+  h1{font-size:clamp(27px,6vw,40px);line-height:1.14;letter-spacing:-.015em;margin:0 0 12px;font-weight:800}
+  h1 em{color:var(--green-d);font-style:normal}
+  .dek{font-size:19px;color:var(--muted);margin:0 0 14px;font-weight:600}
+  .byline{font:400 12.5px/1.5 system-ui;color:var(--faint);border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+  figure{margin:18px 0} figure img{width:100%;border-radius:10px;display:block}
+  figcaption{font:400 12.5px/1.5 system-ui;color:var(--faint);margin-top:7px;text-align:center}
+  p{font-size:18.5px;margin:0 0 18px}
+  .lead::first-letter{font-size:54px;line-height:.8;float:left;margin:6px 10px 0 0;color:var(--green-d);font-weight:800}
+  .pull{border-left:4px solid var(--cta);background:#fff6ec;padding:14px 18px;margin:22px 0;font-size:20px;color:var(--cta-d);border-radius:0 10px 10px 0;font-weight:700}
+  /* CTA */
+  .cta-box{text-align:center;margin:26px 0}
+  .cta{display:block;font:800 19px/1.15 system-ui;background:linear-gradient(180deg,var(--cta),var(--cta-d));color:#fff;text-decoration:none;padding:19px 24px;border-radius:13px;box-shadow:0 8px 22px rgba(239,140,26,.35);animation:beat 2.4s infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+  .cta:hover{filter:brightness(1.06)}
+  .cta small{display:block;font:500 12.5px/1.4 system-ui;opacity:.92;margin-top:4px}
+  /* checklist enxuto */
+  .check{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:26px 0}
+  .check h3{font:800 17px/1.3 system-ui;margin:0 0 12px}
+  .check ul{list-style:none;padding:0;margin:0;font-family:system-ui}
+  .check li{font-size:15.5px;padding:8px 0 8px 30px;position:relative}
+  .check li::before{content:"✓";position:absolute;left:0;top:8px;width:20px;height:20px;background:var(--green);color:#fff;border-radius:50%;display:grid;place-items:center;font:800 11px/1 system-ui}
+  .check .fim{font:700 14.5px/1.4 system-ui;color:var(--green-d);margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+  /* barra fixa com o botão da VSL */
+  .sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(20,22,20,.96);backdrop-filter:blur(4px);border-top:1px solid #2a2c2a;padding:11px 14px;z-index:30}
+  .sticky .wrap{display:flex;align-items:center;gap:12px;max-width:640px}
+  .sticky .t{color:#e8e4dc;font:600 12.5px/1.3 system-ui;flex:1}
+  .sticky a{white-space:nowrap;font:800 15px/1 system-ui;background:linear-gradient(180deg,var(--cta),var(--cta-d));color:#fff;text-decoration:none;padding:13px 18px;border-radius:10px}
+  .foot{color:var(--faint);font:400 11px/1.7 system-ui;padding:26px 0 10px;text-align:center}
+  .foot a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="top">HISTÓRIA REAL · LÊ ANTES QUE SAIA DO AR</div>
+<div class="brand"><div class="wrap"><span class="logo">Segundo<span> </span>Ordenado</span></div></div>
+
+<article class="wrap">
+  <p class="kicker sans">Quem chegou há pouco a Portugal</p>
+  <h1>Ao dia 20 já não tens para mandar para casa — e <em>a culpa não é do teu ordenado</em></h1>
+  <p class="dek">Trabalhas seis dias por semana e o dinheiro nunca chega. Há uma razão. E está no teu telemóvel.</p>
+  <p class="byline sans">Por Daniela R. · Almada · há 2 dias · 2 min de leitura</p>
+
+  <figure>
+    <img src="https://images.unsplash.com/photo-1758522484797-49f88e04809c?w=1100&q=70&auto=format&fit=crop" alt="Mulher a usar o telemóvel em casa ao fim da tarde" loading="lazy">
+  </figure>
+
+  <p class="lead">Fiz a conta numa quinta à noite, na cama do quarto que arrendei. O que entrava, menos a renda, o passe, a comida e o que mando para casa. Faltavam sempre cento e tal euros. Todos os meses. E eu chegava cedo, não faltava, aguentava o turno.</p>
+
+  <p class="pull">O problema não era eu não trabalhar. Era eu não ver uma coisa que estava à frente dos meus olhos, todos os dias.</p>
+
+  <p>Nós, os que chegámos, somos o <strong>único mercado deste país que ninguém está a servir</strong>. Milhares de pessoas, a comprar o mesmo todos os meses, nos mesmos grupos — e ninguém organizado a atender isso. Quando percebi, não arranjei mais horas. Abri uma aplicação que já tinha no telemóvel.</p>
+
+  <div class="cta-box">
+    <a class="cta sans" href="vsl.html">▶ Ver o que eu descobri (vídeo de 90 seg)<small>Grátis · som ligado · feito para telemóvel</small></a>
+  </div>
+
+  <div class="check">
+    <h3 class="sans">Isto é para ti se…</h3>
+    <ul>
+      <li>Chegaste a Portugal há menos de 2 anos.</li>
+      <li>Mandas dinheiro para casa e ao dia 20 já não sobra.</li>
+      <li>Tens o WhatsApp cheio de grupos da comunidade.</li>
+      <li>Não queres papéis, stock, nem mais um esquema.</li>
+    </ul>
+    <div class="fim">Se disseste “sim” a dois destes, vê o vídeo até ao fim. ↓</div>
+  </div>
+
+  <div class="cta-box">
+    <a class="cta sans" href="vsl.html">▶ Mostra-me como funciona<small>Sem stock · sem loja · sem aparecer</small></a>
+  </div>
+
+  <div class="foot">
+    Segundo Ordenado — formação em vendas e organização para novos residentes em Portugal.<br>
+    Conteúdo educativo; resultados dependem do esforço de cada pessoa, sem garantia de rendimento. · <a href="vsl.html">Continuar</a>
+  </div>
+</article>
+
+<div class="sticky">
+  <div class="wrap">
+    <span class="t sans">A explicação pode sair do ar hoje.</span>
+    <a class="sans" href="vsl.html">▶ Ver o vídeo</a>
+  </div>
+</div>
+</body>
+</html>

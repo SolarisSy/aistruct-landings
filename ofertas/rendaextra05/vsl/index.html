@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<title>Segundo Ordenado — VSL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  *{box-sizing:border-box;margin:0}
+  html,body{height:100%;background:#000;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .stage{position:relative;width:100%;max-width:440px;margin:0 auto;aspect-ratio:9/16;background:#000;overflow:hidden;border-radius:0}
+  @media(min-width:460px){.stage{margin:14px auto;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6)}}
+  .stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
+  .stage video.on{opacity:1}
+  .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,transparent 25%,transparent 55%,rgba(0,0,0,.75) 100%);pointer-events:none}
+  .hl{position:absolute;top:18px;left:18px;right:18px;color:#fff;font-weight:800;font-size:20px;line-height:1.2;text-shadow:0 2px 10px rgba(0,0,0,.7);letter-spacing:-.01em}
+  .hl b{color:#ffcf6b}
+  .cap{position:absolute;left:16px;right:16px;bottom:96px;color:#fff;font-weight:700;font-size:19px;line-height:1.3;text-align:center;text-shadow:0 2px 12px rgba(0,0,0,.9);min-height:50px;transition:opacity .3s}
+  .prog{position:absolute;left:0;right:0;bottom:78px;height:3px;background:rgba(255,255,255,.2)}
+  .prog i{display:block;height:100%;width:0;background:#ef8c1a}
+  .ctrl{position:absolute;left:16px;right:16px;bottom:20px;display:flex;align-items:center;gap:12px}
+  .mute{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:8px;padding:8px 11px;font-size:13px;cursor:pointer}
+  .live{margin-left:auto;font:700 10px/1 system-ui;background:#c0392b;color:#fff;padding:5px 9px;border-radius:5px;letter-spacing:.08em}
+  /* botão play inicial */
+  .gate{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.55);cursor:pointer;z-index:5}
+  .gate .btn{width:88px;height:88px;border-radius:50%;background:rgba(239,140,26,.96);display:grid;place-items:center;box-shadow:0 10px 40px rgba(0,0,0,.6);animation:pulse 1.6s infinite}
+  .gate .btn::after{content:"";border-left:30px solid #fff;border-top:19px solid transparent;border-bottom:19px solid transparent;margin-left:8px}
+  .gate .txt{position:absolute;bottom:56px;left:0;right:0;text-align:center;color:#fff;font-weight:700;font-size:15px;text-shadow:0 2px 8px #000}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+  /* CTA que surge no fim */
+  .cta{position:absolute;left:14px;right:14px;bottom:20px;background:linear-gradient(180deg,#f0a020,#d97910);color:#fff;text-decoration:none;text-align:center;font-weight:800;font-size:18px;padding:16px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);display:none;z-index:6;animation:rise .4s}
+  .cta small{display:block;font-weight:500;font-size:12px;opacity:.92;margin-top:3px}
+  @keyframes rise{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <video id="v0" src="clip1.mp4" muted loop playsinline preload="auto"></video>
+  <video id="v1" src="clip2.mp4" muted loop playsinline preload="auto"></video>
+  <video id="v2" src="clip3.mp4" muted loop playsinline preload="auto"></video>
+  <div class="shade"></div>
+  <div class="hl">O <b>segundo ordenado</b> que já está no teu telemóvel</div>
+  <div class="cap" id="cap"></div>
+  <div class="prog"><i id="bar"></i></div>
+  <div class="ctrl">
+    <button class="mute" id="mute">🔊 Som ligado</button>
+    <span class="live">● AO VIVO</span>
+  </div>
+  <a class="cta" id="cta" href="../checkout.html">QUERO O MEU SEGUNDO ORDENADO →<small>17&thinsp;€ · MB Way · garantia de 7 dias</small></a>
+  <div class="gate" id="gate">
+    <div class="btn"></div>
+    <div class="txt">▶ Toca para ouvir · aumenta o som 🔊</div>
+  </div>
+  <audio id="narr" src="narracao.mp3" preload="auto"></audio>
+</div>
+
+<script>
+  const vids=[document.getElementById('v0'),document.getElementById('v1'),document.getElementById('v2')];
+  const narr=document.getElementById('narr'), gate=document.getElementById('gate');
+  const cap=document.getElementById('cap'), bar=document.getElementById('bar'), cta=document.getElementById('cta');
+  const CAPS=[
+    "Se chegaste a Portugal e ao dia 20 já não tens para mandar para casa…",
+    "Trabalhas seis dias por semana. Chegas cedo. Não faltas.",
+    "E mesmo assim o dinheiro nunca chega ao fim do mês.",
+    "A culpa não é tua.",
+    "A tua lista de contactos é o mercado mais desatendido do país.",
+    "Somos milhares. Compramos as mesmas coisas todos os meses.",
+    "Colei um catálogo. Enviei quatro mensagens.",
+    "Recebi a primeira notificação de MB Way nessa mesma noite.",
+    "Sem stock. Sem loja. Sem aparecer. Sem largar o turno.",
+    "O guião, o catálogo e os fornecedores — já prontos a usar.",
+    "Só enquanto esta página estiver no ar.",
+    "Fica até ao fim."
+  ];
+  let cur=-1;
+  function show(i){ if(i===cur)return; cur=i; vids.forEach((v,k)=>v.classList.toggle('on',k===i)); }
+  show(0);
+
+  function start(){
+    gate.style.display='none';
+    vids.forEach(v=>{v.play().catch(()=>{});});
+    narr.play().catch(()=>{ gate.style.display='grid'; });
+  }
+  gate.onclick=start;
+
+  narr.addEventListener('timeupdate',()=>{
+    const d=narr.duration||80, p=narr.currentTime/d;
+    bar.style.width=(p*100)+'%';
+    show(Math.floor(narr.currentTime/4)%3);
+    cap.textContent = CAPS[Math.min(CAPS.length-1, Math.floor(p*CAPS.length))]||'';
+    if(p>0.72){ cta.style.display='block'; }
+  });
+  narr.addEventListener('ended',()=>{ cap.textContent=''; cta.style.display='block'; });
+
+  const mute=document.getElementById('mute');
+  mute.onclick=()=>{ narr.muted=!narr.muted; mute.textContent=narr.muted?'🔇 Som desligado':'🔊 Som ligado'; };
+</script>
+</body>
+</html>
