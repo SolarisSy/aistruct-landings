@@ -89,6 +89,9 @@ def _ydl_opts(extra=None):
         "noprogress": True,
         "socket_timeout": 60,
         "retries": 3,
+        # URL com &list=RD… (mix/rádio) travava o extract_info expandindo playlist infinita
+        "noplaylist": True,
+        "playlist_items": "1",
     }
     if PROXY:
         opts["proxy"] = PROXY
