@@ -97,6 +97,22 @@ def _ydl_opts(extra=None):
     return opts
 
 
+def _ydl_retry(fn, tentativas=4):
+    """Proxy residencial rota IP por conexão: bot-check do YouTube é por-IP,
+    então repetir com conexão nova costuma passar."""
+    last = None
+    for i in range(tentativas):
+        try:
+            return fn()
+        except Exception as e:
+            last = e
+            msg = str(e)
+            if "Sign in to confirm" not in msg and "not a bot" not in msg and "403" not in msg:
+                raise
+            time.sleep(2 + i * 3)
+    raise last
+
+
 def _set(job_id, **kw):
     with LOCK:
         JOBS[job_id].update(kw)
@@ -140,8 +156,12 @@ def _run_job(job_id: str):
 
         url = job["url"]
         _set(job_id, etapa="lendo metadados…", progress=0.02)
-        with yt_dlp.YoutubeDL(_ydl_opts()) as ydl:
-            info = ydl.extract_info(url, download=False)
+
+        def _meta():
+            with yt_dlp.YoutubeDL(_ydl_opts()) as ydl:
+                return ydl.extract_info(url, download=False)
+
+        info = _ydl_retry(_meta)
         titulo = info.get("title") or url
         dur = info.get("duration") or 0
         _set(job_id, titulo=titulo, duracao=dur)
@@ -150,7 +170,7 @@ def _run_job(job_id: str):
             _set(job_id, etapa="procurando legenda pronta…", progress=0.1)
             subdir = out / "subs"
             subdir.mkdir(exist_ok=True)
-            try:
+            def _subs():
                 with yt_dlp.YoutubeDL(
                     _ydl_opts(
                         {
@@ -164,6 +184,9 @@ def _run_job(job_id: str):
                     )
                 ) as ydl:
                     ydl.download([url])
+
+            try:
+                _ydl_retry(_subs)
             except Exception:
                 pass
             vtts = sorted(subdir.glob("*.vtt"))
@@ -187,10 +210,14 @@ def _run_job(job_id: str):
             shutil.rmtree(subdir, ignore_errors=True)
 
         _set(job_id, etapa="sem legenda — baixando áudio…", progress=0.15)
-        with yt_dlp.YoutubeDL(
-            _ydl_opts({"format": "bestaudio/best", "outtmpl": str(out / "audio.%(ext)s")})
-        ) as ydl:
-            ydl.download([url])
+
+        def _audio():
+            with yt_dlp.YoutubeDL(
+                _ydl_opts({"format": "bestaudio/best", "outtmpl": str(out / "audio.%(ext)s")})
+            ) as ydl:
+                ydl.download([url])
+
+        _ydl_retry(_audio)
         media = next(p for p in out.glob("audio.*"))
         meta = _transcrever_whisper(job_id, media, dur)
         media.unlink(missing_ok=True)
