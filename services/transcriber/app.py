@@ -331,21 +331,17 @@ border-radius:6px;padding:4px 10px}#drop{border:2px dashed var(--bd);border-radi
 padding:22px;text-align:center;color:var(--mut);font-size:13px;cursor:pointer}
 #drop.on{border-color:var(--ac);color:var(--ac)}</style></head><body><div class="wrap">
 <h1>🎙 Transcriber</h1><div class="sub">Transcrição de vídeo de qualquer tamanho — cole a URL (YouTube ou qualquer site) ou envie um arquivo. Legenda pronta quando existir; Whisper quando não.</div>
-<div class="card"><input type="password" id="tok" placeholder="token de acesso"></div>
 <div class="card"><input type="text" id="url" placeholder="https://www.youtube.com/watch?v=…">
 <div class="row"><button onclick="go()">Transcrever</button>
 <label class="chk"><input type="checkbox" id="forcaw"> forçar Whisper (ignorar legenda)</label></div></div>
 <div class="card"><div id="drop">…ou arraste/clique pra enviar um arquivo de vídeo/áudio
 <input type="file" id="file" style="display:none"></div></div>
 <div class="card" id="jobs"><div class="jm">nenhum job ainda</div></div></div><script>
-const $=s=>document.querySelector(s);const tok=()=>$('#tok').value.trim();
-$('#tok').value=localStorage.getItem('tk')||new URLSearchParams(location.search).get('token')||'';
-$('#tok').addEventListener('change',()=>localStorage.setItem('tk',tok()));
-if($('#tok').value)localStorage.setItem('tk',$('#tok').value);
+const $=s=>document.querySelector(s);
 async function go(){const u=$('#url').value.trim();if(!u)return;
-const r=await fetch('/api/jobs?token='+encodeURIComponent(tok()),{method:'POST',
+const r=await fetch('/api/jobs',{method:'POST',
 headers:{'Content-Type':'application/json'},body:JSON.stringify({url:u,modo:$('#forcaw').checked?'whisper':'auto'})});
-if(r.status==401){alert('token inválido');return}$('#url').value='';poll()}
+if(!r.ok){alert('erro ao criar job');return}$('#url').value='';poll()}
 const drop=$('#drop');drop.onclick=()=>$('#file').click();
 ['dragover','dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();
 drop.classList.toggle('on',ev=='dragover')}));
@@ -353,17 +349,17 @@ drop.addEventListener('drop',e=>envia(e.dataTransfer.files[0]));
 $('#file').onchange=e=>envia(e.target.files[0]);
 async function envia(f){if(!f)return;drop.textContent='enviando '+f.name+'…';
 const fd=new FormData();fd.append('file',f);
-const r=await fetch('/api/upload?token='+encodeURIComponent(tok()),{method:'POST',body:fd});
+const r=await fetch('/api/upload',{method:'POST',body:fd});
 drop.textContent='…ou arraste/clique pra enviar um arquivo de vídeo/áudio';
-if(r.status==401)alert('token inválido');poll()}
-async function poll(){const r=await fetch('/api/jobs?token='+encodeURIComponent(tok()));
+if(!r.ok)alert('erro no upload');poll()}
+async function poll(){const r=await fetch('/api/jobs');
 if(!r.ok)return;const js=await r.json();const el=$('#jobs');
 if(!js.length){el.innerHTML='<div class="jm">nenhum job ainda</div>';return}
 el.innerHTML=js.map(j=>{const p=Math.round((j.progress||0)*100);
 const dur=j.duracao?` · ${Math.round(j.duracao/60)}min`:'';
 const links=j.status=='done'?`<div class="dl">
-<a href="/api/jobs/${j.id}/download?fmt=txt&token=${encodeURIComponent(tok())}">⬇ .txt</a>
-${j.fonte&&j.fonte.startsWith('whisper')?`<a href="/api/jobs/${j.id}/download?fmt=srt&token=${encodeURIComponent(tok())}">⬇ .srt</a>`:''}
+<a href="/api/jobs/${j.id}/download?fmt=txt">⬇ .txt</a>
+${j.fonte&&j.fonte.startsWith('whisper')?`<a href="/api/jobs/${j.id}/download?fmt=srt">⬇ .srt</a>`:''}
 </div>`:'';
 return `<div class="job ${j.status=='error'?'err':''}"><div class="jt">${j.titulo||j.url||j.id}</div>
 <div class="jm">${j.etapa||''}${dur}${j.fonte?' · '+j.fonte:''}</div>
