@@ -223,8 +223,18 @@ class Session {
   async snapshot() {
     this.touch();
 
+    /*
+     * Screenshot ENXUTO: full-page em resolução total vira imagem de MBs que
+     * trava a aba do usuário ao renderizar/persistir (medido: 1.1s de bloqueio
+     * por página). Limita a altura e usa qualidade menor — o modelo enxerga o
+     * layout do mesmo jeito, com uma fração do peso.
+     */
+    const docH = await this.page.evaluate(() => document.body?.scrollHeight || 0).catch(() => 0);
+    const w = this.mode === 'mobile' ? 390 : 1280;
+    const shotOpts =
+      docH > 4000 ? { clip: { x: 0, y: 0, width: w, height: 4000 } } : { fullPage: true };
     const shot = await this.page
-      .screenshot({ type: 'jpeg', quality: 55, fullPage: true })
+      .screenshot({ type: 'jpeg', quality: 40, ...shotOpts })
       .then((b) => `data:image/jpeg;base64,${b.toString('base64')}`)
       .catch(() => null);
     const html = await this.page
