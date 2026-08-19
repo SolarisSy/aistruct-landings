@@ -1,0 +1,13 @@
+{
+  "name": "identical-runner",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Build remoto + preview dos projetos do Identical AI (a parte que pesa sai do navegador)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
