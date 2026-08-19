@@ -127,10 +127,22 @@ async function findCta(page) {
 async function captureInner(url, { followFunnel = true, maxSteps = 4 } = {}) {
   const launchOpts = { args: ['--no-sandbox', '--disable-dev-shm-usage'] };
 
-  // proxy residencial opcional (funil de DR com cloaker só serve money page
-  // pra tráfego BR mobile real); setar CAPTURE_PROXY=http://user:pass@host:port
-  if (process.env.CAPTURE_PROXY) {
-    launchOpts.proxy = { server: process.env.CAPTURE_PROXY };
+  // proxy residencial opcional (funil com bloqueio geográfico/anti-bot só
+  // responde pra tráfego BR); CAPTURE_PROXY=http://user:pass@host:porta
+  const raw = process.env.CAPTURE_PROXY;
+
+  if (raw) {
+    try {
+      const u = new URL(raw);
+      launchOpts.proxy = { server: `${u.protocol}//${u.host}` };
+
+      if (u.username) {
+        launchOpts.proxy.username = decodeURIComponent(u.username);
+        launchOpts.proxy.password = decodeURIComponent(u.password);
+      }
+    } catch {
+      launchOpts.proxy = { server: raw };
+    }
   }
 
   const browser = await chromium.launch(launchOpts);

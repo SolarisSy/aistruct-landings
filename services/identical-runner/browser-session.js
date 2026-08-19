@@ -8,7 +8,7 @@ const { chromium } = require('playwright');
 const { WebSocketServer } = require('ws');
 
 const IDLE_MS = 5 * 60 * 1000; // fecha sessão ociosa em 5min
-const NAV_TIMEOUT = 30000;
+const NAV_TIMEOUT = 45000; // proxy residencial tem latência variável
 
 const MOBILE = {
   viewport: { width: 390, height: 844 },
@@ -20,6 +20,33 @@ const DESKTOP = {
   userAgent:
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
 };
+
+/*
+ * Proxy opcional (CAPTURE_PROXY=http://user:pass@host:porta). Funil de DR com
+ * bloqueio geográfico/anti-bot só responde pra tráfego residencial BR — o IP do
+ * runner (datacenter) leva timeout. O Playwright quer server + auth separados.
+ */
+function parseProxy() {
+  const raw = process.env.CAPTURE_PROXY;
+
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    const u = new URL(raw);
+    const proxy = { server: `${u.protocol}//${u.host}` };
+
+    if (u.username) {
+      proxy.username = decodeURIComponent(u.username);
+      proxy.password = decodeURIComponent(u.password);
+    }
+
+    return proxy;
+  } catch {
+    return { server: raw };
+  }
+}
 
 /** @type {Map<string, Session>} */
 const sessions = new Map();
@@ -49,9 +76,10 @@ class Session {
 
   async start() {
     const launchOpts = { args: ['--no-sandbox', '--disable-dev-shm-usage'] };
+    const proxy = parseProxy();
 
-    if (process.env.CAPTURE_PROXY) {
-      launchOpts.proxy = { server: process.env.CAPTURE_PROXY };
+    if (proxy) {
+      launchOpts.proxy = proxy;
     }
 
     this.browser = await chromium.launch(launchOpts);
@@ -120,8 +148,22 @@ class Session {
 
   async navigate(url) {
     this.touch();
-    await this.page.goto(url, { waitUntil: 'load' }).catch(() => {});
+    this._broadcast({ type: 'loading', url });
+
+    try {
+      // domcontentloaded é mais permissivo que 'load' (não trava em asset lento)
+      await this.page.goto(url, { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
+    } catch (err) {
+      // timeout/bloqueio: avisa o painel em vez de deixar spinner eterno
+      this._broadcast({
+        type: 'nav-error',
+        error: 'não consegui abrir o site (timeout ou bloqueio geográfico/anti-bot)',
+      });
+      return this._state();
+    }
+
     await this.page.waitForTimeout(1200);
+
     return this._state();
   }
 
