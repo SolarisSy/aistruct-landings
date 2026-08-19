@@ -168,6 +168,24 @@ async function buildProject(slug, files) {
 const app = express();
 app.use(express.json({ limit: '30mb' }));
 
+/*
+ * CORS: o IDE roda noutra origem (localhost:5174 em dev, domínio próprio em
+ * prod) e chama este runner cross-origin. Sem estes headers o browser bloqueia
+ * com "Failed to fetch" (o preflight OPTIONS falha). Auth continua pelo token.
+ */
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, x-runner-token');
+  res.header('Access-Control-Max-Age', '86400');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  return next();
+});
+
 app.use('/api', (req, res, next) => {
   if (TOKEN && req.headers['x-runner-token'] !== TOKEN) {
     return res.status(401).json({ error: 'token inválido' });

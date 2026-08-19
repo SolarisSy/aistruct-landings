@@ -19,11 +19,18 @@ const GLOBAL_TIMEOUT = 75000; // teto duro do capture inteiro
 
 // palavras que marcam o CTA de avanço num funil de DR (pt + en)
 const CTA_WORDS = [
+  // pt
   'comprar', 'compre', 'quero', 'garantir', 'garanta', 'continuar', 'continue',
   'avancar', 'avançar', 'proximo', 'próximo', 'sim', 'acessar', 'acesso',
-  'inscrever', 'assinar', 'começar', 'comecar', 'liberar', 'ver oferta',
-  'finalizar', 'checkout', 'add to cart', 'buy', 'get', 'start', 'continue',
-  'next', 'yes', 'claim', 'order', 'join',
+  'inscrever', 'assinar', 'começar', 'comecar', 'liberar', 'ver oferta', 'finalizar',
+  // en
+  'checkout', 'add to cart', 'buy', 'get', 'start', 'continue', 'next', 'yes',
+  'claim', 'order', 'join', 'sign up', 'get started', 'watch',
+  // de (funis alemães, ex. georgpollitt)
+  'weiter', 'jetzt', 'kaufen', 'starten', 'anmelden', 'ja', 'los', 'bestellen',
+  'zum angebot', 'jetzt starten', 'weiter zum', 'teilnehmen', 'sichern',
+  // es
+  'comprar', 'quiero', 'continuar', 'siguiente', 'empezar', 'acceder', 'sí', 'unirse',
 ];
 
 function shrinkHtml(html) {
