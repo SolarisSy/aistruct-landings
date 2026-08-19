@@ -22,6 +22,7 @@ const express = require('express');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const { capture } = require('./capture');
 
 const DATA_DIR = process.env.DATA_DIR || '/data';
 const PORT = Number(process.env.PORT || 8000);
@@ -176,6 +177,26 @@ app.use('/api', (req, res, next) => {
 });
 
 app.get('/healthz', (_req, res) => res.json({ ok: true, queueBusy: false }));
+
+// Captura real de site pra clonagem fiel (Playwright: screenshot desktop+mobile,
+// DOM renderizado, navega o funil). O IDE injeta isso no contexto do modelo.
+app.post('/api/capture', async (req, res) => {
+  const url = req.body && req.body.url;
+
+  if (!url || typeof url !== 'string' || !/^https?:\/\//i.test(url)) {
+    return res.status(400).json({ error: 'url http(s) obrigatória' });
+  }
+
+  const followFunnel = req.body.followFunnel !== false;
+  const maxSteps = Math.min(Number(req.body.maxSteps) || 4, 6);
+
+  try {
+    const result = await capture(url, { followFunnel, maxSteps });
+    return res.json(result);
+  } catch (err) {
+    return res.status(500).json({ error: String(err && err.message ? err.message : err) });
+  }
+});
 
 app.post('/api/projects/:slug/build', (req, res) => {
   const { slug } = req.params;
