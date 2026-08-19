@@ -86,10 +86,11 @@ class Session {
     });
     await this.cdp.send('Page.startScreencast', {
       format: 'jpeg',
-      quality: 50,
+      quality: 45,
       maxWidth: this.mode === 'mobile' ? 390 : 1280,
       maxHeight: this.mode === 'mobile' ? 844 : 800,
-      everyNthFrame: 1,
+      // metade dos frames já basta pro olho e alivia a aba (SPA/VSL fazem ~40fps)
+      everyNthFrame: 2,
     });
     this.screencasting = true;
   }
