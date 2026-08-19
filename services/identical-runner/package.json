@@ -1,14 +1,15 @@
 {
   "name": "identical-runner",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
-  "description": "Build remoto + captura de site (clonagem) dos projetos do Identical AI",
+  "description": "Build remoto + captura + browser vivo (agentic) dos projetos do Identical AI",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.19.2",
-    "playwright": "1.48.0"
+    "playwright": "1.48.0",
+    "ws": "^8.18.0"
   }
 }

@@ -23,6 +23,7 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const { capture } = require('./capture');
+const browserSession = require('./browser-session');
 
 const DATA_DIR = process.env.DATA_DIR || '/data';
 const PORT = Number(process.env.PORT || 8000);
@@ -196,6 +197,49 @@ app.use('/api', (req, res, next) => {
 
 app.get('/healthz', (_req, res) => res.json({ ok: true, queueBusy: false }));
 
+/* ---- Browser vivo (same.new): sessão persistente que a IA dirige e o
+ * usuário vê ao vivo por WebSocket (/ws/browser?session=<id>) ---- */
+
+app.post('/api/browser/session', async (_req, res) => {
+  try {
+    const s = await browserSession.createSession();
+    return res.json({ sessionId: s.id });
+  } catch (err) {
+    return res.status(500).json({ error: String(err && err.message ? err.message : err) });
+  }
+});
+
+// ação na sessão (a IA chama via tool; o painel reflete ao vivo)
+app.post('/api/browser/:id/action', async (req, res) => {
+  const s = browserSession.getSession(req.params.id);
+
+  if (!s) {
+    return res.status(404).json({ error: 'sessão inexistente ou expirada' });
+  }
+
+  const { action } = req.body || {};
+
+  try {
+    if (action === 'navigate') return res.json(await s.navigate(req.body.url));
+
+    if (action === 'clickText') return res.json(await s.clickText(req.body.text));
+
+    if (action === 'click') return res.json(await s.click(req.body.x, req.body.y));
+
+    if (action === 'scroll') return res.json(await s.scroll(req.body.dy || 800));
+
+    if (action === 'back') return res.json(await s.back());
+
+    if (action === 'mode') return res.json(await s.setMode(req.body.mode));
+
+    if (action === 'snapshot') return res.json(await s.snapshot());
+
+    return res.status(400).json({ error: `ação desconhecida: ${action}` });
+  } catch (err) {
+    return res.status(500).json({ error: String(err && err.message ? err.message : err) });
+  }
+});
+
 // Captura real de site pra clonagem fiel (Playwright: screenshot desktop+mobile,
 // DOM renderizado, navega o funil). O IDE injeta isso no contexto do modelo.
 app.post('/api/capture', async (req, res) => {
@@ -270,6 +314,9 @@ app.use('/p/:slug', (req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`identical-runner na porta ${PORT} (data: ${DATA_DIR})`);
 });
+
+// WebSocket do screencast do browser vivo
+browserSession.attachWs(server);

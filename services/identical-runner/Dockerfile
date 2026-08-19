@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install --no-audit --no-fund
 
-COPY server.js capture.js ./
+COPY server.js capture.js browser-session.js ./
 
 # /data = workspaces + cache npm + builds publicados (volume persistente)
 ENV DATA_DIR=/data \
